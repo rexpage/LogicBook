@@ -1,0 +1,433 @@
+\chapter{Binary Notation}
+
+\section{Numbers and Numerals}
+\label{sec:numbers-numerals}
+Numbers are mathematical objects with certain properties,
+and they come with operators, such as addition
+and multiplication, that produce new numbers from numeric
+operands.
+Because numbers are mathematical objects, they are ephemeral.
+You can't really get your hands on them.
+They are figments of the imagination.
+
+However, numbers are useful and to deal with them,
+we need to write them down in some way, such as decimal numerals.
+For example, the numeral 144 stands for the number
+of eggs in a dozen cartons of eggs.
+The numeral 1215 stands for the number of
+years between the twenty-seventh year of the reign
+of Caesar Augustus and the signing of the Magna Carta.
+
+However, things numerals like 144 and 1215 are numerals.
+They are not numbers, but instead are symbols that stand for numbers,
+they are not the only symbols we use for that purpose.
+The symbols CXLIV and MCCXV stand for the same numbers.
+So do the symbols $90_{16}$ and $4BF_{16}$.
+The other symbols are Roman numerals and hexadecimal numerals.
+The symbols 144 and 1215 are decimal numerals,
+which is the representation most
+people turn to when they do arithmetic.
+
+The decimal representation is, in fact, so embedded in
+our experience and practice that we often confuse
+the symbol with the number.
+In fact, the dictionary lists ``number'' and ``numeral'' as synonyms.
+Usually, there is no harm in considering them to be the same thing,
+but we are going to use numerals
+to do arithmetic in a mechanized way, and we will
+be careful to separate numbers as mathematical
+objects from the symbols we use to represent them.
+We will refer to the mathematical object as a ``number''
+and to the symbol representing it as a ``numeral''.
+
+Let's think about how we interpret a decimal numeral as a number.
+Take the numeral 1215, for example.
+Each digit in the numeral has a different interpretation.
+The first digit is the number of thousands in the number
+that 1215 stands for. The second tells us the number
+of hundreds, then the tens, and finally the units.
+The following formula is a way to express this interpretation.
+
+\begin{center}
+$1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
+\end{center}
+
+This formula computes a number from the individual digits
+in the numeral using standard arithmetic operations
+(addition, multiplication, and exponentiation).
+It shows us what the individual digits in the numeral stand for,
+and gives us a leg up up on figuring out other kinds of numerals.
+The digits in the hexadecimal numeral have a similar meaning,
+but with a different basis. Decimal numerals are based on
+powers of ten, but hexadecimal numerals are based on powers of sixteen.
+
+The system of decimal numerals calls of ten different symbols for digits,
+and we use the symbols 0, 1, 2, \dots 9 for this purpose.
+The hexadecimal system calls for sixteen different symbols,
+and we use 0, 1, 2, \dots 9, A, B, C, D, E, F to represent them.
+The digits stand for the customary numbers (0 for zero, 2 for two,
+and so on). The letters stand for the numbers beyond nine.
+
+There are no conventional squiggles for digits beyond 9, and
+the letters A, B, \dots F were chosen for this purpose more-or-less arbitrarily.
+So, in hexadecimal notation, ``A'' stands for ten, ``B'' for eleven,
+and so on up to ``F'' for fifteen. That leads to the following
+formula to express the meaning of the hexadecimal numeral $4BF_{16}$.
+(Remember, B stands for 11, F for 15.)
+\begin{center}
+$4 \times 16^2 + 11 \times 16^1 + 15 \times 16^0$
+\end{center}
+
+\begin{aside}
+Perhaps you noticed a subtle confusion in the formulas we use
+to explain the meaning of numerals. At first, we claim that
+1215 is merely a symbol standing for a mathematical object.
+And, we claim that the digit 2 is merely a symbol standing
+for the number of items in a pair, along with similar
+claims for the digits 1 and 5. Then, we use those symbols
+in the formula $1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
+as if they were numbers.
+
+There is some slight of hand going on here.
+We are trapped by our terminology.
+Numbers as mathematical objects are figments of our imagination,
+but when we write formulas, we have to choose some symbols to
+represent them.
+So, in the formula $1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$,
+we use the symbols 1, 10, 3, 2, 5, and 0 as if they were numbers.
+But, in the numeral 1215, the symbols 1, 2, and 5 are not numbers.
+They are symbols standing for numbers.
+
+It's even worse with the hexadecimal numeral $4BF_{16}$
+and the formula $4 \times 16^2 + 11 \times 16^1 + 15 \times 16^0$.
+In the formula we have rewritten the symbol ``B'' as the decimal numeral 11
+and the symbol ``F'' as the decimal numeral 15.
+And, we've had the temerity to pretend that symbols
+in the formula are numbers when they are really decimal numerals,
+just as we did in the formula that was supposed to explain
+the meaning of the decimal numeral 1215.
+
+Furthermore, we've really mixed things up in the numeral
+$4BF_{16}$ because the ``4BF'' part is in hexadecimal notation
+and the ``16'' part is a decimal numeral indicating that we are
+to interpret the digits in base sixteen rather than the conventional base ten.
+
+Try to get your head around this slight of hand.
+We're more-or-less stuck with it. Figments of our imagination have
+to be materialized, somehow, if we are going to talk about them.
+\caption{Digits as Numbers}
+\label{aside-digits-as-numbers}
+\end{aside}
+
+Formulas like $1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
+convert numerals to numbers.
+No doubt you could use this example to construct the appropriate formula
+for any given numeral. Base 10 numerals for sure, and hex numerals, too,
+and probably any other given base.
+
+We'll say more about to converting numerals to numbers later,
+but what about going the other direction, converting
+numbers to numerals.
+Suppose someone gives you an operator that is supposed to
+mechanize the conversion of a number to a decimal numeral.
+If ``dgts'' were the name of the operator, the formula
+``(dgts 1215)'' would deliver the sequence ``(5 1 2 1)''.
+That is, dgts delivers a list of the decimal digits.
+The digits are in reverse order in the list,
+but at least they are the right digits.
+
+\begin{aside}
+\emph{What! The function delivers the digits backwards! Why is that?}
+
+Of course, the function could have delivered the digits in the
+customary order, but we have a reason for encoding the numeral
+backwards in the sequence that we are using to represent it.
+The reason will become apparent soon, but for now, just get used
+to it. We write numerals like ``1215'' in the usual way, but
+the function we've been given delivers them in the form of
+a sequence ``(5 1 2 1)'' in which the digits appear in the
+reverse order.
+
+Besides being backwards, the elements in the sequence are numbers,
+not symbolic digits.
+That is another part of our slight of hand.
+We are using numbers to represent the digit symbols.
+We could convert them to pure symbols,
+but at this point, we are better off leaving them in the form of numbers
+because we will want to use them as numbers later.
+
+By the way, the sequence notation ``(5 1 2 1)'' is the symbol we use
+to describe the sequence, but the sequence itself is another kind of mathematical object.
+That is, it's another figment of our imagination.
+The ``real'' object is ephemeral in the same sense as numbers.
+\caption{Numerals as Sequences \dots Backwards}
+\label{numeral-as-sequence}
+\end{aside}
+
+Before you make heavy use of the operator, you will want to check it out.
+You might try it on a few numbers, for a start.
+\begin{lstlisting}
+(check-expect (dgts 1215) '(5 1 2 1))
+(check-expect (dgts 1964) '(4 6 9 1))
+(check-expect (dgts 12345) '(5 4 3 2 1))
+(check-expect (dgts 0) '())
+\end{lstlisting}
+
+Wait a minute!
+Why does (dgts 0) deliver the empty sequence instead of ``(0)''?
+That's another little trick.
+Besides delivering the digits in reverse order, leading zeros are always omitted.
+We could write the numeral ``1964'' with as many leading zeros as we like.
+The numerals ``01964'' and ``000001964'' also stand for the number 1964.
+Those numerals would be ``(4 6 9 1 0)'' and ``(4 6 9 1 0 0 0 0 0)'' in
+the reverse order that the dgts operator delivers.
+
+However, dgts never includes any leading zeros in the numerals it delivers.
+It leaves them all off, even for the number zero.
+That's why (dgts 0) is nil.
+Of course (dgts 012345) would be the same as (dgts 12345), too,
+because ``012345'' and ``12345'' stand for the same number.
+Both of those formulas would deliver the sequence ``(5 4 3 2 1)''.
+Remember: dgts operates on numbers, not numerals.
+
+The computer interprets the decimal numeral in the formula (dgts 012345)
+as a number and converts it to a mathematical object. That is, a number.
+What does that number look like? None of your business.
+That's the computer's business.
+It has it's own way of dealing with numbers.
+Later, we'll study the way most computers do this,
+but we will assume that the computer has some way of turning
+numerals into whatever form it uses to deal with numbers.
+
+Now that we've run a few sanity checks, we want to get down to some serious testing.
+That means big batches of automated tests on random data.
+Coming up with automated tests calls for a little more thought.
+Let's start small. How about the last digit in a decimal numeral?
+What mathematical formula would deliver the last digit in a
+decimal numeral, given an arbitrary, positive integer $n$?
+
+The last digit in a decimal numeral is the remainder when you divide
+the number by ten. The formula that converts a numeral to a number
+makes that clear.
+\begin{center}
+$1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
+\end{center}
+
+Each of the terms in the formula is a product of a power
+of ten with another number. A power of ten is, of course,
+a multiple of ten, so none of the terms contribute to the remainder
+when dividing by ten. None of them, that is, except the last one.
+It does not have a factor of ten in it because the ten is raised to the
+power zero, and anything to the power zero is one, which is not a multiple of ten.
+
+So, to get the last digit in the numeral, all we need to do is to
+compute the remainder in the division of the number by ten.
+Computing the remainder in a division operation
+is what the ``mod'' function does (see page \pageref{mod-function}).
+The following formula uses mod to check the last digit in the numeral
+that the dgts operator delivers for the number $n$.
+\begin{lstlisting}
+(= (first (dgts n)) (mod n 10))
+\end{lstlisting}
+
+Since dgts delivers the digits backwards,
+``(car (dgts $n$))'', the first digit in the sequence,
+is the last digit in the numeral.
+The formulas checks to make sure that digit is ``(mod $n$ 10)'', the remainder when
+dividing $n$ by 10.
+
+We can use the DoubleCheck facility of Dracula to run this test on a batch of random numbers.
+We need to be careful not to allow zero to pop up in the testing
+because (dgts 0) is nil, so there is no first digit to check.
+Besides, we've already completed the testing of (dgts 0) in our sanity checks.
+We can avoid retesting zero by adding one to a random natural number.
+That produces a random, non-zero, positive integer.
+\begin{lstlisting}
+(defproperty dgts-last-digit-tst
+  (n  :value (+ 1 (random-natural))) ; avoid zero
+  (= (first (dgts n))
+     (mod n 10)))
+\end{lstlisting}
+
+That takes care of testing the last digit, but what about the others?
+We can do something about those by observing that if we discard the
+remainder when we divide by ten, we get a number with the same digits,
+except that the last one is missing.
+Since we've already tested the last one, we don't need to worry about that,
+but we need to find a way to convert our observation about the other digits into a test.
+
+One way to do that is to make sure that dgts delivers the right digits when
+we apply it to $n$ divided by ten when we discard the remainder.
+The intrinsic function ``floor'' does this kind of division.
+It delivers the quotient (without the remainder) when dividing its first argument (the dividend)
+by it second argument (the divisor). The following formula implements our test.
+It checks to make sure the digits after the first one in the sequence dgts delivers for $n$
+are the same as the digits in the sequence dgts delivers for the quotient in $(n \div 10)$,
+that is (floor $n$ $10$).
+\begin{lstlisting}
+(equal (rest (dgts n))
+       (dgts (floor n 10))))
+\end{lstlisting}
+
+As with the test of the last digit, we can run a batch of tests based on our rest-of-the-digits
+observation by defining a DoubleCheck property.
+
+\begin{lstlisting}
+(defproperty dgts-other-digits-tst
+  (n  :value (+ 1 (random-natural))) ; avoid zero
+  (equal (rest (dgts n))
+         (dgts (floor n 10))))
+\end{lstlisting}
+
+It would be nice to run these tests, but ``dgts'' is not an intrinsic operator.
+We have to provide a definition for it.
+To do that we use the ``defun'' command, which is similar to defproperty,
+but without any value specifications. The definition will be inductive,
+of course, using the same ideas as the tests,
+and will follow the three C's of Figure~\ref{fig:inductive-def-keys}
+(page \pageref{fig:inductive-def-keys}).
+\begin{center}
+\begin{tabular}{lp{3.5in}}
+\emph{Complete} & Either the number is zero or it isn't. Those are the only two cases.
+Our definition will have separate formulas for these two cases. \\
+\emph{Consistent} &  The cases do not overlap, so there is no chance for inconsistency.\\
+\emph{Computational} & In the non-inductive case (when $n$ is not zero), the argument of
+``dgts'' is divided by ten which makes it closer to zero (the non-inductive case).
+\end{tabular}
+\end{center}
+
+The definition takes the following form.
+\begin{lstlisting}
+(defun dgts (n)
+  (if (zp n)
+      nil                          ; n is zero
+      (cons (mod n 10)             ; n non-zero
+            (dgts (floor n 10)))))
+\end{lstlisting}
+
+This definition uses an operator, ``zp'', that we have not discussed before.
+It delivers true if its argument is the natural number zero
+(or, if it isn't a natural number at all),
+and false otherwise.
+
+You might think a comparison with zero using the ``='' operator
+would work equally well, but it doesn't because we need to select
+the non-inductive formula if the argument is not the kind of
+number we expect. For example, the formula (= $n$ 0) would have the
+value false if $n$ were 3/2, but 3/2 his a fraction.
+
+We have not accounted for fractions in our analysis.
+Our formula for the non-zero case assumes that $n$ is a natural number.
+So, if $n$ is not a natural number,
+we bail out and deliver the empty list.
+
+If you put the definition of dgts at the beginning of a program
+and import the ``testing'' and ``doublecheck" facilities, you
+can enter the tests and run them using Dracula.
+You can also enter formulas in the command pine to compute
+decimal numerals for any natural numbers you choose.
+
+The ``dgts'' function provides a way to produce a decimal
+numeral, given a number. How about going in the other direction?
+Given a decimal numeral, produce the corresponding number.
+You already know that the formulas look like these:
+\begin{center}
+$1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$ --- for 1215
+$1 \times 10^2 + 4 \times 10^1 + 4 \times 10^0$ --- for 144
+\end{center}
+
+But, instead of thinking of formulas like that, let's think of properties
+that a function converting decimal numerals to numbers would have.
+Since the dgts function produces numerals represented as sequences
+of decimal digits (numbers in the range 0 to 9), and in the reverse
+of the usual order (that is, with the units digit first, then the tens
+digit, then hundreds, and so on), let's assume that numerals will
+take that form.
+
+Let's call the decimal-numeral-to-number converter ``num10''.
+We know that (num10 nil) must be zero because (dgts 0) delivers
+zero, and we are trying to convert numerals produced by dgts
+back the the numbers they came from.
+
+How about a one-digit numeral $(x_0)$.
+The equation in that case would be (num10 ($x_0$)) = $x_0$.
+
+If there are two or more digits, the numeral would take the form
+($x_0$ $x_1$ \dots $x_{n+1}$).
+Then, the equation would be
+\begin{center}
+(num10 ($x_0$ $x_1$ $x_2$ \dots $x_{n+1}$)) = $(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n+1} \times 10^{n+1})$
+\end{center}
+
+Since all of the terms in the sum include a factor of ten, except the first term,
+we can factor ten out of all of the terms beyond the first.
+Factoring the formula in this way produces a new equation.
+\begin{center}
+(num10 ($x_0$ $x_1$ $x_2$ \dots $x_{n+1}$)) = $(x_0 + 10 \times (x_1 \times 10^0 + x_2 \times 10^1 + \dots x_n \times 10^n))$
+\end{center}
+
+But, the sequence ($x_1$ $x_2$ \dots $x_{n+1}$) is also a decimal numeral.
+And, the value is stands for it $(x_1 \times 10^0 + x_2 \times 10^1 + \dots x_n \times 10^n)$,
+which is the value num10 should deliver, given the numeral ($x_1$ $x_2$ \dots $x_{n+1}$).
+That is, the following equation holds.
+\begin{center}
+(num10 ($x_1$ $x_2$ \dots $x_{n+1}$)) = $(x_1 + x_2 \times 10^1 + \dots x_{n+1} \times 10^n))$
+\end{center}
+
+Observe that this formula for (num10 $(x_1 x_2 \dots x_{n+1})$) is identical
+to the factor multiplied by ten in the previous equation.
+Therefore, we can rewrite that equation as follows.
+\begin{center}
+(num10 ($x_0$ $x_1$ $x_2$ \dots $x_{n+1}$)) = ($x_0 + 10 \times$ (num10 ($x_1$ $x_2$ \dots $x_{n+1}$)))
+\end{center}
+
+Now, we have an inductive equation that delivers the right value for
+numerals with two or more digits. Furthermore, the same formula works
+for one-digit numerals because (num10 nil) is zero.
+\begin{center}
+(num10 ($x_0$)) = ($x_0 + 10 \times$ (num10 nil))
+\end{center}
+
+We now have one equation that covers all numerals with one or more digits.
+Furthermore, we by the \{cons\} axiom (see page \pageref{cons-axiom-informal}):
+\begin{center}
+($x_0$ $x_1$ \dots $x_{n}$) = (cons $x_0$ $(x_1 \dots x_n)$)
+\end{center}
+
+Therefore, by the axioms relating the functions first, rest, and cons
+(see page \pageref{first-rest-cons}),
+we arrive at the following equations.
+\begin{center}
+$x_0$ =  (first ($x_0$ $x_1$ \dots $x_{n}$)) \\
+($x_1$ \dots $x_{n}$) = (rest ($x_0$ $x_1$ \dots $x_{n}$))
+\end{center}
+
+This, along with using $xs$ as a shorthand for ($x_0$ $x_1$ $x_2$ \dots $x_{n}$)
+allows us to rewrite the equation for non-empty numerals in prefix notation as follows.
+\begin{center}
+(num10 $xs$) = (+ (first $xs$) (* 10 (num10 (rest $xs$))))
+\end{center}
+
+Now we have the basis to apply the rule of the three C's
+(page \pageref{fig:inductive-def-keys}) to define num10.
+
+\begin{lstlisting}
+(defun num10 (xs)
+  (if (consp xs)
+      (+ (first xs)               ; non-empty numeral
+         (* 10 (num10 (rest xs))))
+      0))                         ; empty numeral
+\end{lstlisting}
+
+\todo{do inductive proof that num10 delivers the right number in the usual equation-based format
+... basically it repeats the above, sort-of scattered out, derivation of the def'n}
+
+\todo{inductive proof that (num10 (dgts n) = n ... discuss why (dgts (num10 xs)) is not necessarily xs
+because of the leading zeros problem?? ... prove (dgts (num10 (drop-leading-zeros xs))) = (drop-leading-zeros xs)?}
+
+\todo{do it all over in binary, maybe leave the binary-to-num direction as an exercise}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "book"
+%%% End:

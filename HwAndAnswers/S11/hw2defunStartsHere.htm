@@ -1,0 +1,81 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Hw 2 - How Computers Work</title>
+</head>
+
+<body>
+
+<p>HON 2973-7 <b>How Computers Work: Logic in Action<br>
+Homework 2 - Defining functions</b></p>
+<p><b>Due</b> Monday,&nbsp; Jan 31, 10:30am (in the classroom)</p>
+<p><i>Note</i>: This homework is strictly a paper-and-pencil project. Nothing to
+run on the computer. That comes later.</p>
+<ol>
+  <li>Exercise 1, Chapter 1, online textbook <a href="http://www.cs.ou.edu/~rlpage/DMtools/book.pdf">http://www.cs.ou.edu/~rlpage/DMtools/book.pdf</a></li>
+  <li>Exercise 2, Chapter 1, online textbook</li>
+  <li>Exercise 3, Chapter 1, online textbook</li>
+  <li>Exercise 4, Chapter 1, online textbook</li>
+  <li>Exercise 5, Chapter 1, online textbook</li>
+  <li>The <font face="Lucida Console">mb-iters</font> function was defined as
+follows in the lectures.<br>
+&nbsp;&nbsp;
+<font face="Lucida Console">(defun mb-iters (z z0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; (if (too-big z)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (+ 1 (mb-iters (f z z0) z0))))</font><br>
+Change the definition so that <font face="Lucida Console">mb-iters</font>  never
+    delivers numbers over 100. Make it deliver the
+value zero if <font face="Lucida Console">z</font> remains small throughout the
+first 100 iterations.<br>
+<i>Hint</i>. As it stands, <font face="Lucida Console">mb-iters</font> doesn't
+have enough information to do this. It needs more data. Namely, it needs to know
+    how many iterations have already taken place. As defined, it has two
+    arguments, called <font face="Lucida Console">z</font>  and <font face="Lucida Console">z0</font> 
+    in the definition. The new data can be supplied
+    in a third argument, <font face="Lucida Console">i</font> (for iteration-count):<br>
+&nbsp;&nbsp;
+<font face="Lucida Console">(defun mb-iters (z z0 i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; ...)</font>
+  </li>
+  <li>The <font face="Lucida Console"> mandelbrot-iters</font> function was defined as follows in the lectures.<br>
+&nbsp;&nbsp; <font face="Lucida Console">(defun mandelbrot-iters (z)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp; (mb-iters (z z))</font><br>
+    Change the definition to be compatible with your new definition of <font face="Lucida Console">mb-iters</font>
+    in the previous problem.</li>
+  <li>To display the Mandelbrot set, the hardware descibed in the lectures calls
+    the <font face="Lucida Console">mandelbrot-iters</font>  function to find
+    out what color to paint the pixels on the display. The hardware calls the
+    function 200x200 times (once for each pixel in the display). However, display
+    has only sixteen colors. Let's say the colors are denoted by integers
+    between 0 and 15. 
+    Unfortunately, the <font face="Lucida Console">mandelbrot-iters</font>
+    function, which the hardware assumes is sending it a color, delivers numbers outside this range (all the way up to
+    100).<br>
+    <br>
+    Write a new function for the hardware to call. The new one, name it <font face="Lucida Console">color</font>,
+    would get the same input, but would return an integer between 0 and 15. That
+    is, the formula <font face="Lucida Console">(color z)</font>
+    would return a number in the 0 to 15 range. The <font face="Lucida Console">color</font>
+    function can call the <font face="Lucida Console">mandelbrot-iters</font> 
+    function, as it stands, but the <font face="Lucida Console">color</font>
+    function will need to convert the number it gets from the <font face="Lucida Console">mandelbrot-iters</font>
+    function to a number in the 0 to 15 range.<br>
+    <i>Hint</i>. The <font face="Lucida Console">min</font> function delivers
+    the smaller of its two arguments. For example <font face="Lucida Console">(min
+    92 15)</font> delivers <font face="Lucida Console">15</font>, 
+    and <font face="Lucida Console">(min 9 75)</font> delivers <font face="Lucida Console">9</font>.<br>
+    <i>Alternative hint</i>. The <font face="Lucida Console">mod</font> function
+    delivers the remainder in division. For example <font face="Lucida Console">(mod
+    7 3)</font> delivers <font face="Lucida Console">1</font>, 
+    and <font face="Lucida Console">(mod 49 15)</font> delivers <font face="Lucida Console">4</font>.<br>
+    <i>Note</i>: We will give your formula to the hardware designers so they can
+    make the appropriate changes.</li>
+</ol>
+
+</body>
+
+</html>

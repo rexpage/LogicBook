@@ -1,0 +1,7 @@
+- proof goes here (ch 6, proof of adder-ok thm)
+- multipliers (Ch 7)
+- multiplexors/demultiplexors (Ch 8)
+- sorting (Ch 9)
+- trees? (ch 10)
+- hash tables (ch 12)
+- generating art (ch 15)

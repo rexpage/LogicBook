@@ -1,0 +1,133 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Hw 8 - How Computers Work</title>
+</head>
+
+<body>
+
+<p>HON 2973-7 <b>How Computers Work: Logic in Action<br>
+Homework 8 - Search Trees and Beyond</b></p>
+<p><b>Due</b>  Monday,&nbsp;May 2,
+10:30am (in the classroom)</p>
+<p><i>Note</i>. This homework requires defining and running software on the computer.<br>
+<i>Turn in</i>: Printed copy of your definitions and evidence of success in
+exercises requiring mechanized logic<br>
+<i>Warning</i>. Some of the following exercises have been added to the online
+textbook recently<br>
+<a href="http://www.cs.ou.edu/~rlpage/DMtools/book.pdf">http://www.cs.ou.edu/~rlpage/DMtools/book.pdf</a></p>
+<ol>
+  <li>Ex. 79 - Ch 11</li>
+  <li>Ex. 82 - Ch 11</li>
+  <li>Ex. 83 - Ch 11</li>
+  <li>Ex. 85 - Ch 11</li>
+  <li>Ex. 87 - Ch 11</li>
+  <li>Ex. 88 - Ch 11</li>
+  <li>Ex. 90 - Ch 11</li>
+  <li>Define a function, sum-nats, that computes the sum of all the natural
+    numbers in a list.<br>
+    Note: The list may contain items that are not natural numbers. Those items
+    do not contribute to the sum.</li>
+  <li>Define a function max-nats that delivers the larger of two natural
+    numbers. If one of the arguments is not a natural number, consider the other
+    argument to be larger.</li>
+  <li>Define a function maxes that computes max-nats pairwise on two lists.<br>
+    (maxes (list x1 x2 x3 ...) (list y1 y2 y3 ...)) = (list (max-nats (list x1
+    y1)) (max-nats (list x2 y2)) (max-nats (list x3 y3)) ...)<br>
+    If one list is longer than the other, the extra elements go at the end,
+    after the larger elements in corresponding pairs.</li>
+  <li>Use ACL2 to prove that neither (sum-nats xs) nor (sum-nats ys) exceeds
+    (sum-nats (max-nats xs ys)).</li>
+  <li> This problem is not hard, just long to read.<br>
+ Define map and reduce functions that transforms a list of words into a
+    list of word-pair frequencies. A word-pair frequency is a list in which the
+    first element is a word w and the other elements are two-element lists in
+    which the first element is a word v that follows the word w in the original
+    list and the second element is the fraction of the time that the word v
+    follows the word w in the original list.<br>
+    <br>
+    For example, suppose the original list of words is<br>
+    &nbsp; (peas porridge hot peas porridge cold peas porridge in the pot)<br>
+    Then, your map-reduce functions would transform it to the following list or
+    word-pair frequencies:<br>
+    ((peas ((porridge 1))) (porridge ((hot 1/3) (cold 1/3 ) (in 1/3))) (hot
+    ((peas 1))) (cold ((peas 1))) (in ((the 1))) (the ((pot 1))))<br>
+    <br>
+    Here are some steps to follow to accomplish this goal:<br>
+    a) Define a function that, given a list of words, delivers the list of
+    adjacent pairs of words.<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (word-pairs '(peas porridge hot peas porridge
+    cold))<br>
+    &nbsp;&nbsp; = ((peas porridge) (porridge hot) (hot peas) (peas porridge)
+    (porridge cold) (cold nil))<br>
+    <br>
+    b) Define a map function that will take in a pair of adjacent words as a
+    key/value pair<br> and will initialize a list of word counts for the
+    first word in the adjacent pair.<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (map 'porridge 'hot)<br>
+    &nbsp;&nbsp; = ( (porridge ( (hot 1) )) )<br>
+    <br>
+    c) Define a reduce function that computes the distribution for a single
+    word, given output from your map function<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (map 'porridge '((hot 1) (cold 1) (in 1)))
+    &nbsp;&nbsp; = ( (porridge ( (hot 1/3) (cold 1/3) (in 1/3))) )
+    <br>
+    Hint: Look at the functions kw-insert and kw-count-values in urls.lisp.
+    These functions count the number of times a keyword is used to refer to
+    a URL.  You will need very similar functions to count the number of words
+    in adjacent pairs.  <em>Very similar</em>.  The only difference is that
+    kw-insert works on lists that look like (hot cold in) and your function
+    needs to work on lists that look like ( (hot 1) (cold 1) (in 1) ).<br>
+    <br>
+    d) Use defmapreduce to define the new fuction wordfreq that delivers the
+    list of word-pair frequencies for the original list.<br>
+    <br>
+    e) Test wordfreq with small phrases:<br>
+    &nbsp;&nbsp; (wordfreq (word-pairs '(peas porridge hot)))<br>
+    &nbsp;&nbsp; (wordfreq (word-pairs '(sooner born and sooner bred)))<br>
+    &nbsp;&nbsp; (wordfreq (word-pairs '(hop hop pop hop hop top pop hop top)))<br>
+    <br>
+    f) When you're confident it works, import the book steele.lisp from the
+    map-reduce framework and compute the word frequencies in that text.<br>
+    &nbsp; (include-book &quot;steele&quot;)<br>
+    &nbsp; (wordfreq (word-pairs *<font SIZE="2">STEELETEXT</font>*))<br>
+    &nbsp;<br>
+    You will need to use the map-reduce framework downloadable from the
+    following URL.<br>
+    &nbsp;&nbsp;&nbsp; <a href="http://www.cs.ou.edu/~rlpage/DMtools/ALhw/map-reduce.zip">http://www.cs.ou.edu/~rlpage/DMtools/ALhw/map-reduce.zip</a>&nbsp;<br>
+    Retrieve the map-reduce folder from that archive and put your definitions in
+    that folder.
+    <br>
+    <br>
+    Useless Trivia #1: Why is this information useful?  Suppose you wanted to write an essay
+    in the style of Mark Twain.  You could use this program to analyze all of
+    Twain's essays.  Then, you can write your essay as follows.  Start with a
+    random word from one of Twain's essays.  Use the list of adjacent pairs
+    to pick the next word.  For example, if the word "River" appears 90% of the 
+    time after the word "Mississippi" in Twain's essays, we would choose "River" 
+    after "Mississippi" 9 times out of 10. Then we pick the word after that and
+    so on.  This technique can work surprisingly well, though it works better with 
+    poetry than with prose.
+    <br>
+    <br>
+	Useless Trivia #2: Speaking of poetry, here's a 10-year-old nerd-in-training's idea of a good poem:
+	<br>
+	<br>
+	<quote>
+		&nbsp;&nbsp;Some poems have rhyme,<br>
+		&nbsp;&nbsp;&nbsp;And some have meter.<br>
+		&nbsp;&nbsp;&nbsp;This is one is special,<br>
+		&nbsp;&nbsp;&nbsp;'Cause it has neither.<br>
+		&nbsp;&nbsp;&nbsp;<br>
+		&nbsp;&nbsp;&nbsp;Oh, wait...
+	</quote>
+		
+    </li>
+</ol>
+
+</body>
+
+</html>

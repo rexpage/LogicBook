@@ -1,0 +1,254 @@
+\documentclass[letterpaper,10pt,extrafontsizesmtwoside,onecolumn,openright,draft,fleqn]{memoir}
+
+\usepackage{memsty}
+
+\headstyles{memman}
+
+\setsecnumdepth{subsection}
+
+% This fixes the problem with "ACL2!>" showing up as "ACL2!?"
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+%\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\renewcommand{\qedsymbol}{\textsc{q.e.d.}}
+
+\newcommand{\todo}[1]{}%{\par\framebox{\parbox{.75\textwidth}{\emph{TODO: #1}}}\par} %put {}% before {\par...} to avoid printing todos
+
+\definecolor{MyGray}{rgb}{0.8,0.8,0.8}
+\makeatletter\newenvironment{graybox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{.8\columnwidth}\setlength{\parindent}{.25in}}{\end{minipage}\end{lrbox}%
+   \colorbox{MyGray}{\usebox{\@tempboxa}}
+}\makeatother
+
+\newcommand{\asidename}{Aside}
+\newcommand{\listasidename}{List of Asides}
+\newlistof{listofasides}{loa}{\listasidename}
+\newfloat[chapter]{asidefloat}{loa}{\asidename}
+\newlistentry{asidefloat}{loa}{0}
+
+\newenvironment{aside}%
+{\begin{asidefloat}\begin{center}\begin{graybox}\noindent\ignorespaces}%
+{\end{graybox}\end{center}\end{asidefloat}}
+
+\usepackage{exercise}
+
+%\usepackage{url}
+
+%\usepackage[final]{graphicx}
+
+\usepackage[final]{listings}
+\lstset{language=Lisp,
+		alsodigit={-},
+        morekeywords={defproperty,defthmd,if,check-expect,include-book,len},
+        frame=single, numbers=left, numberstyle=\footnotesize, escapeinside={//*@}{@*//}}
+
+\mathchardef\hyphenmathcode=\mathcode`\-
+\let\origlstlisting=\lstlisting
+\let\endoriglstlisting=\endlstlisting
+\renewenvironment{lstlisting}
+    {\mathcode`\-=\hyphenmathcode
+     \everymath{}\mathsurround=0pt\origlstlisting}
+    {\endoriglstlisting}
+
+
+\usepackage{enumitem}
+\setlist{nolistsep,leftmargin=*}
+
+% This should give links in PDF, but it doesn't work with memoir for me
+%\usepackage{hyperref}
+%\hypersetup{pdftex=true, letterpaper=true, bookmarks=true, colorlinks=true, urlcolor=black}
+%
+%\usepackage{memhfixc}
+
+\makeatletter
+\let\Old@ExerciseList\ExerciseList
+\renewcommand\ExerciseList{\section*{Exercises}\addcontentsline{toc}{section}{\protect\numberline {}Exercises}
+\Old@ExerciseList}
+\makeatother
+
+\title{How Computers Really Work: Logic in Action}
+\author{Rex Page \and Ruben Gamboa}
+\date{January 18, 2011}
+
+\begin{document}
+
+%\begin{comment}
+\frontmatter
+
+%\maketitle
+
+\pagestyle{empty}
+
+
+% half-title page
+\vspace*{\fill}
+\begin{adjustwidth}{1in}{1in}
+\begin{flushleft}
+\HUGE\sffamily How Computers
+\end{flushleft}
+\begin{center}
+\HUGE\sffamily  Really Work:
+\end{center}
+\begin{flushright}
+\HUGE\sffamily  Logic in Action
+\end{flushright}
+%%\begin{center}
+%%\sffamily (Draft Edition 7)
+%%\end{center}
+\end{adjustwidth}
+\vspace*{\fill}
+\cleardoublepage
+
+% title page
+\vspace*{\fill}
+\begin{center}
+\HUGE\textsf{How Computers Really Work:}\par
+\end{center}
+\begin{center}
+\HUGE\textsf{Logic in Action}\par
+\end{center}
+
+\begin{center}
+\LARGE\textsf{Rex Page}\par
+\LARGE\textsf{Ruben Gamboa}\par
+\end{center}
+\vspace*{\fill}
+\begin{center}
+University of Oklahoma
+\end{center}
+\clearpage
+
+% copyright page
+\begingroup
+\footnotesize
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+%%\ttfamily
+\textcopyright{} 2011 Rex Page and Ruben Gamboa \\
+All rights reserved
+
+Norman, OK.
+
+Printed in the United States
+
+% The paper used in this publication may meet the minimum requirements
+% of the American National Standard for Information
+% Sciences --- Permanence of Paper for Printed Library Materials,
+% ANSI Z39.48--1984.
+
+\begin{center}
+01\hspace{2em}10 09 08 07 06 05 04 03 02
+\end{center}
+\begin{center}
+\begin{tabular}{ll}
+First edition:                        & 19 January 2011 \\
+% Second impression, with corrections:    & 2 July 2001 \\
+% Second edition:                       & 14 July 2001 \\
+% Second impression, with corrections:    & 3 August 2001 \\
+% Third impression, with minor additions: & 31 August 2001 \\
+% Third edition:                        & 17 November 2001 \\
+% Fourth edition:                       & 16 March 2002 \\
+% Fifth edition:                        & 10 August 2002 \\
+% Sixth edition:                        & 31 January 2004 \\
+% %%Draft Seventh edition:                & 31 January 2008 \\
+% Seventh edition:                       & 10 May 2008 \\
+% Eighth impression, with very minor corrections: & 12 July 2008 \\
+% Ninth impression, with additions and corrections: & 8 July 2009 \\
+% Eighth edition:                        & August 2009 \\
+\end{tabular}
+\end{center}
+
+\endgroup
+
+\cleardoublepage
+
+\pagestyle{headings}
+
+\setupshorttoc
+\tableofcontents
+\clearpage
+\setupparasubsecs
+\setupmaintoc
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listofasides
+\clearpage
+
+\mainmatter
+
+\raggedbottom
+
+\part{Introduction to Computers and Logic}
+
+\include{ch01}
+
+\include{ch02}
+
+\include{ch03}
+
+\include{ch04}
+
+\part{Computer Arithmetic}
+
+\include{ch05}
+
+\begin{comment}
+\include{ch06}
+
+\include{ch07}
+
+\part{Inductive Data Structures}
+
+\include{ch08}
+
+\include{ch09}
+
+\include{ch10}
+
+\include{ch11}
+
+\include{ch12}
+
+\part{Computation in Practice}
+
+\include{ch13}
+
+\include{ch14}
+
+\include{ch15}
+
+\end{comment}
+
+\backmatter
+
+\cleardoublepage
+\pagestyle{empty}
+\null\vfil
+
+\begin{adjustwidth}{1in}{1in}
+\begin{center}
+{\Large\textsf{Colophon}}
+\end{center}
+\begin{center}
+This manual was typeset using the \LaTeX\ typesetting system
+created by Leslie Lamport and the memoir class.
+The body text is set 10/12pt on a
+33pc measure with Palatino designed by Hermann Zapf, which includes
+italics and small caps. Other fonts include
+Sans, Slanted and Typewriter from Donald Knuth's
+Computer Modern family.
+
+\end{center}
+
+\end{adjustwidth}
+
+\vfil
+
+\end{document}
+
+

@@ -1,0 +1,114 @@
+\chapter{Inductive Definitions and Derived Properties of Functions}
+
+\textit{Induction, basic proofs, \dots}
+
+A sequence is an ordered list of elements. In fact, we will often use the term shorter term ``list'' for this kind of mathematical object. To describe lists, we will simply enclose their elements in parentheses and write the elements in between. So, the formula ``(8 3 7)'' denotes the sequence with first element 8, second element 3, and third element 7. The formula ``(9 8 3 7)'' denotes a sequence that includes the same elements, but has an additional element ``9'' at the beginning. We use the symbol ``nil'' for the sequence with no elements (that is, the empty sequence).
+
+We will start with three basic operations on sequences. The construction operator, ``cons'', inserts a new element at the beginning of a sequence. Formulas using ``cons'', like all formulas in the mathematical notation we have been using in our discussions about software, are written in prefix form. So, the formula ``(cons $x$ $xs$)'' denotes the list with the same elements as the list $xs$, but with an additional element $x$ inserted at the beginning. For example, if $x$ stands for the number ``9'', and $xs$ stands for the list ``(8 3 7)'', then ``(cons $x$ $xs$)'' is the list ``(9 8 3 7)''.
+
+Any sequence can be constructed by starting from the empty list and using the construction operator to insert the elements of the list, one by one. For example, the formula ``(cons 8 (cons 3 (cons 7 nil)))'' is another way to describe the list ``(8 3 7)''.
+
+A function is a transformation from input data to results. An invocation of a function is a formula denoting the result of such a transformation by specifying the name of the function along with formulas denoting values for its input data (that is, its ``arguments''). The argument formulas may specify values directly, or may invoke other functions.
+
+\begin{lstlisting}
+(+ 3 5)                     ; denotes 8
+(* (+ 3 5) 4)               ; denotes 32
+(mod (* (+ 3 5) 4) (+ 3 5)) ; denotes 0
+\end{lstlisting}
+
+When we test functions by specifying properties we expect them to have, we express those properties
+as Boolean formulas. These formulas can use operators such as logical-and, logical-or, and logical-negation. They can also refer to functions such as less-than, the equality test, or the natural-number test (``natp''). What makes a formula ``Boolean'' is that it delivers either the value ``true'' or the value ``false''. Formulas denoting other values are not Boolean formulas. For example, the formula (< 9 (+ 3 5)) is a Boolean formula. It denotes the value ``false''.
+
+The following tests, which you have seen before (page \pageref{quotient-upper-limit-test}) have Boolean formulas that refer combine several invocations of functions that deliver true/false values to specify properties expected of the functions ``mod'' and ``floor''.
+
+\begin{lstlisting}
+(defproperty mod-range-test
+  (divisor   :value (+ 1 (random-natural))
+   dividend  :value (+ divisor (random-natural)))
+  (and (natp (mod dividend divisor))
+       (< (mod dividend divisor) divisor))
+
+(defproperty quotient-upper-limit-test
+  (divisor   :value (+ 2 (random-natural))
+   dividend  :value (+ 1 (random-natural)))
+  (= (+ (* divisor (floor dividend divisor))
+        (mod dividend divisor))
+     dividend))
+
+(defproperty division-test
+  (divisor   :value (+ 1 (random-natural))
+   dividend  :value (+ divisor (random-natural)))
+  (= (+ (* divisor (floor dividend divisor))
+        (mod dividend divisor))
+     dividend))
+\end{lstlisting}
+
+When we want to go beyond testing and use logic to be sure that software has the expected properties, we express those properties through Boolean formulas, just as with tests.
+
+All Boolean formulas in Chapter~\ref{ch:Boolean-Formulas} used logical operators. All of them deliver true/false values. ACL2 formulas can invoke any of those logical operators, but in prefix notation instead of the infix, and with names made up of ordinary letters rather than special symbols:
+
+\begin{tabular}{ll}
+ \emph{\underline{infix}}  & \emph{\underline{prefix (ACL2)}}   \\
+ $x \wedge y$              & ~(and $x$ $y$)       \\
+ $x \vee y$                & ~(or $x$ $y$)        \\
+ $\neg x$                  & ~(not $x$)           \\
+ $x \rightarrow y$         & ~(implies $x$ $y$)   \\
+\end{tabular}
+
+When we define properties for testing purposes, we use random data generators that produce the right kind of data for the test. We we want to use logic to be sure about software properties, we include our expectations about the input data by stating properties as implications. The hypothesis of the implication (that is, the first operand of the ``implies'' operator) says what kind of input data is required, and the conclusion (that is, the second operand of the ``implies'' operator) states the software property we want to ensure. In other words, the hypothesis of the implication is a Boolean formula specifying a property of the input data, and the conclusion is a Boolean formula specifying a property of the of the results that the software delivers when it runs.
+
+To illustrate the process of reasoning about software, consider the division-test property, which states a relationship between the quotient and remainder in the dividing a natural number (the dividend) by a natural number that is not zero (the divisor).
+
+\begin{quote}
+$(q \times d + r) = n$ \\
+where \\
+$q$ = (floor $n$ $d$) \\
+$r$ = (mod $n$ $d$)
+\end{quote}
+
+We expect the dividend ($n$), divisor ($d$), quotient ($q$), and remainder ($r$) to satisfy this equation whenever $n$ is a natural number and $d$ is a natural number other than zero. If we think of $d$ as a fixed, non-zero natural number, then there is an equation of the above form for each natural number $n$. To make it easy to refer to these equations, we are going to use the symbol P(0) to stand for the the equation when $n$ is zero, P(1) for the equation when $n$ is one, and so on.
+
+\begin{tabular}{lllll}
+\underline{~~~~~~~P(0)~~~~~~~} & & \underline{~~~~~~~P(1)~~~~~~~} &  \dots & \underline{~~~~~~~P($n$)~~~~~~~} \\
+$(q \times d + r) = 0$ & & $(q \times d + r) = 1$ &  ~     & $(q \times d + r) = n$ \\
+where                  & & where                  &        & where                  \\
+$q$ = (floor 0 $d$)    & & $q$ = (floor 1 $d$)    &  ~     & $q$ = (floor $n$ $d$)  \\
+$r$ = (mod 0 $d$)      & & $r$ = (mod 1 $d$)      &  ~     & $r$ = (mod $n$ $d$)    \\
+\end{tabular}
+
+We can now view P as a function that associates a true/false value with each natural number. A function of this kind is referred to as a ``predicate'' whose universe of discourse is the natural numbers. In general, a predicate is a collection of true/false statements about the objects in its universe of discourse. The universe of discourse can be any set of objects, but we will be particularly interested in predicates on the natural numbers because there a rule of logical inference called ``mathematical induction'' that we can sometimes use to prove that predicates of this kind deliver the value true for all natural numbers.
+
+We express the fact that P($n$) denotes true for all values $n$ in the universe of discourse by formula
+\begin{center}
+$\forall n$.P($n$)
+\end{center}
+The upside down "A" ($\forall$) is known as a ``quantifier''. It converts predicates to Boolean formulas by ``anding'' together all of the values that the predicate delivers across its entire universe of discourse.
+
+In the case at hand, we expect the division test denoted by the symbol P($n$) to hold, regardless of what natural number we supply for the dividend $n$ (as long as the divisor $d$ is a a non-zero natural number). We are going to use mathematical induction, along with any other facts we know about numbers and logic, to prove that $\forall n$.P($n$) denotes the value ``true''.
+
+The proof will take the following statements about division as ``axioms'' (that is, as assumed facts).
+
+\begin{tabular}{ll}
+\emph{\underline{fact}}                                           & \emph{\underline{name of fact}} \\
+(mod $n$ $d$) = $n$, if $n$ < $d$                                 & \{\emph{mod0}\}    \\
+(mod $n$ $d$) = (mod (- $n$ $d$) $d$), if $n \geq d$              & \{\emph{mod1}\}    \\
+(floor $n$ $d$) = 0, if $n < d$                                   & \{\emph{floor0}\}  \\
+(floor $n$ $d$) = (+ 1 (floor (- $n$ $d$) $d$)), if $n \geq d$    & \{\emph{floor1}\}  \\
+\end{tabular}
+
+Before we do that, however, let's look at a few special cases, starting with the equation P(0), written below in prefix notation. (You can take the symbol ``$\equiv$'' to mean ``denotes'' or ``stands for''.
+$begin{center}
+P(0) $\equiv$ (= (+ (* (floor 0 $d$) $d$) (mod 0 $d$)) 0)
+\end{center}
+
+To verify that P(0) denotes zero, we observe, based on our understanding of division, that (floor 0 $d$) and (mod 0 $d$) are both zero. Because our understanding of addition and multiplication confirms that (+ (* 0 0) 0) is zero, we see that P(0) must denote zero.
+
+Now, how about P(1)?
+$begin{center}
+P(1) $\equiv$ (= (+ (* (floor 1 $d$) $d$) (mod 1 $d$)) 1)
+\end{center}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "book"
+%%% End:

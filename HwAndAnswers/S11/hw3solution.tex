@@ -1,0 +1,205 @@
+\documentclass{article}
+\usepackage{qtree}
+\usepackage{graphicx}
+\begin{document}
+  \begin{center}
+    {\Large Homework 3 Answers}
+  \end{center}
+  \begin{enumerate}
+    \item {\bf Ex. 7}
+    \[
+      \begin{array}{lll}
+        & ((((-1) \times x) + (2 \times x)) + x) & \\
+      = & (((2 \times x) + ((-1) \times x)) + x) & \{+\mathrm{\ commutative}\} \\
+      = & ((2 \times x) + (((-1) \times x) + x)) & \{+\mathrm{\ associative}\} \\
+      = & ((2 \times x) + (((-1) \times x) + x \times 1)) & \{\times\mathrm{\ identity}\} \\
+      = & ((2 \times x) + ((x \times (-1)) + x \times 1)) & \{\times\mathrm{\ commutative}\} \\
+      = & ((2 \times x) + ((x \times (-1) + 1))) & \{\mathrm{distributive law}\} \\
+      = & ((2 \times x) + ((x \times 0))) & \{+\mathrm{\ complement}\} \\
+      = & ((2 \times x) + 0) & \{\times\mathrm{\ null}\} \\
+      = & (2 \times x) & \{+\mathrm{\ identity}\} \\
+      \end{array}
+    \]
+    \item {\bf Ex. 12}
+    \[ \begin{array}{c|c|c|c|c|c|c}
+    x & y & z & (\neg y) & (\neg z) & ((\neg y) \wedge (\neg z)) & (x \vee ((\neg y) \wedge (\neg z))) \\
+    \hline
+    T & T & T & F & F & F & T \\
+    T & T & F & F & T & F & T \\
+    T & F & T & T & F & F & T \\
+    T & F & F & T & T & T & T \\
+    \hline
+    F & T & T & F & F & F & F \\
+    F & T & F & F & T & F & F \\
+    F & F & T & T & F & F & F \\
+    F & F & F & T & T & T & T \\
+    \end{array} \]
+    \item {\bf Ex. 13}
+    \begin{enumerate}
+      \item
+        \Tree [.\{group\} [.\{bin-op\} [.\{group\} [.\{bin-op\} $x$ $\wedge$ $y$ ] ] $\vee$ $y$ ] ]
+
+        $x$ and $y$ are atomic.
+\pagebreak
+      \item
+        \Tree [.\{group\} [.\{bin-op\} [.\{group\} [.\{bin-op\} $x$ $\to$ $y$ ] ] $\wedge$ [.\{group\} [.\{bin-op\} $x$ $\to$ [.\{group\} [.\{negation\} $\neg$ $y$ ] ] ] ] ] ]
+
+        $x$ and $y$ are atomic.
+        \vskip .1in \hrule
+        \item Not a well formed formula -- $\neg$ used as a binary operator.
+      \end{enumerate}
+
+    \item {\bf Ex. 15}
+      \begin{enumerate}
+        \item
+          \[ \begin{array}{lll}
+              & (x \to False) & \\
+            = & ((\neg x) \vee False) & \{\mathrm{implication}\} \\
+            = & (\neg x) & \{\vee\mathrm{\ identity}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (\neg (x \wedge y)) & \\
+            = & (\neg ((\neg (\neg x)) \wedge y)) & \{\mathrm{double\ negation}\} \\
+            = & (\neg ((\neg (\neg x)) \wedge (\neg (\neg y)))) & \{\mathrm{double\ negation}\} \\
+            = & (\neg (\neg ((\neg x) \vee (\neg y)))) & \{\vee \mathrm{\ DeMorgan}\} \\
+            = & ((\neg x) \vee (\neg y)) & \{\mathrm{double\ negation}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (x \vee (\neg x)) & \\
+            = & ((\neg x) \vee x) & \{\vee \mathrm{\ commutative}\} \\
+            = & (x \to x) & \{\mathrm{implication}\} \\
+            = & True & \{\mathrm{self\ implication}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (x \wedge (\neg x)) & \\
+            = & ((\neg (\neg x)) \wedge (\neg x)) & \{\mathrm{double\ negation}\} \\
+            = & (\neg ((\neg x) \vee x)) \ & \{\vee \mathrm{\ DeMorgan}\} \\
+            = & (\neg (x \to x)) & \{\mathrm{implication}\} \\
+            = & (\neg True) & \{\mathrm{self\ implication}\} \\
+            = & (\neg (False \to False)) & \{\mathrm{self\ implication}\} \\
+            = & (\neg ((\neg False) \vee False)) & \{\mathrm{implication}\} \\
+            = & (\neg (\neg False)) & \{\vee \mathrm{\ identity}\} \\
+            = & False & \{\mathrm{double\ negation}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (\neg True) & \\
+            = & (\neg (False \to False)) & \{\mathrm{self\ implication}\} \\
+            = & (\neg ((\neg False) \vee False)) & \{\mathrm{implication}\} \\
+            = & (\neg (\neg False)) & \{\vee \mathrm{\ identity}\} \\
+            = & False & \{\mathrm{double\ negation}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (\neg False) & \\
+            = & (\neg (\neg True)) & \{\neg True\} \\
+            = & True & \{\mathrm{double\ negation}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (True \to x) & \\
+            = & ((\neg True) \vee x) & \{\mathrm{implication}\} \\
+            = & (False \vee x) & \{\neg False\} \\
+            = & (x \vee False) & \{\vee \mathrm{\ commutative}\} \\
+            = & x & \{\vee \mathrm{\ identity}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (x \wedge True) & \\
+            = & (\neg (\neg (x \wedge True))) & \{\mathrm{double\ negation}\} \\
+            = & (\neg ((\neg x) \vee (\neg True))) & \{\wedge \mathrm{\ DeMorgan}\} \\
+            = & (\neg ((\neg x) \vee False)) & \{\neg True\} \\
+            = & (\neg (\neg x)) & \{\vee \mathrm{\ identity}\} \\
+            = & x & \{\mathrm{double\ negation}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (x \wedge y) & \\
+            = & ((\neg (\neg x)) \wedge y) & \{\mathrm{double\ negation}\} \\
+            = & ((\neg (\neg x)) \wedge (\neg (\neg y))) & \{\mathrm{double\ negation}\} \\
+            = & (\neg ((\neg x) \vee (\neg y))) & \{\vee \mathrm{\ DeMorgan}\} \\
+            = & (\neg ((\neg y) \vee (\neg x))) & \{\vee \mathrm{\ commutative}\} \\
+            = & ((\neg (\neg y) \wedge (\neg (\neg x)))) & \{\vee \mathrm{\ DeMorgan}\} \\
+            = & (y \wedge (\neg (\neg x)))) & \{\mathrm{double\ negation}\} \\
+            = & (y \wedge x) & \{\mathrm{double\ negation}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (x \wedge (y \wedge z)) & \\
+            = & ((\neg (\neg x)) \wedge ((\neg (\neg y)) \wedge (\neg(\neg z)))) & \{\mathrm{double\ negation}\times 3\} \\
+            = & ((\neg (\neg x)) \wedge (\neg ((\neg y) \vee (\neg z)))) & \{\vee \mathrm{\ DeMorgan}\} \\
+            = & (\neg ((\neg x) \vee ((\neg y) \vee (\neg z)))) & \{\vee \mathrm{\ DeMorgan}\} \\
+            = & (\neg (((\neg x) \vee (\neg y)) \vee (\neg z))) & \{\vee \mathrm{\ associative}\} \\
+            = & (\neg ((\neg (x \wedge y)) \vee (\neg z))) & \{\wedge \mathrm{\ DeMorgan}\} \\
+            = & (\neg (\neg ((x \wedge y) \wedge z))) & \{\wedge \mathrm{\ DeMorgan}\} \\
+            = & ((x \wedge y) \wedge z) & \{\mathrm{double\ negation}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (x \wedge (y \vee z)) & \\
+            = & (\neg (\neg (x \wedge (y \vee z)))) & \{\mathrm{double\ negation}\} \\
+            = & (\neg ((\neg x) \vee (\neg (y \vee z)))) & \{\wedge \mathrm{\ DeMorgan}\} \\
+            = & (\neg ((\neg x) \vee ((\neg y \wedge (\neg z))))) & \{\vee \mathrm{\ DeMorgan}\} \\
+            = & (\neg (((\neg x)\vee (\neg y)) \wedge ((\neg x \vee (\neg z))))) & \{\vee \mathrm{\ distributive}\} \\
+            = & (\neg (\neg (x \wedge y)) \wedge ((\neg x \vee (\neg z)))) & \{\wedge \mathrm{\ DeMorgan}\} \\
+            = & (\neg (\neg (x \wedge y)) \wedge (\neg (x \wedge z))) & \{\wedge \mathrm{\ DeMorgan}\} \\
+            = & ((x \wedge y) \vee (x \wedge z)) & \{\vee \mathrm{\ DeMorgan}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (x \wedge x) & \\
+            = & (\neg (\neg (x \wedge x))) & \{\mathrm{double negation}\} \\
+            = & (\neg ((\neg x) \vee (\neg x))) & \{\wedge \mathrm{\ DeMorgan}\} \\
+            = & (\neg (\neg x)) & \{\vee \mathrm{\ idempotent}\} \\
+            = & x & \{\mathrm{double\ negation}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (x \to y) & \\
+            = & ((\neg x) \vee y) & \{\mathrm{implication}\} \\
+            = & (y \vee (\neg x)) & \{\vee \mathrm{\ commutative}\} \\
+            = & ((\neg (\neg y)) \vee (\neg x)) & \{\mathrm{double\ negation}\} \\
+            = & ((\neg y) \to (\neg x)) & \{\mathrm{implication}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & (x \to (y \to z)) & \\
+            = & ((\neg x) \vee ((\neg y) \vee z)) & \{\mathrm{implication}\times 2\} \\
+            = & (((\neg x) \vee (\neg y)) \vee z) & \{\vee \mathrm{\ associative}\} \\
+            = & ((\neg (x \wedge y)) \vee z) & \{\wedge \mathrm{\ DeMorgan}\} \\
+            = & ((x \wedge y) \to z) & \{\mathrm{implication}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & ((x \wedge y) \vee y) & \\
+            = & (y \vee (x \wedge y)) & \{\vee \mathrm{\ commutative}\} \\
+            = & (y \vee (y \wedge x)) & \{\wedge \mathrm{\ commutative}\} \\
+            = & ((y \wedge True) \vee (y \wedge x)) & \{\vee \mathrm{\ commutative}\} \\
+            = & (y \wedge (x \vee True)) & \{\wedge \mathrm{\ distributive}\} \\
+            = & (y \wedge True) & \{\vee \mathrm{\ null}\} \\
+            = & y & \{\wedge \mathrm{\ identity}\} \\
+          \end{array} \]
+        \item
+          \[ \begin{array}{lll}
+              & ((x \to y) \wedge (x \to (\neg y))) & \\
+            = & (((\neg x) \vee y) \wedge ((\neg x) vee (\neg y))) & \{\mathrm{implication}\} \\
+            = & ((\neg x) \vee (y \wedge (\neg y))) & \{\vee \mathrm{\ distributive}\} \\
+            = & ((\neg x) \vee False) & \{\wedge \mathrm{\ complement}\} \\
+            = & (\neg x) & \{\vee \mathrm{\ identity}\} \\
+          \end{array} \]
+      \end{enumerate}
+    \item {\bf Ex. 19}
+
+      \includegraphics[scale=.75]{not_by_imp.ps}
+        \vskip .1in \hrule
+
+      \includegraphics[scale=.75]{or_by_imp.ps}
+        \vskip .1in \hrule
+
+      \includegraphics[scale=.75]{and_by_imp.ps}
+
+  \end{enumerate}
+\end{document}

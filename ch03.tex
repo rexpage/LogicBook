@@ -1,0 +1,380 @@
+\chapter{Software Testing and Prefix Notation}
+
+Suppose you have purchased a piece of software from someone, and you want to take it for a test drive to see if it works. Let's say it's the function that delivers sum of the first $n$ reciprocals, given a number $n$.
+You've seen this function before (page \pageref{reciprocalsdef}).
+\begin{displaymath}
+r(n) = 1 + \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{n}
+\end{displaymath}
+
+You could start with a few simple checks.
+\begin{displaymath}
+ r(1) = 1
+\\
+ r(2) = \frac{3}{2}
+\\
+ r(2) = \frac{11}{6}
+\end{displaymath}
+
+That gets old fast. It would be nice to do a whole bunch of tests,
+not just a few specific ones.
+One way to describe a lot of tests at once is to find a way to specify
+a relationship among values of the function that you know will always be true.
+For example, you know that $reciprocal(n)$ is just like $reciprocal(n-1)$,
+except that it has one more term in the sum.
+\begin{quote}
+\begin{tabbing}
+$r(n)$ \=$= (1 + \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{(n - 1)})$ $+ \frac{1}{n}$ \\
+\vspace{1 mm}
+                 \>$= r(n-1) + \frac{1}{n}$
+\end{tabbing}
+\end{quote}
+
+This relationship provides a different test for each possible value of $n$.
+You could tell the computer to run thousands of tests
+using random values for $n$ and have it report an error any of the tests fail.
+If the computer encounters errors, you will of course want your money back.
+
+Since you do not expect the function to work unless the input
+is a non-negative integer, you need to tell the computer
+to choose random numbers of that kind.
+In fact, the test as it stands doesn't work when $n$ is zero,
+so we need to fix that problem, either by avoiding zero
+in the testing process or by modifying to test to deal with zero.
+\begin{displaymath}
+r(n) =
+\left\{
+        \begin{array}{ll}
+                0            & \mbox{if } n = 0 \\
+                r(n-1) + 1/n & \mbox{otherwise}
+        \end{array}
+\right.
+\end{displaymath}
+
+After this modification, the computer can run thousands of tests automatically,
+just by choosing random, non-negative, integer values for $n$,
+computing $r(n)$ and $r(n-1) + 1/n$,
+and checking to make sure they are the same.
+If zero comes up as the random input,
+the computer compares $r(n)$ to zero instead of
+$r(n-1) + 1/n$.
+
+It's nice to have an automated testing facility if you're buying software,
+and you want to make sure it works.
+It's also nice if you're building the software yourself.
+Then, you can deliver extensively tested software to your customers,
+and incur less risk of them asking for their money back.
+
+We will be using a software development environment that facilitates automated testing.
+To use it, we define tests in the form of equations that the software should satisfy,
+and tell the computer to generate random data and make sure the software
+doesn't violate the equations.
+
+\begin{aside}
+Proof Pad and
+DrACuLa (``Dracula'' for short) are software development environments
+you can use to see logic in action.
+To install Proof pad, follow the instructions at \url{http://proofpad.org}.
+To install Dracula, follow the instructions at
+\url{http://www.ccs.neu.edu/home/cce/acl2/}.
+If that link fails, look for ``dracula racket'' or ``Proof Pad''
+with your web search engine.
+They are well-known systems and should be easy to find.
+They are free, too.
+
+These ACL2 development environments provide ways to develop, test, and run programs
+written in the ACL2 dialect of a programming language called Lisp.
+They also provide ways to use a mechanized logic that is part of the ACL2 system,
+which will assist us in reasoning about our programs.
+At present we are discussing the testing process.
+Later, we will discuss developing programs, reasoning about them, and running them.
+\caption{ACL2 development environments}
+\label{dracula}
+\end{aside}
+
+The Proof Pad and Dracula environments have
+an automated testing facility called ``doublecheck''.
+The tool employs a notation that requires formulas to be written in ``prefix'' form.
+From our experience with arithmetic formulas, we are more accustomed to ``infix'' form,
+where operators come between their operands, as in the formula ($x$ + $y$).
+In prefix form, this formula would be (+ $x$ $y$).
+
+That seems simple enough, but it gets gradually more unfamiliar
+as the formulas get more complicated.
+For example, a formula for the sum of $x$ and thrice $y$, $(x + 3*y)$,
+comes out as (+ $x$ ($*$ $3$ $y$)) in prefix form.
+It takes a while to get used to prefix notation, but not long.
+Some people end up liking it better than infix.
+
+In prefix notation the combined properties
+of the reciprocal sum function, $r$,
+discussed previously would take the following form.
+
+\label{def-property-example}
+\begin{lstlisting}
+(defproperty reciprocals-test
+  (n :value (random-natural))
+  (= (r n)
+      (if (= n 0)
+          0
+          (+ (r (- n 1)) (/ 1 n)))))
+\end{lstlisting}
+
+As you can see, all of the formulas are in prefix notation,
+even the operator that sets up the definition: defproperty.
+It comes first, then  the information it needs to carry out the tests.
+The first part of the data describes the random values to be used.
+In this case, values for $n$ will be random natural numbers.
+
+\begin{aside}
+A ``natural number'' is an whole number (that is, an integer)
+that is zero or bigger.
+Calling them ``natural numbers'' is a bit of a conceit.
+It took people a quarter million years or so to invent zero,
+and that's just the first ``natural'' number.
+\caption{Natural Numbers}
+\label{natural-number-def}
+\end{aside}
+
+The test itself comes next.
+The test specified in this property definition
+compares (r $n$) with zero when $n$ is zero,
+but with (+ (r (- $n$ 1) (/ 1 $n$)), when $n$ isn't zero.
+As you can see, the comparison operator, ``='', comes first (it's prefix notation).
+Its first operand is the (r $n$) formula,
+and its second operand is one of two alternative formulas selected by an ``if'' operation.
+
+\label{if-def}
+The ``if'' operator takes three operands.
+It interprets the first operand as a Boolean value (true or false).
+If that operand is true, the ``if'' operator delivers
+the value specified in its second operand.
+Otherwise, it delivers the value specified in its third operand.
+
+Given this property definition, the doublecheck facility will perform many tests using random data and report successes and failures. You can ask for as many tests as you like. The default is fifty tests, so if you don't say how many you want, you get fifty tests. The following property definition is the same as before, except that it calls for a hundred tests.
+The "include-book" command at the beginning tells the computer what testing facility to use and where to find it. The tests will not take place without this directive.
+
+\begin{lstlisting}
+(include-book "doublecheck" :dir :teachpacks)
+
+(defproperty reciprocals-test  :repeat 100
+  (n :value (random-natural))
+  (= (r n)
+      (if (= n 0)
+          0
+          (+ (r (- n 1)) (/ 1 n)))))
+\end{lstlisting}
+
+Let's look at another example.
+\label{mod-function}
+Suppose the function ``mod''
+delivers the remainder when dividing one number by another.
+(Think long division: divisor, dividend, quotient, remainder \dots third-grade stuff.)
+Again, imagine that you have downloaded the function from your software supplier, and you are test driving it to decide whether to pay for the download or discard it. You might do some simple checks, such as using mod to compute the remainder when dividing by two. You expect this to be zero for even numbers and one for odd numbers.
+
+\begin{lstlisting}
+(include-book "testing" :dir :teachpacks)
+
+(check-expect (mod 12 2) 0)
+(check-expect (mod 27 2) 1)
+\end{lstlisting}
+
+Here, we have used the ``testing'' system, which is
+a facility provided by our computing system to help with simple tests.
+It does only one test at a time, and there is no random data involved,
+but is handy for running some sanity checks
+to make sure a function delivers the right answers for a few special cases.
+Here are a few more sanity checks, these with divisions by three.
+
+\begin{lstlisting}
+(check-expect (mod 14 3) 2)
+(check-expect (mod  7 3) 1)
+(check-expect (mod 18 3) 0)
+\end{lstlisting}
+
+Probably, though, you will want to put ``mod''
+through its paces on a large number of tests using doublecheck.
+For that, you will need to come up with a relationship
+that expresses a more general property of the function.
+Since you know that the remainder doesn't change
+when you subtract the divisor from the dividend,
+you use that as a basis for some automated testing.
+
+\begin{lstlisting}
+(defproperty mod-test
+  (divisor-minus-1 :value (random-natural)
+   dividend        :value (random-natural))
+  (let* ((divisor (+ divisor-minus-1 1))) ; avoid zero divisor
+    (= (mod dividend divisor)
+       (mod (- dividend divisor) divisor))))
+\end{lstlisting}
+
+Generating random data is an art.
+In this example, we have made sure the divisor isn't zero
+by adding one to a natural number. Since negative numbers
+aren't ``natural'' numbers, we know that adding one
+to a natural number ensures that the sum is non-zero.
+
+To see the testing facility in action,
+define the ``mod-test'' property in a .lisp file,
+and use Proof Pad or Dracula to run the tests.
+To put a .lisp file into operation with Dracula,
+just start the file running as you would any other program.
+When the Dracula window is ready,
+press the ``Run'' button.
+
+Another property of the ``mod'' function that we know from our experience
+with division as an arithmetic operation is that the remainder
+is always smaller than the divisor.
+That is, (mod dividend divisor) < divisor.
+The following property definition uses
+the doublecheck testing facility
+to make sure the mod function delivers values in this range.
+
+\begin{lstlisting}
+(defproperty mod-upper-limit-test
+  (divisor-minus-1 :value (random-natural)
+   dividend        :value (random-natural))
+  (let* ((divisor (+ divisor-minus-1 1))) ; avoid zero divisor
+    (< (mod dividend divisor) divisor)))
+\end{lstlisting}
+
+In this test, the property is not expressed as an equation,
+as in the previous case, but as an inequality
+based on the less-than operator (``$<$'').
+As always, the formula puts the operation in the prefix position,
+in front of its operands.
+For practice, add this property to the .lisp file with the other tests and run it.
+
+Another fact about remainders in division is that
+they are non-negative integers (that is, natural numbers).
+We can use the logical-and operator (``and'' is ACL2 for $\wedge$)
+to combine the upper-limit test with the natural-number test.
+in one property definition.
+\label{natp-op}
+The value of the formula ``(natp $x$)'' is true
+if $x$ is a natural number and false if it isn't.
+
+\label{natp-axiom-formal}
+\begin{center}
+Axiom \{\emph{natp}\} \\
+$(\forall x.($(natp $x$) $=$ ($x$ is a natural number)$))$
+\end{center}
+
+\begin{lstlisting}
+(defproperty mod-range-test
+  (divisor-minus-1 :value (random-natural)
+   dividend        :value (random-natural))
+  (let* ((divisor (+ divisor-minus-1 1))) ; avoid zero divisor
+    (and (natp (mod dividend divisor))
+         (< (mod dividend divisor) divisor))))
+\end{lstlisting}
+
+\begin{aside}
+Maybe you think ``floor'' is an odd name
+for a function that produces the quotient, but wait \dots it gets worse.
+Names a lot stranger than that will pop up soon enough.
+The floor function delivers the quotient. Get used to it.
+There's no crying in baseball.
+\caption{Think ``floor'' is an odd name?}
+\label{floor-is-odd}
+\end{aside}
+
+As you know, there are two parts to the result
+of dividing one number by another: the quotient and the remainder.
+The mod operator delivers the remainder,
+\label{floor-def}
+and an operator called ``floor'' delivers the quotient.
+From our experience with division, we known
+that the quotient is always strictly smaller
+than the dividend when the divisor is bigger than one
+and the dividend is a non-zero, natural number.
+The following test checks for that property.
+The random-value generator for the divisor
+makes sure the divisor exceeds one by adding two
+to a random natural number.
+Similarly, we make sure the dividend isn't zero by adding one.
+
+\label{quotient-upper-limit-test}
+\begin{lstlisting}
+(defproperty quotient-upper-limit-test
+  (divisor-minus-2   :value (random-natural)
+   dividend-minus-1  :value (random-natural))
+  (let* ((divisor  (+ divisor-minus-2 2))   ; divisor  > 1
+         (dividend (+ dividend-minus-1 1))) ; dividend > 0
+    (= (+ (* divisor (floor dividend divisor))
+          (mod dividend divisor))
+       dividend)))
+\end{lstlisting}
+
+Checking the result of a division is a matter
+of multiplying the quotient by the divisor and adding the remainder.
+If this fails to reproduce the dividend,
+something has gone wrong in the division process.
+The following property tests this relationship
+between the mod and floor operators.
+It needs to use the multiplication operator, which is denoted by an asterisk.
+We hope by now you are starting to get comfortable with prefix notation.
+The exercises will give you a chance to practice.
+
+\label{division-test}
+\begin{lstlisting}
+(defproperty division-test
+  (divisor-minus-1 :value (random-natural)
+   dividend        :value (random-natural))
+  (let* ((divisor (+ divisor-minus-1 1))) ; avoid zero divisor
+    (= (+ (* divisor (floor dividend divisor))
+          (mod dividend divisor))
+       dividend)))
+\end{lstlisting}
+
+\begin{ExerciseList}
+\Exercise Define a test of the floor operator
+that checks to make sure its value is a natural number
+when its operands are natural numbers,
+and the divisor (second operand) is not zero.
+Use Proof Pad or Dracula to run the test.
+
+\Exercise The ``max'' operator chooses the larger of two numbers:
+(max 2 7) is 7, (max 9 3) is 9.
+Define a doublecheck property that tests to make sure
+(max $x$ $y$) is greater than or equal to both $x$ and $y$.
+Use Proof Pad or Dracula to run tests of the property.
+
+\Exercise
+Define a doublecheck property to test the distributive law
+of arithmetic (Figure~\ref{fig-02-01}, page \pageref{fig-02-01}).
+Use Proof Pad or Dracula to run your test.
+
+\Exercise
+\label{modular-arithmetic}
+Modular arithmetic (sometimes called ``clock arithmetic'')
+deals with integers in a fixed range, $0 \dots (m - 1)$,
+where $m$ is an integer greater than zero known as
+the ``modulus''.
+If $x$ is an integer, the formula ($x$ mod $m$) stands for
+the remainder in the division of $x$ by $m$.
+
+Modular arithmetic is consistent with ordinary arithmetic.
+That is, the sum of two numbers, mod $m$,
+is the same as the sum, mod $m$, of the corresponding numbers
+in the ``mod $m$'' range.
+The same is true of subtraction and multiplication.
+
+\begin{quote}
+($(x + y)$ mod $m$) = ((($x$ mod $m$) $+$ ($y$ mod $m$)) mod $m$) \\
+($(x - y)$ mod $m$) = ((($x$ mod $m$) $-$ ($y$ mod $m$)) mod $m$) \\
+($(x \times y)$ mod $m$) = ((($x$ mod $m$) $\times$ ($y$ mod $m$)) mod $m$)
+\end{quote}
+
+The ACL2 operator ``mod'' converts numbers to the modular range
+for a given modulus. That is, (mod $x$ $m$) delivers the remainder
+in the division of $x$ by $m$.
+Define doublecheck properties to test the above properties of clock arithmetic.
+Use Proof Pad or Dracula to run your tests.
+\end{ExerciseList}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "book"
+%%% End:

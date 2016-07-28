@@ -1,0 +1,88 @@
+﻿\chapter{Functions and Prefix Notation}
+
+\section{Testing Software}
+
+Suppose you have purchased a piece of software from someone, and you want to test drive it to see if it works. Let's say it's very simple, just a function that delivers the remainder when dividing one number by another. You could do some quick sanity checks, such as using it to compute the remainder when dividing by two. You expect this to be zero for even numbers and one for odd numbers.
+
+\begin{itemize}
+ \item (mod 12 2) = 0
+ \item (mod 27 2) = 1
+\end{itemize}
+
+You might also try some divisions by 3.
+
+\begin{itemize}
+ \item (mod 14 3) = 2
+ \item (mod 7  3) = 1
+ \item (mod 18 3) = 0
+\end{itemize}
+
+What if you want to do a whole bunch of tests, not just a few specific ones. To do that, you need find a way to specify a relationship between the inputs and the results that you know will always be true, such as the following one:
+
+\begin{itemize}
+ \item (mod $x$ $y$) = $x$ if $x < y$
+\end{itemize}
+
+This is sometimes
+With this test, you could tell the computer to run through a bunch of tests that supply values for $x$ that are smaller than $y$, and have it report an error to you if the (mod $x$ $y$) turns out to be something other than $y$. If you get an error report, you will of course want your money back.
+
+Since you can use the function any way you want to, you can use it more than once in a test:
+
+\begin{itemize}
+\item (mod $x$ $y$) = (mod ($x$ - $y$) $y$) if $x$ >= $y$
+\end{itemize}
+
+You know from you experience with dividing one number by another that the remainder doesn't change when you subtract the divisor from the dividend, so if the mod software works, it should pass all tests based on these equations. We could, if we wanted to, combine these last two tests into one.
+
+\begin{displaymath}
+(mod x y) =
+\left\{
+        \begin{array}{ll}
+                x               & \mbox{if } x < y \\
+                (mod (x - y) y) & \mbox{otherwise}
+        \end{array}
+\right.
+\end{displaymath}
+
+Now the computer can run thousands of tests for you, automatically. You just have to tell it to choose numbers for $x$ and $y$, but to make sure to avoid choosing zero for $y$, since $y$ is the divisor, and you don't expect the function to be able to divide by zero.
+
+It's nice to have an automated testing facility if you're buying software, and you want to make sure it works. It's also nice if you're building the software yourself. Then, you can deliver extensively tested software to your customers, and incur less risk of them asking for their money back.
+
+We will be using a software development environment that facilitates automated testing. To use it, we define tests in the form of equations that that formulas using the software should satisfy, and tell the computer to generate random data and make sure the equations aren't violated.
+
+The tool we will be using for this purposed is known as Dracula, and it's automated testing facility is called DoubleCheck. The tool employs a notation that requires formulas to be written in ``prefix'' form. From our experience with arithmetic formulas, we are more accustomed to ``infix'' form, where operators come between their operands, as in the formula $(x - y)$. In prefix form, this formula would be $(- x y)$.
+
+That seems simple enough, but it gets gradually more unfamiliar as the formulas get more complicated. For example, the formula sum of $x$ and 3 times $y$, $(x + 3*y)$, comes out as $(+ x (* 3 y))$ in prefix form. It takes a while to get used to prefix notation, but not long. Some people end up liking it better than infix.
+
+In prefix notation, the combined property of the mod function specified above would take the following form.
+
+\begin{lstlisting}
+(defproperty mod-tests
+  (x :value (random-natural)        ; non-negative integer
+   y :value (random-between 1 100)) ; integer between 1 and 100 (must avoid zero)
+   (= (mod x y)
+      (if (< x y)
+          x
+          (mod (- x y) y))))
+\end{lstlisting}
+
+As you can see, all of the formulas are in prefix notation, even the operator that sets up the definition: defproperty. It comes first, then comes the information it needs to carry out the tests. The first part of the data specifies the random values to be used in the tests. In this case, $x$ will be random integers that are not negative. (``Natural'' means ``natural numbers'', that is, integers that are zero or bigger.) For the value of $y$, we must avoid zero, so we ask for random integers between 1 and 100. That takes care of the set up.
+
+For the test, we compare (mod $x$ $y$) with either $x$, if it's less than $y$, or (mod (- $x$ $y$) $y$), if it's not less than $y$. As you can see, the comparator, ``='', comes first (it's prefix notation). Its first operand is the (mod $x$ $y$) formula, and its second operand is one of two alternative formulas. The ``if'' operator takes three operands and selects between the formulas in its last two operands, depending on whether its first operand has the value true or the value false.
+
+Given this definition of a property, the DoubleCheck facility will run a bunch of tests using random data and report successes and failures. You can ask for as many tests as you like. The default is fifty tests, so if you don't say how many you want, you get fifty tests. The following property definition is the same in every way, except that it calls for a thousand tests.
+
+\begin{lstlisting}
+(defproperty mod-tests  :repeat 1000
+  (x :value (random-natural)        ; non-negative integer
+   y :value (random-between 1 100)) ; integer between 1 and 100 (must avoid zero)
+   (= (mod x y)
+      (if (< x y)
+          x
+          (mod (- x y) y))))
+\end{lstlisting}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "book"
+%%% End:

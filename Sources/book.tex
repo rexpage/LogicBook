@@ -1,0 +1,92 @@
+\documentclass[letterpaper,12pt,twoside,onecolumn,openright,draft,fleqn]{memoir}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\renewcommand{\qedsymbol}{\textsc{q.e.d.}}
+
+\newcommand{\todo}[1]{\par\framebox{\parbox{.75\textwidth}{\emph{TODO: #1}}}\par}
+
+\usepackage{float}
+\floatstyle{boxed}
+\newfloat{aside}{thp}{loa}
+\floatname{aside}{Aside}
+
+\usepackage{exercise}
+
+\usepackage{url}
+
+\usepackage[final]{graphicx}
+
+\usepackage[final]{listings}
+\lstset{language=Lisp,
+        morekeywords={defproperty,defthmd,if},
+        frame=single, numbers=left, escapeinside={//*@}{@*//}}
+
+% This should fix the "ACL2!?" problem, but it doesn't.
+% \usepackage[utf8]{inputenc}
+
+% This should give links in PDF, but it doesn't work, either
+% \usepackage{hyperref}
+
+\title{Perspectives on Computer Hardware and Software: Logic in Action}
+\author{Rex Page \and Ruben Gamboa}
+\date{September 17, 2010}
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\mainmatter
+
+\part{Introduction to Computers and Logic}
+
+\include{ch01}
+
+\include{ch02}
+
+\include{ch03}
+
+\include{ch04}
+
+\part{Computer Arithmetic}
+
+\include{ch05}
+
+\include{ch06}
+
+\include{ch07}
+
+\part{Inductive Data Structures}
+
+\include{ch08}
+
+\include{ch09}
+
+\include{ch10}
+
+\include{ch11}
+
+\include{ch12}
+
+\part{Computation in Practice}
+
+\include{ch13}
+
+\include{ch14}
+
+\include{ch15}
+
+
+\backmatter
+
+
+\end{document}
+
+

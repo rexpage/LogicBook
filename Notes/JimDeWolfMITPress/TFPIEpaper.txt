@@ -1,0 +1,13 @@
+TFPIE paper - topics to discuss
+ - for people who may take only one course about computing
+ - distribution of freshman, sophomores, ...
+ - dist'n of majors
+ - coverage:
+    what a program is (definition = software = required properties, three Cs)
+    what computer hardware is
+    software and hardware formalisms
+    testing/validation/verification
+    using logic to verify properties of software/hardware
+    scale matters
+
+ - not covered: conventional programming (C, Python, ...), why not

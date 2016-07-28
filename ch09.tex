@@ -1,0 +1,563 @@
+\chapter{Sorting}
+\label{ch:sorting}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "book"
+%%% End:
+
+Many computing applications require arranging a list of records
+in an order determined by an identifying key.
+Alphabetical order by name, for example, or chronological order by date.
+Records that have been taken in a random or otherwise unpredictable order
+need to be rearranged, and software to perform such rearrangements
+employ sorting operators do so.
+
+The problem of sorting records into a desired order by a particular key
+is one of the most studied areas in computing.
+Solutions abound.
+The savings that fast sorting methods provide,
+compared to slower methods, tend to
+increase with the number of records in the lists to be sorted.
+For example, if a fast operator consumes half the computational resources
+of a slower one when sorting several hundred records,
+it typically would consume a few percent of the resources
+of the slower method when sorting several thousand records
+and well under one per cent when there are tens of thousands of records.
+Many applications deal with record archives of this size,
+so the time required for sorting operations can be reduced
+from hours to seconds by choosing a faster method.
+
+Different sorting operators are defined
+by different collections of equations.
+So, different equations do not necessarily change the
+results delivered, but can have a dramatic effect on
+the time required to deliver them.
+
+This chapter will discuss two sorting operators that differ
+greatly in the amount of time they take to carry out a rearrangement,
+but not at all in terms of results delivered.
+Both operators deliver the same rearrangement of any given list.
+That makes them equivalent, in terms of mathematical equality,
+but vastly different computationally, and the chapter
+will analyze both the computational differences
+and mathematical equivalences.
+
+The choice of defining equations for an operator
+amount to a choice of algorithm, and the computational
+resources required by the algorithm can be derived
+from the equations in the same manner as other properties
+of the operator.
+
+Our earlier discussions of software have focussed on
+expectations concerning
+the correctness of the results delivered by operators.
+A concern with computational resources is something new.
+Now we discuss engineering choices that affect the usefulness of
+software as the amount of data increases.
+Engineering requires not only producing correct
+results, but also dealing with scale in practical ways.
+
+\section{Insertion Sort}
+\label{sec:insertion-sort}
+
+To maintain our attention on the essentials of
+arranging records in order by a key, we will
+assume that the entire content of a record
+resides in its key.
+Furthermore, we will use numbers for keys
+and discuss operators that rearrange lists
+of numbers into increasing order.
+For example, if the operand of the sorting
+operator were the list [5 9 4 6 5 2],
+the operator would deliver the list [2 4 5 5 6 9],
+which contains the same numbers, but arranged so
+that the smallest one comes first, and so on up the
+line to the largest at the end.
+
+Suppose someone has defined an operator that,
+given a number and a list of numbers that has
+already been arranged into increasing order,
+delivers the list with the given number inserted
+into a place that preserves order.
+If we call the operator ``insert'', then
+the formula (insert 8 [2 4 5 5 6 9]) would
+deliver [2 4 5 5 6 8 9].
+
+What are some equations that we would expect
+the insert operator to satisfy?
+If the list were empty, then the operator
+would deliver a list whose only element would
+be the number to be inserted in the list.
+
+\hspace{1cm} (insert $x$ nil) = (cons $x$ nil) \hfill \{\emph{ins0}\}
+
+If the number to be inserted does not exceed the
+first number in the list, the operator could simply
+insert the number at the beginning of the list.
+
+\hspace{1cm} (insert $x$ (cons $x_1$ $xs$)) = (cons $x$ (cons $x_1$ $xs$)) if $x \le x_1$
+\hfill \{\emph{ins1}\}
+
+If the number to be inserted exceeds the first number
+in the list, we don't know where it will go in the list,
+but we do know it won't come first.
+The first number will stay first in this case.
+If we trust the operator to insert it in the right place,
+we can let it do the insertion at the proper place
+in among the numbers after the first one,
+then insert the first number from the original list
+into the result.
+
+\hspace{1cm} (insert $x$ (cons $x_1$ $xs$)) = (cons $x_1$ (insert $x$ $xs$)) if $x > x_1$
+\hfill \{\emph{ins2}\}
+
+These equations, \{\emph{ins0}\}, \{\emph{ins1}\}, and \{\emph{ins2}\},
+are comprehensive, consistent, and computational,
+so we can take them as defining axioms for the insertion operator.
+The corresponding definition in ACL2 could be expressed as follows.
+It consolidates \{\emph{ins0}\} and \{\emph{ins1}\} into one equation,
+which is possible because the right-hand-sides of both equations
+simply use the cons operator to deliver a list whose first element
+is the first operand of the insert operator and whose other elements
+form the second operand.
+
+\label{defun:insert-isort}
+\begin{Verbatim}
+(defun insert (x xs) ; assume x1 <= x2 <= x3 ...
+  (if (and (consp xs) (> x (first xs)))
+      (cons (first xs) (insert x (rest xs))) ; ins2
+      (cons x xs)))                          ; ins1
+\end{Verbatim}
+
+Now suppose someone has defined a sorting operator called ``isort''.
+Empty lists and one-element lists already have their
+elements in order, by default.
+Therefore, the formula (isort nil) would have to deliver nil,
+and the formula (isort (cons $x$ nil)) would have to deliver
+(cons $x$ nil).
+
+\label{eq:isrt0}
+\hspace{1cm} (isort nil) = nil \hfill \{\emph{isrt0}\}
+
+\label{eq:isrt1}
+\hspace{1cm} (isort (cons $x$ nil)) = (cons $x$ nil) \hfill \{\emph{isrt1}\}
+
+If the list to be rearrange has two or more elements,
+it has the form (cons $x_1$ (cons $x_2$ $xs$)).
+If the isort operator works properly,
+the formula (isort (cons $x_2$ $xs$)) would be
+a list made up of the number $x_2$ and all the numbers in the list $xs$
+taken together and
+arranged in increasing order.
+In this situation, the insert operator can be used to put the number $x_1$ in
+the right place in that list, producing a list made up of the
+numbers in the original list, rearranged into increasing order.
+
+\label{eq:isrt2}
+\hspace{1cm} (isort(cons $x_1$ (cons $x_2$ $xs$))) =
+(insert $x_1$ (isort(cons $x_2$ $xs$)))  \hfill \{\emph{isrt2}\}
+
+The equations \{\emph{isrt0}\}, \{\emph{isrt1}\}, and \{\emph{isrt2}\}
+are comprehensive, consistent, and computational,
+so we can take them as defining axioms for the isort operator.
+Again, they can be consolidated into two equations because
+the sorted list is identical to the input list when it has
+only one element, or none.
+The definition in ACL2 could be expressed as follows.
+
+\label{defun:isort}
+\begin{Verbatim}
+(defun isort (xs)
+  (if (consp (rest xs)) ; xs has 2 or more elements?
+      (insert (first xs) (isort (rest xs))) ; isrt2
+      xs))              ; (len xs) <= 1     ; isrt1
+\end{Verbatim}
+
+\section{Insertion Sort: Correctness Properties}
+\label{sec:insertion-sort-correctness}
+
+We expect the insertion-sort operator to preserve
+the number of elements in its operand, and to
+neither add nor drop values from the list.
+Theorems stating these properties would be
+similar to the corresponding theorems for
+the multiplex and demultiplex operators discussed
+in Chapter \ref{ch:mux-dmx}.
+The theorem on conservation of values
+could use the occurs-in predicate
+(page \pageref{def:occurs-in}) for determining
+whether or not a value occurs in a list.
+
+\label{defthm:isort-len}
+\begin{Verbatim}
+(defthm isort-len-thm
+  (= (len (isort xs)) (len xs)))
+
+(defthm isort-val-thm
+  (iff (occurs-in e xs)
+       (occurs-in e (isort xs))))
+\end{Verbatim}
+\label{defthm:isort-val}
+
+We also expect the numbers in the list that the isort operator
+delivers to be in increasing order.
+To state that property, we need a predicate
+to distinguish between lists containing numbers in increasing order
+and lists that have numbers out of order.
+Of course, a list with only one element or none is already
+in order. A list with two or more elements is in order
+if its first element doesn't exceed its second and if
+all the elements after the first element are in order.
+
+If we call this predicate ``up'', it would be True
+if its operand is either empty or has only one element,
+or if it satisfies the
+following inductive equation.
+
+\hspace{1cm} (up(cons $x_1$ (cons $x2$ $xs$))) = ($x_1 \le x_2$) $\wedge$ (up(cons $x_2$ $xs$))
+\hfill \{\emph{up2}\}
+
+Those observations lead to the following ACL2 definition of the ``up'' predicate.
+
+\label{defun:up}
+\begin{Verbatim}
+(defun up (xs) ; (up[x1 x2 x3 ...]) = x1 <= x2 <= x3 ...
+  (or (not (consp (rest xs)))          ; (len xs) <= 1
+      (and (<= (first xs) (second xs)) ; x1 <= x2
+           (up (rest xs)))))           ; x2 <= x3 <= x4 ...
+\end{Verbatim}
+
+Our expectations about ordering in the list that the isort operator
+delivers can be expressed formally in ACL2 in terms of the up predicate.
+
+\label{defthm:isort-ord-thm}
+\begin{Verbatim}
+(defthm isort-ord-thm
+  (up (isort xs)))
+\end{Verbatim}
+
+ACL2 succeeds in proving the length-preservation
+(isort-len-thm, page \pageref{defthm:isort-len}),
+value-conservation
+(isort-val-thm, page \pageref{defthm:isort-val}), and ordering
+(isort-ord-thm, page \pageref{defthm:isort-ord-thm}) properties
+of the isort operator without assistance.
+Pencil and paper proofs can employ induction on the length
+of the list supplied as the operand of isort.
+
+Later, we will analyze the computational behavior of the isort operator
+and will find that it is extremely slow for long lists.
+The next section will start us down a path that will
+end with the definition of a sorting operator
+that does much better, even on long lists.
+
+\begin{ExerciseList}
+\Exercise
+Do a pencil-and-paper proof that the isort operator
+preserves the length of its operand
+(isort-len-thm, page \pageref{defthm:isort-len}).
+
+\Exercise
+Do a pencil-and-paper proof that the isort operator
+neither adds nor drops numbers its operand
+(isort-val-thm, page \pageref{defthm:isort-val}).
+
+\Exercise
+Do a pencil-and-paper proof that the isort operator
+delivers a list arranged in increasing order
+(isort-ord-thm, page \pageref{defthm:isort-ord-thm}).
+\end{ExerciseList}
+
+\section{Order-Preserving Merge}
+\label{sec:mrg}
+
+The multiplex operator (Section \ref{sec:mux})
+combines two lists into one in a perfect shuffle.
+There are of course many ways to combine two lists,
+and the one we will discuss now combines the list
+in a way that preserves order.
+If the lists contain numbers arranged in increasing order,
+the merge operator, which we will call ``mrg'',
+will combine the numbers from both lists
+into one list in which the numbers are arranged in increasing order.
+
+Two of the equations for the multiplex operator (mux, \pageref{def:mux})
+specify the results when one of the lists is empty.
+The equations for the operator ``mrg'' will be the same as those for
+the mux operator in these cases.
+
+\hspace{1cm} (mrg nil $ys$) = $ys$ \hfill \{\emph{mg0}\}
+
+\hspace{1cm} (mrg $xs$ nil) = $xs$ \hfill \{\emph{mg1}\}
+
+It is when both lists are non-empty that the equations for mrg
+will differ from those of mux.
+When both lists are non-empty, then the merged list will
+start with the smaller of the values at the beginning of the operands.
+The remaining elements in the merged list come from
+merging what's left of the list whose first element is smaller
+with all of the elements in the other list.
+That divides the case when both lists are non-empty into two
+subcases, one when the first operand starts with the smaller number
+and the other when the second operand starts with the smaller number.
+
+\hspace{1cm} (mrg (cons $x$ $xs$) (cons $y$ $ys$)) = (cons $x$ (mrg $xs$ (cons $y$ $ys$))) if $x \le y$ \hfill \{\emph{mgx}\}
+
+\hspace{1cm} (mrg (cons $x$ $xs$) (cons $y$ $ys$)) = (cons $y$ (mrg (cons $x$ $xs$) $ys$)) if $x > y$  \hfill \{\emph{mgy}\}
+
+The four equations, taken as a whole, are comprehensive because either one list or the other is empty,
+or both are not, in which case one of them must begin with the smaller element.
+They are consistent because, as with the mux operator, the only overlapping situation is when
+both lists are empty, in which case equation \{\emph{mg0}\}
+delivers the same result as equation \{\emph{mg1}\}.
+Two of the equations (\{\emph{mgx}\} and \{\emph{mgy}\}) are inductive,
+so we need to make sure they are computational.
+In both equations, there are fewer elements in the operands
+on the right-hand side than on the left-hand side.
+That is, the total number of elements to be merged in the inductive invocation
+on the right-hand side is less than the the total on the left.
+So, it takes less computation to carry out the merge on the right
+than to do the one on the left.
+That makes the equations computational,
+and we can take them as axioms for the mrg operator.
+
+The formal definition in ACL2 is easily constructed from
+the pencil and paper form discussed above.
+However, ACL2 needs some help in finding an induction scheme
+to prove that the axioms provide a way for the operation to
+be completed under all circumstances.
+That is why the definition suggests
+inducting on the total number of elements in the two operands.
+
+\label{defun:mrg}
+\begin{Verbatim}
+(defun mrg (xs ys)
+  (declare (xargs :measure (+ (len xs) (len ys)))) ; induction scheme
+  (if (and (consp xs) (consp ys))
+      (let* ((x (first xs)) (y (first ys)))
+        (if (<= x y)
+            (cons x (mrg (rest xs) ys))   ; mgx
+            (cons y (mrg xs (rest ys))))) ; mgy
+      (if (not (consp ys))
+          xs     ; ys is empty            ; mg0
+          ys)))  ; xs is empty            ; mg1
+\end{Verbatim}
+
+The mrg operator preserves the total length of its operands,
+and it neither adds nor drops any of the numbers in those operands.
+The equations specifying these properties are like those of the
+corresponding properties of the mux operator, namely
+the mux-length-thm (\pageref{mux-length-thm}) and the
+mux-val-thm (\pageref{thm:mux-val}).
+
+The mrg operator also preserves order.
+If the numbers in both operands are in increasing order,
+the numbers in the list it delivers are also in increasing order.
+A formal statement of this property can employ the same order predicate
+``up'' (\pageref{defun:up}) that was used to state a
+similar property of the isort operator.
+However, in the case of the mrg operator,
+the property is guaranteed only under the condition
+that both operands are in order.
+So, the property is stated as an implication.
+
+\label{defthm:mrg-ord}
+\begin{Verbatim}
+(defthm mrg-ord-thm
+  (implies (and (up xs) (up ys))
+           (up (mrg xs ys))))
+\end{Verbatim}
+
+ACL2 can verify this property without assistance.
+It uses the same induction scheme that it used
+to prove that the mrg operator terminates.
+That is, it inducts on the total number of elements in the operands.
+A pencil-and-paper proof can follow the same strategy.
+
+\begin{ExerciseList}
+\Exercise
+\label{ex:mrg-length-thm}
+Using the mux-length theorem (page \pageref{mux-length-thm})
+as a model, make a formal, ACL2 statement of the mrg-length theorem.
+
+\Exercise
+Do a pencil-and-paper proof of the mrg-length theorem (Exercise \ref{ex:mrg-length-thm}).
+
+\Exercise
+\label{ex:mrg-val-thm}
+Using the mux-val theorem (page \pageref{thm:mux-val})
+as a model, make a formal, ACL2 statement of the mrg-val theorem.
+
+\Exercise
+Do a pencil-and-paper proof of the mrg-val theorem (Exercise \ref{ex:mrg-val-thm}).
+
+\Exercise
+Do a pencil-and-paper proof that the mrg operator preserves order
+(mrg-ord theorem,  page \pageref{defthm:mrg-ord}).
+\end{ExerciseList}
+
+\section{Merge Sort}
+\label{sec:msort}
+
+We can use the mrg operator (page \pageref{defun:mrg}),
+together with the demultiplexor (dmx, page \pageref{defun:dmx}),
+to define a sorting operator that is fast enough for long lists.
+We use dmx to split the list into two parts,
+sort each part into increasing order, then use the mrg operator to
+combine the sorted parts back into one list while preserving order.
+This algorithm is known as merge-sort. Our ACL2 definition
+will use the name msort, similar to the name isort that we used
+for the insertion sort operator.
+
+The sorting step, which involves to sorting operations (one for each part),
+is the inductive step. It refers to the operator being defined.
+The steps are computational because both of the lists delivered by dmx
+are shorter than the original list, so the inductive invocations
+represent smaller computations.
+
+We do have to make sure that the lists dmx delivers are strictly
+shorter than its operand. We expect this to be true, since half
+of the elements go into one list, and the other half go into the other list.
+If the operand is an empty list, it cannot get any shorter,
+and dmx in that case delivers two empty lists,
+both of which are the same size as the operand.
+It also happens that if the list has only one element,
+one of the two lists that dmx delivers is the empty list,
+but the other one is the operand itself. Therefore,
+one part is not strictly shorter than the operand.
+
+However, if the operand of the sorting operation has
+only one element, or none, the list is already in increasing order
+by default. So, the equations for the new sorting operator, msort,
+are the same as those for isort (\pageref{eq:isrt0}).
+
+\label{eq:msrt0}
+\hspace{1cm} (msort nil) = nil \hfill \{\emph{msrt0}\}
+
+\label{eq:msrt1}
+\hspace{1cm} (msort (cons $x$ nil)) = (cons $x$ nil) \hfill \{\emph{msrt1}\}
+
+The other equation is the one that splits the list into two parts,
+sorts them (inductively), and merges the sorted lists.
+
+\label{eq:msrt2}
+\hspace{1cm} (msort (cons $x_1$ (cons $x_2$ xs))) = (mrg (msort odds) (msort evns)) \hfill \{\emph{msrt2}\}
+
+\hspace{1.2cm} where
+
+\hspace{1.2cm} [odds, evns] = (dmx (cons $x_1$ (cons $x_2$ xs)))
+
+The ACL2 version of the msort operator is easily
+constructed from these equations.
+However, the ACL2 system needs some help in verifying
+the msort always terminates. It needs to know
+that the lists delivered by the dmx operator are shorter
+then its operand, as stated in the following theorem.
+
+\label{defthm:dmx-shortens-list}
+\begin{Verbatim}
+(defthm dmx-shortens-list-thm ; lemma to help ACL2 admit def of msort
+  (implies (consp (rest xs))  ; can't shorten one-element or empty lists
+           (mv-let (odds evns)
+                   (dmx xs)
+              (and (< (len odds) (len xs))
+                   (< (len evns) (len xs))))))
+\end{Verbatim}
+
+ACL2 also needs to be told why the equations are computational
+(because the lengths of the lists in the inductive invocations
+are less than the length of the operand).
+Finally, ACL2 needs to know what theorem to cite to verify
+that the inductive operands are shorter. 
+Withe annotations specifying these points of proof strategy,
+ACL2 admits the following definition of msort.
+
+\label{defun:msort}
+\begin{Verbatim}
+(defun msort (xs)
+  (declare (xargs
+            :measure (len xs)
+            :hints (("Goal"
+                    :use ((:instance dmx-shortens-list-thm))))))
+  (if (consp (rest xs))   ; xs has 2 or more elements?
+      (let* ((splt (dmx xs))
+             (odds (first splt))
+             (evns (second splt)))
+        (mrg (msort odds) (msort evns)))    ; {msrt2}
+      xs))                ; (len xs) <= 1     {msrt1} 
+\end{Verbatim}
+
+The msort operator has the ordering, length-preserving,
+and value-preserving properties as the isort operator.
+We use the order predicate ``up'' (\pageref{defun:up})
+and the occurs-in predicate (\pageref{def:occurs-in})
+to state these properties.
+
+\label{defthm:msort-ord}
+\label{defthm:msort-len}
+\label{defthm:msort-val}
+\begin{Verbatim}
+(defthm msort-order-thm-base-case
+  (up (msort xs)))
+(defthm msort-ord-thm
+  (up (msort xs)))
+(defthm msort-len-thm-base-case
+  (implies (not (consp (rest xs)))
+           (= (len (msort xs)) (len xs))))
+(defthm msort-len-thm-inductive-case
+  (= (len (msort (cons x xs)))
+     (1+ (len (msort xs)))))
+(defthm msort-len-thm
+  (= (len (msort xs)) (len xs)))
+(defthm msort-val-thm
+  (iff (occurs-in e xs)
+       (occurs-in e (msort xs))))
+\end{Verbatim}
+
+ACL2 succeeds in verifying two of the above properties of msort,
+It needs some help in verifying the value-preserving
+properties, but going through the litany does not provide
+much elucidation about how computers work, so we are going to skip it.
+
+\begin{ExerciseList}
+\Exercise
+Do a pencil-and-paper proof that, under certain conditions, the dmx operator
+delivers lists that are shorter than its operator
+(dmx-shortens-list-thm, page \pageref{defthm:dmx-shortens-list}).
+{defthm:dmx-shortens-list}
+
+Do a pencil-and-paper proof that the msort operator
+delivers a list that is in increasing order.
+(msort-ord-thm, page \pageref{defthm:msort-ord}).
+
+Do a pencil-and-paper proof that the msort operator
+preserves the length of its operand
+(msort-len-thm, page \pageref{defthm:msort-len}).
+
+Do a pencil-and-paper proof that the msort operator
+preserves the values in its operand
+(msort-val-thm, page \pageref{defthm:msort-val}).
+\end{ExerciseList}
+
+\section{Analysis of Sorting Algorithms}
+\label{sec:sort-analysis}
+
+In this section, we discuss an operational model for ACL2
+that gives us a way to count the number of computational steps involved
+in computing the value of a formula. We use the equations defining
+the isort and msort operators to derive inductive equations
+for the number of computational steps required to rearrange lists
+into increasing order by isort versus msort formulations.
+Then, we derive from those equations, by mathematical induction,
+an bounds on the number of computational steps required by msort.
+It turns out that the number of steps for msort 
+is proportional to the product of
+the number of elements in the list to be sorted 
+and the logarithm of that number.
+
+We also compute an approximation to the expected number of computational steps
+required by the isort operator to deliver its result.
+The number of steps for isort depends on the particular arrangement of
+of the numbers in the operand, so it's not always the same.
+But we can get an approximation of the average, and that turns out to
+be proportional to the square on the number of elements in the list to be sorted.

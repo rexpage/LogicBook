@@ -1,0 +1,95 @@
+%\documentclass[letterpaper,10pt,extrafontsizesmtwoside,onecolumn,openright,draft,fleqn]{memoir}
+\documentclass[letterpaper,10pt,extrafontsizesmtwoside,onecolumn,openright,fleqn]{memoir}
+
+\usepackage{memsty}
+
+\headstyles{memman}
+
+\setsecnumdepth{subsection}
+
+% This fixes the problem with "ACL2!>" showing up as "ACL2!?"
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+
+%\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\renewcommand{\qedsymbol}{\textsc{q.e.d.}}
+
+\newcommand{\todo}[1]{}%{\par\framebox{\parbox{.75\textwidth}{\emph{TODO: #1}}}\par}
+
+\definecolor{MyGray}{rgb}{0.8,0.8,0.8}
+\makeatletter\newenvironment{graybox}{%
+   \begin{lrbox}{\@tempboxa}\begin{minipage}{.8\columnwidth}\setlength{\parindent}{.25in}}{\end{minipage}\end{lrbox}%
+   \colorbox{MyGray}{\usebox{\@tempboxa}}
+}\makeatother
+
+\newcommand{\asidename}{Aside}
+\newcommand{\listasidename}{List of Asides}
+\newlistof{listofasides}{loa}{\listasidename}
+\newfloat[chapter]{asidefloat}{loa}{\asidename}
+\newlistentry{asidefloat}{loa}{0}
+
+\newenvironment{aside}%
+{\begin{asidefloat}\begin{center}\begin{graybox}\noindent\ignorespaces}%
+{\end{graybox}\end{center}\end{asidefloat}}
+
+\usepackage{exercise}
+
+%\usepackage{url}
+
+%\usepackage[final]{graphicx}
+
+\usepackage[final]{listings}
+\lstset{language=Lisp,
+		alsodigit={-},
+        morekeywords={defproperty,defthmd,if,check-expect,include-book,len},
+        frame=single, numbers=left, numberstyle=\footnotesize, escapeinside={//*@}{@*//}}
+
+\mathchardef\hyphenmathcode=\mathcode`\-
+\let\origlstlisting=\lstlisting
+\let\endoriglstlisting=\endlstlisting
+\renewenvironment{lstlisting}
+    {\mathcode`\-=\hyphenmathcode
+     \everymath{}\mathsurround=0pt\origlstlisting}
+    {\endoriglstlisting}
+
+
+\usepackage{enumitem}
+\setlist{nolistsep,leftmargin=*}
+
+% This should give links in PDF, but it doesn't work with memoir for me
+%\usepackage{hyperref}
+%\hypersetup{pdftex=true, letterpaper=true, bookmarks=true, colorlinks=true, urlcolor=black}
+%
+%\usepackage{memhfixc}
+
+\begin{document}
+Thanks, again, for sending the reviews of our partial draft of How Computers Work. Ruben and I have been mulling this over and would like to propose an unusual course of action. This note is long, so we're putting a summary up front.
+Here are the main points:
+ 1. We think reviewer 1 has a good point about markets for the book
+ 2. We'd like to do two books,
+    a long one for the discrete math market,
+    a short one for the a market possibly similar to that of the Friedman "little books"
+ 3. The long one would place the standard 30 to 40 discrete math topics in a CS/SE context
+ 4. The short one could be a supplement in some courses
+ 5. The short one might also find a market among professionals and the intellectually curious
+ 
+Reviewer  1 points out that the book, as it stands, targets a limited audience. There aren't many existing courses that could use How Computers Work as their main text. The reviewer correctly observes that we have tried to place logic as a fundamental tool of software engineering in the same way that physics is a fundamental tool of electrical engineering.
+
+We don't think we failed in that mission, as the reviewer does, but it is true that our claim to success is based on the view functional programming is the proper domain for most software development projects. As reviewer 1 points out, the adoption of functional programming by the bulk of software developers is not going to happen. However, we believe that a book that illustrates how logic could be the physics of software development, even if it's limited to the functional programming domain, contains a body of knowledge that all software engineers could benefit from studying.
+
+The problem is in finding courses where such a book could be adopted. Almost all computer science programs require a discrete math course. Few require a separate logic course. Therefore, reviewer  1's suggestion that we expand our book to a full-fledged discrete math text is good advice, and we are prepared to do that. It will take a while, though. The most popular texts are long. Rosen (McGraw Hill) is 800 pages. Grimaldi (Pearson) is 700 pages. Hein (Jones and Bartlett) is 1,000 pages.
+
+So, it's a big project. Our approach would be to place each topic in the context of one or more important applications in software development, or at least within the field of computer science. Rosen and Grimaldi pay lip service to this notion, at best. Hein does a better job of it, but falls short of our goals. These ideas cannot be thrown over the fence in a minimalist context and remain useful to students of software engineering and computer science.
+
+Popular discrete math texts cover three to five dozen separate concepts in 500 to 1,000 pages. That's 10 to 20 pages per concept. Placing them in context approximately doubles the space requirements, so we'd be on the high end of that figure. So, our 800-page book would cover 30 to 40 concepts, which should make it adoptable in many CS programs. We think we could have a draft meeting our goals ready for review in the August, 2013 timeframe.
+
+However, we don't want to give up on our original concept: a short book (about 200pp) of interest to people studying CS or SE using logic as a basis for understanding how computers work. We think such a book would play a role similar to the one we imagine Friedman's "little" series provides in course work. Namely, the role of a supplementary text that students study to help them understand what they are learning in a course that has another book as it's primary text. In addition, we think our short, How Computers Work, book would appeal to professional software developers and other intellectually curious people.
+
+So, we would like to publish two books: the short one (How Computers Work) and the long one (Discrete Math for Software Engineers). We would be happy to have How Computers Work be online only, if MIT Press finds that advantageous. The same goes for the long book, but an 800 page book seems unwieldy for online use.
+
+We hope you will give this proposal some consideration and let us know what you think.
+
+\end{document}
+

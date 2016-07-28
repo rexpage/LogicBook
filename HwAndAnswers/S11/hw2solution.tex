@@ -1,0 +1,60 @@
+\documentclass{article}
+
+
+\begin{document}
+  \begin{center}
+    {\Large Homework 2 Answers}
+  \end{center}
+  \begin{enumerate}
+    \item
+      $reciprocals(-1)$ and $reciprocals(\frac12)$ are not well defined under the given definition for $reciprocals$; they cannot be evaluated.
+    \item
+      \[ factor(k, n) = \left\{
+        \begin{array}{ll}
+          \mathrm{true} & \mathrm{if\ } mod(n, k) = 0 \\
+          \mathrm{false} & \mathrm{otherwise}
+        \end{array}
+      \right. \]
+    \item
+      \[ largest\_factor(n) = largest\_factor\_upto(n, n-1) \]
+      \[ largest\_factor\_upto(k, n) = \left\{
+        \begin{array}{ll}
+          k & \mathrm{if\ } factor(n, k) \\
+          largest\_factor\_upto(n, k-1) & \mathrm{otherwise}
+        \end{array}
+      \right. \]
+    \item
+      \[ prime(n) = \left\{
+        \begin{array}{ll}
+          \mathrm{true} & \mathrm{if\ } largest\_factor(n) = 1 \\
+          \mathrm{false} & \mathrm{otherwise}
+        \end{array}
+      \right. \]
+    \item
+      \[ prime\_reciprocals(n) = \left\{
+        \begin{array}{ll}
+          0 & \mathrm{if\ } n = 1 \\
+          prime\_reciprocals(n - 1) + \frac{1}{n} & \mathrm{if\ } prime(n) \\
+          prime\_reciprocals(n - 1) & \mathrm{otherwise} \\
+        \end{array}
+      \right. \]
+      
+    \item
+    \begin{verbatim}
+(defun mb-iters (z z0 i)
+  (if (or (too-big z) (= i 100))
+    0
+    (+ 1 (mb-iters (f z z0) z0 (+ 1 i)))))
+    \end{verbatim}
+    \item
+    \begin{verbatim}
+(defun mandelbrot-iters (z)
+  (mb-iters z z 0))
+    \end{verbatim}
+    \item
+    \begin{verbatim}
+(defun mandelbrot-iters (z)
+  (min 15 (mb-iters z z 0)))
+    \end{verbatim}
+  \end{enumerate}
+\end{document}

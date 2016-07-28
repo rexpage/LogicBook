@@ -1,0 +1,146 @@
+\documentclass[fleqn]{article}
+
+\usepackage{fullpage}
+\usepackage{amssymb}
+
+\newenvironment{proof}
+  {\[\begin{array}{lll}}
+  {\end{array}\]}
+
+\newcommand{\law}[1]{\{\mathit{#1}\}}
+
+\newcommand{\True}[0]{\mathrm{True}}
+
+\newcommand{\False}[0]{\mathrm{False}}
+
+\renewcommand{\c}[1]{\mbox{\texttt{#1}}}
+
+\begin{document}
+  \begin{center}
+    {\Large Homework 6 Solutions}
+  \end{center}
+  \begin{enumerate}
+    \item {\bf Ex. 27}
+      \[ P(n) \equiv \c{(append xs (append ys zs))} =
+                     \c{(append (append xs ys) zs)} \]
+                     \[ \qquad \qquad \mathrm{where} \c{ (len xs)} = n \]
+
+      Base case: $P(0)$
+      \begin{proof}
+          & \c{(append nil (append ys zs))} & \\
+        = & \c{(append ys zs)} & \law{app0} \\
+        = & \c{(append (append nil ys) zs)} & \law{app0} \\
+      \end{proof}
+      Inductive case: $P(n) \to P(n + 1)$
+      \begin{proof}
+          & \c{(append (cons x xs) (append ys zs))} & \\
+        = & \c{(cons x (append xs (append ys zs)))} & \law{app1} \\
+        = & \c{(cons x (append (append xs ys) zs))} & \law{P(n)} \\
+        = & \c{(append (cons x (append xs ys)) zs)} & \law{app1} \\
+        = & \c{(append (append (cons x xs) ys) zs)} & \law{app1} \\
+      \end{proof}
+    \item {\bf Ex. 28}
+      \[ E(n) \equiv \c{(expt x n)} = x^n \]
+      Base case: $E(0)$
+      \begin{proof}
+          & \c{(expt x 0)} & \\
+        = & \c{1} & \law{expt0} \\
+        = & x^0 & \law{algebra} \\
+      \end{proof}
+      Inductive case
+      \begin{proof}
+          & \c{(expt x (+ n 1))} & \\
+        = & \c{(* x (expt x n))} & \law{expt1} \\
+        = & \c{(* x } x^n \c{)} & \law{E(n)} \\
+        = & x^{n+1} & \law{algebra} \\
+      \end{proof}
+    \item {\bf Ex. 29}
+      \[ R(n) \equiv \c{(len (rep n x))} = \c{n} \]
+      Base case: $R(0)$
+      \begin{proof}
+          & \c{(len (rep 0 x))} & \\
+        = & \c{(len nil)} & \law{rep0} \\
+        = & \c{0} & \law{len0} \\
+      \end{proof}
+      Inductive case
+      \begin{proof}
+          & \c{(len (rep (+ n 1) x))} & \\
+        = & \c{(len (cons x (rep n x)))} & \law{rep1} \\
+        = & \c{(+ 1 (len (rep n x)))} & \law{len1} \\
+        = & \c{(+ 1 n)} & \law{R(n)} \\
+      \end{proof}
+    \item {\bf Ex. 30}
+      \[ M(n) \equiv \c{ (member-equal y (rep n x))} \to \c{(member-equal y (list x)) } \]
+      \[ n \in \mathbb{N} \]
+      Base case: $M(0)$
+      \begin{proof}
+          & \c{(member-equal y (rep 0 x))} \to \c{(member-equal y (list x))} & \\
+        = & \c{(member-equal y nil)} \to \c{(member-equal y (list x))} & \law{rep0} \\
+        = & \c{nil} \to \c{(member-equal y (list x))} & \law{mem0} \\
+        = & (\neg \False) \vee \c{(member-equal y (list x))} & \law{\mathrm{implication}} \\
+        = & \True \vee \c{(member-equal y (list x))} & \law{\neg\False} \\
+        = & \c{(member-equal y (list x))} \vee \True & \law{\vee\ \mathrm{commutative}} \\
+        = & \True & \law{\vee\ \mathrm{null}} \\
+      \end{proof}
+      Inductive case
+      \begin{proof}
+          & \c{(member-equal y (rep (+ n 1) x))} \to & \\
+          & \qquad \c{(member-equal y (list x))} & \\
+        = & \c{(member-equal y (cons x (rep n x))} \to & \\
+          & \qquad \c{(member-equal y (list x))} & \law{rep1} \\
+        = & \c{(member-equal y (cons x (rep n x))} \to & \\
+          & \qquad \c{(member-equal y (cons x nil))} & \law{list} \\
+        = & (\c{(equal y x)} \vee \c{(member-equal y (rep n x))}) \to & \\
+          & \qquad (\c{(equal y x)} \vee \c{(member-equal y nil)}) & \law{mem1} \times 2 \\
+        = & (\c{(equal y x)} \vee \c{(member-equal y (rep n x))}) \to & \\
+          & \qquad (\c{(equal y x)} \vee \c{nil}) & \law{mem0} \\
+        = & (\c{(equal y x)} \vee \c{(member-equal y (rep n x))}) \to & \\
+          & \qquad \c{(equal y x)} & \law{\vee\ \mathrm{id}} \\
+      \end{proof}
+    \item {\bf Ex. 31}
+      \[ C(n) \equiv \c{(len (nthcdr (len xs) xs))} = 0 \]
+      \[ \qquad \qquad \mathrm{where} \c{ (len xs)} = n \]
+      Base case: $C(0)$
+      \begin{proof}
+          & \c{(len (nthcdr (len nil) nil))} & \\
+        = & \c{(len (nthcdr 0 nil))} & \law{len0} \\
+        = & \c{(len nil)} & \law{sfx0} \\
+        = & \c{0} & \law{len0} \\
+      \end{proof}
+      Inductive case
+      \begin{proof}
+          & \c{(len (nthcdr (len (cons x xs)) (cons x xs)))} & \\
+        = & \c{(len (nthcdr (+ 1 (len xs)) (cons x xs)))} & \law{len1} \\
+        = & \c{(len (nthcdr (+ (len xs) 1) (cons x xs)))} & \law{+ comm} \\
+        = & \c{(len (nthcdr (len xs) (rest (cons x xs))))} & \law{sfx1} \\
+        = & \c{(len (nthcdr (len xs) xs))} & \law{rest} \\
+        = & \c{0} & \law{C(n)} \\
+      \end{proof}
+    \item {\bf Ex. 32}
+      \[ D(n) \equiv \c{(len (nthcdr (+ (len xs) n)))} \]
+      Base case
+      \begin{proof}
+          & \c{(len (nthcdr (+ (len xs) 0) xs))} & \\
+        = & \c{(len (nthcdr (len xs) xs))} \law{+\ \mathrm{identity}} & \\
+        = & \c{0} \law{drop-all0} & \\
+      \end{proof}
+      Inductive case
+      \begin{proof}
+          & \c{(len (nthcdr (+ (len xs) (+ n 1)) xs))} & \\
+        = & \c{(len (nthcdr (+ (+ (len xs) n) 1) xs))} & \law{+\ \mathrm{associative}} \\
+        = & \c{(len (nthcdr (+ (len xs) n) (rest xs)))} & \law{sfx1} \\
+      \end{proof}
+      Case 1: $\c{xs} = \c{nil}$
+      \begin{proof}
+        = & \c{(len (nthcdr (+ (len nil) n) (rest nil)))} & \\
+        = & \c{(len (nthcdr (+ (len nil) n) nil))} & \law{rest0} \\
+        = & \c{0} & \law{D(n)} \\
+      \end{proof}
+      Case 2: $\c{xs} = \c{(cons y ys)}$
+      \begin{proof}
+        = & \c{(len (nthcdr (+ (len (cons y ys)) n) (rest (cons y ys))))} & \\
+        = & \c{(len (nthcdr (+ (len (cons y ys)) n) ys))} & \law{rest} \\
+        = & \c{0} & \law{D(n)} \\
+      \end{proof}
+  \end{enumerate}
+\end{document}

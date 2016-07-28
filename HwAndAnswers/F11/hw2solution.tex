@@ -1,0 +1,160 @@
+\documentclass[fleqn]{article}
+
+\usepackage{fullpage}
+
+\newenvironment{proof}
+  {\[\begin{array}{lll}}
+  {\end{array}\]}
+
+\newcommand{\law}[2][\!]{\{{#1\,}\mbox{{#2}}\}}
+
+\newcommand{\True}[0]{\mathrm{True}}
+
+\newcommand{\False}[0]{\mathrm{False}}
+
+\begin{document}
+  \begin{center}
+    {\Large Homework 2 Solutions}
+  \end{center}
+  \begin{enumerate}
+      \item
+      \textbf{ Ex. 7 }
+      \begin{proof}
+          & ((-1)\times x) + x & \\
+        = & ((-1) \times x) + (x \times 1) & \law[\times]{identity} \\
+        = & (x \times (-1)) + (x \times 1) & \law[\times]{commutative} \\
+        = & x \times ((-1) + 1)            & \law[\times]{distributive law} \\
+        = & x \times 0                     & \law[+]{complement} \\
+        = & 0                              & \law[\times]{null} \\
+        \end{proof}
+    \item
+      \textbf{ Ex. 8 }
+      \begin{proof}
+          & ((x + (((-1) \times (x + y)) + z)) + y) & \\
+        = & (x + ((((-1)\times x) + ((-1) \times y))) + z) + y) & \law{distributive law} \\
+        = & ((x + ((-1)\times x) + (((-1)\times y) + z)) + y) & \law[+]{associative} \\
+        = & ((x + ((-1)\times x)) + (((-1)\times y) + z) + y) & \law[+]{associative} \\
+        = & ((((-1)\times y) + z) + y) & \law[+]{complement}  \\
+        = & ((z + ((-1)\times y)) + y) & \law[+]{commutative} \\
+        = & (z + (((-1)\times y) + y)) & \law[+]{associative} \\
+        = & z + 0                      & \law[\times]{negation}  \\
+        = & z                          & \law[+]{identity}  \\
+        \end{proof}
+    \item
+      \textbf{ Ex. 9 }
+      \begin{proof}
+          & (x \wedge y) \vee y & \\
+        = & y \vee (x \wedge y) & \law[\vee]{commutative} \\
+        = & (y \vee x) \wedge (y \vee y) & \law[\vee]{distributive} \\
+        = & (y \vee x) \wedge y & \law[\vee]{idempotent} \\
+        = & (x \vee y) \wedge y & \law[\vee]{commutative} \\
+        = & y & \law[\wedge]{absorption} \\
+      \end{proof}
+    \item
+      \textbf{ Ex. 10 }
+
+      \textbf{Lemma:} $ x \wedge \True = x $  $ \law[\wedge]{identity} $
+      \begin{proof}
+          & x \wedge \True & \\
+        = & (\neg (\neg x)) \wedge (\neg (\neg \True)) & \law{double negation} \times 2 \\
+        = & \neg ((\neg x) \vee (\neg \True)) & \law[\vee]{DeMorgan} \\
+        = & \neg ((\neg x) \vee (\neg (\False \rightarrow \False))) & \law{self-implication} \\
+        = & \neg ((\neg x) \vee (\neg ((\neg \False) \vee \False))) & \law{implication} \\
+        = & \neg ((\neg x) \vee (\neg (\neg \False))) & \law[\vee]{identity} \\
+        = & \neg ((\neg x) \vee \False) & \law{double negation} \\
+        = & \neg (\neg x) & \law[\vee]{identity} \\
+        = & x & \law{double negation} \\
+      \end{proof}
+
+      \textbf{Proof:}
+      \begin{proof}
+          & ((\neg x) \wedge y) \vee (x \wedge (\neg y)) & \\
+        = & (((\neg x) \wedge y) \vee x) \wedge (((\neg x) \wedge y) \vee (\neg y)) & \law{distributive law} \\
+        = & (x \vee ((\neg x) \wedge y)) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law[\vee]{commutative} \\
+        = & ((x \vee (\neg x)) \wedge (x \vee y))) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law{distributive law} \\
+        = & (((\neg x) \vee x) \wedge (x \vee y))) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law[\vee]{commutative} \\
+        = & ((x \rightarrow x) \wedge (x \vee y))) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law{implication} \\
+        = & (\True \wedge (x \vee y)) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law{self-implication} \\
+        = & ((\neg (\neg \True)) \wedge (\neg (\neg(x \vee y)))) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law{double negation} \times 2 \\
+        = & (\neg ((\neg \True) \vee (\neg(x \vee y)))) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law[\vee]{DeMorgan} \\
+        = & (\neg ((\neg(x \vee y)) \vee (\neg \True))) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law[\vee]{commutative} \\
+        = & ((\neg(\neg(x \vee y))) \vee (\neg (\neg \True))) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law[\vee]{DeMorgan} \\
+        = & ((x \vee y) \vee \True) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law{double negation} \times 2 \\
+        = & (x \vee y) \wedge ((\neg y) \vee ((\neg x) \wedge y)) & \law[\wedge]{identity} \\
+        = & (x \vee y) \wedge (((\neg y) \vee (\neg x)) \wedge ((\neg y) \vee y))) & \law[\vee]{distributive} \\
+        = & (x \vee y) \wedge (((\neg y) \vee (\neg x)) \wedge (y \rightarrow y)) & \law{implication} \\
+        = & (x \vee y) \wedge (((\neg y) \vee (\neg x)) \wedge \True) & \law{self-implication} \\
+        = & (x \vee y) \wedge ((\neg y) \vee (\neg x)) & \law[\wedge]{identity} \\
+        = & (x \vee y) \wedge (\neg (x \wedge y)) & \law[\vee]{DeMorgan} \\
+      \end{proof}
+    \item
+      \textbf{ Ex. 12 }
+      \[ x \vee ((\neg y) \wedge (\neg z)) \]
+      \begin{enumerate}
+        \item
+          \[ (x = \False,\ y = \False,\ z = \False) \]
+          \begin{proof}
+              & \False \vee ((\neg \False) \wedge (\neg \False)) & \\
+            = & ((\neg \False) \wedge (\neg \False)) \vee \False & \law[\vee]{commutative} \\
+            = & (\neg \False) \wedge (\neg \False) & \law[\vee]{identity} \\
+            = & \False \vee \False & \law[\vee]{DeMorgan} \\
+            = & \False & \law[\vee]{identity} \\
+          \end{proof}
+        \item
+          \[ (x = \False,\ y = \False,\ z = \True) \]
+          \begin{proof}
+              & \False \vee ((\neg \False) \wedge (\neg \True)) & \\
+            = & ((\neg \False) \wedge (\neg \True)) \vee \False & \law[\vee]{commutative} \\
+            = & ((\neg \False) \wedge (\neg \True)) & \law[\vee]{identity} \\
+            = & \False \vee \True & \law[\vee]{DeMorgan} \\
+            = & \True & \law[\vee]{null} \\
+          \end{proof}
+        \item
+          \[ (x = \False,\ y = \True,\ z = \False) \]
+          \begin{proof}
+              & \False \vee ((\neg \True) \wedge (\neg \False)) & \\
+            = & ((\neg \True) \wedge (\neg \False)) \vee \False & \law[\vee]{commutative} \\
+            = & ((\neg \True) \wedge (\neg \False)) & \law[\vee]{identity} \\
+            = & \True \vee \False & \law[\vee]{DeMorgan} \\
+            = & \True & \law[\vee]{identity} \\
+          \end{proof}
+        \item
+          \[ (x = \False,\ y = \True,\ z = \True) \]
+          \begin{proof}
+              & \False \vee ((\neg \True) \wedge (\neg \True)) & \\
+            = & ((\neg \True) \wedge (\neg \True)) \vee \False & \law[\vee]{commutative} \\
+            = & ((\neg \True) \wedge (\neg \True)) & \law[\vee]{identity} \\
+            = & \True \vee \True & \law[\vee]{DeMorgan} \\
+            = & \True & \law[\vee]{null} \\
+          \end{proof}
+        \item
+          \[ (x = \True,\ y = \False,\ z = \False) \]
+          \begin{proof}
+              & \True \vee ((\neg \False) \wedge (\neg \False)) & \\
+            = & ((\neg \False) \wedge (\neg \False)) \vee \True & \law[\vee]{commutative} \\
+            = & \True & \law[\vee]{null} \\
+          \end{proof}
+        \item
+          \[ (x = \True,\ y = \False,\ z = \True) \]
+          \begin{proof}
+              & \True \vee ((\neg \False) \wedge (\neg \True)) & \\
+            = & ((\neg \False) \wedge (\neg \True)) \vee \True & \law[\vee]{commutative} \\
+            = & \True & \law[\vee]{null} \\
+          \end{proof}
+        \item
+          \[ (x = \True,\ y = \True,\ z = \False) \]
+          \begin{proof}
+              & \True \vee ((\neg \True) \wedge (\neg \False)) & \\
+            = & ((\neg \True) \wedge (\neg \False)) \vee \True & \law[\vee]{commutative} \\
+            = & \True & \law[\vee]{null} \\
+          \end{proof}
+        \item
+          \[ (x = \True,\ y = \True,\ z = \True) \]
+          \begin{proof}
+              & \True \vee ((\neg \True) \wedge (\neg \True)) & \\
+            = & ((\neg \True) \wedge (\neg \True)) \vee \True & \law[\vee]{commutative} \\
+            = & \True & \law[\vee]{null} \\
+          \end{proof}
+      \end{enumerate}
+  \end{enumerate}
+\end{document}

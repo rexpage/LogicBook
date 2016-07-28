@@ -1,0 +1,234 @@
+Dec 21, 2010
+Rex,
+I've gone through chapter 4 and made a few minor changes (mostly formatting
+or typos).  I also took a stab at formatting the multiline proof that you
+were talking about.  It's close, though it's not quite right yet.  I may
+have to do some serious hacking to make the top of the tabbing align with
+the = sign :-(
+
+I left some questions/comments in the chapter 4 code.  They'll show up
+marked with "TODO: Rex", and in the tex file, they are \todo{?} sections.
+
+The biggest comments I have are here, though:
+
+        1) I _really_ liked your introduction to induction.  It took me by
+surprise, but it works beautifully.
+
+        2) I feel a little queasy about the introduction of definitions via
+defthmd.  I would not have any issues with simply saying that those are
+equalities (i.e., with introducing them as axioms using =).  I'm wondering
+if you really care that much about introducing them with defthmd right now.
+Maybe we can get rid of the ACL2 stuff, and add a section at the end that
+talks about ACL2 and theorems.  Perhaps something along the lines of "many
+of the theorems we have proved in this section can be proved automatically
+using ACL2." and take off from there.  What do you think?
+Rg
+
+Thanks, Ruben. I haven't looked through your comments in the chapter yet,
+but I think it's a great idea to leave the defthms out at first, then
+introduce them in a separate chapter or section later.
+
+I think I'll try to do this today, and put it in as a last section of ch 4. The beauty of it is that it relegates the ACL2 syntax to a notational issue. They will already understand the concepts, and will just be adjusting to a notation that the computer can use.
+
+In fact, I think it might work to take out the defuns, too, and relagate them to the ACL2 section. The idea would be to introduce axioms and derivations, then move on to show how we can present the ideas to a clunky
+old computer that has problems dealing with our freewheeling,
+people-oriented syntax.
+
+I think I'd leave in the prefix notation for the bulk of the formulas,
+though. It's clunky, but gets them on a track towards the computer-oriented
+syntax that they will eventually have to deal with.
+I'll try this, and you can judge whether it works.
+
+On the alignment issue, I hope you can find a way make it reasonable to
+maintain. There is some way to use invisible characters for alignment
+purposes, but then you have to change those every time you change the text,
+which is a maintenance nightmare.
+- Rex
+
+Ruben
+\todo #1 - sfx1 isn't true
+(nthcdr (+ n 1) (cons x xs)) = (nthcdr n xs) & \{\emph{sfx1}\}
+
+Do you mean it isn't true unless n is a natural number? Otherwise, I think
+it's true. What am I missing?
+
+I don't think we need to worry about the natural number part. When we put it
+in ACL2 we'll use natp or posp to get the restriction. Do you think we need
+to say something in the axiom about the domain of n? I'm trying to rely on
+context, at least a little, to avoid distractions, but maybe that's
+wrong-headed.
+
+\todo #2 numbered list interpretation
+(x_m ... x_n) means list with max(n-m+1,0) elements
+
+In class, I've tried to slip by on the observation that (x_2 ... x_n+1) has
+n elements, but I have to explain it. There is some informality involved,
+and students don't see it right away. So, I think we need to say something
+about it. The max(n-m+1,0) might give them a little pause, but I'm reluctant
+to leave it out.
+
+Your point is that we can introduce it later, when we need it, but I think
+we need it at this point. I'm going to leave it in for today, but please let
+me know what you think of my logic.
+
+\todo #3 xs should have been (x1 x2 ... xn)
+right, thanks
+
+\todo #4 hint about true-lists
+xs and ys have to be true-lists to make the append associativity equation
+for xs, ys, and zs correct. So, the theorem has to be stated using "implies"
+and "true-listp". Am I missing something?
+- Rex
+
+Rex
+For sfx1, yeah, I meant natp.  It breaks for n=-1, for instance.  I think we
+can safely defer that, especially if we don't introduce ACL2 right at the
+beginning.  That can be one of the points we mention when introducing ACL2
+syntax.
+
+For the second todo, I was objecting to the (x1 x3 x5) syntax, not the (x1
+x2 ?  xn) syntax.  I didn't see where you were indexing lists two or three
+or k at a time, and I figured introducing that there was confusing.
+
+I missed the requirement on #4.  Yeah, that does makes sense.  In pure ACL2,
+append is associative, even on false lists.  But your equation showed it as
+needing true-listp, which will make more intuitive sense to them.  So I say
+leave it.
+Rg
+
+end of Dec 21, 2010
+
+Date: Mon, 15 Nov 2010 22:09:08 -0600 (CST)
+From: Rex Page <page@ou.edu>
+To: Ruben Gamboa <ruben@cs.uwyo.edu>
+Subject: progress on logic book
+
+Ruben
+I worked all day on ch3 and ch4. It's been a bit of a struggle. I'm trying to introduce induction in ch4, starting with
+the division check theorem (+ (* (floor n d) d) (mod n d)) = n.
+
+In past courses, I have started with the standard induction inference rule: P(0), forall n.(P(n)->P(n+1)) |- forall
+n.P(n)
+
+Then, I can prove the first few without citing induction, just citing P(0) to get P(1), P(1) to get P(2), and so on to
+show that each of the proof is identical, except for the justification of the step citing P(n) in the proof of P(n+1).
+
+This gives them the idea of induction, and justifies the inference rule by convincing people that the established pattern
+provides a mechanical way to get from P(0) to any P(n), given enough time and discipline.
+
+Unfortunately, the example I've chosen uses the strong induction inference rule:
+forall n.((forall m<n.P(m))->P(n)) |- forall n.P(n)
+That one is not quite to easy to step through.
+
+So, I think I'm stuck with stating the strong induction inference rule, and using it without doing a step-by-step
+build-up. This may turn out to be ineffective.
+
+It's amazing how fragile this stuff is. I started with the sequence operations when I developed the course ten years ago
+primarily because I wanted to stay away from numbers to keep them thinking, not skipping steps, and proving things they
+didn't know before. Now, I find that starting with sequences also has the advantage leading off with standard induction
+without seeming too trivial.
+
+Of course, we could go back to some number based, closed form formulas, like sum[1, 2, ... n] = n*(n+1)/2, to get
+something non-trivial that uses numbers and standard induction. I don't like doing that, though, because it seems
+artificial (who's interested in those formulas, anyway?), and besides, that formula may well be the only example of
+induction they've seen before, so there's no element of surprise.
+
+I guess I'll just push through with the division-check example for now, but I'm a little concerned about getting in too
+deep, too early, especially since our plan doesn't put them through any practice with one-directional inference rules
+before getting to this point.
+- Rex
+
+Date: Sat, 11 Dec 2010 14:54:48 -0600 (CST)
+From: Rex Page <page@ou.edu>
+To: Ruben Gamboa <ruben@cs.uwyo.edu>
+Subject: Ch 4 review, boxes, code font
+
+Ruben
+I committed what I have done on ch04 in svn, along with adding a \label to
+ch02. Ch 4 isn't done yet, but I think it would be a good idea for you to
+take a look at it and see if you think I'm going in the right direction,
+that the notations are okay, proof layout, etc.
+
+Also, looking at the pdf output, it seems to me we need to prevent boxes
+(asides and listings) from spilling over from one page to the next. We may
+get some funny looking pages, but I think that will be better than having
+one box interrupt another. Plus spill-overs are really bad in listings. Our
+listings are short, and I think we can make sure to keep them under a page.
+
+The double-quote in the code font displays as close-quote. Let's change the
+font to something that has a neutral (non-open, non-close) graphic for the
+dbl-quote. I usually use Lucida Console in program editors because it has a
+strong comma. It is sans-serif, so that would make it strikingly different
+from the rest. Tends to be a bit large. We could use a smaller font size in
+listings.
+
+Also, in the listings some keywords (equal, nthcdr, append) go bold, and
+others don't (len, defthmd, include-book). My guess is that it would look
+better if we turned that off, but I do like the "comments in italics"
+feature.
+
+Finally, I have a feeling we're going to be changing the chapter structure,
+so we may have made a bad choice numbering them. However, that's probably
+not worth changing at this point. We can just use intermediate labels, like
+ch04b etc to make it work.
+- Rex
+
+
+hyperlinks from \pageref  (Dec 11, 2010)
+Ruben
+Would it be hard to make \pageref generate a hyperlink from the page  
+number to that point in the pdf file? If it's not too hard, that would
+make things eaier when reading the document online.
+
+We would probably want to do it in such a way that the page number    
+looks like ordinary text in a printed copy, maybe by using a color    
+that, when printed, looks about the same as regular text, but is 
+noticable online. 
+- Rex
+
+Nov 10, 2011
+Hi, Rex.
+I had a hunch about Review 2, and it turned out to be right.  I talked to Carl at the ACL2 Workshop, and sure enough he's mystery reviewer #2.  A lot of his feedback is based on his experience writing a book for the Little Schemer series, and honestly I think it was good feedback.
+
+Sadly, I'm more persuaded by reviewer #1.  The problem I have is that I'm not sure if there's enough demand for the honors course book.  I still think there's something there that should happen, but it may be tough to convince others to follow.  It may be an easier sell to target this more to discrete structures or logic for undergraduates.  You pulled most of the weight so far, so I'm happy to try to make a stab at this one, salvaging as much as I can from the current manuscript, but I need one hell of a reviewer (i.e., you) to go after each chapter.  With the help of distance, I can see I made a lot of serious mistakes in my first attempt at writing, just because I couldn't keep the audience in mind -- that's something that both reviewers caught, and Carl made clear in person.  So catch me :-)  If you're interested in that, I'll talk to Cowles, who's teaching our discrete math course this year.  Maybe I can try to see how our content would fit in his course.
+
+Of course, it would be easier to fix up the problems brought up by reviewer #2 (aka Carl) and go back to the editor.  I'm just not sure that's enough, though.  What do you think, really?  I have no experience in this area.
+
+BTW, I was hoping to see you last week at the ACL2 Workshop. I miss you! Maybe I can swing by there some time.  Cowles and I are working on a formalization of Cantor's two proofs of the uncountability of the reals.  It should be ready in January or February, so if you have an audience I can talk about it ;^)
+
+Cheers,
+Ruben
+
+Reply Nov 10, 2011
+Ruben
+Yes, I agree that there is a problem with demand for a book like this. We knew that at the outset, of course, but never figured out what to do about it.
+
+Taking on the disc math market is a huge challenge. There are a couple entrenched texts, very slick, written by mathematicians and pretty much worthless to computer science students since they just throw the stuff over the wall and hope the students can apply it (which is hopeless - applying math is harder than learning it). And, there's a lot of stuff. The big two, Grimaldi and Rosen, are, respectively, 800 and 700 pages.
+
+If we go the disc math route, I would want to make sure each new concept is illustrated in at least one important CS application (not just a program to compute n-choose-k or some other trivial matter). This is a multiyear project. I'm up to it, and I'll have time, since I'm retiring July 2013. Maybe we could target July 2014 as a completion date.
+
+When I say I'm up to it, I mean to rely on you for most of the disc math stuff (the other 500 pages). You know a lot more about applications than I do, and you're good at placing them in context. I'm good at rewrites and simplifying explanations, so I think we're a good team.
+
+In the mean time, I wonder if we could talk MIT Press into publishing a small book, maybe online only, like what we have but with Carl's improvements and some of our own. Try to turn it into what reviewer #1 says we failed at: making logic to CS what physics is to EE.
+
+Actually, I don't think we failed. The problem is that if we want logic to be the physics of CS, we have to stop using mutable variables. Reviewer #1 is right in observing that this is not going to happen, but I think a book based on the fantasy that it might happen would be a document worthy of study. We can add some programming to How Computers Work, still keep it small, and show how logic is the physics of CS. Maybe not to reviewer #1, but to people of substance open to tilting at windmills, or at least contemplating what would happen if people did tilt at windmills.
+
+MIT Press publishes Friedman's Little books. They don't get adopted for college courses, but students use them as supplements. Curious professionals and other intellectuals read them, too. Maybe we can tap that market the way Friedman has. Those people are the audience I have in mind. Basically, the honors students studying on their own time.
+
+I propose to draft a note to our editor at MIT Press asking if they'd be interested in doing an online-only How Computers Work soon, and work with us over a period of a few years to produce a new disc math text that is truly useful to CS students.
+
+If you agree that it's worthwhile to try this two-book tactic, I'll try to get the note put together this weekend for your review.
+- Rex
+
+Reply to reply, Nov 10, 2011
+That's exactly what I want!  I'd love to put what we have out there for others to use, and a small, online only (or not) version of what we have would be great.  We could get that ready to go in a few months.  And I really want to tackle a discrete math book based on Dracula.  I think it would fit in very nicely with Matthias program.  And if we write it so that it does not assume prior knowledge of functional programming, it will even work in other contexts.  It would be similar, I suppose, to what you did already, but with the added support of ACL2 for theorem proving.  Would that be different enough?
+Cheers,
+Ruben
+
+Repy to reply to reply, Nov 10, 2011
+Yes, I think it would be different enough from the Hall/O'Donnell book to avoid copyright problems. I guess we should start by looking at the topic lists in the popular disc math books and figure out what we want to cover.
+
+I think the current book is going to take more than a few months. Mid-May would be pushing it. August is probably closer.
+
+I'll draft a letter to MIT Press and send it to you for a rewrite.
+- Rex

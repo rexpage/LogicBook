@@ -1,0 +1,28 @@
+\documentclass{article}
+
+% Code to make this work
+\usepackage{fancyvrb}
+\fvset{frame=single,numbers=left}
+
+% Example
+\begin{document}
+
+Some text before the Verbatim section
+\begin{Verbatim}
+(include-book "doublecheck" :dir :teachpacks)
+
+(defun sum (xs)
+   (if (endp xs)
+       0
+       (+ (first xs)
+          (sum (rest xs)))))
+
+(defproperty sum-append
+   (xs :value (random-list-of (random-natural))
+    ys :value (random-list-of (random-natural)))
+   (= (sum (append xs ys))
+      (+ (sum xs) (sum ys))))
+\end{Verbatim}
+Some text after the Verbatim section.
+
+\end{document}

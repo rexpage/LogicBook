@@ -1,0 +1,1349 @@
+\chapter{Binary Numerals}
+\label{ch:binary-numerals}
+\section{Numbers and Numerals}
+\label{sec:numbers-numerals}
+Numbers are mathematical objects with certain properties,
+and they come with operators, such as addition
+and multiplication, that produce new numbers from numeric
+operands.
+Because numbers are mathematical objects, they are ephemeral.
+You can't really get your hands on them.
+They are figments of the imagination.
+
+However, numbers are useful and to deal with them,
+we need to write them down some way---decimal numerals, for example.
+The numeral 144 stands for the number
+of eggs in a dozen cartons of eggs.
+The numeral 1215 stands for the number of
+years between the twenty-seventh year of the reign
+of Caesar Augustus and the signing of the Magna Carta.
+
+However, things numerals like 144 and 1215 are numerals.
+They are not numbers, but instead are symbols that stand for numbers,
+and they are not the only symbols we use for that purpose.
+The symbols CXLIV and MCCXV stand for the same two numbers.
+So do the symbols $90_{16}$ and $4BF_{16}$.
+The other symbols are Roman numerals and hexadecimal numerals.
+The symbols 144 and 1215 are decimal numerals,
+which is the representation most
+people turn to when they do arithmetic.
+
+The decimal representation is, in fact, so embedded in
+our experience and practice that we often confuse
+the symbol with the number.
+In fact, the dictionary lists ``number'' and ``numeral'' as synonyms.
+Usually, there is no harm in considering them to be the same thing,
+but we are going to use numerals
+to do arithmetic in a mechanized way, and we will
+be careful to separate numbers as mathematical
+objects from the symbols we use to represent them.
+We will refer to the mathematical object as a ``number''
+and to the symbol representing it as a ``numeral''.
+
+Let's think about how we interpret a decimal numeral as a number.
+Take the numeral 1215, for example.
+Each digit in the numeral has a different interpretation.
+The first digit is the number of thousands in the number
+that 1215 stands for. The second tells us the number
+of hundreds, then the tens, and finally the units.
+The following formula is a way to express this interpretation.
+
+\begin{center}
+$1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
+\end{center}
+
+This formula computes a number from the individual digits
+in the numeral using standard arithmetic operations
+(addition, multiplication, and exponentiation).
+It shows us what the individual digits in the numeral stand for,
+and gives us a leg up up on figuring out other kinds of numerals.
+The digits in the hexadecimal numeral have a similar meaning,
+but with a different basis. Decimal numerals are based on
+powers of ten, but hexadecimal numerals are based on powers of sixteen.
+
+The system of decimal numerals calls of ten different symbols to represent digits,
+and we use the symbols 0, 1, 2, \dots 9 for this purpose.
+The hexadecimal system calls for sixteen different symbols,
+and we use 0, 1, 2, \dots 9, A, B, C, D, E, F to represent them.
+The digits stand for the customary numbers (0 for zero, 2 for two,
+and so on). The letters stand for the numbers beyond nine.
+
+There are no conventional squiggles for digits beyond 9.
+The letters A, B, \dots F were chosen for this purpose arbitrarily.
+So, in hexadecimal notation, ``A'' stands for ten, ``B'' for eleven,
+and so on up to ``F'' for fifteen. That leads to the following
+formula to express the meaning of the hexadecimal numeral $4BF_{16}$.
+(Remember, B stands for 11, F for 15.)
+\begin{center}
+$4 \times 16^2 + 11 \times 16^1 + 15 \times 16^0$
+\end{center}
+
+\begin{aside}
+Perhaps you noticed a subtle confusion in the formulas we use
+to explain the meaning of numerals. At first, we claim that
+1215 is merely a symbol standing for a mathematical object.
+And, we claim that the digit 2 is merely a symbol standing
+for the number of items in a pair, along with similar
+claims for the digits 1 and 5. Then, we use those symbols
+in the formula $1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
+as if they were numbers.
+
+There is some slight of hand going on here.
+We are trapped by our terminology.
+Numbers as mathematical objects are figments of our imagination,
+but when we write formulas, we have to choose some symbols to
+represent them.
+So, in the formula $1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$,
+we use the symbols 1, 10, 3, 2, 5, and 0 as if they were numbers.
+But, in the numeral 1215, the symbols 1, 2, and 5 are not numbers.
+They are symbols standing for numbers.
+
+It's even worse with the hexadecimal numeral $4BF_{16}$
+and the formula $4 \times 16^2 + 11 \times 16^1 + 15 \times 16^0$.
+In the formula we have rewritten the symbol ``B'' as the decimal numeral 11
+and the symbol ``F'' as the decimal numeral 15.
+And, we've had the temerity to pretend that symbols
+in the formula are numbers when they are really decimal numerals,
+just as we did in the formula that was supposed to explain
+the meaning of the decimal numeral 1215.
+
+Furthermore, we've really mixed things up in the numeral
+$4BF_{16}$ because the ``4BF'' part is in hexadecimal notation
+and the ``16'' part is a decimal numeral indicating that we are
+to interpret the digits in base sixteen rather than the conventional base ten.
+
+Try to get your head around this slight of hand.
+We're more-or-less stuck with it. Figments of our imagination have
+to be materialized, somehow, if we are going to talk about them.
+\caption{Digits as Numbers}
+\label{aside-digits-as-numbers}
+\end{aside}
+
+%okay to here
+
+Formulas like $1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
+convert numerals to numbers.
+No doubt you could use this example to construct the appropriate formula
+for any given numeral. Base 10 numerals for sure, and hex numerals, too,
+and probably any other base.
+
+We'll say more about to converting numerals to numbers later,
+but what about going the other direction, converting
+numbers to numerals?
+Suppose someone gives you an operator that is supposed to
+mechanize the conversion of a number to a decimal numeral.
+The name of the operator is ``dgts'', so the formula
+``(dgts 1215)'' would deliver the sequence ``[5 1 2 1]''.
+That is, dgts delivers a list of the decimal digits.
+The digits are in reverse order in the list,
+but they are the right digits.
+
+\begin{aside}
+\emph{What! The function delivers the digits backwards! Why is that?}
+
+Of course, the function could have delivered the digits in the
+customary order, but we have a reason for encoding the numeral
+backwards in the sequence that we are using to represent it.
+The reason will become apparent soon, but for now, just get used
+to it. We write numerals like ``1215'' in the usual way, but
+the dgts function delivers them in the form of
+a sequence ``[5 1 2 1]'' in which the digits appear in the
+reverse order.
+
+Besides being backwards, the elements in the sequence are numbers,
+not symbolic digits.
+That is another part of our slight of hand.
+We are using numbers to represent the digit symbols.
+We could convert them to pure symbols,
+but at this point, we are better off leaving them in the form of numbers
+because we will want to use them as numbers later.
+
+By the way, the sequence notation ``[5 1 2 1]'' is the symbol we use
+to describe the sequence, but the sequence itself is another kind of mathematical object.
+That is, it's another figment of our imagination.
+The ``real'' object is ephemeral in the same sense as numbers.
+\caption{Numerals as Sequences \dots Backwards}
+\label{numeral-as-sequence}
+\end{aside}
+
+Before you make heavy use of the operator, you will want to check it out.
+You might try it on a few numbers, for a start.
+\begin{Verbatim}
+(check-expect (dgts 1215) '(5 1 2 1))
+(check-expect (dgts 1964) '(4 6 9 1))
+(check-expect (dgts 12345) '(5 4 3 2 1))
+(check-expect (dgts 0) '())
+\end{Verbatim}
+
+Wait a minute!
+Why does (dgts 0) deliver the empty sequence instead of ``[0]''?
+That's another little trick.
+Besides delivering the digits in reverse order, leading zeros are always omitted.
+We could write the numeral ``1964'' with as many leading zeros as we like.
+The numerals ``01964'' and ``000001964'' also stand for the number 1964.
+Those numerals would be ``[4 6 9 1 0]'' and ``[4 6 9 1 0 0 0 0 0]'' in
+the reverse order that the dgts operator delivers.
+
+However, dgts never includes any leading zeros in the numerals it delivers.
+It leaves them all off, even for the number zero.
+That's why (dgts 0) is nil.
+Of course (dgts 012345) would be the same as (dgts 12345), too,
+because ``012345'' and ``12345'' stand for the same number.
+Both of those formulas would deliver the sequence ``[5 4 3 2 1]''.
+Remember: dgts operates on numbers, not numerals.
+
+%okay to here
+
+The computer interprets the decimal numeral in the formula (dgts 012345)
+as a number and converts it to a mathematical object. That is, a number.
+What does that number look like? None of your business.
+That's the computer's business.
+It has it's own way of dealing with numbers.
+Later, we'll study the way most computers do this,
+but for now we will assume that the computer has some way of turning
+numerals into whatever form it uses to deal with numbers.
+
+Now that we've run a few sanity checks, we want to get down to some serious testing.
+That means big batches of automated tests on random data.
+Coming up with automated tests calls for a little more thought.
+Let's start small. How about the last digit in a decimal numeral?
+What mathematical formula would deliver the last digit in a
+decimal numeral, given an arbitrary, positive integer $n$?
+
+The last digit in a decimal numeral is the remainder when you divide
+the number by ten. The formula that converts a numeral to a number
+makes that clear.
+\begin{center}
+$1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
+\end{center}
+
+Each of the terms in the formula is a product of a power
+of ten with another number. A power of ten is, of course,
+a multiple of ten, so none of the terms contribute to the remainder
+when dividing by ten. None of them, that is, except the last one.
+It does not have a factor of ten in it because the ten is raised to the
+power zero, and anything to the power zero is one, which is not a multiple of ten.
+So, to get the last digit in the numeral, all we need to do is to
+compute the remainder in the division of the number by ten.
+
+\begin{aside}
+To get this all straight,
+transport yourself back the the third grade.
+In those days, when you learned long division,
+there were four parts to the problem,
+and they all had names.
+
+\begin{tabular}{ll}
+\emph{divisor}   & number you divide by \\
+\emph{dividend}  & number you divide by the divisor \\
+\emph{quotient}  & what you get when you do the division \\
+\emph{remainder} & what's left over to make up the difference
+\end{tabular}
+\caption{Think Third-Grade Division}
+\label{third-grade-division}
+\end{aside}
+
+\begin{aside}
+ACL2 will not admit a function into its logic world unless
+it can prove that the function always delivers a value in
+a finite number of computational steps.
+This is because functions that don't terminate complicate the reasoning process.
+Proving that the dgts function, which converts numbers to numerals,
+terminates for all inputs requires an understanding of modular arithmetic.
+Fortunately, someone has put together a package of theorems on that topic.
+They reside in the ``arithmetic-3/floor-mod/floor-mod'' book
+(page \pageref{floor-mod-include-book}).
+ACL2 will admit the definition of dgts when those theorems
+have been included in its logic world.
+\caption{Termination, ACL2 Admit, and Floor/Mod Equations}
+\label{admit-def}
+\label{floor-mod-book}
+\end{aside}
+
+The remainder is
+what the ``mod'' function delivers (page \pageref{mod-function}).
+The following formula uses mod to make sure the last digit in the numeral
+that the dgts operator delivers for the number $n$ is correct.
+\begin{Verbatim}
+(= (first (dgts n)) (mod n 10))
+\end{Verbatim}
+
+Since dgts delivers the digits backwards,
+``(first (dgts $n$))'', the first digit in the sequence,
+is the last digit in the numeral.
+The formulas checks to make sure that digit is ``(mod $n$ 10)'',
+the remainder when dividing $n$ by 10.
+
+We can use the doublecheck facility of Proof Pad or Dracula to run this test on a batch of random numbers.
+We need to be careful not to allow zero to pop up in the testing
+because (dgts 0) is nil, so there is no first digit to check.
+Besides, we've already completed the testing of (dgts 0) in our sanity checks.
+We can avoid retesting zero by adding one to a random natural number.
+That produces a random, non-zero, positive integer.
+\begin{Verbatim}
+(defproperty dgts-last-digit-tst
+  (n-minus-1 :value (random-natural))
+  (let* ((n (+ n-minus-1 1))) ; avoid zero (no digits in numeral)
+    (= (first (dgts n))
+       (mod n 10))))
+\end{Verbatim}
+
+That takes care of testing the last digit
+(that is, the units digit), but what about the others?
+We can do something about those by observing that the quotient,
+when $n$ is divided by 10,
+is a number with the same digits as $n$,
+except that the last digit is missing.
+Remember, we're doing third-grade arithmetic here.
+The quotient is the main result of the division.
+No fraction, no decimal point, no remainder. Just the whole-number quotient.
+Since we've already tested to make sure the last digit is correct,
+we don't need to worry about that.
+We only need to worry about the other digits.
+
+%okay to here
+
+One way to test the other digits is to apply dgts to the quotient.
+The intrinsic function ``floor'' (page \pageref{floor-def})
+produces the quotient (discarding the remainder).
+
+The following formula implements the test we have in mind.
+It checks to make sure the digits other than the units digit
+in the sequence dgts delivers for $n$
+are the same as the digits in the sequence
+dgts delivers for the quotient in $(n \div 10)$.
+\begin{Verbatim}
+(equal (rest (dgts n))       ; all digits except the units digit
+       (dgts (floor n 10)))) ; digits of the quotient
+\end{Verbatim}
+
+As with the test of the units digit,
+we can run a batch of tests based on our rest-of-the-digits
+observation by defining a doublecheck property.
+\begin{Verbatim}
+(defproperty dgts-other-digits-tst
+  (n-minus-1 :value (random-natural))
+  (let* ((n (+ n-minus-1 1))) ; avoid zero (empty numeral)
+    (equal (rest (dgts n))
+           (dgts (floor n 10)))))
+\end{Verbatim}
+
+It would be nice to run these tests, but ``dgts'' is not an intrinsic operator.
+We have to provide a definition for it.
+To do that we use the ``defun'' command, which is similar to defproperty,
+but without any value specifications. The definition will be inductive,
+of course, using the same ideas as the tests,
+and will follow the three C's of Figure~\ref{fig:inductive-def-keys}
+(page \pageref{fig:inductive-def-keys}), which we repeat here,
+in a form tailored to the dgts function.
+\begin{samepage}
+\begin{center}
+\begin{tabular}{lp{3.5in}}
+\emph{Complete}      & Two cases: the number is zero or it isn't. So, two formulas.\\
+\emph{Consistent}    & The cases do not overlap---no chance for inconsistency.\\
+\emph{Computational} & In the inductive case (when $n$ is not zero), the argument of
+                       ``dgts'' is divided by ten, which makes it closer to zero
+                       (the non-inductive case).
+\end{tabular}
+\end{center}
+\end{samepage}
+
+The definition takes the following form.
+\label{dgts-defun}
+\begin{Verbatim}
+(defun dgts (n)
+  (if (zp n)
+      nil                          ; {dgts0}
+      (cons (mod n 10)             ; {dgts1}
+            (dgts (floor n 10)))))
+\end{Verbatim}
+
+This definition uses the operator, ``zp'' (page \pageref{zp-def}).
+The formula (zp $n$) delivers true if $n$ is the natural number zero
+(or, if it isn't a natural number at all), and false otherwise.
+
+\begin{aside}
+The function ``zp'' is used to test for zero
+in the domain of natural numbers.
+In the ACL2 logic, the formula (zp $n$) has the value true if $n$ is zero,
+or if $n$ is not a natural number.
+That makes zp the operator normally chosen to select
+the non-inductive case in inductive definitions of functions.
+
+You might think a comparison with zero using the ``='' operator
+would work equally well, but it doesn't.
+For example, the formula (= $n$ 0) would have the
+value false if $n$ were 3/2.
+However, if fractions are outside the
+intended domain of a function being defined,
+then something needs to be done to make the
+computation terminate when a fraction pops up,
+perhaps unintentionally, as argument in a formula referring to the function.
+Usually, the most desirable choice is to select
+a non-inductive case in the definition of the function,
+and zp makes that easy to do.
+
+The function ``posp'' (page \pageref{posp-def})
+is also useful in inductive definitions
+that with arguments that are expected to be natural numbers.
+The formula (posp $n$) is true if $n$ is a non-zero natural number.
+\caption{Natural Number Tests: Zero (zp) and Non-Zero (posp)}
+\label{zp-def}
+\end{aside}
+
+If you put the definition of dgts at the beginning of a program
+and import the ``testing'' and ``doublecheck" facilities, you
+can enter the tests and run them using Proof Pad or Dracula.
+You can also enter formulas in the command panel to compute
+decimal numerals for any natural numbers you choose.
+
+%okay to here
+
+\begin{ExerciseList}
+\Exercise Let $y$ stand for the number of years
+     between the signing of the Magna Carta and
+     the signing of the United States Declaration of Independence.
+     Figure out what the decimal numeral for $y$ is and
+     prove that you got it right using
+     the definition of dgts (page \pageref{dgts-defun}),
+     but without citing any of the theorems from this section.
+
+\Exercise \label{modular-division} Prove \{\emph{mod-div}\}:
+(mod (* $a$ $x$) (* $a$ $b$)) = (* $a$ (mod $x$ $b$)) \\
+\emph{Hint}: You won't need induction, but the following facts will help.
+Suppose $x$ is the dividend, $d$ the divisor, and $q$ the quotient in a
+a problem in third-grade division (page \pageref{third-grade-division}).
+Then, $r$ = (mod $x$ $d$) is the remainder (page \pageref{mod-function}).
+The standard method of verifying a correct solution is to
+check $(qd + r) = x$. Furthermore, it is always the case
+that $0 \le r < d$. In other words (mod $x$ $d$) is the number $r$
+in the range $0 \le r < d$ such that $qd + r = x$.
+
+\Exercise \label{mod-div-defthm} Define the \{\emph{mod-div}\} theorem
+in ACL2 notation, and use ACL2 to verify that it is a theorem.
+Since the theorem does not hold for all numbers $a$, $b$, and $x$,
+you will need to include certain hypotheses in the implication
+that you ask ACL2 to prove. If you state it correctly and import
+theorems about modular arithmetic contained in the floor-mod book,
+ACL2 will succeed.\\
+\label{floor-mod-include-book}
+\phantom{x}\hspace{2em}(include-book "arithmetic-3/floor-mod/floor-mod" :dir :system)
+\end{ExerciseList}
+
+%okay to here
+
+\section{Numbers from Numerals}
+\label{sec:numbers-from-numerals}
+The ``dgts'' function (page \pageref{dgts-defun})
+provides a way to produce a decimal
+numeral, given a number. How about going in the other direction?
+Given a decimal numeral, produce the corresponding number.
+You already know that the formulas look like these:
+\begin{samepage}
+\begin{center}
+$1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$ --- for 1215 \\
+$1 \times 10^2 + 4 \times 10^1 + 4 \times 10^0$ --- for 144
+\end{center}
+\end{samepage}
+
+%okay to here
+
+But, let's think of properties instead of complicated formulas.
+What properties would a function
+converting decimal numerals to numbers have?
+Since the dgts function produces numerals represented as sequences
+of decimal digits (numbers in the range 0 to 9),
+and in the reverse of the usual order
+(that is, with the units digit first,
+then the tens digit, then hundreds, and so on),
+let's assume that numerals will take that form.
+
+Let's call the function that converts decimal numerals to numbers  ``nmb10''.
+We know that (nmb10 nil) must be zero because (dgts 0) delivers
+zero, and we are trying to convert numerals produced by dgts
+back the the numbers they came from.
+How about a one-digit numeral $[x_0]$.
+The equation in that case would be (nmb10 [$x_0$]) = $x_0$.
+
+If there are two or more digits, the numeral would take the form
+[$x_0$ $x_1$ \dots $x_{n+1}$].
+Then, the equation would be
+\begin{center}
+(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) =
+$(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n+1} \times 10^{n+1})$
+\end{center}
+
+%okay to here
+
+Since all of the terms in the sum
+include a factor of ten, except the first term,
+we can factor ten out of all of the terms beyond the first.
+Factoring the formula in this way produces a new equation.
+\begin{center}
+(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) = $(x_0 + 10 \times (x_1 \times 10^0 + x_2 \times 10^1 + \dots x_n \times 10^n))$
+\end{center}
+
+%okay to here
+
+But, the sequence [$x_1$ $x_2$ \dots $x_{n+1}$] is also a decimal numeral.
+And, the value is stands for is
+$(x_1 \times 10^0 + x_2 \times 10^1 + \dots x_n \times 10^n)$,
+which is the value nmb10 should deliver, given the numeral [$x_1$ $x_2$ \dots $x_{n+1}$].
+That is, the following equation holds.
+\begin{center}
+(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$]) = $(x_1 + x_2 \times 10^1 + \dots x_{n+1} \times 10^n)$
+\end{center}
+
+%okay to here
+
+Observe that this formula for (nmb10 $(x_1 x_2 \dots x_{n+1})$) is identical
+to the factor multiplied by ten in the previous equation.
+Therefore, we can rewrite that equation as follows.
+\begin{center}
+(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) = ($x_0 + 10 \times$ (nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$]))
+\end{center}
+
+Now, we have an inductive equation that delivers the right value for
+numerals with two or more digits. Furthermore, the same formula works
+for one-digit numerals because (nmb10 nil) is zero.
+\begin{center}
+(nmb10 [$x_0$]) = ($x_0 + 10 \times$ (nmb10 nil))
+\end{center}
+
+We now have one equation that covers all numerals with one or more digits.
+Furthermore, we know by the \{cons\} axiom
+(page \pageref{cons-axiom-informal}):
+\begin{center}
+[$x_0$ $x_1$ \dots $x_{n}$] = (cons $x_0$ $[x_1 \dots x_n]$)
+\end{center}
+
+Therefore, by the axioms relating the functions
+first, rest, and cons
+(page \pageref{first-rest-cons}),
+we arrive at the following equations.
+
+\begin{samepage}
+\begin{center}
+$x_0$ = (first [$x_0$ $x_1$ \dots $x_{n}$]) % \\ to end line causes error here
+\end{center}                                % using end center/begin center works, but puts in blank line
+\begin{center}
+[$x_1$ \dots $x_{n}$] = (rest [$x_0$ $x_1$ \dots $x_{n}$])
+\end{center}
+\end{samepage}
+
+%no error above this point
+
+This, along with using $xs$
+as a shorthand for [$x_0$ $x_1$ $x_2$ \dots $x_{n}$]
+allows us to rewrite the equation
+for non-empty numerals in prefix notation as follows.
+\begin{center}
+(nmb10 $xs$) = (+ (first $xs$) ($*$ 10 (nmb10 (rest $xs$))))
+\end{center}
+
+Now we have the basis to apply the rule of the three C's
+(page \pageref{fig:inductive-def-keys}) to define nmb10.
+
+%error above this point
+
+\label{nmb10-defun}
+\begin{Verbatim}
+(defun nmb10 (xs)
+  (if (consp xs)
+      (+ (first xs)               ; {n10.1}
+         (* 10 (nmb10 (rest xs))))
+      0))                         ; {n10.0}
+\end{Verbatim}
+
+We have derived this definition carefully,
+from things we know about numbers,
+but let's try to use logic to be sure we got it right.
+We want to prove that
+(nmb10 [$x_0$ $x_1$ \dots $x_{n}$])
+delivers the same number as the formula
+$(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n} \times 10^{n})$.
+\begin{samepage}
+\label{horner10-thm}
+\begin{center}
+Theorem \{\emph{Horner 10}\} \\
+(nmb10 [$x_0$ $x_1$ \dots $x_{n}$]) =
+$x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n} \times 10^{n}$
+\end{center}
+\end{samepage}
+
+Theorem \{\emph{Horner 10}\} states that the function nmb10
+computes a sum of multiples of successive powers of ten.
+The multipliers (known as ``coefficients'') of the powers
+of ten are the digits in a decimal numeral.
+We call it the theorem ``\emph{Horner 10}'' because
+the scheme it uses to carry out the computation is
+known as ``Horner's rule''.
+
+Proving Theorem \{\emph{Horner 10}\} amounts to
+verifying that $(\forall n.P(n))$ is true,
+where the predicate $P$ is defined as follows.
+Of course the natural numbers are the universe of discourse for $P$.
+\begin{center}
+$P(n) \equiv$
+((nmb10 [$x_0$ $x_1$ \dots $x_{n}$]) =
+$(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n} \times 10^{n}))$
+\end{center}
+
+Proceeding by mathematical induction,
+we first prove that $P(0)$ is true.
+\begin{center}
+\begin{tabular}{lll}
+    & $P(0) \equiv$ ((nmb10 [$x_0$]) = $x_0$) & \\
+\hline
+    & (nmb10 [$x_0$])           & \\
+$=$ & (nmb10 (cons $x_0$ nil))  & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
+$=$ & (+ (first (cons $x_0$ nil)) ($*$ 10 (nmb10 (rest (cons $x_0$ nil)))))  & \{\emph{n10.1}\} (page \pageref{nmb10-defun}) \\
+$=$ & (+ $x_0$ ($*$ 10 (nmb10 (rest (cons $x_0$ nil)))))  & \{\emph{first}\} (page \pageref{first-rest-cons}) \\
+$=$ & (+ $x_0$ ($*$ 10 (nmb10 nil)))  & \{\emph{rest}\} (page \pageref{first-rest-cons}) \\
+$=$ & (+ $x_0$ ($*$ 10 0))  & \{\emph{n10.0}\} (page \pageref{nmb10-defun}) \\
+$=$ & $x_0$  & \{\emph{$2^{nd}$-grade arithmetic}\} \\
+\end{tabular}
+\end{center}
+
+Now, we prove that $P(n+1)$ is true,
+and because we cite mathematical induction,
+we can assume that $P(n)$ is true.
+In the last step, we do some standard
+calculation in numeric algebra (in prefix notation)
+using the distributive law.
+We cite ``algebra'' to justify that step in the proof.
+Generally, we will take advantage of the ordinary
+laws of algebra when we need them in numeric formulas.
+\begin{center}
+\begin{tabular}{lll}
+ & $P(n+1) \equiv$
+((nmb10 [$x_0$ $x_1$ \dots $x_{n+1}$]) =
+$(x_0 + x_1 \times 10^1 +  \dots x_{n+1} \times 10^{n+1}))$ & \\
+\hline
+    & (nmb10 [$x_0$ $x_1$ \dots $x_{n+1}$])           & \\
+$=$ & (nmb10 (cons $x_0$ [$x_1$ \dots $x_{n+1}$]))  & \{\emph{cons}\}\\
+$=$ & (+ (first (cons $x_0$ [$x_1$ \dots $x_{n+1}$])) ($*$ 10 (nmb10 (rest (cons $x_0$ [$x_1$ \dots $x_{n+1}$])))))  & \{\emph{n10.1}\} \\
+$=$ & (+ $x_0$ ($*$ 10 (nmb10 (rest (cons $x_0$ [$x_1$ \dots $x_{n+1}$])))))  & \{\emph{first}\} \\
+$=$ & (+ $x_0$ ($*$ 10 (nmb10 [$x_1$ \dots $x_{n+1}$])))  & \{\emph{rest}\}\\
+$=$ & (+ $x_0$ ($*$ 10 $(x_1 + x_2 \times 10^1 + \dots x_{n+1} \times 10^{n})))$  & \{$P(n)$\}\\
+$=$ & $(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n+1} \times 10^{n+1})$  & \{\emph{alg}\} \\
+\end{tabular}
+\end{center}
+
+Since we proved that $P(0)$ is true and that
+$P(n) \rightarrow P(n+1)$ is true if $P(n)$,
+regardless of what natural number $n$ stands for,
+we conclude by mathematical induction that
+$P(n)$ is true for all natural numbers $n$.
+In other words, the formula
+(nmb10 [$x_0$ $x_1$ \dots $x_{n}$]) delivers the correct
+number whenever [$x_0$ $x_1$ \dots $x_{n}$] is a decimal numeral
+represented as a list, starting with the units digit
+and proceeding, power of ten by power of ten, up to the high-order digit.
+
+We derived this theorem from the axioms defining the nmb10 function.
+Besides the axioms, our reasoning cited equations we proved before
+(or knew from numeric algebra),
+along with the deductive inference rule ``mathematical induction.''
+We would also like to know that the axioms defining the dgts function
+produces the correct numeral.
+Since we know that nmb10 delivers the correct number,
+given a decimal numeral, we can confirm the correctness
+of (dgts $n$) by proving the following theorem.
+\begin{center}
+\label{dgts-ok}
+Theorem \{\emph{dgts-ok}\} \\
+(nmb10 (dgts $n$)) = $n$
+\end{center}
+
+In other words, we want to prove that
+$(\forall n.D(n))$ is true, where D($n$) stands the following proposition.
+\begin{center}
+$D(n) \equiv$ ((nmb10 (dgts $n$)) $= n$)
+\end{center}
+
+Since the universe of discourse
+for the predicate $D$ is the natural number,
+we may as well try to use mathematical induction
+to prove that $(\forall n.D(n))$ is true.
+That requires a proof of $D(0)$ and
+a proof of $(\forall n.(D(n) \rightarrow D(n+1)))$.
+
+\begin{center}
+\begin{tabular}{lll}
+    & $D(0) \equiv$ ((nmb10 (dgts $0$)) = $0$) & \\
+    \hline
+    & (nmb10 (dgts $0$)) & \\
+$=$ & (nmb10 nil)        & \{\emph{dgts0}\} (page \pageref{dgts-defun}) \\
+$=$ & 0                  & \{\emph{n10.0}\} (page \pageref{nmb10-defun}) \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{lll}
+    & $D(n+1) \equiv$ ((nmb10 (dgts (+ $n$ 1))) = (+ $n$ 1)) & \\
+    \hline
+    & (nmb10 (dgts (+ $n$ 1)))           & \\
+$=$ & (nmb10 (cons (mod (+ $n$ 1) 10) (dgts (floor (+ $n$ 1) 10)))  & \{\emph{dgts1}\} (page \pageref{dgts-defun})\\
+$=$ & (+ (mod (+ $n$ 1) 10) ($*$ 10 (nmb10 (dgts (floor (+ $n$ 1) 10)))))  & \{\emph{n10.1}\} (page \pageref{nmb10-defun})\\
+$=$ & (+ (mod (+ $n$ 1) 10) ($*$ 10 (floor (+ $n$ 1) 10)))  & \{$D$(floor (+ $n$ 1) 10)\} \\
+$=$ & (+ $n$ 1)  & \{$3^{rd}$-grade division\}\\
+    &            & (page \pageref{third-grade-division})
+\end{tabular}
+\end{center}
+
+If you were paying very close attention,
+you may have noticed that we our proof of $D(n) \rightarrow D(n+1)$
+was not according to Hoyle.
+To prove this implication, we need to prove that $D(n+1)$ is true whenever $D(n)$ is true.
+That means we can cite $D(n)$ to justify any step in our proof of $D(n+1)$.
+However, instead of citing $D(n)$, we cited $D$(floor (+ $n$ 1) 10).
+That's a different proposition,
+but it happens that (floor (+ $n$ 1) 10) is strictly smaller than $(n+1)$.
+
+In this proof, we are relying on a more general inference rule
+than ordinary mathematical induction.
+The more general rule, which is called ``strong induction''
+is equivalent to ordinary mathematical induction.
+That is, one can verify that if the rule of ordinary mathematical induction
+is a valid rule of inference, then so is strong induction, and vice versa.
+The proof is not difficult, but it's a distraction,
+so we are just going to assume that strong induction works.
+You can summon a rationale for strong along the lines
+of the rationale we had for ordinary induction (page \pageref{induction-rationale}).
+
+\label{strong-induction-rationale}
+The rationale goes like this.
+Imagine that you are proving the propositions
+$P(0)$, $P(1)$, $P(2)$, \dots and so on,
+one by one, in sequence.
+When you get to the point where you want to prove $P(n+1)$,
+you will have already proven all of the propositions
+with smaller indices---that is
+$P(0)$, $P(1)$, $P(2)$, \dots $P(n)$.
+So, in the proof of $P(n+1)$, you would be able to
+cite any of the previous propositions, not just $P(n)$.
+When you cite $P(n)$, but not propositions with smaller indices,
+in the proof of $P(n+1)$, you are doing a proof by ordinary mathematical induction.
+When you cite one or more propositions with indices smaller than $n$,
+you are doing a proof by strong induction.
+
+Since ordinary mathematical induction and strong induction are
+equivalent rules of inference, we are going to refer to both of
+them the same way. We'll just call it mathematical induction.
+But, the formal statement of the strong induction rule
+is different from the formal statement of ordinary induction
+(Figure~\ref{induction-rule}, page \pageref{induction-rule}).
+The strong induction rule is state formally in
+Figure~\ref{strong-induction-rule} (page \pageref{strong-induction-rule}).
+
+From now on, when we cite the mathematical induction rule of inference,
+we will mean this new, strong induction rule.
+After all, it encompasses the ordinary induction rule
+as a special case, anyway, since it only cites $P(n)$ is the proof
+of $P(n+1)$, and not any proposition in the predicate $P$ with a smaller index.
+So, we may as well cite strong induction, even when we're only relying
+on the ordinary induction rule.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l}
+Prove $(\forall m<n.P(m))\rightarrow P(n)$ \\
+\hline
+Infer $(\forall n.P(n))$
+\end{tabular}
+\end{center}
+\caption{Mathematical Induction--strong induction version}
+\label{strong-induction-rule}
+\end{figure}
+
+\begin{aside}
+The strong induction rule looks more different
+from the one for ordinary induction than it really is.
+The ordinary induction rule required two proofs before making the conclusion:
+(1)~Prove $P(0)$ and (2)~Prove $\forall$$n$.(P($n$)$\rightarrow$P($n+1$)).
+The strong induction rule only calls for one proof:
+Prove $(\forall m<n.P(m))\rightarrow P(n)$.
+However, when $n$ is zero, the formula to be proved reads as follows:
+$(\forall m<0.P(m))\rightarrow P(0)$.
+The formula is strange because $m$ is supposed to be a natural number,
+and the $\forall$ quantification runs over
+all values of $m$ that are strictly less than zero.
+Since there are no natural numbers less than zero,
+the universe of discourse for this quantification is empty.
+That makes the formula $(\forall m<0.P(m))$ true because
+a $\forall$ quantification with an empty universe of discourse is true, by default
+(page \pageref{empty-forall}).
+
+So, proving $(\forall m<0.P(m))\rightarrow P(0)$
+is the same as proving $True \rightarrow P(0)$,
+which requires proving that $P(0)$ is true, just
+as in ordinary induction.
+In other words, in strong induction there are still two proofs to do,
+one for P(0), and one for $(\forall m<n.P(m))\rightarrow P(n)$
+when $n$ is not zero.
+The strong induction inference rule looks like it
+requires only one proof, but that is an illusion
+caused by the fact that a $\forall$ quantification with an empty universe
+is automatically true.
+\caption{Strong Induction Requires Two Proofs or One?}
+\label{strong-induction-rule-2-hyps-or-1}
+\end{aside}
+
+\begin{ExerciseList}
+\Exercise Let $d$ stand for the number of furlongs in
+     the Boston Marathon, not counting the last 165 yards.
+     Prove that (nmb10 (dgts $d$)) = $d$
+     using the definitions of dgts (page \pageref{dgts-defun})
+     and nmb10 (page \pageref{nmb10-defun}),
+     but without citing any of the theorems from this section.
+\Exercise Use Proof Pad or Dracula to create a .lisp file containing the
+     definitions of dgts and nmb10.
+     In the same file, define a property that tests
+     the formula (= (nmb10 (dgts $n$)) $n$) for random
+     natural numbers $n$.
+     Of course, all of the tests should succeed because
+     we proved that the formula always delivers true.
+     If a test fails, something is wrong with one or more
+     of the definitions in the .lisp file.
+\Exercise Add the definition of another property to
+     the .lisp file from the previous exercise.
+     The new property will test the formula
+     (equal (dgts (nmb10 $xs$)) $xs$) for random, non-empty
+     decimal numerals $xs$.
+     \emph{Hint}. (random-list-of (random-between 0 9))
+     generates random decimal numerals.
+     \emph{Note}. This test can fail.
+     If it does, check out the data that causes the failure.
+\Exercise We proved that the function nmb10
+     inverts the function dgts.
+     That is, (nmb10 (dgts $n$)) is the same as $n$
+     for any natural number $n$ (page \pageref{dgts-ok}).
+     However, it is not quite true that dgts inverts nmb10.
+     Why not? Give an example of a decimal numeral
+     $xs$ for which (dgts (nmb10 $xs$)) is different from $xs$.
+\Exercise Describe a class of decimal numerals such that
+     that (dgts (nmb10 $xs$)) is the same as $xs$
+     when $xs$ is a numeral from that class.
+\Exercise Use mathematical induction to prove that
+    (dgts (nmb10 $xs$)) is the same as $xs$
+     when $xs$ is a numeral from the class
+     you described in the previous exercise.
+\Exercise Let $\lfloor log(n) \rfloor$ stand for the
+    smallest integer for which $10^{\lfloor log(n) \rfloor} \ge n$,
+    where $n$ is a non-zero natural number.
+    That is, the following inequalities hold.
+\begin{displaymath}
+  10^{\lfloor log(n) \rfloor} \le n < 10^{\lfloor log(n) \rfloor + 1}
+\end{displaymath}
+    Prove the following relationship between the functions
+    len (page \pageref{len-equations}) and dgts (page \pageref{dgts-defun}).
+\begin{quote}
+    (len (dgts $n$)) = $\lfloor log(n) \rfloor + 1$
+\end{quote}
+
+\end{ExerciseList}
+
+
+\section{Binary Numerals}
+\label{sec:binary-numerals}
+
+Digital circuits, since they are a materialization of mathematical logic,
+have components that can represent two different values.
+We call them zero and one, and we choose those names primarily
+because circuits that deal with numbers do so in terms of binary numerals.
+Decimal numerals require ten different symbols (0, 1, 2, \dots 9)
+to represent digits.
+
+Binary numerals only need two (0 and 1) for their binary digits,
+which are usually called ``bits'', and that makes them well-suited
+for representation in the form of digital circuits.
+We will be discussing the design and analysis of circuits to do
+arithmetic in terms of binary numerals, so we will need to know
+how to construct and interpret them.
+
+Decimal numerals represent numbers as sums of multiples of powers of ten.
+Binary numerals are similar, but use two as a basis instead of ten.
+So, the binary numeral with bits $x_nx_{n-1}\dots x_2x_1x_0$ stands for the number
+$(x_0 + x_1 \times 2^1 + x_2 \times 2^2 + \dots + x_{n-1} \times 2^{n-1} x_{n} \times 2^{n})$.
+The only differences between this formula and the one that interprets
+decimal numerals is that it has powers of two where the decimal formula had
+powers of ten, and multipliers are bits (0, 1) instead of
+digits (0, 1, 2, \dots 9).
+
+Therefore, we can convert the functions for decimal numerals to binary
+by simply changing the base from ten to two.
+The following definitions of the functions ``bits'' and ``nmb''
+to construct and interpret binary numerals come directly
+from that observation.
+Like the corresponding functions for decimal numerals
+(dgts, \pageref{dgts-defun}, and nmb10, \pageref{nmb10-defun}),
+bits and nmb use the function zp (page \pageref{zp-def}) to choose
+between the base case ($n = 0$) and the inductive case ($n > 0$).
+Also, ACL2 needs access to the theorems
+in the floor-mod book (page \pageref{floor-mod-book})
+to admit the function ``bits'' to its logic,
+just as in the definition of dgts (\pageref{dgts-defun}).
+
+\label{bits-defun}
+\begin{Verbatim}
+(defun bits (n)
+  (if (zp n)
+      nil                         ; {bits0}
+      (cons (mod n 2)             ; {bits1}
+            (bits (floor n 2)))))
+\end{Verbatim}
+\label{nmb-defun}
+\begin{Verbatim}
+(defun nmb (xs)
+  (if (consp xs)
+      (+ (first xs) (* 2 (nmb (rest xs)))) ; {nmb1}
+      0))                                  ; {nmb0}
+\end{Verbatim}
+
+The theorem for correctness of the function nmb that interprets
+binary numeral as numbers and the theorem about the function nmb
+being the inverse of the function bits are
+also true in the new context, and the proofs are similar to the ones
+on decimal numerals presented earlier in this chapter.
+Constructing those proofs is a good exercise.
+It will help you understand decimal numerals better,
+and clarify your understanding of binary numerals.
+
+%no error above this point
+
+\begin{ExerciseList}
+\Exercise Adapt the proof of \{\emph{Horner 10}\} (page \pageref{horner10-thm})
+to prove \{\emph{Horner 2}\}:
+
+
+\begin{center}
+\label{horner2-thm}
+(nmb [$x_0$ $x_1$ $x_2 \dots$ $x_{n}$])
+$= (x_0 + x_1 \times 2^1 + x_2 \times 2^2 + \dots x_{n} \times 2^{n})$
+\end{center}
+
+\Exercise \label{bits-ok}
+Prove theorem \{\emph{bits-ok}\}: ((nmb (bits $n$)) = $n$), assuming $n$ is a natural number. \\
+That is, the function nmb (page \pageref{nmb-defun})
+inverts the function bits (page \pageref{bits-defun}).
+
+\Exercise We created the definitions of bits and nmb
+by copying those of dgts and nmb10, and changing the twos to tens.
+The practice of defining new entities by copying
+old ones and making a few changes is
+the single most common cause of errors in computer software (page \pageref{abstraction}).
+Instead, we should have done is to define new functions with
+an additional parameter for the base to deal with positional
+numerals with any base.
+\label{numeral-from-number-defun}
+\begin{Verbatim}
+(defun numeral-from-number (b n)
+  (if (zp n)
+      nil
+      (cons (mod n b)
+            (numeral-from-number b (floor n b)))))
+\end{Verbatim}
+\label{number-from-numeral-defun}
+\begin{Verbatim}
+(defun number-from-numeral (b xs)
+  (if (consp xs)
+      (+ (first xs)
+         (* b (number-from-numeral b (rest xs))))
+      0))
+\end{Verbatim}
+Make new definitions of the functions dgts, nmb10, bits, and nmb
+that rely on the abstraction of the base in
+the functions numeral-from-number and number-from-numeral.
+
+\Exercise In a manner similar to that suggested in the previous exercise,
+       define functions to convert
+       between numbers and hexadecimal (base 16) numerals.
+
+\Exercise The hexadecimal numerals in the previous exercise
+       use numbers between zero and fifteen to represent
+       hexadecimal digits. Define new functions that use,
+       instead, strings of characters from the set
+       {0, 1, 2, \dots, 9, A, B, C, D, E, F} to represent
+       hexadecimal numerals.
+       While you're at it, represent the numerals as string
+       in the usual ordering from high-order hexadecimal digit to
+       low-order, instead of the reverse order we have been using.
+       You may refer to the functions defined below that convert
+       between hex strings and numerals.
+       Strings in ACL2 are delimited by double-quote characters.
+\begin{Verbatim}
+(defun char-to-digit (chr)
+  (let* ((dgt9  (char-code #\9))
+         (code (char-code chr)))
+    (if (> code dgt9)
+        (+ 10 (- code (char-code #\A)))
+        (- code (char-code #\0)))))
+(defun chars-to-digits (chrs)
+  (if (consp chrs)
+      (cons (char-to-digit (first chrs))
+            (chars-to-digits (rest chrs)))
+      nil))
+(defun digits-to-chars (dgts)
+  (if (consp dgts)
+      (cons (digit-to-char (first dgts))
+            (digits-to-chars (rest dgts)))
+      nil))
+(defun string-to-numeral (str)
+  ;e.g. (string-to-numeral "41C5") = '(5 11 1 4)
+  (let* ((chrs (coerce (string-upcase str) 'list)))
+    (chars-to-digits (reverse chrs))))
+(defun numeral-to-string (nml)
+  ;e,g. (numeral-to-string '(5 11 1 4)) = "41C5"
+  (let* ((dgts (reverse nml)))
+    (coerce (digits-to-chars dgts) 'string)))
+\end{Verbatim}
+
+\Exercise Prove theorem \{\emph{len-pad}\}: (len (pad $n$ $x$ $xs$)) = $n$,
+where ``pad'' is defined as follows. \\
+\emph{Note}: The definition of pad refers to the functions
+rep (page \pageref{rep-equations}) and prefix (page \pageref{prefix-equations}).
+It also uses a ``let*'' formula (page \pageref{let*-def}),
+which provides a way to associate
+names with values within a scope bounded by parentheses.
+\begin{samepage}
+\begin{Verbatim}
+(defun pad (n x xs)
+  (let* ((padding (- n (len xs))))
+    (if (natp padding)
+        (append xs (rep padding x)) ; {pad+}
+        (prefix n xs))))            ; {pad-}
+\end{Verbatim}
+\end{samepage}
+
+\end{ExerciseList}
+
+%no error above this point
+
+\begin{aside}
+The definition of pad also makes use of the ``let*'' formula,
+which makes it possible to give names to values
+to be used within the scope of the ``let*'' formula.
+A ``let*'' formula starts with the the keyword ``let*'',
+then a list of name-value pairings, and finally
+a formula for the value to be delivered by the ``let*''.
+Each pairing is list of two elements: first a name,
+then a formula specifying a value to be associated with the name.
+In this example, there is only one such pairing,
+but there can be any number of pairings.
+The most common use of ``let*'' is to give names
+to values needed more than once in a computation,
+but sometimes it's used just to give mnemonic names
+to significant elements in a computational formula.
+\caption{Naming Local Values with Let*}
+\label{let*-def}
+\end{aside}
+
+
+\section{Numerals for Negative Numbers}
+\label{sec:negative-numerals}
+
+So far, all the numerals we've seen have represented positive numbers.
+Now, we need to attend to the issue of negative numbers.
+There are many ways to do that,
+but a format known as ``twos complement'' stands out
+because computer hardware designers have adopted it
+as the standard way of dealing with negative numbers.
+
+The twos complement approach limits numbers to a range that runs
+from a specific negative limit to a specific positive limit.
+Then, for negative numbers, it uses binary numerals that would
+normally stand for numbers beyond the limit on the positive side.
+The idea relies on properties of modular arithmetic
+(page \pageref{modular-arithmetic}).
+
+The modulus chosen for a twos-complement representation
+is always a power of two. Call it $2^w$.
+It happens that binary numerals for numbers in the range 0, 1, $\dots (2^{w-1}-1)$
+have no more than $(w-1)$ bits (Theorem \{\emph{len-bits}$\le$\}, page \pageref{len-bitsLE}).
+So, the
+If the hardware allocates $w$ bits for recording binary numerals,
+numbers in the range 0, 1, $\dots (2^{w-1}-1)$ will
+only need $w-1$ of those bits.
+They will always have a leading zero in the high-order bit.
+Bit-patterns with a one in the high-order bit can be used for negative numbers.
+That's where the twos complement trick comes into play.
+Let's see how it works.
+
+The number of bits that the hardware allocates for recording binary numerals
+is known as the ``word size'' of the computer.
+A computer with 32-bit words has circuits to deal with numbers
+in the range $-2^{31}, \dots -1, 0, 1, 2, \dots 2^{31}-1$.
+In the positive part of the range, it represents numbers as
+ordinary binary numerals, but with enough leading zeros
+to fill the 32-bit word.
+
+For a number ($-n$) in the negative part of the range,
+the twos-complement system uses the binary numeral
+for ($2^{32}-n$) to represent ($-n$).
+Since ($-n$) is in the negative range,
+$-2^{31} \le -n < 0$.
+Therefore, $2^{31} \le 2^{32}-n < 2^{32}$.
+That means the twos-complement, binary numeral
+that stands for the negative number ($-n$)
+has exactly 32 bits (Theorem \{\emph{len-bits}\}, page \pageref{len-bits}),
+the high-order bit being a 1
+(Theorem \{\emph{hi-1}\}, page \pageref{hi-1}).
+
+Modular arithmetic makes the numerals chosen
+for negative numbers act like the negative numbers they stand for.
+For negative numbers ($-n$) in the range $-2^{31} \le -n < 0$,
+the value of (($-n$) mod $2^{32}$) is ($2^{32}-n$).
+Therefore, since addition and subtraction produce consistent
+results in modular arithmetic (page \pageref{modular-arithmetic}),
+it follows that
+  ($(m+(-n))$ mod $2^{32}$
+= ((($m$) mod $2^{32}$) + ($(-n)$ mod $2^{32}$)) mod $2^{32}$
+= ((($m$ mod $2^{32}$) + $(2^{32} - n)$)) mod $2^{32}$.
+
+That is, adding the numbers represented by twos-complement
+numerals, including numbers in the negative range,
+is just like adding ordinary numbers, but using modular arithmetic.
+Subtraction is handled by negating a number
+(that is, computing the twos-complement representation
+of its negative), then performing addition modulo $2^{32}$.
+
+The same thing works for any other word size.
+With word size $w$, the twos complement system
+handles addition and subtraction, modulo $2^w$, for numbers
+in the range $-2^{w-1}, \dots -1, 0, 1, 2, \dots 2^{w-1}-1$.
+Circuits for performing addition (and subtraction, since
+it is the same operation in a twos-complement system)
+take advantage of these mathematical facts.
+We will make use of this to design circuits to perform addition.
+
+In summary, the twos-complement representation for computers with
+word size $w$ applies to numbers in the range
+$-2^{w-1}, \dots -1, 0, 1, 2, \dots 2^{w-1}-1$.
+We will refer to this set of integers as $I(w)$.
+\label{def-Iw}
+\begin{center}
+$I(w) = \{-2^{w-1}, \dots -1, 0, 1, 2, \dots 2^{w-1}-1\}$
+\end{center}
+
+We will discuss the design of a digital circuit that
+performs addition on numbers in $I(w)$.
+That circuit will be capable computing the sum $x+y$
+if $x$, $y$, and $x+y$ are numbers in the set $I(w)$.
+That circuit will use twos-complement
+representation for numbers in $I(w)$.
+
+\label{2s-def}
+The \emph{twos-complement representation} for a negative number ($-n$) in $I(w)$
+is the binary numeral for the number ($2^w-n$).
+Twos-complement numerals for numbers in the negative range
+have exactly $w$ bits, with a one-bit in the high-order slot.
+That is because (len (bits (- (expt $2 w$) ($n$)))) $= w$,
+since $2^{w-1} \le 2^w - n < 2^{w}$
+(Theorem \{\emph{len-bits}\}, page \pageref{len-bits}).
+
+The twos-complement representation for numbers in the positive range of $I(w)$
+take the form of ordinary binary numerals, except that in
+hardware they are padded with enough leading zeros
+to fill out a $w$-bit word, where $w$ is the word size of the computer.
+This is necessary because all of the bits in a circuit, at any point in time,
+stand for either zero or one. There is no other possible state.
+So, the high-order bits in a $w$-bit word containing the twos-complement
+representation of a positive number are padded out with enough
+leading zeros to make $w$ bits in all, but without changing the number
+that the numeral stands for.
+
+\label{twos-defun}
+\begin{Verbatim}
+(defun twos (w n) ; w (word size): natural number
+  (if (< n 0)     ; n: integer, -2^(w-1) <= n < 2^(w-1)
+      (bits (+ (expt 2 w) n)) ; {2s-}
+      (pad w 0 (bits n))))    ; {2s+}
+\end{Verbatim}
+
+There will always be some padding for numerals representing
+numbers in the positive range because such a number $n$
+lies within the limits $0 \le n < 2^{w-1}$.
+The twos-complement numeral for a value, $n$, in that range is (bits $n$),
+and $0 \le $(len (bits $n$)) $< w$
+(Theorem \{\emph{len-bits}$\le$\}, page \pageref{len-bitsLE}).
+Figure Figure~\ref{fig:2s-comp-3bit} displays
+twos-complement representations for the numbers in the set $I(3)$.
+Of course, the table in the figure is only for purposes of illustration.
+The word-size 3 is ridiculously small.
+No computer would have words that short.
+
+%no error above this point
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{cccc}
+ $n \in I(3)$ & $2^3+n$  & (twos $3$ $n$)   & \emph{binary numeral} \\
+ $-4$         & $4$      & [0 0 1]          & 100                   \\
+ $-3$         & $5$      & [1 0 1]          & 101                   \\
+ $-2$         & $6$      & [0 1 1]          & 110                   \\
+ $-1$         & $7$      & [1 1 1]          & 111                   \\
+ $~~0$        &          & [0 0 0]          & 000                   \\
+ $~~1$        &          & [1 0 0]          & 001                   \\
+ $~~2$        &          & [0 1 0]          & 010                   \\
+ $~~3$        &          & [1 1 0]          & 011                   \\
+\end{tabular}
+\\ \emph{word size} $w = 3$
+\\ $I(w) = I(3) = \{-2^{3-1}, -3, -2, -1, 0, 1, 2, 2^{3-1}-1\}$
+\end{center}
+\caption{2s-Complement Numerals for 3-bit Words}
+\label{fig:2s-comp-3bit}
+\end{figure}
+
+%no error above this point
+
+Now, here is an interesting little trick.
+Suppose $n$ is a natural number in the range
+$1 \le n \le 2^{31}$.
+By definition (page \pageref{twos-defun}),
+the twos-complement numeral for the negation of $n$,
+$(-n)$, is the binary numeral for $2^{32} - n$.
+That method produces the twos-complement numeral from the number.
+But, there is also a way to compute this numeral for $(-n)$
+directly from the numeral for $n$ by inverting its bits
+(that is, changing all the zeros to ones and all the ones to zeros)
+and then computing the binary numeral for the number that is
+one more than the number that the numeral with inverted bits stands for.
+
+It works like this. Let $x_{w-1}x_{w-2} \dots x_2x_1x_0$
+be the $w$-bit, binary numeral for $n$, padded with leading
+zeros if necessary to fill out the full $w$ bits.
+In other words [$x_0$ $x_1$ $x_2$ $\dots$ $x_{w-2}$ $x_{w-1}$] = (twos $n$).
+Then, the twos-complement numeral for $(-n)$ can be computed
+by inverting the bits in (twos $n$),
+interpreting the inverted-bit numeral as a number,
+increasing that number by one,
+then converting the new number to a binary numeral.
+That may seem a bit indirect,
+but when a circuit to do arithmetic on numerals is available,
+inverting the bits and incrementing by one
+is an attractive way to proceed.
+Figure~\ref{fig:2s-comp-negation} (page \pageref{fig:2s-comp-negation})
+explains why this trick works.
+
+\begin{figure}
+\begin{center}
+\begin{tabular} {ll}
+$1 \le n \le 2^{31}$                                   & range of numbers to negate \\
+(len (bits $n$)) $\le w$                               & \{\emph{len-bits}$\le$\} (page \pageref{len-bitsLE}) \\
+$xs$ = [$x_0$ $x_1$ $x_2$ \dots $x_{w-2}$ $x_{w-1}$]) & $xs$=(pad $w$ 0 (bits $n$)), padded binary numeral \\
+(nmb $xs$) = $n$                                       & \{\emph{leading-0s}\} (page \pageref{leading-0s}) \\
+$ys$ = [$y_0$ $y_1$ $y_2$ \dots $y_{w-2}$ $y_{w-1}$] & inverted bits $y_i = 1 - x_i$ (0s for 1s, 1s for 0s) \\
+(bits (+ 1 (nmb $ys$)))                                & 2s-complement-trick numeral of $(-n)$ \\
+\end{tabular}
+\end{center}
+\begin{center}
+\begin{tabular} {lllll}
+  & $1$   &$+ $ &(nmb $ys$)                                                    &  \\
+= & $1$   &$+ $ &$y_02^0 + y_12^1 + \dots + y_{w-1}2^{w-1}$                    & \{\emph{Horner 2}\}  \\
+= & $1$   &$+ $ &$(1 - x_0)2^0 + (1 - x_1)2^1 + \dots ++ (1 - x_{w-1})2^{w-1}$ & $\forall i.(y_i = 1-x_i)$ \\
+= & $1$   &$+ $ &$(2^0 + 2^1 + \dots + 2^{w-1})$                               & \{\emph{algebra}\}   \\
+  &       &$- $ &$(x_02^0 + x_12^1 + \dots + x_{w-1}2^{w-1})$                  &                      \\
+= & $1$   &$+ $ &$(2^w - 1) - (x_02^0 + x_12^1 + \dots + x_{w-1}2^{w-1})$      & \{\emph{geom. progression}\} \\
+= & $2^w$ &$- $ &$(x_02^0 + x_12^1 + \dots x_{w-1}2^{w-1})$                    & \{\emph{arithmetic}\} \\
+= & $2^w$ &$- $ &(nmb $xs$)                                                    & \{\emph{Horner 2}\}  \\
+= & $2^w$ &$- $ &$n$                                                           & (nmb $xs$) = $n$     \\
+\end{tabular}
+\end{center}
+\begin{center}
+\begin{tabular} {lll}
+  & (bits (+ 1 (nmb $ys$)))         & 2s-complement-trick numeral          \\
+= & (bits $(2^w - n)$)              & $1 + $(nmb $ys$) = $2^w - n$         \\
+= & (bits $(2^w + (- n))$)          & \{\emph{algebra}\}                   \\
+= & (bits (+ (expt 2 $w$) $(- n)$)) & convert $(2^w + (- n))$ to ACL2 notation \\
+= & (twos $w$ $(- n)$)              & definition of function ``twos'' (page \pageref{twos-defun}) \\
+\end{tabular}
+\end{center}
+\caption{Twos-Complement Negation Trick}
+\label{fig:2s-comp-negation}
+\end{figure}
+
+\begin{ExerciseList}
+
+\label{list-axiom-formal}
+\begin{center}
+Axiom \{\emph{list}\} \\
+$(\forall x.($(list $x$) $=$ (cons $x$ nil)$))$
+\end{center}
+
+\Exercise \label{hi-1} Prove \{\emph{hi-1}\}:
+(fin (bits $n$)) = 1 \\
+Assume that the function ``fin'' satisfies the following equations.
+\label{fin-defun}
+\begin{Verbatim}
+(defun fin (xs)
+  (if (consp (rest xs))
+      (fin (rest xs)) ; {fin2}
+      (first xs)))    ; {fin1}
+\end{Verbatim}
+
+%no error above this point
+
+\Exercise \label{hi-1-defthm} Express theorem \{\emph{hi-1}\}
+of the previous exercise in ACL2 notation
+and run it through the ACL2 mechanized logic.
+ACL2 will succeed if you state the theorem correctly as an implication,
+using the function ``posp'' (page \pageref{posp-def})
+to constrain $n$ to a non-zero, natural number.
+Of course the definition of ``bits'' (page \pageref{bits-defun})
+will need to be admitted to the logic  (page \pageref{admit-def})
+before ACL2 can attempt the proof of this theorem.
+
+\Exercise \label{len-bits} Prove \{\emph{len-bits}\}:
+$\forall n$.($(2^{n-1} \le m < 2^n) \rightarrow$ ((len (bits $m$)) $= n$))
+
+\Exercise \label{len-bitsLE} Prove \{\emph{len-bits}$\le$\}:
+$\forall n$.($(0 \le m < 2^n) \rightarrow$ ((len (bits $m$)) $\le n$))
+
+\Exercise \label{log-bits} Prove \{\emph{log-bits}\}:
+$\forall n > 0$.((len (bits $n$)) $= \lfloor log_2(n) \rfloor + 1$) \\
+\emph{Note}: $\lfloor x \rfloor$ = biggest integer not exceeding $x$
+
+\Exercise \label{len-2s} Prove \{\emph{len-2s}\}:
+$\forall w$.($(n \in I(w)) \rightarrow$ ((len (twos $w$ $n$)) $= w$))
+
+\Exercise \label{leading-0} Prove \{\emph{leading-0}\}:
+$\forall n$.((nmb (append (bits n) (list 0))) = (nmb (bits $n$)))
+
+\Exercise \label{leading-0s} Prove \{\emph{leading-0s}\}:
+$\forall z$.($\forall n$.((nmb (append (bits $n$) (rep $z$ 0))) = (nmb (bits $n$)))) \\
+Assume that theorem \{\emph{leading-0}\} in the previous exercise
+has been proven and that $z$ stands for a natural number.
+
+%no error above this point
+
+\Exercise \label{leading-0s-defthm} Express theorem \{\emph{leading-0s}\}
+of the previous exercise in ACL2 notation
+and run it through the ACL2 mechanized logic.
+ACL2 will succeed if you state the theorem correctly as an implication,
+referring to ``natp'' to constrain $n$ and $z$ to be natural numbers.
+Of course the definitions of ``bits'' and ``nmb'' will need to
+be admitted to the logic (page \pageref{bits-defun})
+before ACL2 can attempt the proof of this theorem.
+
+\Exercise \label{pfx-mod} Prove \{\emph{pfx-mod}\}:
+$\forall w$.($\forall n$.((nmb (prefix $w$ (bits $n$))) = (mod $n$ $2^w$))) \\
+\emph{Hint}: Induct on $w$. Split the inductive case into two parts,
+one part where $n = 0$ and one where $n > 0$, and apply
+\{$\vee$ elimination\} (page \pageref{fig-02-deduction-rules}) to complete
+the proof of the inductive case.
+In the $n > 0$ part, the \{\emph{mod-div}\} theorem
+(page \pageref{modular-division}) will be helpful.
+
+\Exercise \label{minus-sign} Prove \{\emph{minus-sign}\}:
+$\forall n \in I(w).((n < 0) \rightarrow$ (fin(twos $w$ $n$)) = 1)
+
+\Exercise \label{plus-sign} Prove \{\emph{plus-sign}\}:
+$\forall n \in I(w).((n \ge 0) \rightarrow$ (fin(twos $w$ $n$)) = 0)
+
+\end{ExerciseList}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "book"
+%%% End:

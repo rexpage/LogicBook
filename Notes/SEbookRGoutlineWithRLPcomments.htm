@@ -1,0 +1,169 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Working title</title>
+</head>
+
+<body>
+
+<h4>Working title: "Engineering Software Quality"<br>
+<font color="#FF0000">rlp Question.</font> What, you don't like &quot;Hardcore
+Software Engineering&quot; ?</h4>
+<p><b>Theme</b>: Tools and techniques you can use to improve the quality of your software, whether programming for yourself or as part of a development
+team.<br>
+<br>
+<b>Perspective</b>: Junior member of a development group.</p>
+<p><font color="#FF0000"><b>rlp </b></font><b><font color="#FF0000">Question. </font></b><font color="#FF0000">Does
+this mean you have in mind a trade book?&nbsp;<br>
+I'd like to do that, but don't think it's feasible unless we know when we'll be
+successful in embedding a theorem prover of ACL2 strength in DrScheme.
+ACL2/Dracula cannot be used in development of commercial software because you
+can't build standalone EXEs or DLLs. We might be able to go that way by the time
+the book is ready for release, but for now, I think we need to plan for an
+academic title.</font></p>
+<h4><b>        Part I: Overview of Software Engineering</b></h4>
+<ul>
+  <li>A walkthrough of a software development project (small, with less than 10 members)<br>
+    <font color="#FF0000"><b>rlp </b></font><font color="#FF0000"><b>Comment.</b></font>
+    <font color="#FF0000">In my experience, 10 is big. I've worked on projects
+    with as many as 250 engineers, but it was divided into almost independent
+    projects, none which had more than 5 engineers. Three is more common, maybe
+    with one or two additional engineers from other groups on matrix
+    assignments, which this project is maybe a quarter of their work assignment.</font></li>
+  <li>Software Development Life Cycle</li>
+  <li>The road to project success: Requirements + Planning+ Monitoring+ Risk management+ Groupwork<br>
+    <font color="#FF0000"><b>rlp Comment.</b></font> <font color="#FF0000">We
+    need to make sure the students understand that the mktg dept is the maker
+    and keeper of requirements. And that requirements are invariably poorly
+    stated, inconsistent, infeasible, poorly justified, and defended to the
+    death with nonsensical verbage that passes muster only because the mktg dept
+    holds all the power in this domain. Mktg people either aren't engineeers or
+    they're failed engineers. If they knew how to state requirements, how to
+    justify them, how to assess their feasibility, or how to analyze for
+    consistency, they would have been engineers in the first place or wouldn't
+    have failed as engineers.</font></li>
+  <li>Intermezzo: software configuration management tools, e.g, SVN, Bugzilla (or whatever DrScheme uses for this)</li>
+  <li>Intermezzo: planning/monitoring tools</li>
+  <li>The road to quality software: Design + Testing + Verification</li>
+  <li>Intermezzo: Introduction to ACL2 (the language)</li>
+</ul>
+<h4>Part II: Software Design</h4>
+<h4>Part III: Testing</h4>
+<ul>
+  <li>Intermezzo: Introduction to check-expect: Unit testing+ Regression testing+ System testing+ Static code
+    analysis</li>
+  <li>Intermezzo: Introduction to FingBugs and/or similar tools + Code inspections and reviews</li>
+</ul>
+<h4>        Part IV: Verification</h4>
+<ul>
+  <li>Intermezzo: Theorem proving with ACL2</li>
+</ul>
+<p><font color="#FF0000"><b>rlp Overall impression</b></font>. This is the
+waterfall model of book design. </p>
+<p><font color="#FF0000"><b>rlp Alternative</b></font>. I'd rather go with a
+spiral approach. Base it around one big software development project, starting
+with some small piece that has independent interest, and building gradually,
+piece by piece, integration step by integration step, to a big project that is
+big only because all the components are integrated, some horizontally
+(independent components) and some vertically (hierarchically).</p>
+<p><b>Intro chapter </b>(10 pages)<br>
+Where we're going and why</p>
+<p><b>First project </b>(50 pages, including code samples + code online)<br>
+Something an individual engineer would deliver. A small component. Start with
+requirements. These would be not from the mktg dept, but from another
+engineering group or manager, so they would be well stated, feasible, etc.</p>
+<p>Then, the student engineer would </p>
+<ul>
+  <li>Start with a simple design (functions to implement, interfaces, and data
+    flow)</li>
+  <li>State properties that the functions would satisfy, to a level at would
+    guarantee correctness if all properties were satisfied</li>
+  <li>Implement the functions, using Dracula to run the tests as part of the
+    development process</li>
+  <li>Bugs in the properties and the design/implementation would be discovered,
+    recorded, and corrected</li>
+  <li>At some point, the engineer would begin verify the properties using ACL2</li>
+  <li>In the end, the engineer would deliver a tested, fully verified software
+    component and its test and verified-property framework</li>
+  <li>Also delivers bug database and time log/diary</li>
+  <li>100 lines of code, total, including all tests and theorems</li>
+</ul>
+<p>Along the way, the student engineer will have learned a little about design,
+a little about test-driven development, a little about inductive definitions,
+etc. In the process of doing this, the engineer would learn a little about all
+the steps in your outline (except teamwork). <font color="#FF0000">Equation-based
+programming, predicate-based testing, test-driven development, and mechanical
+logic are in it from the start.</font></p>
+<p><b>Second&nbsp; </b><b>project </b>(50 pages, including code samples + code
+online)<br>
+Something larger, including </p>
+<ul>
+  <li>Integration of the component from the first project</li>
+  <li>Plus another component delivered by another group, with incomplete test
+    reports, poor design, poorly specified interfaces, and bugs</li>
+  <li>Our long struggling engineer would write the new component in the same
+    manner as the old component, and along the way would bring both the new
+    component and the component delivered by the other group up to our standards
+    (full test design for correctness at the unit and integration level, well
+    specified interfaces, full ACL2 verification of all components)</li>
+  <li>Delivers design, interface specs, code, bug database, time log/diary</li>
+  <li>400 lines of code, total, including integrated code from previous project
+    and supplied software</li>
+</ul>
+<p><b>Third project </b>(50 pages, including code samples + code online)<br>
+Same tune, longer and more complex verse, using some additional tools. We need
+to work them all in gradually.</p>
+<ul>
+  <li>Source-code control + tools from previous projects (bug database, time
+    log/diary, predicate-based testing, mechanical logic)</li>
+  <li>Make this a team project with two or three engineers</li>
+  <li>Deliverables: Design, design and code review reports, interface specs,
+    code, bug database, individual time log/diaries, team bug and time-log
+    summary/analysis reports</li>
+  <li>1000 lines of code, total, including integrated code from previous
+    projects</li>
+</ul>
+<p><b>Fourth </b><b>project </b>(60 pages, including code samples + code online)<br>
+Bigger project, integrating some but not all of the previous, learning more
+about the tools, maybe one new tool (config mgmt)</p>
+<ul>
+  <li>Integrates all previous code, plus some supplied (poorly
+    designed/implemented) components, plus some new components</li>
+  <li>Configuration mgmt tools, planning tools + all previous tools</li>
+  <li>Team project, four to six engineers</li>
+  <li>Deliverables: Design, design and code review reports, interface specs,
+    code, bug database, individual time log/diaries, team bug and time-log
+    summary/analysis reports, configuration mgmt design and report on what went
+    right/wrong in config mgmt</li>
+  <li>2000 lines of code, total, including integrated code from previous
+    projects and supplied software</li>
+</ul>
+<p><b>Fifth </b><b>project </b>(60 pages, including code samples + code online)<br>
+Mktg sends new requirements for the product delivered in step four. Three new
+features needed. They are inconsistent, one or two are infeasible, and the
+engineers can't really figure out what they mean. They ask for clarification,
+and mktg gives them a line of horseshit. So, they have to make the best they can
+of it, say what they can do (mktg says okay, but resents the fact that the
+engineers can't figure out what they're talking about, even though they know in
+their hearts that they don't know what they're talking about but were hoping the
+engineers could make sense out of it anyway), and does it.</p>
+<ul>
+  <li>Design of enhanced&nbsp; system (refactoring needed)</li>
+  <li>Redesign required in some existing components to meet new requirements</li>
+  <li>Maybe faster implementation of some existing components required</li>
+  <li>All previous tools (plus refactoring tool would be nice, but I doubt we'll
+    have any)</li>
+  <li>Team project, four to six engineers</li>
+  <li>Deliverables: same as fourth project + refactoring report</li>
+  <li>2500 lines of code, including the 2000 from fourth project, a third to
+    half of which have been rewritten</li>
+</ul>
+<p><b>Summary chapter </b>(20 pages)<br>
+Lessons learned, top ten rules of the road, sage advice, etc</p>
+
+</body>
+
+</html>

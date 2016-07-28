@@ -1,0 +1,22 @@
+TFPIE paper outline
+
+Title:
+How Computers Work:
+Content for the College Board Computer Science Perspectives Course
+
+Section 1. Description of College Board course concepts
+   Targeted students
+   Goals
+Section 2. Big ideas
+   7 subsections (one for each Big Idea in the AP doc, in same order as doc)
+   subsection #n talks about how HCW discusses big idea #n
+Section 3. Computational thinking practices
+   6 subsections, a la Section 2
+Section 4. Plan
+   Two trial runs so far
+   Text status and plan
+   MITx plan?
+   Schedule?
+
+Reference
+http://www.collegeboard.com/prod_downloads/computerscience/CourseAnnotations_CSPrinciples.pdf
