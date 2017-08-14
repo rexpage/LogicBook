@@ -8,7 +8,7 @@ It's not hard if you don't have many things.
 If you have a dozen pairs of socks, you can just throw them in a drawer
 and find the pair you want quickly, without really having to search.
 However, if you run an office supply store that carries a few thousand different
-kinds of paper, envelopes, printers, and desks, 
+kinds of paper, envelopes, printers, and desks,
 you'll need to arrange them carefully,
 so people can find them.
 
@@ -51,7 +51,7 @@ So, keeping the items in a list starting with the first item,
 then the second, third, and so on cannot work in practice.
 It will require too much data movement to expand spaces between
 items to insert new ones or collapse space between items to delete old ones.
-The problem calls for a better solution, 
+The problem calls for a better solution,
 and that's what this chapter is about.
 
 Let's recap the problem.
@@ -101,7 +101,7 @@ Looking at it from the other direction, starting from one
 and doubling at each stage, it goes 1, 2, 4, 8, 16, 32, 64,
 128, 256, 512, 1024. These are the powers of two:
 $2^0$, $2^1$, $2^2$, $2^3$ \dots $2^{10}$.
-So, the number of items you need to examine 
+So, the number of items you need to examine
 in the binary search procedure
 when there are $n$ items, altogether, is the
 first integer $k$ that makes $2^k \geq n$, or
@@ -113,7 +113,7 @@ $log_2(n)$.
 The first integer that is at least as large as a number $x$ is known
 as the ``ceiling'' of $x$, usually written using ceiling brackets:
 $\lceil x \rceil$. With this notation, the formula for the maximum number of steps
-required to locate a particular item using 
+required to locate a particular item using
 binary search with a collection of $n$ items
 is $\lceil log_2(n) \rceil$.
 
@@ -195,8 +195,8 @@ or a \label{node-def} non-empty collection of \emph{nodes},
 Each node has a sequence of subtrees, and
 \label{subtree-def}each \emph{subtree} is also a tree.
 That is, each subtree is either the empty tree,
-or it consists of a root and a sequence of subtrees.\footnote{Yet 
-another usefully circular, or
+or it consists of a root and a sequence of subtrees.\footnote{Yet
+another usefully circular,
 or as we usually call them, ``inductive'', definition.}
 
 \label{search-tree-def}A \emph{search tree}, for our purposes, is a tree in which each node,
@@ -245,7 +245,7 @@ precedes, in the ordering, the next key in the sequence.
 To support binary search,
 each node in a search tree
 has the property that all of the keys in the left subtree
-precede (in the ordering on the domain of keys) 
+precede (in the ordering on the domain of keys)
 the key in the node, and that key precedes all of
 the keys in the right subtree.
 \label{ordered-def}
@@ -280,7 +280,7 @@ all the keys from a list, simply insert the first one into an empty
 search tree, then insert each successive one into the tree
 produced by inserting the previous key from the list.
 
-That's the simple part. 
+That's the simple part.
 The hard part is in making sure the tree
 doesn't get too tall.
 Nodes in a search tree have subtrees,
@@ -305,7 +305,7 @@ a balance between the heights of the subtrees in the node.
 The process of inserting new nodes or deleting old ones
 maintains balance, which keeps the tree from getting too tall
 on one side or the other.
-In this way the AVL method preserves 
+In this way the AVL method preserves
 a high ratio between number of keys
 a search tree contains and the height of the tree.
 That is, the insertion process makes sure
@@ -429,7 +429,7 @@ which is zero for an empty tree, and
 for a non-empty tree, is one more than the sum
 of the sizes of its left and right subtrees.
 
-We define ACL2 functions to formalize these definitions
+We use ACL2 to formalize these definitions
 (Figure \ref{fig:tree-functions}, page \pageref{fig:tree-functions}),
 starting with an operator to build a tree from its four components.
 Then we define operators to extract keys, data, and subtrees from nodes
@@ -473,7 +473,7 @@ and to find out whether a key occurs in a tree (keyp).
            (keyp k (rgt s)))))
 \end{Verbatim}
 \end{center}
-\caption{Search Tree Functions and Predicates}
+\caption{Search Tree Operators and Predicates}
 \label{fig:tree-functions}
 \end{figure}
 
@@ -600,7 +600,7 @@ and height balancing is sufficient to accomplish this goal.
 Full symmetry isn't necessary.
 
 As we mentioned before (page \pageref{50pct-thm})
-the height of a balanced search tree 
+the height of a balanced search tree
 turns out to be less than $1.5 \cdot log_2(n)$.
 That makes finding things take a few more
 steps than the optimal case in which both subtrees of
@@ -639,7 +639,7 @@ we must make sure that both subtrees
 of any node in a search tree have the same height, or that the
 height of one of them is only one more than the height of the other.
 \label{balance-def}
-The function ``balp'' expresses this notion formally
+The predicate ``balp'' expresses this notion formally
 (Figure \ref{fig:balance-defun}, \pageref{fig:balance-defun}).
 
 \begin{figure}
@@ -968,7 +968,7 @@ An insertion into tree \emph{E} cannot cause the tree to go out of balance
 because, at worst, insertion will make one side of the tree
 one unit taller than the other side, and leaves the tree
 balanced. (The subtrees have height less than $n+2$,
-so the induction hypothesis guarantees that they remain 
+so the induction hypothesis guarantees that they remain
 balanced after insertion.)
 Therefore, we do not concern ourselves with trees like \emph{E}.
 However, if we insert a new key that is less than $k$
@@ -1115,7 +1115,7 @@ the key $j$ can go at the root, and the former root key, $k$,
 can hang from the right side of the new root.
 If we then plug the subtrees into the only places they
 can go that preserves order,
-the result, tree\emph{rLLout} (Figure \ref{fig:zig-and-zag}), 
+the result, tree\emph{rLLout} (Figure \ref{fig:zig-and-zag}),
 is balanced and has height $n+2$.
 Voila! Like magic.
 
@@ -1346,7 +1346,7 @@ and leave its definition as an exercise.
 There are no other cases in which insertion
 can cause the tree to go out of balance,
 so the proof by induction of the
-order, balance, and height properties 
+order, balance, and height properties
 of the insertion operator is complete.
 It is formally defined in
 Figure \ref{defun:ins} (page \pageref{defun:ins}).
@@ -1587,8 +1587,8 @@ After you complete the timings with the fast version of ins,
 switch to the old version that
 uses computed height instead of the height extractor, ht,
 and do the timings again.
-You will see that the time required by the original functions
-soon gets unacceptably long.
+You will see original operators take a long time
+when the number of keys is large.
 Inserting items one by one, starting from an empty tree,
 to build a tree with $n$ keys takes time proportional to $n log(n)$
 with the fast version of insertion.
