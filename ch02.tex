@@ -13,26 +13,37 @@ using substitution of equals for equals as the rule of
 inference.
 
 You will probably find this familiar from your
-experience with numeric algebra, but we will attend carefully
+experience with numeric algebra, but the discourse here will attend carefully
 to details, and this formality may extend beyond what you are
-accustomed to. What it buys us is mechanization. That is, our
-logic formulas and our reasoning about them will amount to
-mechanized computation, and this will make it possible to
+accustomed to. What it buys us is mechanization. That is,
+logic formulas and reasoning about them will amount to
+mechanized computation, and this will make it possible for
 computers to check that our reasoning follows all the rules,
-without exception. This gives us a higher level of confidence
-in our conclusions than would otherwise be possible.
+without exception. This provides a higher level of confidence
+in conclusions than would otherwise be possible.
 
 \begin{aside}
-\emph{Hold on to your seat!} This section illustrates an essential method used throughout the book. It introduces the notion of ``formality'' in mathematical argumentation. This is ``formality'' in the sense of being ``based on formulas.'' The formulas involved have a prescribed grammar similar to the one for numeric formulas that you have used for many years. This grammar determines which formulas are well formed (that is, grammatically correct) and which are not.
-For example, the formula ``$x+3\times(y + z)$'' conforms to the grammar, so it is well formed (grammatically correct),
+\emph{Hold on to your seat!}
+This section illustrates an essential method used throughout the book.
+It introduces the notion of ``formality'' in mathematics.
+That is, formality in the sense of being based on formulas.
+The formulas have a prescribed grammar similar to the one
+for ordinary numeric formulas.
+The grammar determines which formulas are well formed
+(that is, grammatically correct) and which are not.
+For example, ``$x+3\times(y + z)$'' conforms to the grammar
+of numeric formulas,
+so it is grammatically correct,
 but the non-formula ``$x+3\times(y + ) \times z$'' is not.
 
-Things may seem overly simple at the very beginning.
+Things may seem overly simple in the beginning.
 Then, suddenly, you may find yourself thrashing around in deep water.
 Take a deep breath, and slowly work  through the material.
 It provides a basis for everything to follow.
-It calls for careful study and frequent review when things start to go off track.
-Fold the corner of this page down. You will probably need to come back to it later.
+The ideas and methods call for careful study and frequent review.
+When things start to go off track,
+just slow down, back up a little, and try again.
+Gradually, the pieces will fall into place.
 \caption{Hold on to Your Seat}
 \label{aside-hold-on-to-seat}
 \end{aside}
@@ -40,40 +51,44 @@ Fold the corner of this page down. You will probably need to come back to it lat
 We will be doing all of this in the domain of symbolic logic, which
 includes operations like ``logical or'' and ``logical negation'',
 rather than arithmetic operations, such as addition and
-multiplication. Logical operations put our formulas in the
-domain of Boolean algebra, rather than numeric algebra, but
-our rule of inference, which is substitution of equals for equals,
-applies equally well in both Boolean and numeric domains.
+multiplication.
+We will be doing Boolean algebra, rather than numeric algebra, 
+but the rule of inference that the reasoning is based on, 
+namely substitution of equals for equals,
+applies equally well to both Boolean and numeric formulas.
 To illustrate the level of formality that we are shooting for,
-let's see how it works with a problem in numeric algebra.
+let's see how it works with a problem 
+in the familiar domain of numeric algebra.
 
 You are surely familiar with the equation $(-1)\times(-1) = 1$, but you may
 not know that it is a consequence of some basic facts about
-arithmetic calculation.
+arithmetic.
 That is, the fact that multiplying two
 negative numbers produces a positive one
 is not independent of other facts about numbers.
 Instead, it is an inference one can draw
 from an acceptance of other familiar equations.
 We will derived the equation $(-1)\times(-1) = 1$
-from other equations that you are familiar with
-and will surely accept without question.
+from equations that you have accepted without question for a long time.
 
 The equations in Figure~\ref{fig-02-01} (page \pageref{fig-02-01})
 express some standard rules of numeric computation.
 In those equations, the letters stand in
 place of numbers. They can also stand in place of other
-formulas expressed in terms of common numeric operations (addition,
-multiplication, etc).
+formulas.
 So, the variable $x$ stands for a grammatically correct formula,
-which could be a simple formula like ``$2$'',
-a more complicated formula like ``$3\times(y + 1)$,
-or some other formula, be more or less complex than these.
+which could be something simple, such as ``$2$'',
+it could be a more complicated formula, such as ``$3\times(y + 1)$''.
 
 We refer to letters used in this way as
 ``variables'' even though, within a particular equation, they
-stand for a fixed number or other, particular formula.
-The formula associated with a variable, though unspecified, does not vary.
+stand for a fixed number or a particular formula.
+The formula associated with a variable, though unspecified,
+is the same for every occurrence of the variable in the equation.
+That is, if $x$ stands for $3\times(y + 1)$ at one point in the
+equation, then everywhere else $x$ occurs in the equation,
+it stands for that same formula, $3\times(y + 1)$.
+This is the usual custom in algebra.
 
 \begin{figure}
 \begin{center}
@@ -93,12 +108,13 @@ $x\times(y+z) = (x \times y)+(x \times z)$      & \{distributive law\} \\
 \label{fig-02-01}
 \end{figure}
 
-If we accept the equations of Figure~\ref{fig-02-01} (page \pageref{fig-02-01}) as axioms,
+If we accept the equations of Figure~\ref{fig-02-01} (page \pageref{fig-02-01}),
 we can apply one of them to transform the formula $(-1)\times(-1)$ to a new formula that
-stands for the same number. Then, we can apply another axiom to
-transform that formula to a new one, and so on. We apply the
-axiomatic equations in such a way that, at some point, we
-arrive at the formula ``1''. At every stage, we know that the
+stands for the same number. Then, we can apply another equation to
+transform that formula to a new one, and so on. 
+We look for a way to apply the
+accepted equations one by one, so that in the end we
+arrive at the formula ``1''. At every step, we know that the
 new formula stands for the same value as the old one, so in
 the end we know that $(-1)\times(-1) = 1$.
 
@@ -116,18 +132,47 @@ $(((-1) \times (x + 3)) + (x + y))$.
 
 Another crucial point is that each step cites
 exactly one equation from Figure~\ref{fig-02-01} (page \pageref{fig-02-01})
-to justify the transformation from the formula in the previous step. We are so accustomed to calculating numeric formulas that we often combine many basic steps into one. When we reason formally, we must not do this. We must justify each step citing an equation from a list of known equations. In our proof of $(-1)\times(-1) = 1$, we will justify steps by citing equations from Figure~\ref{fig-02-01} and from no other source. We will not skip steps. Think of that as you go through the proof, line by line.
+to justify the transformation from the formula in the previous step.
+We are so accustomed to calculating with numeric formulas that
+we often combine many basic steps into one. When we reason formally,
+we must not do this. We must justify each step by citing an equation
+from a list of known equations. In our proof of $(-1)\times(-1) = 1$,
+we will justify steps by citing equations from Figure~\ref{fig-02-01}
+and from no other source. We will not skip steps.
+Think of that as you go through the proof, line by line.
 
-The first step in the proof (Figure~\ref{fig-02-02}, page \pageref{fig-02-02}) uses a version of the
+The first step in the proof
+(Figure~\ref{fig-02-02}, page \pageref{fig-02-02}) uses a version of the
 \{$+$ identity\} equation in which the variable $x$ stands for the
-formula $((-1)\times(-1))$. The second step reads the \{$+$ complement\}
+formula $((-1)\times(-1))$.
+In this context, the \{$+$ identity\} equation 
+leads to the new formula $((-1)\times(-1)) + 0$.
+
+The second step in the proof reads the \{$+$ complement\}
 equation backwards (equations go both ways), and in a form
-where the variable $x$ stands for the number 1. And so on. The
-transformations, step by step, finally confirm that the two formulas
-$(-1)\times(-1)$ and 1 stand for the same number.
+where the variable $x$ stands for the number 1. 
+When $x$ is 1, the \{$+$ complement\} equation is 
+$(-1) + 1 = 0$. 
+Reading the equation backwards, we can substitute
+$((-1) + 1)$ for $0$,
+and that leads to the formula $((-1)\times(-1)) + ((-1) + 1)$. 
+So, we know now that
+$(-1)\times(-1) = ((-1)\times(-1)) + ((-1) + 1)$.
+
+Doesn't really seem like progress does it?
+But, we press on anyway, one step at a time.
+The transformations, step by step, finally confirm that the two formulas
+$(-1)\times(-1)$ and 1 represent the same number.
 
 Pay particular attention to the last three lines of the proof.
-Most people tend to jump from the formula $0+1$ to the formula $1$ in one step. This requires knowing the equation $0+1 = 1$. However, that equation is not among those listed in Figure~\ref{fig-02-01} (page \pageref{fig-02-01}). To do the proof without citing any equations other than those in Figure~\ref{fig-02-01}, we need two steps, and those are the last two steps in the proof.
+Most people tend to jump from the formula $0+1$ to the
+formula $1$ in one step. That jump requires knowing the equation
+$0+1 = 1$. However, that equation is not among those listed in
+Figure~\ref{fig-02-01} (page \pageref{fig-02-01}).
+We want to do the proof without citing any equations
+other than those in Figure~\ref{fig-02-01}, so we need two steps
+to get from ``$(0+1)$'' to ``$1$'',
+and those are the last two steps in the proof.
 
 \begin{figure}
 \begin{center}
@@ -158,18 +203,21 @@ rational consequence, accept the equation $(-1)\times(-1) = 1$.
 
 Using this same kind of reasoning, we will derive new Boolean equations
 from a few, basic ones postulated as axioms.
+A Boolean \emph{axiom} is a Boolean equation
+that we assume to be true, without proof.
 We will also learn that digital circuits are physical
-representations of logic formulas, and we will be able to
-parlay this basic idea to derive behavioral properties of
+manifestations of logic formulas, and we will be able to
+parlay that idea to derive behavioral properties of
 computer components.
 
 Likewise, because a computer program is,
-literally, a logic formula, we will be able to derive
-properties of those programs directly from the programs,
-themselves. This makes it possible for us to be entirely
+literally, a formula, we will be able to derive
+properties of software directly from the programs, themselves. 
+This makes it possible for us to be entirely
 certain about some of the behavioral characteristics of
 software, and of computer hardware, too,
-since a hardware component is also a logic formula.
+since a hardware component is a physical embodiment of a formula
+in logic.
 Our certainty stems from the mechanistic
 formalism that we insist on from the beginning,
 which can be checked to the last detail with automated computation.
@@ -189,32 +237,30 @@ $((-1) \times x) + x = 0$    & \{$\times$ negation\}
 \end{tabular}
 \end{center}
 
-
 \Exercise
 Derive the equation $((x + (((-1) \times (x + y)) + z)) + y) = z$
-using using the equations of Figure~\ref{fig-02-01}.
-You may also use the \{$\times$ negation\} equation from the previous exercise.
+using using the equations of Figure~\ref{fig-02-01} and,
+if you like,
+the \{$\times$ negation\} equation from the previous exercise.
 \end{ExerciseList}
 
 \section{Boolean equations}
 \label{sec:boolean-equations}
-Let's start with the Boolean equations in Figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
-If they look strange to you, try not to worry. Everything new seems
-strange for a while. Try to view them as ordinary, algebraic
-equations, but with a different collection of operators. A
-formula in numeric algebra contains operations like addition
+Let's start with the Boolean equations in 
+Figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
+These equations, which we will call the Boolean axioms,
+are the starting point for our system of reasoning.
+The form the basis from which we will derive
+a host of other equations.
+If these axiomatic equations are new to you and seem strange, 
+try to view them as ordinary,
+algebraic equations, but with a different collection of operators.
+A formula in numeric algebra has operations like addition
 ($+$) and multiplication ($\times$). Boolean formulas employ logic
 operations: logical-and ($\wedge$), logical-or ($\vee$),
 logical-negation ($\neg$), and implication ($\rightarrow$).
-
 Furthermore, Boolean formulas stand for logic values
-($True$, $False$), rather than for numbers (\dots -1, 0, 1, 2 \dots).
-So, in Boolean algebra there are just two basic values ($True$, $False$),
-not an infinite collection of numbers.
-That does not limit the potential domain of discourse, however. By
-aggregating the basic $True$/$False$ elements in sequences, we
-will find that we can deal with numbers and with the full range of things that
-numbers can represent.
+($True$, $False$), rather than for numbers (\dots -2, -1, 0, 1, 2 \dots).
 
 \begin{figure}
 \begin{center}
@@ -231,28 +277,17 @@ $x \rightarrow x = True$                             & \{self-implication\} \\
 $\neg(\neg x)  = x$                                  & \{double negation\} \\
 \end{tabular}
 \end{center}
-\caption{Basic Boolean equations (axioms)}
+\caption{Boolean Axioms (basic equations)}
 \label{fig-02-03}
 \end{figure}
 
 When we derive new equations from equations we already know,
-we refer to the derived equations as ``theorems'' to
-distinguish them from axioms. We call the derivation a
-``proof'' of the theorem.
+we refer to the derived equations as \emph{theorems} to
+distinguish them from axioms. 
+We call the derivation a
+\emph{proof} of the theorem.
 
-The first equation in the
-following theorem \{$\vee$ truth table\} is a special case of the
-\{$\vee$ identity\} axiom in Figure~\ref{fig-02-03} (page \pageref{fig-02-03}),
-and the proof of that equation consists of that observation. The proof of the
-second equation is equally short, but cites
-a different equation in the axioms of Figure~\ref{fig-02-03}
-to justify the transformation from $False \vee True$
-to $True$.
-For practice, try to prove the other two
-equations in the \{$\vee$ truth table\} theorem by citing axioms
-in a similar way.
-
-\label{or-truth-table}
+\begin{figure}
 \begin{theorem}[\{$\vee$ truth table\}]
 \mbox{}
 \begin{itemize}
@@ -264,51 +299,90 @@ in a similar way.
 \end{theorem}
 
 \begin{proof}
-\mbox{} \\
-\begin{tabular}{llp{3.15in}}
-    & $False \vee False$               & \\
-$=$ & $False$                          & \{$\vee$ identity\} \dots taking $x$ in the axiom to stand for False \\
-\end{tabular}
-
-\begin{tabular}{llp{3.15in}}
-    & $False \vee True$                & \\
-$=$ & $True$                           & \{$\vee$ null\} \dots taking $x$ in the axiom to stand for False \\
-\end{tabular}
-
+\mbox{}\\
 \begin{tabular}{lll}
-& \dots for practice, prove the other two equations yourself \dots & \\                              & \\
+    &$False \vee False$    & \\
+$=$ & $False$              & \{$\vee$ identity\}  ~~~---replace $x$ in the axiom with \emph{False}\\
+    &  ~                   & \\
+    & $False \vee True$    & \\
+$=$ & $True$               & \{$\vee$ null\}  ~~~---replace $x$ in the axiom with \emph{False}\\
+%    &                      & \dots for practice, prove the other two equations yourself \dots \\
 \end{tabular}
-
+\begin{quote}
+\dots for practice, prove the other two equations yourself \dots
+\end{quote}
 \end{proof}
+\caption{Proof of Theorem \{$\vee$ Truth Table\}}
+\label{or-truth-table}
+\end{figure}
+
+The first equation in the theorem \{$\vee$ truth table\}
+(Figure~\ref{or-truth-table}, page \pageref{or-truth-table})
+is a special case of the
+\{$\vee$ identity\} axiom (Figure~\ref{fig-02-03}),
+and the proof of that equation simply amounts making that observation.
+That is, the proof just rewrites the \{$\vee$ identity\} axiom
+with $False$ in place of $x$.
+
+The proof of the second equation is equally short, but cites
+a different axiom.
+For practice, try to prove the other two
+equations in the \{$\vee$ truth table\} theorem
+by citing axioms in a similar way.
 
 We are serious about that. Did you prove the other two equations?
 No? Well \dots go back and do it, then. Without participation, there
 is no learning.
+
+\smallskip
+$\dots$ \emph{We'll wait here}$\dots$
+\smallskip
 
 Finished now? Good for you. You cited the \{$\vee$ identity\} axiom in your
 proof of the third equation in the theorem and the \{$\vee$ null\}
 axiom in your proof of the fourth equation, right? We knew you could do it.
 
 \begin{aside}
-A ``truth table'' for a formula is a list of the values the formula represents,
-with one entry in the list for every possible combination of the values of its variables.
-If there is only one variable in the formula, there will be two entries in its truth table,
-one for the case when the variable has the value $True$ and one for the case when the variable has the value $False$.
+A \emph{truth table} for a formula is a list of equations
+stating the values the formula represents,
+with one equation for every possible combination of values
+of the variables in the formula.
+If there is only one variable in the formula,
+there will be two equations in its truth table,
+one for the case when the variable has the value
+$True$ and one for the case when the variable has the value $False$.
 If there are two variables in the formula,
-there will be four entries in the truth table because for each choice of value for the first variable,
-there are choices for the other. Three variables lead to eight entries.
-The number of entries doubles with each new variable.
+there will be four equations in the truth table
+because for each choice of value for the first variable,
+there are two choices for the other.
+Three variables lead to eight equations.
+The number of equations in the truth table
+doubles with each additional variable
+in the formula.
 
-A truth table for a logical operator is the truth table for the formula that has variables in place of the operands. For example, the truth table for the logical-or operator ($\vee$) is the truth table for the formula $x \vee y$. That formula has two variables, so the truth table has four entries.
+A truth table for a logic operator is the truth table for the formula
+that has variables in place of the operands.
+For example, the truth table for the logical-or operator ($\vee$)
+is the truth table for the formula $(x \vee y)$.
+That formula has two variables, so the truth table has four equations.
 \caption{Truth Tables}
 \label{truth-tables}
 \end{aside}
 
-Derivations are usually more complicated, of course. For example, the following
-\{$\vee$ complement\} theorem is not a special case of any
-of the axioms, but has a two-step proof, citing implication
-and self-implication.
+Derivations are usually more than one step, of course.
+For example, the
+\{$\vee$ complement\} theorem
+(Figure~\ref{fig:or-complement-thm}, page \pageref{fig:or-complement-thm})
+has a two-step proof, citing the \{implication\} axiom
+and the \{self-implication\} axiom.
+The \{$\vee$ complement\} theorem is often called the
+``law of the excluded middle'' because it says that any
+logic formula, together with its negation, covers all
+of the possibilities.
+A formula in logic is either true of false.
+There is no middle ground.
 
+\begin{figure}
 \begin{theorem}[\{$\vee$ complement\}]
 $(\neg x) \vee x = True$
 \end{theorem}
@@ -321,18 +395,21 @@ $=$ & $True$            & \{self-implication\} \\
 \end{tabular}
 
 \end{proof}
+\caption{Proof of Theorem \{$\vee$ complement\}}
+\label{fig:or-complement-thm}
+\end{figure}
 
-The \{$\vee$ complement\} theorem is often referred to as the
-``law of the excluded middle'' because it states that any
-logical statement, together with its negation, comprises all
-of the possibilities. A logical statement is either true of false.
-There is no middle ground.
+All of the logic operators have truth tables,
+and we can derive the equations in those truth tables from the axioms.
+Figure~\ref{fig:neg-truth-table} (page \pageref{fig:neg-truth-table})
+displays the truth table
+for the negation operator $(\neg)$.
+The figure includes a four-step proof of the first equation in
+the table.
+To beef up your comprehension of the ideas,
+construct your own proof of the second equation in the theorem.
 
-All of the logical operators have truth tables, and we can derive the equations in those truth tables from the axioms.
-The following theorem provides the truth table for the negation ($(\neg x)$) operator.
-The proof of the first equation in the \{$\neg$ truth table\} theorem has a four step proof.
-To beef up your comprehension of the ideas, construct your own proof of the second equation in the theorem.
-
+\begin{figure}
 \begin{theorem}[\{$\neg$ truth table\}]
 \mbox{}\\
 \begin{itemize}
@@ -345,9 +422,9 @@ To beef up your comprehension of the ideas, construct your own proof of the seco
 \begin{tabular}{llp{3.15in}}
     & $\neg True$                      & \\
 $=$ & $\neg (False \rightarrow False)$ & \{self-implication\} \\
-$=$ & $\neg ((\neg False) \vee False)$ & \{implication\} (taking both $x$ and $y$ in the axiom to stand for $False$) \\
-$=$ & $\neg (\neg False)$              & \{$\vee$ identity\} (taking $x$ in the axiom to stand for $\neg False$) \\
-$=$ & $False$                          & \{double negation\} (taking $x$ in the axiom to stand for False) \\
+$=$ & $\neg ((\neg False) \vee False)$ & \{implication\}     ---replace $x$ and $y$ in axiom with $False$ \\
+$=$ & $\neg (\neg False)$              & \{$\vee$ identity\} ~~---replace $x$ in the axiom with $\neg False$ \\
+$=$ & $False$                          & \{double negation\} ~~---replace $x$ in axiom with $False$ \\
 \end{tabular}
 
 \bigskip
@@ -359,16 +436,23 @@ $=$ & $True$                                   & \\
 \end{tabular}
 
 \end{proof}
+\caption{Proof of Theorem \{$\neg$ truth table\}}
+\label{fig:neg-truth-table}
+\end{figure}
 
 An important facet of these proofs is that they are
 entirely syntactic. That is, they apply axioms by
-matching the grammar of a formula $f$ in the proof with a formula $g$ in an equation from the axioms.
-This matching associates the variables in $g$ with certain sub-formulas in the formula $f$.
+matching the grammar of a formula $f$ (or a sub-formula of $f$) in the proof
+with a formula $g$ from one side of an equation in the axioms.
+The matching associates the variables in $g$ with corresponding sub-formulas of $f$.
 Then, the formula $h$ on the other side of
-the equation, with the same association between its variables and sub-formulas of $f$,
+the axiomatic equation is rewritten,
+replacing each of variable in $h$ with the the associated subformula of $f$
+that the matching process established.
+The rewritten version of $h$
 becomes the new, derived formula.
 We know that the derived formula stands for the same value
-as the original formula because the axiom asserts this relationship,
+as the original formula because the axiom asserts this equivalence,
 and we are assuming that axioms are right.
 
 \begin{aside}
@@ -398,56 +482,109 @@ That makes it difficult for people, but no real problem for a computer.
 Even twenty variables (a little more than a million combinations)
 also can be checked quickly by computers.
 
-However, the formula specifying a computing component,
+However, a formula specifying a computing component,
 hardware or software, has hundreds of variables.
 Our goal is to be able to reason about
-computing components, and there is no hope of doing
-that when the formulas have hundreds of variables. The number of combinations
+computing components, and there is no hope of doing that
+with truth tables when the formulas have hundreds of variables. 
+The number of combinations
 of values for the variables in a formula with, say,
 100 variables is $2^{100}$, and that number is so large that no computer could
-finish checking for equality before the sun runs out of fuel.
+finish checking all the cases before the sun runs out of fuel,
+so a straightforward appeal to truth tables is
+definitely not feasible for formulas with lots of variables.
 
-So, it is definitely not feasible to know the full meaning
-of computing components by analyzing the truth tables of the
-formulas that comprise their designs. Reasoning based on grammatical form
-makes it feasible to deal with realistic computing components
-because the reasoning process can be split into parts small enough
+There are effective methods 
+for dealing with at least some large formulas
+besides the proofs that make up the core
+material of this book.
+Hardware and software designers sometimes use
+SMT solvers (satisfiability modula theories) or
+BDD tools (binary decision diagrams)
+to verify properties of circuits and computer programs.
+But, reasoning based on grammatical form
+makes it possible to deal with formulas with any number of variables
+because the formulas can be split into parts small enough
 to manage, and those parts can be reintegrated, based on
 their grammatical relationships, to produce a full analysis.
-It will take some diligence to reach this goal, and
-we will need a few more tools, but the proof methods
-of this chapter will get us started in the right direction.
+Feasible doesn't mean easy, though.
+It usually takes a lot of effort,
+but it can pay off.
 \caption{Truth Tables and Feasibility}
 \label{feasibility}
 \end{aside}
 
-Let's do another truth-table theorem, partly to practice
+Let's prove another truth-table theorem, partly to practice
 reasoning with equations, but also to discuss a common
 point of confusion about logic. The implication operator
 ($\rightarrow$) is a cornerstone of logic in real-world problems,
-but many people misunderstand its meaning (that is, its truth table).
+but it is common to get tripped up when it comes to
+reasoning with implication.
 
-The \{$\rightarrow$ truth table\} theorem provides the truth table for the implication operator. An important aspect of the proof is that it cites not only axioms from Figure~\ref{fig-02-03} (see page \pageref{fig-02-03}),
-but also equations from the \{$\neg$ truth table\} theorem. This is the way mathematics goes. Once we have derived a new equation from the axioms, we can cite the new equation to derive still more equations.
+The \{$\rightarrow$ truth table\} theorem
+(Figure~\ref{implication-truth-table}, page \pageref{implication-truth-table})
+provides the truth table
+for the implication operator.
+An important aspect of the proof is that it cites
+not only axioms from Figure~\ref{fig-02-03} (page \pageref{fig-02-03}),
+but also equations from the \{$\neg$ truth table\} theorem.
+This is the way mathematics goes. Once we have derived
+a new equation from the axioms, we can cite
+the new equation to derive still more equations.
 
 \begin{aside}
-Citing proven theorems to prove new ones is similar to an idea known as ``abstraction''
+Citing proven theorems to prove new ones
+is similar to an idea known as ``abstraction''
 that is a mainstay in engineering design.
 At the point where we cite an old theorem to prove a new one,
-we could, instead, copy the proof of the old theorem into new proof.
+we could, instead, copy the proof of the old theorem into the new proof.
 However, that would make the proof longer, harder to understand,
-and more likely to contain errors.
+and more likely to contain errors than it would be if we had
+applied the theorem instead of copying its proof.
 
-Computer programs are built from components that are, themselves, other computer programs. As the project proceeds, more and more components become available, and they are used to build more complex ones. Sometimes, a component has almost the right form to be used in a new program, but not quite. Maybe the existing component doubles a number where the new program would need to triple it. Most software engineers are tempted to make a copy the old component and change the $2 \times x$ formula to $3 \times x$ at the point where a doubling should be a tripling. \emph{This practice the single most common cause of errors in computer software.}
+Computer programs are built from components that are, themselves,
+other computer programs. As a project proceeds, more and more
+components become available, and they are used to build more complex ones.
+Sometimes, a component has almost the right form to be used in a new program,
+but not quite.
+Maybe the existing component doubles a number where the new program would need
+to triple it. It is tempting to make a copy the
+old component and change the $2 \times x$ formula to $3 \times x$
+at the point where a doubling should be a tripling,
+then paste the revised component into the program.
 
-What the engineer should do is to make a new component in which the $2$ is replaced by a variable, say $m$. This is known as creating an ``abstraction'' of the component (``abstract'' as opposed to ``specific'' or ``concrete''). The new component can be used for both doubling and tripling, simply by specifying $2$ for $m$ in one case and $3$ for $m$ in the other. That way, if the component turns out later to have an error in it, the error can be fixed in one place instead of two (or maybe ten or a hundred places, depending on how many engineers have made copies of the original component to change the $2$ to $7$ or $9$ or whatever.
+In our experience
+copy-and-paste programming is
+a common cause of errors in software,
+especially in big programs maintained,
+over time, by many people, because
+when a maintainer finds an error in
+a section of code that was copied from elsewhere,
+there is nothing to direct the maintainer to fix
+the same error in the copied code.
+A better choice, most of the time,
+is to make a new component
+in which the $2$ is replaced by a variable,
+say $m$.
 
-Abstraction is one of the most important methods in all of engineering design. Citing old theorems to prove new ones, instead of copying their proofs into the new proof with appropriate choices for the variables, is part of that tradition.
+This is known as creating an ``abstraction'' of the component
+(``abstract'' as opposed to ``specific'' or ``concrete'').
+The new component can be used for both doubling and tripling,
+simply by specifying $2$ for $m$ in one case and $3$ for $m$ in the other.
+That way, if an error is discovered in the component later,
+the error can be fixed in one place instead of two
+(or maybe ten or a hundred places, depending on how many engineers
+copied of the original component to make a change.
+
+Abstraction is one of the most important methods in
+all of engineering design. Citing old theorems to prove new ones,
+instead of doing copy-and-paste with their proofs, 
+is part of that tradition.
 \caption{Abstraction}
 \label{abstraction}
 \end{aside}
 
-\label{implication-truth-table}
+\begin{figure}
 \begin{theorem}[\{$\rightarrow$ truth table\}]
 \mbox{}
 \begin{itemize}
@@ -462,24 +599,27 @@ Abstraction is one of the most important methods in all of engineering design. C
 \mbox{} \\
 \begin{tabular}{llp{3.15in}}
     & $False \rightarrow False$        & \\
-$=$ & $(\neg False) \vee False$        & \{implication\} \dots taking both $x$ and $y$ in the axiom to stand for $False$ \\
+$=$ & $(\neg False) \vee False$        & \{implication\} ~~---\emph{put} $False$ \emph{for} $x$ \emph{and for} $y$ \emph{in axiom}\\
 $=$ & $\neg False$                     & \{$\vee$ identity\}\\
 $=$ & $True$                           & \{$\neg$ truth table\}\\
 \end{tabular}
 
 \begin{tabular}{lll}
-& \dots for practice, prove the other equations yourself\dots & \\         & \\
+& \dots for practice, prove the other equations yourself\dots & \\
 \end{tabular}
 
 \end{proof}
+\caption{Proof of Theorem \{$\rightarrow$ truth table\}}
+\label{implication-truth-table}
+\end{figure}
 
-In day to day life outside the sphere of symbolic logic,
-the interpretation of the logical implication ``$x \rightarrow y$''
+In day-to-day life outside the sphere of symbolic logic,
+the usual interpretation of the logical implication ``$x \rightarrow y$''
 is that we can conclude that $y$ is true if we know that
 $x$ is true. However, the implication says nothing
 about $y$ when $x$ is not true. In particular, it
 does not say that $y$ is not true whenever $x$ is not true.
-A quick look at theorem \{$\rightarrow$ truth table\} shows that the
+Theorem \{$\rightarrow$ truth table\} shows that the
 formula ``$False \rightarrow y$'' has the value $True$ when $y$ is $True$
 and also when $y$ is $False$.
 In other words, the truth of the formula $x \rightarrow y$ in the case
@@ -494,15 +634,19 @@ results, even in everyday life. In symbolic logic,
 it is worse than that. Such a conclusion puts an
 inconsistency into the mathematical system, and that renders the system useless.
 
-Over half of the basic Boolean equations in Figure~\ref{fig-02-03} (see page \pageref{fig-02-03})
+Over half of the Boolean axioms in Figure~\ref{fig-02-03} (page \pageref{fig-02-03})
 have names associated with the logical-or ($\vee$) operation.
 One of them, the
-\{$\vee$ DeMorgan\} equation establishes a connection between logical-or and logical-and.
+\{$\vee$ DeMorgan\} equation
+establishes a connection between logical-or and logical-and.
 It converts the negation of a logical-or to the logical-and of two negations:
 $\neg(x \vee y) = (\neg x) \wedge (\neg y)$.
-We can use this connection to prove a collection of equations for logical-and that are similar to the basic ones for logical-or.
-An example is the null law for logical-and.
+We can use this connection to prove some logical-and equations
+that are similar to the logical-or axioms.
+An example is the null law for logical-and
+(Figure~\ref{fig:and-null-thm}, page \pageref{fig:and-null-thm}).
 
+\begin{figure}
 \begin{theorem}[\{$\wedge$ null\}]
 $x \wedge False = False$
 \end{theorem}
@@ -513,31 +657,43 @@ $x \wedge False = False$
     & $x \wedge False$                       & \\
 $=$ & $x \wedge (\neg True)$                 & \{$\neg$ truth table\} \\
 $=$ & $(\neg (\neg x)) \wedge (\neg True)$   & \{double negation\} \\
-$=$ & $\neg ((\neg x) \vee True)$            & \{$\vee$ DeMorgan\} \dots taking $x$ in the axiom to stand for $(\neg x)$ and $y$ in the axiom to stand for $True$  \\
+$=$ & $\neg ((\neg x) \vee True)$            & \{$\vee$ DeMorgan\} ~~---\emph{put} $(\neg x)$ \emph{for} $x$\emph{,} $True$ \emph{for} $y$ \emph{in axiom}\\
 $=$ & $\neg True$                            & \{$\vee$ null\} \\
 $=$ & $False$                                & \{$\neg$ truth table\} \\
 \end{tabular}
 
 \end{proof}
+\caption{Proof of Theorem \{$\wedge$ null\}}
+\label{fig:and-null-thm}
+\end{figure}
 
 This regime of theorem after theorem, proof after proof, is a little tiresome, isn't it?
 Nevertheless, let's push through one more.
 Then we'll give you a few to work out on your own, and go on to other topics.
-We're not abandoning proofs, though. Just taking a little break.
+We're not abandoning proofs, though.
+Just taking a little break from proofs about equations.
 It's going to be one proof after another, all the way down the line.
 
 Some equations simplify the target formula when used in one direction,
 but make it more complicated when used in the other direction.
 For example, applying
 the null law for logical-or, \{$\vee$ null\}, from left to right simplifies a logical-or formula to $True$.
-The formula on the right in the \{$\wedge$ null\} equation discards both the logical-or operation and the variable $x$.
-When you use this equation in the other direction, you can make the formula as complicated as you like because the variable $x$ stands for any formula you want to make up (as long as it's grammatically correct).
+When the equation is applied in the other direction, however,
+it transforms the simple formula $True$ into something more complicated $(x \vee True)$.
+The variable $x$ on the left-hand side
+stands for any formula you want to make up (as long as it's grammatically correct).
 It can have hundreds of variables and thousands operations.
 This may seem perverse, but if that's what it takes to complete the proof, so be it.
 
-The null law for logical-and, \{$\wedge$ null\}, is also asymmetric. It goes from complicated to simple in one direction and from simple to complicated in the other. A particularly interesting and important asymmetric equation is the absorption law for logical-and. It has two variables and two operations on one side, but only one variable and no operations on the other.
+The null law for logical-and, \{$\wedge$ null\}, is similarly asymmetric.
+It goes from complicated to simple in one direction
+and from simple to complicated in the other.
+A particularly interesting and important asymmetric equation
+is the absorption law for logical-and
+(Figure~\ref{and-absorption-thm}, page \pageref{and-absorption-thm}).
+It has two variables and two operations on one side, but only one variable and no operations on the other.
 
-\label{and-absorption-thm}
+\begin{figure}
 \begin{theorem}[\{$\wedge$ absorption\}]
 $(x \vee y) \wedge y = y$
 \end{theorem}
@@ -554,65 +710,151 @@ $=$ & $y$                                  & \{$\vee$ identity\} \\
 \end{tabular}
 
 \end{proof}
+\caption{Proof of Theorem \{$\wedge$ absorption\}}
+\label{and-absorption-thm}
+\end{figure}
 
-We hope the gauntlet of theorems and proofs we have run you through (or, more likely, asked you to plow through, to the point of exhaustion) helps you understand how to derive a new equation from equations you already know. The technique requires matching the formula to one side of a known equation, then replacing it by the corresponding formula on the other side.
+We hope the gauntlet of theorems and proofs so far
+(which we hope you have managed to get through, 
+even if it took you to the point of exhaustion)
+helps you understand how to derive a new equation from equations you already know.
+The technique requires matching a formula to one side of a known equation,
+then replacing it by the corresponding formula on the other side
+of the equation.
+The ``matching'' process is a crucial step.
+It involves replacing the variables in the known equation
+by constituents of the formula you are trying to match.
+This is based in the mechanics of a formal grammar.
+Unfortunately, it is surprisingly easy 
+to have a lapse of concentration and make a mistake
+while trying to substitute equals for equals.
 
-The ``matching'' process is a crucial step. It involves replacing the variables in the known equation by constituents of the formula you are trying to match. This is based in the mechanics of a formal grammar. It is surprisingly easy to have a lapse of concentration and make a mistake.
-
-Fortunately, it is easy for computers to verify correct matchings and report erroneous ones. A computer system that does this is called a ``mechanized logic.'' After you have enough practice to have a firm grasp on the process, we will begin to use a mechanized logic to make sure our reasoning is correct.
+Fortunately, it is easy for computers to verify
+correct matchings and report erroneous ones.
+A computer system that does this is known as a ``mechanized logic.''
+After you have enough practice to gain a good understanding of the process,
+we will begin to use a mechanized logic to make sure our reasoning is correct.
 
 \begin{ExerciseList}
 \Exercise
-Use the equations of Figure~\ref{fig-02-03} (page \pageref{fig-02-03})
-and the $\wedge$-absorption theorem (page \pageref{and-absorption-thm}),
+Use the Boolean axioms (Figure~\ref{fig-02-03}, page \pageref{fig-02-03})
+and the $\wedge$-absorption theorem
+(Figure~\ref{and-absorption-thm}, page \pageref{and-absorption-thm}),
 to derive the $\vee$-absorption equation: $(x \wedge y) \vee y = y$.
 
 \Exercise
 Derive the equation
 $(((\neg x) \wedge y) \vee (x \wedge (\neg y))) = ((x \vee y) \wedge (\neg(x \wedge y)))$
-from the equations of Figure~\ref{fig-02-03}.
+from the Boolean axioms.
 
 \Exercise
 Derive the equation
-$(((\neg x) \wedge y) \vee (x \wedge (\neg y))) = (\neg((x \rightarrow y) \wedge (y \rightarrow x)))$
-from the equations of Figure~\ref{fig-02-03}.
+$(((\neg x) \wedge y) \vee (x \wedge (\neg y))) = (\neg((x \rightarrow y) \wedge (x \rightarrow y)))$
+from the Boolean axioms.
 
 \Exercise
-Use the equations of Figure~\ref{fig-02-03} (page \pageref{fig-02-03})
+Use the Boolean axioms
 and the theorems of this section to
-derive the truth-table for the following formula $(x \vee ((\neg y) \wedge (\neg z)))$.
+derive the truth-table for the following formula $(x \vee ((\neg y) \wedge (\neg z)))$.\\
 \emph{Note}: Since there are three variables in the formula, the truth table
 will have eight entries, and you will need to prove eight equations.
 Each equation will have on the left-hand side
-a different combination of $True$/$False$ values for the variables $x$, $y$, and $z$,
-and on the right-hand side will have the appropriate $True$/$False$ value for the formula.
+a different combination of values ($True$ or $False$) for the variables $x$, $y$, and $z$,
+and on the right-hand side will have the value ($True$ or $False$) of the formula for that combination.
 \end{ExerciseList}
 
 \section{Boolean formulas}
 \label{sec:boolean-formuas}
 
-We have been doing proofs based on the grammatical elements of formulas, but instead of taking the time to put together a precise definition of that grammar, we have been relying on your experience with formulas of numeric algebra, such as $2(x + y) + 3z$. Surely it would be better to have a precise definition, so we can determine whether or not a formula is grammatically correct. We are going to define a grammar by starting with the most basic elements, and working up from there to more complicated ones.
+We have been doing proofs based on the grammatical elements of formulas,
+but instead of taking the time to put together a precise definition of that grammar,
+we have been relying on your experience with numeric algebra.
+It is better to have a precise definition of the grammar,
+starting with the most basic elements,
+and working up from there to more complicated ones.
 
-The simplest Boolean formulas are the basic constants ($True$ and $False$) and variables. We normally use ordinary, lower-case letters, such as $x$ and $y$ for variables. Sometimes variables are letters with subscripts, such as $x_3$, $y_i$, or $z_n$. This gives us sufficient variety for all of the situations we will encounter, but we will assume there is an infinite pool of names for variables. If we run out of Roman letters, we can use Greek letters. If we run out of those, we can start making up recognizable squiggles like Dr Seuss did in some of his stories.
+The simplest Boolean formulas are the basic constants ($True$ and $False$)
+and variables ($x$, $y$, $\dots$). We normally use ordinary, lower-case letters,
+for variables, but sometimes variables are letters with subscripts,
+such as $x_3$, $y_i$, or $z_n$.
+This gives us sufficient variety for any formula,
+but we won't necessarily limit ourselves to lower-case, Roman letters.
+We might use Greek letters, or
+even make up recognizable squiggles, like Dr Seuss.
 
-So, if you write $True$, or $False$, or a lower-case letter, you have composed a grammatically correct Boolean formula. This is the first rule of Boolean grammar. Formulas conforming to this rule have no substructure, so we call them ``atomic'' formulas.
+So, if you write $True$, $False$, or a letter from the alphabet,
+you have composed a grammatically correct Boolean formula.
+This is the first rule of Boolean grammar.
+Formulas conforming to this rule have no substructure,
+so we call them \emph{atomic} formulas.
 
-To make more complicated formulas, we use Boolean operators. We refer to the operators that require two operands as the ``binary operators'' ($\wedge$, $\vee$, and $\rightarrow$). These operators lead to the second rule of Boolean grammar: If $a$ and $b$ are grammatically correct Boolean formulas, and $\circ$ is a binary operator (that is, $\circ$ is one of the symbols $\wedge$, $\vee$, or $\rightarrow$), then $(a \circ b)$ is also a grammatically correct Boolean formula.
+Boolean operators make it possible to construct more complicated formulas.
+We refer to operators that require two operands as \emph{binary operators }
+($\wedge$, $\vee$, and $\rightarrow$).
+These operators lead to the second rule of Boolean grammar:
+If $a$ and $b$ are grammatically correct Boolean formulas,
+ and $\circ$ is a binary operator
+ (that is, $\circ$ is one of the symbols $\wedge$, $\vee$, or $\rightarrow$),
+ then $(a \circ b)$ is also a grammatically correct Boolean formula.
 
-For example, the first rule confirms that $x$ and $True$ are grammatically correct Boolean formulas. Since $\wedge$ is a binary operator, $(x \wedge True)$ is a grammatically correct Boolean formula by the second rule of grammar. Furthermore, since $\rightarrow$ is a binary operator, and $y$ is a grammatically correct Boolean formula (by the first rule), $((x \wedge True) \rightarrow y)$ must be a grammatically correct Boolean formula (by the second rule). As you can see, the first two rules of Boolean grammar lead to an infinite variety of grammatically correct Boolean formulas.
+For example, the first rule confirms that $x$ and $True$ are
+grammatically correct Boolean formulas. Since $\wedge$ is a binary operator,
+$(x \wedge True)$ is a grammatically correct Boolean formula by the
+second rule of grammar. Furthermore, since $\rightarrow$ is a binary operator,
+and $y$ is a grammatically correct Boolean formula (by the first rule),
+$((x \wedge True) \rightarrow y)$ must be a grammatically correct
+Boolean formula (by the second rule).
 
-The third rule of Boolean grammar shows how to incorporate the negation operator in formulas. The rule is that if $a$ is a grammatically correct Boolean formula, then so is $(\neg a)$.
+The third rule of Boolean grammar shows how to incorporate the negation operator into formulas.
+The rule is that if $x$ is a grammatically correct formula, then so is $(\neg x)$.
 
-These three rules cover the full range of grammatically correct Boolean formulas, but there is a fine point to discuss about parentheses. Parentheses are important because they make it easy to define the grammar and to explain the meaning of grammatically correct formulas.
+These three rules are sufficient to
+cover a full range of grammatically correct Boolean formulas,
+and, they lead to an infinite variety of grammatically correct formulas.
+However, there is a fine point to discuss about parentheses.
+Parentheses are important because they make it easy to define
+the grammar and to explain the meaning of a formula.
+The formulas covered by the three rules are fully parenthesized,
+including a top level of parentheses enclosing the entire formula
+when an operator is involved.
+Top level parentheses are often omitted in informal presentations,
+and we have often omitted them.
 
-The formulas covered by the three rules are fully parenthesized, including a top level of parentheses enclosing the entire formula. Top level parentheses are often omitted in informal presentations, and we have been omitting them on a regular basis.
+For example, we have been writing formulas like ``$x \vee y$'',
+without the top-level parentheses
+the grammar requires.
+To conform to the grammar,
+we would have to write $(x \vee y)$, with the parentheses.
+Because we have often omitted top-level parentheses,
+requiring them probably comes as a surprise.
+But, allowing non-atomic formulas without top-level parentheses
+requires additional rules of grammar,
+and we think that the added value of omitting parentheses
+fails to compensate for the extra complexity.
 
-For example, we have been writing formulas like ``$x \vee y$'', even though they do not have the top-level parentheses required in the grammar of binary operations. To conform to the grammar, we would have to write the formula with its top-level parentheses: $(x \vee y)$. Because we have often omitted top-level parentheses, requiring them probably comes as a surprise. But, allowing non-atomic formulas without top-level parentheses requires additional rules of grammar, and the extra complexity is not compensated by added value.
+Here is a more complex formula with incorrect grammar:
+$x \wedge y \vee z$. This formula is missing two levels of parentheses.
+Even worse, there are two options for the inner parentheses.
+Does $x \wedge y \vee z$ mean $((x \wedge y) \vee z)$ or $(x \wedge (y \vee z))$?
+There are ways to deal with formulas that omit parentheses,
+but to avoid confusion, we are not going to allow such formulas.
+The same problem occurs with formulas in numeric algebra.
+We know that $x \times y + z$ means $((x \times y) + z)$ and
+not $(x \times (y + z))$ because we know the convention that
+gives multiplicative operators a higher precedence than additive operators.
+But that takes some getting used to, and we want to
+minimize the possibility of misinterpretation,
+especially because Boolean formulas may be new to you.
 
-Here is less a surprising example of incorrect grammar: $x \wedge y \vee z$. This formula is missing two levels of parentheses. Even worse, there are two options for the inner parentheses. Does $x \wedge y \vee z$ mean $((x \wedge y) \vee z)$ or $(x \wedge (y \vee z))$? There is a way to deal with formulas that omit some of the parentheses, but to avoid confusion, we are not going to allow such formulas. The same problem occurs with formulas in numeric algebra. We know that $x \times y + z$ means $((x \times y) + z)$ and not $(x \times (y + z))$ because we know the convention that gives multiplicative operations a higher precedence than additive operations. But that gets some getting used to, and since Boolean formulas may be new to you, we want to minimize the possibility of misinterpretation.
-
-We will sometimes be informal enough to omit the top level of parentheses around the whole formula, but we will not omit any interior parentheses.
-We will, however, allow redundant parentheses in grammatically correct formulas. For example, the formula $(x \vee ((x \wedge y)))$ is grammatically correct and has the same meaning as the formula $(x \vee (x \wedge y))$. The first formula has redundant parentheses, but the second one doesn't.
+We will sometimes be informal enough to omit
+the top level of parentheses around the whole formula,
+but we will not omit any interior parentheses.
+The grammar does allow redundant parentheses, however.
+For example, the formula $(x \vee ((x \wedge y)))$
+is grammatically correct and has the same meaning as the formula
+$(x \vee (x \wedge y))$.
+The first formula has redundant parentheses,
+but the second one doesn't.
 Allowing redundant parentheses requires a fourth rule of grammar:
 If $a$ is a grammatically correct Boolean formula, then so is $(a)$.
 
@@ -675,13 +917,27 @@ $\bullet$ ~~ $v$ is a variable or $True$ or $False$ \\
 \label{fig-02-boolean-axioms}
 \end{figure}
 
-With the four rules of Figure~\ref{fig-02-grammar} (see page \pageref{fig-02-grammar}),
-we can determine whether or not any given sequence of symbols is a grammatically correct Boolean formula.
-The definition of the grammar is circular, but in a useful way that shows how to build more complicated formulas from simpler ones.
+With the four rules of 
+Figure~\ref{fig-02-grammar} (page \pageref{fig-02-grammar}),
+we can determine whether or not any given sequence of symbols 
+is a grammatically correct Boolean formula.
+The definition of the grammar is circular, 
+but in a useful way that shows 
+how to build more complicated formulas from simpler ones.
 
-To verify that a formula is grammatically correct, find the rule of grammar that matches it, then verify that each part of the formula that matches with a letter in the rule of grammar is also grammatically correct. Atomic formulas have no substructure, so they require no further verification. A line of verification terminates when it arrives at an atomic formula.
+To verify that a formula is grammatically correct, 
+find the rule of grammar that matches it, 
+then verify that each part of the formula 
+that matches with a variable in the rule of grammar 
+is also grammatically correct. 
+Atomic formulas have no substructure, 
+so they require no further analysis when checking for grammatical correctness.
 
-For example, consider the formula $((x \vee (\neg y)) \wedge (x \rightarrow z))$. It matches with the \{bin-op\} rule. The symbols in the rule match with the elements of the formula in the following way.
+For example, consider the formula 
+$((x \vee (\neg y)) \wedge (x \rightarrow z))$. 
+It matches with the \{bin-op\} rule. 
+The variables in the rule match 
+with the elements of the formula in the following way.
 \begin{center}
 \begin{tabular}{ll}
 \emph{symbol from \{bin-op\} rule}      & \emph{matching element in} $((x \vee (\neg y)) \wedge (x \rightarrow z))$ \\
@@ -693,7 +949,10 @@ $b$                                     & $(x \rightarrow z)$ \\
 
 The only other symbols in the rule are the top-level parentheses, and these match identically with the outer parentheses in the target formula. Therefore, the target formula is grammatically correct if the formulas $(x \vee (\neg y))$ and $(x \rightarrow z)$  are grammatically correct. We use the same approach to verify the grammatical correctness of those formulas.
 
-The first one, $(x \vee (\neg y))$, again matches with the \{bin-op\} rule, but this time the matchings of the elements in the target formula with symbols in the rule are as follows:
+The first one, $(x \vee (\neg y))$, 
+again matches with the \{bin-op\} rule,
+but this time the matchings of the elements 
+in the target formula with variables in the rule are as follows:
 \begin{center}
 \begin{tabular}{ll}
 \emph{symbol from \{bin-op\} rule}      & \emph{matching element in}  $(x \vee (\neg y))$ \\
@@ -703,18 +962,69 @@ $b$                                     & $(\neg y)$ \\
 \end{tabular}
 \end{center}
 
-This reduces the verification of the grammatical correctness of $(x \vee (\neg y))$ to the verification of the two formulas $x$ and $(\neg y)$. Since $x$ matches with the \{atomic\} rule, it must be grammatically correct. The $(\neg y)$ element matches with the \{negation\} rule, with $y$ from the formula matching $a$ in the rule. So, $(\neg y)$ is grammatically correct if $y$ is, and $y$ is grammatically correct because it matches with the \{atomic\} rule. That completes the verification of the $(x \vee (\neg y))$ formula.
+This reduces the verification of the grammatical correctness of $(x \vee (\neg y))$
+to the verification of the two formulas $x$ and $(\neg y)$.
+Since $x$ matches with the \{atomic\} rule, it must be grammatically correct.
+The $(\neg y)$ element matches with the \{negation\} rule,
+with $y$ from the formula matching $a$ in the rule.
+So, $(\neg y)$ is grammatically correct if $y$ is,
+and $y$ is grammatically correct because it matches with the \{atomic\} rule.
+That completes the verification that the $(x \vee (\neg y))$ formula is grammatically correct.
 
-The second element of the original formula, $(x \rightarrow z)$, is easier to verify. It matches the \{bin-op\} rule with $x$ corresponding to $a$ in the rule, $y$ corresponding to $b$, and $\rightarrow$ corresponding to $\circ$ in the rule. Since $x$ and $z$ match the \{atomic\} rule, they are grammatically correct. This completes the verification of the grammatical correctness of the formula $((x \vee (\neg y)) \wedge (x \rightarrow z))$.
+The second element of the original formula,
+$(x \rightarrow z)$, is easier to verify.
+It matches the \{bin-op\} rule with $x$ corresponding to $a$ in the rule,
+$y$ corresponding to $b$, and $\rightarrow$ corresponding to $\circ$ in the rule.
+Since $x$ and $z$ match the \{atomic\} rule, they are grammatically correct.
+This completes the verification of the grammatical
+correctness of the formula $((x \vee (\neg y)) \wedge (x \rightarrow z))$.
 
-Let's look at another example: $(x \vee (\wedge y)$. This formula matches with the \{bin-op\} rule, with $x$ corresponding to $a$ in the rule, $\vee$ corresponding to $\circ$, and $(\wedge y)$ corresponding to $b$. So, the formula is grammatically correct if $x$ and $(\wedge y)$ are. However, there is no rule that matches $(\wedge y)$. The only place the symbol $\wedge$ could match a rule in the table is in the \{bin-op\} rule. In the \{bin-op\} rule, there must be a grammatically correct formula between the opening parenthesis and the operator. Since there is no such element present between the opening parenthesis and the $\wedge$ operator in the target formula, it cannot be grammatically correct.
+Let's look at another example: $(x \vee (\wedge y)$. 
+This sequence of symbols matches with the \{bin-op\} rule, 
+with $x$ corresponding to $a$ in the rule, 
+$\vee$ corresponding to $\circ$, 
+and $(\wedge y)$ corresponding to $b$. 
+So, the formula is grammatically correct 
+if $x$ and $(\wedge y)$ are. 
+However, there is no rule that matches $(\wedge y)$. 
+The only place the symbol $\wedge$ could match a rule 
+in the table is in the \{bin-op\} rule. 
+In the \{bin-op\} rule, there must be 
+a grammatically correct formula between 
+the opening parenthesis and the operator. 
+Since there is no such element present 
+between the opening parenthesis 
+and the $\wedge$ operator in the target formula, 
+it cannot be grammatically correct.
 
-That covers the grammar of Boolean formulas. What about meaning? Every grammatically correct Boolean formula denotes, in the end, either the constant $True$ or the constant $False$. To find out which, you only need to know which value ($True$ or $False$) each of the variables in the formula stands for. Each of the binary operators, given specific operands ($True$ or $False$), delivers a specific result ($True$ or $False$). We worked out what the delivered values would be for some of the operators when we proved truth-table theorems for them (see page \pageref{or-truth-table}).
+That covers the grammar of Boolean formulas. 
+What about meaning? 
+Every grammatically correct Boolean formula denotes, 
+when the values of its variables are specified, 
+either the constant $True$ or the constant $False$. 
+Each of the binary operators, given specific operands ($True$ or $False$), 
+delivers a specific result ($True$ or $False$). 
+We worked out what values the operators deliver 
+when we derived truth-table theorems for them 
+(as in Figure~\ref{or-truth-table}, page \pageref{or-truth-table}, for example).
 
 In the process of deriving the truth tables,
-we used the Boolean equations of Figure~\ref{fig-02-03} (see page \pageref{fig-02-03}).
-We can use this same method to derive the meaning ($True$ or $False$) of any grammatically correct formula that contains no variables. However, to deal with parentheses in a completely mechanized way, we need to add two equations to those of Figure~\ref{fig-02-03}. Figure~\ref{fig-02-boolean-axioms} (see page \pageref{fig-02-boolean-axioms})
-provides all of the information needed to determine the $True$/$False$ value of any grammatically correct formula that contains no variables. In fact it has even more general applicability. It provides all the information needed to verify not only whether a given formula has the same meaning as the formula $True$ or the formula $False$, but also to verify whether or not any two given, grammatically correct, formulas have the same meaning.
+we used the Boolean axioms of 
+Figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
+We can use this same method to derive the meaning 
+of any grammatically correct formula that contains no variables. 
+However, to deal with parentheses in a completely mechanized way, 
+we need to add two equations to those of Figure~\ref{fig-02-03}. 
+The axioms of Figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
+provides all of the information needed to determine 
+the value of any grammatically correct formula 
+that contains no variables. 
+In fact the equations in the figure have even more general applicability. 
+They provide all the information needed 
+to verify not only whether a given formula 
+has the same meaning as the formula $True$ or the formula $False$, 
+but also to verify whether or not any two given, 
+grammatically correct, formulas have the same meaning.
 
 \begin{ExerciseList}
 
@@ -729,11 +1039,18 @@ $((False \rightarrow (\neg y)) \neg (x \vee True))$ \\
 \end{center}
 
 
-\Exercise Derive the truth tables (see page \pageref{truth-tables}) of the formulas from the previous exercise.
+\Exercise Derive the truth tables (see page \pageref{truth-tables})
+of the formulas from the previous exercise.
 
-\Exercise Use the axioms of Boolean algebra (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
-to prove the following equations. After proving an equation, you may cite it in subsequent proofs.
-\label{some-boolean-theorems}
+\Exercise Use the axioms of Boolean algebra
+(Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
+to prove the equations in
+Figure~\ref{some-boolean-theorems} (page \pageref{some-boolean-theorems}).\\
+\emph{Note}: After proving an equation, you may cite it in subsequent proofs.
+
+\end{ExerciseList}
+
+\begin{figure}
 \begin{center}
 \begin{tabular}{ll}
 $(x \rightarrow False) = (\neg x)$                                   & \{$\neg$ as $\rightarrow$\}\label{neg-as-imp} \\
@@ -749,14 +1066,16 @@ $(x \wedge (y \wedge z)) = ((x \wedge y) \wedge z)$                  & \{$\wedge
 $(x \wedge (y \vee z)) = ((x \wedge y) \vee (x \wedge z))$           & \{$\wedge$ distributive\}  \label{and-distributive} \\
 $(x \wedge x) = x$                                                   & \{$\wedge$ idempotent\}    \label{and-idempotent} \\
 $(x \rightarrow y) = ((\neg y) \rightarrow (\neg x))$                & \{contrapositive\}         \label{contrapositive} \\
-$(x \rightarrow (y \rightarrow z)) = ((x \wedge y) \rightarrow z)$  & \{Currying\}                \label{currying} \\
+$(x \rightarrow (y \rightarrow z)) = ((x \wedge y) \rightarrow z)$   & \{Currying\}               \label{currying} \\
 $((x \wedge y) \vee y) = y$                                          & \{$\vee$ absorption\}      \label{or-absorption} \\
 $((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
 $((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
+$(x \rightarrow (\neg x)) = (\neg x)$                                & \{contradiction\}          \label{boolean-contradiction} \\
 \end{tabular}
 \end{center}
-
-\end{ExerciseList}
+\caption{Some Boolean Theorems}
+\label{some-boolean-theorems}
+\end{figure}
 
 \section{Digital Circuits}
 
@@ -776,157 +1095,145 @@ as we know from the \{implication\} axiom of Boolean algebra
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms}),
 the formula $(x \rightarrow y)$ has the same meaning as the
 formula $((\neg x) \vee y)$. So, anything we can do with
-the implication operator, we can also do with by combining
-negation and logical-or in a particular way.
-Therefore, since we have logic gates for logical-or and negation,
-there is no loss in the range of behavior of logic
-gates, compared to that of the basic logical operators.
+the implication operator, we can also with
+negation and logical-or.
 
-The lack of a conventional logic gate is ironic for at least three reasons.
-One is that George Boole himself, the inventor of Boolean algebra,
-called implication the queen of logical operators.
-Another is that the implication operator is one of only a few binary operators
-that are sufficient for representing any formula in logic. That is, given
-any grammatically correct logic formula, there is a formula using only
-implication operators (no logical-and, logical-or, or negation operators)
-that produces the same result as the original formula, given the same
-values for the variables in the formula.
+The lack of a conventional logic gate for the implication operator
+is ironic.
+George Boole himself, the inventor of Boolean algebra,
+called implication the queen of logic operators.
+It is one of only a few basic operators
+that are \emph{functionally complete} in the sense that,
+for any formula in logic, there is an equivalent formula
+with no operators other than implication.
+That is, given any grammatically correct logic formula,
+there is a formula using only
+implication operators (no logical-and, logical-or,
+negation, or any other operators)
+that has the same meaning.
+Logical-or and logical-and are not functionally complete.
+However, their negations, \emph{nor} and \emph{nand}, are.
+For that reason nor gates and nand gates
+are called \emph{universal gates}.
+Figure~\ref{fig-02-nand-is-all-you-need} (page ~\pageref{fig-02-nand-is-all-you-need})
+shows how to write logic formulas using only nand gates.
 
-But, the most dramatic reason for the irony in having implication
-turn up missing from the conventional collection of basic logic gates
-is that recent discoveries make it possible that the
-implication operator will in the future be the only gate used in
-large-scale digital circuits.
-This is because implication can be materialized
-as an electronic component in a form that allows three-dimensional
-stacking of circuits in a way that has never before been feasible.
-This makes it possible to fabricate digital circuits with vastly greater
-computational capacity than present-day circuits.
-If this intrigues you, view the online video of
-R. Stanley Williams on ``memristor chips''
+It is possible that implication gates may
+become common in digital circuits in the future
+because there is a way to fabricate implication gates that may allow extensive,
+three-dimensional stacking of circuits, which up to now has been infeasible.
+If that pans out, it could be possible to build
+faster circuits with more components in a smaller space.
+R. Stanley Williams discusses this
+idea in an interesting video on ``memristor chips''
 (\url{http://www.youtube.com/watch?v=bKGhvKyjgLY}).
-\caption{No Gate for Implication}
+\caption{Implication Gate Is Universal}
 \label{no-implication-gate}
 \end{aside}
 
 A logic gate takes input signals that correspond
-to the operands of logical operators and delivers output signals
-that correspond to the values delivered by logical operations.
+to the operands of logic operators and delivers output signals
+that correspond to the values delivered by those operators.
 A logic gate with two inputs is a physical representation of
-a binary operator. The negation operator is represented by a
+a binary operator. The negation operator corresponds to a
 logic gate with one input.
 
-There are only two kinds of operands for logical operators: $True$ and $False$.
-And, they can deliver only those two kinds of values.
-Similarly, a logic gate can interpret only two kinds of input signals
-and deliver only two kinds of output signals.
-Those signals could be called $True$ and $False$,
-but conventionally they are written as 1 (for $True$) and 0 (for $False$).
+Logic operands and values are always either $True$ or $False$.
+Similarly, an input line of a logic gate can distinguish between
+only two distinct signals
+and deliver only two distinct signals on an output line.
+Conventionally those signals are written as 1 (for $True$) and 0 (for $False$).
 Of course, logic gates are electronic devices,
-so 0 and 1 are just labels for the signals.
+so 1 and 0 are just labels for the signals.
 Any two different symbols could be used to represent them in writing.
 The choice of 1 and 0 is more-or-less arbitrary.
 
-There are many ways to handle the electronics.
-We are going to leave the physics to the electrical engineers.
-If you want to, you can imagine representing the signal 1 as
-a small electrical current on a wire and the signal 0 as
-the lack of electrical current.
-That is one way to do it.
-But, we are going to focus on the logic and trust that
-the electronic hardware can faithfully represent the two
-kinds of signals we need.
+There are many ways to handle the electronics,
+but we are going to leave the physics to the electrical engineers.
+You can imagine representing the signal 1 as
+a voltage at a point in a circuit and the signal 0 as
+the lack a voltage, which is the way some technologies
+deal with logic signals,
+but we are going to focus on the logic and trust that
+the electronic hardware can faithfully deal with
+a signal representing $True$ and a different one representing $False$.
 
-Engineers who design circuits draw them as wiring diagrams
+Circuits can be depicted as wiring diagrams
 in which ``wires'' (represented by lines) carry signals between gates.
-They use distinctive shapes to represent the different logic gates in
-circuit diagrams,
-and they use an algebraic notation similar to, but
-not the same as, the notation logicians normally use when they want
-to represent their circuits as formulas.
-
-In the algebraic notation commonly used by circuit
-designers, the logical-and is represented by the juxtaposition
-of the names being used for the signals (in the same way
+Distinctive shapes in the diagrams represent different logic gates.
+Circuits can be represented as formulas as well as diagrams, and
+the logic formulas we have been using would serve the purpose,
+but traditionally the algebraic notation for circuits takes a
+different form.
+The algebraic notation commonly used by circuit
+designers represents the logical-and by the juxtaposition
+of the names being used for the input signals (in the same way
 that juxtaposition of variables is used to denote multiplication
-in numeric algebra formulas). Logical-or is represented by a plus sign (+),
-and negation is represented by a bar over the variable being negated
-(for example, $\bar{a}$).
+in numeric algebra). Logical-or is represented by a plus sign (+),
+and negation is represented by a bar over the formula being negated
+For example, the formula $\overline{ab}$ denotes the negation of the logical-and
+of the signals $a$ and $b$.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.7]{Resources/LogicGates.png}
+\includegraphics[scale=0.25]{images/LogicGates.png}
 \todo{I did not have Visio with me. Improvised with PowerPoint. Figure will need to be redrawn.}
 \end{center}
 \caption{Digital Circuits = Logic Formulas}
 \label{fig-02-logic-gates}
 \end{figure}
 
-Figure~\ref{fig-02-logic-gates} (see page \pageref{fig-02-logic-gates})
-summarizes the relationships between
-the symbols for logic gates in circuit diagrams (that is,
-wiring diagrams that route signals between a collection of logic gates),
-the algebraic notation used by circuit designers,
-and the logic formulas we have used up to now.
-
-The important fact to remember is this: All three notations
+Figure~\ref{fig-02-logic-gates} (page \pageref{fig-02-logic-gates})
+presents the symbols used for logic gates in circuit diagrams
+and annotates them with both
+the algebraic notation used by circuit designers
+and the logic formulas we have been using.
+The important fact to remember is that all three notations
 represent the same concepts in logic. Circuit diagrams, logic formulas,
 and the algebraic notation used by circuit designers are three
 different notations for exactly the same mathematical objects.
 In this sense, digital circuits, and, therefore, computers,
-are materializations of logic formulas. Computers truly are
-``logic in action''.
+are materializations of logic formulas.
+Computers are logic in action.
 
-The logical operators that we have been using are
-logical-and, logical-or, implication, and negation.
-These are sufficient to write formulas that have
-any possible input/output relationship between the
-variables in the formula and the value it delivers.
-
+The logic operators that we have been using
+($\wedge$, $\vee$, $\neg$, $\rightarrow$)
+make it possible to write a formula
+the delivers precisely the values in the truth table
+for any given formula.
 The \{implication\} axiom
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
 expresses implication in terms of logical-and, logical-or,
 and negation, which means we lose no expressive power by
-discarding implication from the set of logical operations.
+discarding implication from the set of logic operations.
 
 Surprisingly, the reverse is also true.
 That is, for any given input/output relationship that can be expressed
 in a formula using logical-and, logical-or, and negation,
 there is a logic formula using implication as
 the only operator that has the same input/output relationship.
-The \{$\neg$ as $\rightarrow$\} equation (see page \pageref{neg-as-imp})
-provides at start in this direction by showing how to express
+The \{$\neg$ as $\rightarrow$\} equation
+(Figure~\ref{some-boolean-theorems}, page \pageref{some-boolean-theorems})
+provides a start in this direction by showing how to express
 negation in terms of the implication operator.
-Logical-and and logical-or are a little trickier.
-You will will get a chance to look into that in the exercises
-at the end of this section.
-
-Furthermore, implication is not the only one-operator
-basis for the entire system of logic. Another one
+Furthermore, implication is not the only logic operator
+that is universal in this sense.
+Another one
 is the negation of logical-and, which is called ``nand''.
+Many digital systems make frequent use of
+nand gates because they can run faster and be more reliable
+when fabricated with some widely used technologies 
+for making integrated circuits.
 
-The nand gate is one of the standard logic gates,
-and the fact that all of the other logical
-operators can be expressed in terms of nand alone
-makes the nand gate especially important.
-It happens that the nand gate is the basis for designing most
-large-scale digital circuits, such as computer chips.
-Part of the reason for this is that the physics of putting gates on
-chips is simplified when all of the gates are the same.
-
-Let's see how nand can be a basis for the whole system.
-We will express the operators in the basis we have at
-this point ($\wedge$, $\vee$, and $\neg$) in terms of nand,
-starting with negation.
+It is interesting to see how to put together digital
+circuits for basic operators.
+$\wedge$, $\vee$, and $\neg$, using only nand gates.
+Consider negation, for example.
 Negation has only one input signals, and nand has two.
 Feeding the same signal into both
 inputs of a nand gate produces the behavior of
-the negation operator.
-
-It is easy to verify this from what we already know about logical operators
-because there is a one-step proof of the following
-equation. The proof cites the \{$\wedge$ idempotent\} theorem
-(see page \pageref{and-idempotent}).
+the negation operator,
+as expressed in the following equation.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -934,18 +1241,17 @@ $(\neg a) = (\neg (a \wedge a))$  & \{$\neg$ as nand\}\label{neg-as-nand}
 \end{tabular}
 \end{center}
 
-The \{$\neg$ as nand\} equation expresses negation
-as a nand operation (the negation of a logical-and).
-That takes care of negation. What about logical-and?
+In this way a nand gate can serve in place of a
+negation gate (also known as an inverter).
+There is a one-step proof of the equation,
+citing the \{$\wedge$ idempotent\} theorem
+(page \pageref{and-idempotent}).
 
-That's easy, too, because we only need to negate the
-output from a nand gate, and we already know we can
-use a nand gate to do that negation.
-So, we can construct a circuit with the same behavior
-as the logical-and by feeding the output signal
-from one nand gate into both inputs of a second nand gate.
-
-Algebraically, this circuit corresponds to the following equation.
+A nand-only circuit for logical-and can be
+put together from two nand gates in sequence.
+The signal from the first nand gate is inverted
+by feeding it into both inputs of a second nand gate.
+Algebraically, this circuit corresponds to the following \{$\wedge$ as nand\} equation.
 It takes a two-step proof to verify the equation.
 The first step converts the outside nand to negation using the
 \{$\neg$ as nand\} equation, and the second step cites
@@ -958,32 +1264,30 @@ $(a \wedge b) = (\neg ((\neg (a \wedge b)) \wedge (\neg (a \wedge b))))$ & \{$\w
 \end{tabular}
 \end{center}
 
-That takes care of logical-and, which brings us to logical-or.
-Expressing logical-or in terms of nand is a little trickier
-than the other two.
-We got negation using one nand gate and
-logical-and using two nand gates.
-We will need three nand gates for logical-or,
-and to verify the equation we will need a multi-step proof involving
+Negation took one nand gate and
+logical-and took two.
+Logical-or can be implemented with three nand gates,
+as shown in the following equation,
+which can be verified using
 the \{$\neg$ as nand\} equation, DeMorgan's laws,
 and double negation.
 
 \begin{center}
 \begin{tabular}{ll}
-$(a \vee b) = (\neg ((\neg(a \wedge a))) \wedge ((\neg(b \wedge b)))))$ & \{$\vee$ as nand\}\label{or-as-nand}
+$(a \vee b) = (\neg ((\neg(a \wedge a)) \wedge (\neg(b \wedge b))))$ & \{$\vee$ as nand\}\label{or-as-nand}
 \end{tabular}
 \end{center}
 
-We will rely on you to carry out the proofs of the
-\{$\neg$ as $\wedge$\}, \{$\wedge$ as nand\}, and \{$\vee$ as nand\} equations.
 Figure~\ref{fig-02-nand-is-all-you-need} (page \pageref{fig-02-nand-is-all-you-need})
-displays the digital circuits that
-correspond to the equations verifying that nand is the only gate we really need.
+diagrams the digital circuits
+corresponding to the formulas that express logical-and, logical-or, and negation
+in terms of nand operations.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.7]{Resources/NandIsAllYouNeed.png}
-\todo{I did not have Visio with me. Improvised with PowerPoint. Figure will need to be redrawn.}
+\includegraphics[scale=0.27]{images/NandIsAllYouNeed.png}
+\todo{I did not have Visio with me. Improvised with PowerPoint. Figure will should be redrawn.}
+%% redrew diagram ... still used PowerPoint, but improved the diagram a little 8Aug2017
 \end{center}
 \caption{Nand is All You Need}
 \label{fig-02-nand-is-all-you-need}
@@ -991,13 +1295,16 @@ correspond to the equations verifying that nand is the only gate we really need.
 
 \begin{ExerciseList}
 \Exercise Using a negation-gate and an or-gate, draw a circuit diagram with the input/output behavior of the implication operator.
-We refer to this circuit diagram as an ``implication circuit''.
-Hint: Follow the example of the \{implication\} axiom
+We refer to this circuit diagram as an ``implication circuit''.\\
+\emph{Hint}: Follow the example of the \{implication\} axiom
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})).
+One of the inputs will need to be a constant rather than a variable.
 
 \Exercise For each of the following logic formulas, draw an equivalent circuit diagram.
-Since there are no ``implication operators'', they will need to be materialized
-in the form of the circuit diagram from the previous exercise.
+Since we don't have a symbol for an implication gate,
+you can either make up you own symbol or
+materialize logic gates where you need them
+using the circuit diagram from the previous exercise.
 \begin{center}
 \begin{tabular}{l}
 $((a \vee (b \wedge (\neg a))) \vee (\neg (a \vee b)))$ \\
@@ -1009,12 +1316,13 @@ $((a \wedge b) \rightarrow c)$ \\
 
 \Exercise Rewrite each of the formulas in the previous exercise
 in the algebraic notation used by electrical engineers:
-juxtaposition for $\wedge$, + for $\vee$, and $\bar{a}$ for $(\neg a)$.
+juxtaposition for $\wedge$, + for $\vee$, and $\overline{a}$ for $(\neg a)$.
+Use the \{implication\} axiom to represent
+implications using negation and logical-or.
 
-\Exercise Draw circuit diagrams with behavior of the and-gate, or-gate, and negation-gate,
-but in these diagrams use implication circuits only---no other combinations of logic gates.
-Hint. You can specify that an input line on a gate in a circuit diagram 
-carries a specific constant signal (0 or 1), rather than a variable.
+\Exercise Draw circuit diagrams with behavior
+of the and gate, the or gate, and the negation gate
+using implication operators only.
 \end{ExerciseList}
 
 \todo{ do we still want to add half-adder and/or full-adder
@@ -1030,231 +1338,877 @@ A proof shows that the conclusion is true whenever the hypotheses are true, but 
 no information about the conclusion when the truth of one or more of the hypotheses is
 unknown.
 
-Another way to say this is that a deductive proof of the formula $c$ (a conclusion)
-from the formula $h$ (the hypothesis) guarantees that the formula
-$(h \rightarrow c)$ is true.
-Whenever we want to use deduction to prove that a formula with implication as its
-top-level operator, $(h \rightarrow c)$, is true, this is the way we will do it.
-We will construct a deductive proof of the conclusion $c$, assuming that
-the hypothesis $h$ is true.
+In the following discussion of proof by deduction,
+theorems will be stated using the symbol ``$\vdash$'',
+which is called a turnstile, to separate the hypotheses from the conclusions.
+Hypotheses go on the left of the turnstile and the conclusion goes on the right.
+All of the hypotheses are formulas in logic, as is the conclusion.
+A theorem asserts that there is a derivation of the conclusion
+from the hypotheses using the rules of inference.
+The commutativity law for logical-and, for example,
+can be stated as follows.
+\begin{center}
+Theorem \{$\wedge$ commutes\}: $a \wedge b \vdash b \wedge a$
+\end{center}
 
-It is important to realize that proving an implication formula does
-not require a proof of the hypothesis, only a derivation of the conclusion
-from the hypothesis. This is because an implication formula is always
-true if its hypothesis is false (by the \{$\rightarrow$ truth table\} theorem,
-page \pageref{implication-truth-table}).
-So, we can be sure that the implication formula is true as long as
-we know that the only combination of values that makes the implication
-$(h \rightarrow c)$ false, that is $h = True$ and $c = False$, cannot arise.
-
-There might, of course, be any number of hypotheses, combined with
-the $\wedge$ operator. If for example there are three hypotheses,
-$h_1$, $h_2$, and $h_3$, then to use deduction to prove
-$((h_1 \wedge h_2 \wedge h_3) \rightarrow c)$, we need to derive,
-through the rules of deductive reasoning, the formula $c$ from
-the formula $(h_1 \wedge h_2 \wedge h_3)$.
-
-By the way, we have been a little cagey with the formula
-$(h_1 \wedge h_2 \wedge h_3)$. It is not fully parenthesized.
-Does it mean $((h_1 \wedge h_2) \wedge h_3)$ or
-$(h_1 \wedge (h_2 \wedge h_3))$?
-The answer is, it doesn't matter because of the \{$\wedge$ associative\}
-theorem (page \pageref{and-associative}).
-Both formulas have the same meaning.
-
-There might even be no hypotheses at all, in which case a proof of the
-conclusion $c$ would guarantee the truth of the formula
-$c$. That is, the proof would guarantee the equation $c = True$.
-
-We are not going to discuss deductive reasoning in great detail
-because most of the things we will prove will come from reasoning
-with equations. A formal treatment of deductive reasoning makes it
-possible to prove all of the axioms of Boolean algebra
-(Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
-from a small set of inference rules,
-each of which is easily seen to be consistent with the use of logic in everyday life.
-
-So, in a sense deductive reasoning gets closer to the fundamentals of
-logic than the axioms of Boolean algebra, but we are more interested in getting at how
-computers work than in building a formal system of logic from the ground up.
-If you are interested in fundamentals, an accessible treatment can be found
-in a text by O'Donnell, Hall, and Page
-(\emph{Discrete Mathematics Using a Computer}, Springer, 2006).
-See the sections on ``natural deduction'' (an invention of Gerhard Gentzen).
-
-To give you a light introduction to how it works, consider the
-rules of inference for deductive reasoning in Figure~\ref{fig-02-deduction-rules}
-(page \pageref{fig-02-deduction-rules}).
-One of the rules, \{$\rightarrow$ introduction\}, is a formal statement of the
-discussion at the beginning of this section about proofs of implication formulas.
-
-The \{$\vee$ elimination\} rule supports case-by-case proofs.
-That is, if you can make a list of cases that covers all of the possibilities,
-you can prove that a formula is true if you derive it from each of the
-cases separately.
+Later, we will prove this theorem using a formal apparatus
+for deductive reasoning known as
+\emph{natural deduction}.\footnote{Natural
+deduction is a formal system of logic pioneered in the 1930s
+by the mathematician, Gerhard Gentzen, and refined in the 1960s
+by the logician, Dag Prawitz.}
+A deductive proof of a theorem with hypothesis $h$ and conclusion $c$
+verifies that the implication $(h \rightarrow c)$ is true:
+\begin{center}
+$h \vdash c$ ~~ensures that~~ $(h \rightarrow c) = True$
+\end{center}
 
 \begin{figure}
 \begin{center}
-\begin{tabular}{lllll}
-Prove $a$                &                              &~~~~~& Prove $a \vee b$                   & \\
-Prove $a \rightarrow b$  &                              &~~~~~& Prove $a \rightarrow c$            & \\
------------------        &\{modus ponens\}              &~~~~~& Prove $b \rightarrow c$            & \\
-Infer $b$                &                              &~~~~~& -----------------                  &\{$\vee$ elimination\} \\
-                         &                              &~~~~~& Infer $c$                          & \\
-                         &                              &~~~~~&                                    & \\
-Prove $a$                &                              &~~~~~&                                    & \\
-Prove $b$                &                              &~~~~~& Prove $(\neg a) \rightarrow False$ & \\
------------              &\{$\wedge$ introduction\}     &~~~~~& ---------------------------        &\{reductio \\
-Infer $a \wedge  b$      &                              &~~~~~& Infer $a$                          &~~~ad absurdum\} \\
-                         &                              &~~~~~&                                    & \\
-                         &                              &~~~~~&                                    & \\
-Assume $a$               &                              &~~~~~& Prove $a \wedge b$                 & \\
-Prove $b$                &                              &~~~~~& --------------                     &\{$\wedge$ elimination\} \\
------------              &\{$\rightarrow$ introduction\}&~~~~~& Infer $a$                          & \\
-Infer $a \rightarrow b$  &                              &~~~~~&                                    & \\
+\begin{tabular}{ll}
+Prove $a$                                               & Prove $a \vee b$                                  \\
+ - - - - - -                                            &  - - - - - - - - - -                              \\
+Prove $b$                                               & Prove $a \rightarrow c$                           \\
+--------------\{$\wedge$ introduction\}                 &  - - - - - - - - - -                              \\
+Infer $a \wedge b$                                      & Prove $b \rightarrow c$                           \\
+                                                        & -----------------\{$\vee$ elimination\}           \\
+                                                        & Infer $c$                                         \\
+Prove $a$                                               &                                                   \\
+--------------\{$\vee$ introduction 1\}                 &                                                   \\
+Infer $a \vee  b$                                       & Prove $a \wedge b$                                \\
+                                                        & ----------------\{$\wedge$ elimination 1\}        \\
+                                                        & Infer $a$                                         \\
+Prove $b$                                               &                                                   \\
+--------------\{$\vee$ introduction 2\}                 &                                                   \\
+Infer $a \vee  b$                                       & Prove $a \wedge b$                                \\
+                                                        & ----------------\{$\wedge$ elimination 2\}        \\
+                                                        & Infer $b$                                         \\
+Prove $a \rightarrow False$                             &                                                   \\
+-----------------------\{$\neg$ introduction\}          &                                                   \\
+Infer $\neg a$                                          & Prove $\neg a$                                    \\
+                                                        & ---------------------\{$\neg$ elimination\}       \\
+                                                        & Infer $a \rightarrow False$                       \\
+Prove $a$                                               &                                                   \\
+----------\{identity\}                                  &                                                   \\
+Infer $a$                                               & Prove \emph{False}                                \\
+                                                        & ---------------\{contradiction\}                  \\
+                                                        & Infer $a$                                         \\
+Prove $a$                                               &                                                   \\
+ - - - - - - - - - -                                    &                                                   \\
+Prove $a \rightarrow b$                                 & Prove $(\neg a) \rightarrow$ \emph{False}         \\
+-----------------\{modus ponens\}                       & --------------------------\{reductio ad absurdum\}\\
+Infer $b$                                               & Infer $a$                                         \\
+                                                        &                                                   \\
 \end{tabular}
 \end{center}
-\caption{Rules of Inference for Reasoning by Deduction}
+\begin{center}
+\begin{tabular}{ll}
+Assume $a$                                      & \emph{assumption required to cite} \{$\rightarrow$ introduction\}     \\
+--------------\{\emph{r}\}                      & \emph{r is an inference rule or proven theorem}                       \\
+Prove $b$                                       & $b$ \emph{has now been derived from assumption} $a$                   \\
+-----------------\{$\rightarrow$ introduction\} & \emph{proof above line begins with} ``Assume \emph{left operand''}    \\
+Infer $a \rightarrow b$                         & ~~~~\emph{and concludes with right operand, proving} $a \rightarrow b$\\
+Discharge $a$                                   & \emph{excludes formula} ``$a$'' \emph{from hypotheses of theorem}     \\
+\end{tabular}
+\end{center}
+\caption{Rules of Inference for Natural Deduction}
 \label{fig-02-deduction-rules}
 \end{figure}
 
-The \{modus ponens\} rule, probably the most famous one because
-of the well known ``Socrates was a man'' application, says that if you know that
-the formula $a$ is true and that the formula $a \rightarrow b$ is true,
-you can conclude that $b$ is true.
+Of course the truth of an implication formula doesn't
+say anything about the value of the
+left-hand operation of the implication operator.
+That value could be either $True$ or $False$.
+The implication formula just says that
+the only combination of values that can make
+$(h \rightarrow c)$ have the value $False$
+(namely, $h = True$, $c = False$, as verified in
+Theorem \{$\rightarrow$ truth table\},
+page \pageref{implication-truth-table}) cannot occur.
+In the same way, a deductive proof of a theorem
+does not provide any information about the hypotheses.
+It only says that the conclusion will be true
+whenever all of the hypotheses are true.
+
+\begin{figure}
+\begin{quote}
+Theorem \{Socrates was mortal\}: $man$, $man \rightarrow mortal$ $\vdash$ $mortal$ \\
+proof
+\end{quote}
+\begin{center}
+\begin{tabular}{l}
+Assume $man$                    \\
+ - - - - - - - - - - - - - - - - - -\\
+Assume $man \rightarrow mortal$ \\
+--------------------------------\{modus ponens\} \\
+~~~~~~ $mortal$                 \\
+\end{tabular}
+\end{center}
+\caption{Theorem \{Socrates Was Mortal\}: Citing Modus Ponens}
+\label{fig:socrates-proof}
+\end{figure}
+
+Sometimes a theorem has from several hypotheses.
+A proof by deductive reasoning of the theorem
+$h_1$, $h_2$ $\vdash$ $c$,
+which has two hypotheses,
+ensures that
+$((h_1 \wedge h_2) \rightarrow c) = True$.
+A theorem with no hypotheses at all
+would have no formulas on the left-hand side of the turnstile:
+$\vdash c$.
+A proof of such a theorem would
+verify the equation $c = True$.
+
+All of the axioms of Boolean algebra
+(Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
+can be derived through deductive reasoning.
+Many presentations of classical logic begin with deductive reasoning,
+but we started with Boolean algebra
+because we will be using logic to reason about
+digital circuits and software that we
+specify with equations.
+So, equations play a central role throughout the discussion.
+Neverthless, we will want reason deductively from time to time,
+and this introduction is intended to provide a basis for
+deductive proofs when we want to use them.\footnote{If
+you are interested in a more extensive discussion of the natural deduction
+system of logic, an accessible treatment can be found
+in a text by O'Donnell, Hall, and Page
+(\emph{Discrete Mathematics Using a Computer}, $2^{nd}$ ed., Springer, 2006).}
+
+Figure~\ref{fig-02-deduction-rules} (page \pageref{fig-02-deduction-rules})
+provides schematics for rules of inference for \emph{natural deduction}.
+We will work through the rules, one by one,
+to show how deductive proofs employ
+them to derive the logic formula that is the conclusion of the theorem
+from one or more hypotheses, which are also logic formulas.
+
+A citation of an inference rule derives a conclusion formula
+from the results of prior reasoning in a proof.
+Each rule citation has three parts:
+\begin{quote}
+\begin{enumerate}
+\item a proof above the line (or multiple proofs, depending on the rule),
+\item a line annotated with the name of the cited inference rule, and
+\item exactly one logic formula below the line (the conclusion).
+\end{enumerate}
+\end{quote}
+
+\label{def-deductive-proof}
+A \emph{deductive proof} is a sequence of citations of inference rules
+in which the final citation has, below the line,
+the formula that is the conclusion of the theorem that the proof verifies.
+An inference rule can place specific constraints on the formula
+that is its conclusion and/or on the formulas that are the
+conclusions of the proofs that the rule requires above the line.
+For example, the \{$\wedge$ elimination 1\} inference rule
+(Figure~\ref{fig-02-deduction-rules}, page \pageref{fig-02-deduction-rules})
+requires one proof above the line
+and constrains the conclusion of that proof
+to be a logical-and formula $(a \wedge b)$.
+The \{$\wedge$ introduction\} rule, on the other hand,
+requires two proofs above the line and
+constrains its conclusion (below the line)
+to be a logical-and formula $(a \wedge b)$.
+Some rules place constraints on formulas both
+above and below the line.
+That is, they place constraints on the formulas
+that are the conclusions of proofs above the line
+and also place constraints
+on the formula below the line.
+For example, the \{$\neg$ introduction\} rule is one that
+constrains formulas both above and below the line.
+
+When a rule is cited in a deductive proof,
+the name of the rule is written just to the right of
+the line that separates the proofs that the rule requires above the line
+from the conclusion that the citation derives,
+which is the formula written below the line.
+When an inference rule requires multiple proofs above the line,
+dashed lines separate those proofs.
+Each of the proofs that the rule requires above the line
+is, itself, a proof.
+That is, it is also a sequence of citations ending in a conclusion formula,
+and that formula must meet any constraints
+specified in the rule.
+
+The \emph{scope} of a citation of an inference rule
+extends upward to the beginning of the first of the proofs
+above the line that the rule requires.
+The scopes of citations in a proof can overlap,
+and when they do, some proofs are nested inside others.
+In fact, the scope of the last rule citation in a proof
+always extends upward to the beginning of the proof,
+so the scopes of all of the other citations are nested
+within the scope of the last citation.\footnote{Because
+of the nesting in the scopes of rule citations,
+proofs by natural deduction
+are sometimes written with parentheses,
+like algebraic formulas
+or displayed as ``tree diagrams'',
+with the conclusion of the theorem at the bottom and
+the citations spread out, upwards,
+in a branching structure
+that makes the overlapping (and non-overlapping)
+of scopes easy to see.
+We have chosen a vertical format with implicit
+overlapping because this notation is more compact
+than a tree diagram and, in our judgment,
+more readable than a parenthesized proof formula.}
+
+Wherever an inference rule requires a proof above the line,
+an assumption can take the place of that proof.
+That is,
+an assumption can always stand in lieu of a proof.
+A logic formula that is marked as an assumption
+is a hypothesis of the theorem verified by the proof
+(unless that assumption is subsequently \emph{discharged},
+a special dispensation
+that will be discussed later).
+So, any proof may begin with a formula
+that is marked as an assumption.
+However, no proof can have
+a formula marked as an assumption after
+the first rule citation in the proof.
+Assumptions can appear only above the line
+of the first citation in the sequence of citations
+comprising the proof, but since citations
+(and, therefore, proofs) can be nested,
+an assumption need not be the first line in
+the entire proof.
+It may, instead, be the first line
+in a proof that is nested inside another proof.
+
+The \{modus ponens\} rule
+(Figure \ref{fig-02-deduction-rules}, page \pageref{fig-02-deduction-rules})
+is probably the most widely recognized rule of inference because
+of the well known ``Socrates was mortal'' application
+(Figure \ref{fig:socrates-proof}, page \pageref{fig:socrates-proof})
+The rule says that if there is a proof concluding in
+the formula $a$ and a proof concluding in the formula ($a \rightarrow b$),
+those proofs, together with a citation of modus ponens,
+derive the conclusion $b$.\footnote{Deductive
+proofs are one-directional,
+and so is the theorem about Socrates.
+One can conclude mortality from two hypotheses stating certain conditions of life,
+but one cannot derive those conditions of life from the mortality of Socrates.
+Rabbits, for example, are mortal, but they are not men.}
+
+Proofs by natural deduction follow strictly a prescribed format,
+and it is worth going over that format again, in slightly different terms.
+The proof of a theorem that has
+$n$ hypotheses will have $n$ different
+formulas representing those hypotheses
+marked as assumptions
+at the beginning of one or more of the proofs
+required by the inference rules that the proof cites.
+That is, each hypothesis, at the point where it is introduced
+into the proof, is marked as an assumption.
+An assumption, so marked, stands in lieu of the proof
+required at that point by whatever inference rule is being cited.
+A particular formula in a proof may be marked as an assumption
+at more than one point in a proof, but no matter how many places
+it appears as an assumption, it is still just
+one hypothesis of the theorem being proved.
+A proof of a theorem with $n$ hypotheses will have at least $n$
+formulas marked as assumptions.
+It will have more than $n$ formulas marked as assumptions
+if two or more of the assumptions specify the same formula
+(or if s formula is discharged).
+
+Assumptions must appear at the beginning of a
+a proof, before the citation of an
+inference rule in the proof.
+Assumptions cannot pop up after the citation
+of an inference rule in a proof.
+Of course, since dashed lines indicate separate proofs,
+the assumption need not be at the beginning of the entire
+proof, but could, instead, be at the beginning of
+a proof separated from another proof by a dashed line.
+The \{Socrates was mortal\} theorem has two hypotheses.
+One is marked as an assumption standing in lieu of the first proof
+required by a citation of \{modus ponens\},
+and the other is marked as an assumption
+standing in lieu of the second proof
+required by \{modus ponens\}.
+
+Three of the inference rules of natural deduction
+(Figure \ref{fig-02-deduction-rules})
+involve the $\wedge$ operator:
+\{$\wedge$ introduction\},
+\{$\wedge$ elimination 1\}, and
+\{$\wedge$ elimination 2\}.
+Using these rules, we can construct a deductive proof
+of the commutativity law for $\wedge$,
+and the proof will serve as a reasonably straightforward
+example to get started with natural deduction.
+
+\begin{figure}
+Theorem \{$\wedge$ commutes\}: $a \wedge b$ $\vdash$ $b \wedge a$ \\
+proof
+\begin{center}
+\begin{tabular}{ll}
+Assume $a \wedge b$                             &\emph{hypothesis of theorem}\\
+-------------------\{$\wedge$ elimination 2\}   &\\
+~~~~~~~~~~$b$                                   &\\
+ - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs required for }\{$\wedge$ introduction\} \emph{citation}\\
+Assume $a \wedge b$                             &\emph{hypothesis of theorem (reused)}\\
+-------------------\{$\wedge$ elimination 1\}   &\\
+~~~~~~~~~~$a$                                   &\\
+-------------------\{$\wedge$ introduction\}    &\emph{proved} $b$, \emph{proved} $a$, \emph{conclude} $(b \wedge a)$\emph{; scope extends to top}\\
+~~~~~~~~$b \wedge a$                            &\emph{conclusion of theorem}\\
+\end{tabular}
+\end{center}
+\caption{\{$\wedge$ commutes\}: Citing Three Inference Rules Involving $\wedge$}
+\label{fig:and-commutes-proof}
+\end{figure}
+
+The proof in
+Figure \ref{fig:and-commutes-proof} (page \pageref{fig:and-commutes-proof})
+cites the \{$\wedge$ introduction\} inference rule,
+a rule that requires two proofs above the line.
+The first of those proofs, in this example, has the hypothesis
+of the theorem above the line, annotated as an assumption.
+It then cites the \{$\wedge$ elimination 2\} rule,
+which requires the right-hand operand of the $\wedge$
+above the line to go under the line as the conclusion.
+Then comes the dashed line separating
+the two proofs required by \{$\wedge$ introduction\}.
+The second of the proofs comes next.
+It has the same form as the first proof,
+except that it cites \{$\wedge$ elimination 1\} instead of \{$\wedge$ elimination 2\}.
+The \{$\wedge$ elimination 1\} rule brings the first operand of the $\wedge$
+down below the line.
+The \{$\wedge$ introduction\} rule requires the
+conclusion of the first proof above line to
+become the left-hand operand of the $\wedge$
+operation that the rule introduces,
+and it requires the conclusion of the second
+proof to be the right-hand operand.
+The $\wedge$ formula with those two operands
+is the conclusion below the line the citation of the \{$\wedge$ introduction\} inference rule.
+That final citation completes the proof of the \{$\wedge$ commutes\} theorem.
+
+To recap, the proof of the {\{$\wedge$ commutes\} theorem
+consisted of three proofs, in a sense,
+one being the whole proof, ending in the citation of
+the \{$\wedge$ introduction\} rule,
+and the other two being the proofs required by the citation of \{$\wedge$ introduction\}.
+Each of the three proofs in this example consisted of exactly one rule citation.
+Sometimes there are several rule citations in a proof, sometimes only one,
+and sometime none (when the proof is an assumption).
+
+\begin{aside}
+As in Boolean algebra, variables in deductive reasoning
+stand for arbitrary formulas.
+Any grammatically correct formula
+can be plugged in for a variable in a theorem,
+as long as all of the instances of that variable are
+replaced by that same formula.
+
+For example,
+Theorem \{$\wedge$ commutes\} ($a \wedge b$ $\vdash$ $b \wedge a$)
+has two variables, $a$ and $b$.
+Since ($x \vee y$) and ($y \rightarrow z$) are formulas,
+the theorem justifies the following, more specialized
+version:
+\begin{center}
+$(x \vee y) \wedge (y \rightarrow z)$ $\vdash$ $(y \rightarrow z) \wedge (x \vee y)$
+\end{center}
+By the same token, it also justifies the following restatement of the
+theorem that uses the formula $b$ in place of $a$ and the formula $a$ in place of $b$.
+\begin{center}
+$b \wedge a$ $\vdash$ $a \wedge b$
+\end{center}
+
+This is not new to you.
+Variables are used in this manner throughout the book.
+We bring it up again because it is an important
+concept to keep in mind when citing inference rules
+or theorems.
+
+\caption{Variables Stand for Formulas}
+\label{variable-stand-for-formulas}
+\end{aside}
+
+Two formulas are annotated as assumptions in the
+proof of the \{$\wedge$ commutes\} theorem.
+This suggests that the theorem has
+two hypotheses,
+but in this case both assumptions are the same formula.
+A particular formula can be used as many times as necessary as
+an assumption in a proof, but it only counts as one hypothesis
+in the theorem.
+The number of hypotheses
+of the theorem is the number of distinct
+formulas annotated as assumptions in the proof,
+less the number of those assumptions that are discharged
+by citations of the \{$\rightarrow$ introduction\} inference rule,
+which we will discuss shortly.
+
+\begin{figure}
+Theorem \{self-implication\}: $\vdash$ $a \rightarrow a$ ~~~~\emph{Note: This theorem has no hypotheses.}\\
+proof
+\begin{center}
+\begin{tabular}{ll}
+Assume $a$                  &\emph{assumption discharged later}\\
+---------------\{identity\} &\\
+~~~~~$a$                    &\\
+---------------\{$\rightarrow$ introduction\} &\emph{assumed} $a$\emph{, proved} $a$\emph{, conclude} $a \rightarrow a$\\
+~~$a \rightarrow a$         &\emph{conclusion of theorem}\\
+~~Discharge $a$             &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation}, \emph{as promised}\\
+\end{tabular}
+\end{center}
+\caption{$\vdash$ $a \rightarrow a$: Citing  \{identity\} and \{$\rightarrow$\ introduction\} Inference Rules}
+\label{fig:or-self-imp-proof}
+\end{figure}
+
+Given a proof, it is straightforward to extract
+the theorem it proves.
+On the left of the turnstile ($\vdash$) put all of the different
+formulas annotated as assumptions in the proof,
+except those that are discharged.
+After the turnstile, write the formula in the
+conclusion at the end of the proof.
+
+Now we come to the issue of discharging formulas
+assumed in proofs.
+The inference rule \{$\rightarrow$ introduction\}
+has some unique characteristics.
+It requires only one proof above the line,
+but that proof must begin with a formula
+(let's call it $a$)
+marked as an assumption.
+To repeat, the proof above the line in a citation of
+\{$\rightarrow$ introduction\} that
+concludes with the formula $(a \rightarrow b)$
+below the line
+must begin with ``Assume $a$'' and
+then continue from there to derive the formula $b$, just above the line.
+The scope of the \{$\rightarrow$ introduction\} citation
+extends upward to the required assumption.
+
+Normally, any formula assumed at the beginning of a proof
+becomes a hypothesis of the theorem that was proved.
+However, a discharged assumption
+is not added to the hypotheses of the theorem.
+A citation of the \{$\rightarrow$ introduction\} rule
+triggers a discharge of the assumed formula that the
+rule requires at the beginning of the proof above the line.
+(Without that assumption, the citation,
+and therefore the proof, is not valid.)
+The reason for the discharge is that the truth of an implication
+formula doesn't place any constraints on the value of its
+left-hand operand.
+The implication says that if the left-hand operand
+has the value \emph{True}, then so does the right-hand operand,
+and the proof confirms that relationship.
+Since the citation of the
+\{$\rightarrow$ introduction\} rule
+simply confirms that the implication formula below the line
+is true, the citation places no constraints on the value
+of the left-hand operand.
+The assumption only applies within the scope
+of the citation of the \{$\rightarrow$ introduction\} inference rule
+and, therefore, does not become a hypothesis of the theorem being proved
+(unless it is assumed elsewhere in the proof and not disharged).
+
+Figure \ref{fig:or-self-imp-proof} (page \pageref{fig:or-self-imp-proof})
+displays a proof of the \{self-implication\} theorem,
+which says that formulas of the form ($a \rightarrow a$) always have the value \emph{True}.
+The proof cites the \{identity\} rule,
+which is included among the inference rules to make it
+possible for proofs by natural deduction to stay strictly
+within the formalism required by the system.
+The \{identity\} rule says that a proof of a formula $a$
+can be followed by a citation of \{identity\} rule
+with that same formula, $a$, as its conclusion below the line.
+
+The application of any rule must match the template in the specification of the rule,
+and the \{identity\} rule is sometimes needed to make it possible to match a template.
+That is what happens in the proof of self-implication (Figure \ref{fig:or-self-imp-proof}).
+The proof cites the \{$\rightarrow$ introduction\} rule
+to derive the formula $(a \rightarrow a)$,
+and that citation requires
+a proof above the line that begins with the assumption of $a$
+and concludes with the formula $a$, just above the line.
+The \{identity\} rule makes it possible to satisfy this requirement.
+In the proof of self-implication,
+the citation of \{$\rightarrow$ introduction\} rule follows
+the derivation of $a$ from $a$ and triggers a discharge
+of the assumption of $a$ at the beginning of the proof.
+There are no other assumed formulas in the proof,
+so the theorem proved has no hypotheses.
+That is, the proof confirms that the conclusion formula
+$(a \rightarrow a)$ has the value $True$, regardless of
+the value of the formula $a$.
+
+\begin{figure}
+Theorem \{$\vee$ commutes\}: $a \vee b$ $\vdash$ $b \vee a$ \\
+proof
+\begin{center}
+\begin{tabular}{ll}
+Assume $a \vee b$          &\emph{hypothesis of theorem}\\
+ - - - - - - - - - - - - - - - - - - - - - -&\emph{dashes separate} $1^{st}$ \emph{proof from} $2^{nd}$ \emph{req'd by} \{$\vee$ elimination\} \\
+Assume $a$          &\emph{this assumption will be discharged}\\
+--------------\{$\vee$ introduction 2\} &\emph{allows arbitrary left-hand operand in conclusion}\\
+~~$(b \vee a)$        &\\
+-----------------\{$\rightarrow$ introduction\} &\emph{assumed} $a$\emph{, proved} $(b \vee a)$\emph{, conclude} $a \rightarrow (b \vee a)$ \\
+~$a \rightarrow (b \vee a)$ &\{$\vee$ elimination\} \emph{, in this case, requires this conclusion here}\\
+Discharge $a$              &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation, as promised}\\
+ - - - - - - - - - - - - - - - - - - - - - -&\emph{dashes separate} $2^{nd}$ \emph{proof from} $3^{rd}$ \emph{req'd by} \{$\vee$ elimination\}\\
+Assume $b$          &\emph{this assumption will be discharged}\\
+--------------\{$\vee$ introduction 1\} &\emph{allows arbitrary right-hand operand in conclusion}\\
+~~$(b \vee a)$        &\\
+-----------------\{$\rightarrow$ introduction\} &\emph{assumed} $b$\emph{, proved} $(b \vee a)$\emph{, conclude} $b \rightarrow (b \vee a)$\\
+~$b \rightarrow (b \vee a)$ &\{$\vee$ elimination\} \emph{, in this case, requires this conclusion here}\\
+Discharge $b$              &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation, as promised}\\
+---------------\{$\vee$ elimination\}       &\emph{3 proofs req'd above line; scope extends to} ``Assume $(a \vee b)$''\\
+~~~~$(b \vee a)$        &\emph{assumed} $(a \vee b)$\emph{, proved} $a \rightarrow (b \vee a)$\emph{, proved} $b \rightarrow (b \vee a)$ \emph{,}\\
+       &~~~~\emph{conclude} $(b \vee a)$\emph{, the conclusion of the theorem}\\
+\end{tabular}
+\end{center}
+\caption{\{$\vee$ commutes\}: Citing \{$\vee$ elimination\}}
+\label{fig:or-commutes-proof}
+\end{figure}
+
+We now take on a theorem whose proof is more complex
+than those we have studied so far.
+The \{$\wedge$ commutes\} theorem proved earlier
+is similar to the \{$\vee$ commutes\} theorem
+that we will discuss now, but the proofs are very different.
+Figure \ref{fig:or-commutes-proof} (page \pageref{fig:or-commutes-proof}),
+which displays the proof of the \{$\vee$ commutes\} theorem,
+cites all three of inference rules involving the $\vee$ operator
+and affords an example of how the \{$\vee$ elimination\} rule works.
+
+The \{$\vee$ elimination\} rule calls for three proofs above the line.
+The first of the three proofs must conclude in a formula
+that is a logical-or, $(a \vee b)$, where, of course,
+$a$ and $b$ can be any grammatically correct logic formulas.
+The second proof must conclude in an implication, $a \rightarrow c$.
+In this implication, $a$ is the left-hand operand of the $\vee$ formula
+that concluded the first proof above the line,
+and $c$ (which of course can be a formula rather than just a variable)
+is the conclusion under the line citing the \{$\vee$ elimination\} rule.
+The third proof must conclude in an implication, $b \rightarrow c$,
+with the same right-hand operand as the implication that concludes
+the second proof, but with a left-hand operand that is the same
+as the right-hand operand of the logical-or that concludes the
+first proof above the line.
+The \{$\vee$ elimination\} rule is complicated,
+but is surprisingly easy to cite
+because the rule places so many constraints on its various parts.
+
+The proof in Figure~\ref{fig:or-commutes-proof} cites both of the
+``or introduction'' rules:
+\{$\vee$ introduction 1\} and \{$\vee$ introduction 2\}.
+These rules allow the introduction of an arbitrary formula
+into the proof.
+That is, when you cite the rule, you can make up one of the
+formulas in the conclusion (namely, the right-hand operand of
+the logical-or in the case of \{$\vee$ introduction 1\}
+and the left-hand operand in the case of \{$\vee$ introduction 2\}).
+The formula you choose can be as complicated or as simple as you like,
+whatever is needed to make the proof work.
+In the proof at hand,
+the made-up formulas are simple ($b$ in one case and $a$ in the other case),
+but are exactly what the proof needs.
+
+In addition to citing all three inference rules involving the $\vee$ operator,
+the proof cites the \{$\rightarrow$ introduction\} rule twice.
+Both of those citations require discharges,
+so there's lot of action in the proof.
+Figure~\ref{fig:or-commutes-proof}
+elucidates some of the details with commentary
+intended to help you work through the details
+to understand how the citations fit together and
+comprise a proof of the \{$\vee$ commutes\} theorem.
+
+Deductive proofs are one-directional,
+so it's a little ironic that most
+of the theorems we've prove so far using natural deduction
+turn out to be bidirectional.
+The proofs went in only one direction,
+but the theorems were provable in the other direction, too.
+
+The theorem that we turn to now, the implication chain rule
+(Figure \ref{fig:impchain-proof}, page \pageref{fig:impchain-proof}),
+only goes in one direction.
+It derives a conclusion from two hypotheses,
+but the two hypotheses cannot be derived from the conclusion.
+Again, commentary with the proof is intended
+to help you work your way through it.
+Pay particular attention to the discharge of the
+assumption that is introduced at the top of the proof.
+
+\begin{figure}
+Theorem \{$\rightarrow$ chain\}
+$(a \rightarrow b)$, $(b \rightarrow c)$ $\vdash$ $a \rightarrow c$ \\
+proof
+\begin{center}
+\begin{tabular}{ll}
+Assume $a$                                             &\emph{assumption discharged later}\\
+ - - - - - - - - - - - - - - - - - - - - - - - -       &\emph{separates 2 proofs required by} \{modus ponens\} \emph{citation}\\
+Assume $a \rightarrow b$                               &\emph{hypothesis of theorem}\\
+-----------------------\{modus ponens\}                &\{modus ponens\} \emph{citation} $\dots$\\
+~~~~~~~~~~~~$b$                                        &~~~~\emph{scope of citation goes up to} ``Assume $a$''\\
+ - - - - - - - - - - - - - - - - - - - - - - - -       &\emph{separates 2 proofs another} \{modus ponens\} \emph{citation reqs}\\
+Assume $b \rightarrow c$                               &\emph{hypothesis of theorem}\\
+------------------------\{modus ponens\}               &\emph{another citation of} \{modus ponens\} $\dots$\\
+~~~~~~~~~~~~$c$                                        &~~~~\emph{scope of extends to top, overlapping other scope}\\
+------------------------\{$\rightarrow$ introduction\} &\emph{assumed} $a$\emph{, proved} $c$\emph{, conclude} $(a \rightarrow c)$\\
+~~~~~($a \rightarrow c$)                               &\emph{conclusion of theorem} \\
+~~~~~Discharge $a$                                     &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation}\emph{, as promised}\\
+\end{tabular}
+\end{center}
+\caption{Proving the Implication Chain Rule}
+\label{fig:impchain-proof}
+\end{figure}
+
+In deductive proofs, previously proven theorems
+can be cited as if they were inference rules.
+Of course, the proof could always be carried out using inference rules alone
+by copying the proof of the cited theorem in place of its citation,
+but that leads to very long proofs, just as writing a computer program
+without defining and invoking procedures encapsulating common operations
+leads to very long programs. Long proofs, like long programs, tend
+to be unreliable, maybe because it's so difficult
+to analyze such a large mass of
+detail without getting confused.
+But, even if they weren't unreliable, they would be an eyesore,
+not to mention difficult to fix if there were an error.
+That's why the ability to cite proven theorems in
+deductive proofs is important. It makes them shorter
+and easier to comprehend incrementally, one short proof at a time.
+
+\begin{figure}
+Theorem \{modus tollens\}: $a \rightarrow b$, $\neg b$ $\vdash$ $\neg a$\\
+proof
+\begin{center}
+\begin{tabular}{ll}
+Assume $a \rightarrow b$                      &\emph{hypothesis of theorem}\\
+ - - - - - - - - - - - - - - - - - - - -      &\emph{separates proofs of hypotheses of} \{$\rightarrow$ chain\} \emph{theorem}\\
+Assume $\neg b$                               &\emph{hypothesis of theorem}\\
+---------------\{$\neg$ elimination\}         &\\
+$b \rightarrow False$                         &\\
+---------------\{$\rightarrow$ chain\}        & \emph{citing theorem with 2 hypotheses; scope extends to top of proof}\\
+$a \rightarrow False$                         &\emph{assumed} $a \rightarrow b$, \emph{proved} $b \rightarrow False$, \emph{conclude} $a \rightarrow False$\\
+---------------\{$\neg$ introduction\}        &\\
+~~~~$\neg a$                                  &\\
+\end{tabular}
+\end{center}
+\caption{Modus Tollens: Citing a Theorem to Justify an Inference}
+\label{fig:modtol-proof}
+\end{figure}
+
+A citation of a theorem in a proof must be preceded by proofs of
+each of its hypotheses above the line, just as
+each inference rule citation must be preceded by a certain number of proofs above the line.
+As with inference rules that require multiple proofs above the line,
+we use a dashed line to separate the required proofs
+when citing a theorem that has more than one hypothesis and therefore
+requires more than one proof above the line.
+Figure \ref{fig:modtol-proof} (page \pageref{fig:modtol-proof})
+displays a proof of the modus tollens theorem\footnote{The
+inference rule \{modus ponens\} says that the conclusion of an implication
+can be derived from a proof of its hypothesis.
+The modus tollens theorem says that the hypothesis
+of an implication can be derived from the negation of its conclusion.}
+that cites the implication chain rule theorem.
+Since that theorem has two hypotheses, there are two proofs above
+the line where the theorem is cited, and those proofs conclude in
+the implication formulas that are the hypotheses of the implication chain rule.
 
 The \{reductio ad absurdum\} rule supports ``proof by contradiction''.
-It says that if you can derive $False$
-from $(\neg a)$, then $(\neg a)$ must be $False$, which means that $a$ must
-be $True$.
+It says that if you can prove that the formula
+$(\neg a) \rightarrow$ \emph{False} is true
+you can conclude that the formula $a$ is true.
+The proof in Figure~\ref{fig:dbl-neg-fwd} (page \pageref{fig:dbl-neg-fwd})
+cites the reductio ad absurdum rule to prove a theorem about double negation.
 
-The \{$\wedge$ elimination\} rule says that if you know $a \wedge b$,
-you can conclude that $a$ must be $True$. The same goes for $b$ of
-course, but that is another rule. We have not included it in the table because
-our goal is to give you the general idea, not to put together a complete
-set of rules. Following the approach we have stated here,
-we would need to add five more rules
-(the other version of \{$\wedge$ elimination\} being one of them)
-to have a complete set that would allow us to derive all of the
-equations of Boolean algebra.
-
-Fortunately, citing equations from Boolean algebra to justify
-steps is consistent with proof by deduction. That is, a formula
-in a deductive proof may be replaced by an equivalent formula
-justified by an equation known from Boolean algebra. So, if we
-accept the \{$\wedge$ commutative\} equation (see page \pageref{and-commutative}),
-we can derive the other \{$\wedge$ elimination\} from
-Figure~\ref{fig-02-deduction-rules} (page \pageref{fig-02-deduction-rules}).
-
-The rule would be stated as follows.
+\begin{figure}
+Theorem \{$\neg \neg$ forward\}: $(\neg(\neg a))$ $\vdash$ $a$\\
+proof
 \begin{center}
 \begin{tabular}{ll}
-Prove $a \wedge b$                 & \\
---------------                     &\{$\wedge$ elimination-2\} \\
-Infer $b$                          & \\
+Assume $(\neg(\neg a))$                       &\emph{hypothesis of theorem}\\
+----------------------\{$\neg$ elimination\}  &\\
+~~$(\neg a) \rightarrow False$                &\\
+----------------------\{reductio ad absurdum\}&\emph{proved} $(\neg a) \rightarrow False$, \emph{conclude} $a$\\
+~~~~~~~~~~~~$a$                               &\\
 \end{tabular}
 \end{center}
+\caption{\{$\neg \neg$ forward\}: Citing Reductio ad Absurdum}
+\label{fig:dbl-neg-fwd}
+\end{figure}
 
-The derivation of the new rule, \{$\wedge$ elimination-2\},
-proceeds by deductive reasoning as follows.
+Citations in the example proofs, so far, have included all of the inference rules
+but one. The rule we haven't used yet is \{contradition\}.\footnote{It
+is ironic that proofs citing the \{reductio ad absurdum\} rule
+are called proofs by contradiction, while proofs citing the
+\{contradiction\} rule have no special name.
+Nevertheless, that is the custom, maybe because
+the \{contradiction\} rule, like the \{identity\} rule, 
+is needed primarily to facilitate the formal details of
+natural deduction.}
+The proof of the \{disjunctive syllogism\} theorem displayed in
+Figure~{\ref{fig:disjunctive-syllogism-nd} (page \pageref{fig:disjunctive-syllogism-nd})
+exhibits a citation of that rule.
+The theorem says that if a logical-or is known to be true,
+and its left-hand operand is known to be false,
+then its right-hand operand must be true.
+The strategy employs the \{$\vee$ elimination\} rule,
+which calls for three proofs above the line.
+In this case, the first of those proofs is simply an assumption of
+the logical-or formula that is a hypothesis of the theorem.
+The second proof derives $False$ from the other hypothesis
+of the theorem and an assumption of the left-hand operand
+of the logical-or, and that assumption is discharged when
+the proof cites the \{$\rightarrow$ introduction\} rule.
+The third proof is similar to the second proof,
+but cites the \{identity\} rule
+where the second proof cited the \{contradition\} rule.
+
+Creating proofs by natural deduction is hard.
+It requires a lot of practice, just to get
+a firm grasp of the ideas.
+The following exercises provide an opportunity
+to get some of that practice.
+
+\begin{figure}
+Theorem \{disjunctive syllogism\}: $a \vee b$, $\neg a$ $\vdash$ $b$ \\
+proof
 \begin{center}
 \begin{tabular}{ll}
-Prove $a \wedge b$                 & \\
---------------                     &\{$\wedge$ commutative\} \\
-Prove $b \wedge a$                 & \\
---------------                     &\{$\wedge$ elimination\} \\
-Infer $b$                          & \\
+Assume $(a \vee b)$          &\emph{hypothesis of theorem}\\
+ - - - - - - - - - - - - - - - - - - - - - -&\emph{dashes separate} $1^{st}$ \emph{proof from} $2^{nd}$ \emph{req'd by} \{$\vee$ elimination\}\\
+Assume $a$          & \emph{this assumption will be discharged}\\
+ - - - - - - - - - - - - - - - - - - - - - -& \emph{separates} $1^{st}$ \emph{and} $2^{nd}$ \emph{proofs required by} \{modus ponens\} \\
+Assume $(\neg a)$        & \emph{hypothesis of theorem}\\
+-------------------\{$\neg$ elimination\} \\
+~~$a \rightarrow False$ &\\
+-----------------\{modus ponens\} &\emph{2 proofs required above line; scope goes up to} ``Assume $a$''\\
+~~~~$False$            &\emph{conclusion} $False$ \emph{required to cite} \{contradiction\} \emph{rule}\\
+-----------------\{contradiction\} &<<<< \textbf{\textsc{citing} \{contradiction\} \textsc{rule}}\emph{, justifies any conclusion}\\
+~~~~~~~~$b$              &\emph{now we have derived $b$ from assumption $a$}\\
+-----------------\{$\rightarrow$ introduction\} & \emph{assumed $a$, proved $b$, conclude $(a \rightarrow b)$}\\
+~~~~$a \rightarrow b$ &\emph{conclusion required by citation of} \{$\vee$ elimination\} \\
+Discharge $a$    &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation, as promised}\\
+ - - - - - - - - - - - - - - - - - - - - - -&\emph{dashes separate} $2^{nd}$ \emph{proof from} $3^{rd}$ \emph{req'd by} \{$\vee$ elimination\}\\
+Assume $b$          &\emph{this assumption will be discharged}\\
+--------------\{identity\} &\\
+~~~~~~~~$b$          &\\
+-----------------\{$\rightarrow$ introduction\} &\emph{assumed $b$, proved $b$, conclude $(b \rightarrow b)$}\\
+~~~~$b \rightarrow b$ &\emph{conclusion required by citation of} \{$\vee$ elimination\}\\
+Discharge $b$              & \emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation, as promised}\\
+---------------\{$\vee$ elimination\}       &\emph{3 proofs req'd above line; scope extends to} ``Assume $(a \vee b)$''\\
+~~~~~~~~$b$        &\emph{assumed} $(a \vee b)$\emph{, proved} $(a \rightarrow b)$\emph{, proved} $(b \rightarrow b)$\emph{, conclude }$b$\\
 \end{tabular}
 \end{center}
-
-Just as with Boolean equations, once a new rule is proven, it
-can be cited to justify steps in proofs.
-So, at this point we could use \{$\wedge$ elimination-2\}
-in a proof by deductive reasoning.
-
-To firm up the idea at least a little,
-we will do one more proof using deductive reasoning.
-The theorem is known as the implication chain rule.
-
-\begin{center}
-\begin{tabular}{ll}
-$((a \rightarrow b) \wedge (b \rightarrow c)) \rightarrow (a \rightarrow c)$ &\{$\rightarrow$ chain\}
-\end{tabular}
-\end{center}
-
-The proof proceeds as follows.
-\begin{center}
-\begin{tabular}{ll}
-Assume $((a \rightarrow b) \wedge (b \rightarrow c))$ & \\
-------------------------------------                  &\{$\wedge$ elimination\} \\
-Infer $(a \rightarrow b)$                             & \\
-Assume $a$                                            & \\
-------------------                                    &\{modus ponens\} \\
-Infer $b$                                             & \\
-Assume $((a \rightarrow b) \wedge (b \rightarrow c))$ & \\
-------------------------------------                  &\{$\wedge$ elimination-2\} \\
-Infer $(b \rightarrow c)$                             & \\
-------------------                                    &\{modus ponens\} \\
-Infer $c$                                             & \\
----------------                                       &\{$\rightarrow$ introduction\} \\
-Infer ($a \rightarrow c$)                             & \\
-------------------                                    &\{$\rightarrow$ introduction\} \\
-Infer $((a \rightarrow b) \wedge (b \rightarrow c)) \rightarrow (a \rightarrow c)$ & \\
-\end{tabular}
-\end{center}
-
-A tautology is a Boolean formula that has the value $True$ regardless of the values of its variables.
-Put another way, a tautology is a Boolean formula that is equal to the formula $True$.
-
-Every theorem proved by deduction confirms a tautology.
-The tautological formula corresponding to a theorem is the implication with the logical-and
-of the hypotheses as the operand on the left of the implication and the conclusion of the theorem
-on the right. Since a tautology is a formula equal to $True$, every theorem leads to
-a corresponding Boolean equation.
-
-The \{$\rightarrow$ chain\} theorem that we just proved by deduction
-confirms that the formula derived from the theorem in this way is equivalent to $True$.
-In the form of an equation, this theorem would be stated as follows.
-\begin{center}
-\begin{tabular}{ll}
-$(((a \rightarrow b) \wedge (b \rightarrow c)) \rightarrow (a \rightarrow c)) = True$ &\{$\rightarrow$ chain\}
-\end{tabular}
-\end{center}
-
-If you want to get a little more practice in reasoning with equations,
-construct a prooof of the \{$\rightarrow$ chain\} equation based on the
-axioms of Boolean algebra (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms}).
+\caption{\{disjunctive syllogism\}: Citing \{contradiction\}}
+\label{fig:disjunctive-syllogism-nd}
+\end{figure}
 
 \begin{ExerciseList}
 \Exercise
-Use the rules of inference for deduction (page \pageref{fig-02-deduction-rules})
-to derive the formula $c$ from the formula
-$(a \wedge ((a \rightarrow b) \wedge (b \rightarrow c)))$.
+Use natural deduction to prove
+Theorem \{$\wedge$ complement\}: $a$, $\neg a$ $\vdash$ $False$
 
 \Exercise
-Use the axioms of Boolean algebra (page \pageref{fig-02-boolean-axioms})
-to derive the equation
-$((a \wedge ((a \rightarrow b) \wedge (b \rightarrow c))) \rightarrow c) = True$.
+Use natural deduction to prove the following theorem:
+$a$, $a \rightarrow b$, $b \rightarrow c$ $\vdash$ $c$
+
+\Exercise
+Derive the equation
+$((a \wedge ((a \rightarrow b) \wedge (b \rightarrow c))) \rightarrow c)$ = $True$
+using the axioms of Boolean algebra
+(Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms}).
 
 \Exercise
 Explain the connection between the previous two exercises.
+
+\Exercise
+Use natural deduction to prove the following theorem:
+$\vdash$ $(a \wedge b) \rightarrow a$
+
+\Exercise
+Use natural deduction to prove
+Theorem \{nor commutes\}: $\neg (a \vee b)$ $\vdash$ $\neg (b \vee a)$\\
+\emph{Note}: The \{$\vee$ commutes\} theorem will not help because
+$\neg (a \vee b)$ is a negation formula, not a logical-or formula.
+It has a logical-or as a subformula, but natural deduction
+requires matching the whole formula, not a subformula.
+
+\Exercise
+Use natural deduction to prove
+Theorem \{nand commutes\}: $\neg (a \wedge b)$ $\vdash$ $\neg (b \wedge a)$\\
+\emph{Note}: The \{$\wedge$ commutes\} theorem will not help in this proof
+for the same reason that \{$\vee$ commutes\} does not help
+in the previous exercise.
+
+\Exercise
+Use natural deduction to prove
+Theorem \{nor elimination 1\}: $\neg (a \vee b)$ $\vdash$ $\neg a$
+
+\Exercise
+Use natural deduction to prove \{DeMorgan $\vee$ forward\}:
+$\neg (a \vee b)$ $\vdash$ $(\neg a) \wedge (\neg b)$
+
+\Exercise
+Use natural deduction to prove \{DeMorgan $\vee$ backward\}:
+$(\neg a) \wedge (\neg b)$ $\vdash$ $\neg (a \vee b)$
+
+\Exercise
+Use natural deduction to prove
+Theorem \{$\vee$ complement\}: $\vdash$ $a \vee (\neg a)$ \\
+\emph{Hint}: Use the \{reductio ad absurdum\} inference rule,
+cite the \{nor elimination 1\} and \{$\wedge$ complement\}
+theorems from earlier exercises,
+and remember that you can assume the hypothesis
+of the theorem as many times in the proof as you like.
+
 \end{ExerciseList}
 
-\todo{Not sure whether we need a section on one-directional reasoning or not ...
-seems like we do, but a full-fledged Gentzen-style treatment gets tedious ...
-how do we keep it lively, but still provide the necessary apparatus? ...
-Maybe better to introduce inference rules when we introduce induction? ...
-how many rules do we need? Would modus ponens and or-elim (plus induction) be enough? How about reductio-ad-absurdum?
-law of excluded middle? Just the rules we will be using in doing inductive proofs about software and circuits}
-\todo{after writing this, I'm not sure it does any good.
-I'm especially not sure the proof notation I've used is clearly explained.
-I went through all the lectures, homeworks, and exams in the existing applied logic course, and did not find any theorems proved by deductive reasoning that were not more easily handled by stating them as implications and proving them as equations of the form $(a \rightarrow b) = True$.
-I guess we could leave this stuff in, but give it short shrift, and refer back to it if necessary.
-We will use deduction when we come to induction, which is a deductive inference rule, but
-I'm not sure we need to make a big deal out of it}
-\todo{Check to make sure predicates and quantifiers are covered somewhere.
-Show how to convert between forall and exists.}
+%%%\todo{Not sure whether we need a section on one-directional reasoning or not ...
+%%%seems like we do, but a full-fledged Gentzen-style treatment gets tedious ...
+%%%how do we keep it lively, but still provide the necessary apparatus? ...
+%%%Maybe better to introduce inference rules when we introduce induction? ...
+%%%how many rules do we need? Would modus ponens and or-elim (plus induction) be enough? How about reductio-ad-absurdum?
+%%%law of excluded middle? Just the rules we will be using in doing inductive proofs about software and circuits}
+%%%\todo{after writing this, I'm not sure it does any good.
+%%%I'm especially not sure the proof notation I've used is clearly explained.
+%%%I went through all the lectures, homeworks, and exams in the existing applied logic course, and did not find any theorems proved by %%%deductive reasoning that were not more easily handled by stating them as implications and proving them as equations of the form $(a %%%\rightarrow b) = True$.
+%%%I guess we could leave this stuff in, but give it short shrift, and refer back to it if necessary.
+%%%We will use deduction when we come to induction, which is a deductive inference rule, but
+%%%I'm not sure we need to make a big deal out of it}
 
+%%% IN THE END, ALL INFERENCE RULES WERE COVERED
+%%% NAT DED FORMAT USED IS COMPACT, BUT SORT OF READABLE.
+%%% INTRODUCED NEGATION-INTRO and NEGATION-ELIM TO AVOID CONFUSION ABOUT A -> FALSE,
+%%% AND THIS TURNED OUT TO HAVE THE BENEFIT OF LIMITING DISCHARGES TO IMPLICATION-INTRO RULE
+%%% SO, NATURAL DEDUCTION IS WELL COVERED,
+%%% BUT IN THE CHART SHOWING PATHS THROUGH THE BOOK, WE MIGHT BE ABLE
+%%% TO SUGGEST THAT THIS SECTION ON NATURAL DEDUCTION COULD BE SKIPPED
+%%% BECAUSE WE DON'T MAKE MUCH USE OF DEDUCTION EXCEPT IN KIND OF A SUPERFICIAL WAY
+%%% IN THE EXPLANATION OF INDUCTION AS AN INFERENCE RULE
+
+\todo{
+Maybe change \theorem definition to remove theorem numbers and parens around theorem names.
+Could not use the \theorem command with natural deduction because
+I could not get it to work with the tabular format I needed to use in those proofs.
+Also, I used theorem names in all the references in Ch 2 anyway, instead of theorem numbers.
+This would change the look of theorems:
+   Theorem 4 ({--> truth table}). blah blah...    OLD FORMAT
+   Theorem {--> truth table}: blah blah...        NEW FORMAT, if we make the change proposed here
+}
+
+\todo{Check to make sure predicates and quantifiers are covered somewhere.
+Show how to convert between forall and exists.
+put halting problem where forall is introduced;
+   cite (x -> not x) = (not x) {contradiction} \label{boolean-contradiction}
+}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "book"
