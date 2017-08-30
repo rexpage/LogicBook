@@ -749,43 +749,45 @@ on the ordinary induction rule.
 \begin{center}
 \begin{tabular}{l}
 Prove $(\forall m<n.P(m))\rightarrow P(n)$ \\
-\hline
+----------------------------------------\{strong induction\}\\
 Infer $(\forall n.P(n))$
 \end{tabular}
 \end{center}
-\caption{Mathematical Induction--strong induction version}
+\caption{Mathematical Induction (strong induction version)}
 \label{strong-induction-rule}
 \end{figure}
 
 \begin{aside}
-The strong induction rule looks more different
-from the one for ordinary induction than it really is.
-The ordinary induction rule required two proofs before making the conclusion:
+The inference rule for ordinary mathematical induction
+(Figure~\ref{induction-rule}, page \pageref{induction-rule})
+requires two proofs above the line:
 (1)~Prove $P(0)$ and (2)~Prove $\forall$$n$.(P($n$)$\rightarrow$P($n+1$)).
-The strong induction rule only calls for one proof:
+The strong induction rule
+(Figure~\ref{strong-induction-rule})
+calls for only one proof:
 Prove $(\forall m<n.P(m))\rightarrow P(n)$.
-However, when $n$ is zero, the formula to be proved reads as follows:
+However, when $n = 0$, this is
 $(\forall m<0.P(m))\rightarrow P(0)$.
-The formula is strange because $m$ is supposed to be a natural number,
-and the $\forall$ quantification runs over
-all values of $m$ that are strictly less than zero.
-Since there are no natural numbers less than zero,
-the universe of discourse for this quantification is empty.
-That makes the formula $(\forall m<0.P(m))$ true because
-a $\forall$ quantification with an empty universe of discourse is true, by default
+Since there 
+are no natural numbers less than zero,
+$(\forall m<0.P(m))$ true because
+a $\forall$ quantification with an empty universe of discourse 
+is true, by default
 (page \pageref{empty-forall}).
 
 So, proving $(\forall m<0.P(m))\rightarrow P(0)$
 is the same as proving $True \rightarrow P(0)$,
-which requires proving that $P(0)$ is true, just
-as in ordinary induction.
-In other words, in strong induction there are still two proofs to do,
-one for P(0), and one for $(\forall m<n.P(m))\rightarrow P(n)$
-when $n$ is not zero.
-The strong induction inference rule looks like it
-requires only one proof, but that is an illusion
-caused by the fact that a $\forall$ quantification with an empty universe
-is automatically true.
+which is equivalent to proving $P(0)$, 
+just as in ordinary induction.
+In other words, in strong induction there are really two proofs to do,
+one for $P(0)$ and one for $(\forall m<n.P(m))\rightarrow P(n)$
+when $n$ is not zero, which is usually expressed in the
+equivalent form $(\forall m<n+1.P(m))\rightarrow P(n+1)$.
+Looking at it this way makes a proof citing strong induction look like
+a proof citing ordinary mathematical induction except that
+in the proof of $P(n+1)$, all of the propositions 
+$P(0)$, $P(1)$, $P(2) \dots P(n)$
+are regarded as known facts, not just $P(n)$.
 \caption{Strong Induction Requires Two Proofs or One?}
 \label{strong-induction-rule-2-hyps-or-1}
 \end{aside}
