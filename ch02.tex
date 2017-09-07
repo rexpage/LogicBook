@@ -2194,6 +2194,141 @@ of the theorem as many times in the proof as you like.
 %%% BECAUSE WE DON'T MAKE MUCH USE OF DEDUCTION EXCEPT IN KIND OF A SUPERFICIAL WAY
 %%% IN THE EXPLANATION OF INDUCTION AS AN INFERENCE RULE
 
+\section{Limits of Boolean Equations}
+
+There is an aspect of Boolean equations that we haven't fully considered. A Boolean variable $x$ stands for a proposition, 
+such as ``Socrates is a man.'' What we mean by this is that the variable $x$ is $True$ precisely when ``Socrates is a man'' 
+is true in the real world. We will soon move on to other ways of representing real-world knowledge using logic, but before 
+we do that, we want to address the question, ``Just how powerful are Boolean equations by themselves?'' The answer, it 
+turns out, is ``very powerful, indeed!''
+
+But first, let's take an apparent detour. You probably know the game of tic-tac-toe, in which players alternate to place 
+X's and O's on a $3 \times 3$ board, such as the following.
+
+\begin{tabular}{c|c|c}
+  & X & O \\
+\hline
+X & O & O \\
+\hline
+  &   & X \\
+\end{tabular}
+
+Can we play tic-tac-toe using propositional logic? Let's try! We will certainly need Boolean variables to represent the 
+board; for example, let $x$ be the variable that means ``the top-left cell is an X'' and $y$ be the variable that means 
+``the top-left cell is an O.'' This works, surely, but we're sure to run out of letters quickly. Instead, let $x11$ be 
+the variable that means ``the top-left cell is an X,'' $x12$ that ``the top-center cell is an X,'' $x23$ that ``the 
+center-right cell is an X,'' and so on. Similarly, variables $y11$ (and so on) for Os and $z11$ (and so on) for blanks 
+can be defined, and the collection of these 27 Boolean variables can define any board.
+
+Actually, they can define boards that are impossible, so we need rules to limit the possible values of these variables. 
+For example, each individual cell can have either an X, an O, or a blank, and nothing else, and certainly not both an 
+X and an O. We can write this down using the rule
+$$(x11 \vee y11 \vee z11) \wedge \neg(x11 \wedge y11) \wedge \neg(x11 \wedge z11) \wedge \neg(y11 \wedge z11)$$
+Do you see why this formula captures the idea that the top-left cell must have precisely one of the possible values 
+X, O, or blank? Of course, we need a similar formula for each cell in the board.
+
+But wait! It is not enough to represent the board at a particular moment. We must also be able to write down how the 
+board changes through time, as the players place an X or an O on an empty cell. So let's rethink the Boolean variables 
+and add a time component to them. We now write $x113$ to mean ``the top-left cell is an X at step 3.'' If we start 
+counting at step 0, when the board is initially completely blank, there can be at most nine more steps, since each 
+places an X or an O in one of the black cells. So we need a total of 270 Boolean variables, 9 for each cell times 3 
+for each possible value times a maximum of 10 steps.
+
+You can now see how we can write down the ``initial condition'' that the board starts
+with all empty cells:
+$$z110 \wedge z120 \wedge z130 \wedge z210 \wedge z220 \wedge z230 \wedge z310 \wedge z320 \wedge z330$$
+You should also be able to see that we need 90 formulas specifying the possible legal values of each of the nine cells 
+at each of the ten steps. Here is one example, for the center-right cell at step 6:
+$$(x236 \vee y236 \vee z236) \wedge \neg(x236 \wedge y236) \wedge \neg(x236 \wedge z236) \wedge \neg(y236 \wedge z236)$$
+All of these 90 formulas should be combined using AND so we can characterize all the legal boards.
+
+What about the rules for placing Xs and Os? An important rule is that once a cell has an X or an O, it must keep 
+that same value. Put more concretely, if the low-center cell has an X at step 5, then it must also have an X at step 6, 
+and we can write that as follows:
+$$x325 \rightarrow x326$$
+Of course, we need similar rules for all cells transitioning into steps 1 through 9, and then similar rules for cells with 
+Os, e.g., $y325 \rightarrow y326$. These rules are also combined using AND, since they describe conditions that each cell 
+must satisfy at each step.
+
+These past Boolean formulas forbid illegal moves, such as taking away an X or placing an X where an O was placed preciously, 
+but they do nothing to force legal moves. Let's assume that the game starts with an X being placed in step 1, hence an O 
+in step 2, and so on. In English, you may say that one and only one of the cells that is blank in step 0 must be replaced 
+by an X in step 1. Using the Boolean variables at our disposal, we can write this idea with nine formulas (one for each cell) 
+like the following:
+$$b110 \wedge x111 \wedge (b120 \rightarrow b121) \wedge (b130 \rightarrow b131) \wedge \dots (b330 \rightarrow b331)$$
+
+Then we have to consider legal moves from step 1 to step 2. Again, we can do this with nine similar formulas (one for each cell) 
+such as the following, where we use y122 since it's player O's turn:
+$$b111 \wedge y112 \wedge (b121 \rightarrow b122) \wedge (b131 \rightarrow b132) \wedge \dots (b331 \rightarrow b332)$$
+And naturally, we continue in this manner for all possible steps. Notice, however, that combining these rules is more 
+subtle than before. Each formula, or rule, states a possible move at a given step. What we want to say is that a legal move 
+is made at each step. So all the rules for a given step must be combined using OR, and then all the combined formulas for 
+each step are themselves combined using AND.
+
+Finally, how do we know when X wins? According to the rules, this means the board has 3 Xs in a row, column, or diagonal. 
+This Boolean formula captures an X win at step 5:
+    \begin{center}
+        \begin{tabular}{ll}
+        & $(x115 \wedge x125 \wedge x135) \vee (x215 \wedge x225 \wedge x235) \vee (x315 \wedge x325 \wedge x335)$ \\
+        $\vee$ & $(x115 \wedge x215 \wedge x315) \vee (x125 \wedge x225 \wedge x325) \vee (x135 \wedge x235 \wedge x335)$ \\
+        $\vee$ & $(x115 \wedge x225 \wedge x335) \vee (x315 \wedge x225 \wedge x135)$
+        \end{tabular}
+    \end{center}
+Again, we can write similar rules for an X victory at steps 1 through 9, and these are combined with a OR to have the 
+informal meaning ``X wins.''
+
+Now consider a single formula combining
+\begin{enumerate}
+\item the initial configuration of the board, AND
+\item the possible legal configurations of the board at all times, AND
+\item the legal transitions of the board from one step to the next, AND
+\item the formula that ``X wins.''
+\end{enumerate}
+Do you see that if this formula is equal to $True$, then player X must always win the game? And what if the formula is 
+equal to $False$? In that case, do you see that player X can never win the game? But do you see a third possibility? 
+What if the formula is neither equal to $True$ nor equal to $False$? Is this even possible?
+
+In fact, it is possible that the formula is neither $True$ nor $False$. What this means is that for some values of the 
+Boolean variables the formula is $True$, but that for others the formula is $False$. Each possible combination of the 
+Boolean variables corresponds to a single game on tic-tac-toe, e.g., one in which the first player placed an X in the 
+top-left cell, then the other player placed an O in the center cell, then the first player place an X in the top-right 
+cell, and so on. The value of the formula tells us whether X won that particular game. So if the value is True, you 
+should be able to inspect the values of the individual Boolean variables and reconstruct a game where X won.
+
+Now hang on to your hats, because we are about to introduce you to one of the central mysteries of computer science: 
+What we just did for tic-tac-toe, we can also do for any computer program that \emph{finishes in a bounded number of steps}. 
+What we need to do is to construct a formula that combines
+\begin{enumerate}
+\item the initial configuration of the computer, AND
+\item the possible legal configurations of the computer at all times, AND
+\item the legal transitions of the computer from one step to the next, AND
+\item the formula that ``the program is finished.''
+\end{enumerate}
+Since digital computers store everything as a sequence of ones and zeros, the initial configuration is simply the initial 
+values of those bits, either ones or zeros. The legal configurations rule out the possibility that a given bit is both a 
+one and a zero at the same time. The legal transitions correspond to the actual program and how it manipulates information 
+over time. And we can tell when the program is finished in many ways, for example by insisting that the last thing it does 
+is set a specific bit to one.
+
+So there you have it. If you know that a given program will execute in 10 million or fewer steps, then you can (in principle) 
+write down a Boolean formula that completely captures its execution. In this sense, Boolean formulas are powerful enough to 
+represent any computer program, as long as you can state ahead of time how long it will take to execute. So never give in to 
+the fallacy that Boolean formulas are somehow limited.
+
+\begin{ExerciseList}
+\Exercise 
+We made a major simplification in the presentation of tic-tac-toe. If you were paying close attention, you may have noticed 
+that player O can continue playing after X wins. In fact, our rules demand that, because they say that at each of the 9 
+possible steps one of the blanks is replaced by an X or an O, depending on whose turn it is. Alter the rules so that this 
+problem is taken care of.
+
+\Exercise
+Consider a simple game that begins with 10 coins on a table. Bob and Alice take turns removing one, two or three coins, and 
+the player who removes the last coin wins. Construct a Boolean formula that corresponds to a game in which Alice wins. What does
+it mean if this formula is $True$? What if it's $False$? Can it be neither? If so, what does that mean?
+\end{ExerciseList}
+
+
 \todo{
 Maybe change \theorem definition to remove theorem numbers and parens around theorem names.
 Could not use the \theorem command with natural deduction because
