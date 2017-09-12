@@ -1,0 +1,668 @@
+\chapter{Mechanized Logic}
+\label{ch:mechanized-logic}
+
+\section{Mechanized Logic}
+\label{sec:mech-logic}
+The proofs we have been doing depend on matching grammatical elements in formulas
+against templates in axioms and theorems.
+The formulas are then transformed to equivalent ones with different grammatical structures.
+Gradually, we move from a starting formula to a concluding one to verify an equation for a new theorem.
+
+It is easy to make mistakes in this detailed, syntax-matching process,
+but computers carry it out flawlessly.
+This relieves us from an obligation to focus with monk-like devotion on the required grammatical analysis.
+We can leave it to the computer count on having it done right.
+
+There are several mechanized logic systems that people use
+to assist with proofs of the kind we have been doing.
+One of them is ACL2 (A Computational Logic for Applicative Common Lisp).
+Theorems for the ACL2 proof engine are stated in the same form
+as properties for the doublecheck testing facility in Proof Pad.
+ACL2 has a built-in strategy for finding inductive proofs,
+and for some theorems it succeeds in fully automating proofs.
+It also permits people to guide it through proofs while it pushes through all of the grammatical details.
+
+To illustrate how this works, we will go the theorems
+discussed earlier in this chapter, one by one.
+The notation for stating theorems in ACL2 form will be familiar,
+but not identical to the one we have been using
+for our paper-and-pencil proofs.
+For one thing, it employs prefix notation throughout,
+and we have been using a mixture of prefix and infix.
+
+Our first proof by mathematical induction verified
+the additive law of concatenation (page \pageref{additive-law-concatenation}).
+Our statement of the theorem asserted that a proposition L($n$) is true,
+regardless of which natural number $n$ stands for: ($\forall$$n$.L($n$)).
+ L($n$) is a shorthand for the following formula:
+\begin{quote}
+\begin{tabbing}
+L($n$) $\equiv$ (= \=(len (append [$x_1$ $x_2$ \dots $x_n$] $ys$))  \\
+                   \>(+ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$)))
+\end{tabbing}
+\end{quote}
+
+We could have used the doublecheck facility of Proof Pad to run tests on this property.
+
+\begin{Verbatim}
+(defproperty additive-law-of-concatenation-tst
+    (xs :value (random-list-of (random-natural))
+     ys :value (random-list-of (random-natural)))
+  (= (len (append xs ys))
+     (+ (len xs) (len ys))))
+\end{Verbatim}
+
+Of course, the doublecheck specification of this property
+cannot employ the informal notation of the numbered list interpretation
+(\pageref{numbered-list-interpretation}).
+Instead, the property simply uses a symbol $xs$ to stand for the list.
+The property does not state the length of $xs$, but we know
+its length will be some natural number $n$, so the property, as stated,
+has the same meaning as the formula that L($n$) stands for.
+
+The statement of the additive law as a theorem in the form
+required by ACL2 cannot use the informal notation, either.
+In fact, the theorem takes a form that is like the property specification,
+except for the :value portion and the keyword ``defproperty''.
+
+Theorem statements in ACL2 start with the ``defthmd'' keyword.
+After that comes a name for the theorem and the Boolean formula
+that expresses the meaning of the theorem, as illustrated in the following definition.
+
+\begin{Verbatim}
+(defthmd additive-law-of-concatenation-thm
+  (= (len (append xs ys))
+     (+ (len xs) (len ys))))
+\end{Verbatim}
+
+The mechanized logic of ACL2 fully automates the proof of this theorem.
+It uses a built-in, heuristic procedure to find an induction scheme
+and pushes the proof through on its own.
+To see ACL2 in action, use Proof Pad to ask ACL2
+to prove the above theorem. ACL2 will succeed in this case.
+
+Probably you can follow the above example to convert all theorems
+from this chapter into ACL2 theorem statements.
+Just to make sure, we will look at another one,
+then leave the rest for practice exercises.
+
+The append-suffix theorem, which states that
+when the first operand in an append formula is a list of length $n$,
+then you can reconstruct the second operand by dropping $n$ elements
+from the front of the concatenation.
+We stated this this theorem in the form ($\forall$$n$.S($n$)),
+where S($n$) is a shorthand for the following formula.
+
+\begin{samepage}
+\begin{center}
+\begin{tabular}{lll}
+S($n$) $\equiv$ (equal & (nthcdr & (len [$x_1$ $x_2$ \dots $x_n$])          \\
+                       &         & (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) \\
+                       & $ys$)   &                                          \\
+\end{tabular}
+\end{center}
+\end{samepage}
+
+The following definition specifies this theorem in ACL2 notation.
+
+\begin{Verbatim}
+(defthmd append-suffix-thm
+  (equal (nthcdr (len xs) (append xs ys))
+         ys))
+\end{Verbatim}
+
+ACL2 can prove this theorem, but,
+as with the \{\emph{app-pfx}\} theorem (page \pageref{app-pfx-thm}),
+the proof requires knowing some equations from numeric algebra,
+so it is necessary to import those theorems from the
+\label{arith-top-book}
+"arithmetic-3/top" book.
+The following include-book command makes that theory accessible to the mechanized logic.
+
+(include-book "arithmetic-3/top" :dir :system)
+\newline
+When you put the command above the append-suffix theorem in the program pane
+and press the start button and then the Admit All button,
+ACL2 succeeds in the proof without further assistance. For practice, try it yourself.
+
+\begin{aside}
+A theorem that takes the form of an implication, $x \rightarrow y$,
+says that the conclusion, $y$, will be true with the hypothesis, $x$,
+is true, but says nothing about the status of the conclusion when
+the hypothesis is false. The ACL2 equivalent of the Boolean formula $x \rightarrow y$
+is (implies $x$ $y$).
+For example, one can conclude that $u - 1 < v - 1$
+if one knows that $u < v$.
+In ACL2 this fact would be stated as an implication.
+\begin{Verbatim}
+(defthm simple-example
+  (implies (< u v)
+           (< (- u 1) (- v 1))))
+\end{Verbatim}
+\caption{Implication: constrains conclusion of defthm}
+\label{implies-def}
+\end{aside}
+
+
+\begin{ExerciseList}
+\Exercise Use Proof Pad to run the \{\emph{app-pfx}\} theorem
+(page \pageref{app-pfx-thm}) through the ACL2 mechanized logic.
+Don't forget to import the equations of numeric algebra
+contained in the "arithmetic-3/top" book (page \pageref{arith-top-book}).
+
+\Exercise Define the \{\emph{append associativity}\} theorem in ACL2 notation,
+and use Proof Pad to run it through the ACL2 mechanized logic.
+If you state the theorem correctly, ACL2 will succeed in proving it.
+
+\Exercise Define the \{\emph{rep-len}\} theorem (page \pageref{rep-len}) in ACL2 notation,
+and use Proof Pad to run it through the ACL2 mechanized logic.
+
+\emph{Note}: You will need to state the theorem as an implication (page \pageref{implies-def})
+constraining $n$, the first operand of rep, to be a natural number.
+If you state the theorem correctly, ACL2 will succeed in proving it.
+
+\Exercise Define the \{\emph{drop-all0}\} theorem (page \pageref{drop-all0}) in ACL2 notation,
+and use Proof Pad to run it through the ACL2 mechanized logic.
+ACL2 will succeed if you import the equations of numeric algebra
+contained in the "arithmetic-3/top" book (page \pageref{arith-top-book}).
+
+\Exercise Define the \{\emph{drop-all}\} theorem (page \pageref{drop-all}) in ACL2 notation,
+and use Proof Pad to run it through the ACL2 mechanized logic.
+The theorem must be stated as an implication constraining $n$ to be a natural number,
+and ACL2 will need to have access to the equations of numeric algebra,
+as in the previous exercise.
+
+\end{ExerciseList}
+
+\section{Proof Automation and Things That Can't Be Done}
+\label{sec:halting-problem}
+
+By now you've had some experience constructing proofs, and if you're like most people
+(including the authors), it has been tough going most of the time.
+It's rarely easy to figure out how to prove a theorem,
+and it's often extraordinarily difficult.
+How is it, then, that a mechanized logic like ACL2 can succeed at such a difficult task?
+How does ACL2 prove theorems?
+
+First of all, it doesn't, most of the time.
+Our examples have been carefully constructed in a way that
+led to a successful proof by ACL2.
+If you try, on your own, to propose theorems
+and present them to ACL2 for proof, you will find that it can be
+extremely difficult to get ACL2 succeed, even with a lot of help.
+Often, you will need to sketch a proof yourself,
+then give ACL2 a sequence of smaller theorems
+that it can prove, one by one, building up to
+the theorem that was your goal in the first place,
+with plenty of roadblocks and changes in strategy along the way.
+
+Even when all ACL2 has to do is fill in a few gaps,
+we find it remarkable that ACL2 can succeed in proving theorems.
+And, it \emph{is} remarkable.
+When researchers began trying to automate parts
+of the theorem proving process, it was many years
+before really effective tools began to emerge.
+Now, mechanized logics play a role in
+the verification of important properties of digital circuits and
+software, not only in research labs,
+but also in engineering projects with deadlines and product cycles.
+It's not just ACL2. There are many systems of mechanized logic that
+have been developed over the past half-century or so,
+by distinguished researchers in the USA, the UK, France, Sweden, and elsewhere.
+
+\begin{aside}
+\begin{itemize}
+\item ACL2 (and precursor nqthm) (J Moore, Robert Boyer, and Matt Kaufmann, Computer Science, Univ of Texas, with a long history starting at the Univ of Edinburgh and continuing at Xerox PARC and SRI)
+\item LCF, HOL, Isabelle (Robin Milner, Mike Gordon, Lawrence Paulson, Stanford Univ, Cambridge Univ, Univ of Edinburgh)
+\item Coq (Thierry Coquand, G\'erard Huet, INRIA, Univ of Gothenburg)
+\item PVS (Sam Owre, Natarajan Shankar, John Rushby, SRI)
+\item Agda (Ulf Norell, Chalmers Univ)
+\end{itemize}
+\caption{Practical Mechanized Logics: Fifty Years of R\&D, Mostly R}
+\label{mechanized-logic-history}
+\end{aside}
+
+Proofs are not only hard.
+They are sometimes impossible, as G\"odel famously proved in 1931
+to the great surprise of many mathematicians of the day.
+In the same vein there things computers cannot do.
+A well known example is the \emph{halting problem}, which
+was proved,
+in 1936 in by Alan Turing
+and, independently, by Alonzo Church,
+to be outside the realm of computation.
+There were no computers at the time,
+but there were mathematical models of computation
+that are used, still today, to study the capabilities of computers.
+
+A program solving the halting problem would be able to determine,
+given a computer program, whether or not the program would terminate
+on a specified input.
+There are programs that can solve the halting problem for
+a limited set of programs,
+but no program can solve the halting problem for all programs.
+Proving that the halting problem is unsolvable is tricky,
+but the basic idea of the proof is not too difficult to follow, and
+it provides an example of reasoning that,
+in a perverse sense, fits into a discussion of mechanized logic,
+since it exhibits something that neither computers
+nor people can do.
+
+To be specific, the following discussion of the halting problemm
+limits itself to a single programming language, but
+that restriction turns out to be immaterial.\footnote{The
+halting problem cannot be solved
+for any ``general purpose'' programming language,
+by which we mean a Turing complete language,
+which itself calls for a long explanation even
+before arriving at a discussion of how Turing completeness
+interacts with the halting problem.
+You can track that down, if you're interested.
+All widely-used programming languages,
+including ACL2, Java, and C++ for example, are Turing complete.
+We leave it at that.}
+Because the discussion the halting problem is clumsy in ACL2,
+we'll present the ideas in terms of a different
+language that has the same syntax
+and similar interpretation. That language is Lisp.
+For the purposes of this discussion,
+you can think of Lisp as ACL2 with the added feature
+of allowing operators to act as operands.
+That is, a formula invoking an operation can supply
+an operation as input.
+Most programming languages allow this.
+ACL2 doesn't because the extra facility
+interferes with some of the strategies that ACL2 uses
+to mechanize the process of proving theorems.
+
+The discussion will include some logic formulas with
+quantification (see page \pageref{quantify-def}),
+so we need to say what the domain of discourse is.
+When the bound variable
+in the formula is $h$, the domain of discourse
+is the set of operators that have
+two operandss and can be defined in Lisp:
+(defun $h$ ($f$ $x$) \dots \emph{Lisp formula} \dots ).
+When the bound variable is $f$,
+the domain of discourse is  set of operators
+that have one operand and can be defined in Lisp:
+(defun $f$ ($x$) \dots \emph{Lisp formula} \dots ).\footnote{The
+restriction to one operand simplifies the presentation,
+but is not really a restriction because the operand could
+be a list containing any number of values.}
+When the bound variable is $x$, the domain of discourse
+is the set of values that Lisp operators can deliver.
+
+We define a predicate, $H$, that tells us whether or not
+a particular formula in Lisp represents a computation that terminates,
+that is, a computation that would be completed in a finite amount of time.
+$H$ is not a Lisp operator and does not, itself,
+represent a computation. It is a mathematical entity
+outside the realm of computation that gives us a way
+to use symbols and formulas to talk about
+whether or not a computation terminates.
+
+The definition of the predicate $H$ uses the Lisp
+formula ($f$ $x$) to designate a computation that may
+or may not be completed in a finite amount of time.
+Since $H$ is a logic predicate, not a computation,
+it has a value whether or not the formula ($f$ $x$) terminates.
+\begin{quote}
+\label{def:predicate-H}
+Definition of predicate $H$\\
+$H(f, x) = False$, if ($f$ $x$) does not terminates\\
+$H(f, x) = True$, if ($f$ $x$) terminates
+\end{quote}
+
+The theorem that Turing and Church proved is that
+no operator $h$ can be defined in Lisp
+that accepts a Lisp operator $f$ as its
+first operand and a Lisp value $x$ as its second operand
+such that, regardless of the definition of the operator $f$,
+($h$ $f$ $x$) = 0 if the computation ($f$ $x$) terminates, and
+($h$ $f$ $x$) = 1 if ($f$ $x$) does not terminate.
+This means not just that it would be hard to define the operator $h$.
+It means that nobody can define $h$ with any amount of effort or cleverness.
+There is no such definition.
+There are some things that cannot be done, and this is one of them.
+
+\label{church-turing-hypothesis}
+A conjecture of Church and Turing
+concerning the effectiveness of general-purpose programming languages
+asserts that for any computation that can be carried out, there is a program
+that can be written in Lisp (or any other general-purpose programming language)
+that specifies a way to carry out the computation.
+If one believes Church-Turing conjecture, and most computer scientists do,
+then the theorem that Church and Turing proved about the prospects of
+automating the prediction of program termination
+says that no program can be written that solves the halting problem.
+Neither Turing nor Church stated the theorem in terms of Lisp.
+Turing used a model of computation known as the Turing machine, and
+Church used the lambda calculus, another model of computation.
+Both models are still widely studied in computer science theory.
+The programming language Lisp
+was based on the lambda calculus, so the two are closely related.
+
+We express the halting problem theorem as a logic formula that we will prove
+using natural deduction (Section \ref{sec:deduction}).
+The theorem has no hypotheses.
+\begin{quote}
+Theorem \{halting problem\}:\\
+$\vdash$ $\neg(\exists h. \forall f. \forall x.
+((H(f, x) \rightarrow ($($h$ $f$ $x$) $ = 1)) \wedge ((\neg H(f, x)) \rightarrow ($($h$ $f$ $x$) $= 0))))$
+\end{quote}
+
+There are two Lisp formulas embedded in
+the logic formula of the theorem, both the same:
+($h$ $f$ $x$).
+Those formulas invoke an operator $h$, which is defined in Lisp because that is the domain
+of discourse for $h$, the bound variable in the $\exists$ quantification.
+The logic formula then compares the value that
+the formula ($h$ $f$ $x$) represents to a natural number.
+
+To make the proof more compact and, we hope, more readable,
+we will use $E$ as an abbreviation for the
+long $\exists$ formula whose negation is the conclusion of the theorem.
+\begin{quote}
+$E$ $\equiv$ $\exists h. \forall f. \forall x.
+((H(f, x) \rightarrow ($($h$ $f$ $x$) $ = 1)) \wedge ((\neg H(f, x)) \rightarrow ($($h$ $f$ $x$) $= 0)))$
+\end{quote}
+
+With the abbreviation, the \{halting problem\} theorem is: $\vdash$ $\neg E$.
+Figure~\ref{fig:halting-proof-strategy} (page \pageref{fig:halting-proof-strategy})
+displays the proof, which uses the natural deduction formalism.
+It cites a theorem we already proved (Theorem \{$\neg \neg$ forward\}) and
+a Theorem \{paradox\}, which we will prove
+after showing how our goal, the \{halting problem\} theorem,
+can be derived from it.
+To clarify the derivation, we need to state the \{paradox\} theorem,
+which we will prove later.
+\begin{quote}
+Theorem \{paradox\}: $E$ $\vdash$ $False$
+\end{quote}
+
+In addition to citing the \{paradox\} theorem,
+the proof of the \{halting problem\} theorem
+cites the \{reductio ad absurdum\} inference rule
+(Figure~\ref{fig-02-deduction-rules}, page \pageref{fig-02-deduction-rules},
+so our proof of the \{halting problem\} theorem is a proof by contradiction.
+It begins by assuming the negation of the formula in its conclusion.
+The assumption, as always, stands in lieu of a proof.
+As it happens, the assumption is discharged later in the proof,
+leaving the \{halting problem\} theorem with no hypotheses,
+as it is stated.
+
+\begin{figure}
+Theorem \{halting problem\}: $\vdash$ $\neg E$ ~~~~~~~~\emph{Note: This theorem has no hypotheses.}\\
+proof~~~~(\emph{Note}: $E$ $\equiv$ $\exists h. \forall f. \forall x.
+((H(f, x) \rightarrow ($($h$ $f$ $x$) $ = 1)) \wedge ((\neg H(f, x)) \rightarrow ($($h$ $f$ $x$) $= 0)))$)
+\begin{center}
+\begin{tabular}{ll}
+Assume $(\neg(\neg E))$                       &\emph{discharged later; E abbreviates long $\exists$ formula}\\
+------------------------\{$\neg \neg$ forward\} &\emph{proved in Figure~\ref{fig:dbl-neg-fwd} (page \pageref{fig:dbl-neg-fwd})}\\
+~~~~~~~~~~~~$E$                               &\\
+------------------------\{paradox\}           &\emph{proved in Figure~\ref{fig:proof-paradox-thm} (page \pageref{fig:proof-paradox-thm})}\\
+~~~~~~~~$False$                               &\\
+------------------------\{$\rightarrow$ introduction\} &\emph{assumed} $(\neg(\neg E))$\emph{, proved} $False$\emph{,}\\
+~~$(\neg(\neg E)) \rightarrow False$          &~~~~\emph{conclude} $(\neg(\neg E)) \rightarrow False$\\
+Discharge $(\neg(\neg E))$                    &\emph{eliminates} $(\neg(\neg E))$\emph{, leaving no hypotheses}\\
+------------------------\{reductio ad absurdum\}&\emph{Figure~\ref{fig-02-deduction-rules} (page \pageref{fig-02-deduction-rules})}\\
+~~~~~~~~~~~$\neg E$                           &\emph{no program solves halting prob for all programs}\\
+\end{tabular}
+\end{center}
+\caption{Theorem \{halting problem\}: a proof by contradiction}
+\label{fig:halting-proof-strategy}
+\end{figure}
+
+We are not quite ready to tackle the \{paradox\} theorem.
+The proof will be easier to follow if we break it into parts,
+then paste them together in the final analysis.
+
+Recall that $E$, the hypothesis of the \{paradox\} theorem,
+is a $\exists$ formula.
+Since $E$ is a hypothesis of the \{paradox\} theorem,
+we will assume at the beginning of the proof
+the \{paradox\} theorem that $E$ is true.
+$E$ asserts that there is at least one definition of
+an operator $h$ that provides a universal, computational solution
+to the halting problem.
+Since there is at least one such operator,
+let's assume someone has handed us a
+definition of the operator, and that the operator has the name h:
+(defun h (f x)  \dots \emph{Lisp formula} \dots ).
+
+We don't know the definition of h, but the formula $E$
+tells us some of its properties.
+In particular, $E$ says that for any operator $f$ and any value $x$,
+the formula (h $f$ $x$) = 0 if $H(f, x)$ is $False$ and
+(h $f$ $x$) = 1 if $H(f,x)$ is $True$.
+We specify those properties in the following two theorems.
+\begin{quote}
+Theorem \{hF\}: $E$ $\vdash$ $\forall f.\forall x.(\neg H(f, x))$ $\rightarrow$ (h $f$ $x$) $= 0$\\
+Theorem \{hT\}: $E$ $\vdash$ $\forall f.\forall x.H(f, x)$      $\rightarrow$ (h $f$ $x$) $= 1$
+\end{quote}
+
+Since h is a Lisp operator, we can refer to it in the definition of
+another Lisp operator.
+Figure~\ref{fig:paradox-op-defun} (page \pageref{fig:paradox-op-defun})
+defines the operator p.
+It invokes h to decide whether to deliver the value 0 or
+the computation represented by an invocation of an operator called ``loop'',
+which is also defined in
+Figure~\ref{fig:paradox-op-defun}.
+The loop operator doesn't do anything.
+Or, rather,
+it does way too much by doing nothing over and over, forever.
+We are going to take it on faith that (loop $x$) does not terminate,
+regardless of the value of its operand $x$.
+We think you can probably convince yourself of that,
+so we assert that $\forall x.(H($loop, $x) = False)$.
+
+\begin{figure}
+\begin{center}
+Axioms of p\\
+\begin{tabular}{lll}
+(p $x$) $= 0$          & if (h p $x$) $=  0$      &\{p0\}\\
+(p $x$) $=$ (loop $x$) & if (h p $x$) $\neq 0$    &\{p1\}\\
+\end{tabular}
+\begin{Verbatim}
+(defun loop (x)  ; a non-terminating computation
+  (loop x))
+(defun p (x)     ; definition derived from axioms of p
+  (if (equal (h p x) 0)
+      0
+      (loop x)))
+\end{Verbatim}
+\end{center}
+\caption{Definitions of Operators p and loop}
+\label{fig:paradox-op-defun}
+\end{figure}
+
+We can inquire about p using the predicate $H$.
+In particular, we would like to know, given a value $x$,
+whether $H($p, $x)=True$ or $H($p, $x)=False$.
+It has to be one or the other because $H$ is a predicate.
+Since p is an operator, $x$ is a value, and 1 is not 0,
+the following theorems are special cases of
+Theorem \{hF\} and Theorem \{hT\}.
+\begin{quote}
+Theorem \{pF\}: $E$ $\vdash$ $(\neg H($p, $x))$ $\rightarrow$ (h p $x$) $= 0)$ \\
+Theorem \{pT\}: $E$ $\vdash$ $H($p, $x)$ $\rightarrow$ $(\neg($(h p $x$) $= 0))$
+\end{quote}
+
+Now, let's reason from the definition of p (Figure~\ref{fig:paradox-op-defun}).
+In the definition, we find that if (h p $x$) $= 0$, then (p $x$) $=0 $.
+We also find that if (h p $x$) $\neq 0$, then (p $x$) represents
+the computation (loop $x$). We will use the notation (p $x$) $=$ (loop $x$)
+to indicate this relationship between (p $x$) and (loop $x$).\footnote{This
+\label{caveat:equality-for-loop}
+interpretation of the equation (p $x$) $=$ (loop $x$) conforms with
+our usual practice of substituting the formula designated in the
+definition of $f$ for an invocation ($f$ $x$).
+That is, we interpret the substitution a new formula
+in place of an old one with the same meaning as an equation
+between the old formula and the new one.
+It is an odd sort of equality in the case of (p $x$) $=$ (loop $x$)
+because the formula (loop $x$) represents a computation, but not a value.
+The loop operator at every stage delivers a new formula,
+but never manages to produce a value.}
+This reasoning verifies two more theorems:
+\begin{quote}
+Theorem \{h0\}: $\vdash$  (h p $x$) $=0$  $\rightarrow$ (p $x$) $= 0$    \\
+Theorem \{h1\}: $\vdash$  $\neg($(h p $x$) $= 0)$ $\rightarrow$ (p $x$) $=$ (loop $x$)
+\end{quote}
+
+If we apply the definition of $H$ again (page \pageref{def:predicate-H})
+and observe that (1)~(p $x$) $= 0$ implies that (p $x$) terminates and
+(2)~(p $x$) $=$ (loop $x$) implies that (p $x$) does not terminate,
+we get two more theorems:
+\begin{quote}
+Theorem \{p0\}: $\vdash$  (p $x$) $= 0$ $\rightarrow$ $H($p, $x)$ \\
+Theorem \{p1\}: $\vdash$  (p $x$) $=$ (loop $x$) $\rightarrow$ $(\neg H($p, $x))$
+\end{quote}
+
+From the three theorems, \{pF\}, \{h0\}, and \{p0\},
+we can derive Theorem \{H$+$\}, and
+from the other three theorems, \{pT\}, \{h1\}, and \{p1\},
+we can derive Theorem \{H$-$\}.
+\begin{quote}
+Theorem \{H$+$\}: $E$ $\vdash$ $(\neg H($p, $x))\rightarrow H($p, $x)$ \\
+Theorem \{H$-$\}: $E$ $\vdash$ $H($p, $x) \rightarrow(\neg H($p, $x))$
+\end{quote}
+
+Figure~\ref{fig:hminus-thm-proof} (page \pageref{fig:hminus-thm-proof}) displays
+a proof of Theorem \{H$-$\}.
+The proof of Theorem \{H$+$\} is similar, and working through it would be
+a good way to get a solid understanding the proof in Figure~\ref{fig:hminus-thm-proof}.
+
+\begin{figure}
+Theorem \{H$-$\}: $E$ $\vdash$ $H($p, $x) \rightarrow(\neg H($p, $x))$~\\
+proof
+\begin{center}
+\begin{tabular}{ll}
+~~~~~~~~~~Assume $E$                                &\emph{hypothesis of theorem}\\
+-------------------------------------------\{pT\}   &\\
+$H($p, $x)$ $\rightarrow$ $(\neg($(h p $x) = 0))$   &\\
+ - - - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs req'd to cite} \{$\rightarrow$ chain\} \emph{thm}\\
+                                                    &\emph{no hypotheses required}\\
+-------------------------------------------\{h1\}   &~~~~~~\emph{for Theorem} \{h1\}\\
+$\neg($(h p $x)=0)$ $\rightarrow$ (p $x$) $=$ (loop $x$)&\\
+-------------------------------------------\{$\rightarrow$ chain\} &\{$\rightarrow$ chain\} \emph{thm (Figure~\ref{fig:impchain-proof}, page \pageref{fig:impchain-proof})}\\
+~~~$H($p, $x)$ $\rightarrow$ (p $x$) $=$ (loop $x$) &\\
+ - - - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs req'd to cite} \{$\rightarrow$ chain\} \emph{thm}\\
+                                                    &\emph{no hypotheses required}\\
+-------------------------------------------\{p1\}   &~~~~~~\emph{for Theorem} \{p1\}\\
+~~(p $x$) $=$ (loop $x$) $\rightarrow$ $(\neg H($p, $x))$ &\\
+-------------------------------------------\{$\rightarrow$ chain\} &\emph{another citation of} \{$\rightarrow$ chain\} \emph{thm}\\
+~~~~~~$H($p, $x)$ $\rightarrow$ $(\neg H($p, $x))$  &\\
+\end{tabular}
+
+\end{center}
+\caption{Proof of Theorem \{H$-$\}}
+\label{fig:hminus-thm-proof}
+\end{figure}
+
+The \{absurd 1\} and \{absurd 2\} equations (page \pageref{absurd-1}),
+together with the \{double negation\} equation (Figure~\ref{fig-02-grammar}, page \pageref{fig-02-grammar}),
+prove that $(H($p, $x)$ $\rightarrow$ $(\neg H($p, $x)))$ = $(\neg H($p, $x))$ and
+$((\neg H($p, $x)$ $\rightarrow$ $H($p, $x)) = H($p, $x)$
+
+So, we can rewrite the \{H$+$\} and \{H$-$\} theorems as follows.
+\begin{quote}
+Theorem \{H$+$ version 2\}: $E$ $\vdash$ $H($p, $x)$ \\
+Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($p, $x)$
+\end{quote}
+
+Now, at last, we're ready to take on
+the proof of Theorem \{paradox\}.
+It derives $False$ from the contradiction that is apparent
+in the \{H$+$\} and \{H$-$\} theorems.
+Figure~\ref{fig:proof-paradox-thm} (page \pageref{fig:proof-paradox-thm})
+displays this final step in our proof
+of the theorem of Turing and Church,
+confirming that the halting problem cannot be solved.
+
+\begin{figure}
+Theorem \{paradox\}: $E$ $\vdash$ $False$\\
+proof
+\begin{center}
+\begin{tabular}{ll}
+~~~~~Assume $E$                                 &\emph{hypothesis of theorem}\\
+------------------------\{H$+$ version 2\}      &\emph{proof of} \{H$+$\} \emph{left as exercise}\\
+~~~~~~~~~~$H($p, $x)$                           &\\
+ - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs req'd to cite} \{$\wedge$ complement\} \emph{thm}\\
+~~~~~Assume $E$                                 &\emph{hypothesis of theorem}\\
+------------------------\{H$-$ version 2\}      &\emph{\{H$-$\} proved in Figure~\ref{fig:hminus-thm-proof} (page \pageref{fig:hminus-thm-proof})}\\
+~~~~~~~~$\neg H($p, $x)$                        &\\
+------------------------\{$\wedge$ complement\} &\emph{see Figure~\ref{thm:and-complement}, page \pageref{thm:and-complement}}\\
+~~~~~~~~~~~$False$                              &\\
+\end{tabular}
+\end{center}
+\caption{Theorem \{halting problem\}: a proof by contradiction}
+\label{fig:proof-paradox-thm}
+\end{figure}
+
+\begin{ExerciseList}
+\Exercise Prove Theorem \{H$+$\}.
+
+\Exercise
+Prove that for any value $x$, the formula (loop $x$) represents
+the same computation as the formula (loop (loop $x$)).\\
+\emph{Note}: The operator ``loop'' is defined in
+Figure~\ref{fig:paradox-op-defun} (page \pageref{fig:paradox-op-defun}).
+
+\Exercise
+Suppose $f$ is an ACL2 operator, $x$ is an ACL2 value,
+and $n$ is a natural number.
+The following equations define the notation ($f^n$ $x$).
+\begin{center}
+\begin{tabular}{ll}
+($f^0$ $x$) $=$ $x$                    &\{power0\} \\
+($f^{n+1}$ $x$) $=$ ($f$ ($f^n$ $x$))  &\{power1\} \\
+\end{tabular}
+Example: ($f^3$ $x$) $=$ ($f$ ($f$ ($f$ $x$)))
+\end{center}
+Interpreting the relationship between (loop $x$) and (loop (loop $x$))
+stated in the previous exercise
+as an equation (see footnote, page \pageref{caveat:equality-for-loop}),
+use mathematical induction to verify the following formula.
+\begin{quote}
+$\forall n.\forall x.($(loop $x$) $=$ (loop$^{n+1}$ $x$)$)$
+\end{quote}
+
+\end{ExerciseList}
+
+
+\todo{
+Put labels on sections, at least in Ch2.tex
+label for nat deduc section: \section{Deduction} \label{sec:deduction}
+
+Add label to first exercise, nat deduc section:
+\Exercise
+\label{thm:and-complement}
+Use natural deduction to prove
+Theorem \{$\wedge$ complement\}: $a$, $\neg a$ $\vdash$ $False$
+
+Add label to natp explanation in ch3.tex:
+\label{natp-op}
+The value of the formula ``(natp $x$)'' is true
+
+Insert absurd-1 and absurd-2 equations just before absurdity equation in table in ch2.tex
+$((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
+$(x \rightarrow (\neg x)) = (\neg x)$                                & \{absurd 1\}               \label{absurd-1} \\
+$((\neg x) \rightarrow x) = (\neg x)$                                & \{absurd 2\}               \label{absurd-2} \\
+$((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
+}
+
+%% All references to Dracula taken out (30Aug2017 - rlp)
+%% I think we should use Proof Pad for all doublecheck and other interface-to-ACL2 issues.
+%% We can explain in an aside, when we first mention Proof Pad,
+%%    that ACL2s and emacs are other interfaces,
+%%    that ACL2s has its own, extensive, random-test facility,
+%%    that it is perfectly reasonable for students to use another interface to ACL2,
+%%    that if they use another interface, they will need to interpret our doublecheck examples in, say, ACL2 fashion.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "book"
+%%% End:
