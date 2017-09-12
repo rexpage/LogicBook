@@ -1,0 +1,773 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fonts",
+				"fontsize"
+			],
+			[
+				"rSt",
+				"rStarHi"
+			],
+			[
+				"mSt",
+				"mStarHi"
+			],
+			[
+				"plan",
+				"planetDiscMeth"
+			],
+			[
+				"re",
+				"response_name"
+			],
+			[
+				"predictor",
+				"predictor_name"
+			],
+			[
+				"predic",
+				"predictor_name"
+			],
+			[
+				"predi",
+				"predictor_name"
+			],
+			[
+				"title",
+				"title"
+			],
+			[
+				"to",
+				"to_csv"
+			],
+			[
+				"tidy",
+				"tidy_data"
+			],
+			[
+				"climb",
+				"climb_this_one_hill"
+			],
+			[
+				"scale",
+				"scale_vs50_200"
+			],
+			[
+				"sca",
+				"scale_vs9_18"
+			],
+			[
+				"scale_vs",
+				"scale_vs9"
+			],
+			[
+				"ch",
+				"LatexChangeEnvironmentCommand"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"PdfLaTeX"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				],
+				[
+					"Packages/SendCode/Python - Source File.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				],
+				[
+					"Packages/SendTextPlus/Python - Source File.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/R-Box/support/R Markdown.sublime-build",
+					""
+				],
+				[
+					"Packages/User/Slidify.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/User/Slidify.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/R-Box/support/R Markdown.sublime-build",
+					""
+				],
+				[
+					"Packages/User/Slidify.sublime-build",
+					""
+				],
+				[
+					"Packages/User/Slidify.sublime-build",
+					"R Markdown"
+				]
+			],
+			[
+				"Packages/User/Slidify.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/R/R.sublime-build",
+					""
+				],
+				[
+					"Packages/R-Box/support/R Markdown.sublime-build",
+					""
+				],
+				[
+					"Packages/SendTextPlus/R - Source File.sublime-build",
+					""
+				],
+				[
+					"Packages/User/Slidify.sublime-build",
+					""
+				],
+				[
+					"Packages/User/Slidify.sublime-build",
+					"R Markdown"
+				]
+			],
+			[
+				"Packages/User/Slidify.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/Slidify.sublime-build",
+					""
+				],
+				[
+					"Packages/User/Slidify.sublime-build",
+					"R Markdown"
+				]
+			],
+			[
+				"Packages/User/Slidify.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 209.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Remove Package"
+			],
+			[
+				"print",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Remove Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"ssxj",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Discover Packages"
+			]
+		],
+		"width": 563.0
+	},
+	"console":
+	{
+		"height": 529.0,
+		"history":
+		[
+			"view.scope_name(view.sel()[0].b)",
+			"view",
+			"self.view.scope_name(self.view.sel()[0].b)",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/ruben/Dropbox/LogicBook"
+	],
+	"file_history":
+	[
+		"/Users/ruben/Dropbox/LogicBook/ch01.tex",
+		"/Users/ruben/Dropbox/LogicBook/logic-book.sublime-project",
+		"/Users/ruben/Dropbox/LogicBook/ch02.tex",
+		"/Users/ruben/Dropbox/Classes/discrete-math/quizzes/quiz01.tex",
+		"/Users/ruben/Dropbox/Classes/discrete-math/slides/m1-logic.tex",
+		"/Users/ruben/Dropbox/LogicBook/book.tex",
+		"/Users/ruben/Dropbox/LogicBook/ch04.tex",
+		"/Users/ruben/Dropbox/Classes/data-science/python-projects-data-science/manuscript/chapter-01.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-projects-data-science/manuscript/chapter-02.md",
+		"/Users/ruben/Documents/acl2s-workspace/sets/sets-assignment.lisp",
+		"/Users/ruben/Documents/workspace-acl2s/MyFirstProject/myfirstbook.lisp",
+		"/Users/ruben/Documents/workspace-acl2s/sum-up-to-n/testing-harness.lisp",
+		"/Users/ruben/Documents/workspace-acl2s/sum-up-to-n/sum-up-to-n.lisp",
+		"/Users/ruben/Dropbox/regression-in-motion/u1-intro/slide-images/src/python/residuals.py",
+		"/Users/ruben/Dropbox/regression-in-motion/u1-intro/project-1/solution/compute_alpha_beta.py",
+		"/private/var/folders/m_/w58k50zj4t90m9_rktk0ht600000gp/T/com.apple.mail/com.apple.mail.drag/38AllCommodities_20170712.csv",
+		"/Users/ruben/Dropbox/Local/src/acl2/git-repo/acl2/books/nonstd/integrals/ftc-2.lisp",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2017/exam3a.tex",
+		"/Users/ruben/Dropbox/Classes/discrete-math/exams/2017-spring/exam2a.tex",
+		"/Users/ruben/Dropbox/UWyo/packet/honors-application/gamboa_cover.tex",
+		"/Users/ruben/Dropbox/regression-in-motion/u5-logistic/project-4/solution/predict_college_acceptance.py",
+		"/Users/ruben/Downloads/expressions.lisp",
+		"/Users/ruben/Dropbox/Classes/discrete-math/exams/2016-fall/exam3.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/slidify/cha2-optimizer.Rmd",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/slidify/ch08-views-indexes.Rmd",
+		"/Users/ruben/Dropbox/Classes/senior-design-ii/research-day-form.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2017/exam2a.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2016/exam2a.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2016/exam2.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2015/exam2a.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2015/exam2.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2014/exam2a.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2014/exam2.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2013/exam2a.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2013/exam2.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2012/exam2.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2010/exam2a.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2010/exam2.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2017/exam2.tex",
+		"/Users/ruben/Dropbox/AP-CSP/uwyo-ap-csp.github.io/course/index.md",
+		"/Users/ruben/Dropbox/AP-CSP/uwyo-ap-csp.github.io/course/ls",
+		"/Users/ruben/Dropbox/AP-CSP/uwyo-ap-csp.github.io/pd/index.md",
+		"/Users/ruben/Dropbox/Classes/discrete-math/slides/m7-counting.tex",
+		"/Users/ruben/Dropbox/AP-CSP/uwyo-ap-csp.github.io/index.md",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/slidify/index.Rmd",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/slidify/2017/exam2-results.Rmd",
+		"/Users/ruben/Dropbox/Classes/discrete-math/abet/2017-spring/exam2-results.Rmd",
+		"/Users/ruben/Dropbox/Classes/discrete-math/abet/2017-spring/exam1-results.Rmd",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/exams/2017/exam1.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets-assignment/src/main/java/uwyo/cs/exoplanets/dao/TestDAOImpl.java",
+		"/Users/ruben/Dropbox/Classes/discrete-math/exams/2017-spring/exam2.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/resources/exoplanet-discovery-methods.csv.save",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/resources/exoplanet-discovery-methods.csv",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/resources/exoplanets.html",
+		"/Users/ruben/Downloads/multiplication-assignment.lisp",
+		"/Users/ruben/Dropbox/Classes/fys-bjc/exams/2016/exam3.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/dao/UWregDAOImpl.java",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/dao/UWregDAO.java",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/Main.java",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/config/CsrfHeaderFilter.java",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/config/JettyConfiguration.java",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/config/MvcConfiguration.java",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/config/RootConfiguration.java",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/config/SpringSecurityConfiguration.java",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/config/WebAppInitializer.java",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/src/main/java/uwyo/cs/exoplanets/web/ExoplanetsController.java",
+		"/Users/ruben/Dropbox/Classes/senior-design-ii/feedback-form.tex",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/pom.xml",
+		"/Users/ruben/Documents/acl2s-workspace/trees/assignments/search-tree.lisp",
+		"/Users/ruben/Documents/acl2s-workspace/trees/assignments/expressions.lisp",
+		"/Users/ruben/Dropbox/Classes/data-science/python-projects-data-science/manuscript/preface.md",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/exoplanets.html",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/create_schema.py",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/projects/exoplanets/input/exoplanets.csv",
+		"/Users/ruben/Documents/acl2s-workspace/trees/trees.lisp",
+		"/Users/ruben/Dropbox/TeX/letters/taxes/taxes2016.tex",
+		"/Users/ruben/Documents/acl2s-workspace/numerals/binary-numbers.lisp",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/Book.txt",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/preface.md",
+		"/Users/ruben/Dropbox/Classes/discrete-math/slides/m06-trees.tex",
+		"/Users/ruben/binary-numbers.lisp",
+		"/Users/ruben/Dropbox/Classes/discrete-math/exams/2016-fall/exam2.tex",
+		"/Users/ruben/Downloads/addition.lisp",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-01.md",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley1d.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley1c.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley1b.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley1a.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley1.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley2.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley2a.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley3.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley3a.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley4.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley4a.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley5a.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-books/cayley5.lisp",
+		"/Users/ruben/Dropbox/UWyo/packet/gamboa_vitae_for_dean.tex",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-10.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-09.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-08.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-07.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-06.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-05.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-04.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-03.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-02.md",
+		"/Users/ruben/Dropbox/Classes/data-science/python-data-science-projects/manuscript/chapter-01.txt",
+		"/Users/ruben/Dropbox/Week4/src/experiment-refraction.csv",
+		"/Users/ruben/Dropbox/Week4/src/project-2/solution/solve_experiments.py",
+		"/Users/ruben/Dropbox/Week4/src/sim-experiments.py",
+		"/Users/ruben/Dropbox/Week4/src/correlation_demo.m",
+		"/Users/ruben/Dropbox/Week4/src/experiments.m",
+		"/Users/ruben/Dropbox/Week4/src/project-2/solution/compute_alpha_beta.py",
+		"/Users/ruben/addition.lisp",
+		"/Users/ruben/Dropbox/Classes/discrete-math/slides/m05-arithmetic.tex",
+		"/Users/ruben/Dropbox/Classes/discrete-math/exams/2017-spring/exam1.tex",
+		"/Users/ruben/Dropbox/Documents/acl2-workspace/numerals/numerals.lisp",
+		"/Users/ruben/Dropbox/Documents/acl2-workspace/numerals/addition.lisp",
+		"/Users/ruben/Dropbox/Classes/discrete-math/slides/m04-induction.tex",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-slides.tex",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-slides.log",
+		"/Users/ruben/Dropbox/Classes/databases/ugrad/slidify/ch06-sql.Rmd",
+		"/Users/ruben/Dropbox/sets.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-paper1.tex",
+		"/Users/ruben/Dropbox/ACL2r/2017/cayley/cayley-paper1.bib",
+		"/Users/ruben/Documents/acl2s-workspace/sets/sets.lisp",
+		"/Users/ruben/Dropbox/ACL2r/2014/equivalences/supporting-materials/series2a.lisp"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 169.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"fixltx",
+			"’",
+			"”",
+			"“",
+			"\\section",
+			"TODO",
+			"):",
+			"savefig",
+			"16",
+			"spaces",
+			"exam1",
+			"#1",
+			"exam1",
+			"q0",
+			"Date",
+			"(",
+			"thm",
+			"regression",
+			"springs",
+			"test?",
+			"(thm (equal",
+			"174",
+			"funtion",
+			"test?",
+			"{slide}",
+			" dimensional",
+			"2017",
+			" . ",
+			"2017",
+			"2016",
+			"last",
+			"\\only",
+			"^{n+1}",
+			"thm",
+			"symmetric closure",
+			"savefig",
+			"print('",
+			"Ragnar",
+			"two dimen",
+			"core",
+			"section{",
+			"Tentative",
+			"2",
+			"multirow",
+			"---|",
+			"preccurlyeqcurlyeq",
+			"\\prec",
+			"preccurlyeq",
+			"ancestor",
+			"if and only they",
+			"assert",
+			"print",
+			"*.csv",
+			"3",
+			"std",
+			"High",
+			"skipping",
+			"incoll",
+			"inputs",
+			"builder_settings",
+			"norm",
+			"a2",
+			"a1",
+			"1000",
+			"prob.GT",
+			"prop.GT",
+			"turing",
+			"good",
+			"quicksort",
+			"underline",
+			"    \n",
+			"journal",
+			"CUDA",
+			"GBX",
+			"structural",
+			"GBX",
+			"int(x)",
+			"structural",
+			"sequences",
+			"bonus",
+			"height",
+			"2",
+			"smallskip",
+			"\\min",
+			"max",
+			"min",
+			"max",
+			"min",
+			"fanout",
+			"height",
+			"depth",
+			"A_{12",
+			"t",
+			"T",
+			"t",
+			"T",
+			"t",
+			"T",
+			"inductively",
+			"lamesa",
+			"\\pmod",
+			"itemize",
+			"r_n",
+			"allow",
+			"definition",
+			"2",
+			"formula",
+			"Indicator",
+			"***",
+			"****",
+			"infty",
+			"base case",
+			"gnu",
+			"gnuplot",
+			"PRINT_LARGE",
+			"includegra",
+			"&&",
+			"7a",
+			"5a",
+			"4",
+			"Trick For",
+			"gauss",
+			"M.S. Students",
+			"jagadish",
+			"extends",
+			"\"",
+			"different",
+			"anti-symme"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": true,
+		"regex": false,
+		"replace_history":
+		[
+			"'",
+			"''",
+			"``",
+			"exam2",
+			"#2",
+			"exam2",
+			"q",
+			"(check-expect",
+			" ; ",
+			"2017",
+			"print('../img/\nprint('\nprint('",
+			"print('\nprint('\nprint('../img/",
+			"section*{",
+			"\\preccurlyeq",
+			"int(round(x))",
+			"height",
+			"r_2",
+			"extends",
+			"\\mathbb{N}",
+			"\\mathbb{Q}",
+			"\\mathbb{Z}",
+			"data.testing$",
+			"trend",
+			"macd"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 35.0
+	},
+	"input":
+	{
+		"height": 46.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 459.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.latextools":
+	{
+		"height": 333.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 236.0
+	},
+	"pinned_build_system": "",
+	"project": "logic-book.sublime-project",
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"tex",
+				"~/Dropbox/Classes/senior-design-ii/research-day-form.tex"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 272.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
