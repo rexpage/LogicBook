@@ -88,7 +88,7 @@ claims for the digits 1 and 5. Then, we use those symbols
 in the formula $1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
 as if they were numbers.
 
-There is some slight of hand going on here.
+There is some sleight of hand going on here.
 We are trapped by our terminology.
 Numbers as mathematical objects are figments of our imagination,
 but when we write formulas, we have to choose some symbols to
@@ -112,7 +112,7 @@ $4BF_{16}$ because the ``4BF'' part is in hexadecimal notation
 and the ``16'' part is a decimal numeral indicating that we are
 to interpret the digits in base sixteen rather than the conventional base ten.
 
-Try to get your head around this slight of hand.
+Try to get your head around this sleight of hand.
 We're more-or-less stuck with it. Figments of our imagination have
 to be materialized, somehow, if we are going to talk about them.
 \caption{Digits as Numbers}
@@ -768,16 +768,16 @@ calls for only one proof:
 Prove $(\forall m<n.P(m))\rightarrow P(n)$.
 However, when $n = 0$, this is
 $(\forall m<0.P(m))\rightarrow P(0)$.
-Since there 
+Since there
 are no natural numbers less than zero,
 $(\forall m<0.P(m))$ true because
-a $\forall$ quantification with an empty universe of discourse 
+a $\forall$ quantification with an empty universe of discourse
 is true, by default
 (page \pageref{empty-forall}).
 
 So, proving $(\forall m<0.P(m))\rightarrow P(0)$
 is the same as proving $True \rightarrow P(0)$,
-which is equivalent to proving $P(0)$, 
+which is equivalent to proving $P(0)$,
 just as in ordinary induction.
 In other words, in strong induction there are really two proofs to do,
 one for $P(0)$ and one for $(\forall m<n.P(m))\rightarrow P(n)$
@@ -785,7 +785,7 @@ when $n$ is not zero, which is usually expressed in the
 equivalent form $(\forall m<n+1.P(m))\rightarrow P(n+1)$.
 Looking at it this way makes a proof citing strong induction look like
 a proof citing ordinary mathematical induction except that
-in the proof of $P(n+1)$, all of the propositions 
+in the proof of $P(n+1)$, all of the propositions
 $P(0)$, $P(1)$, $P(2) \dots P(n)$
 are regarded as known facts, not just $P(n)$.
 \caption{Strong Induction Requires Two Proofs or One?}
