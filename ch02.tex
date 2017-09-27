@@ -52,12 +52,12 @@ We will be doing all of this in the domain of symbolic logic, which
 includes operations like ``logical or'' and ``logical negation'',
 rather than arithmetic operations, such as addition and
 multiplication.
-We will be doing Boolean algebra, rather than numeric algebra, 
-but the rule of inference that the reasoning is based on, 
+We will be doing Boolean algebra, rather than numeric algebra,
+but the rule of inference that the reasoning is based on,
 namely substitution of equals for equals,
 applies equally well to both Boolean and numeric formulas.
 To illustrate the level of formality that we are shooting for,
-let's see how it works with a problem 
+let's see how it works with a problem
 in the familiar domain of numeric algebra.
 
 You are surely familiar with the equation $(-1)\times(-1) = 1$, but you may
@@ -111,7 +111,7 @@ $x\times(y+z) = (x \times y)+(x \times z)$      & \{distributive law\} \\
 If we accept the equations of Figure~\ref{fig-02-01} (page \pageref{fig-02-01}),
 we can apply one of them to transform the formula $(-1)\times(-1)$ to a new formula that
 stands for the same number. Then, we can apply another equation to
-transform that formula to a new one, and so on. 
+transform that formula to a new one, and so on.
 We look for a way to apply the
 accepted equations one by one, so that in the end we
 arrive at the formula ``1''. At every step, we know that the
@@ -145,17 +145,17 @@ The first step in the proof
 (Figure~\ref{fig-02-02}, page \pageref{fig-02-02}) uses a version of the
 \{$+$ identity\} equation in which the variable $x$ stands for the
 formula $((-1)\times(-1))$.
-In this context, the \{$+$ identity\} equation 
+In this context, the \{$+$ identity\} equation
 leads to the new formula $((-1)\times(-1)) + 0$.
 
 The second step in the proof reads the \{$+$ complement\}
 equation backwards (equations go both ways), and in a form
-where the variable $x$ stands for the number 1. 
-When $x$ is 1, the \{$+$ complement\} equation is 
-$(-1) + 1 = 0$. 
+where the variable $x$ stands for the number 1.
+When $x$ is 1, the \{$+$ complement\} equation is
+$(-1) + 1 = 0$.
 Reading the equation backwards, we can substitute
 $((-1) + 1)$ for $0$,
-and that leads to the formula $((-1)\times(-1)) + ((-1) + 1)$. 
+and that leads to the formula $((-1)\times(-1)) + ((-1) + 1)$.
 So, we know now that
 $(-1)\times(-1) = ((-1)\times(-1)) + ((-1) + 1)$.
 
@@ -212,7 +212,7 @@ computer components.
 
 Likewise, because a computer program is,
 literally, a formula, we will be able to derive
-properties of software directly from the programs, themselves. 
+properties of software directly from the programs, themselves.
 This makes it possible for us to be entirely
 certain about some of the behavioral characteristics of
 software, and of computer hardware, too,
@@ -246,13 +246,13 @@ the \{$\times$ negation\} equation from the previous exercise.
 
 \section{Boolean equations}
 \label{sec:boolean-equations}
-Let's start with the Boolean equations in 
+Let's start with the Boolean equations in
 Figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
 These equations, which we will call the Boolean axioms,
 are the starting point for our system of reasoning.
 The form the basis from which we will derive
 a host of other equations.
-If these axiomatic equations are new to you and seem strange, 
+If these axiomatic equations are new to you and seem strange,
 try to view them as ordinary,
 algebraic equations, but with a different collection of operators.
 A formula in numeric algebra has operations like addition
@@ -283,7 +283,7 @@ $\neg(\neg x)  = x$                                  & \{double negation\} \\
 
 When we derive new equations from equations we already know,
 we refer to the derived equations as \emph{theorems} to
-distinguish them from axioms. 
+distinguish them from axioms.
 We call the derivation a
 \emph{proof} of the theorem.
 
@@ -486,7 +486,7 @@ However, a formula specifying a computing component,
 hardware or software, has hundreds of variables.
 Our goal is to be able to reason about
 computing components, and there is no hope of doing that
-with truth tables when the formulas have hundreds of variables. 
+with truth tables when the formulas have hundreds of variables.
 The number of combinations
 of values for the variables in a formula with, say,
 100 variables is $2^{100}$, and that number is so large that no computer could
@@ -494,7 +494,7 @@ finish checking all the cases before the sun runs out of fuel,
 so a straightforward appeal to truth tables is
 definitely not feasible for formulas with lots of variables.
 
-There are effective methods 
+There are effective methods
 for dealing with at least some large formulas
 besides the proofs that make up the core
 material of this book.
@@ -578,7 +578,7 @@ copied of the original component to make a change.
 
 Abstraction is one of the most important methods in
 all of engineering design. Citing old theorems to prove new ones,
-instead of doing copy-and-paste with their proofs, 
+instead of doing copy-and-paste with their proofs,
 is part of that tradition.
 \caption{Abstraction}
 \label{abstraction}
@@ -715,7 +715,7 @@ $=$ & $y$                                  & \{$\vee$ identity\} \\
 \end{figure}
 
 We hope the gauntlet of theorems and proofs so far
-(which we hope you have managed to get through, 
+(which we hope you have managed to get through,
 even if it took you to the point of exhaustion)
 helps you understand how to derive a new equation from equations you already know.
 The technique requires matching a formula to one side of a known equation,
@@ -725,7 +725,7 @@ The ``matching'' process is a crucial step.
 It involves replacing the variables in the known equation
 by constituents of the formula you are trying to match.
 This is based in the mechanics of a formal grammar.
-Unfortunately, it is surprisingly easy 
+Unfortunately, it is surprisingly easy
 to have a lapse of concentration and make a mistake
 while trying to substitute equals for equals.
 
@@ -917,26 +917,26 @@ $\bullet$ ~~ $v$ is a variable or $True$ or $False$ \\
 \label{fig-02-boolean-axioms}
 \end{figure}
 
-With the four rules of 
+With the four rules of
 Figure~\ref{fig-02-grammar} (page \pageref{fig-02-grammar}),
-we can determine whether or not any given sequence of symbols 
+we can determine whether or not any given sequence of symbols
 is a grammatically correct Boolean formula.
-The definition of the grammar is circular, 
-but in a useful way that shows 
+The definition of the grammar is circular,
+but in a useful way that shows
 how to build more complicated formulas from simpler ones.
 
-To verify that a formula is grammatically correct, 
-find the rule of grammar that matches it, 
-then verify that each part of the formula 
-that matches with a variable in the rule of grammar 
-is also grammatically correct. 
-Atomic formulas have no substructure, 
+To verify that a formula is grammatically correct,
+find the rule of grammar that matches it,
+then verify that each part of the formula
+that matches with a variable in the rule of grammar
+is also grammatically correct.
+Atomic formulas have no substructure,
 so they require no further analysis when checking for grammatical correctness.
 
-For example, consider the formula 
-$((x \vee (\neg y)) \wedge (x \rightarrow z))$. 
-It matches with the \{bin-op\} rule. 
-The variables in the rule match 
+For example, consider the formula
+$((x \vee (\neg y)) \wedge (x \rightarrow z))$.
+It matches with the \{bin-op\} rule.
+The variables in the rule match
 with the elements of the formula in the following way.
 \begin{center}
 \begin{tabular}{ll}
@@ -949,9 +949,9 @@ $b$                                     & $(x \rightarrow z)$ \\
 
 The only other symbols in the rule are the top-level parentheses, and these match identically with the outer parentheses in the target formula. Therefore, the target formula is grammatically correct if the formulas $(x \vee (\neg y))$ and $(x \rightarrow z)$  are grammatically correct. We use the same approach to verify the grammatical correctness of those formulas.
 
-The first one, $(x \vee (\neg y))$, 
+The first one, $(x \vee (\neg y))$,
 again matches with the \{bin-op\} rule,
-but this time the matchings of the elements 
+but this time the matchings of the elements
 in the target formula with variables in the rule are as follows:
 \begin{center}
 \begin{tabular}{ll}
@@ -979,51 +979,51 @@ Since $x$ and $z$ match the \{atomic\} rule, they are grammatically correct.
 This completes the verification of the grammatical
 correctness of the formula $((x \vee (\neg y)) \wedge (x \rightarrow z))$.
 
-Let's look at another example: $(x \vee (\wedge y)$. 
-This sequence of symbols matches with the \{bin-op\} rule, 
-with $x$ corresponding to $a$ in the rule, 
-$\vee$ corresponding to $\circ$, 
-and $(\wedge y)$ corresponding to $b$. 
-So, the formula is grammatically correct 
-if $x$ and $(\wedge y)$ are. 
-However, there is no rule that matches $(\wedge y)$. 
-The only place the symbol $\wedge$ could match a rule 
-in the table is in the \{bin-op\} rule. 
-In the \{bin-op\} rule, there must be 
-a grammatically correct formula between 
-the opening parenthesis and the operator. 
-Since there is no such element present 
-between the opening parenthesis 
-and the $\wedge$ operator in the target formula, 
+Let's look at another example: $(x \vee (\wedge y)$.
+This sequence of symbols matches with the \{bin-op\} rule,
+with $x$ corresponding to $a$ in the rule,
+$\vee$ corresponding to $\circ$,
+and $(\wedge y)$ corresponding to $b$.
+So, the formula is grammatically correct
+if $x$ and $(\wedge y)$ are.
+However, there is no rule that matches $(\wedge y)$.
+The only place the symbol $\wedge$ could match a rule
+in the table is in the \{bin-op\} rule.
+In the \{bin-op\} rule, there must be
+a grammatically correct formula between
+the opening parenthesis and the operator.
+Since there is no such element present
+between the opening parenthesis
+and the $\wedge$ operator in the target formula,
 it cannot be grammatically correct.
 
-That covers the grammar of Boolean formulas. 
-What about meaning? 
-Every grammatically correct Boolean formula denotes, 
-when the values of its variables are specified, 
-either the constant $True$ or the constant $False$. 
-Each of the binary operators, given specific operands ($True$ or $False$), 
-delivers a specific result ($True$ or $False$). 
-We worked out what values the operators deliver 
-when we derived truth-table theorems for them 
+That covers the grammar of Boolean formulas.
+What about meaning?
+Every grammatically correct Boolean formula denotes,
+when the values of its variables are specified,
+either the constant $True$ or the constant $False$.
+Each of the binary operators, given specific operands ($True$ or $False$),
+delivers a specific result ($True$ or $False$).
+We worked out what values the operators deliver
+when we derived truth-table theorems for them
 (as in Figure~\ref{or-truth-table}, page \pageref{or-truth-table}, for example).
 
 In the process of deriving the truth tables,
-we used the Boolean axioms of 
+we used the Boolean axioms of
 Figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
-We can use this same method to derive the meaning 
-of any grammatically correct formula that contains no variables. 
-However, to deal with parentheses in a completely mechanized way, 
-we need to add two equations to those of Figure~\ref{fig-02-03}. 
+We can use this same method to derive the meaning
+of any grammatically correct formula that contains no variables.
+However, to deal with parentheses in a completely mechanized way,
+we need to add two equations to those of Figure~\ref{fig-02-03}.
 The axioms of Figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
-provides all of the information needed to determine 
-the value of any grammatically correct formula 
-that contains no variables. 
-In fact the equations in the figure have even more general applicability. 
-They provide all the information needed 
-to verify not only whether a given formula 
-has the same meaning as the formula $True$ or the formula $False$, 
-but also to verify whether or not any two given, 
+provides all of the information needed to determine
+the value of any grammatically correct formula
+that contains no variables.
+In fact the equations in the figure have even more general applicability.
+They provide all the information needed
+to verify not only whether a given formula
+has the same meaning as the formula $True$ or the formula $False$,
+but also to verify whether or not any two given,
 grammatically correct, formulas have the same meaning.
 
 \begin{ExerciseList}
@@ -1069,6 +1069,9 @@ $(x \rightarrow y) = ((\neg y) \rightarrow (\neg x))$                & \{contrap
 $(x \rightarrow (y \rightarrow z)) = ((x \wedge y) \rightarrow z)$   & \{Currying\}               \label{currying} \\
 $((x \wedge y) \vee y) = y$                                          & \{$\vee$ absorption\}      \label{or-absorption} \\
 $((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
+$((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
+$(x \rightarrow (\neg x)) = (\neg x)$                                & \{absurd 1\}               \label{absurd-1} \\
+$((\neg x) \rightarrow x) = (\neg x)$                                & \{absurd 2\}               \label{absurd-2} \\
 $((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
 $(x \rightarrow (\neg x)) = (\neg x)$                                & \{contradiction\}          \label{boolean-contradiction} \\
 \end{tabular}
@@ -1078,6 +1081,7 @@ $(x \rightarrow (\neg x)) = (\neg x)$                                & \{contrad
 \end{figure}
 
 \section{Digital Circuits}
+\label{sec:digital-circuits}
 
 Logic formulas provide a mathematical notation for concepts in symbolic logic.
 These same concepts can be materialized as electronic devices.
@@ -1222,7 +1226,7 @@ Another one
 is the negation of logical-and, which is called ``nand''.
 Many digital systems make frequent use of
 nand gates because they can run faster and be more reliable
-when fabricated with some widely used technologies 
+when fabricated with some widely used technologies
 for making integrated circuits.
 
 It is interesting to see how to put together digital
@@ -1330,6 +1334,7 @@ circuits as examples? problem: they have two outputs, so need to talk about
 tapping outputs from subformulas to show correspondence to algebraic form}
 
 \section{Deduction}
+\label{sec:deduction}
 
 We have been reasoning with equations, which means we are reasoning in two directions
 at the same time, since equations go both ways. Deductive reasoning is one-directional.
@@ -2050,7 +2055,7 @@ is ironic that proofs citing the \{reductio ad absurdum\} rule
 are called proofs by contradiction, while proofs citing the
 \{contradiction\} rule have no special name.
 Nevertheless, that is the custom, maybe because
-the \{contradiction\} rule, like the \{identity\} rule, 
+the \{contradiction\} rule, like the \{identity\} rule,
 is needed primarily to facilitate the formal details of
 natural deduction.}
 The proof of the \{disjunctive syllogism\} theorem displayed in
@@ -2112,7 +2117,9 @@ Discharge $b$              & \emph{discharged by} \{$\rightarrow$ introduction\}
 \end{figure}
 
 \begin{ExerciseList}
+
 \Exercise
+\label{thm:and-complement}
 Use natural deduction to prove
 Theorem \{$\wedge$ complement\}: $a$, $\neg a$ $\vdash$ $False$
 
@@ -2171,503 +2178,1232 @@ of the theorem as many times in the proof as you like.
 
 \end{ExerciseList}
 
-%%%\todo{Not sure whether we need a section on one-directional reasoning or not ...
-%%%seems like we do, but a full-fledged Gentzen-style treatment gets tedious ...
-%%%how do we keep it lively, but still provide the necessary apparatus? ...
-%%%Maybe better to introduce inference rules when we introduce induction? ...
-%%%how many rules do we need? Would modus ponens and or-elim (plus induction) be enough? How about reductio-ad-absurdum?
-%%%law of excluded middle? Just the rules we will be using in doing inductive proofs about software and circuits}
-%%%\todo{after writing this, I'm not sure it does any good.
-%%%I'm especially not sure the proof notation I've used is clearly explained.
-%%%I went through all the lectures, homeworks, and exams in the existing applied logic course, and did not find any theorems proved by %%%deductive reasoning that were not more easily handled by stating them as implications and proving them as equations of the form $(a %%%\rightarrow b) = True$.
-%%%I guess we could leave this stuff in, but give it short shrift, and refer back to it if necessary.
-%%%We will use deduction when we come to induction, which is a deductive inference rule, but
-%%%I'm not sure we need to make a big deal out of it}
 
-%%% IN THE END, ALL INFERENCE RULES WERE COVERED
-%%% NAT DED FORMAT USED IS COMPACT, BUT SORT OF READABLE.
-%%% INTRODUCED NEGATION-INTRO and NEGATION-ELIM TO AVOID CONFUSION ABOUT A -> FALSE,
-%%% AND THIS TURNED OUT TO HAVE THE BENEFIT OF LIMITING DISCHARGES TO IMPLICATION-INTRO RULE
-%%% SO, NATURAL DEDUCTION IS WELL COVERED,
-%%% BUT IN THE CHART SHOWING PATHS THROUGH THE BOOK, WE MIGHT BE ABLE
-%%% TO SUGGEST THAT THIS SECTION ON NATURAL DEDUCTION COULD BE SKIPPED
-%%% BECAUSE WE DON'T MAKE MUCH USE OF DEDUCTION EXCEPT IN KIND OF A SUPERFICIAL WAY
-%%% IN THE EXPLANATION OF INDUCTION AS AN INFERENCE RULE
+\section{Predicates and Quantifiers}
+\label{sec:predicates-and-quantifiers}
 
-\section{Limits of Boolean Equations}
+\label{proposition-def}
+We have been using the term \emph{proposition} to mean a formula that is either true or false.
+\label{predicate-def}
+Any set\footnote{The
+term ``set'' has a checkered history in mathematics.
+It is tricky to define in a way that avoids contradictions
+like Russell's paradox, which you can read about
+in online articles or textbooks.
+Instead of dwelling on those issues,
+we are going to assume that,
+for any of the sets that we talk about,
+we have a way of figuring out whether any given
+item is an element of the set or not.
+Usually, our sets will be familiar ones,
+such as the set of natural numbers, which
+is the universe of discourse indexing the propositions
+in proofs by mathematical induction or
+the set of lists that can be constructed
+by an ACL2 program.
+Occasionally, the universe of discourse will be
+the set of all programs that can be expressed in a given
+programming language.
+In that case
+any interpreter for the language
+can determine whether or
+not a given item is in the set.}
+of propositions is called,
+when the set is taken as a whole, a \emph{predicate}.
+We will specify predicates as collections of propositions
+indexed by a set known as the
+\label{def-universe-of-discourse}
+\emph{universe of discourse}.
+If $P$ is a predicate, and $x$ is an element from
+the universe of discourse, then $P(x)$ is
+the proposition selected from the predicate by the index $x$.\footnote{You
+can think of the predicate as an
+operator that delivers the associated proposition as output
+when supplied with the index of the proposition as input,
+such as the ACL2 operator natp: (natp $x$) is true if
+$x$ is a natural number and false otherwise.
+No matter whether you look at it as a set of propositions
+indexed by a universe of discourse or an operator that
+delivers a true/false value given an element of the universe of discourse,
+the predicate is the same mathematical entity.
+The indexed-set approach is sometimes called an ``extensional'' view
+because it focuses on the externally observable characteristics of the predicate,
+while the operator perspective is called an ``intensional'' view because it
+involves the internal workings of a way to produce the true/false value
+of a proposition, given its index.
+Occasionally, a predicate will not correspond to a computation,
+and in that case the operator (intensional) view
+isn't valid because there will be no
+computation associated with the predicate.
+The extensional view is the way
+to think about predicates of that kind.}
+}
 
-There is an aspect of Boolean equations that we haven't fully considered. A Boolean variable $x$ stands for a proposition, 
-such as ``Socrates is a man.'' What we mean by this is that the variable $x$ is $True$ precisely when ``Socrates is a man'' 
-is true in the real world. We will soon move on to other ways of representing real-world knowledge using logic, but before 
-we do that, we want to address the question, ``Just how powerful are Boolean equations by themselves?'' The answer, it 
-turns out, is ``very powerful, indeed!''
+If we write a formula that connects some of the propositions
+of the predicate P with AND
+$(P(x_1) \wedge P(x_2) \wedge P(x_3) \wedge P(x_4))$,
+the formula has the value $True$
+because all of the propositions in the formula ($P(x_1)$, $P(x_2)$, $P(x_3)$, $P(x_4)$)
+are $True$.
+We would like to be able to write a formula
+for the AND of all the propositions in the predicate P.
+We could do this with an ordinary AND formula,
+but this gets bulky when there are a lot of elements
+in the universe of discourse,
+and it's impossible when the universe of discourse
+has an infinite number of elements because the
+formula would have an infinite number of symbols in it.
 
-But first, let's take an apparent detour. You probably know the game of tic-tac-toe, in which players alternate to place 
-X's and O's on a $3 \times 3$ board, such as the following.
+The usual way to write the AND of all the propositions in a predicate
+makes use of a symbol that looks like an upside-down letter A ($\forall$)
+which is known as the
+\label{def:universal-quantifier}
+``universal quantifier''.
+The  formula $(\forall x.P(x))$\footnote{The
+formula $(\forall x. P(x))$ reads ``for all $x$, $P(x)$.''}
+stands for the AND of all the propositions in the predicate P.
+The value of the formula is $True$
+if there is no element $x$ from the universe of discourse
+for which the proposition $P(x)$ is $False$.
 
-\begin{tabular}{c|c|c}
-  & X & O \\
-\hline
-X & O & O \\
-\hline
-  &   & X \\
+For example, suppose $n$ stands for a natural number
+and we take use 
+$E(n)$ as a shorthand for the proposition ``$2n$ is a non-negative, even number''.
+Then \{$E(0)$, $E(1)$,$E(2)$, \dots\}
+is a set of propositions indexed by the natural numbers.
+For each natural number $n$, there is a corresponding proposition $E(n)$.
+This means that E is a predicate with the natural numbers
+as its universe of discourse.
+
+If we write a formula that connects some of these propositions with
+$(E(5) \wedge E(3) \wedge E(7) \wedge E(1))$,
+the formula has the value $True$
+because all four of those propositions are $True$.
+In fact all of the propositions in the predicate E are $True$.
+$E(n)$ is $True$, regardless of which natural number $n$ stands for,
+because any number of the form $2n$ is a non-negative, even number
+when $n$ is a natural number.
+Therefore, there is no element $n$ in the universe of discourse of
+the predicate $E$ for which the proposition $E(n)$ is $False$,
+which means that the value of the quantified formula $\forall n.E(n)$
+is $True$.
+
+A
+\label{def:quantifier}
+quantifier converts a set of propositions (that is, a predicate)
+into a single, true/false value (that is, a proposition).
+A formula using a quantifier starts with a quantifier symbol followed by
+a variable, then a period, and finally a logic formula
+representing a proposition. The variable,
+which is known as the
+\label{def:bound-variable}
+``bound variable'' in the formula, stands for an
+element of the universe of discourse, and the quantification
+ranges over the entire universe of discourse.
+The universe of discourse is not specified directly
+in the formula, but the formula has no meaning unless
+the universe of discourse is understood in the context
+of the formula.
+
+\begin{aside}
+Let $P$ be a predicate.
+The formula $\forall x.P(x)$ is false when there is
+at least one index $x$ in the universe of discourse
+for which $P(x)$ is false.
+Otherwise, the $\forall$ quantification is true.
+If the universe of discourse is empty,
+there aren't any indexes at all,
+let alone one for which the predicate is false.
+Therefore, $\forall x.P(x)$ is true
+when the universe of discourse is empty.
+
+Using a similar rationale, a $\exists$ quantification
+is false when the universe of discourse is empty
+because it can only be true if there is
+at least one element, $x$, in the universe of discourse
+for which $P(x)$ is true.
+\caption{Quantifier with Empty Universe}
+\label{empty-forall}
+\end{aside}
+
+In a formula, any variable that is not bound is
+called a
+\label{def:free-variable}
+``free variable''.
+In the formula $(\forall x.P(x)) \vee y$,
+$x$ is a bound variable, and $y$ is a free variable.
+This can get a bit tricky, but you have to keep it
+straight to understand how quantifiers work.
+A tricky case is the formula
+$(\forall x.P(x)) \vee x$.
+In this formula, $x$ is a bound variable in the
+operand on the left-hand side of the $\vee$ operator,
+but is a free variable on the right-hand side.
+
+There are many quantifiers in logic, but the only other
+quantifier we will use is known as the
+\label{def:existential-quantifier}
+``existential quantifier''.
+It forms the OR of all the propositions in a predicate
+and is represented by a symbol that looks like a backwards E.
+The  formula $(\exists x.P(x))$\footnote{The
+formula for all $(\exists x.P(x))$ reads
+``there exists $x$ such that $P(x)$.''}
+has the value $True$
+if there is an element $x$ from the universe of discourse
+for which the proposition $P(x)$ is $True$.
+
+Consider the equation $(n + 7 = 12)$.
+Any equation is a proposition because it is either
+$True$ or $False$. Let's call that proposition $Q(n)$.
+For each natural number $n$,
+$Q(n)$ stands for a proposition.
+So, we can take the view that $Q$ is a predicate
+with the natural numbers as its domain of discourse.
+You know from algebra that there is a natural number
+$n$ for which equation $(n + 7 = 12)$ holds.
+That is, there is a value in the domain
+of discourse for which the proposition $Q(n)$ is $True$.
+Therefore, according to the definition of the
+existential quantifier,
+the formula $(\exists n.Q(n))$ is $True$.
+
+The formula $(\forall n.Q(n))$, however, is $False$
+because there is a natural number $n$ for which
+the proposition $Q(n)$ is $False$.
+In fact there are many of them
+($Q(n)$ is $False$ for any natural number $n$ other than $5$),
+the number of $False$ propositions in the predicate doesn't matter
+in a universal quantification. One is enough.
+By the definition of
+the universal quantifier, the formula $(\forall n.Q(n))$
+is $False$ if there is even one element of the
+universe of discourse for which the proposition
+$Q(n)$ is $False$.
+
+\begin{aside}
+The three-line variation of the equals sign
+indicates that the term on the left stands
+for the formula on the right, \emph{by definition}.
+\begin{center}
+\begin{tabular}{ll}
+$term \equiv \dots \emph{some formula} \dots$ & ~~~~~ \emph{definition of term} \\
+$Q(n) \equiv ((n + 7) = 12)$                  & ~~~~~ $Q(n)$ \emph{stands for} $((n + 7) = 12)$ \\
 \end{tabular}
+\end{center}
+\caption{Equal by Definition: $\equiv$}
+\label{aside:ch02-three-line-equal}
+\end{aside}
 
-Can we play tic-tac-toe using propositional logic? Let's try! We will certainly need Boolean variables to represent the 
-board; for example, let $x$ be the variable that means ``the top-left cell is an X'' and $y$ be the variable that means 
-``the top-left cell is an O.'' This works, surely, but we're sure to run out of letters quickly. Instead, let $x11$ be 
-the variable that means ``the top-left cell is an X,'' $x12$ that ``the top-center cell is an X,'' $x23$ that ``the 
-center-right cell is an X,'' and so on. Similarly, variables $y11$ (and so on) for Os and $z11$ (and so on) for blanks 
-can be defined, and the collection of these 27 Boolean variables can define any board.
+Predicates can have more than one index.
+For example, the predicate $R$, defined as follows, has two indexes.
+\begin{center}
+$R(m, n) \equiv ((n + 7) = m)$
+\end{center}
+In this discussion the domain of discourse
+for both indexes will be the natural numbers.\footnote{A
+predicate with multiple indexes can
+have different domains for different indexes.
+One index could come from a set of numbers
+and the other from a set of words, for example,
+but both the first and second indexes
+of the particular predicate $R$ discussed here
+are be natural numbers.}
+For each pair of natural numbers $(n, m)$,
+$R(n, m)$ stands for a proposition (namely the
+equation $((n + 7) = m)$, which is either $True$ or $False$).
+The formula $(\exists n.R(n,m))$ is a different
+proposition for each natural number $m$.
+That makes it a set of propositions indexed by the natural numbers,
+so it is a predicate with the natural numbers as its domain of discourse.
+To keep things straight, let's give this predicate a name.
+\begin{center}
+$S(m) \equiv (\exists n.R(n,m))$
+\end{center}
 
-Actually, they can define boards that are impossible, so we need rules to limit the possible values of these variables. 
-For example, each individual cell can have either an X, an O, or a blank, and nothing else, and certainly not both an 
-X and an O. We can write this down using the rule
-$$(x11 \vee y11 \vee z11) \wedge \neg(x11 \wedge y11) \wedge \neg(x11 \wedge z11) \wedge \neg(y11 \wedge z11)$$
-Do you see why this formula captures the idea that the top-left cell must have precisely one of the possible values 
-X, O, or blank? Of course, we need a similar formula for each cell in the board.
+Let's convert this predicate to a proposition by quantifying it:
+$(\forall m.S(m))$. This is a proposition, so
+it is either $True$ or $False$, but which is it?
+By the definition of the predicate $R$,
+$S(m)$ would be $True$ if there were no natural numbers $m$
+for which the quantification $(\exists n.((n+7) = m))$ were $False$.
+This quantification would be $False$
+if there were no natural numbers $n$ such that $((n+7) = m))$.
+Suppose $m$ is the natural number zero.
+In that case the equation says $((n+7) = 0))$,
+and there are certainly no natural numbers $n$ such that
+$((n+7) = 0))$ because $n$ would have to be negative,
+and all natural numbers are zero or bigger.
+Therefore, $S(0)$, which stands for the formula
+$(\exists n.((n+7) = 0))$ is $False$.
+Therefore, $(\forall m.S(m))$ is $False$.
 
-But wait! It is not enough to represent the board at a particular moment. We must also be able to write down how the 
-board changes through time, as the players place an X or an O on an empty cell. So let's rethink the Boolean variables 
-and add a time component to them. We now write $x113$ to mean ``the top-left cell is an X at step 3.'' If we start 
-counting at step 0, when the board is initially completely blank, there can be at most nine more steps, since each 
-places an X or an O in one of the black cells. So we need a total of 270 Boolean variables, 9 for each cell times 3 
-for each possible value times a maximum of 10 steps.
+By the definition of the predicate $S$,
+$S(m)$ stands for the formula $(\exists n.R(n,m))$,
+so we can put that formula in place of $S(m)$
+in $(\forall m.S(m))$. When we do this,
+the formula becomes $(\forall m.(\exists n.R(n,m)))$,
+in which an existential quantification
+is nested inside a universal quantification.
+It can go the other way, too, and with any
+combination of quantifiers.
+All of the following formulas are propositions,
+and with your understanding of numbers, you
+can figure out which ones are $True$ and
+which are $False$.
+\begin{center}
+$(\exists m.(\forall n.R(n,m)))$ \\
+$(\exists m.(\exists n.R(n,m)))$ \\
+$(\forall m.(\forall n.R(n,m)))$
+\end{center}
+Nested quantifications like this are common
+when a predicate has multiple indexes.
 
-You can now see how we can write down the ``initial condition'' that the board starts
-with all empty cells:
-$$z110 \wedge z120 \wedge z130 \wedge z210 \wedge z220 \wedge z230 \wedge z310 \wedge z320 \wedge z330$$
-You should also be able to see that we need 90 formulas specifying the possible legal values of each of the nine cells 
-at each of the ten steps. Here is one example, for the center-right cell at step 6:
-$$(x236 \vee y236 \vee z236) \wedge \neg(x236 \wedge y236) \wedge \neg(x236 \wedge z236) \wedge \neg(y236 \wedge z236)$$
-All of these 90 formulas should be combined using AND so we can characterize all the legal boards.
-
-What about the rules for placing Xs and Os? An important rule is that once a cell has an X or an O, it must keep 
-that same value. Put more concretely, if the low-center cell has an X at step 5, then it must also have an X at step 6, 
-and we can write that as follows:
-$$x325 \rightarrow x326$$
-Of course, we need similar rules for all cells transitioning into steps 1 through 9, and then similar rules for cells with 
-Os, e.g., $y325 \rightarrow y326$. These rules are also combined using AND, since they describe conditions that each cell 
-must satisfy at each step.
-
-These past Boolean formulas forbid illegal moves, such as taking away an X or placing an X where an O was placed preciously, 
-but they do nothing to force legal moves. Let's assume that the game starts with an X being placed in step 1, hence an O 
-in step 2, and so on. In English, you may say that one and only one of the cells that is blank in step 0 must be replaced 
-by an X in step 1. Using the Boolean variables at our disposal, we can write this idea with nine formulas (one for each cell) 
-like the following:
-$$b110 \wedge x111 \wedge (b120 \rightarrow b121) \wedge (b130 \rightarrow b131) \wedge \dots (b330 \rightarrow b331)$$
-
-Then we have to consider legal moves from step 1 to step 2. Again, we can do this with nine similar formulas (one for each cell) 
-such as the following, where we use y122 since it's player O's turn:
-$$b111 \wedge y112 \wedge (b121 \rightarrow b122) \wedge (b131 \rightarrow b132) \wedge \dots (b331 \rightarrow b332)$$
-And naturally, we continue in this manner for all possible steps. Notice, however, that combining these rules is more 
-subtle than before. Each formula, or rule, states a possible move at a given step. What we want to say is that a legal move 
-is made at each step. So all the rules for a given step must be combined using OR, and then all the combined formulas for 
-each step are themselves combined using AND.
-
-Finally, how do we know when X wins? According to the rules, this means the board has 3 Xs in a row, column, or diagonal. 
-This Boolean formula captures an X win at step 5:
-    \begin{center}
-        \begin{tabular}{ll}
-        & $(x115 \wedge x125 \wedge x135) \vee (x215 \wedge x225 \wedge x235) \vee (x315 \wedge x325 \wedge x335)$ \\
-        $\vee$ & $(x115 \wedge x215 \wedge x315) \vee (x125 \wedge x225 \wedge x325) \vee (x135 \wedge x235 \wedge x335)$ \\
-        $\vee$ & $(x115 \wedge x225 \wedge x335) \vee (x315 \wedge x225 \wedge x135)$
-        \end{tabular}
-    \end{center}
-Again, we can write similar rules for an X victory at steps 1 through 9, and these are combined with a OR to have the 
-informal meaning ``X wins.''
-
-Now consider a single formula combining
-\begin{enumerate}
-\item the initial configuration of the board, AND
-\item the possible legal configurations of the board at all times, AND
-\item the legal transitions of the board from one step to the next, AND
-\item the formula that ``X wins.''
+\begin{ExerciseList}
+\Exercise Work out the values of the following formulas,
+where $R(m, n) \equiv ((n + 7) = m)$.
+\begin{quote}
+\begin{enumerate}[label=\alph*]
+\item. $(\exists m.(\forall n.R(n,m)))$
+\item. $(\exists m.(\exists n.R(n,m)))$
+\item. $(\forall m.(\forall n.R(n,m)))$
 \end{enumerate}
-Do you see that if this formula is equal to $True$, then player X must always win the game? And what if the formula is 
-equal to $False$? In that case, do you see that player X can never win the game? But do you see a third possibility? 
-What if the formula is neither equal to $True$ nor equal to $False$? Is this even possible?
+\end{quote}
 
-In fact, it is possible that the formula is neither $True$ nor $False$. What this means is that for some values of the 
-Boolean variables the formula is $True$, but that for others the formula is $False$. Each possible combination of the 
-Boolean variables corresponds to a single game on tic-tac-toe, e.g., one in which the first player placed an X in the 
-top-left cell, then the other player placed an O in the center cell, then the first player place an X in the top-right 
-cell, and so on. The value of the formula tells us whether X won that particular game. So if the value is True, you 
-should be able to inspect the values of the individual Boolean variables and reconstruct a game where X won.
+\Exercise
+Mark the free variables in the following formulas and say how many bound variables
+each formula has.
+\begin{quote}
+\begin{enumerate}[label=\alph*]
+\item. $(x \vee (y \rightarrow z))$
+\item. $(\forall x.(P(x) \wedge (forall y.Q(y))))$
+\item. $(x \rightarrow (\exists y.Q(y)))$
+\item. $(\exists x.(P(x) \wedge (\forall y.Q(y))))$
+\item. $((\forall x.(P(x) \rightarrow Q(y))) \vee (\forall x.W(x)))$
+\item. $(\forall x. (\forall z.R(x, y, z)))$
+\end{enumerate}
+\end{quote}
 
-Now hang on to your hats, because we are about to introduce you to one of the central mysteries of computer science: 
-What we just did for tic-tac-toe, we can also do for any computer program that \emph{finishes in a bounded number of steps}. 
-What we need to do is to construct a formula that combines
+\end{ExerciseList}
+
+\section{Reasoning with Quantified Predicates}
+\label{sec:quantifier-equations}
+
+Quantifiers provide a way to convert predicates to propositions,
+and you have some experience in reasoning about Boolean formulas constructed with
+propositions and operators.
+This section discusses some new methods and equations to make
+the same kind of reasoning possible with formulas containing quantifiers.
+
+Let's start with a predicate $P$ with two indexes.
+$P(x,y)$ will denote the proposition in the predicate $P$ that is indexed
+by the pair $(x,y)$, where $x$ comes from the universe of discourse for the first index
+and $y$ from the universe of discourse for the second index.
+
+In our discussion, we will want to provide some examples
+of specific values in the universe of discourse.
+We could do this by making up some special symbols for those values,
+but to keep things uncomplicated at this point,
+let's say that natural numbers are the universe of discourse for both indexes.
+That will give us familiar symbols for particular indexes.
+$P(5,2)$, $P(0,6)$, and $P(3,7)$ would be specific propositions in the predicate $P$.
+$P(x,y)$ would also be a proposition in predicate $P$, but would not be a specific one
+unless we knew which natural numbers $x$ and $y$ stood for.
+Again, we chose natural numbers as the domain of discourse
+only to make it easy to designate specific elements in the domain.
+The points we make in the discussion about reasoning with quantified predicates
+would be the same for other choices of domain.
+
+Suppose we have already proved that the formula $(\forall x.(P(5, x)))$ is $True$.
+How can we use this predicate in another proof?
+One way is to observe that $(\forall x.(P(5, x)))$ means that all of the formulas
+$P(5, 0)$, $P(5, 1)$, $P(5, 2)$, \dots are $True$,
+so we can assert in a proof that, for example,
+$P(5, 0) = True$. We could also assert $P(5, 1)$ is $True$, and $P(5, 2)$, and so on.
+That is, once we have proved that a universally quantified formula has the value $True$,
+we can use that to justify a more specific theorem that
+eliminates the quantifier and replaces the bound variable by any specific value
+in the universe of discourse.
+
+Not only that, but we could replace the variable by any formula
+representing a value in the domain of discourse.
+For example, we could assert that if $x$ and $y$ denote natural numbers,
+then $(\forall x.(P(5, 2x + y + 4)))$ is $True$.
+
+Another formula to consider is the existentially quantification $(\exists x.(P(5, x)))$.
+Suppose we know it has the value $True$ and we want to make use of that fact in a proof.
+The meaning of the formula $(\exists x.(P(5, x)))$ is that
+there is at least one $x$ from the universe of discourse that makes the expression $True$,
+but it doesn't say which one.
+It could be that $P(5, 9)$ is $True$, or that $P(5, 3)$ is $True$,
+or any other proposition in P whose index is a pair whose first component is the number $5$.
+It could be exactly one of them,
+or just two or three, or it could even be all of them, but
+there must be at least one. That's all we know
+from a proof that $(\exists x.(P(5, x)))$ is $True$.
+
+One way to make use of that fact is to use a notational convention
+to indicate that what looks like a variable (which could stand for any
+value in the universe of discourse our even a formula representing such a value)
+is not really a variable, but is, instead, a specific value in the universe of
+discourse. This is, the symbol is a constant, not a variable.
+One way to do this would be to designate a special symbol, capital $C$ perhaps,
+to use when we want to indicate that what looks like a variable is really a constant.
+\label{def:skolem-constant}
+If we need several different constants in our discussion, we could use different
+subscripts: $C_x$, $C_y$, $C_{197}$, $C_{\xi})$, etc.
+Another approach is to use subscripts on ordinary variables ($x_0$, $y_8$, etc)
+to indicate that the symbols stand for constants, not variables.
+The important thing is (1)~to say in the commentary of the proof that the new
+symbol stands for a specific value from the universe of discourse and is not a variable
+and (2)~to make sure to use a new symbol for each new constant and to not use that
+symbol for any other purpose in the proof. In any case, what was a
+bound variable (page \pageref{def:bound-variable}) in an existential quantification
+becomes a free constant in the formula that represents a particular proposition in the
+predicate, and it is a proposition that has the value $True$.
+
+So what about proofs? How can we prove a statement that users quantifiers?
+One approach is to systematically
+remove the quantifiers, so as to produce a formula that has no quantifiers.
+In other words, we
+are left with formula without variables, such as $P(5,3)$ or $P(5,x_0)$ where
+$x_0$ stands for a particular element in the universe of discourse whose value
+we don't know, but which in any case stands for just one value and cannot
+be replaced by another variable or formula.
+Since there are no variables, this is really just a Boolean formula,
+so it can be proved using precisely the same techniques we used for Boolean
+formulas earlier.
+
+This approach to reasoning about quantified formulas is a four-step process.
+
+\begin{center}
+\begin{tabular} {l}
+\emph{Reasoning with Quantifiers: a Four-Step Strategy} \\
+~~~~~~1. Rename bound variables \\
+~~~~~~2. Migrate quantifiers \\
+~~~~~~3. Eliminate quantifiers \\
+~~~~~~4. Prove theorem about Boolean formula \\
+\end{tabular}
+\label{four-step-strategy-quantifiers}
+\end{center}
+
+The last step is the already familiar area of reasoning
+with Boolean formulas and equations,
+but the first three steps involve new ideas.
+
+Renaming bound variables is sometimes necessary to prevent
+a quantifier from accidentally referring to a different bound variable
+that happens to have the same name.
+For example, consider the formula
+$(\forall x.Odd(x)) \vee (\forall x.Even(x))$,
+where the domain of discourse for both quantifiers is the integers.
+\footnote{$Odd(n) \equiv (\exists k.(n = 2k+1))$.
+\label{even-number-predicate-Even}
+$Even(n) \equiv (\exists k.(n = 2k))$.
+The integers are the universe of discourse for the predicates (variable $n$)
+and the quantifications (variable $k$).}
+This formula has the value $False$ because is it not true
+that all natural numbers are even numbers,
+and it also not true that all are odd numbers.
+There are two bound variables in the formula.
+These are different variables even though they both have
+the same name $x$.
+The formula $(\forall x.(Odd(x) \vee Even(x)))$, on the other hand,
+only has one bound variable.
+Furthermore, the formula has the value $True$,
+so we have to be careful to keep these formulas straight.
+They look similar, but they have totally different meanings.
+
+However, the name of a bound variable does not affect the value
+of a quantified formula.
+The formula $(\forall x.Even(x))$ has the same meaning
+as the formula $(\forall y.Even(y))$.
+So, to avoid conflating two different bound variables,
+we start by choosing names for the bound variables in a formula
+so that no two quantifications use the same name for the bound variable.
+In the case of the formula
+$(\forall x.Odd(x)) \vee (\forall x.Even(x))$,
+we could, for example, change the name of the bound variable
+in the quantification on the right-hand side of the OR ($\vee$):
+$(\forall x.Odd(x)) \vee (\forall y.Even(y))$.
+The meaning of the formula remains the same,
+but the change of name prevents confusion between two different bound variables.
+
+So suppose we have a formula that contains
+a quantifier $(\forall x.(P(\dots x, \dots)))$.
+How do we rename the variable $x$ in this quantifier?
+First of all, we insist that when we rename $x$ we use a completely new variable name,
+that is, one that does
+not already appear in the formula.
+This is for the same reason as before, namely that we do not want to confuse the variable
+$x$ with a different variable that happens to have the same name.
+Obviously, choosing a new name for $x$ that is the same as the name
+of some other variable would defeat our purpose.
+Second, we must ensure that when we rename a bound variable $x$ as, say,
+$y$, that we replace all occurrences of that bound variable $x$ with $y$.
+However, we must be careful not change to $y$ any occurrence of different bound variable
+that happens also to have the name $x$.
+For example, recall that there are two different, but identically named,
+bound variables in the formula
+$(\forall x.Odd(x)) \vee (\forall x.Even(x))$.
+We would want to change one of them to a new name, such as $y$.
+That would produce either the formula
+$(\forall x.Odd(x)) \vee (\forall y.Even(y))$ or the formula
+$(\forall y.Odd(y)) \vee (\forall x.Even(x))$.
+
+For example, suppose we are trying to prove that
+if P is a predicate with two indexes
+that have the same universe of discourse,
+then the following formula has the value $True$.
+$$(\exists y. (\forall x. P(x, y))) \rightarrow (\forall x. (\exists y. P(x, y)))$$
+
+To prove this theorem using our four-step strategy,
+we would first rename the variable $y$ on the left-hand side of the implication.
+We could use any variable not already present, such as $v$.
+The new formula would be the following.
+$$(\exists v. (\forall x. P(x, v))) \rightarrow (\forall x. (\exists y. P(x, y)))$$
+Then, we would rename the $x$ to another new variable resulting in the following.
+$$(\exists v. (\forall u. P(u, v))) \rightarrow (\forall x. (\exists y. P(x, y)))$$
+Now we have four variables in the formula: $u$, $v$, $x$, and $y$.
+Each quantifier is associated with a bound variable of a different name,
+so we won't mix up the roles of different variables.
+
+The next step is to migrate the quantifiers to the front of the formula.
+We want to end up with a formula that looks like
+$$(\forall x.(\forall v.(\exists u.(\exists y.( \dots )))))$$
+where there are no quantifiers in the innermost formula $( \dots )$.
+Figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
+contains some equations for formulas with quantifiers that can help
+migrate quantifiers.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+$((\forall x.P(\dots x, \dots)) \wedge Q) = (\forall x.P(\dots x, \dots) \wedge Q)$                 & \{$\forall\wedge$\} \\
+$((\exists x.P(\dots x, \dots)) \wedge Q) = (\exists x.P(\dots x, \dots) \wedge Q)$                 & \{$\exists\wedge$\} \\
+$((\forall x.P(\dots x, \dots)) \vee Q) = (\forall x.P(\dots x, \dots) \vee Q)$                     & \{$\forall\vee$\} \\
+$((\exists x.P(\dots x, \dots)) \vee Q) = (\exists x.P(\dots x, \dots) \vee Q)$                     & \{$\exists\vee$\} \\
+$(\neg (\forall x.P(\dots x, \dots))) = (\exists x.(\neg P(\dots x, \dots)))$                       & \{$\neg\forall$\} \\
+$(\neg (\exists x.P(\dots x, \dots))) = (\forall x.(\neg P(\dots x, \dots)))$                       & \{$\neg\exists$\} \\
+$((\forall x.P(\dots x, \dots)) \rightarrow Q) = (\exists x.P(\dots x, \dots) \rightarrow Q)$       & \{$\forall\rightarrow$\} \\
+$((\exists x.P(\dots x, \dots)) \rightarrow Q) = (\forall x.P(\dots x, \dots) \rightarrow Q)$       & \{$\exists\rightarrow$\} \\
+$(Q \rightarrow (\forall x.P(\dots x, \dots))) = (\forall x.(Q \rightarrow P(\dots x, \dots)))$     & \{$\rightarrow\forall$\} \\
+$(Q \rightarrow (\exists x.P(\dots x, \dots))) = (\exists x.(Q \rightarrow P(\dots x, \dots)))$     & \{$\rightarrow\exists$\} \\
+$(\forall x.P(\dots x, \dots)) = (\forall y.P(\dots y, \dots))$                                     & \{R$\forall$\} \\
+$(\exists x.P(\dots x, \dots)) = (\exists y.P(\dots y, \dots))$                                     & \{R$\exists$\} \\
+~~~~~~~~$x$ \emph{must not be a free variable in} $Q$ \emph{or in} $P(\dots y, \dots)$     & \\
+~~~~~~~~$y$ \emph{must not be a free variable in} $P(\dots x, \dots)$                      & \\
+\end{tabular}
+\end{center}
+\caption{Equations of Quantifier Reasoning}
+\label{fig-02-quantifiers}
+\end{figure}
+
+The restrictions on names in Figure~\ref{fig-02-quantifiers} are necessary to avoid
+accidently converting a free variable to a bound variable.
+In the first four equations, the formula $Q$ must not make use of the variable $x$.
+If it does, the bound variable $x$ in the quantified formulas of the equation
+must be renamed, citing the appropriate renaming equations \{R$\forall$\} and \{R$\exists$\}.
+For example,
+suppose that $((\exists x.P(\dots x, \dots)) \wedge Q)$ is $True$.
+Then $Q$ must be $True$ and there is
+some $x$, let's call it $x_0$, such that $P(\dots x_0, \dots)$ is $True$.
+But then, $(P(\dots x_0,\dots) \wedge Q)$
+is $True$, so $(\exists x.(P(x, \dots) \wedge Q))$ is also $True$.
+The key observation is that the choice of a value for $x$
+cannot affect the truth value of $Q$ because $x$ does
+not occur as a free variable in $Q$.
+
+\label{why-neg-forall}
+The rules $\{\neg\forall\}$ and $\{\neg\exists\}$ may appear more mysterious at first,
+but they are the quantifier analogs of the DeMorgan equations for $\wedge$ and $\vee$
+of Figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
+and Figure~\ref{some-boolean-theorems} (page \pageref{some-boolean-theorems}).
+If we sketch a proof of one of the equations, we think you will be able
+to use your experience in reasoning with Boolean equations to fill in the details
+and also to prove the other equation.
+
+Suppose that $\neg(\forall x.P(\dots x, \dots))$ is $True$.
+Then (by the double-negation equation and the truth table of the negation operator
+in Section~\ref{sec:boolean-equations}),  $(\forall x.P(\dots x, \dots))$ is $False$.
+Therefore, from the definition of universal quantification
+($\forall$, \pageref{def:universal-quantifier}),
+we can conclude that there is some value $x_0$ in the universe of discourse for which
+$P(\dots x, \dots)$ is $False$. That is, $\neg P(\dots x, \dots)$ is $True$.
+Then, from the definition of existential quantification
+(\pageref{def:existential-quantifier})
+we conclude that $(\exists x.(\neg P(\dots x, \dots)))$ is $True$.
+
+Finally, there are four equations in Figure~\ref{fig-02-quantifiers} that
+describe how quantifiers behave with respect to implication ($\rightarrow$).
+When the quantifier is on the left-hand side of an implication, it flips from
+$\forall$ to $\exists$ and vice versa when it is migrated through the implication,
+but it remains the same when it migrates from the right-hand side.
+This takes a lot of people by surprise in that same way that
+other aspects of implication (such as, for example, that $False \rightarrow False = True$)
+surprises some people.
+Remember that $(p \rightarrow q) = ((\neg p) \vee q)$
+(\{implication\}, Figure~\ref{fig-02-boolean-axioms}),
+so if the quantifier appears in the left-hand side of
+the implication, the $\neg$ flips it before it can migrate past the implication.
+In other words, the quantifier-implication equations can be derived
+from from \{implication\}, \{$\neg\forall$\}, and \{$\neg\exists$\}.
+
+Let's consider again the formula
+$$((\exists y.(\forall x.P(x, y))) \rightarrow (\forall x.(\exists y.P(x, y))))$$
+that we have already converted to
+$$((\exists v.(\forall u.P(u, v))) \rightarrow (\forall x.(\exists y.P(x, y))))$$
+by renaming the $x$ and $y$ variables on the left-hand side of the $\rightarrow$.
+We want to migrate the quantifiers to the left-hand side of the formula,
+so we need to choose a quantifier to start with.
+We could try to migrate the $\exists v$ or the $\forall x$, for example.
+Later we will say something about how to make such a choice,
+but for let's just try to migrate the $\forall x$ quantification.
+This produces the following formula.
+$$(\forall x.((\exists v.(\forall u.(P(u, v)))) \rightarrow (\exists y.(P(x, y))))).$$
+Again we have a choice of quantifications to migrate.
+This time we choose $v$ and come to the following formula.
+$$(\forall x.(\forall v.((\forall u.(P(u, v))) \rightarrow (\exists y.(P(x, y))))))$$
+Now we can choose either $\forall u$ or $\exists y$.
+As it happens, either choice will work.
+Let's start with $u$.
+$$(\forall x.(\forall v.(\exists u.(P(u, v) \rightarrow (\exists y.(P(x, y)))))))$$
+Finally, we migrate $\exists y$.
+$$(\forall x.(\forall v.(\exists u.(\exists y.(P(u, v) \rightarrow P(x, y))))))$$
+
+Now we have completed the first two steps in the
+four-step strategy for reasoning about formulas with quantifiers in them:
+the renaming step and the migration step.
+Next comes quantifier removal.
+
+A universal quantification is true if
+the quantified formula is true for any value
+chosen from the universe of discourse for the bound variable.
+Our procedure is to discard the $\forall$ quantifier,
+replace its bound variable by a constant symbol, then
+prove that regardless of which value from the universe of discourse
+the constant symbol stands for, the formula has the value $True$.
+Following this procedure, we remove the $\forall$ quantifier
+at the beginning of the formula and replace the bound variable $x$
+by the constant symbol $x_0$.
+We do the same for the second $\forall$, replacing its bound variable
+$v$ by the constant symbol $v_0$.
+As we discussed earlier, it is vital that $x_0$ and $v_0$ are different
+from every other symbol in the formula $(P(u, v) \rightarrow P(x, y))$
+That gets us to the following formula.
+$$(\exists u.(\exists y.(P(u, v_0) \rightarrow P(x_0, y))))$$
+
+If we can prove that it is true regardless of what values
+$x_0$ and $v_0$ stand for, we will have established that the
+original formula has the value $True$.
+By definition an existential quantification is true if
+there is a value from the universe of discourse that
+makes the quantified formula true when it is put in place of
+the bound variable.
+Therefore, if we can find such values for both existential
+quantifiers, our proof will be complete.
+
+A hypothesis of the theorem we are trying to prove
+is that both indexes of the predicate have the same universe of discourse.
+Therefore, we can, if we want to,
+choose the value $x_0$ for the bound variable $u$
+that is associated with the first $\exists$
+and the value $v_0$ for the bound variable $y$
+that is associated with the second $\exists$.
+If we choose those values and put them in the
+quantified formula, it comes to the following.
+$$(P(x_0, v_0) \rightarrow P(x_0, v_0))$$
+
+There are no variables left in the formula, just constants.
+So, the formula is an ordinary proposition in Boolean algebra.
+We can cite the \{self-implication\} axiom
+(Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
+to conclude that the formula $(P(x_0, v_0) \rightarrow P(x_0, v_0))$
+has the value $True$, which proves the theorem.
+
+This example illustrates a rationale for migrating
+$\forall x$, then $\exists v$, and finally $\forall u$ and $\exists y$.
+We were motivated by the desire to wait as long as possible before having to make
+a choice. That means that whenever we have a choice, we want to migrate a quantifier
+that will become a ``for all'' before we migrate one that will become a ``there exists.''
+For example, when we were migrating quantifiers on the following formula, we considered
+migrating $\exists v$ and we also considered migrating $\forall x$.
+$$((\exists v.(\forall u.P(u, v))) \rightarrow (\forall x.(\exists y.P(x, y))))$$
+
+Migrating the variable $\forall x$ (citing \{$\rightarrow\forall$\})
+or $\exists v$ (citing \{$\exists\rightarrow$\}).
+Both lead to a $\forall$ quantifier in the front,
+so neither has an advantage.
+We chose to migrate the $\forall x$, but let's try migrating
+the $\exists v$ this time, and see how it goes.
+$$(\forall v.((\forall u.(P(u, v))) \rightarrow (\forall x.(\exists y.(P(x, y))))))$$
+
+Now, there is a choice of migrating the $\forall u$ (citing \{$\exists\rightarrow$\})
+or $\forall x$ (citing \{$\rightarrow\forall$\}).
+This time it \emph{does} matter.
+If we migrate the $\forall x$ first, we get $\forall$ quantifier at the front,
+but if we migrate the $\forall u$, we get $\exists$ at the front.
+We prefer to have universal quantifiers at the beginning of the formula
+because it delays the choice of specific values from the universe of discourse
+that removing an existential quantifier requires.
+We want to leave the choice open as long as possible, to give ourselves
+the best chance of making a choice that will help the proof.
+Therefore, we're better off migrating the $\forall x$ quantifier first.
+$$(\forall v.((\forall x.((\forall u.P(u, v)) \rightarrow (\exists y.P(x, y))))))$$
+
+It is essential to delay the choice of a universally quantified variable
+as long as possible. 
+For example, take the following statement, which is $True$ 
+when the domain of discourse is the integers.
+$$(\forall x.((\exists y.(x < y))))$$
+To prove this theorem, we would first remove the universal quantifier ($\forall$), 
+leaving the formula $(\exists y.(x_0 < y))$.
+Now it is easy to find a suitable value of $y$, namely $x_0+1$, ending up with
+$x_0 < x_0 + 1$.
+
+On the other hand, suppose we were trying to prove the following statement, which
+is \emph{actually false}:
+$(\exists y.((\forall x.(x < y))))$.
+We are forced to remove the quantifier for the variable $y$, but that means we have
+to choose the right value of $y$, and we cannot possibly know what value that would be
+until we know the value of $x$.
+Now, you may think that we can replace $y$ with the expression $x+1$, but this would
+not be allowed. The reason is that $x+1$ is not a constant, and we can
+only replace a variable with a constant. And in case you think this is an arbitrary
+rule, remember that the statement $(\exists y.((\forall x.(x < y))))$ is \emph{not}
+$True$. It is not true that there exists a \emph{single} value of $y$ that is larger
+than all possible values of $x$.
+
+So in general, the order in which quantifiers are migrated to the front \emph{is}
+important. And that's why we always migrate the quantifiers so that, as far as
+possible, ``for all'' quantifiers appear before ``there exists'' quantifiers.
+
+The four-step strategy is only one of many ways to prove theorems about
+formulas with quantifiers. It is related to the way
+the mechanized logic of ACL2 can be used to reason about quantified formulas.
+Natural deduction provides another approach, but additional rules of inference
+are needed.
+The equations of Figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
+form the basis of yet another method.
+Generally, the methods we will employ involve the use of equations
+like those of Figure~\ref{fig-02-quantifiers}, as in the examples
+of this section.
+
+\begin{ExerciseList}
+\Exercise Prove that $(\forall x.P(x)) \rightarrow (\exists x.P(x))$.
+\Exercise What goes wrong when you attempt to prove that $(\exists x.(P(x))) \rightarrow (\forall x.(P(x)))$?
+Explain why this is different than the previous exercise.
+\Exercise Prove that $((\forall x.(P(x) \rightarrow Q(x))) \wedge (\forall x.(Q(x) \rightarrow R(x)))) \rightarrow (\forall x.(P(x) \rightarrow R(x)))$.
+\Exercise Derive the four quantifier-implication equations (Figure~\ref{fig-02-quantifiers})
+from other axioms and theorems.
+\Exercise Supply the details of the proof of the \{$\neg\exists$\} equation sketched in this section
+(page \pageref{why-neg-forall}).
+\Exercise Derive the \{$\neg\exists$\} equation from the \{$\neg\forall$\} equation
+(Figure~\ref{fig-02-quantifiers}) and
+other previously proven axioms and theorems.
+
+\end{ExerciseList}
+
+
+\section{Boolean Models}
+\label{sec:boolean-models}
+
+A Boolean variable $x$ stands for a proposition,
+such as ``Socrates is a man.''
+Within the domain of logic, this represents a true/false value,
+and Boolean formulas and equations provide a way to carry out
+a consistent analysis of relationships between propositions.
+However, stating the proposition in the form ``Socrates is a man''
+suggests that expect proposition to have a meaning in a real-world domain.
+If the variable $x$ stands for the statement ``Socrates is a man,''
+we expect $x$ to be $True$ if the statement is consistent with a fact
+in the real world, $False$ if it is inconsistent with the facts.
+Even if we don't know the facts, we expect $x$ to be either $True$ or $False$,
+not both and not something else,
+according to the actual state of underlying conditions unknown to us.
+
+In other words we intend the proposition $x$ to mean something the real world,
+and we use logic to analyze relationships between this proposition and other
+assertions about the real world stated as true/false propositions.
+In logic mode, we apply the mathematical axioms and rules of inference,
+and in the end we interpret our conclusions, which are statements in logic,
+as statements about the real world.
+This makes sense only so far as the propositions we started with
+accurately model the real-world domain we want them to represent.
+In the domains of software and digital circuits,
+the correspondence is extremely reliable.
+It is rare for a digital circuit to go haywire or an interpreter of
+a programming language to go awry.
+
+Accurate modeling of other domains by propositions in logic can be problematic,
+but we want to expand the horizon a bit with a discussion
+of the game of \emph{Nim}.
+There are many variants of this game, and we will consider a simple one.
+The game starts with a pile of ten stones. Two players (Alice and Bob in this discussion)
+take turns removing one, two, or three stones from the pile.
+The player who picks up the last stone loses.
+The chart in
+Figure~\ref{fig:example-nim-game} (page \pageref{fig:example-nim-game})
+summarizes a game that Alice won.
+
+\begin{figure}
+\begin{center}
+%\begin{flushleft}
+\begin{tabular}{l|l|l|l}
+Move & Alice     & Bob      & Stones \\
+\hline
+0    &           &          & 10     \\
+1    & Remove 2  &          & 8      \\
+2    &           & Remove 3 & 5      \\
+3    & Remove 1  &          & 4      \\
+4    &           & Remove 2 & 2      \\
+5    & Remove 1  &          & 1      \\
+6    &           & Remove 1 & 0      \\
+\end{tabular}
+%\end{flushleft}
+\end{center}
+\caption{A Game of Nim}
+\label{fig:example-nim-game}
+\end{figure}
+
+We will try simulate the play of the game of Nim using propositional logic.
+We will use Boolean variables to represent the pile of stones.
+For example, we could use the variable $x$ to mean ``there are 10 stones in the pile''
+and $y$ to mean ``there are 9 stones in the pile.''
+If we continue with this scheme, we will have a lot of names with
+no easily-recalled connection to their meanings.
+
+Another approach is to let $x10$ mean ``there are 10 stone in the pile,''
+$x9$ that ``there are 9 stones in the pile,'' and so on
+down to $x0$ for an empty board.
+The collection of these 11 Boolean variables can describe any pile,
+but they could just as well describe an impossible situation.
+For example, both if $x1$ and $x5$ were $True$,
+the pile would consist of one stone and also consist of five stones,
+and this cannot be correct.
+To make our model in logic correspond to a real game of Nim,
+we need constraints on the relationships between the variables.
+
+The game restricts of the number
+of stones in a pile to between zero and ten.
+We can account for this restriction by requiring
+the following formula to have the value $True$.\footnote{To
+save space, part of the formula has
+been elided, but we think you can fill in the missing parts.
+Many of the formulas in our model of Nim will be abbreviated in this way.}
+$$x0 \vee x1 \vee x2 \vee \cdots \vee x10$$
+
+This rule would avoid some impossible situations in a real game of Nim.
+Another restriction is that there cannot be both zero stones in the pile
+and one stone in the pile, nor both zero stones and two stones, and so on.
+We can account for this restriction by asserting that the following formula
+has the value $True$.
+$$(\neg(x0 \wedge x1)) \wedge (\neg(x0 \wedge x2)) \wedge \cdots \wedge (\neg(x0 \wedge x10))$$
+
+Of course,
+we also need to eliminate the possibility of having
+both one stone and two, one stone and three, and so on.
+$$(\neg(x1 \wedge x2)) \wedge (\neg(x1 \wedge x3)) \wedge \cdots \wedge (\neg(x1 \wedge x10))$$
+This new rule could have also included the $(\neg(x0 \wedge x1))$ formula,
+but we are going to require all our rules to hold, so we don't need to
+repeat a restriction already made by the first rule.
+
+We could carry on in this vein,
+but to capture the play of an entire game of Nim,
+we would need to be able to deal with changes in the pile of stones
+as the game progresses.
+Our considerations so far have been limited to an unchanging pile of stones.
+We need to add a time component to the model.
+To do that, we will need to have many more variables,
+and it will help if we name them in a way that helps
+us remember what they mean in the game.
+
+%%% superscript = move
+%%% subscript = stones
+
+Our new scheme will use the variable $x_{10}^{3}$ to mean
+``there are 10 stones in the pile after 3 moves.''
+The variable $x_{5}^{2}$ would have the value $True$
+for the game summarized in
+Figure~\ref{fig:example-nim-game} (page \pageref{fig:example-nim-game})
+because there are five stones remaining after Bob makes the
+second move of the game.
+It is important to recognize that a Boolean variable like $x_{10}^{3}$
+is no different, except in name, from Boolean variables such as $y$ or $z$.
+Both the subscript and the superscript are just part of the name.
+It is tempting to believe that since we have a variable called $x_{10}^{3}$,
+we have variables called $x_{12}^{7}$ and $x_{3}^{26}$.
+However, there are no such variables in our model because there cannot be twelve stones
+in the pile, nor can there be a move number twenty-six.
+
+The superscript part of the name stands for the number of stones remaining,
+so it must be between zero and ten, and the subscript stands for the
+move number, so it also must be between zero and ten because,
+since each move removes at least one stone, no game can have more than ten moves.
+The numbered portions of the name tell us at
+a glance how many stones are in the pile
+and how many moves have been made.
+There are a lot of things to keep straight.
+We need 121 variables in all: 11 pile sizes (zero stones through 10 stones)
+times 11 moves numbers (move 0 through move 10,
+but no move 11 because at least one stone is removed in each move).
+Our naming scheme makes the model easier to comprehend.
+
+Initially, there are ten stones in the pile,
+so the variable  $x_{10}^{0}$ has the value $True$
+and the variables $x_{0}^{0}$, $x_{1}^{0}$, $x_{2}^{0}$, \dots $x_{9}^{0}$
+all have the value $False$.
+This is the ``initial condition'' for the game of Nim,
+expressed in terms of the Boolean variables we are using
+in our model.
+
+Another constraint is that after move number six,
+the number of stones remaining will still be between zero and ten.
+That is, the following formula has the value $True$.\footnote{Actually,
+the formula could be more restrictive because
+after move six there cannot be more than four stones remaining.
+We will account for this constraint later, and in a more general way.}
+$$x_{0}^{6} \vee x_{1}^{6} \vee x_{2}^{6} \vee \cdots \vee x_{10}^{6}.$$
+
+Our model has ten formulas like this,
+When we combine all of them with AND,
+we get a formula that constrains the number of stones
+in the pile at each stage in the game.
+The formula will have the value $True$ for any properly played game of Nim.
+
+Another kind of constraint in a properly played game is one
+we discussed before we added variables to the model to account for the move number.
+At every stage, there is only one number of stones remaining in the pile.
+After move 3, for example, there cannot be both three stones remaining
+and five stones remaining.
+So we need some rules like the following after six moves.
+$$(\neg(x_{0}^{6}) \wedge (x_{1}^{6})) \wedge (\neg(x_{0}^{6} \wedge x_{2}^{6})) \wedge \cdots \wedge (\neg(x_{0}^{6} \wedge x_{10}^{6}))$$
+This formula disallows piles having both zero and five stones or zero and seven stones,
+but as before we need nine additional
+formulas to disallow piles with both one and two stones, one and three stones, and so on.
+$$(\neg(x_{1}^{6} \wedge x_{2}^{6})) \wedge (\neg(x_{1}^{6} \wedge x_{3}^{6})) \wedge \cdots \wedge (\neg(x_{1}^{6} \wedge x_{10}^{6}))$$
+That is a total of ten formulas that must be combined using AND
+to rule out impossible combinations after move six.
+And, that's just move six.
+We need a group of rules like this to describe the pile after zero moves,
+one move, two moves, and so on, up to ten moves.
+These 11 groups of rules should also be combined using AND,
+making 11 times 10, or 110, separate rules combined with AND.
+
+What about the rules for removing stones from a pile?
+For example, if the pile has five stones after move three,
+then it must have four, three, or two stones after four,
+since the player removes either one, two, or three stones in step four.
+This can
+be captured with the following rule:
+$$x_{5}^{3} \rightarrow (x_{4}^{4} \vee x_{3}^{4} \vee x_{2}^{4}).$$
+We need only be careful when we get down to piles with fewer than three stones. For example, for the case when there are only
+two stones left in the pile, we need a rule like the following:
+$$x_{2}^{3} \rightarrow (x_{1}^{4} \vee x_{0}^{4}).$$
+And what do we do when we run out out of stones?
+One way to proceed is to continue the pattern
+and just ensure that there are no stones at the next turn:
+$$x_{0}^{3} \rightarrow x_{0}^{4}.$$
+Of course, many such rules will be needed,
+one rule for each possible combination of stones left and number of moves made.
+
+Now consider a single formula combining all the constraints.
+\begin{quote}
+\begin{center}
+\emph{Nim-constraints (a formula that is $True$ for all Nim games)}
+\end{center}
+\begin{enumerate}
+\item the initial pile containing ten stones, AND
+\item the possible legal descriptions of piles at all times, AND
+\item the legal ways in which a pile transform from one move to the next, AND
+\end{enumerate}
+\end{quote}
+
+The Nim-constraints formula has the value $True$ for all properly played games of Nim.
+Every Nim game corresponds to a particular combination of values of
+the Boolean variables in the model.
+The combination must ensure that the Nim-constraints formula is $True$, and
+the Nim game corresponding to that combination can be reconstructed
+from an inspection of the values of the Boolean variables.
+One combination will correspond to the game in which the Alice removes two stones,
+then Bob removes three, then Alice one more, and so on.
+If the value of the Alice-wins formula it $True$
+for that combination values of the variables,
+then Alice won the game. If it is $False$, Bob won.
+
+But, how do we know who wins?
+Since Alice moves first, the move number for each of her moves is a odd number (1, 3, 5, \dots),
+and Bob's move numbers are even (2, 4, 6, \dots).
+According to the rules, the person who picks up the last stone loses.
+So, we can characterize a win by one player or the other by
+the following formulas.
+\begin{center}
+\label{alice-wins-formula}
+\begin{tabular} {ll}
+\emph{Alice-wins}: & $x_{0}^{2} \vee x_{0}^{4} \vee x_{0}^{6} \vee x_{0}^{8} \vee x_{0}^{10}$ \\
+\emph{Bob-wins}:   & $x_{0}^{1} \vee x_{0}^{3} \vee x_{0}^{5} \vee x_{0}^{7} \vee x_{0}^{9}$  \\
+\end{tabular}
+\end{center}
+
+If we were to AND the Nim-constraints formula with the Alice-wins formula
+and find it to have the value $True$, then we could conclude that Alice always wins the game.
+If it were $False$, we could conclude that Alice never wins.
+But, there is a third possibility.
+It may be that for some values of the Boolean variables,
+the Alice wins formula is $True$
+and for other values it is $False$.
+Each possible combination of the Boolean variables
+corresponds to a single game of Nim.
+Furthermore, for any combination of value of the variables that makes the
+Nim-constraints formula true, the values of the individual Boolean variables
+show how to reconstruct the game.
+One combination will correspond to the game in which the Alice removes two stones,
+then Bob removes three, then Alice one more, and so on.
+If the value of the ``Alice wins'' formula is $True$ for that
+combination values of the variables, then Alice won the game.
+If it is $False$, Bob won.
+So, this collection of Boolean formulas provides a model of the game of Nim
+that can be used to analyze the play and figure out which player won.
+
+Now here is something that may surprise you.
+It is one of the central themes of computer science
+that models of computer programs can take a form
+similar to the model we discussed for the game of Nim,
+but only if we have an \emph{upper bound on the number of
+steps in the computation the program represents}.
+To do this on the scale of a computer program,
+a formula is required that combines
+\begin{quote}
 \begin{enumerate}
 \item the initial configuration of the computer, AND
 \item the possible legal configurations of the computer at all times, AND
 \item the legal transitions of the computer from one step to the next, AND
 \item the formula that ``the program is finished.''
 \end{enumerate}
-Since digital computers store everything as a sequence of ones and zeros, the initial configuration is simply the initial 
-values of those bits, either ones or zeros. The legal configurations rule out the possibility that a given bit is both a 
-one and a zero at the same time. The legal transitions correspond to the actual program and how it manipulates information 
-over time. And we can tell when the program is finished in many ways, for example by insisting that the last thing it does 
-is set a specific bit to one.
+\end{quote}
 
-So there you have it. If you know that a given program will execute in 10 million or fewer steps, then you can (in principle) 
-write down a Boolean formula that completely captures its execution. In this sense, Boolean formulas are powerful enough to 
-represent any computer program, as long as you can state ahead of time how long it will take to execute. So never give in to 
-the fallacy that Boolean formulas are somehow limited.
+Since digital computers store everything as a sequence of ones and zeros,
+the initial configuration is simply the initial values of those bits.
+The legal configurations rule out the possibility that a given bit is both a
+one and a zero at the same time.
+The legal transitions correspond to the actual program and how it manipulates information
+over time. And, a traditional way to specify that the program is finished
+is to choose a specific bit in the model, to include in the initial conditions
+that the chosen bit is zero, and to insist that
+the bit remains as a zero until, as its last act,
+program sets the bit to the value one.
+
+So there you have it.
+If you know that a given program will execute in, say, 10 million or fewer steps,
+then (in principle) you can
+write down a Boolean formula that completely captures the computation
+that the program represents.
+In this sense, Boolean formulas are sufficient to
+represent any computer program,
+as long as you can state ahead of time how long it will run.
+Generally speaking, this kind of analysis isn't feasible
+because the formulas have way too many variables.
+However, for small components,
+specifications of this kind are feasible, and they can be combined
+to analyze larger systems. The key is modularity: keeping the
+components small and manageable and combining them in
+ways that limit a sudden explosion of complexity.
 
 \begin{ExerciseList}
-\Exercise 
-We made a major simplification in the presentation of tic-tac-toe. If you were paying close attention, you may have noticed 
-that player O can continue playing after X wins. In fact, our rules demand that, because they say that at each of the 9 
-possible steps one of the blanks is replaced by an X or an O, depending on whose turn it is. Alter the rules so that this 
-problem is taken care of.
+\Exercise
+Did you notice the mistake in the way we described the game of Nim?
+Suppose that Alice wins in step 5, so that $x_{0}^{6}$ is true.
+According to our rules, that means that $x_{0}^{7}$ must also be true,
+but then from the description of ``Bob wins,''
+you would conclude that both Alice and Bob won.
+That is not at all what we meant! Modify the formula that says ``Alice wins''
+to take care of this complication.
 
 \Exercise
-Consider a simple game that begins with 10 coins on a table. Bob and Alice take turns removing one, two or three coins, and 
-the player who removes the last coin wins. Construct a Boolean formula that corresponds to a game in which Alice wins. What does
-it mean if this formula is $True$? What if it's $False$? Can it be neither? If so, what does that mean?
+There are many variants of the game of Nim.
+In another variant, there are three piles of stones, and each player can remove
+one or more stones from any single pile. T
+he player who removes the last stone loses the game.
+Describe this game using Boolean variables and formulas.
+
 \end{ExerciseList}
 
-\section{Beyond Boolean Equations: Predicates and Quantifiers}
+\section{More General Models with Predicates and Quantifiers}
+\label{sec:predicates}
 
-You now know that Boolean equations can be used to describe very complicated scenarios. They really are more powerful 
-than may appear at first. But you have also seen how incredibly cumbersome it can be. It is time to learn about predicates, 
-a simple extension to Boolean variables that simplifies the task of representing the real world in logic.
+You now know that Boolean formulas and equations can be used
+to describe and analyze complicated, real world artifacts.
+The Boolean domain has more scope than is apparent at first glance,
+but using it can be cumbersome to the point of infeasibilty.
+Hundreds, thousands, or millions of Boolean variables are needed,
+and they are difficult to organize in an understandable fashion.
 
-A predicate has a name and one or more arguments, for example, $man(socrates)$. 
-The predicate is $man(X)$ and the $X$ is an argument that can be filled by any constant, 
-such as $socrates$. A predicate is either $True$ or $False$, so for example, $man(socrates)$
-precisely because Socrates is a man. In general, any property that is $True$ or $False$
-depending on the value of its arguments is a predicate. We usually write predicates as
-$man(socrates)$, but other predicate expressions are very established and have their 
-own syntax, for example $5 < 10$ is a predicate that evaluates to $True$.
-In other words, a predicate replaces a Boolean variable 
-such as $x125$ with $x(1,2,5)$. This does not appear to be a major improvement, but the real power of predicates comes from 
-the use of logical variables.
+The Boolean model of the game of Nim in Section~\ref{sec:boolean-models}
+defined 121 variables to deal with various aspects of the game.
+The variable $x_s^t$ 
+was $True$ if after move $t$ there were $s$ stones left in the pile.
+Let's see how this model would work out if we used a predicate X
+instead of 121 individual variables.
+The predicate will have two indexes: (1)~an integer $s$ between 0 and 10
+representing the number of stones in the pile
+and (2)~an integer $t$ between 0 and 10 indicating the move number.
+The universe of discourse for the first index is the same as that
+for the second index, namely the set of integers between 0 and 10.
 
-Logical variables stand for the objects under discussion. For example, if we are using logic to describe some aspect of
-people, then a logical variable $X$ can stand for any one person. Above, we saw the predicate $man(socrates)$, which is $True$
-precisely when the constant $socrates$ refers to a man. Using logical variables, we would say that $man(X)$ is $True$ precisely
-when $X$ refers to a man. That is, if $X=socrates$, then $man(X)$ is $True$, and if $X=plato$ $man(X)$ is also $True$, but if
-$X=hypatia$, then $man(X)$ is $False$. So the value of $man(X)$ depends on precisely which person $X$ stands for; it will be
-$True$ for some, but $False$ for others.
+The proposition $X(s,t)$ in predicate X has the same meaning as the variable
+$x_s^t$ in the propositional model.
+Since the variables are organized in a predicate,
+we can use quantifiers to make assertions with compact and understandable formulas.
+The formula  $(\exists t.X(0,t))$
+is $True$ because a game of Nim always ends with no
+stones in the pile.
+The formula means that the game of Nim always ends in ten or fewer moves.
+The Alice-wins formula
+from the Nim model (page \pageref{alice-wins-formula})
+would be $\exists t.(Even(t) \wedge X(0,t))$,
+where 
+$Even(t)$ is the predicate that detects even numbers
+(page \pageref{even-number-predicate-Even}).
+The formula $\forall s.((s < 10) \rightarrow (\neg X(s,0)))$
+is $True$ because there are 10 stones in the pile at move 0.
 
-This helps explain the power of predicates. Recall the use of Boolean variables in modeling tic-tac-toe, such as $x129$
-with the meaning ``The top-center cell has an X after 9 moves of the game.'' To reason about the top-center cell
-at all possible times, we have to consider ten different Boolean variables, namely $x120$, $x121$, $x122$, all the way 
-up to $x129$. But with predicates, we can instead refer to $X(1, 2, t)$ where $t$ is a logical variable with the possible
-values 0, 1, \dots, 9. Using this notation, we can express ourselves much more briefly.
+In the propositional model we specified that the pile after six moves
+cannot have both no stones and one stone, nor zero stones and two, etc.
+$$(\neg(x_{0}^{6} \wedge x_{1}^{6})) \wedge (\neg(x_{0}^{6} \wedge x_{2}^{6})) \wedge \cdots \wedge (\neg(x_{0}^{6} \wedge x_{10}^{6}))$$
+Using quantifiers, we can write this more succinctly.
+$$(\forall s.((s \neq 0) \rightarrow (\neg(X(0, 6) \wedge X(s, 6))))$$
 
-But what exactly is the meaning of $X(1, 2, t)$? It clearly depends on the value of $t$, so in a sense this expression by
-itself is neither $True$ nor $False$, but it ``just depends.'' This is where quantifiers come in. There are two common
-quantifiers that we can use to give a precise meaning to $X(1, 2, t)$. The ``for all'' quantifier is written the symbol
-$\forall$, which looks like an upside-down A. The expression $(\forall t.(X(1, 2, t)))$ is $True$ precisely when $X(1, 2, t)$
-is $True$ for all possible values of $t$. For example, you may remember that we specified the initial condition of the
-game tic-tac-toe as follows:
-$$z110 \wedge z120 \wedge z130 \wedge z210 \wedge z220 \wedge z230 \wedge z310 \wedge z320 \wedge z330$$
-That is, each of the nine different cells must have a blank at time 0. We can say the same much more succinctly using
-predicates and quantifiers:
-$$(\forall r.(\forall c.(Z(r, c, 0))))$$
-Similarly, the constraint that if a given cell has an X at some time, then it must also have an X at the next possible time
-can be expressed very succinctly as follows:
-$$(\forall r.(\forall c.(\forall t.(X(r, c, t) \rightarrow X(r, c, t+1)))))$$
+Using propositions, we needed to consider ten
+different cases, one for each possible number of stones other than zero. With the
+universal quantifier, we need only one formula to describe all of those
+possibilities. In fact, we can cover more ground.
+The propositional model also described the fact
+that no pile can have both one and two stones at the same time, or one and three
+stones, etc.  All of those expressions had to be combined using AND.
+Using universal quantification ($\forall$), 
+we can cover all possible combinations
+for move number 6 with a single formula.
+$$(\forall s_1.(\forall s_2.((s_1 \ne s_2 ) \rightarrow ((\neg(X(s_1, 6) \wedge X(s_2, 6)))))))$$
 
-The other common quantifier is ``there exists'', which is written using the symbol $\exists$, which looks very much like
-a backwards E. The expression $(\exists t.(X(1, 2, t)))$ is $True$ if there is some possible value of t such that
-$X(1, 2, t)$ is $True$ for that value of $t$. For example, $(\exists n.(even(n)))$ is $True$ because there is a value of
-$n$, say $n=2$, such that $even(n)$ is $True$. On the other hand, $(\forall n.(even(n)))$ is $False$, because not all
-integers are even.
+To specify this constraint for the entire game, not just move number 6,
+we need ten more similar formulas combined with AND. 
+This can be expressed with a universal quantification spanning the move numbers ($\forall t \dots$).
+$$(\forall s_1.(\forall s_2.(\forall t.((s_1 \ne s_2) \rightarrow (\neg(X(s_1, t) \wedge X(s_2, t)))))))$$
+This single formula is equivalent to over 500 formulas that were
+necessary we were building the model without using predicates and quantifiers.
+
+In the game of Nim, the propositional formula specifying that the pile must contain between zero and
+ten stones after six moves was written as follows.
+$$(x_{0}^{6} \vee x_{1}^{6} \vee x_{2}^{6} \vee \cdots \vee x_{10}^{6}).$$
+An existential quantification makes it more succinct: $(\exists s.X(s, 6))$.
+As before, we can use universal quantification to extend this requirement
+across all the moves:
+$(\forall t.(\exists s.(X(s, t))))$.
+The order of the quantifiers matters. This expression says that at any given
+time, there is a specific number of stones in the pile. If the quantifiers were reversed,
+the statement would indicate that the pile has some fixed number of stones
+at all possible points in time, which is false because the size of the pile
+changes with every move.
 
 \begin{aside}
-``For all'' and ``there exists'' are not the only possible logical quantifiers. For example, you may imagine a context
-in which ``for most'' is a perfectly sensible quantifier. In some branches of mathematics, it is common to use the
-quantifiers ``almost everywhere'' and ``almost nowhere'' which have precise mathematical definitions, although they
-appear to be somewhat fuzzy in natural language.
+``For all'' and ``there exists'' are not the only possible logical quantifiers.
+For example, you may imagine a context
+in which ``for most'' is a perfectly sensible quantifier.
+In some branches of mathematics, it is common to use the
+quantifiers ``almost everywhere'' and ``almost nowhere''
+which have precise mathematical definitions even though
+sound fuzzy in an informal description.
 \end{aside}
 
-The true power of predicates comes from the use of quantifiers. For example, we saw in the previous section that it
-is possible to characterize the game of tic-tac-toe using just Boolean variables, with a formula that looks like this:
+Quantifiers are the device that makes formulas using predicates more compact than
+formulas that stay in the domain of propositions.
+We saw in the previous section that it
+is possible to characterize the game of Nim using just Boolean variables, with a formula that looks like this:
+\begin{quote}
 \begin{enumerate}
-\item the initial configuration of the board, AND
-\item the possible legal configurations of the board at all times, AND
-\item the legal transitions of the board from one step to the next, AND
-\item the formula that ``Player 1 wins.''
+\item the initial pile containing ten stones, AND
+\item the possible legal descriptions of piles at all times, AND
+\item the legal ways in which a pile transform from one step to the next, AND
+\item the formula that ``Alice wins.''
 \end{enumerate}
-In this section, we have seen how these formulas can be simplified greatly using predicate logic. In fact, with predicate
-logic we can do more than just simplify the formulas---we can express more powerful ideas. Consider the formula with
-meaning ``Player 1 wins.'' Previously, this was built by taking together the more concrete formulas ``Player 1 wins at
-time 0,'' ``Player 1 wins at time 1,'' \dots, ``Player 1 wins at time 9'' and joining them all with ORs. Using predicates
-and quantifiers, however, it is more straightforward to say $(\exists t.(Player1Wins(t)))$.
+\end{quote}
 
-Resist the temptation to think that this is just a simple syntactic change. We have gained much more than the ability to
-collect all 10 possible ``Player 1 wins at time \dots'' phrases into a single statement. The reason is that there is that
-the variable $t$ can potentially stand not just for the numbers 0 through 9, but for any possible value of time. For example,
-we saw that this same approach applies to more open-ended games like chess. Using propositions, we could (in principle)
-completely describe the game of chess, but only if we limit such games to, say, 200 moves. With predicates, we have no such
-limit---we can simply refer to an arbitrary (and vague) time at which black wins, for example.
+The formulas in this section specify the same model, but in a more understandable
+way and in much less space.
+Predicate logic can do more than simplify the formulas.
+It can express bigger ideas.
+Consider the formula with meaning ``Alice wins.''
+In the propositional model this was built by taking together the more specialized formulas
+``Alice wins at time 2,'' ``Alice wins at time 4,'' \dots, ``Alice wins at time 10''
+and joining them all with OR.
+Using predicates and quantifiers, the formula $(\exists t.(AliceWinsAtTime(t)))$ expresses
+the same idea.
 
-To really drive this point home, remember that propositions can also be used to completely describe the execution of any
-program, as long as you could place some limit on the total number of steps required for the computation. For instance, if
-you could guarantee that the program would execute less than 1,000,000 steps, then you could (again, in principle) construct
-a Boolean expression that was $True$ if and only if the program produced a given answer. With predicates, we can do much better.
-We can actually describe an open-ended computation, e.g., with ``there exists a time $t$ at which the program is finished.'' And
-we can even use a logical variable to describe the answer, as in ``there exists a time $t$ and a value $a$ such that the program 
-finishes at time $t$ with result $a$.'' In other words, predicate logic is powerful enough to describe \emph{all} possible
-computer programs.
+This is not just a simple syntactic change.
+We have gained much more than the ability to
+collect all possible ``Alice wins at time \dots'' phrases into a single statement.
+The variable $t$ can potentially stand not just for the numbers zero through ten,
+but for any possible number of moves, so
+this same approach applies to open-ended games like chess.
+Using propositions, we could (in principle)
+completely describe the game of chess, but only if we limit chess games to, say, 200 moves.
+With predicates, there is no such limitation.
+We can refer to an arbitrary time at which black wins because the domain of discourse
+can be infinite.
 
-Now that you know about the expressive power of predicates and quantifiers, you're probably wondering about how we
-can use these in proofs, and also how we can prove formulas that involve them. Let's tackle the first question. Suppose
-we have already proved that $(\forall x.(P(5, x)))$, where $P$ is an arbitrary predicate. How can we use this predicate
-in a subsequent proof? The answer is that $(\forall x.(P(5, x)))$ is essentially a short-hand for $P(5, 0)$
-and $P(5, 1)$ and $P(5, 2)$ and \dots, for all possible values of $x$. So we can use $(\forall x.(P(5, x)))$ to rewrite
-$P(5, 0)$ to $True$, or $P(5, 1)$ to $True$, or $P(5, 2)$ to $True$, or \dots. That is, once we have proved a ``for all'' 
-formula, we can use that to justify a more specific theorem where the variable in the ``for all'' is replaced by any
-expression that we find convenient. That is the meaning of ``for all.''
+The same is true for models of computer programs.
+Before, to build a model we had to limit the number of computational steps to a fixed upper bound,
+such as a million steps.
+Then (in principle)
+a Boolean formula could be constructed that was $True$
+if and only if the program produced a given answer.
+With predicates, we can do away with the upper bound on computational steps.
+The computation can be open-ended because the domain of discourse for computational steps
+can have an infinite number of elements. It could be the set of natural numbers, for example.
+It is possible, in principle, to describe \emph{all} possible computer programs
+using formulas in predicate logic.
 
-What about $(\exists x.(P(5, x)))$? Suppose we already proved this---how can we use it in a future proof. Because
-the ``there exists'' is $True$ whenever there is at least one $x$ that makes the expression $True$, we know that
-$P(5, 0)$ is $True$, or $P(5, 1)$ is $True$, or $P(5, 1)$ is $True$, or \dots, for all possible values of $x$. But
-we do not know which one of 0, 1, \dots, is the one that works. So we can't use it directly to rewrite any known
-expression involving $P(5, \dots)$. Instead, what we can do is \emph{name} the special $x$ that makes $P(5, x)$
-equal to $True$. We often use the convention $C_x$ to name this constant, so we treat $(\exists x.(P(5, x)))$ as
-equivalent to $P(5, C_x)$ where $C_x$ is a \emph{new} constant symbol. It's very important that $C_x$ is new, because
-we have no way of knowing which is the special value that makes $P(5, \dots)$ $True$. By using a new constant
-symbol $C_x$, we are guaranteed that we are not making any other assumptions about its true identity. In most
-mathematical proofs, it is common to use a subscripted variable, such as $x_0$, instead of $C_x$ for the name
-of the new constant.
+\todo{DONE Sep2017 Not sure whether we need a section on one-directional reasoning or not ...
+seems like we do, but a full-fledged Gentzen-style treatment gets tedious ...
+how do we keep it lively, but still provide the necessary apparatus? ...
+Maybe better to introduce inference rules when we introduce induction? ...
+how many rules do we need? Would modus ponens and or-elim (plus induction) be enough? How about reductio-ad-absurdum?
+law of excluded middle?
+Just the rules we will be using in doing inductive proofs about software and circuits}
 
-So what about proofs? How can we prove a statement that users quantifiers? Our approach is to systematically
-remove the quantifiers, so that we are left with a simple statement that does not use them. In other words, we
-are left with a simple statement that has only constant symbols, e.g., $X(2, 3, 1)$. Since there are no variables,
-this is really just a Boolean formula, so it can be proved using precisely the same techniques we used for Boolean 
-formulas earlier. We do this with a four-step process:
-\begin{enumerate}
-    \item Rename quantifiers
-    \item Migrate quantifiers
-    \item Eliminate quantifiers
-    \item Prove Boolean formula
-\end{enumerate}
-The last step is exactly the same as for Boolean formulas, so we only to discuss the first three steps.
+\todo{DONE Sep2017
+after writing this, I'm not sure it does any good.
+I'm especially not sure the proof notation I've used is clearly explained.
+I went through all the lectures, homeworks, and exams in the existing applied logic course, and did not find any theorems proved by deductive reasoning that were not more easily handled by stating them as implications and proving them as equations of the form $(a \rightarrow b) = True$.
+I guess we could leave this stuff in, but give it short shrift, and refer back to it if necessary.
+We will use deduction when we come to induction, which is a deductive inference rule, but
+I'm not sure we need to make a big deal out of it
+ IN THE END, ALL INFERENCE RULES WERE COVERED
+ NAT DED FORMAT USED IS COMPACT, BUT SORT OF READABLE.
+ INTRODUCED NEGATION-INTRO and NEGATION-ELIM TO AVOID CONFUSION ABOUT A -> FALSE,
+ AND THIS TURNED OUT TO HAVE THE BENEFIT OF LIMITING DISCHARGES TO IMPLICATION-INTRO RULE
+ SO, NATURAL DEDUCTION IS WELL COVERED,
+ BUT IN THE CHART SHOWING PATHS THROUGH THE BOOK, WE MIGHT BE ABLE
+ TO SUGGEST THAT THIS SECTION ON NATURAL DEDUCTION COULD BE SKIPPED
+ BECAUSE WE DON'T MAKE MUCH USE OF DEDUCTION EXCEPT IN KIND OF A SUPERFICIAL WAY
+ IN THE EXPLANATION OF INDUCTION AS AN INFERENCE RULE}
 
-Renaming quantifiers is extremely important to prevent a quantifier from accidentally referring to a different variable
-that happens to have the same name, much like two different Johns in the same class. For example, consider the formula 
-$(\forall x.odd(x)) \vee (\forall x.even(x))$. This
-statement is clearly $False$, but only because we understand that the two $x$ variables are different from each other. If
-we somehow, e.g., when migrating quantifiers, turned this formula into $(\forall x.(odd(x) \vee even(x)))$ we would be
-making a terrible mistake, since this second formula is actually $True$ (at least for the integers). We avoid this possible
-error by renaming variables at the beginning of the proof, so we are actually dealing with $(\forall x.odd(x)) \vee (\forall y.even(y))$.
+\todo{
+Maybe change \theorem definition to remove theorem numbers and parens around theorem names.
+Could not use the \theorem command with natural deduction because
+I could not get it to work with the tabular format I needed to use in those proofs.
+Also, I used theorem names in all the references in Ch 2 anyway, instead of theorem numbers.
+This would change the look of theorems:
+   Theorem 4 ({--> truth table}). blah blah...    OLD FORMAT
+   Theorem {--> truth table}: blah blah...        NEW FORMAT, if we make the change proposed here
+}
 
-So suppose we have a formula that contains a quantifier $(\forall x.(P(x, \dots)))$. How do we rename the variable $x$ in 
-this quantifier? First of all, we insist that when we rename $x$ we use a completely new variable name, i.e., one that does
-not already appear in the formula. This is for the same reason as before, namely that we do not want to confuse the variable
-$x$ with a different variable that happens to have the same name. It would be useless to give $x$ the same name as yet another
-variable! Second, we must ensure that when we rename $x$ into, say, $y$, that we replace all occurrences of $x$ with $y$, but
-only those occurrences that refer to the \emph{same} $x$. For example, when we rename $x$ in 
-$(\forall x.odd(x)) \vee (\forall x.even(x))$, we end up with either
-$(\forall y.odd(y)) \vee (\forall x.even(x))$ or
-$(\forall x.odd(x)) \vee (\forall y.even(y))$, but \emph{never}
-$(\forall y.odd(y)) \vee (\forall y.even(y))$.
-
-For example, consider the theorem 
-$$(\exists y. (\forall x. (P(x, y)))) \rightarrow (\forall x. (\exists y. (P(x, y)))),$$
-where $P$ is an arbitrary predicate. To prove this theorem, we would first rename the variable $y$ resulting in
-$$(\exists v. (\forall x. (P(x, v)))) \rightarrow (\forall x. (\exists y. (P(x, y)))).$$
-Then, we would rename the $x$ resulting in
-$$(\exists v. (\forall u. (P(u, v)))) \rightarrow (\forall x. (\exists y. (P(x, y)))).$$
-Now we have four variables in the formula---$u$, $v$, $x$, and $y$---with a different name for each quantifier, and no
-possibility for confusion.
-
-The next step is to migrate the quantifiers at the front. I.e., we want to end up with a formula that looks like
-$(\forall x.(\exists y.(\forall z.(\dots))))$, where there are no quantifiers inside the $(\dots)$. We do this by
-repeatedly applying the following rules:
-\begin{figure}
-\begin{center}
-\begin{tabular}{ll}
-$((\forall x.(P(x, \dots))) \wedge Q) = (\forall x.(P(x, \dots) \wedge Q))$             & \{$\forall\wedge$\} \\
-$((\exists x.(P(x, \dots))) \wedge Q) = (\exists x.(P(x, \dots) \wedge Q))$             & \{$\exists\wedge$\} \\
-$((\forall x.(P(x, \dots))) \vee Q) = (\forall x.(P(x, \dots) \vee Q))$                 & \{$\forall\vee$\} \\
-$((\exists x.(P(x, \dots))) \vee Q) = (\exists x.(P(x, \dots) \vee Q))$                 & \{$\exists\vee$\} \\
-$(\neg (\forall x.(P(x, \dots)))) = (\exists x.(\neg (P(x, \dots))))$                   & \{$\neg\forall$\} \\
-$(\neg (\exists x.(P(x, \dots)))) = (\forall x.(\neg (P(x, \dots))))$                   & \{$\neg\exists$\} \\
-$((\forall x.(P(x, \dots))) \rightarrow Q) = (\exists x.(P(x, \dots) \rightarrow Q))$   & \{$\forall\rightarrow$\} \\
-$((\exists x.(P(x, \dots))) \rightarrow Q) = (\forall x.(P(x, \dots) \rightarrow Q))$   & \{$\exists\rightarrow$\} \\
-$(Q \rightarrow (\forall x.(P(x, \dots)))) = (\forall x.(Q \rightarrow P(x, \dots)))$   & \{$\rightarrow\forall$\} \\
-$(Q \rightarrow (\exists x.(P(x, \dots)))) = (\exists x.(Q \rightarrow P(x, \dots)))$   & \{$\rightarrow\exists$\} \\
-\end{tabular}
-\end{center}
-\caption{Equations of Quantifier Reasoning}
-\label{fig-02-quantifiers}
-\end{figure}
-The first four equations in Figure~\ref{fig-02-quantifiers} are true precisely because the right-hand
-side of those formulas, which we denote in the figure with the arbitrary predicate $Q$, is guaranteed
-not to refer to the variable $x$ at all, because we have already renamed quantifiers. For example,
-suppose that $((\exists x.(P(x, \dots))) \wedge Q)$ is $True$. Then $Q$ must be $True$ and there is 
-some $x$, let's say $x_0$, such that $P(x_0, \dots)$ is $True$. But then, $(P(x_0,\dots) \wedge Q)$
-is $True$, so $(\exists x.(P(x, \dots) \wedge Q))$ is also $True$. The important point is that the
-choice of $x$ cannot possibly affect the truth value of $Q$, so moving the quantifier above the
-$\vee$ or $\wedge$ does not make a difference.
-
-The rules $\{\neg\forall\}$ and $\{\neg\exists\}$ may appear more mysterious at first, but they actually
-capture the everyday meaning of ``for all'' and ``there exists.'' For example, suppose that it is not
-the case that $P(x,\dots)$ is $True$ for all values of $x$. That is just the same as saying that there
-is some value of $x$ such that $P(x,\dots)$ is not $True$, and that is precisely what 
-\{$\neg\forall$\} says more formally.
-
-Finally, the last four equations in Figure~\ref{fig-02-quantifiers} describe how quantifiers behave
-inside implications. When the quantifier is in the left-hand side of an implication, it flips from
-``for all'' to ``there exists'' and vice versa when it is migrated through the implication, but it remains the same when it appears in the right-hand side. This may seem surprising, and many students
-find it completely unintuitive at first, but remember that $p \rightarrow q$ is the same as
-$(\neg p) \vee q$ by \{implication\}, so if the quantifier appears in the left-hand side of
-the implication, it is essentially the $\neg$ that flips it before it can migrate above the
-implication. In other words, we had no choice in these four equations, since they can be derived
-from the others, in particular from \{implication\}, \{$\neg\forall$\}, and \{$\neg\exists$\}.
-
-Let's consider again the theorem 
-$$(\exists y.(\forall x.(P(x, y)))) \rightarrow (\forall x.(\exists y (P(x, y)))),$$
-which we have already converted to
-$$(\exists v.(\forall u.(P(u, v)))) \rightarrow (\forall x.(\exists y.(P(x, y)))),$$
-by renaming the first $x$ and $y$ variables. At this point, we have a choice of variables that
-we can migrate to the front, either $v$ or $x$. We will consider the more advantageous choice
-later, but for now we will simply state that migrating $x$ first is a good idea, resulting in
-$$(\forall x.((\exists v.(\forall u.(P(u, v)))) \rightarrow (\exists y.(P(x, y))))).$$
-Again we have a choice of which variable to migrate, and this time we will choose $v$, resulting in
-$$(\forall x.(\forall v.((\forall u.(P(u, v))) \rightarrow (\exists y.(P(x, y)))))).$$
-To continue migrating quantifiers, we can choose either $v$ or $y$ at this stage. As it happens,
-either choice will work, so we choose to migrate $u$ first, resulting in
-$$(\forall x.(\forall v.(\exists u.(P(u, v) \rightarrow (\exists y.(P(x, y))))))),$$
-and finally
-$$(\forall x.(\forall v.(\exists u.(\exists y.(P(u, v) \rightarrow P(x, y)))))).$$
-
-Once the quantifiers are in the front, we remove them to result in an expression that has
-only constant symbols. Removing a ``for all'' quantifier is easy. Suppose we wish to show
-that $(\forall x.(P(x, \dots)))$ is $True$. Since $P(x, \dots)$ must be true for all possible
-values of $x$, we can prove this by replacing $x$ with a \emph{completely arbitrary} constant.
-That is, if we can show that $P(\text{fred}, \dots)$ is true without making any assumptions
-at all on ``fred'', then we can safely say that $P(x, \dots)$ is true for all values of $x$.
-So to prove $(\forall x.(P(x, \dots)))$ we simply replace the variable $x$ with an
-\emph{arbitrary} constant $x_0$, and prove $P(x_0, \dots)$. It is vital that $x_0$ is a \emph{new}
-constant symbol, so make sure that it does not accidentally appear anywhere else in $P$.
-
-For example, in the proof of 
-$$(\exists y.(\forall x.(P(x, y)))) \rightarrow (\forall x.(\exists y (P(x, y)))),$$
-we rewrote the expression as
-$$(\forall x.(\forall v.(\exists u.(\exists y.(P(u, v) \rightarrow P(x, y))))))$$
-by renaming the quantifiers and migrating them to the front. The proof can now proceed
-by removing the ``for all'' quantifier for $x$, resulting in
-$$(\forall v.(\exists u.(\exists y.(P(u, v) \rightarrow P(x_0, y)))))).$$
-Notice that the constant symbol $x_0$ is completely new, in that it does not appear anywhere
-else in the formula. Next, we can remove the quantifier for $v$, resulting in
-$$(\exists u.(\exists y.(P(u, v_0) \rightarrow P(x_0, y))))).$$
-
-That brings us up to removing the ``exists'' quantifiers. This is actually a very delicate
-stage in the proof! Suppose we are trying to prove that
-$$(\exists x.(x > 10)).$$
-We do this by \emph{demonstrating} that $x>10$ for a suitable value of $x$, and we can choose
-the value of $x$ to use. For example, we
-can replace $x$ with 20, resulting in $20 > 10.$ This is, of course, $True$ so we have
-proved that $(\exists x.(x > 10)),$ as desired. But what if we replace $x$ with 5? Then we
-would end up with $5 > 10,$ which is clearly $False$. What do we make of this? One thing
-we cannot conclude is that $(\exists x.(x > 10))$ is $False$! We made a bad choice of $x$,
-but that does not mean that some other choice of $x$ (e.g., 20) wouldn't have worked. So
-the good news is that we can choose the value of $x$, but the bad news is we have to make
-a wise decision!
-
-Returning to our running example, let's finish the proof of 
-$$(\exists y.(\forall x.(P(x, y)))) \rightarrow (\forall x.(\exists y (P(x, y)))).$$
-By renaming and migrating quantifiers, and removing the ``for all'' quantifiers, we reduced
-this to
-$$(\exists u.(\exists y.(P(u, v_0) \rightarrow P(x_0, y))))).$$
-Now we need to remove the remaining ``there exists'' quantifiers, and we can choose any
-expression to use in place of the variables $u$ and $y$. Our job then is to choose a value
-of $u$ that will let us prove the resulting expression. For example, let's say we choose
-to replace $u$ with $0$ and $y$ with $5$, resulting in
-$$P(0, v_0) \rightarrow P(x_0, 5).$$
-At this point, we'd be stuck, just as when we ended up with $5 > 10$. The problem is that
-there's simply no reason why $P(0, v_0)$ should imply $P(x_0, 5)$. But we can make a much
-better choice. For instance, let's suppose that we replace $u$ with $x_0$:
-$$(\exists y.(P(x_0, v_0) \rightarrow P(x_0, y)))).$$
-This looks much promising, doesn't it? Then we can replace $y$ with $v_0$:
-$$P(x_0, v_0) \rightarrow P(x_0, v_0).$$
-At this point, we have a formula with \emph{no} variables. In particular, remember that
-$x_0$ and $v_0$ are \emph{constant} symbols. If $P$ is a predicate about the integers, we 
-may not know what integer $x_0$ is equal to, but we can be sure that $x_0$ is an integer.
-Now that we have a variable-free formula, we are essentially back to propositional reasoning,
-and we can finish the proof using the axioms in Figure~\ref{fig-02-03}. In this particular
-case, we can end by invoking \{self-implication\}.
-
-That also explains why we chose to migrate $x$, then $v$, and finally $u$ and $y$.
-We were motivated by the desire to wait as long as possible before having to make
-a choice. That means that whenever we have a choice, we want to migrate a quantifier
-that will become a ``for all'' before a migrate that will become a ``there exists.'' 
-For example, when we were migrating quantifiers on the following formula, we had to 
-decide whether to migrate the variable $v$ or $x$:
-$$(\exists v.(\forall u.(P(u, v)))) \rightarrow (\forall x.(\exists y.(P(x, y)))).$$
-Migrating the variable $x$ would result in a ``for all '' quantifier in the front,
-as would migrating the $v$. So there's no benefit to either one, so we can choose
-essentially at random. We chose to migrate the $x$, but let's decide to migrate
-the $v$ this time:
-$$(\forall v.((\forall u.(P(u, v))) \rightarrow (\forall x.(\exists y.(P(x, y)))))).$$
-Now, there is a choice of migrating the $u$ or $x$, but this time it \emph{does}
-matter. If we migrate the $x$ first, we move a ``for all'' quantifier to the front,
-but if we migrate the $u$ we end up with ``there exists.'' We want to delay decisions
-as long as possible, so it is to our benefit to migrate the $x$ quantifier first:
-$$(\forall v.((\forall x.((\forall u.(P(u, v))) \rightarrow (\exists y.(P(x, y))))))).$$
-
-It seems intuitive that delaying having to make a choice as much as possible is
-beneficial, but in fact it's even more than that. It's actually necessary. For example,
-take the following statement, which is $True$ when referring to the integers:
-$$(\forall x.((\exists y.(x < y)))).$$
-To prove this theorem, we would first remove the ``for all'' quantifier to end up with
-$$(\exists y.(x_0 < y)).$$
-Now it is easy to find a suitable value of $y$, namely $x_0+1$, ending up with
-$$x_0 < x_0 + 1.$$
-
-On the other hand, suppose we were trying to prove the following statement:
-$$(\exists y.((\forall x.(x < y)))).$$
-We are forced to remove the quantifier for the variable $y$, but that means we have
-to choose to correct value of $y$, and we cannot possibly know that until we know
-the value of $x$.
-Now, you may think that we can replace $y$ with the expression $x+1$, but this would
-not be allowed. The reason is that $x+1$ is not a constant expression, and we can
-only replace a variable with a constant. And in case you think this is an arbitrary
-rule, consider that the statement $(\exists y.((\forall x.(x < y))))$ is \emph{not}
-$True$. It is not true that there exists a \emph{single} value of $y$ that is larger
-than all possible values of $x$.
-
-So in general, the order in which quantifiers are migrated to the front \emph{is} 
-important. And that's why we always migrate the quantifiers so that, as far as
-possible, ``for all'' quantifiers appear before ``there exists'' quantifiers.
-
-We end this section with a caveat. The methods described here offer one way of
-proving statements that use quantifiers, but not the only way of doing so. For
-instance, it is possible to extend the techniques of natural deduction to include
-quantifiers. Ultimately, which technique you use is a matter of preference, but
-we like the methods introduced here since they are similar to the way the way the
-automated theorem prover ACL2 works, as we will see later in the following chapters.
-
-\begin{ExerciseList}
-\Exercise Prove that $(\forall x.(P(x))) \rightarrow (\exists x.(P(x)))$.
-\Exercise What goes wrong when you attempt to prove that $(\exists x.(P(x))) \rightarrow (\forall x.(P(x)))$? Be sure to explain
-    why this is different than the previous exercise.
-\Exercise Prove that $((\forall x.(P(x) \rightarrow Q(x))) \wedge (\forall x.(Q(x) \rightarrow R(x)))) \rightarrow (\forall x.(P(x) \rightarrow R(x)))$.
-\end{ExerciseList}
-
-% \todo{
-% Maybe change \theorem definition to remove theorem numbers and parens around theorem names.
-% Could not use the \theorem command with natural deduction because
-% I could not get it to work with the tabular format I needed to use in those proofs.
-% Also, I used theorem names in all the references in Ch 2 anyway, instead of theorem numbers.
-% This would change the look of theorems:
-%    Theorem 4 ({--> truth table}). blah blah...    OLD FORMAT
-%    Theorem {--> truth table}: blah blah...        NEW FORMAT, if we make the change proposed here
-% }
-
-% \todo{Check to make sure predicates and quantifiers are covered somewhere.
-% Show how to convert between forall and exists.
-% put halting problem where forall is introduced;
-%    cite (x -> not x) = (not x) {contradiction} \label{boolean-contradiction}
-% }
-
+\todo{DONE Sep2017
+Check to make sure predicates and quantifiers are covered somewhere.
+Show how to convert between forall and exists.
+put halting problem where forall is introduced;
+   cite (x -> not x) = (not x) {contradiction} \label{boolean-contradiction}
+}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "book"

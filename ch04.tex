@@ -1,7 +1,7 @@
 \chapter{Mathematical Induction}
 \label{ch:mathematical-induction}
 
-\section{Predicates and Lists as Mathematical Objects}
+\section{Lists as Mathematical Objects}
 \label{sec:lists-as-obj}
 A \emph{sequence} is an ordered list of elements.
 In fact, for our purposes, the terms ``list'' and ``sequence'' are synonyms.
@@ -29,10 +29,14 @@ However, ACL2 does not employ this square-bracket notation.
 When it displays the list [4 7 9],
 it uses round brackets: (4 7 9).
 
-To repeat, our ``pencil and paper'' formulas for lists
-employ square brackets to distinguish them from computational formulas,
-but when ACL2 displays lists, it does not make this distinction.
-It uses round brackets both for lists and for computational formulas.
+\begin{aside}
+Most of the time, our pencil-and-paper notation for lists
+will use square brackets to distinguish lists from computational formulas.
+However, ACL2 does not display lists with square brackets.
+It uses round parentheses both for lists and for computational formulas.
+\caption{Square Bracket Notation for Lists: Pencil-and-Paper Only}
+\label{square-bracket-notation}
+\end{aside}
 
 The algebra of lists includes some basic operators.
 One of them, the list construction operator ``cons''
@@ -57,142 +61,61 @@ It was introduced briefly in
 Chapter~\ref{ch:software-testing-prefix-notation} (page \pageref{list-op-informal}):
 (list 8 3 7) is an ACL2 shorthand for (cons 8 (cons 3 (cons 7 nil))).
 
-\label{proposition-def}
-We have been using the term \emph{proposition} to mean a formula that is either true or false.
-\label{predicate-def}
-Any set\footnote{The
-term ``set'' has a checkered history in mathematics.
-It is tricky to define in a way that avoids contradictions
-like Russell's paradox, which you can read about
-in online articles or textbooks.
-Instead of dwelling on those issues,
-we are going to assume that,
-for any of the sets that we talk about,
-we have a way of figuring out whether any given
-item is an element of the set or not.
-Usually, our sets will be familiar ones,
-such as the set of natural numbers, which
-is the universe of discourse indexing the propositions
-in proofs by mathematical induction or
-the set of lists that can be constructed
-by an ACL2 program.
-Occasionally, the universe of discourse will be
-the set of all programs that can be expressed in a given
-programming language.
-In that case
-any interpreter for the language
-can determine whether or
-not a given item is in the set.}
-of propositions is called,
-when the set is taken as a whole, a \emph{predicate}.
-We will specify predicates as collections of propositions
-indexed by a set known as the
-\label{def-universe-of-discourse}
-\emph{universe of discourse}.
-If $P$ is a predicate, and $x$ is an element from
-the universe of discourse, then $P(x)$ is
-the proposition selected from the predicate by the index $x$.\footnote{You
-can think of the predicate as an
-operator that delivers the associated proposition as output
-when supplied with the index of the proposition as input,
-such as the ACL2 operator natp: (natp $x$) is true if
-$x$ is a natural number and false otherwise.
-No matter whether you look at it as a set of propositions
-indexed by a universe of discourse or an operator that
-delivers a true/false value given an element of the universe of discourse,
-the predicate is the same mathematical entity.
-The indexed-set approach is sometimes called an ``extensional'' view
-because it focuses on the externally observable characteristics of the predicate,
-while the operator perspective is called an ``intensional'' view because it
-involves the internal workings of a way to produce the true/false value
-of a proposition, given its index.
-Sometimes, our predicates will not correspond to computations,
-and in those cases the operator (intensional) view
-isn't valid because there will be no
-computation associated with the predicate.
-The extensional view will be the only valid way
-to think about predicates of that kind.}
+\begin{aside}
+The three-line variation of the equals sign
+indicates that the term on the left stands
+for the formula on the right, \emph{by definition}.
+\begin{center}
+\begin{tabular}{ll}
+$term \equiv \dots \emph{some formula} \dots$    &\emph{definition of term} \\
+$P(xs, y, ys) \equiv (xs$ $=$ (cons $y$ $ys$)$)$ &$P(xs, y, ys)$ \emph{means} $($xs $=$ (cons $y$ $ys$)$)$  \\
+\end{tabular}
+\end{center}
+\caption{Equal by Definition: $\equiv$}
+\label{three-line-equal}
+%%note: this aside mostly repeats an aside in ch02 predicates section, on purpose in case they skip that section
+\end{aside}
 
 Suppose we take $P(xs, y, ys)$ as shorthand
 for the equation $xs$ $=$ (cons $y$ $ys$).
+\begin{center}
+$P(xs, y, ys) \equiv (xs$ $=$ (cons $y$ $ys$)$)$
+\end{center}
+
 Given a particular list $xs$ together with a value $y$,
 we can view the equation $P(xs, y, ys)$ as a set of propositions
 indexed by the variable $ys$, whose universe of discourse is the set of
-lists that can be constructed in ACL2.
+lists that can be constructed by ACL2.
 In this set of propositions, the one corresponding to
 the list $ys$ is the equation that $P(xs, y, ys)$ stands for.
 If that equation holds, the value of the proposition $P(xs, y, ys)$ is true.
 Otherwise, it's false.
 For example, if $xs$ denotes the list [1 2 3]
 and $y$ denotes the natural number 1,
-then $P(xs, y, ys)$ stands for $P($[1 2 3], 1, $ys)$
-which is an equation involving the variable $ys$.
-There is one such equation for each possible list $ys$.
-Taken all together those equations comprise a predicate.
+then $P(xs, y, ys)$ is $P($[1 2 3], 1, $ys)$
+which stands for an equation involving the variable $ys$.
+There is one such equation for each different list $ys$.
+Taken all together those equations comprise a predicate
+whose universe of discourse is ACL2 lists.
 
 The operator ``consp'' checks for non-empty lists.
 That is, the formula (consp $xs$) delivers true
 if $xs$ is a non-empty list and false otherwise.
-The \{\emph{consp}\} axiom of list construction
-(Figure~ref{consp-axiom}, page \pageref{consp-axiom})
-is a formal statement of the fact that all non-empty lists
+The \{\emph{consp}\} axiom
+(Figure~\ref{consp-axiom}, page \pageref{consp-axiom})
+is formally asserts that all non-empty lists
 are constructed with the cons operator.
 
-\begin{figure}
-\begin{center}
-Axiom \{\emph{consp}\} \\
-(consp $xs$) $=$  $(\exists y.(\exists ys.(xs =$ (cons $y$ $ys$)$)))))$
-\end{center}
-\caption{Axiom for Predicate Detecting Non-Empty Lists}
-\label{consp-axiom}
-\end{figure}
-
-Wait a minute! What does that backwards ``E'' in the consp axiom mean?
-\label{quantifier-def}
-It is known as a \emph{quantifier},
-and it provides a way to talk about properties of a
-predicate (that is, properties of a set of propositions indexed
-by a universe of discourse).
-A quantifier converts a set of propositions
-(a predicate) into a single proposition.
-The \emph{quantifier}
-\label{exists-def}
-``$\exists$'' (the there-exists quantifier)
-converts a predicate to the value true if there
-is at least one element of the universe of discourse
-for which the proposition indexed by that element has the value true.
-For example the formula
+The formula
 $(\exists ys.P($[1 2 3], 1, $ys))$ denotes true
-if $ys$ stands for the list [2 3], then
-the equation [1 2 3] $=$ (cons 1 $ys$) is valid.
+if $ys$ stands for the list [2 3] because that value makes
+the equation [1 2 3] $=$ (cons 1 $ys$) valid.
 If there were no list that made the equation valid,
 the formula $(\exists ys.P($[1 2 3], 1, $ys))$
 would denote false.
 In this case, $(\exists ys.P($[1 2 3], 1, $ys))$ denotes true
-because when $ys$ is the list [2 3], the
-formula $P($[1 2 3], 1, $ys)$ stands for the equation
-[1 2 3] $=$ (cons 1 [2 3]), which is valid.
-
-\begin{aside}
-Let $P$ be a predicate.
-The formula $\forall x.P(x)$ is false when there is
-at least one index $x$ in the universe of discourse
-for which $P(x)$ is false.
-Otherwise, the $\forall$ quantification is true.
-If the universe of discourse is empty,
-there aren't any indexes at all,
-let alone one for which the predicate is false.
-Therefore, $\forall x.P(x)$ is true
-when the universe of discourse is empty.
-
-Using a similar rationale, a $\exists$ quantification
-is false when the universe of discourse is empty
-because it can only be true if there is
-at least one element, $x$, in the universe of discourse
-for which $P(x)$ is true.
-\caption{Quantifier with Empty Universe}
-\label{empty-forall}
-\end{aside}
+because [2 3] is a list in the universe of discourse
+for which the equation holds.
 
 If, on the other hand, $xs$ were the list [1 2 3]
 and $y$ were the number 2, there would be no list
@@ -202,39 +125,38 @@ starts with 1 the the one on the right-hand side starts with 2.
 So, the formula $(\exists ys.P($[1 2 3], 2, $ys))$
 is false.
 
-More generally, if we take $xs$ to stand a particular list
-and $y$ to stand for a particular object, then
-$P(xs, y, ys)$ is an equation that is either true or false.
-That makes $P(xs, y, ys)$ a different proposition
-for each possible value of the variable $ys$,
-and $(\exists ys.P(xs, y, ys))$, which is
-shorthand for
-($\exists ys.$ ($xs$ $=$ (cons $y$ $ys$))),
-is true if there is a list $ys$ that makes the
-equation $xs$ = (cons $y$ $ys$) valid and false if there is no such list $ys$.
-
-Every $\exists$ quantifier that occurs in a formula must be
-followed immediately by a variable, then a period.
-The variable between $\exists$ quantifier and the period is known as the
-\label{bound-var-def}
-\emph{bound variable}
-associated with the quantifier.
-The $\exists$ quantifier \emph{quantifies} the formula after the period
-with respect to the universe of discourse of the variable before the period.
+\begin{figure}
+\begin{center}
+Axiom \{\emph{consp}\} \\
+(consp $xs$) $=$  $(\exists y.(\exists ys.(xs =$ (cons $y$ $ys$)$)))))$
+\end{center}
+\caption{Non-Empty List Predicate: consp}
+\label{consp-axiom}
+\end{figure}
 
 Now, let's take a step back.
 We can view the formula
 ($\exists ys.$ ($xs$ $=$ (cons $y$ $ys$)))
 as a set of propositions,
-one for each object $y$ from the universe of discourse for $y$,
-which we will take to be the set of values that an ACL2 formula can represent.
+one for each object $y$ that ACL2 can represent.
 The formula
 $(\exists ys.P(xs, y, ys))$ is one way to represent that
 set of propositions.
 Since any set of propositions is a predicate,
 we can view $(\exists ys.P(xs, y, ys))$ as a predicate indexed
-by the things that $y$ can stand for
-(that is, the elements in the universe of discourse for $y$).
+by the set of objects $y$ representable in ACL2.
+
+\begin{figure}
+\begin{center}
+Axiom \{\emph{nlst}\}
+
+[$x_{m}$ \dots $x_{n}$]  \emph{denotes a list with $n - m + 1$ elements} \{\emph{nlst}\} \\
+\emph{Note: Denotes the empty list (nil) if $m > n$}
+\end{center}
+\caption{Numbered List Notation}
+\label{numbered-list-interpretation}
+\end{figure}
+
 We can convert the predicate $(\exists ys.P(xs, y, ys))$
 into a true/false value (that is, convert it to a proposition)
 by applying the $\exists$ quantifier again,
@@ -246,57 +168,13 @@ That is, consp is the ACL2 name for the predicate $(\exists y.(\exists ys.P(xs, 
 The universe of discourse for the predicate consp is the set of lists that ACL2 can represent.
 That description of consp is specified in the consp axiom
 (Figure~\ref{consp-axiom}, page \pageref{consp-axiom}).
+So, (consp $xs$) is a way to write the formula
+$(\exists y.(\exists ys.(xs$ $=$ (cons $y$ $ys$)$)))$ in ACL2.
 
-Let's take another step back.
-This formula $(\exists y.(\exists ys.P(xs, y, ys)))$
-specifies the value of the consp predicate.
-It represents a different proposition for each list $xs$,
-and we can apply a quantifier to that predicate to convert it to a proposition.
-So far, the only quantifier we've discussed is the $\exists$ quantifier.
-\label{forall-def}
-The upside-down ``A'' ($\forall$) is another quantifier.
-If Q is a predicate and $x$ is a variable standing for
-an element of the universe of discourse of Q,
-then the formula $(\forall x.Q(x))$ stands for true
-if there are no elements $x$ in the universe of discourse
-for which $Q(x)$ is false.
-Otherwise, that is if there is a value $x$ such that $Q(x)$ is false,
-then $(\forall x.Q(x))$ is false.
-
-When we apply the $\forall$ quantifier to the set of propositions
-$(\exists y.(\exists ys.P(xs, y, ys)))$
-indexed by $xs$ (with the set of ACL2 lists acting as the universe of discourse),
-we get the formula
-$(\forall xs.(\exists y.(\exists ys.P(xs, y, ys))))$.
-We can write that formula more compactly with the consp operator:
-$(\forall xs.(\exists y.$ ($\exists ys.$ ($xs$ = (cons $y$ $ys$))))).
-According to the consp axiom (Figure~\ref{consp-axiom}, page \pageref{consp-axiom}),
-this formula has the value true.
-
-\todo{changed cons-axiom-formal to consp axiom, so took this stuff out:
-The difference is that in the $\forall$ quantification of
-the \{\emph{cons}\} axiom, the universe of discourse
-constrains the bound variable, $xs$.
-The constraint turns the universe of discourse in the $\forall$ quantification
-to lists that are not empty.
-The meaning of the \{\emph{cons}\} axiom, therefore,
-is that the formula (cons $xs$) always has the same value as the formula
-($\exists y.$ ($\exists ys.$ ($xs$ = (cons $y$ $ys$)))),
-regardless of what list $xs$ denotes, as long as that list is not nil,
-the empty list.
-Our stipulation was that the universe of discourse
-for a bound variable with the name $xs$ would be the set of all ACL2 lists.
-However, any quantification can include a constraint that
-eliminates some elements from the universe of discourse.
-In this case, the constraint eliminates empty lists
-from the universe of discourse, and without that
-constraint the proposition produced by the $\forall$ quantification
-would be false because the cons operator cannot construct an empty list.
-}
-
-We will often cite the \{\emph{consp}\} axiom to write
-a formula like (cons $x$ $xs$) in place of any list we know is not empty.
-When we do this, we will take care to choose the symbols $x$ and $xs$
+When we know a list $ys$ is non-empty,
+we can cite the \{\emph{consp}\} axiom 
+to rewrite $ys$ in the form (cons $x$ $xs$)
+When we do this, we choose the symbols $x$ and $xs$ carefully
 to avoid conflicts with other symbols that appear in the context of the discussion.
 The \{\emph{consp}\} axiom refers to cons, so we will need a \{\emph{cons}\} axiom.
 Since cons cannot construct an empty list,
@@ -306,14 +184,6 @@ where $n$ stands for a natural number.
 That list cannot be empty because it has $n+1$ elements, and $n+1$
 is at least one when $n$ is a natural number.
 Therefore, the list can be constructed by cons.
-\begin{figure}
-\begin{center}
-Axiom \{\emph{cons}\} \\
-$[x_1 x_2 \dots x_{n+1}]$ = (cons $x_1 [x_2 \dots x_{n+1}]$)
-\end{center}
-\caption{List Construction Operator}
-\label{cons-axiom}
-\end{figure}
 
 The construction operator, cons, cannot be the whole story, of course.
 To compute with lists, we  need to be able to construct them,
@@ -335,7 +205,7 @@ the construction operator in the form of equations,
  (rest nil) = nil                                                     & \{\emph{rst0}\}
 \end{tabular}
 \end{center}
-\caption{List Constructors and Deconstructors}
+\caption{List Constructor and Deconstructors: cons, first, rest}
 \label{first-rest-cons}
 \end{figure}
 
@@ -418,26 +288,6 @@ will check the length of (rest $xs$).
               (+ 1 (len (rest xs))))))
 \end{Verbatim}
 
-\begin{comment} ...suppressing defthm for now...
-When a property holds under all circumstances, we can sometimes use the automated logic of ACL2 to prove it. To do so, we formulate the property as a theorem and press the ``Start'' button in the Dracula proof panel (right side of Dracula window). When the ``ACL2!\verb+>+'' prompt appears in the lower pane in the proof panel, we press the ``Admit'' arrow, and the automated logic of ACL2 starts trying to prove the theorem.
-
-Theorem definitions are similar to property definitions, but the keyword is ``defthmd'' instead of ``defproperty''. The following theorem definition states the len-test property in a form that the automated logic of ACL2 can use to attempt a proof that the property holds under all circumstances.
-
-\label{len-thm}
-\begin{Verbatim}
-(defthmd len-thm
-  (= (len xs)
-     (if (consp xs)
-         (+ 1 (len (rest xs))) ; {len1}
-         0)))                  ; {len0}
-\end{Verbatim}
-
-ACL2 interprets variables in theorems as if they were universally quantified. So, the formula ``(= (len $xs$) (if (consp $xs$) (+ 1 (len (rest $xs$))) 0))'' in the definition of len-thm means ``($\forall$$xs$.(= (len $xs$) (if (consp $xs$) (+ 1 (len (rest $xs$))) 0)))''.
-In this case, ACL2 successfully proves the theorem, and Dracula colors the theorem green. (If ACL2 had failed to prove the theorem, Dracula would have colored it pink.) Because ACL2 succeeds in proving the theorem, we know that the ``len-test'' property from our doublecheck testing is true under all circumstances. We can cite this fact in proofs.
-
-The len theorem contains two formulas that have the same meaning as (len $xs$). One of them, which we have labeled ``\{\emph{len1}\}'', applies when the argument in an invocation of len is a list with at least one element (that is, (consp $xs$) is true).  The other formula, which we have labeled ``\{\emph{len0}\}'', applies when the argument is the empty list (nil).
-\end{comment}
-
 The equation in the len-rest-test can serve
 as an axiom for the len operator in the case
 when its operand is a non-empty list.
@@ -453,30 +303,10 @@ Axioms \{\emph{len}\} \\
 (len (cons $x$ $xs$)) = (+ 1 (len $xs$)) & \{\emph{len1}\}
 \end{tabular}
 \end{center}
-\caption{Axioms for Operator to Compute Length of List}
+\caption{Length of List: len}
 \label{len-equations}
 \label{fig:len-axioms}
 \end{figure}
-
-\begin{comment}
-We also expect the ``len'' operator to deliver a natural number, regardless of what its argument is. We can state this in the form of a theorem using the ``natp'' operator, which delivers true if its argument is a natural number and false if it isn't.
-
-\label{len-nat-thm}
-\begin{Verbatim}
-(defthmd len-is-natural-number-thm
-  (natp (len xs)))
-\end{Verbatim}
-
-ACL2 succeeds in proving this theorem, too, so we now know that the formula (len $xs$) delivers a non-negative integer, regardless of what formula $xs$ stands for. We will use the label \{\emph{len-nat}\} when we cite this theorem in proofs.
-
-A related fact is that the formula (consp $xs$) is logically equivalent to the formula (\verb+>+ (len $xs$) 0). In the notation from Chapter~\ref{ch:Boolean-Formulas}: (consp $xs$)$\leftrightarrow$(\verb+>+ (len $xs$) 0). The name of the equivalence operator in ACL2 is ``iff'', so in ACL2 notation, the formula would be:
-(iff (consp $xs$) (\verb+>+ (len $xs$) 0)). Or, stated as a theorem, it looks like this:
-
-\begin{Verbatim}
-(defthmd consp<->len>0-thm
-  (iff (consp xs) (> (len xs) 0)))
-\end{Verbatim}
-\end{comment}
 
 We expect the len operator to deliver a natural number,
 regardless of the value of its operand.
@@ -516,7 +346,7 @@ we can, of course, use the cons operator to construct it,
 or we can use the list operator (page \pageref{list-op-informal}) to write it more compactly,
 (list 1 2 3 4).
 However, the single-quote trick provides an even less bulky ACL2 formula for lists
-whose elements are numbers (or specifiers for other ACL2 constants that we will discuss later).
+whose elements are numbers (or literals denoting other ACL2 constants).
 The formula
 '(1 2 3 4) has the same meaning as (list 1 2 3 4).
 Normally, ACL2 interprets the first symbol afer a left-parenthesis
@@ -524,8 +354,7 @@ as the name of an operator.
 However, the single-quote mark suppresses that interpretation and
 delivers a list made up of the elements in the parentheses.
 Without the single-quote mark,
-%the ``1'' in ``(1 2 3 4)'' would be interpreted as an operator, and because there is no operator named ``1'',
-the formula would make no sense because ACL2 is not the name of an operator.
+the formula would make no sense because 1 is not the name of an operator.
 \caption{Single-quote Shorthand for Lists}
 \label{acl2-single-quote}
 \end{aside}
@@ -584,10 +413,10 @@ it selects its third operand.
 Axioms \{\emph{if}\} \\
 \begin{tabular}{ll}
 (if $p$ $x$ $y$) = $x$, \emph{if} $p$ $\neq$ nil  & \{\emph{if-true}\}  \\
-(if $p$ $x$ $y$) = $x$, \emph{if} $p$ $=$ nil     & \{\emph{if-false}\} \\
+(if $p$ $x$ $y$) = $y$, \emph{if} $p$ $=$ nil     & \{\emph{if-false}\} \\
 \end{tabular}
 \end{center}
-\caption{Operator Selects Formula Indicated by True/False Value}
+\caption{Formula Selector: if}
 \label{fig:if-axioms}
 \end{figure}
 
@@ -631,20 +460,6 @@ So, feel free to use the ``equal'' operator all the time if you want to.
 \label{equal}
 \end{aside}
 
-\begin{comment}
-This might not be the first test you would think of, but if the test failed to pass, you would for sure know something was wrong with the append operator.
-This is another property that ACL2 can prove when it is stated as a theorem.
-
-\begin{Verbatim}
-(defthmd append-thm
-  (equal (append xs ys)
-         (if (consp xs)
-             (cons (first xs)            ; {app1}
-                   (append (rest xs) ys))
-             ys)))                       ; {app0}
-\end{Verbatim}
-\end{comment}
-
 The append-test property might not be the first test you would think of,
 but if the test failed to pass,
 you would for sure know something was wrong with the append operator.
@@ -661,13 +476,19 @@ the other when the list has one or more elements.
 \begin{center}
 Axioms: \{\emph{append}\} \\
 \begin{tabular}{ll}
-(append nil $ys$) =  $ys$                                     & \{\emph{app0}\} \\
 (append (cons $x$ $xs$) $ys$) = (cons $x$ (append $xs$ $ys$)) & \{\emph{app1}\} \\
+(append a   $ys$) =  $ys$                                     & \{\emph{app0}\} \\
+~~~~\emph{Note: Cite \{\emph{app0}\} only if \{\emph{app1}\} doesn't match.}&\\
 \end{tabular}
 \end{center}
-\caption{Concatenation Operator}
+\caption{List Concatenation: append}
 \label{append-equations}
 \end{figure}
+\todo{These axioms allow non-true-lists as first operand. However, when guards are in effect,
+      ACL2 chokes if first operand isn't a true list. 
+      When guards are disabled (append 1 (list 2 3)) = (list 2 3)
+      I don't want to say anything about guards, but students may see error messages
+      that talk about guards. Not sure how to handle this.}
 
 These equations about the append operation are simple enough,
 but it turns out that lots of other properties of the
@@ -679,19 +500,6 @@ Chapter~\ref{ch:software-testing-prefix-notation} (page \pageref{additive-length
 We call this theorem the \emph{additive law of concatenation}.
 Let's see how a proof of this law could be carried out.
 
-\begin{aside}
-When we define predicates and other symbolic terms,
-we will often use a variation of the equals-sign
-that has three lines instead of two.
-Both sides of the equation with the  $\equiv$-sign have the same meaning,
-but, more than that, the formula on the right defines the term on the left.
-\begin{quote}
-$term \equiv \dots \emph{some formula} \dots$ ~~~~~~~\emph{definition of term}
-\end{quote}
-\caption{``$\equiv$'' Means ``Equals by Definition''}
-\label{three-line-equal}
-\end{aside}
-
 First, let's break it down into a some special cases.
 We will use L($n$) as shorthand for the proposition that
 (len (append ($x_1$ $x_2$ \dots $x_n$) $ys$))
@@ -700,12 +508,13 @@ That makes L a predicate whose universe of discourse is
 the natural numbers.
 
 \label{additive-concat-law-predicate}
-\begin{quote}
-\begin{tabbing}
-L($n$) $\equiv$ (= \=(len (append [$x_1$ $x_2$ \dots $x_n$] $ys$))  \\
-                   \>(+ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$)))
-\end{tabbing}
-\end{quote}
+\begin{center}
+% old prefix notation: \begin{tabbing}
+% old prefix notation: L($n$) $\equiv$ (= \=(len (append [$x_1$ $x_2$ \dots $x_n$] $ys$))  \\
+% old prefix notation:                   \>(+ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$)))
+% old prefix notation: \end{tabbing}
+L($n$) $\equiv$ (len (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ (+ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$))
+\end{center}
 
 For the first few values of $n$, L($n$) would stand for the following equations.
 \begin{quote}
@@ -716,7 +525,8 @@ L(3) $\equiv$ (len (append [$x_1$ $x_2$ $x_3$] $ys$)) $=$ (+ (len [$x_1$ $x_2$ $
 L(4) $\equiv$ (len (append [$x_1$ $x_2$ $x_3$ $x_4$] $ys$)) $=$ (+ (len [$x_1$ $x_2$ $x_3$ $x_4$]) (len $ys$))
 \end{quote}
 
-\todo{in case we want to go back to the prefix =
+\todo{COMMENT ONLY, NO TODO
+in case we want to go back to the prefix =
 \begin{center}
 \begin{tabular}{llll}
 L(0) & $\equiv$ & (= &(len (append nil $ys$)) \\
@@ -731,7 +541,7 @@ L(4) & $\equiv$ & (= &(len (append [$x_1$ $x_2$ $x_3$ $x_4$] $ys$)) \\
      &          &    &(+ (len [$x_1$ $x_2$ $x_3$ $x_4$]) (len $ys$)))
 \end{tabular}
 \end{center}
-}
+END OF TODO COMMENT}
 
 We can derive L(0) from the \{\emph{append}\} and \{\emph{len}\} axioms as follows,
 starting from the first operand in the equation that L(0) stands for
@@ -827,7 +637,7 @@ in a proof that ($\forall$$n$.P($n$)) true.
 That is not to say that such a proof can always be constructed.
 It's just that mathematical induction might provide some help in the process.
 The inverse is also true: mathematical induction cannot help
-if the universe of discourse is not the natural numbers.\footnote{Mathematical 
+if the universe of discourse is not the natural numbers.\footnote{Mathematical
 induction is not the only form
 of proof by induction, but all the other forms
 (other than transfinite induction, which is a different animal)
@@ -838,7 +648,13 @@ They are easy to learn for people who know mathematical induction well.}
 
 The rule goes as follows: one can infer the truth of ($\forall$$n$.P($n$))
 from proofs of two other propositions.
-Those two propositions are P(0) and ($\forall$$n$.(P($n$)$\rightarrow$P($n+1$))).
+Those two propositions are
+\begin{quote}
+\begin{enumerate}
+\item P(0), which is known as the ``base case''), and
+\item ($\forall$$n$.(P($n$)$\rightarrow$P($n+1$))), which is known as the ``inductive case''.
+\end{enumerate}
+\end{quote}
 It's a very good deal if you think about it.
 A direct proof of ($\forall$$n$.P($n$)) would require a proof of proposition P($n$)
 for each value of $n$ (0, 1, 2, \dots).
@@ -857,15 +673,15 @@ The upshot is that we only need to verify that P($n+1$) is true when P($n$) is t
 That is, we can assume when proving P($n+1$) that we already know that P($n$) is true.
 \begin{figure}
 \begin{center}
-\begin{tabular}{l}
-Prove P(0) \\
- - - - - - - - - - - - - - - - - - - - - -\\
-Prove ($\forall$$n$.(P($n$)$\rightarrow$P($n+1$))) \\
--------------------------------------\{induction\}\\
-Infer ($\forall$$n$.P($n$))
+\begin{tabular}{ll}
+Prove P(0)                                         &\emph{base case}\\
+ - - - - - - - - - - - - - - - - - - - - -         &\\
+Prove ($\forall$$n$.(P($n$)$\rightarrow$P($n+1$))) &\emph{inductive case}\\
+-------------------------------------\{induction\} &\\
+Infer ($\forall$$n$.P($n$))                        &\\
 \end{tabular}
 \end{center}
-\caption{Mathematical Induction (a rule of inference)}
+\caption{Mathematical Induction: a Rule of Inference}
 \label{fig-04-01}
 \label{induction-rule}
 \end{figure}
@@ -959,12 +775,12 @@ circular (that is, inductive) definitions.
 \emph{Consistent} & Combinations of operands covered by two or more equations define the same value for the operation. \\
 \emph{Computational} &
 \begin{enumerate}
-\item \emph{Non-Inductive Equation}: There is at least one non-inductive equation
-(that is, an equation with the operator being defined
-on the left-hand side only).
-\item \emph{Reduced Computation}: All invocations of the operator on the right-hand side of inductive equations
-have operands that are closer to the operands on the left-hand side of a non-inductive equation
-than to the operands on the left-hand side of the equation.
+\item \emph{Non-Inductive Equation}: There is at least equation in which
+the operator being defined appears on left-hand side only.
+\item \emph{Reduced Computation}: Each invocation of the operator being defined that resides on 
+            the right-hand side of an inductive equation has operands that
+            are closer to the operands on the left-hand side of a non-inductive equation than to
+            the operands on the left-hand side of the inductive equation.
 \end{enumerate}
 \end{tabular}
 \end{center}
@@ -972,7 +788,7 @@ than to the operands on the left-hand side of the equation.
 \label{fig:inductive-def-keys}
 \end{figure}
 
-It turns out that all functions that can be defined in software
+It turns out that all operators that can be defined in software
 have inductive definitions in the style of the equations
 of the append axioms (Figure~\ref{append-equations}, page \pageref{append-equations}).
 The keys to an inductive definition of an operator are  listed in
@@ -1052,7 +868,7 @@ So, there are some advantages, especially for studying logic.
 Operators are defined in ACL2 with a defun command,
 which has four parts.
 \begin{quote}
-(defun $f$ ($x_1$ $x_2$ \dots $x_n$) \emph{ACL2-formula})
+(defun $f$ ($x_1$ $x_2$ \dots $x_n$) \emph{\dots ACL2-formula \dots})
 
 \begin{enumerate}
 \item the keyword ``defun''
@@ -1095,7 +911,8 @@ as a starting point to put us on the right track.
 Axioms: \{\emph{append}\} \\
 \begin{tabular}{ll}
 (append (cons $x$ $xs$) $ys$) = (cons $x$ (append $xs$ $ys$)) & \{\emph{app1}\} \\
-(append nil $ys$) =  $ys$                                     & \{\emph{app0}\} \\
+(append $a$ $ys$) =  $ys$                                     & \{\emph{app0}\} \\
+~~~~\emph{Note: Cite \{\emph{app0}\} only if \{\emph{app1}\} doesn't match.}&\\
 \end{tabular}
 \begin{Verbatim}
 (defun append (xs ys)      ; intrinsic operator, defun is redundant
@@ -1104,7 +921,7 @@ Axioms: \{\emph{append}\} \\
       ys))                                     ; {app0}, xs is nil
 \end{Verbatim}
 \end{center}
-\caption{ACL2 Definition of the Concatenation Operator}
+\caption{Defining Concatenation: append}
 \label{fig:append-defun}
 \end{figure}
 
@@ -1112,7 +929,7 @@ So, now you know. We've been writing programs on the sly,
 passing them off as axioms.
 Why? Because that's how we want you to think of them.
 A program is a collection of axioms, expressed as equations
-that specify properties of the operators the program needs for its computation.
+that specify properties that you want to operators to have.
 You can reason from those equations using the same methods
 you have used in reasoning about Boolean equations or numeric equations.
 The program is written in the syntax of a programming language,
@@ -1217,7 +1034,7 @@ Axioms \{\emph{nthcdr}\} \\
 \begin{tabular}{ll}
 (nthcdr $(n+1)$ (cons $x$ $xs$) = (nthcdr $n$ $xs$) & \{\emph{sfx1}\}   \\
 (nthcdr $n$ $xs$) = $xs$                            & \{\emph{sfx0}\}   \\
-~~~~\emph{Note 1: Cite second axiom only if first doesn't match.}&\\
+~~~~\emph{Note 1: Cite \{\emph{sfx0}\} only if \{\emph{sfx1}\} doesn't match.}&\\
 ~~~~\emph{Note 2: $n$ is a natural number.}
 \end{tabular}
 \begin{Verbatim}
@@ -1227,12 +1044,13 @@ Axioms \{\emph{nthcdr}\} \\
       xs))                        ; {sf0}
 \end{Verbatim}
 \end{center}
-\caption{Definition of Operator to Extract Suffix of List: nthcdr}
+\caption{Defining List Suffix Extractor: nthcdr}
 \label{fig:nthcdr-defun}
 % old label for nthcdr axioms: \label{nthcdr-equations}
 \end{figure}
 
-\todo{Rex: sfx1 isn't true, right?
+\todo{FIXED NOW, REX THINKS as of 5SEP2017
+Rex: sfx1 isn't true, right?
 I'm not sure we want to introduce it as an axiom, if later we'll have to explain it isn't really true.
 Ruben: left as is for now, with (natp n) implicit, but inserted a comment about the type of n
 Update (Rex 5Sep 2017: I think it's fixed, now.
@@ -1251,7 +1069,9 @@ There is a subtlety that needs explanation, however.
 The operand prototypes in the
 \{sfx1\} axiom match when the first operand is a non-zero natural number\footnote{$(n+1)$
 cannot be zero when $n$ is a natural number.}
-and the second operand is a non-empty list.\footnote{(cons $x$ $xs$) cannot be empty.}
+and the second operand is a non-empty list.\footnote{That
+is, when (consp(cons $x$ $xs$)) is true,
+as it must be according to the consp axiom (page \pageref{consp-axiom}).}
 However, the operand prototypes in the \{sfx0\} axiom match anything.
 There is a note restricting
 citations of the second axiom to cases
@@ -1293,16 +1113,19 @@ when $xs$ has $n$ elements.
 
 \begin{samepage}
 \begin{center}
+\label{append-prefix-thm-predicate}
 S($n$) $\equiv$ (nthcdr (len [$x_1$ $x_2$ \dots $x_n$]) (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ $ys$
 \end{center}
 \end{samepage}
 
-\todo{ Just in case we decide to go back to ACL2 syntax for the def'n of S
+\todo{COMMENT ONLY, NO TODO
+Just in case we decide to go back to ACL2 syntax for the def'n of S
 S($n$) $\equiv$ (equal & (nthcdr & (len [$x_1$ $x_2$ \dots $x_n$])          \\
                        &         & (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) \\
                        & $ys$)   &                                          \\
 }
 
+\label{append-suffix-thm-pencil-proof} \todo{COMMENT ONLY, NO TODO label added 16Sep2017}
 S is a predicate indexed by the natural numbers,
 so the formula $\forall n.$S$(n)$ is a candidate for proof by induction.
 According to the rule of inference for mathematical induction
@@ -1323,7 +1146,8 @@ S(0) $\equiv$ (nthcdr (len nil) (append nil $ys$)) $=$ $ys$
 \end{center}
 \end{samepage}
 
-\todo{ Just in case we decide to go back to ACL2 syntax for the def'n of S
+\todo{COMMENT ONLY, NO TODO
+Just in case we decide to go back to ACL2 syntax for the def'n of S
 \begin{samepage}
 \begin{center}
 \begin{tabular}{ll}
@@ -1332,7 +1156,7 @@ S(0) $\equiv$ (equal & (nthcdr (len nil) (append nil $ys$)) \\
 \end{tabular}
 \end{center}
 \end{samepage}
-}
+END OF COMMENT ONLY, NO TODO}
 
 As is our usual practice when proving an equation,
 we start with the formula on one side and use known
@@ -1362,7 +1186,7 @@ S($n+1$) $\equiv$ (nthcdr (len [$x_1$ $x_2$ \dots $x_{n+1}$]) (append [$x_1$ $x_
 \begin{tabular}{llll}
     & (nthcdr & (len [$x_1$ $x_2$ \dots $x_{n+1}$])                 & \\
     &         & (append [$x_1$ $x_2$ \dots $x_{n+1}$] $ys$))        & \\
-$=$ & (nthcdr & (len (cons $x_1$ [$x_2$ \dots $x_{n+1}$])))         & \{\emph{cons}\} (page \pageref{cons-axiom}) \\
+$=$ & (nthcdr & (len (cons $x_1$ [$x_2$ \dots $x_{n+1}$])))         & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
     &         & (append (cons $x_1$ [$x_2$ \dots $x_{n+1}$]) $ys$)) & \{\emph{cons}\}                                \\
 $=$ & (nthcdr & (+ 1 (len [$x_2$ \dots $x_{n+1}$]))                 & \{\emph{len1}\} (page \pageref{len-equations})       \\
     &         & (cons $x_1$ (append [$x_2$ \dots $x_{n+1}$]) $ys$)) & \{\emph{app1}\} (Figure \ref{fig:append-defun}, page \pageref{fig:append-defun})\\
@@ -1391,27 +1215,15 @@ We refer to it as the \emph{numbered-list} interpretation
 or \{\emph{nlst}\} for short
 (Figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation}).
 
-\begin{figure}
-\begin{center}
-Axiom \{\emph{nlst}\}
-
-[$x_{m}$ \dots $x_{n}$]  \emph{denotes a list with $n - m + 1$ elements ($m \leq n$)} \{\emph{nlst}\}
-\end{center}
-\caption{Numbered List Interpretation}
-\label{numbered-list-interpretation}
-\end{figure}
-
-\todo{Rex: We may want to skip this paragraph for now.  We can introduce this notation later, when needed. Ruben: right, done}
-
 At this point, we know that (append $xs$ $ys$) delivers
 a list that has the right elements at the end.
 How about the beginning?
 We expect the concatenation to start with the elements of the list $xs$,
 so if we extract the first $n$ elements of (append $xs$ $ys$), where $n$ is (len $xs$),
 we would expect to get a list identical to $xs$.
-To express this expectation formally, we need a function that,
+To express this expectation formally, we need a operator that,
 given a number $n$ and a list $xs$, delivers the first $n$ elements of $xs$.
-Let's call that function ``prefix'' and think about properties it would have to satisfy.
+Let's call that operator ``prefix'' and think about properties it would have to satisfy.
 
 Of course, if $n$ is zero, or if $xs$ is empty,
 (prefix $n$ $xs$) must be the empty list.
@@ -1433,12 +1245,6 @@ P($n$) $\equiv$ (prefix (len [$x_1$ $x_2$ \dots $x_n$]) (append [$x_1$ $x_2$ \do
 \end{center}
 \end{samepage}
 
-\begin{quote}
-\begin{tabbing}
-
-\end{tabbing}
-\end{quote}
-
 We will prove that P(0) is true, and also that P($n+1$) is true whenever P($n$) is true. Then, we will cite mathematical induction to conclude that P($n$) is true, regardless of which natural number $n$ stands for.
 
 \begin{figure}
@@ -1447,7 +1253,7 @@ Axioms \{\emph{prefix}\}                                           \\
 \begin{tabular}{ll}
 (prefix $(n + 1)$ (cons $x$ $xs$)) = (cons $x$ (prefix $n$ $x$s)) & \{\emph{pfx1}\} \\
 (prefix $n$ $xs$) =  nil                                          & \{\emph{pfx0}\} \\
-~~~~\emph{Note 1: Cite second axiom only if first doesn't match.}&\\
+~~~~\emph{Note 1: Cite \{\emph{pfx0}\} only if \{\emph{pfx1}\} doesn't match.}&\\
 ~~~~\emph{Note 2: $n$ is a natural number.}
 \end{tabular}
 \begin{Verbatim}
@@ -1457,7 +1263,7 @@ Axioms \{\emph{prefix}\}                                           \\
       xs))                                          ; {pfx0}
 \end{Verbatim}
 \end{center}
-\caption{Operator to Extract Prefix of List}
+\caption{Defining List Prefix Extractor: prefix}
 \label{prefix-equations}
 \end{figure}
 
@@ -1482,7 +1288,9 @@ That takes care of P(0). Figure~\ref{pfx-induc} (page \pageref{pfx-induc}) displ
 P($n+1$) $\equiv$ (prefix (len [$x_1$ $x_2$ \dots $x_{n+1}$]) (append [$x_1$ $x_2$ \dots $x_{n+1}$] $ys$)) $=$ [$x_1$ $x_2$ \dots $x_{n+1}$]
 \end{center}
 
-\todo{Rex: This following indentation isn't perfect, but it's close.  I haven't figured out how to remove the vertical space before the tabbing, though I can probably hack it....}
+\todo{Rex: This following indentation isn't perfect, but it's close.  I haven't figured out how to remove the vertical space before the tabbing, though I can probably hack it....
+      COMMENT BY REX: Looks too strung out in print, better to put citations on same line as new formula, I think.
+                      but I'm afraid to tamper with it.}
 
 \begin{center}
 	\setlength{\topsep}{0pt}
@@ -1497,7 +1305,7 @@ $=$ & \begin{tabbing}
 		(prefix \=(len (cons $x_1$ [$x_2$ \dots $x_{n+1}$])) \\
                 \>(append (cons $x_1$ [$x_2$ \dots $x_{n+1}$]) $ys$))
 		\end{tabbing}
-	& \{\emph{cons}\} (page \pageref{cons-axiom}) \\
+	& \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
 $=$ & \begin{tabbing}
 			(prefix \=(+ 1 (len [$x_2$ \dots $x_{n+1}$])) \\
                     \>(cons $x_1$ (append [$x_2$ \dots $x_{n+1}$] $ys$)))
@@ -1524,14 +1332,14 @@ $=$ & \begin{tabbing}
 			  \>[$x_2$ \dots $x_{n+1}$] )
 		\end{tabbing}
 	& \{P($n$)\} \\
-$=$ & [$x_1$ $x_2$ \dots $x_{n+1}$] & \{\emph{cons}\} (page \pageref{cons-axiom}) \\
+$=$ & [$x_1$ $x_2$ \dots $x_{n+1}$] & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
 \end{tabular}
 \end{center}
 \caption{Proof: $\forall n.$ P($n$) $\rightarrow$ P($n+1$)}
 \label{pfx-induc}
 \end{figure}
 
-At this point we know three important facts about the append function:
+At this point we know three important facts about the append operator:
 \begin{quote}
 \begin{itemize}
 \item additive length theorem: (len (append $xs$ $ys$)) = (+ (len $xs$) (len $ys$))
@@ -1541,7 +1349,7 @@ At this point we know three important facts about the append function:
 \end{itemize}
 \end{quote}
 
-Together, these theorems give us confidence that append correctly concatenates lists.
+Together, these theorems provide some assurance that append correctly concatenates lists.
 We could think of them as ``correctness properties'' for the append operation.
 There are, of course, an infinite variety of other facts about the append operation.
 Their relative importance depends on how we are using the operation.
@@ -1565,6 +1373,7 @@ we can always write a list $xs$ in the pencil-and-paper format that
 displays its elements. We state this as the \{lst\} axiom.
 
 \begin{center}
+\label{axiom:lst}
 Axiom \{lst\} $\forall xs.\exists n.\exists$[$x_1$ $x_2$ \dots $x_n$].($xs$ $=$ [$x_1$ $x_2$ \dots $x_n$])
 \end{center}
 
@@ -1585,7 +1394,8 @@ We leave that proof as an exercise.
 
 \Exercise Prove the \{\emph{app-assoc}\} theorem (page \pageref{app-assoc}).
 
-\todo{Reviewer 2 points out that Ch4 talks about ACL2 programs and even about
+\todo{COMMENT ONLY, NO TODO
+Reviewer 2 points out that Ch4 talks about ACL2 programs and even about
 defun (in the following exercise), but does not provide a proper explanation.
 Ch5 then more-or-less assumes the reader already knows about defun.
 Also, Ch3 is already talking about testing ACL2 programs, and
@@ -1600,7 +1410,7 @@ Update (Rex 10Sep2017): added the defun section and replace r(n).
 Plan to move and expand mechanized logic section and halting problem to chapter after ch04 (ch04a.tex, I guess).
 }
 
-\Exercise Suppose the function rep is defined as follows.
+\Exercise Suppose the operator rep is defined as follows.
 \label{rep-equations}
 \begin{Verbatim}
 (defun rep (n x)
@@ -1624,8 +1434,8 @@ Theorem \{\emph{rep-len}\} \\
 \begin{center}
 Axioms \{\emph{member-equal}\} \\
 \begin{tabular}{ll}
+(member-equal y (cons $x$ $xs$)) = (equal $y$ $x$) $\vee$ (member-equal $y$ $xs$)) & \{\emph{mem1}\} \\
 (member-equal y nil) = nil                                                         & \{\emph{mem0}\} \\
-(member-equal y (cons $x$ $xs$)) = (equal $y$ $x$) $\vee$ (member-equal $y$ $xs$)) & \{\emph{mem1}\}
 \end{tabular}
 \end{center}
 \end{samepage}
@@ -1644,8 +1454,9 @@ Theorem \{\emph{rep-mem}\} \\
 
 \end{ExerciseList}
 
-\todo{next section will introduce defthm and proofs using the ACL2 mechanized logic by replaying all of the theorems of this section in ACL2 notation}
-
+\todo{COMMENT ONLY, NO TODO
+next section will introduce defthm and proofs using the ACL2 mechanized logic
+by replaying all of the theorems of this section in ACL2 notation}
 
 %% All references to Dracula taken out (30Aug2017 - rlp)
 %% I think we should use Proof Pad for all doublecheck and other interface-to-ACL2 issues.
@@ -1654,7 +1465,7 @@ Theorem \{\emph{rep-mem}\} \\
 %%    that ACL2s has its own, extensive, random-test facility,
 %%    that it is perfectly reasonable for students to use another interface to ACL2,
 %%    that if they use another interface, they will need to interpret our doublecheck examples in, say, ACL2 fashion.
-
+%%\end{comment}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "book"

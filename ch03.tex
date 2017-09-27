@@ -1,67 +1,10 @@
 \chapter{Software Testing and Prefix Notation}
 \label{ch:software-testing-prefix-notation}
 
-\todo{ leaving this material on the reciprocals function here just in case we want to go back to it later - rlp(8Sep2017)
-Suppose you have purchased a piece of software from someone, 
-and you want to take it for a test drive to see if it works. 
-Let's say it's the function that delivers sum of the first $n$ reciprocals, given a number $n$.
-You've seen this function before (page \pageref{reciprocalsdef}).
-\begin{displaymath}
-r(n) = 1 + \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{n}
-\end{displaymath}
-
-You could start with a few simple checks.
-\begin{displaymath}
- r(1) = 1
-\\
- r(2) = \frac{3}{2}
-\\
- r(2) = \frac{11}{6}
-\end{displaymath}
-
-That gets old fast. It would be nice to do a whole bunch of tests,
-not just a few specific ones.
-One way to describe a lot of tests at once is to find a way to specify
-a relationship among values of the function that you know will always be true.
-For example, you know that $reciprocal(n)$ is just like $reciprocal(n-1)$,
-except that it has one more term in the sum.
-\begin{quote}
-\begin{tabbing}
-$r(n)$ \=$= (1 + \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{(n - 1)})$ $+ \frac{1}{n}$ \\
-\vspace{1 mm}
-                 \>$= r(n-1) + \frac{1}{n}$
-\end{tabbing}
-\end{quote}
-
-This relationship provides a different test for each possible value of $n$.
-You could tell the computer to run thousands of tests
-using random values for $n$ and have it report an error any of the tests fail.
-If the computer encounters errors, you will of course want your money back.
-
-Since you do not expect the function to work unless the input
-is a non-negative integer, you need to tell the computer
-to choose random numbers of that kind.
-In fact, the test as it stands doesn't work when $n$ is zero,
-so we need to fix that problem, either by avoiding zero
-in the testing process or by modifying to test to deal with zero.
-\begin{displaymath}
-r(n) =
-\left\{
-        \begin{array}{ll}
-                0            & \mbox{if } n = 0 \\
-                r(n-1) + 1/n & \mbox{otherwise}
-        \end{array}
-\right.
-\end{displaymath}
-
-After this modification, the computer can run thousands of tests automatically,
-just by choosing random, non-negative, integer values for $n$,
-computing $r(n)$ and $r(n-1) + 1/n$,
-and checking to make sure they are the same.
-If zero comes up as the random input,
-the computer compares $r(n)$ to zero instead of
-$r(n-1) + 1/n$.
----------------- end of todo inserted to retain material on reciprocals function, just in case}
+\todo{ COMMENT ONLY, NO TODO Rex16Sep2017
+Removed reciprocals stuff
+see on Rex's local copy if needed: ch03WITHRECIPROCALSSTUFFINCASEWEREVERTTOIT16Sep2017.tex
+}
 
 We will be using a software development environment that automates parts of the software testing process.
 To use it, we can define tests that check results corresponding to inputs provided directly in the test.
@@ -89,7 +32,7 @@ They are free, too.
 
 To get the syntax straight, let's specify some direct tests that Proof Pad
 can carry out for the addition operator.
-The following tests check some equations that we expect to be true: 
+The following tests check some equations that we expect to be true:
 $2 + 2 = 4$, $5 + 7 = 10 + 2$, etc.
 
 \begin{Verbatim}
@@ -103,7 +46,7 @@ This notation looks strange, with formulas like (+ $2$ $2$) instead of $2 + 2$.
 ACL2 uses a prefix notation to denote operations, rather than the infix notation
 that you are accustomed to.
 In ACL2's prefix notation, a computational formula starts with a parenthesis,
-followed by the operator it invokes. 
+followed by the operator it invokes.
 The operator comes first (as a ``prefix''), then the operands.
 Infix notation places the operator between the operands,
 and prefix puts it before the operands.
@@ -125,30 +68,30 @@ we're doing paper-and-pencil reasoning or formal, mechanized logic.
 Another strange element is the include-book directive.
 The facility for tests of this kind resides in an ACL2 book
 known as "testing", which in turn resides in a directory known
-as :teachpacks (with the leading colon). 
+as :teachpacks (with the leading colon).
 The include-book directive tells the system
-the name of the testing package and where to find it. 
+the name of the testing package and where to find it.
 This boilerplate is needed (including the keyword :dir, with the leading colon)
 whenever you want to use check-expect testing,
 even though we won't repeat it in all of our examples.
 If you install Proof Pad and put these tests in a file
 with the .lisp extension (plusoptests.lisp, for example),
-you can use Proof Pad to run the tests. 
+you can use Proof Pad to run the tests.
 The first tests two pass without fanfare,
-but the third test has a mistake. 
+but the third test has a mistake.
 We should not expect that $27 + 6 = (23 + 5) + (2 + 2)$.
 The system reports that the assertion failed.
 If you change the 6 to 5, the test will pass, as it should.
 Normally, when we run tests, we want to know whether the
-operator is doing the right thing, 
+operator is doing the right thing,
 but in this case the operator ($+$) was fine.
 It was the test that was wrong.
 
-Direct, one-off, check-expect tests 
-are a good way to get started, but 
+Direct, one-off, check-expect tests
+are a good way to get started, but
 we will want to test more general properties that we specify with logic formulas.
 Proof Pad facilitates that kind of testing with a package called doublecheck
-that generates random data to run against a predicate 
+that generates random data to run against a predicate
 (that is, a formula representing a true/false value).
 To demonstrate the idea, consider testing the addition operator to see if
 it conforms to the associative law for addition: $(x + (y + z)) = ((x + y) + z)$
@@ -167,23 +110,23 @@ report whether or not the equation holds on all of the random data.
      (+ (+ x y) z)))
 \end{Verbatim}
 
-The Proof Pad environment ``doublecheck'' package, 
+The Proof Pad environment ``doublecheck'' package,
 like the ``testing'' package,
 resides in the teachpacks directory,
 and an include-book directive is required so that Proof Pad where to find it.
 
 A property definition with doublecheck begins with a parenthesis, then the keyword
-defproperty and a name for the property to be tested, 
-which is ``+associative-test'' in this case.\footnote{The 
-rules for naming things in ACL2 are lax, compared to many 
+defproperty and a name for the property to be tested,
+which is ``+associative-test'' in this case.\footnote{The
+rules for naming things in ACL2 are lax, compared to many
 programming languages. Names can be made up of letters and digits, of course,
-but can also include some special characters, 
+but can also include some special characters,
 such as plus signs and colons (not semicolons, though).}
 A sequence of data generator specifications follows the name of the property.
 The entire sequence is enclosed in parentheses,
 and each specification has three parts: a name, the keyword :value (with the leading colon),
 and a generator, also enclosed in parentheses.
-In this case, the definition says to use random integers. 
+In this case, the definition says to use random integers.
 Doublecheck is able to generate many kinds of random data,
 and we will gradually introduce different data generators as the story progresses.
 Finally, a predicate formula specifies the test.
@@ -192,10 +135,10 @@ written of course in prefix notation.
 
 Let's look at another example.
 \label{list-op-informal}
-The operator ``list'' creates a list of its operands 
+The operator ``list'' creates a list of its operands
 (any number of operands), and
 \label{append-op-informal}
-the operator ``append'' concatenates two lists. 
+the operator ``append'' concatenates two lists.
 A few check-expect tests may clarify what the append operator does.
 We defer, for now, more formal specifications for the append and list operators.
 
@@ -212,12 +155,12 @@ would be the length of the first list plus the length of the second.
 Using the ``len'' operator, which computes the length of a list,
 we can state this property in a doublecheck test.
 Later, we will prove this relationship between append and len,
-but for the moment we confine ourselves to stating properties 
+but for the moment we confine ourselves to stating properties
 and asking Proof Pad to check them against random data.
 
 \label{additive-lengths-test}
 \begin{Verbatim}
-(defproperty additive-lengths-test
+(defproperty additive-law-of-concatenation-test
   (xs :value (random-list-of (random-integer))
    ys :value (random-list-of (random-integer)))
   (= (len (append xs ys))
@@ -228,8 +171,8 @@ and asking Proof Pad to check them against random data.
 A ``natural number'' is a whole number (that is, an integer)
 that is zero or bigger.
 Some mathematical treatments start the naturals at one,
-rather than zero, but in the computing domain, 
-it simplifies a lot of formulas to start the natural numbers at zero. 
+rather than zero, but in the computing domain,
+it simplifies a lot of formulas to start the natural numbers at zero.
 \caption{Natural Numbers}
 \label{natural-number-def}
 \end{aside}
@@ -245,7 +188,7 @@ Think long division: divisor, dividend, quotient,
 remainder . . . third-grade stuff.
 
 Let's test drive the mod operator, starting with
-some simple checks, such as using mod 
+some simple checks, such as using mod
 to compute the remainder when dividing by two,
 which will produce zero for even numbers and one for odd numbers.
 
@@ -286,8 +229,8 @@ The same is true of subtraction and multiplication.
 The ACL2 operator ``mod'' converts numbers to the modular range
 for a given modulus. That is, (mod $x$ $m$) delivers the remainder
 in the division of $x$ by $m$.
-The divisor (second operand) must be non-zero. 
-ACL2 does not restrict the operands to natural numbers, 
+The divisor (second operand) must be non-zero.
+ACL2 does not restrict the operands to natural numbers,
 but the discussion here assumes that they are.
 \caption{Clock Arithmetic}
 \label{modular-arithmetic}
@@ -311,14 +254,14 @@ when the divisor is added to the dividend.
 
 Generating random data is an art.
 In this example, we have made sure the divisor isn't zero
-by adding one to a natural number. 
+by adding one to a natural number.
 Since negative numbers aren't natural numbers, adding one
 to a natural number ensures that the sum is non-zero.
 \label{let-example-brief-explain}
 The definition of the property uses a ``let*'' binding,
 which is a way to attach names to values
-and then use those names in a formula that comes after the bindings.\footnote{The 
-parentheses in a let* binding 
+and then use those names in a formula that comes after the bindings.\footnote{The
+parentheses in a let* binding
 are tricky. Each individual binding is enclosed in parentheses,
 and the whole sequence of bindings is closed in another set
 of parentheses. The ``let*'' keyword precedes the bindings
@@ -331,14 +274,14 @@ The let* construct delivers the value of the formula
 that comes at the end.
 }
 In this case, the let* binding says that
-the name ``divisor'' will be used to stand for 
+the name ``divisor'' will be used to stand for
 the value represented by the formula (+ divisor-minus-1 1).
 To see the testing facility in action,
 define the ``mod-test'' property in a .lisp file,
 and use Proof Pad to run the tests.
 
 Another property of the mod operator
-in the domain of natural numbers 
+in the domain of natural numbers
 is that the remainder
 is always smaller than the divisor.
 That is, (mod dividend divisor) < divisor.
@@ -465,7 +408,7 @@ Use Proof Pad to run your test.
 Define doublecheck properties to test
 consistency between clock
 arithmetic and ordinary arithmetic
-as described in 
+as described in
 Aside~\ref{modular-arithmetic} (page \pageref{modular-arithmetic}).
 Use Proof Pad to run your tests.
 

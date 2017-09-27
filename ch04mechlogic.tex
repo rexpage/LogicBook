@@ -1,51 +1,76 @@
 \chapter{Mechanized Logic}
 \label{ch:mechanized-logic}
+%%\begin{comment}
 
-\section{Mechanized Logic}
-\label{sec:mech-logic}
-The proofs we have been doing depend on matching grammatical elements in formulas
+Proofs of algebraic equations,
+such as those in Chapter~\ref{ch:mathematical-induction},
+depend on matching grammatical elements in formulas
 against templates in axioms and theorems.
-The formulas are then transformed to equivalent ones with different grammatical structures.
-Gradually, we move from a starting formula to a concluding one to verify an equation for a new theorem.
+A proof starts with a formula on one side
+of the equation of a theorem,
+cites a known equation to transform the formula
+to another one with the same meaning,
+and moves gradually, step by step, to the formula
+on the other side of the equation of the theorem.
+It is easy for people to make mistakes in this detailed, syntax-matching process,
+but computers can carry it out flawlessly and
+relieve us from an obligation to focus with monk-like devotion on grammatical analysis.
+We can leave that to the computer and count on having it done right.
 
-It is easy to make mistakes in this detailed, syntax-matching process,
-but computers carry it out flawlessly.
-This relieves us from an obligation to focus with monk-like devotion on the required grammatical analysis.
-We can leave it to the computer count on having it done right.
+\begin{aside}
+One of the aims of this book is to help students learn to
+verify, using rigorous logic, properties of software
+that is defined by inductive equations.
+Another goal is to provide
+inkling of how a mechanized logic
+can formalize reasoning of that kind
+and lead to greater confidence of its correctness.
+If you follow the broad outlines of the examples
+and successfully work your way through some of the exercises,
+we think you will gain a basic understanding
+of what can be done with mechanized logic.
+Acquiring a deep expertise with such tools
+would require substantially more study and experience.
+\caption{ACL2 Learning Objectives}
+\label{aside:acl2-learning-objectives}
+\end{aside}
 
-There are several mechanized logic systems that people use
-to assist with proofs of the kind we have been doing.
-One of them is ACL2 (A Computational Logic for Applicative Common Lisp).
-Theorems for the ACL2 proof engine are stated in the same form
+ACL2 is one of several systems of mechanized logic that provide this
+kind of assistance with proofs.
+Theorems for the ACL2 proof engine take the same form
 as properties for the doublecheck testing facility in Proof Pad.
-ACL2 has a built-in strategy for finding inductive proofs,
-and for some theorems it succeeds in fully automating proofs.
-It also permits people to guide it through proofs while it pushes through all of the grammatical details.
+ACL2 has a built-in way to look for inductive proofs,
+and for some theorems it succeeds without guidance.
+Most of the time, however, ACL2 needs some help in
+finding its way through the morass of strategies.
+In any case ACL2 checks the details automatically.
 
-To illustrate how this works, we will go the theorems
-discussed earlier in this chapter, one by one.
-The notation for stating theorems in ACL2 form will be familiar,
-but not identical to the one we have been using
-for our paper-and-pencil proofs.
-For one thing, it employs prefix notation throughout,
-and we have been using a mixture of prefix and infix.
+To illustrate how this works, we return to the theorems
+discussed in Chapter~\ref{ch:mathematical-induction}.
+The syntax of ACL2 requires prefix notation exclusively,
+as you would expect, and there are additional issues
+to be discussed, but the form of the theorems
+will be familiar from your experience with doublecheck.
 
-Our first proof by mathematical induction verified
-the additive law of concatenation (page \pageref{additive-law-concatenation}).
-Our statement of the theorem asserted that a proposition L($n$) is true,
-regardless of which natural number $n$ stands for: ($\forall$$n$.L($n$)).
- L($n$) is a shorthand for the following formula:
-\begin{quote}
-\begin{tabbing}
-L($n$) $\equiv$ (= \=(len (append [$x_1$ $x_2$ \dots $x_n$] $ys$))  \\
-                   \>(+ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$)))
-\end{tabbing}
-\end{quote}
+\section{ACL2 Theorems and Proofs}
+\label{sec:theorems-and-acl2-proofs}
 
-We could have used the doublecheck facility of Proof Pad to run tests on this property.
+The first proof by mathematical induction
+in Chapter~\ref{ch:mathematical-induction}
+verified the additive law of concatenation
+(page \pageref{additive-law-concatenation}).
+The statement of the theorem asserted that a proposition L($n$) is true,
+regardless of which natural number $n$ stands for: ($\forall$$n$.L($n$)),
+where L($n$) is a shorthand for the following formula.
+\begin{center}
+L($n$) $\equiv$ (len (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ (+ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$))
+\end{center}
+
+In Chapter~\ref{ch:software-testing-prefix-notation} (page \pageref{additive-lengths-test})
+we used the doublecheck facility of Proof Pad to test a property.
 
 \begin{Verbatim}
-(defproperty additive-law-of-concatenation-tst
+(defproperty additive-law-of-concatenation-test
     (xs :value (random-list-of (random-natural))
      ys :value (random-list-of (random-natural)))
   (= (len (append xs ys))
@@ -53,81 +78,198 @@ We could have used the doublecheck facility of Proof Pad to run tests on this pr
 \end{Verbatim}
 
 Of course, the doublecheck specification of this property
-cannot employ the informal notation of the numbered list interpretation
-(\pageref{numbered-list-interpretation}).
-Instead, the property simply uses a symbol $xs$ to stand for the list.
-The property does not state the length of $xs$, but we know
-its length will be some natural number $n$, so the property, as stated,
-has the same meaning as the formula that L($n$) stands for.
+cannot employ the informal notation of numbered lists
+(page \pageref{numbered-list-interpretation}).
+Instead, the property simply uses the variable $xs$ to stand for the list
+(Axiom \{lst\}, page \pageref{axiom:lst}).
+The ACL2 statement of the theorem corresponding to this property
+is the same as the property specification
+except for the random data specifications (introduced
+by the ``:value'' keyword), which are not present in the theorem,
+and the keyword ``defproperty'',
+which becomes ``defthm'', instead.
 
-The statement of the additive law as a theorem in the form
-required by ACL2 cannot use the informal notation, either.
-In fact, the theorem takes a form that is like the property specification,
-except for the :value portion and the keyword ``defproperty''.
-
-Theorem statements in ACL2 start with the ``defthmd'' keyword.
+Theorem statements in ACL2 start with the ``defthm'' keyword.
 After that comes a name for the theorem and the Boolean formula
-that expresses the meaning of the theorem, as illustrated in the following definition.
+that states the theorem, as illustrated in
+the following definition.
 
 \begin{Verbatim}
-(defthmd additive-law-of-concatenation-thm
+(defthm additive-law-of-concatenation-thm
   (= (len (append xs ys))
      (+ (len xs) (len ys))))
 \end{Verbatim}
 
-The mechanized logic of ACL2 fully automates the proof of this theorem.
-It uses a built-in, heuristic procedure to find an induction scheme
-and pushes the proof through on its own.
-To see ACL2 in action, use Proof Pad to ask ACL2
-to prove the above theorem. ACL2 will succeed in this case.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.55]{images/additive-law-of-concatenation-thm-acl2-prf-bw.png}
+\end{center}
+\caption{Proof Pad Session with Proof Bar}
+\label{fig:proof-bar-with-chk}
+\end{figure}
 
-Probably you can follow the above example to convert all theorems
-from this chapter into ACL2 theorem statements.
-Just to make sure, we will look at another one,
-then leave the rest for practice exercises.
+The mechanized logic of ACL2 fully automates the proof of this theorem.
+It follows its own heuristic procedures to find an induction scheme
+and pushes the proof through on its own.
+To see ACL2 in action, enter the theorem into a Proof Pad session
+and click in the green proof bar
+(Figure~\ref{fig:proof-bar-with-chk}, page \pageref{fig:proof-bar-with-chk}).
+This sets ACL2 in motion to prove the theorem.
+A check mark appears in the proof bar
+when the mechanized logic succeeds.
+
+\section{Using Books of Proven Theorems}
+\label{sec:using-books-of-proven-theorems}
 
 The append-suffix theorem, which states that
-when the first operand in an append formula is a list of length $n$,
-then you can reconstruct the second operand by dropping $n$ elements
-from the front of the concatenation.
-We stated this this theorem in the form ($\forall$$n$.S($n$)),
+when the first operand of the append operator is a list of length $n$,
+then dropping $n$ elements from the front of the concatenation
+reproduces the second operand of append.
+In Section~\ref{sec:append-prefix-suffix} (page \pageref{append-suffix-thm-pencil-proof})
+we stated this theorem in the form ($\forall$$n$.S($n$)),
 where S($n$) is a shorthand for the following formula.
 
 \begin{samepage}
 \begin{center}
-\begin{tabular}{lll}
-S($n$) $\equiv$ (equal & (nthcdr & (len [$x_1$ $x_2$ \dots $x_n$])          \\
-                       &         & (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) \\
-                       & $ys$)   &                                          \\
-\end{tabular}
+S($n$) $\equiv$ (nthcdr (len [$x_1$ $x_2$ \dots $x_n$]) (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ $ys$
 \end{center}
 \end{samepage}
 
-The following definition specifies this theorem in ACL2 notation.
+In ACL2 notation, a definition of this theorem takes the following form.
 
 \begin{Verbatim}
-(defthmd append-suffix-thm
+(defthm append-suffix-thm
   (equal (nthcdr (len xs) (append xs ys))
          ys))
 \end{Verbatim}
 
-ACL2 can prove this theorem, but,
-as with the \{\emph{app-pfx}\} theorem (page \pageref{app-pfx-thm}),
-the proof requires knowing some equations from numeric algebra,
-so it is necessary to import those theorems from the
-\label{arith-top-book}
-"arithmetic-3/top" book.
-The following include-book command makes that theory accessible to the mechanized logic.
-
+The mechanized logic can prove this theorem, but
+the proof depends on some equations from numeric algebra.
+Fortunately, ACL2 experts have already proved many such theorems,
+and the ACL2 system makes them available in the form of ``certified books''
+(ACL2 terminology for a package of theorems successfully proven by the
+mechanized logic).
+A book known as
+\label{arith-top-book} "arithmetic-3/top"
+contains theorems from algebra
+that the mechanized logic can cite in
+a proof of the append-suffix theorem.
+An include-book directive tells ACL2
+to import these theorems.
+\begin{center}
 (include-book "arithmetic-3/top" :dir :system)
-\newline
-When you put the command above the append-suffix theorem in the program pane
-and press the start button and then the Admit All button,
-ACL2 succeeds in the proof without further assistance. For practice, try it yourself.
+\end{center}
+
+To make the theorems in the book available
+for ACL2 to cite in a proof,
+the directive precedes the defthm command that
+defines the theorem to be proved, as shown in
+Figure~\ref{fig:append-suffix-acl2-prf} (page \pageref{fig:append-suffix-acl2-prf}).
+Clicking in the proof bar sets the mechanized logic in motion,
+and a check mark appears in the proof bar when
+the proof is complete.
+To try it for yourself in a Proof Pad session.
+Enter the include-book directive
+and theorem definition of Figure~\ref{fig:append-suffix-acl2-prf},
+click in the proof bar, and see what happens.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{images/append-suffix-thm-acl2-prf-bw.png}
+\end{center}
+\caption{Append-Suffix: Importing Theorems to Cite in Proof}
+\label{fig:append-suffix-acl2-prf}
+\end{figure}
+
+\begin{ExerciseList}
+
+\Exercise Define the \{\emph{append associativity}\} theorem in ACL2 notation,
+and use Proof Pad to run it through the ACL2 mechanized logic.
+If you state the theorem correctly, ACL2 will succeed in proving it.\footnote{According
+to J Moore, a pioneer in mechanized logic and a principal developer of ACL2,
+the associativity of append was one of the driving examples in early work in
+mechanized logic and one of the first theorems that such a system proved autonomously.}
+
+\Exercise Define the following theorem for ACL2 and get the mechanized logic to prove it:
+$\forall xs.$((len (nthcdr (len xs) xs)) $=$ 0).
+
+\end{ExerciseList}
+
+\section{Theorems with Constraints}
+\label{sec:implies-constraints}
+
+Another of the pencil-and-paper proofs in Section~\ref{sec:append-prefix-suffix}
+was the append-prefix theorem,
+which referred to the prefix operator.
+
+\begin{Verbatim}
+(defun prefix (n xs)
+   (if (and (posp n) (consp xs))
+       (cons (first xs) (prefix (- n 1) (rest xs))) ; {pfx1}
+       nil))                                        ; {pfx0}
+\end{Verbatim}
+
+The append-prefix theorem, as stated for the pencil-and-paper proof,
+had the form $\forall n.$S$(n)$,
+where S($n$)
+was written in terms of a numbered list
+(Figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation}).
+The same theorem in ACL2 terminology uses a variable to designate the list.
+\begin{samepage}
+\begin{quote}
+Theorem \{append-prefix\} $\forall n.$S$(n)$ \\
+S($n$) $\equiv$ (nthcdr (len [$x_1$ $x_2$ \dots $x_n$]) (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ $ys$
+\begin{Verbatim}
+(defthm append-prefix-thm-NOT-QUITE-RIGHT
+  (equal (prefix (len xs) (append xs ys))
+         xs))
+\end{Verbatim}
+\end{quote}
+\end{samepage}
+
+However, the theorem as stated
+is not quite correct,
+and to explain why, we need to discuss
+some things we haven't told you about lists.
+\label{true-list-def}
+A \emph{true list} in ACL2 is either the empty list (nil)
+or a value of the form (cons $x$ $xs$),
+where $xs$ is a true list.
+It can be verified by induction that
+the prefix operator always delivers a true list.
+The value (prefix 0 xs) is nil (a true list by definition).
+That takes care of the base case.
+The value of (prefix $(n+1)$ xs) is either nil (again a true list)
+or (cons (first xs) (prefix $n$ (rest xs))).
+We can assume by the induction hypothesis that
+(prefix $n$ (rest xs)) is a true list,
+which means (by the definition of ``true list'')
+that (cons (first xs) (prefix $n$ (rest xs))) is a true list.
+That takes care of the inductive case.
+
+When the second operand of cons is not a true list,
+the value it constructs isn't a true list, either.
+For example, (cons 2 1) is not a true list because 1 is not a true list.
+The formula (cons 3 (cons 2 1)) also is not a true list,
+again because the second operand,
+in this case (cons 2 1), is not a true list.
+However, (len (cons 3 (cons 2 1)) is 2, which you can work
+out from the axioms or, easier,
+just submit the formula to ACL2 and let it do the computation.
+A similar computation reveals that
+(prefix (len (cons 3 (cons 1 2))) (cons 3 (cons 1 2)))
+is (cons 3 (cons 2 nil)), not (cons 3 (cons 2 1)).
+That is, when $xs$ is (cons 3 (cons 2 1)),
+then (prefix (len xs) (append xs ys)) is not equal to $xs$.
+The equation that theorem append-prefix-thm-NOT-QUITE-RIGHT
+guarantees does not hold when $xs$ is (cons 3 (cons 2 1)).
+Since a theorem cannot have exceptions,
+the theorem append-prefix-thm-NOT-QUITE-RIGHT
+cannot be true.
 
 \begin{aside}
 A theorem that takes the form of an implication, $x \rightarrow y$,
-says that the conclusion, $y$, will be true with the hypothesis, $x$,
+says that the conclusion, $y$, will be true when the hypothesis, $x$,
 is true, but says nothing about the status of the conclusion when
 the hypothesis is false. The ACL2 equivalent of the Boolean formula $x \rightarrow y$
 is (implies $x$ $y$).
@@ -135,42 +277,373 @@ For example, one can conclude that $u - 1 < v - 1$
 if one knows that $u < v$.
 In ACL2 this fact would be stated as an implication.
 \begin{Verbatim}
-(defthm simple-example
+(defthm simple-theorem-about-numbers
   (implies (< u v)
            (< (- u 1) (- v 1))))
 \end{Verbatim}
-\caption{Implication: constrains conclusion of defthm}
-\label{implies-def}
+\caption{Using Implication to Constrain the Domain of a Theorem}
+\label{thm-with-implies}
 \end{aside}
 
+The theorem is true, however, when the $xs$ variable is
+constrained to the domain of true lists.
+In the statement of the append-prefix theorem in
+Section~\ref{sec:append-prefix-suffix} (page \pageref{append-prefix-thm-predicate}),
+the role of $xs$ was played by the numbered list
+[$x_1$ $x_2$ \dots $x_n$], which is a true list, by definition
+(page \pageref{numbered-list-interpretation}).
+ACL2 does not permit the use of the numbered list syntax,
+so the true-list constraint must be explicit,
+as in the following statement of the theorem.
+
+\begin{Verbatim}
+(defthm append-prefix-thm
+   (implies (true-listp xs)
+            (equal (prefix (len xs) (append xs ys))
+                   xs)))
+\end{Verbatim}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.43]{images/append-prefix-thm-acl2-prf-bw.png}
+\end{center}
+\caption{Append-Prefix Theorem: an Implication}
+\label{fig:append-prefix-acl2-prf}
+\end{figure}
+
+Now we have a theorem that we believe is true
+based on our pencil-and-paper proof.
+The mechanized logic of ACL2
+succeeds in proving this theorem, but, as was the case with
+the append suffix theorem
+(Figure~\ref{fig:append-suffix-acl2-prf}, page \pageref{fig:append-suffix-acl2-prf}),
+it needs to cite some theorems of numeric algebra.
+Figure~\ref{fig:append-prefix-acl2-prf} (page \pageref{fig:append-prefix-acl2-prf})
+displays a Proof Pad session that imports those theorems,
+defines the prefix operator, and then states and proves the theorem.
+The figure indicates that ACL2
+``admits'' the prefix operator when it encounters its definition.
+This means that ACL2 allows the definition to join
+the universe of entities that can participate in
+the mechanized reasoning process.
+Aside~\ref{reason-for-acl2-admit} (page \pageref{reason-for-acl2-admit})
+explains what this entails.
+
+\begin{aside}
+In Figure~\ref{fig:append-prefix-acl2-prf}
+there is a step that has the label ``admit operator''.
+That is the terminology ACL2 uses for the process of accepting
+an operator into its mechanized logic.
+A domain in which operators may fail to terminate
+calls for a more complex reasoning process than a domain that is
+restricted to operators that are guaranteed to complete their
+computation in a finite number of steps.
+To give itself a better shot at succeeding in mechanized proofs,
+ACL2 does not deal with operators with a potential for non-termination.
+It admits operators to its domain of logic
+only if it can verify termination in all cases.
+Sometimes, coming up with an operator definition that makes
+it possible for ACL2 prove termination is, by itself,
+a major project, including importing theorems or coming up with new
+theorems to facilitate the reasoning process.
+Hardware and software with guaranteed properties is not easy to come by.
+\caption{ACL2 Must Prove That Operators Terminate}
+\label{reason-for-acl2-admit}
+\end{aside}
 
 \begin{ExerciseList}
-\Exercise Use Proof Pad to run the \{\emph{app-pfx}\} theorem
-(page \pageref{app-pfx-thm}) through the ACL2 mechanized logic.
-Don't forget to import the equations of numeric algebra
-contained in the "arithmetic-3/top" book (page \pageref{arith-top-book}).
-
-\Exercise Define the \{\emph{append associativity}\} theorem in ACL2 notation,
-and use Proof Pad to run it through the ACL2 mechanized logic.
-If you state the theorem correctly, ACL2 will succeed in proving it.
 
 \Exercise Define the \{\emph{rep-len}\} theorem (page \pageref{rep-len}) in ACL2 notation,
 and use Proof Pad to run it through the ACL2 mechanized logic.
+(Hint: You will need to constrain the first operand of rep to the domain of natural numbers.)
 
-\emph{Note}: You will need to state the theorem as an implication (page \pageref{implies-def})
-constraining $n$, the first operand of rep, to be a natural number.
-If you state the theorem correctly, ACL2 will succeed in proving it.
+\Exercise An exercise in Section~\ref{sec:append-prefix-suffix} required a pencil-and-paper
+proof of the following proposition: $\forall xs.$((nthcdr (len xs) $xs$) $=$ nil).
+Define this theorem in ACL2 notation and get the mechanized logic to prove it.
 
-\Exercise Define the \{\emph{drop-all0}\} theorem (page \pageref{drop-all0}) in ACL2 notation,
-and use Proof Pad to run it through the ACL2 mechanized logic.
-ACL2 will succeed if you import the equations of numeric algebra
-contained in the "arithmetic-3/top" book (page \pageref{arith-top-book}).
+\Exercise The formula (equal (prefix (len $xs$) $xs$) $xs$) is true with a certain
+constraint on $xs$. Define an ACL2 theorem with this equation in its conclusion
+and get the mechanized logic to prove it.
 
-\Exercise Define the \{\emph{drop-all}\} theorem (page \pageref{drop-all}) in ACL2 notation,
-and use Proof Pad to run it through the ACL2 mechanized logic.
-The theorem must be stated as an implication constraining $n$ to be a natural number,
-and ACL2 will need to have access to the equations of numeric algebra,
-as in the previous exercise.
+\end{ExerciseList}
+
+\section{Helping Mechanized Logic Find Its Way}
+\label{sec:lemmas}
+
+The mechanized logic of ACL2 was able to carry out proofs of
+the theorems of Section~\ref{sec:theorems-and-acl2-proofs} without assistance.
+To prove the theorems in Section~\ref{sec:using-books-of-proven-theorems},
+ACL2 needed to cite some proven theorems packaged in books
+developed by experts.
+These were carefully chosen examples to get started with
+the mechanized proofs.
+Usually, the process of using a mechanized logic requires
+both proven theorems packaged in books
+and specialized theorems chosen to match the
+needs of a particular goal.
+That is, to succeed in proving a complex property of
+an operator defined in ACL2,
+it is usually necessary to prove
+some simpler properties that the mechanized
+logic can cite in a proof of the more complex property.
+
+Choosing simpler properties that ACL2 can prove
+and building, finally, to the more complex proof
+calls for insight and creativity.
+This is where your experience with pencil-and-paper proofs
+come in handy.
+You can plan a strategy by thinking of major steps
+in a proof, stating those steps as separate theorems,
+and proving them one by one to build up a body
+of helpful theorems that the mechanized logic
+can cite to move closer to the goal.
+
+It may help to see an example of how this can work.
+The Fibonacci numbers are a well-studied sequence that
+scientists have used to study
+patterns of development in leaves and flowers,
+growth rates in animal populations,
+and other natural phenomena.
+The sequence can be defined inductively
+with the Fibonacci equations
+(Figure~\ref{fig:Fibonacci-axioms}, page \pageref{fig:Fibonacci-axioms}).
+
+\begin{figure}
+\begin{center}
+\emph{Axioms \{Fibonacci\}}
+\begin{tabular}{ll}
+$f_0$ $=$ $0$                   & \{\emph{f0}\} \\
+$f_1$ $=$ $1$                   & \{\emph{f1}\} \\
+$f_{n+2}$ $=$ $f_{n+1} + f_{n}$ & \{\emph{f2}\} \\
+\end{tabular}
+\begin{Verbatim}
+(defun fib(n) ; n-th Fibonacci number
+  (if (posp (- n 1))                      ; n > 1
+      (+ (fib(- n 1)) (fib(- n 2)))       ; {fib2}
+      n))                                 ; {fib1}
+\end{Verbatim}
+\begin{tabular}{llllllllll}
+\dots & (fib 2) & (fib 3) & (fib 4) & (fib 5) & \dots & (fib 10) & (fib 11) & (fib 12) & \dots \\
+\dots & ~~~~~1  &  ~~~~2  &  ~~~~3  &  ~~~~5  & \dots &  ~~~~~55 &  ~~~~~89 & ~~~144   & \dots \\
+\end{tabular}
+\end{center}
+\caption{Fibonacci Numbers}
+\label{fig:Fibonacci-axioms}
+\end{figure}
+
+The Fibonacci operator, fib, defined in ACL2
+mirrors the algebraic equations.
+It selects the inductive formula,
+(fib$(n - 1)$) + (fib$(n - 2)$),
+for an operand $n$ that is 2 or bigger
+(that is, when $(n-1)$ is a positive, natural number).
+For smaller operands, the ACL2 definition
+observes that the corresponding Fibonacci number
+is the same as the operand:
+(fib 0) $=$ $f_0$ $=$ $0$ by axiom \{\emph{f0}\}
+and (fib 1) $=$ $f_1$ $=$ $1$) by axiom \{\emph{f1}\}.
+
+We can be confident that $\forall n.($(fib $n$) $=$ $f_n)$
+because the ACL2 definition of fib is a direct
+transliteration of the Fibonacci equations.
+We can use the operator fib as a calculator
+to compute some Fibonacci numbers.
+This works well for small numbers,
+but it turns out that there are
+a huge number of
+computational steps required to derive
+(fib $n$) from the Fibonacci axioms when $n$ gets above a few dozen.
+For example the computation of (fib 30) proceeds quickly,
+but you will see a noticeable delay if ask ACL2 to compute (fib 40),
+and you would have to wait a long time for (fib 50).
+
+It's not to hard to see the reason for this.
+The axioms calculate (fib $(n+2)$) by first calculating
+(fib $(n+1)$), and then calculating (fib $n$), and finally
+adding those two numbers together.
+However many computational steps it takes to compute (fib $n$),
+it will take at least a few more to compute (fib $(n+1)$).
+So, there will be more than twice as many steps in the computation of (fib $(n+2)$)
+as there are in the computation of (fib $n$).
+That is, when $n$ increases by 2, the number of computational steps more than doubles.
+If we let $c_n$ stand for the number of computational steps in the calculation
+of (fib $n$), then our observation about doubling amounts to the
+inductive relationship $c_{n+2} \geq 2c_n$.
+We think you have had enough experience to prove (by induction of course)
+that $\forall n.(c_{2n+1} \geq 2^n)$,
+assuming it takes at least one computational step to compute (fib $1$).
+That's what they call ``exponential growth''.\footnote{The term
+``exponential growth'' is bandied about a lot, but mostly
+in ways that do not match the standard mathematical meaning.
+The most common usage is to describe something that
+gets big fast, which is certainly true of exponential growth,
+but is also true of quadratic growth.
+Quadratic growth often gets passed off, informally, as exponential growth,
+but it's not even close. If the number of computational steps
+in computing (fib $n$) from the axioms grew quadratically instead of exponentially,
+it would not take a lot longer to compute (fib 40) than it does to compute (fib 30).}
+It is dramatic, to say the least. We estimate that it would take an hour to compute
+(fib 50) on a typical laptop computer and upwards of a year to compute (fib 75).
+
+The Fibonacci axioms comprise an inductive definition.
+They conform to the three C's
+(Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}),
+so they guarantee delivery of a Fibonacci number in a finite number
+in a finite number of computational steps.
+Unfortunately, in this case it turns out to be
+a huge number of computational steps.
+However, there are always alternatives.
+If a particular inductive definition leads to a long computation,
+there may be another inductive definition that produces the same
+results with less work.
+Fortunately, that is the case with Fibonacci numbers.
+Figure~\ref{fig:gib-defun} (page \pageref{fig:gib-defun})
+displays another definition that uses a method known as
+``tail recursion''.\footnote{``Recursive definition''
+is the most commonly used term for what we call ``inductive definition''.
+We don't say recursive because the term is often conflated
+with an implementation method based on a data structure called a stack,
+and we think that the stack implementation model
+is unnecessarily complex. We want you to think of inductive (aka recursive)
+definitions as axiomatic equations that can be used to reason about the
+operators they define. Usually, we will leave it to the computer system
+to worry about implementation details. Sometimes, as in the Fibonacci problem
+where an inductive definition leads to inefficient computation, we will
+concern ourselves with certain computational details,
+but we will not relinquish our view of inductive definitions
+as axioms to support reasoning. If our programming language allowed
+mutable variables, as most programming languages do, we would have
+to delve into a stack-based view of recursion.
+Since it doesn't, we don't, and we won't.}
+A tail recursion is a circular reference in an operator definition
+that occurs at the ``top level'', which means that it is not nested
+inside a formula to produce an operand for
+another operator. The operator ``op'' occurs at the top level
+in the formula (op $x$), but is nested in the formula (+ (op $x$) 1).
+Most programming language systems, including ACL2,
+implement tail recursions efficiently. Nested recursions are
+more problematic. They don't always lead to inefficient computations,
+but sometimes, as with Fibonacci numbers, they do.
+
+\begin{figure}
+\begin{center}
+\begin{Verbatim}
+(defun gib (n b a)  ; b = (fib(n-1)), a=(fib(n-2))
+   (if (posp (- n 1))                     ; n > 1
+       (gib (- n 1) (+ b a) b)            ; {gib2}
+       (if (= n 1)
+           b                              ; {gib1}
+           a)))                           ; {gib0}
+(defun fib-fast (n)         ; (fib-fast n)=(fib n)
+   (gib n 1 0))             ; (fib 1)=1, (fib 0)=0
+\end{Verbatim}
+\end{center}
+\caption{Fibonacci Numbers: Quick Delivery}
+\label{fig:gib-defun}
+\end{figure}
+
+The downside is that reasoning about tail recursive definitions
+is often more challenging than reasoning about definitions
+with nested recursion. One way to proceed, however,
+is to define an operator both ways, prove that the two definitions
+produce the same results, and then use the efficient definition
+for computation and the inefficient one when it
+simplifies the reasoning process.
+
+If you look at the definition of fib-fast (Figure~\ref{fig:gib-defun})
+closely, we think you will agree that, while it may seem plausible
+that (gib $n$ $1$ $0$) is the $n^{th}$ Fibonacci number,
+it isn't obvious that they are the same.
+Some reasoning is required.
+
+Maybe ACL2 can take it on successfully.
+We would like to know that $\forall n.($(fib-fast $n$) = (fib $n$)$)$.
+The theorem in ACL2 terms can be stated as follows.
+\begin{samepage}
+\begin{center}
+\begin{Verbatim}
+(defthm fib=fib-fast ; (fib-fast n) = (fib n)
+    (implies (natp n)
+             (= (fib n) (fib-fast n))))
+\end{Verbatim}
+\end{center}
+\end{samepage}
+
+When ACL2 tries to prove this theorem it fails,
+or at least it takes such a long time floundering that we interrupted it
+to try something else.
+We thought maybe it needed to know some theorems from numeric
+algebra, so we imported the arithmetic-3/top book, as usual,
+but that didn't help. It still sat there spinning,
+so we interrupted it again.
+
+We guessed that it might be having trouble coming up with an effective
+induction hypothesis, so we decided to ask it to prove that
+the gib operator satisfies the basic Fibonacci axioms.
+This is, to prove that the $n^{th}$ value of gib is
+the sum of the previous two values (as in axiom \{\emph{f2}\}).
+In ACL2 that theorem can be stated as follows.
+\begin{samepage}
+\begin{center}
+\begin{Verbatim}
+(defthm gib-inductive-equation       ; a la {fib2}
+    (implies (posp (- n 1))              ; n > 1
+             (= (gib n b a)              ; n-th
+                (+ (gib (- n 1) b a)     ; (n-1)th
+                   (gib (- n 2) b a))))) ; (n-2)th
+\end{Verbatim}
+\end{center}
+\end{samepage}
+
+It fails quickly this time and reports that it was not able
+to find an induction scheme that worked.
+So, our attempt to help ACL2 along didn't work, exactly,
+but at least it helped it figure out quickly that
+things were not going well.
+
+Next, we decided that ACL2 might need help with the
+base case as well as the inductive case, so we
+stated a base case for the gib operator as an ACL2 theorem.
+
+\begin{samepage}
+\begin{center}
+\begin{Verbatim}
+(defthm gib-base-equation            ; a la {fib1}
+    (= (gib 1 b a) b))
+\end{Verbatim}
+\end{center}
+\end{samepage}
+
+This idea worked. ACL2 was able to prove the gib-base-equation
+and the gib-inductive-equation, and then, finally,
+use them to prove that $\forall n.($(fib-fast $n$) = (fib $n$)$)$,
+in the form defined in the fib=fib-fast theorem.
+Figure~\ref{fig:fib-gib-thm} (page \pageref{fig:fib-gib-thm})
+displays the Proof Pad session with the check-marks
+indicating completed proofs by the mechanized logic of ACL2.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{images/fib-gib-thm-acl2-prf.png}
+\end{center}
+\caption{Fast Fibonacci Delivers Fibonacci Numbers}
+\label{fig:fib-gib-thm}
+\end{figure}
+
+Try out the fib-fast operator in a Proof Pad session.
+The Fibonacci number (fib-fast $n$) seems to appear
+instantaneously, even for large values of $n$.
+
+\begin{ExerciseList}
+
+\Exercise Assume that $c_1 = 1$ and $c_{n+2} = 2c_n$.
+Prove that $\forall n.(c_{2n+1} = 2^n)$.\\
+\emph{Hint}: Define $x_n = c_{2n+1}$.
+First, verify that $x_{n+1} = 2x_n$.
+Then, use mathematical induction to prove that $x_n = 2^n$,
+and translate this formula for $x_n$
+to a formula for $c_{2n+1}$.\\
+\emph{Law of Exponents}: $2^0 = 1$, $\forall n.(2^{n+1} = 2 \times 2^n)$.
 
 \end{ExerciseList}
 
@@ -227,10 +700,9 @@ They are sometimes impossible, as G\"odel famously proved in 1931
 to the great surprise of many mathematicians of the day.
 In the same vein there things computers cannot do.
 A well known example is the \emph{halting problem}, which
-was proved,
-in 1936 in by Alan Turing
-and, independently, by Alonzo Church,
-to be outside the realm of computation.
+was proved to be outside the realm of computation
+by Alan Turing in 1936
+and, independently, by Alonzo Church.
 There were no computers at the time,
 but there were mathematical models of computation
 that are used, still today, to study the capabilities of computers.
@@ -276,12 +748,13 @@ interferes with some of the strategies that ACL2 uses
 to mechanize the process of proving theorems.
 
 The discussion will include some logic formulas with
-quantification (see page \pageref{quantify-def}),
-so we need to say what the domain of discourse is.
+quantification,
+so we need to specify the domain of discourse 
+(page \pageref{def-universe-of-discourse}).
 When the bound variable
 in the formula is $h$, the domain of discourse
 is the set of operators that have
-two operandss and can be defined in Lisp:
+two operands and can be defined in Lisp:
 (defun $h$ ($f$ $x$) \dots \emph{Lisp formula} \dots ).
 When the bound variable is $f$,
 the domain of discourse is  set of operators
@@ -569,6 +1042,7 @@ $((\neg H($p, $x)$ $\rightarrow$ $H($p, $x)) = H($p, $x)$
 
 So, we can rewrite the \{H$+$\} and \{H$-$\} theorems as follows.
 \begin{quote}
+\label{thm:HplusHminus}
 Theorem \{H$+$ version 2\}: $E$ $\vdash$ $H($p, $x)$ \\
 Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($p, $x)$
 \end{quote}
@@ -603,7 +1077,7 @@ proof
 \end{figure}
 
 \begin{ExerciseList}
-\Exercise Prove Theorem \{H$+$\}.
+\Exercise Prove Theorem \{H$+$\} (page \pageref{thm:HplusHminus}).
 
 \Exercise
 Prove that for any value $x$, the formula (loop $x$) represents
@@ -617,8 +1091,8 @@ and $n$ is a natural number.
 The following equations define the notation ($f^n$ $x$).
 \begin{center}
 \begin{tabular}{ll}
-($f^0$ $x$) $=$ $x$                    &\{power0\} \\
-($f^{n+1}$ $x$) $=$ ($f$ ($f^n$ $x$))  &\{power1\} \\
+($f^0$ $x$) $=$ $x$                    &\{iter0\} \\
+($f^{n+1}$ $x$) $=$ ($f$ ($f^n$ $x$))  &\{iter1\} \\
 \end{tabular}
 Example: ($f^3$ $x$) $=$ ($f$ ($f$ ($f$ $x$)))
 \end{center}
@@ -634,26 +1108,30 @@ $\forall n.\forall x.($(loop $x$) $=$ (loop$^{n+1}$ $x$)$)$
 
 
 \todo{
+DONE 21Sep2017
 Put labels on sections, at least in Ch2.tex
 label for nat deduc section: \section{Deduction} \label{sec:deduction}
 
+DONE 21Sep2017
 Add label to first exercise, nat deduc section:
 \Exercise
 \label{thm:and-complement}
 Use natural deduction to prove
 Theorem \{$\wedge$ complement\}: $a$, $\neg a$ $\vdash$ $False$
 
+DONE before 21Sep2017
 Add label to natp explanation in ch3.tex:
 \label{natp-op}
 The value of the formula ``(natp $x$)'' is true
 
+DONE 21Sep2017
 Insert absurd-1 and absurd-2 equations just before absurdity equation in table in ch2.tex
 $((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
 $(x \rightarrow (\neg x)) = (\neg x)$                                & \{absurd 1\}               \label{absurd-1} \\
 $((\neg x) \rightarrow x) = (\neg x)$                                & \{absurd 2\}               \label{absurd-2} \\
 $((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
 }
-
+%%\end{comment}
 %% All references to Dracula taken out (30Aug2017 - rlp)
 %% I think we should use Proof Pad for all doublecheck and other interface-to-ACL2 issues.
 %% We can explain in an aside, when we first mention Proof Pad,
