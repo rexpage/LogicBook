@@ -205,7 +205,7 @@ is more complicated. Let's look at it in detail.
 \begin{center}
 \begin{tabular}{lll}
     & (len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$)))             &   \\
-$=$ & (len(mux (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$))))      & \{\emph{cons}\} (page \pageref{cons-axiom-informal}) \\
+$=$ & (len(mux (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$))))      & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
 $=$ & (len(cons $x$ (cons $y$ (mux [$x_2$ $\dots$ $x_{n+1}$] (cons $ys$))))) & \{\emph{algebra}\} \\
 $=$ & 1 + (1 + (len(mux [$x_2$ $\dots$ $x_{n+1}$] (cons $ys$))))             & \{\emph{len1}\} twice (page \pageref{len-equations}) \\
 $=$ & 1 + (1 + ($n$ + (len(cons $ys$))))                                     & \{\emph{L(n)}\} (ind hyp) \\
@@ -338,6 +338,7 @@ take them as defining axioms for dmx.
 
 The following definition in ACL2 provides a formal version of the axioms.
 
+\label{defun:dmx}
 \begin{Verbatim}
 (defun dmx (xys)
   (if (consp xys)
