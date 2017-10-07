@@ -329,20 +329,36 @@ Axiom \{\emph{natp}\} \\
 \end{Verbatim}
 
 \begin{aside}
-Maybe you think ``floor'' is an odd name
-for a function that produces the quotient, but wait \dots it gets worse.
-Names a lot stranger than that will pop up soon enough.
-The floor operator delivers the quotient. Get used to it.
-There's no crying in baseball.
-\caption{Think ``floor'' is an odd name?}
-\label{floor-is-odd}
+ACL2 provides two operators,
+ceiling and floor, that divide one number by another, 
+then round up or down to an integer value.
+In algebraic formulas, special brackets known as
+floor and ceiling brackets indicate the direction of rounding.
+Ceiling brackets (like square brackets with the bottom chopped off)
+indicate the next integer that is the same as or larger than
+the enclosed value.
+Floor brackets (square brackets without the top part)
+go in the other direction, down to an integer
+that doesn't exceed the enclosed value.
+
+\begin{center}
+\begin{tabular}{lll}
+(ceiling $x$ $y$)& $= \lceil x  \div y \rceil $ \emph{quotient rounded up}   \\
+(floor $x$ $y$)  & $= \lfloor x \div y \rfloor$ \emph{quotient rounded down} \\
+\end{tabular}
+\end{center}
+
+\caption{Floor and Ceiling Operators, Floor and Ceiling Brackets}
+\label{floor-def}
+\label{ceiling-def}
+\label{floor-ceiling-ops-brackets}
 \end{aside}
 
 There are two parts to the result
 of dividing one number by another: the quotient and the remainder.
 The mod operator delivers the remainder,
-\label{floor-def}
-and an operator called ``floor'' delivers the quotient.
+and an operator called FLOOR (Aside~\ref{floor-ceiling-ops-brackets})
+delivers the quotient.
 The quotient is always strictly smaller
 than the dividend when the divisor is bigger than one
 and the dividend is a non-zero, natural number.
