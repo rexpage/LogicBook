@@ -47,7 +47,7 @@ Multiplexing what's left of the two input lists will get all the elements
 in the right place for the perfect shuffle that the mux operator is supposed to deliver.
 
 That gives us an equation that the mux operator
-would have to satisfy if it worked properly:
+would have to satisfy if it worked properly.
 
 \hspace{1cm} (mux (cons $x$ $xs$) (cons $y$ $ys$)) = (cons $x$ (cons $y$ (mux $xs$ $ys$)))
 \hfill \{\emph{mux11}\}
@@ -71,24 +71,29 @@ so mux would deliver the empty list in that case, but
 what should it deliver if one list is empty, but the other isn't?
 
 There are several reasonable choices, and each of them produces
-a different operotr. One choice is to incorporate the elements
+a different operator. One choice is to incorporate the elements
 in the non-empty list, just as they are, into the
 multiplexed list that the mux operator delivers..
 That would make mux satisfy the following equations.
 
-\hspace{1cm} (mux nil $ys$) = $ys$ \hfill \{\emph{mux01}\}
-
-\hspace{1cm} (mux $xs$ nil) = $xs$ \hfill \{\emph{mux10}\}
+\begin{center}
+Axioms for mux Operator
+\begin{tabular}{ll}
+(mux nil $ys$) = $ys$  & \{\emph{mux0x}\}     \\
+(mux $xs$ nil) = $xs$  & \{\emph{mux0y}\}     \\
+(mux (cons $x$ $xs$) (cons $y$ $ys$)) = (cons $x$ (cons $y$ $\dots$ \emph{rest of formula goes here} $\dots$)) & \{\emph{mux11}\}
+\end{tabular}
+\end{center}
 
 \label{def:mux}
-The three equations, \{\emph{mux01}\}, \{\emph{mux10}\}, and \{\emph{mux11}\},
+The three equations, \{\emph{mux0x}\}, \{\emph{mux0y}\}, and \{\emph{mux11}\},
 are comprehensive (either both operands are non-empty
 or at least one of them is) and computational
 (inductive invocations involve less computation).
 They are consistent because in the only overlapping case
 which occurs
 when both lists are empty, both equations
-(\{mux01\} and \{mux10\}) specify the same result
+(\{mux0x\} and \{mux0y\}) specify the same result
 (namely, the empty list).
 We can, therefore, take the equations as axioms
 defining the mux operator.
@@ -102,7 +107,7 @@ definition.
   (if (not (consp xs))
       ys                                             ; mux0
       (if (not (consp ys))
-          xs                                         ; mux10
+          xs                                         ; mux0y
           (cons (first xs)
                 (cons (first ys)
                       (mux (rest xs) (rest ys))))))) ; mux11
@@ -123,7 +128,7 @@ of the lists, starting with the $ys$ list.
 So, the formula on the right hand side is a list that starts with $x$,
 then alternates between elements of $ys$ and $xs$, which is exactly what
 mux should deliver. This leads to a two-equation definition of the mux operator.
-The axiom \{mux01\} from the three-equation definition
+The axiom \{mux0x\} from the three-equation definition
 (page \pageref{def:mux})
 covers the case when the first operand is empty.
 
@@ -145,7 +150,7 @@ as in the following defun.
    (declare (xargs :measure (+ (len xs) (len ys))))
    (if (consp xs)
        (cons (first xs) (mux ys (rest xs))) ; mux1y
-       ys))                                 ; mux01
+       ys))                                 ; mux0x
 \end{Verbatim}
 
 \caption{Defining mux with Two Equations}
@@ -182,7 +187,7 @@ Base case: L(0) $\equiv$ ((len(mux nil $ys$)) = 0 + (len $ys$))
 \begin{center}
 \begin{tabular}{lll}
     & (len(mux nil $ys$))                             &                     \\
-$=$ & (len $ys$)                                      & \{\emph{mux01}\}    \\
+$=$ & (len $ys$)                                      & \{\emph{mux0x}\}    \\
 $=$ & 0 + (len $ys$)                                  & \{\emph{algebra}\}  \\
 \end{tabular}
 \end{center}
@@ -197,7 +202,7 @@ inference rule (page \pageref{fig-02-deduction-rules})
 to conclude that $L(n+1)$ holds.
 
 The proof of the part when $ys$ is nil is like the proof when $xs$ is nil,
-except that it cites \{\emph{mux10}\} instead of \{\emph{mux01}\},
+except that it cites \{\emph{mux0y}\} instead of \{\emph{mux0x}\},
 The proof of the part when the second operand is non-empty,
 and therefore has the form (cons $y$ $ys$),
 is more complicated. Let's look at it in detail.
@@ -312,72 +317,56 @@ with the $x$-values in one list and $y$-values in the other.
 [[$x_1$ $x_2$ $x_3$ $\dots$] [$y_1$ $y_2$ $y_3$ $\dots$]]
 \hfill \{\emph{dmx}\}
 
-If dmx works properly, then it should package a list
-that alternates between $y$-values and $x$-values
-(starting with $y$-values) into two lists,
-the first one containing the $y$-values,
-the second, the $x$-values.
+The following equations form an inductive definition of dmx.
+The inductive equation covers the case when
+the operand has at least two elements
+(that is, it starts with an $x$ and then a $y$),
+and the non-inductive equations cover the cases
+when the operand has just one element or none.
+\begin{center}
+Axioms for dmx
+\begin{tabular}{ll}
+(dmx [$x_1$ $y_1$ $x_2$ $y_2$ $\dots$ $x_{n+1}$ $\dots$]) $=$ [(cons $x_1$ $xs$) (cons $y_1$ $ys$) &\{\emph{dmx2}\} \\
+~~~~~~where [$xs$ $ys$] $=$ (dmx $x_2$ $y_2$ $\dots$ $x_{n+1}$ $\dots$])                           &\\
+(dmx [$x1$]) =  [[$x_1$] nil]                                                                      &\{\emph{dmx1}\} \\
+(dmx nil) $=$ [nil ~ nil]                                                                          &\{\emph{dmx0}\} \\
+\end{tabular}
+\end{center}
 
-\hspace{1cm} (dmx [$y_1$ $x_2$ $y_2$ $x_3$ $y_3$ $\dots$]) =
-[[$y_1$ $y_2$ $y_3$ $\dots$] [$x_2$ $x_3$ $\dots$]]
+The informal axioms for dmx provide a basis for a formal definition.
+The formal version takes advantage of the fact that if the operand
+has less than two elements, then it is the first component of the result,
+and the second component is the empty list.
 
-Therefore, dmx must satisfy the following equation.
-
-\hspace{1cm} (dmx (cons $x$ $yxs$)) = [(cons $x$ $xs$) $ys$] \hfill \{\emph{dmx1}\}
-
-\hspace{1.4cm} where [$ys$ $xs$] = (dmx $yxs$)
-
-The equation \{\emph{dmx1}\} applies whenever the operand is non-empty.
-When the operand is empty, dmx must deliver a package of two empty lists:
-
-\hspace{1cm} (dmx nil) = [nil nil] \hfill \{\emph{dmx0}\}
-
-Together, the equations \{\emph{dmx0}\} and \{\emph{dmx1}\}
-are comprehensive, consistent, and computational, so we
-take them as defining axioms for dmx.
-
-The following definition in ACL2 provides a formal version of the axioms.
-
-\label{defun:dmx}
+\label{dmx-defun}
 \begin{Verbatim}
 (defun dmx (xys)
-  (if (consp xys)
+  (if (consp (rest xys))      ; 2 or more elements?
       (let* ((x (first xys))
-             (ysxs (dmx (rest xys)))
-             (ys (first ysxs))
-             (xs (second ysxs)))
-        (list (cons x xs) ys))      ; dmx1
-      (list xys xys)))              ; dmx0
+             (y (second xys))
+             (xsys (dmx (rest (rest xys))))
+             (xs (first xsys))
+             (ys (second xsys)))
+        (list (cons x xs) (cons y ys)))      ; dmx2
+      (list xys nil)))  ; 1 element or none    dmx1
 \end{Verbatim}
 
 \begin{aside}
-The ACL2 version of equation \{\emph{dmx0}\} is a bit tricky.
-Whereas, the pencil-and-paper version of the equation
-says that dmx delivers the value [nil nil],
-the ACL2 version says it delivers the value (list $xys$ $xys$),
-where $xys$ is the operand.
-The ``if'' operation in the definition selects this formula
-when (consp $xys$) is false.
-
-Normally, (consp $xys$) being false would mean that $xys$ is nil.
-However, it doesn't
-necessarily carry that meaning.
-It just means that $xys$ is not an object constructed by
-the cons operator.
-It could be, for example, a number, such as 27 or 12 or zero.
-We are expecting $xys$, as an operand of dmx, to be a list.
-If $xys$ is a list,
-then the only list it could be when (consp $xys$) is false
-is the empty list. So, (list $xys$ $xys$) is the same
-as (list nil nil) under normal circumstances.
-That is, when $xys$ is a list and (consp $xys$) is false.
-
-In the formal, ACL2 definition,
-we us the formula (list $xys$ $xys$) instead of (list nil nil)
-to account for abnormal circumstances, in case the operand $xys$
-is not a list. That makes it possible to derive theorems that
-hold under more general circumstances, thereby simplifying the
-mechanized reasoning that ACL2 carries out.
+A more clever definition of the demultiplexor
+observes that if the operand alternates between $x$ and $y$ values,
+starting with an $x$,
+then the same list without is first element alternates similarly
+starting with a $y$. The definition is shorter,
+but makes reasoning more complicated.
+\begin{center}
+Axioms for dmx, maybe too clever by half
+\begin{tabular}{ll}
+(dmx [$x_1$ $y_1$ $x_2$ $y_2$ $\dots$]) $=$ [(cons $x_1$ $xs$) $ys$]  & \{\emph{dmx1x}\} \\
+~~~~~~where [$ys$ $xs$] $=$ (dmx [$y1$ $x_2$ $y_2$ $\dots$])          & \\
+(dmx nil) $=$ [nil ~ nil]                                             & \{\emph{dmx0x}\} \\
+\end{tabular}
+\end{center}
+\caption{Cleverness Sometimes Complicates Reasoning}
 \label{aside:dmx-defun-trick}
 \end{aside}
 
@@ -397,13 +386,21 @@ those two lists, reproduces the original list of $x$-$y$ values.
 \label{thm:mux-inverts-dmx}
 \begin{Verbatim}
 (defthm mux-inverts-dmx-thm
-  (equal (mux (first  (dmx xys))
-              (second (dmx xys)))
-         xys))
+  (implies (true-listp xys)
+           (equal (mux (first  (dmx xys))
+                       (second (dmx xys)))
+                  xys)))
 \end{Verbatim}
 
 It works the other way around, too, if the operands of
-the mux operator are lists of the same length.
+the mux operator are lists of the same length.\footnote{Both
+of the round-trip properties require the operands to be
+true lists because the multiplexor can lose information
+if its operands aren't true lists.}
+These inversion properties provide the kinds
+of guarantees that people using the operators
+might want to know, for sure, to have confidence that
+the operators are correctly defined.
 
 \label{thm:dmx-inverts-mux}
 \begin{Verbatim}
@@ -414,10 +411,28 @@ the mux operator are lists of the same length.
                   (list xs ys))))
 \end{Verbatim}
 
-These inversion properties provide the kinds
-of guarantees that people using the operators
-might want to know, for sure, to have confidence that
-the operators are correctly defined.
+The dmx operator delivers every other element of the operand in
+one component and the remaining elements in the other component.
+That means that each component of the result is half a long as the operand.
+If the operand has an odd number of elements, the extra one goes into the first component.
+These length properties can be specified in terms of the floor and ceiling
+operators (Aside~\ref{floor-ceiling-ops-brackets}, page \pageref{floor-ceiling-ops-brackets}).
+The length of the first component is the length of the operand divided by two
+and rounded up to the next integer if it has an odd number of elements.
+The second component is also half the length of the operand, but rounded down if necessary.
+The mechanized logic of ACL2 succeeds in proving these theorems,
+but it needs the help of some theorems about arithmetic.
+
+\label{thm:dmx-length-first-second}
+\begin{Verbatim}
+(include-book "arithmetic-3/top" :dir :system)
+(defthm dmx-len-first
+   (= (len (first (dmx xs)))
+      (ceiling (len xs) 2)))
+(defthm dmx-len-second
+   (= (len (second (dmx xs)))
+      (floor (len xs) 2)))
+\end{Verbatim}
 
 \begin{ExerciseList}
 \Exercise
@@ -432,6 +447,14 @@ stated formally in ACL2 as follows.
      (+ (len (first (dmx xys)))
         (len (second (dmx xys))))))
 \end{Verbatim}
+
+\Exercise
+Do paper and pencil proofs of the dmx-len-first and dmx-len-second
+theorems (\pageref{thm:dmx-length-first-second}).
+You may find the proofs easier if you split them into
+two cases, one when the number of elements in the operand is even
+(that is, $2n$, for some natural number $n$),
+the other when the number of elements is odd ($2n+1$).
 
 \Exercise [label={ex:dmx-val-thm}]
 State formally, in ACL2, the ``dmx-val'' theorem

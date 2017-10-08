@@ -5,65 +5,67 @@
 %%% TeX-master: "book"
 %%% End:
 
-Many computing applications require arranging a list of records
-in an order determined by an identifying key.
-Alphabetical order by name, for example, or chronological order by date.
-Records that have been taken in a random or otherwise unpredictable order
-need to be rearranged, and software to perform such rearrangements
-employ sorting operators do so.
+The task of sorting records into a desired order
+(alphabetical order, for example, or chronological order,
+or numeric order by an identifying key)
+is one of the most well studied problems in computing.
+Solutions abound,
+and a good one can save an enormous amount of time.
+A sorting operator that is twice as fast
+as a slower operator when rearranging a few hundred records
+will typically be hundreds of times faster than the slow operator
+for thousands of records, and many thousands of times faster
+when there are millions of records to be rearranged.
+Data archives with thousands or millions or records
+are common, and that makes the sorting process important.\footnote{The
+difference between using a fast sorting operator and a slow one
+can be dramatic.
+Some years ago, one of the authors helped the US Forest Service
+figure out what was consuming almost all of the time
+on their central computing system.
+The culprit turned out to be about two dozen lines
+of software in their road design system.
+Those lines comprised a slow sorting method
+known as ``bubble sort.'' Replacing it with a fast sorting
+method known as ``quicksort'' cut the amount of computation
+attributable to the road design system from over a hundred
+hours a week on each of eight mainframe computers to a few hours
+a week on one.}
 
-The problem of sorting records into a desired order by a particular key
-is one of the most studied areas in computing.
-Solutions abound.
-The savings that fast sorting methods provide,
-compared to slower methods, tend to
-increase with the number of records in the lists to be sorted.
-For example, if a fast operator consumes half the computational resources
-of a slower one when sorting several hundred records,
-it typically would consume a few percent of the resources
-of the slower method when sorting several thousand records
-and well under one per cent when there are tens of thousands of records.
-Many applications deal with record archives of this size,
-so the time required for sorting operations can be reduced
-from hours to seconds by choosing a faster method.
+This chapter will discuss two sorting operators that
+deliver the same results but differ
+greatly in the amount of time they take to do the job.
+Since they deliver the same results,
+they are equivalent operators in a mathematical sense,
+but they are vastly different computationally.
+Our discussion will analyze both the computational differences
+and the mathematical equivalence.
 
-Different sorting operators are defined
-by different collections of equations.
-So, different equations do not necessarily change the
-results delivered, but can have a dramatic effect on
-the time required to deliver them.
-
-This chapter will discuss two sorting operators that differ
-greatly in the amount of time they take to carry out a rearrangement,
-but not at all in terms of results delivered.
-Both operators deliver the same rearrangement of any given list.
-That makes them equivalent, in terms of mathematical equality,
-but vastly different computationally, and the chapter
-will analyze both the computational differences
-and mathematical equivalences.
-
-The choice of defining equations for an operator
-amount to a choice of algorithm, and the computational
+The design of equations defining an operator
+amount to the choice of algorithm, and the computational
 resources required by the algorithm can be derived
 from the equations in the same manner as other properties
 of the operator.
-
-Our earlier discussions of software have focussed on
-expectations concerning
-the correctness of the results delivered by operators.
-A concern with computational resources is something new.
-Now we discuss engineering choices that affect the usefulness of
+Previously, we have been mostly concerned with meeting
+expectations with regard to the form of the results
+of an operation, not the time it takes to deliver those results.
+Now we will discuss engineering choices that affect the usefulness of
 software as the amount of data increases.
-Engineering requires not only producing correct
-results, but also dealing with scale in practical ways.
+Engineering requires not only producing the expected
+results, but also dealing with scale in effective ways.
 
 \section{Insertion Sort}
 \label{sec:insertion-sort}
 
-To maintain our attention on the essentials of
+To focus our attention on the essentials of
 arranging records in order by a key, we will
 assume that the entire content of a record
 resides in its key.
+In practice, there is usually a lot of information
+besides an identifying key in a record,
+but the process of arranging the records
+in order by key is the same, regardless
+of what information is associated with each key.
 Furthermore, we will use numbers for keys
 and discuss operators that rearrange lists
 of numbers into increasing order.
@@ -74,11 +76,24 @@ which contains the same numbers, but arranged so
 that the smallest one comes first, and so on up the
 line to the largest at the end.
 
+Identifying keys need not be numbers,
+but they do need to be comparable
+with regard to the desired ordering (alphabetical,
+chronological, etc.).
+If the keys aren't numbers,
+then the numeric comparisons
+($<$, $>$) in our discussion would compare
+keys to see which one precedes the other
+in the desired ordering.
+The sorting method is the same, regardless
+of the way keys are compared for order.
+
 Suppose someone has defined an operator that,
-given a number and a list of numbers that has
+given a list of numbers that has
 already been arranged into increasing order,
-delivers the list with the given number inserted
-into a place that preserves order.
+along with a new number to put in the list,
+delivers a list with the new number inserted
+into a place that preserves the ordering.
 If we call the operator ``insert'', then
 the formula (insert 8 [2 4 5 5 6 9]) would
 deliver [2 4 5 5 6 8 9].
@@ -101,12 +116,11 @@ insert the number at the beginning of the list.
 If the number to be inserted exceeds the first number
 in the list, we don't know where it will go in the list,
 but we do know it won't come first.
-The first number will stay first in this case.
+The first number in the list will stay there in this case.
 If we trust the operator to insert it in the right place,
-we can let it do the insertion at the proper place
-in among the numbers after the first one,
-then insert the first number from the original list
-into the result.
+we can make a new list starting with the same first number
+and then  let the insertion operator put the new number
+where it belongs among the numbers after the first one.
 
 \hspace{1cm} (insert $x$ (cons $x_1$ $xs$)) = (cons $x_1$ (insert $x$ $xs$)) if $x > x_1$
 \hfill \{\emph{ins2}\}
@@ -124,9 +138,9 @@ form the second operand.
 \label{defun:insert-isort}
 \begin{Verbatim}
 (defun insert (x xs) ; assume x1 <= x2 <= x3 ...
-  (if (and (consp xs) (> x (first xs)))
-      (cons (first xs) (insert x (rest xs))) ; ins2
-      (cons x xs)))                          ; ins1
+  (if (and (consp xs) (> x (first xs)))     ; 1st element stays 1st?
+      (cons (first xs) (insert x (rest xs))); ins2
+      (cons x xs)))                         ; ins1
 \end{Verbatim}
 
 Now suppose someone has defined a sorting operator called ``isort''.
@@ -143,14 +157,14 @@ and the formula (isort (cons $x$ nil)) would have to deliver
 \hspace{1cm} (isort (cons $x$ nil)) = (cons $x$ nil) \hfill \{\emph{isrt1}\}
 
 If the list to be rearrange has two or more elements,
-it has the form (cons $x_1$ (cons $x_2$ $xs$)).
+it has the form (cons $x_1$ (cons $x_2$ $xs$)) (\{consp\} axiom, page \pageref{consp-axiom}).
 If the isort operator works properly,
 the formula (isort (cons $x_2$ $xs$)) would be
 a list made up of the number $x_2$ and all the numbers in the list $xs$
 taken together and
 arranged in increasing order.
-In this situation, the insert operator can be used to put the number $x_1$ in
-the right place in that list, producing a list made up of the
+Given that list, the insert operator can put the number $x_1$ in
+the right place, producing a list made up of all the
 numbers in the original list, rearranged into increasing order.
 
 \label{eq:isrt2}
@@ -163,7 +177,7 @@ so we can take them as defining axioms for the isort operator.
 Again, they can be consolidated into two equations because
 the sorted list is identical to the input list when it has
 only one element, or none.
-The definition in ACL2 could be expressed as follows.
+The definition in ACL2 can be expressed as follows.
 
 \label{defun:isort}
 \begin{Verbatim}
@@ -184,32 +198,41 @@ similar to the corresponding theorems for
 the multiplex and demultiplex operators discussed
 in Chapter \ref{ch:mux-dmx}.
 The theorem on conservation of values
-could use the occurs-in predicate
+can use the occurs-in predicate
 (page \pageref{def:occurs-in}) for determining
-whether or not a value occurs in a list.
+whether or not a value occurs in a list.\footnote{Conservation
+of values and preservation of length does not guarantee
+that the operator delivers the correct result.
+If there were two copies of a number $x$ in the list
+and two copies of $y$, a list with three copies of $x$
+and only one $y$ could conserve values and preserve
+length but still deliver the wrong result.
+The result should be a permutation of the original list.
+The permutation property is not much harder
+to prove than the combination of value conservation and length preservation,
+but it requires a formal definition of the term ``permutation.''}
 
 \label{defthm:isort-len}
 \begin{Verbatim}
 (defthm isort-len-thm
   (= (len (isort xs)) (len xs)))
 
+\label{defthm:isort-val}
 (defthm isort-val-thm
   (iff (occurs-in e xs)
        (occurs-in e (isort xs))))
 \end{Verbatim}
-\label{defthm:isort-val}
 
 We also expect the numbers in the list that the isort operator
 delivers to be in increasing order.
 To state that property, we need a predicate
 to distinguish between lists containing numbers in increasing order
-and lists that have numbers out of order.
+and lists that have some numbers out of order.
 Of course, a list with only one element or none is already
 in order. A list with two or more elements is in order
 if its first element doesn't exceed its second and if
 all the elements after the first element are in order.
-
-If we call this predicate ``up'', it would be True
+If we call this predicate ``up'', it would be $True$
 if its operand is either empty or has only one element,
 or if it satisfies the
 following inductive equation.
@@ -249,7 +272,7 @@ Later, we will analyze the computational behavior of the isort operator
 and will find that it is extremely slow for long lists.
 The next section will start us down a path that will
 end with the definition of a sorting operator
-that does much better, even on long lists.
+that is fast, even on long lists.
 
 \begin{ExerciseList}
 \Exercise
@@ -266,6 +289,65 @@ neither adds nor drops numbers its operand
 Do a pencil-and-paper proof that the isort operator
 delivers a list arranged in increasing order
 (isort-ord-thm, page \pageref{defthm:isort-ord-thm}).
+
+\Exercise
+Suppose (ct $x$ $xs$) computes how many times
+the value $x$ occurs in the list $xs$.
+\begin{quote}
+\begin{enumerate}[label=\alph*{. }]
+\item What value should the operator ct deliver if $xs$ has no elements?
+\item State a theorem in ACL2 that expresses the
+      number of occurrences of a value $x$ in the list (cons $x$ $xs$)
+      in terms of the number of occurrences of $x$ in $xs$.
+\item State a theorem in ACL2 that expresses the
+      number of occurrences of a value $x$ in the list (cons $y$ $xs$)
+      when $y$ is not equal to $x$.
+\item Define the operator ct with equations that meets the three C's guidelines
+      (Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}).
+\begin{verbatim}
+(defun ct (x xs) ; number of occurrences of x in xs
+   ...)
+\end{verbatim}
+\end{enumerate}
+\end{quote}
+
+\Exercise
+The operator del, defined as follows, deletes an occurrence of $x$ in $xs$
+if $x$ occurs in $xs$.
+\label{defun:del}
+\begin{Verbatim}
+(defun del (x xs)
+   (if (not(consp xs))
+       nil
+       (if (equal x (first xs))
+           (rest xs)
+           (cons (first xs) (del x (rest xs))))))
+\end{Verbatim}
+Define a theorem in ACL2 that
+expresses the number of occurrences of $x$ in (del $x$ $xs$)
+in terms of the number of occurrences of $x$ in $xs$.
+
+\Exercise
+The predicate permp, defined as follows, is true if its second operand
+is a permutation of its first operand and false otherwise.\footnote{The
+predicate occurs-in is defined in
+Aside \ref{aside:mux-val-thm} (page \pageref{aside:mux-val-thm}).}
+\label{defun:permp}
+\begin{Verbatim}
+(defun permp (xs ys)
+   (if (not(consp xs))
+       (not(consp ys))
+       (and (occurs-in (first xs) ys)
+            (permp (rest xs) (del (first xs) ys)))))
+\end{Verbatim}
+Define a theorem in ACL2 stating that (isort $xs$) is a
+permutation of $xs$, and
+get ACL2 to prove the theorem.
+Since the theorem will refer to the predicate permp
+and permp refers to the operators occurs-in and del,
+ACL2 will need to admit definitions of those operators
+to its logic before it can attempt to prove the theorem.
+
 \end{ExerciseList}
 
 \section{Order-Preserving Merge}
@@ -273,13 +355,14 @@ delivers a list arranged in increasing order
 
 The multiplex operator (Section \ref{sec:mux})
 combines two lists into one in a perfect shuffle.
-There are of course many ways to combine two lists,
-and the one we will discuss now combines the list
+There are many other ways to combine two lists,
+and the one we will discuss now combines ordered lists
 in a way that preserves order.
-If the lists contain numbers arranged in increasing order,
+If both lists contain numbers arranged in increasing order,
 the merge operator, which we will call ``mrg'',
-will combine the numbers from both lists
-into one list in which the numbers are arranged in increasing order.
+will combine the two lists
+into one in which the numbers from both lists
+are arranged in increasing order in one list.
 
 Two of the equations for the multiplex operator (mux, \pageref{def:mux})
 specify the results when one of the lists is empty.
@@ -305,8 +388,9 @@ and the other when the second operand starts with the smaller number.
 
 \hspace{1cm} (mrg (cons $x$ $xs$) (cons $y$ $ys$)) = (cons $y$ (mrg (cons $x$ $xs$) $ys$)) if $x > y$  \hfill \{\emph{mgy}\}
 
-The four equations, taken as a whole, are comprehensive because either one list or the other is empty,
-or both are not, in which case one of them must begin with the smaller element.
+The four equations, taken as a whole, are comprehensive
+because either one list is empty or the other one is empty,
+or both list are non-empty, in which case one of them must begin with the smaller element.
 They are consistent because, as with the mux operator, the only overlapping situation is when
 both lists are empty, in which case equation \{\emph{mg0}\}
 delivers the same result as equation \{\emph{mg1}\}.
@@ -314,25 +398,33 @@ Two of the equations (\{\emph{mgx}\} and \{\emph{mgy}\}) are inductive,
 so we need to make sure they are computational.
 In both equations, there are fewer elements in the operands
 on the right-hand side than on the left-hand side.
-That is, the total number of elements to be merged in the inductive invocation
-on the right-hand side is less than the the total on the left.
-So, it takes less computation to carry out the merge on the right
-than to do the one on the left.
-That makes the equations computational,
-and we can take them as axioms for the mrg operator.
+That is, the total number of elements to be merged
+on the right-hand side of the inductive equation \{\emph{mgx}\}
+is less than the the total on the left-hand side.
+That makes the operands on the right-hand side closer to
+a non-inductive case than the operands on the left-hand side.
+Therefore, the equations computational.
+That covers the three C's
+(Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}),
+so we can take them as axioms for the mrg operator.
 
 The formal definition in ACL2 is easily constructed from
 the pencil and paper form discussed above.
 However, ACL2 needs some help in finding an induction scheme
 to prove that the axioms provide a way for the operation to
 be completed under all circumstances.
-That is why the definition suggests
-inducting on the total number of elements in the two operands.
+We reasoned that the definition of mrg is computational
+because the total number of elements in the two operands
+is smaller on the right-hand side of the inductive equations
+than on the left-hand side.
+The ``declare'' directive suggests using
+this total as an ``inductive measure,''
+and that is enough to get the mechanized logic on the right track.
 
 \label{defun:mrg}
 \begin{Verbatim}
 (defun mrg (xs ys)
-  (declare (xargs :measure (+ (len xs) (len ys)))) ; induction scheme
+  (declare (xargs :measure (+ (len xs) (len ys)))); induction scheme
   (if (and (consp xs) (consp ys))
       (let* ((x (first xs)) (y (first ys)))
         (if (<= x y)
@@ -348,11 +440,15 @@ and it neither adds nor drops any of the numbers in those operands.
 The equations specifying these properties are like those of the
 corresponding properties of the mux operator, namely
 the mux-length-thm (\pageref{mux-length-thm}) and the
-mux-val-thm (\pageref{thm:mux-val}).
+mux-val-thm (\pageref{thm:mux-val}).\footnote{As
+with the theorems about isort, value conservation
+and length preservation are not enough to guarantee
+a correct result. The result needs to be a permutation
+of the elements of the lists to be merged.}
 
 The mrg operator also preserves order.
 If the numbers in both operands are in increasing order,
-the numbers in the list it delivers are also in increasing order.
+the numbers in the list it delivers are in increasing order.
 A formal statement of this property can employ the same order predicate
 ``up'' (\pageref{defun:up}) that was used to state a
 similar property of the isort operator.
@@ -409,27 +505,26 @@ This algorithm is known as merge-sort. Our ACL2 definition
 will use the name msort, similar to the name isort that we used
 for the insertion sort operator.
 
-The sorting step, which involves to sorting operations (one for each part),
-is the inductive step. It refers to the operator being defined.
-The steps are computational because both of the lists delivered by dmx
-are shorter than the original list, so the inductive invocations
-represent smaller computations.
+The sorting step, which involves two sorting operations (one for each part),
+is the inductive step referring to the operator being defined.
+The inductive step is computational because both of the lists delivered by dmx
+are shorter than the original list.
 
 We do have to make sure that the lists dmx delivers are strictly
 shorter than its operand. We expect this to be true, since half
 of the elements go into one list, and the other half go into the other list.
-If the operand is an empty list, it cannot get any shorter,
+However, if the operand is an empty list, it cannot get any shorter,
 and dmx in that case delivers two empty lists,
 both of which are the same size as the operand.
 It also happens that if the list has only one element,
-one of the two lists that dmx delivers is the empty list,
-but the other one is the operand itself. Therefore,
-one part is not strictly shorter than the operand.
+one of the two lists that dmx delivers is the operand itself.
+Therefore, one part is not strictly shorter than the operand.
 
-However, if the operand of the sorting operation has
+Fortunately, if the operand of the sorting operation has
 only one element, or none, the list is already in increasing order
 by default. So, the equations for the new sorting operator, msort,
-are the same as those for isort (\pageref{eq:isrt0}).
+are the same as those for isort (\pageref{eq:isrt0})
+when the list has fewer than two elements.
 
 \label{eq:msrt0}
 \hspace{1cm} (msort nil) = nil \hfill \{\emph{msrt0}\}
@@ -452,12 +547,14 @@ constructed from these equations.
 However, the ACL2 system needs some help in verifying
 the msort always terminates. It needs to know
 that the lists delivered by the dmx operator are shorter
-then its operand, as stated in the following theorem.
+then its operand, as stated in the following theorem.\footnote{Since
+the purpose of this theorem is to provide some help in proving
+another one, we call it a ``lemma''.}
 
 \label{defthm:dmx-shortens-list}
 \begin{Verbatim}
-(defthm dmx-shortens-list-thm ; lemma to help ACL2 admit def of msort
-  (implies (consp (rest xs))  ; can't shorten one-element or empty lists
+(defthm dmx-shortens-list-thm ; lemma helps ACL2 admit def of msort
+  (implies (consp (rest xs))  ; can't shorten 0- or 1-element lists
            (mv-let (odds evns)
                    (dmx xs)
               (and (< (len odds) (len xs))
@@ -468,7 +565,7 @@ ACL2 also needs to be told why the equations are computational
 (because the lengths of the lists in the inductive invocations
 are less than the length of the operand).
 Finally, ACL2 needs to know what theorem to cite to verify
-that the inductive operands are shorter. 
+that the inductive operands are shorter.
 Withe annotations specifying these points of proof strategy,
 ACL2 admits the following definition of msort.
 
@@ -484,7 +581,7 @@ ACL2 admits the following definition of msort.
              (odds (first splt))
              (evns (second splt)))
         (mrg (msort odds) (msort evns)))    ; {msrt2}
-      xs))                ; (len xs) <= 1     {msrt1} 
+      xs))                ; (len xs) <= 1     {msrt1}
 \end{Verbatim}
 
 The msort operator has the ordering, length-preserving,
@@ -526,14 +623,17 @@ delivers lists that are shorter than its operator
 (dmx-shortens-list-thm, page \pageref{defthm:dmx-shortens-list}).
 {defthm:dmx-shortens-list}
 
+\Exercise
 Do a pencil-and-paper proof that the msort operator
 delivers a list that is in increasing order.
 (msort-ord-thm, page \pageref{defthm:msort-ord}).
 
+\Exercise
 Do a pencil-and-paper proof that the msort operator
 preserves the length of its operand
 (msort-len-thm, page \pageref{defthm:msort-len}).
 
+\Exercise
 Do a pencil-and-paper proof that the msort operator
 preserves the values in its operand
 (msort-val-thm, page \pageref{defthm:msort-val}).
@@ -543,21 +643,531 @@ preserves the values in its operand
 \label{sec:sort-analysis}
 
 In this section, we discuss an operational model for ACL2
-that gives us a way to count the number of computational steps involved
-in computing the value of a formula. We use the equations defining
+that gives us a way to count the number of computational steps required
+to compute the value of a formula. We use the equations defining
 the isort and msort operators to derive inductive equations
 for the number of computational steps required to rearrange lists
-into increasing order by isort versus msort formulations.
+into increasing order by isort versus the msort formulation.
 Then, we derive from those equations, by mathematical induction,
-an bounds on the number of computational steps required by msort.
-It turns out that the number of steps for msort 
+the number of computational steps required by msort.
+It turns out that the number of steps for msort
 is proportional to the product of
-the number of elements in the list to be sorted 
+the number of elements in the list to be sorted
 and the logarithm of that number.
 
 We also compute an approximation to the expected number of computational steps
 required by the isort operator to deliver its result.
 The number of steps for isort depends on the particular arrangement of
-of the numbers in the operand, so it's not always the same.
-But we can get an approximation of the average, and that turns out to
-be proportional to the square on the number of elements in the list to be sorted.
+of the numbers in its operand, so it's not always the same.
+We settle for an approximation of the average, and that turns out to
+be proportional to the square of the number of elements in
+the operand.
+
+\subsection{Counting Computational Steps}
+\label{subsec:counting-computational-steps}
+
+A definition of an operator in ACL2
+is a collection of equations that
+reduce an invocation of the operator
+to a formula that computes the result.
+Predicate formulas in the definition determine
+which of the equations applies to
+the operands supplied in the invocation.
+Both the formula that computes the result and
+the predicate formula that controls
+its selection invoke other operators
+or, in the case of an inductive equation,
+may even invoke the operator being defined.
+The process eventually comes down to the
+application of basic, one-step ACL2 operators.
+To analyze the number of computational steps
+required to compute the result,
+we need to know what those one-step operators are.
+
+A more detailed analysis would allow different
+basic operators be associated with different computation times.
+That is, a model for detailed analysis could associate
+several computational steps with one basic operator
+and associate only a few steps with another operator.
+Our analysis will provide a less refined picture than such
+a model because we will assume that each basic operator
+delivers its result in just one computational step.
+In the worst case, this would throw comparisons between
+the number of steps in different computations off
+by the ratio between the time required by the slowest basic
+operator and the fastest, but could not make a bigger
+difference than that factor. That is, comparisons
+might be off by a small factor (two or three, perhaps),
+but they will be accurate enough to provide
+reliable comparisons between the computation speeds
+generated by differing definitions of operators.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+Insertion: (cons $x$ $xs$)                                       & \\
+Extraction: (first $xs$), (rest $xs$)                            & \emph{operators that add one step} \\
+Boolean: (and $x$ $y$), (or $x$ $y$), (not $x$ $y$), \dots       & ~~\emph{to a computation}            \\
+Arithmetic: ($+$ $x$ $y$), ($-$ $x$ $y$), ($*$ $x$ $y$), \dots   & ~~~~\emph{(after computing operands)} \\
+Comparison: ($<$ $x$ $y$), ($<=$ $x$ $y$), ($=$ $x$ $y$), \dots  & \\
+Cons predicate: (consp $xs$)                                     & \\
+Selection: (if $p$ $x$ $y$)                                      & \emph{computes} $p$\emph{, then} $x$ \emph{or} $y$\emph{, but not both}
+\end{tabular}
+\end{center}
+\caption{Basic One-Step Operators}
+\label{fig:basic-one-step-ops}
+\end{figure}
+
+
+Figure~\ref{fig:basic-one-step-ops} (\pageref{fig:basic-one-step-ops})
+specifies the basic, one-step operators that comprise
+our computational model.
+From this computational model, an analysis would conclude
+that the construction of the list [1, 2, 3, 4] is a
+four-step computation.
+
+\begin{center}
+[1 2 3 4] = (cons 1 (cons 2 (cons 3 (cons 4 nil)))) ~~ $\leftarrow$ \emph{4 steps: cons (one step), four times}
+\end{center}
+
+Each basic operator in a formula contributes one step
+to the computation required to compute its value.
+
+\begin{center}
+\begin{tabular}{ll}
+    (if ($>$ $7$ $3$) ($+$ $3$ ($*$ $5$ $4$)) ($+$ $2$ $2$)) & $\leftarrow$ \emph{4 steps:}~ ($>$ $7$ $3$), ($*$ $5$ $4$), ($+$ $3$ $20$), (if T $23$ ~~--) \\
+    (if ($<$ $7$ $3$) ($+$ $3$ ($*$ $5$ $4$)) ($+$ $2$ $2$)) & $\leftarrow$ \emph{3 steps:}~ ($<$ $7$ $3$), ($+$ $2$ $2$), (if nil ~~--~~ $4$) \\
+    (second '($1$ $2$ $3$))                                  & $\leftarrow$ \emph{2 steps:}~ (rest '($1$ $2$ $3$)), (first '($2$ $3$))
+\end{tabular}
+\end{center}
+
+Counting the number of steps an operator
+contributes to a computation is straightforward
+if the definition of the operator uses only basic operations.
+For example, the operator C-to-F, defined
+as follows, converts a temperature from degrees Celsius to
+degrees Fahrenheit. It multiplies by the ratio 180/100
+(to adjust from ``wide'' Celsius degrees to the
+more refined scale of Fahrenheit degrees), then adds 32
+(to adjust the freezing point from zero to 32).\footnote{Ratios
+in ACL2 are designated
+by two integers separated by a slash. The notation represents
+the ratio directly, so no computation is involved.}
+That makes two basic operations in all, so the formula
+(C-to-F $100$) represents a two-step computation.
+
+\begin{Verbatim}
+(defun C-to-F (C)
+  (* 180/100 (+ C 32)))
+\end{Verbatim}
+
+The following formula makes a list in Fahrenheit degrees of two important
+points on the temperature scale:
+the freezing point of water ($0$ $^\circ$C) and the boiling point ($100$ $^\circ$C):
+(list (C-to-F $0$) (C-to-F $100$)).
+To count the number of steps in this computation,
+we need to write the formula in terms of basic operations.
+The operator ``list'' is a shorthand for a sequence of nested
+cons operations to build a list,
+so in terms of basic operations, the formula is
+(cons (C-to-F $0$) (cons (C-to-F $100$) nil)).
+The total step-count comes to six: two for each C-to-F invocation
+and one for each cons.
+
+Let's practice counting computation steps in another example.
+The operator swap2, defined as follows, interchanges the
+first two elements of a list if it has at least two elements
+and leaves the list alone if it doesn't.
+
+\begin{Verbatim}
+(defun swap2 (xs)
+  (if (consp (rest xs))
+      (cons (second xs) (cons (first xs)) (rest (rest xs)))
+      xs))
+\end{Verbatim}
+
+It refers to the operator that extracts the second element from a list,
+which is a shorthand for using the basic operator REST to drop the
+first element, then the operator FIRST to extract the first element
+of what is left.
+\label{steps-in-second-op}
+So, the formula (second $xs$) would add two steps
+to the computation. The number of steps in the computation (swap2 $xs$)
+depends on how many elements $xs$ has. If $xs$ has two or more elements,
+then (swap2 $xs$) takes ten steps: IF, consp, REST, cons, two steps for second,
+cons again, FIRST, and REST again, twice.
+If $xs$ has less then two elements, then (swap2 $xs$) takes three steps:
+IF, consp, and REST.
+
+\begin{ExerciseList}
+
+\Exercise
+Count the number of steps required to compute ($-$ (C-to-F $100$) (C-to-F $0$)).
+
+\Exercise
+Count the number of steps required to compute (swap2 (list $1$ $2$ $3$)).
+
+\Exercise
+Count the number of steps required to compute (swap2 (list $1$)).
+
+\Exercise
+Count the number of steps required to compute
+(list (third $xs$) (second $xs$) (first $xs$)),
+where the formula (third $xs$) is a shorthand for
+(first (rest (rest $xs$))).
+
+\Exercise
+Define an operator F-to-C that converts degrees Fahrenheit
+to degrees Celsius, and count the number of operations
+required to compute (F-to-C (C-to-F $20$)).
+
+\Exercise
+If $x$ is a number, what number does (F-to-C (C-to-F $x$))
+represent? How about (C-to-F (F-to-C $x$))?
+
+\Exercise
+Define a theorem in ACL2 about the formula (F-to-C (C-to-F $x$)). \\
+\emph{Note}: The predicate ACL2-numberp is true if its operand is a number
+and false, otherwise.
+The theorem will need to use the IMPLIES operator to constrain its domain
+to numbers.
+
+\end{ExerciseList}
+
+\subsection{Computational Steps in Demultiplex}
+\label{subsec:dmx-steps}
+
+The demultiplex operator, dmx (page \pageref{defun:dmx}), parcels out the elements of a list
+into two separate lists, with everyother element going into one list,
+and the remaining elements going into the other list.
+We repeat its definition here to help with the analysis.
+
+\label{defun:dmx-copy}
+\begin{Verbatim}
+(defun dmx (xs)
+  (if (consp xs)
+      (let* ((x1   (first xs))
+             (ysxs (dmx (rest xs)))
+             (ys   (first ysxs))
+             (x2s  (second ysxs)))
+        (list (cons x1 x2s) ys)) ; {dmx1}
+      (list nil nil)))           ; {dmx0}
+\end{Verbatim}
+
+From the inductive equations for dmx,
+we will derive corresponding equations for counting computational steps.
+Let $D_n$ stand for the number of steps required
+to compute (dmx $xs$) when $xs$ has $n$ elements.
+If $n$ is zero, (consp $xs$) is false,
+so dmx selects the third operand of the IF operator as the result.
+The selection (IF) takes one step,
+consp takes one step, and (list nil nil) takes two steps (cons, twice)
+since it is a shorthand for (cons nil (cons nil nil)),
+Therefore, $D_0$ $=$ $4$.
+
+If $xs$ is non-empty, it will have $n+1$ elements,
+for some natural number $n$.
+The computation in this case will require $D_{n+1}$ steps.
+From the definition of dmx, we see that the computation
+has several parts:
+selection (if), one step;
+consp, one step;
+extraction (first), one step;
+extraction (rest), one step;
+computation of (dmx (rest $xs$)), $D_n$ steps because (rest $xs$) has $n$ elements;
+another extraction (first), one step;
+a two-step extraction (second), two steps;
+a double cons (the LIST operator with two operands), two steps; and
+an insertion (cons), one step.
+Altogether, that comes to $D_n + 10$ steps.
+Putting the two together, we come up with the following ``recurrence equations''
+(a special name for inductive equations in the numeric domain).
+\begin{center}
+\begin{tabular}{ll}
+  $D_0 = 4$            & \{d0\} \\
+  $D_{n+1} = D_n + 10$ & \{d1\} \\
+\end{tabular}
+\end{center}
+
+Sometimes it's possible to guess a direct formula that numbers in the
+sequence that the recurrence equations generate,
+and then prove by mathematical induction that the formula is correct.
+For this particular recurrence, the guess
+$D_n = 10 n + 4$ turns out to be correct.
+The base case is $D_0 = 4$ \{d0\} $ = 10 \times 0 + 4$ \{arithmetic\}.
+The inductive case is
+$D_{n+1} = D_n + 10$ \{d1\} $ = (10 n + 4) + 10$ \{induction hypothesis\}
+$= 10(n+1) + 4$ \{algebra\}.
+
+%%% could not make \begin{theorem} work here ----in the following theorem, \emph works backwards for some reason unknown to me -- rlp
+\label{thm:dmx-computation-time}
+%\begin{theorem}[\{dmx computation steps\}] \\
+\begin{quote}
+Theorem \{dmx computation steps\}. \\
+$D_n = 10 n + 4 =$
+\emph{number of steps to compute} (dmx [$x_1$ $x_2$ \dots $x_n$])
+\end{quote}
+%\end{theorem}
+
+\begin{ExerciseList}
+
+\Exercise
+Derive recurrence equations for the number of steps in the computation of (len $xs$)
+from the axioms for the len operator (Figure~\ref{fig:len-axioms}, page \pageref{fig:len-axioms}).
+Assume that selecting between the two axioms is a two-step computation
+(one step to determine whether or not $xs$ has any elements
+and one step to use that determination to select the appropriate axiom).
+
+\Exercise
+Use the recurrence equations from the previous exercise to
+guess a formula for the number of steps in the computation of (len $xs$).
+Prove that the formula is correct.
+
+\Exercise
+Derive recurrence equations for the number of steps in the computation of (append $xs$ $ys$)
+from the definition of append in Figure~\ref{fig:append-defun} (page \pageref{fig:append-defun}).
+
+\Exercise
+Use the recurrence equations from the previous exercise to
+guess a formula for the number of steps in the computation of (append $xs$ $ys$).
+Prove that the formula is correct.
+
+\end{ExerciseList}
+
+\subsection{Computational Steps in Merge}
+\label{subsec:mrg-steps}
+
+Our next goal is to estimate the number of steps in
+the computation of (mrg $xs$ $ys$) (page \pageref{defun:mrg}).
+We will not try to count the exact number of steps in the computation,
+but will look for an upper bound.
+Our analysis will ensure that the number of steps does not exceed an
+amount that we can compute from the number of elements in the operands.
+
+We begin by defining $M(j,k)$ as the maximum number of steps required to merge a list
+of $j$ elements with a list of $k$ elements\footnote{There are an infinite number
+of such lists, and the maximum
+of an infinite set of numbers is problematic. However, the merge computation
+depends only on the ordering of the numbers in the lists, not on the numbers themselves.
+Since there are a finite number of permutations of that ordering, the set of
+combinations to be considered in computing the maximum is finite.
+A similar caveat applies to all of our step-counting for inductive definitions.
+We have assumed that the number of steps depends on the lengths of the lists
+supplied as operands and not on the values in those lists.
+We justify this by observing that, while the order of the values sometimes
+plays a role, the actual values don't.}
+and $A(n)$ as the maximum number of steps required to merge two lists
+with $n$ elements in total.
+\begin{quote}
+$M_{j,k} \equiv$ \emph{maximum steps in computation of} (mrg [$x_1$ $x_2$ \dots $x_j$] [$y_1$ $y_2$ \dots $y_k$]) \\
+$A(n) \equiv$ maximum\{$M_{j,k} \mid j + k = n$\}
+\end{quote}
+
+We will use mathematical induction to prove that $\forall n.(A(n) \leq 10(n+1))$.
+For the base case, $A(0) = M_{0,0}$ because the only the only pair of natural
+numbers $j$ and $k$ with $j + k = 0$ is $j = k = 0$.
+So, $A(0)$ is the number of steps in the computation of (mrg $xs$ $ys$)
+when (consp $xs$) and (consp $ys$) are false.
+In this case the computation consists of seven or fewer one-step operations
+(IF, AND, consp twice, IF again, NOT, and consp again).\footnote{Actually,
+it's six steps. The AND operator does not compute its second operand
+if its first operand is false.}
+Therefore, we have proved the base case: $A(0) \leq 10\cdot(0 + 1)$.
+
+Now, consider the inductive case: $A(n+1) \leq 10((n+1) + 1)$.
+The induction hypothesis is $A(n) \leq 10(n + 1)$.
+$A(n+1)$ is a maximum of a set of numbers $M_{j,k}$, where $j + k = n+1$,
+each of which represents the maximum number of steps in the computation of
+(mrg [$x_1$ $x_2$ \dots $x_j$] [$y_1$ $y_2$ \dots $y_k$]).
+Let's look at the definition of mrg and count those steps.\footnote{We
+repeat the definition of mrg here to make counting operations easier.
+The previous definition declared an induction scheme to make it
+possible for ACL2 to admit the definition into its mechanized logic.
+We have omitted that declaration here because we are analyzing
+the computation without the assistance of the mechanized logic.}
+
+\label{defun:mrg-copy}
+\begin{Verbatim}
+(defun mrg (xs ys)
+  (if (and (consp xs) (consp ys))
+      (let* ((x (first xs)) (y (first ys)))
+        (if (<= x y)
+            (cons x (mrg (rest xs) ys))   ; mgx
+            (cons y (mrg xs (rest ys))))) ; mgy
+      (if (not (consp ys))
+          xs     ; ys is empty            ; mg0
+          ys)))  ; xs is empty            ; mg1
+\end{Verbatim}
+
+If one of the operands is empty, there are, as in the base case,
+at most seven steps in the computation.
+If neither operand is empty, there are eight one-step operations
+(IF, AND, consp twice, first twice, IF again, and comparison)
+that culminate in the selection of
+one of two inductive formulas: (cons $x$ (mrg (rest $xs$) $ys$))
+or (cons $y$ (mrg $xs$ (rest $ys$))).
+Both of the formulas have two one-step operations (cons and rest,
+for a total of ten one-step operations)
+and an inductive invocation:
+(mrg (rest $xs$) $ys$) or (mrg $xs$ (rest $ys$)).
+
+The total number of elements in the operands of the inductive invocations
+is $n$ because there are $n+1$ elements in the two lists $xs$ and $ys$,
+taken together, and in the inductive invocation the ``rest'' operator has
+dropped an element from one of the lists.
+That is, there are a total of $n$ elements in the operands of mrg
+in the invocation (mrg (rest $xs$) $ys$),
+and the same is true of the other inductive invocation, (mrg $xs$ (rest $ys$)).
+Therefore, the number of steps in the computation of the inductive invocation,
+no matter which is selected, cannot exceed $A(n)$.
+We conclude that $A(n+1) \leq A(n) + 10$.
+By the induction hypothesis, $A(n) \leq 10(n+1)$.
+Therefore, $A(n+1) \leq 10(n+1) + 10$.
+Factoring out the 10, algebraically,
+we find that $A(n+1) \leq 10((n+1) + 1)$.
+That completes the proof of the inductive case,
+and we conclude, by induction, that $\forall n.(A(n) \leq 10(n+1))$.
+
+%%% could not make \begin{theorem} work here ----in the following theorem, \emph works backwards for some reason unknown to me -- rlp
+\label{thm:mrg-computation-time}
+%\begin{theorem}[\{dmx computation steps\}] \\
+\begin{quote}
+Theorem \{dmx computation steps\}. \\
+$A(n) \leq 10(n+1) =$ \emph{number of steps to compute}
+(mrg $xs$ $ys$), (len $xs$)$+$(len $ys$) $= n$
+\end{quote}
+%\end{theorem}
+
+\begin{ExerciseList}
+
+\Exercise
+The double index of $M_{j,k}$ made the proof discussed in this section a little tricky.
+Another approach would have been to use the principle of double induction
+(Figure~\ref{double-induction-rule}),
+which reframes mathematical induction for double-index predicates.
+Suppose that $P$ is a predicate whose domain of discourse is pairs of natural numbers.
+That is, for each pair of natural numbers $m$ and $n$,
+$P(m,n)$ selects a proposition in the predicate.
+Use the predicate $P$ in the definition of another predicate $Q$
+that has the natural numbers as its domain of discourse and
+that has the following properties.
+\begin{quote}
+\begin{enumerate}[label=\arabic*{. }]
+\item $Q(0)$ is the base case for double induction on $P$.
+\item $(\forall n.(Q(n) \rightarrow Q(n+1)))$ is the inductive case
+for double induction on $P$.
+\end{enumerate}
+\end{quote}
+\emph{Note}: This exercise is more difficult than it might seem at first glance.
+You can work on it if you like, but the main point here is that double
+induction can be reduced to ordinary, mathematical induction.
+
+\end{ExerciseList}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+Prove  $(\forall m.P(m,0)) \wedge (\forall n.P(0,n))$                                 &\emph{base case}\\
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - &\\
+Prove $(\forall m.(\forall n.((P(m+1, n) \wedge P(n, m+1)) \rightarrow P(m+1,n+1))))$ &\emph{inductive case}\\
+--------------------------------------------------------------------------------------\{dbl ind\}  &\\
+Infer $(\forall m.(\forall n.P(m,n)))$                                                &\\
+\end{tabular}
+\end{center}
+\caption{Double Induction: a Rule of Inference}
+\label{double-induction-rule}
+\end{figure}
+
+\subsection{Computational Steps in Merge-Sort}
+\label{subsec:msort-steps}
+
+We have been working towards an estimate the number of steps
+needed to rearrange the elements of a list into increasing order
+using the msort operator (page \pageref{defun:msort}).
+To facilitate counting, we repeat its definition,
+but this time, since we aren't relying on the mechanized logic,
+we shorten the definition by omitting the hints
+ACL2 needs to prove termination.
+
+\label{defun:msort-copy}
+\begin{Verbatim}
+(defun msort (xs)
+  (if (consp (rest xs))        ; 2 or more elements?
+      (let* ((splt (dmx xs))
+             (odds (first splt))
+             (evns (second splt)))
+        (mrg (msort odds) (msort evns)))   ; {msrt2}
+      xs))                ; (len xs) <= 1    {msrt1}
+\end{Verbatim}
+
+Let $S_n$ stand for the number of steps in the computation
+(msort [$x_1$ $x_2$ \dots $x_n$]).
+If $n$ is zero or one, msort selects a non-inductive
+formula, and this requires two steps: consp and REST.
+If $n$ is two or bigger, it's more complicated.
+Figure~\ref{msort-recurrences} (page \pageref{msort-recurrences})
+derives the details from the definition of msort (page \pageref{defun:msort-copy}).
+The crucial steps are the two inductive invocations of msort.
+The operand in the first one is a list delivered as the first component in
+a demultiplexed list of $n$ elements, and according to
+theorem \{dmx-len-first\} (page \pageref{thm:dmx-length-first-second})
+that list has $\lceil  n/2 \rceil$ elements.
+The operand in the second one has $\lfloor n/2 \rfloor$
+(theorem \{dmx-len-second\}, page \pageref{thm:dmx-length-first-second}).
+In Figure~\ref{msort-recurrences} we have
+done a little algebra: $1 + 1 + (10n+4) + 1 + 2 + 10(n+1) = 20n + 19$.
+The recurrences are upper bounds rather than equations because
+our the analysis of the mrg operator put an upper bound on
+the number of steps in the computation, not an exact count.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{lll}
+  \emph{operator} & \emph{steps} & \\
+  \hline
+   consp  & 1 & Figure \ref{fig:basic-one-step-ops}, page \pageref{fig:basic-one-step-ops}  \\
+   rest   & 1 & Figure \ref{fig:basic-one-step-ops} \\
+   dmx    & $10n+4$ & \{dmx computation steps\}, $n$ elements, page \pageref{thm:dmx-computation-time}\\
+   first  & 1 & Figure \ref{fig:basic-one-step-ops} \\
+   second & 2 & Section \ref{subsec:counting-computational-steps}, page \pageref{steps-in-second-op} \\
+   mrg    & $10(n+1)$ & \{mrg computation steps\}, $n$ elements, page \pageref{thm:mrg-computation-time}\\
+   msort  & $S_{\lceil  n/2 \rceil}$  & \{dmx-len-first\}, page \pageref{thm:dmx-length-first-second} \\
+   msort  & $S_{\lfloor n/2 \rfloor}$ & \{dmx-len-second\}, page \pageref{thm:dmx-length-first-second} \\
+   \hline
+   ~~~~ & & \\
+\end{tabular}
+
+\begin{tabular}{ll}
+   $S_n \equiv$ \emph{number of steps in computation of} (msort [$x_1$ $x_2$ \dots $x_n$]) \\
+   $S_0 = S_1 = 2$ & \{s1\}\\
+   $S_{n} \leq S_{\lceil n/2 \rceil} + S_{\lfloor n/2 \rfloor} + 20n + 19$, if $n \geq 2$ & \{s2\}\\
+\end{tabular}
+\end{center}
+\caption{Recurrence Inequalities for Number of Steps in Merge-Sort Computation}
+\label{msort-recurrences}
+\end{figure}
+
+Now, we are going to guess a formula that computes an upper bound on $S_n$ directly,
+and then use strong induction
+(Figure~\ref{strong-induction-rule}, page \pageref{strong-induction-rule})
+to prove that the formula is correct.
+The right-hand side of the recurrence inequality \{s2\} expesses
+an upper bound on $S_n$ in terms of refers $S_{n/2}$.
+People experienced in solving reccurences take this as an
+indication of $n~log(n)$ growth for $S_n$.
+That is, we can expect to be able to find a number $\alpha$ such that
+$S_n \leq \alpha \cdot n~log(n)$.
+Finding a multiplier that works is mostly a matter of
+fiddling around with the inequalities for a while.
+It takes a little computation and some intuition, but it's not too hard.
+Here's the number we came up with: $\alpha = 42$.\footnote{Okay, we stole this
+number from Douglas Adams, and we find it amusing that, by coincidence, it works.
+You can find a smaller number if you want to try, but
+we're not too concerned with the size of the multiplier.
+It's mostly the order of growth, the $n~log(n)$ part, that is of interest,
+especially since we don't have a scale for the amount of time a computational
+step in our model takes.} We are going to prove, using strong induction,
+that $S_n \leq 42 n~log(n)$ whenever $n$ exceeds $10$.
+We don't much care about small values of $n$ because short lists
+are sorted quickly by just about any method.
+
