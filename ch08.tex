@@ -54,15 +54,14 @@ would have to satisfy if it worked properly.
 
 The \{mux11\} equation covers the case when both lists are non-empty.
 It's an inductive equation, so we need to be careful to make sure
-that the invocation of the mux operator on the right-hand-side
-represents a smaller computation the invocation on the left.
+that operands of mux on the right-hand-side of the equation
+are closer to those in a non-inductive equation than they are
+to the operands on the left-hand side.
 If not, the equation will fail to be computational, and
 we won't be able to use it to define the operator.
 We observe that the operands in the invocation on the
 right are shorter lists than the operands on the left.
 Only  element shorter, but that's enough.
-There is less data to multiplex,
-and we would expect that to require less computation.
 
 Therefore, the equation \{\emph{mux11}\} can be used
 as a defining axiom. It applies whenever both lists are non-empty.
@@ -81,7 +80,7 @@ Axioms for mux Operator
 \begin{tabular}{ll}
 (mux nil $ys$) = $ys$  & \{\emph{mux0x}\}     \\
 (mux $xs$ nil) = $xs$  & \{\emph{mux0y}\}     \\
-(mux (cons $x$ $xs$) (cons $y$ $ys$)) = (cons $x$ (cons $y$ $\dots$ \emph{rest of formula goes here} $\dots$)) & \{\emph{mux11}\}
+(mux (cons $x$ $xs$) (cons $y$ $ys$)) = (cons $x$ (cons $y$ (mux $xs$ $ys$))) & \{\emph{mux11}\} \\
 \end{tabular}
 \end{center}
 
@@ -89,10 +88,10 @@ Axioms for mux Operator
 The three equations, \{\emph{mux0x}\}, \{\emph{mux0y}\}, and \{\emph{mux11}\},
 are comprehensive (either both operands are non-empty
 or at least one of them is) and computational
-(inductive invocations involve less computation).
-They are consistent because in the only overlapping case
-which occurs
-when both lists are empty, both equations
+(inductive invocations have operands closer to operands in non-inductive equations).
+They are consistent because the only overlapping case
+occurs when both lists are empty, and in that case,
+the overlapping equations
 (\{mux0x\} and \{mux0y\}) specify the same result
 (namely, the empty list).
 We can, therefore, take the equations as axioms
@@ -105,7 +104,7 @@ definition.
 \begin{Verbatim}
 (defun mux (xs ys)
   (if (not (consp xs))
-      ys                                             ; mux0
+      ys                                             ; mux0x
       (if (not (consp ys))
           xs                                         ; mux0y
           (cons (first xs)
@@ -116,15 +115,15 @@ definition.
 \begin{aside}
 The multiplexor operator can be defined with two equations instead of three
 by swapping the operands in the inductive equation.
-When the first operand is non-empty, then mux must satisfy the following equation.
+When the first operand is non-empty, mux must satisfy the following equation.
+\begin{quote}
+(mux (cons $x$ $xs$) $ys$) = (cons $x$ (mux $ys$ $xs$))) ~~ \{mux1y\}
+\end{quote}
 
-\hspace{1cm} (mux (cons $x$ $xs$) $ys$) = (cons $x$ (mux $ys$ $xs$)))
-\hfill \{mux1y\}
-
-The inductive invocation ``(mux $ys$ $xs$)''
+The inductive invocation (mux $ys$ $xs$)
 on the right-hand-side of the equation \{mux1y\}
-delivers a perfect shuffle
-of the lists, starting with the $ys$ list.
+delivers a perfect shuffle of the lists,
+starting with the $ys$ list.
 So, the formula on the right hand side is a list that starts with $x$,
 then alternates between elements of $ys$ and $xs$, which is exactly what
 mux should deliver. This leads to a two-equation definition of the mux operator.
@@ -134,23 +133,19 @@ covers the case when the first operand is empty.
 
 These two equations form a definition of the mux operator
 that delivers the same results as the three-equation definition.
-However, the two-equation definition makes reasoning a bit more complicated.
-It must take into account the role-switch between the operands
-that the inductive equation employs.
-The ACL2 system does not find this reasoning trick on its own.
-It needs a some guidance.
-To make ACL2 admit the two-equation definition,
-the program must declare an induction scheme,
-as in the following defun.
-\\
+However, the two-equation definition makes reasoning more complicated
+because the operands switch roles in the inductive invocation.
+The following defun uses a ``declare'' directive to suggest
+an induction scheme to help ACL2 admit
+the the two-equation definition to its mechanized logic.
 
 \label{mux-2eq-defun}
 \begin{Verbatim}
-(defun mux (xs ys)       ; declare induction scheme
+(defun mux2 (xs ys)       ; declare induction scheme
    (declare (xargs :measure (+ (len xs) (len ys))))
    (if (consp xs)
-       (cons (first xs) (mux ys (rest xs))) ; mux1y
-       ys))                                 ; mux0x
+       (cons (first xs) (mux2 ys (rest xs))) ; mux2-1y
+       ys))                                  ; mux2-0x
 \end{Verbatim}
 
 \caption{Defining mux with Two Equations}
@@ -163,7 +158,7 @@ but also determine all of the other properties of the operator.
 What properties would we expect the mux operator to have?
 Surely, the number of elements in the multiplexed list
 would be the sum of the lengths of it operands.
-The following ACL2 definition states this property formally,
+The following theorem states this property formally,
 and ACL2 succeeds in finding a proof by induction.
 
 \label{mux-length-thm}
@@ -174,26 +169,30 @@ and ACL2 succeeds in finding a proof by induction.
 \end{Verbatim}
 
 For practice, let's construct a pencil-and-paper proof of the theorem.
-There are many ways to proceed.
-One is to induct on the length of the first operand.
+Our strategy will be an induction on the length of the first operand.
 We are trying to prove that the following equation holds for all natural numbers, $n$.
+\begin{quote}
+Theorem \{mux-length\}. $\forall n.$L($n$)\\
+L($n$) $\equiv$ (len(mux [$x_1$ $x_2$ $\dots$ $x_n$] $ys$)) = $n$ + (len $ys$) \\
+\end{quote}
 
-\hspace{1cm} (len(mux [$x_1$ $x_2$ $\dots$ $x_n$] $ys$)) = $n$ + (len $ys$) \hfill \{$L(n)$\}
-
-The proof of the base case, L(0) (that is, $xs$ = nil), is short.
-
-Base case: L(0) $\equiv$ ((len(mux nil $ys$)) = 0 + (len $ys$))
-
+In the base case, the first operand is empty.
+\begin{quote}
+Base case: L($0$) $\equiv$ ((len(mux nil $ys$)) = 0 + (len $ys$))
+\end{quote}
 \begin{center}
 \begin{tabular}{lll}
-    & (len(mux nil $ys$))                             &                     \\
-$=$ & (len $ys$)                                      & \{\emph{mux0x}\}    \\
-$=$ & 0 + (len $ys$)                                  & \{\emph{algebra}\}  \\
+     & (len(mux nil $ys$))    &                 \\
+ $=$ & (len $ys$)             & \{\emph{mux0x}\}\\
+ $=$ & 0 + (len $ys$)         & \emph{algebra}  \\
 \end{tabular}
 \end{center}
 
+In the inductive case, the first operand has $n+1$ elements.
+\begin{quote}
 \label{mux-length-thm-induc-case}
-Inductive case: L(0) $\equiv$ (len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] $ys$)) = $(n+1)$ + (len $ys$)
+Inductive case: L($n+1$) $\equiv$ (len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] $ys$)) = $(n+1)$ + (len $ys$)
+\end{quote}
 
 We split the inductive case, $L(n+1)$, into two parts.
 The second operand of mux is either nil or it's not.
@@ -201,33 +200,39 @@ We derive the conclusion from both possibilities and cite the \{$\vee$ eliminati
 inference rule (page \pageref{fig-02-deduction-rules})
 to conclude that $L(n+1)$ holds.
 
-The proof of the part when $ys$ is nil is like the proof when $xs$ is nil,
-except that it cites \{\emph{mux0y}\} instead of \{\emph{mux0x}\},
-The proof of the part when the second operand is non-empty,
-and therefore has the form (cons $y$ $ys$),
-is more complicated. Let's look at it in detail.
+The proof of the inductive case when $ys$ is nil
+is like the proof when $xs$ is nil,
+except that it cites \{\emph{mux0y}\} instead of \{\emph{mux0x}\}.
+Figure~\ref{fig:prf-mux-len-induc} (page \pageref{fig:prf-mux-len-induc})
+presents a proof  of the inductive case when the second operand is non-empty.
+That is when the second operand has the form (cons $y$ $ys$)
+and the first operand has $n+1$ elements.
+This completes the proof, by mathematical induction, of
+theorem \{mux-length\}: $\forall n.$L($n$).
 
+\begin{figure}
+\begin{quote}
+\emph{Proof of} L($n$) $\rightarrow$ L($n+1$) \emph{when both operands of mux are non-empty}\\
+L($n+1$) $\equiv$ (len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$))) = $(n+1)$ + (len (cons $y$ $ys$))
+\end{quote}
 \begin{center}
 \begin{tabular}{lll}
     & (len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$)))             &   \\
-$=$ & (len(mux (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$))))      & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
-$=$ & (len(cons $x$ (cons $y$ (mux [$x_2$ $\dots$ $x_{n+1}$] (cons $ys$))))) & \{\emph{algebra}\} \\
-$=$ & 1 + (1 + (len(mux [$x_2$ $\dots$ $x_{n+1}$] (cons $ys$))))             & \{\emph{len1}\} twice (page \pageref{len-equations}) \\
-$=$ & 1 + (1 + ($n$ + (len(cons $ys$))))                                     & \{\emph{L(n)}\} (ind hyp) \\
-$=$ & ($n$ + 1) + (1 + (len(cons $ys$)))                                     & \{\emph{algebra}\} \\
+$=$ & (len(mux (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$))))      & \{\emph{cons}\} \emph{(page \pageref{first-rest-cons})} \\
+$=$ & (len(cons $x$ (cons $y$ (mux [$x_2$ $\dots$ $x_{n+1}$] (cons $ys$))))) & \emph{algebra} \\
+$=$ & 1 + (1 + (len(mux [$x_2$ $\dots$ $x_{n+1}$] (cons $ys$))))             & \{\emph{len1}\} \emph{twice (page \pageref{len-equations})} \\
+$=$ & 1 + (1 + ($n$ + (len(cons $ys$))))                                     & \{\emph{L(n)}\} \emph{induction hypothesis} \\
+$=$ & ($n$ + 1) + (1 + (len(cons $ys$)))                                     & \emph{algebra} \\
 $=$ & ($n$ + 1) + (len(cons $y$ $ys$))                                       & \{\emph{len1}\} \\
 \end{tabular}
 \end{center}
-
-This completes the proof of the inductive case,
-so we conclude that the equation L($n$) is true for all natural numbers $n$.
-Therefore, the mux-length theorem is true.
+\caption{Proof of Inductive Case, Theorem \{mux-length\}}
+\label{fig:prf-mux-len-induc}
+\end{figure}
 
 The next section discusses an operator that goes in the other direction.
-It ``demultiplexes'' a list into two lists, inverting the perfect shuffle.
-We will prove that the demultiplexor preserves total length and values,
-like the multiplexor.
-We will also prove that the two operators invert each other.
+It ``demultiplexes'' a list into two lists, reversing the perfect shuffle.
+We will prove that the two operators invert each other.
 
 \begin{ExerciseList}
 \Exercise
@@ -244,19 +249,24 @@ That is, a value that occurs in either $xs$ or $ys$ also occurs in (mux $xs$ $ys
 and, vice versa, a value that occurs in (mux $xs$ $ys$) also occurs in either $xs$ or $ys$.
 We will call this the ``mux-val'' theorem:
 
+\begin{quote}
 \label{thm:mux-val}
-\hspace{1cm} ((occurs-in $v$ $xs$) $\vee$ (occurs-in $v$ $ys$)) $\leftrightarrow$ (occurs-in $v$ (mux $xs$ $ys$)) \hfill \{\emph{mux-val-thm}\}
+Theorem \{mux-val\}.\\
+((occurs-in $v$ $xs$) $\vee$ (occurs-in $v$ $ys$)) $\leftrightarrow$ (occurs-in $v$ (mux $xs$ $ys$))
+\end{quote}
 
 \label{def:equivalence-op}
 The ``$\leftrightarrow$'' operator in the formula is Boolean equivalence.
-If $p$ and $q$ are Boolean values (True or False),
-then $p \leftrightarrow q$ = $((p \rightarrow q) \wedge (q \rightarrow p))$.
+The formula $p \leftrightarrow q$ is true if both $p$ and $q$ are true
+or if both $p$ and $q$ are false. It is false if one of the two is true
+and the other is false. Boolean equivalence means that implication goes both ways:
+$p \leftrightarrow q$ = $((p \rightarrow q) \wedge (q \rightarrow p))$.
 
 The ``occurs-in'' predicate is defined as follows.
-
+\begin{quote}
 \label{def:occurs-in}
-\hspace{1cm} (occurs-in $v$ $xs$) = (consp $xs$) $\wedge$ (($v$ = (first $xs$)) $\vee$ (occurs-in $v$ (rest $xs$)))
-\hfill \{\emph{occurs-in}\}
+(occurs-in $v$ $xs$) = (consp $xs$) $\wedge$ (($v$ = (first $xs$)) $\vee$ (occurs-in $v$ (rest $xs$))) ~~ \{\emph{occurs-in}\}
+\end{quote}
 
 \emph{Hint:} The inductive case of your proof
 (that is, the case when $xs$ is non-empty)
@@ -271,6 +281,18 @@ That is, (occurs-in $v$ (rest $xs$)) will be true.
 Prove both parts, separately.
 Since they have the same conclusion,
 \{$\vee$ elimination\} confirms that the conclusion is true.
+
+\Exercise
+\label{mux2-eq-mux}
+Do a paper-and-pencil proof that
+(mux2 $xs$ $ys$) is the same as (mux $xs$ $ys$).\\
+\emph{Note}: mux2 is defined in 
+Aside~\ref{aside:mux-2eq}, page \pageref{aside:mux-2eq}),
+and mux is defined on page \pageref{mux-defun}.
+
+\Exercise
+Formalize the theorem of exercise~\ref{mux2-eq-mux} in ACL2.
+
 \end{ExerciseList}
 
 \begin{aside}
@@ -282,9 +304,9 @@ in the sense of the mechanized proofs of ACL2.
 
 Below is an ACL2 formalization of these ideas,
 which the ACL2 system succeeds in admitting.
-The "iff" operator is Boolean equivalence:
-(iff $p$ $q$) means $(p \leftrightarrow q)$,
-that is, $((p \rightarrow q) \wedge (q \rightarrow p))$.
+\label{acl2:iff}
+The IFF operator is Boolean equivalence
+(exercise \ref{ex:mul-val-thm}, page \pageref{def:equivalence-op}).
 \\
 
 \label{defun:occurs-in}
@@ -295,7 +317,7 @@ that is, $((p \rightarrow q) \wedge (q \rightarrow p))$.
           (occurs-in x (rest xs)))
       nil))
 (defthm mux-val-thm
-  (iff (occurs-in v (mux xs ys)) ; iff means <->
+  (iff (occurs-in v (mux xs ys))
        (or (occurs-in v xs)
            (occurs-in v ys))))
 \end{Verbatim}
@@ -348,7 +370,7 @@ and the second component is the empty list.
              (xs (first xsys))
              (ys (second xsys)))
         (list (cons x xs) (cons y ys)))      ; dmx2
-      (list xys nil)))  ; 1 element or none    dmx1
+      (list xys nil)))  ; 1 element or none  ; dmx1
 \end{Verbatim}
 
 \begin{aside}
@@ -357,53 +379,45 @@ observes that if the operand alternates between $x$ and $y$ values,
 starting with an $x$,
 then the same list without is first element alternates similarly
 starting with a $y$. The definition is shorter,
-but makes reasoning more complicated.
+but makes reasoning more complicated.\\
 \begin{center}
-Axioms for dmx, maybe too clever by half
+Axioms for dmx2 (maybe too clever by half)
 \begin{tabular}{ll}
-(dmx [$x_1$ $y_1$ $x_2$ $y_2$ $\dots$]) $=$ [(cons $x_1$ $xs$) $ys$]  & \{\emph{dmx1x}\} \\
-~~~~~~where [$ys$ $xs$] $=$ (dmx [$y1$ $x_2$ $y_2$ $\dots$])          & \\
-(dmx nil) $=$ [nil ~ nil]                                             & \{\emph{dmx0x}\} \\
+(dmx2 [$x_1$ $y_1$ $x_2$ $y_2$ $\dots$]) $=$ [(cons $x_1$ $xs$) $ys$]  & \{\emph{dmx2-1x}\} \\
+~~~~~~where [$ys$ $xs$] $=$ (dmx2 [$y1$ $x_2$ $y_2$ $\dots$])          & \\
+(dmx2 nil) $=$ [nil ~ nil]                                             & \{\emph{dmx2-0x}\} \\
 \end{tabular}
 \end{center}
 \caption{Cleverness Sometimes Complicates Reasoning}
 \label{aside:dmx-defun-trick}
 \end{aside}
 
-Like the the multiplexor operator,
-the demultiplexor operator, preserves total length
-and neither adds nor loses values the list supplied as its operand.
+Like the the multiplexor,
+the demultiplexor preserves the total length
+and preserves the values in its operand.
 ACL2 succeeds in verifying these facts without assistance,
 and the pencil-and-paper proofs are similar to the corresponding
 theorems for the multiplexor.
 
 The two operators also satisfy some round-trip properties
-that provide a lot of confidence that they do what we expect them to do.
+that bolster or confidence that they do what we expect them to do.
 Demultiplexing a list of $x$-$y$ values into the list of
 $x$-values and the list of $y$-values, then multiplexing
 those two lists, reproduces the original list of $x$-$y$ values.
+It works the other way around, too, if the operands of
+the mux operator are lists of the same length.\footnote{Both
+of the round-trip properties require the operands to be
+true lists because the multiplexor can lose information
+if its operands aren't true lists.}
 
 \label{thm:mux-inverts-dmx}
+\label{thm:dmx-inverts-mux}
 \begin{Verbatim}
 (defthm mux-inverts-dmx-thm
   (implies (true-listp xys)
            (equal (mux (first  (dmx xys))
                        (second (dmx xys)))
                   xys)))
-\end{Verbatim}
-
-It works the other way around, too, if the operands of
-the mux operator are lists of the same length.\footnote{Both
-of the round-trip properties require the operands to be
-true lists because the multiplexor can lose information
-if its operands aren't true lists.}
-These inversion properties provide the kinds
-of guarantees that people using the operators
-might want to know, for sure, to have confidence that
-the operators are correctly defined.
-
-\label{thm:dmx-inverts-mux}
-\begin{Verbatim}
 (defthm dmx-inverts-mux-thm
   (implies (and (true-listp xs) (true-listp ys)
                 (= (len xs) (len ys)))
@@ -418,7 +432,7 @@ If the operand has an odd number of elements, the extra one goes into the first 
 These length properties can be specified in terms of the floor and ceiling
 operators (Aside~\ref{floor-ceiling-ops-brackets}, page \pageref{floor-ceiling-ops-brackets}).
 The length of the first component is the length of the operand divided by two
-and rounded up to the next integer if it has an odd number of elements.
+and rounded up to the next integer if the operand has an odd number of elements.
 The second component is also half the length of the operand, but rounded down if necessary.
 The mechanized logic of ACL2 succeeds in proving these theorems,
 but it needs the help of some theorems about arithmetic.
@@ -472,4 +486,12 @@ Do a pencil-and-paper proof of the mux-inverts-dmx theorem
 \Exercise
 Do a pencil-and-paper proof of the dmx-inverts-mux theorem
 (page \pageref{thm:dmx-inverts-mux}).
+
+\Exercise
+\label{dmx2-eq-dmx}
+Do a paper-and-pencil proof that 
+(dmx2 $xs$) is the same as (dmx $xs$).\\
+\emph{Note}: dmx2 is defined in Aside~\ref{aside:dmx-defun-trick}, page \pageref{aside:dmx-defun-trick},
+and dmx is defined on page \pageref{dmx-defun}.
+
 \end{ExerciseList}
