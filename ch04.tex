@@ -172,7 +172,7 @@ So, (consp $xs$) is a way to write the formula
 $(\exists y.(\exists ys.(xs$ $=$ (cons $y$ $ys$)$)))$ in ACL2.
 
 When we know a list $ys$ is non-empty,
-we can cite the \{\emph{consp}\} axiom 
+we can cite the \{\emph{consp}\} axiom
 to rewrite $ys$ in the form (cons $x$ $xs$)
 When we do this, we choose the symbols $x$ and $xs$ carefully
 to avoid conflicts with other symbols that appear in the context of the discussion.
@@ -485,7 +485,7 @@ Axioms: \{\emph{append}\} \\
 \label{append-equations}
 \end{figure}
 \todo{These axioms allow non-true-lists as first operand. However, when guards are in effect,
-      ACL2 chokes if first operand isn't a true list. 
+      ACL2 chokes if first operand isn't a true list.
       When guards are disabled (append 1 (list 2 3)) = (list 2 3)
       I don't want to say anything about guards, but students may see error messages
       that talk about guards. Not sure how to handle this.}
@@ -777,7 +777,7 @@ circular (that is, inductive) definitions.
 \begin{enumerate}
 \item \emph{Non-Inductive Equation}: There is at least equation in which
 the operator being defined appears on left-hand side only.
-\item \emph{Reduced Computation}: Each invocation of the operator being defined that resides on 
+\item \emph{Reduced Computation}: Each invocation of the operator being defined that resides on
             the right-hand side of an inductive equation has operands that
             are closer to the operands on the left-hand side of a non-inductive equation than to
             the operands on the left-hand side of the inductive equation.
@@ -998,6 +998,29 @@ Combining these two observations, we find that
 $xs$ would be a suitable value for (nthcdr $n$ $xs$)
 if either $n$ is zero or $xs$ has no elements.
 
+\begin{aside}
+The predicate ``posp'' is used to test for non-zero values
+in the domain of natural numbers.
+In the ACL2 logic, the formula (posp $n$) has the value true if $n$ is
+a non-zero, natural number (that is, a strictly positive natural number).
+The value of (posp $n$) is false if $n$ is not a natural number
+or if $n$ is zero.
+That makes posp especially useful
+in definitions that are inductive on the natural numbers.
+You might think that (> $n$ 0) would have the
+work the same way, but it doesn't because that formula
+does not constrain $n$ to the natural numbers,
+and many inductive definitions rely on that constraint.
+
+The predicate ``zp'' imposes the same constraint to natural numbers,
+but is true when its operand is zero and false otherwise.
+Both zp and posp are useful for inductive definitions that
+rely on the domain of natural numbers to ensure that the
+defined operator terminates.
+\caption{Natural Number Tests: Zero (zp) and Non-Zero (posp)}
+\label{zp-def}
+\end{aside}
+
 The other possibility is that $n$ is not zero and $xs$ has some elements.
 Since the first operand is a natural number,
 being non-zero is the same as being one or more.
@@ -1027,6 +1050,7 @@ which is the ACL2 notation for the $\wedge$ operator in logic.
 The value (and $a$ $b$) false (nil)
 if either $a$ or $b$ is false and true otherwise.
 So, the ACL2 definition matches the axioms.
+
 
 \begin{figure}
 \begin{center}
