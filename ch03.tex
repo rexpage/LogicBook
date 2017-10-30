@@ -258,27 +258,47 @@ by adding one to a natural number.
 Since negative numbers aren't natural numbers, adding one
 to a natural number ensures that the sum is non-zero.
 \label{let-example-brief-explain}
-The definition of the property uses a ``let*'' binding,
-which is a way to attach names to values
-and then use those names in a formula that comes after the bindings.\footnote{The
-parentheses in a let* binding
-are tricky. Each individual binding is enclosed in parentheses,
-and the whole sequence of bindings is closed in another set
-of parentheses. The ``let*'' keyword precedes the bindings
-and a formula follows the bindings.
-Any of the names attached to values in the bindings
-can be used in the formula to denote those values.
-Finally, the entire let* construct (keyword, bindings, and formula)
-is enclosed in parentheses.
-The let* construct delivers the value of the formula
-that comes at the end.
-}
-In this case, the let* binding says that
+The definition of the property uses a ``let*'' formula,
+which provides a way to attach names to values temporarily
+(Aside \ref{let*-def}, page \pageref{let*-def}).
+In this case, the let* says that
 the name ``divisor'' will be used to stand for
 the value represented by the formula (+ divisor-minus-1 1).
 To see the testing facility in action,
 define the ``mod-test'' property in a .lisp file,
 and use Proof Pad to run the tests.
+
+\begin{aside}
+A \emph{let* formula} attaches names to values
+to be used within the scope of the let* formula.
+The scope of the let* opens with a parenthesis followed
+by the keyword ``let*''. It continues with
+a sequence of name-value bindings, and ends with
+a formula for the value to be delivered by the let*
+and a closing parenthesis matching the one just prior
+to the let* keyword.
+
+Each binding has two elements: first a name,
+then a formula specifying a value to be associated with the name.
+Any of the names attached to values in the bindings
+can be used subsequently in scope of the let* to denote those values.
+There can be any number of bindings.
+The most common use of ``let*'' is to give names
+to values needed more than once in a computation,
+but sometimes it's used just to give mnemonic names
+to significant elements in a computational formula.
+
+The parentheses in a let* formula are tricky.
+Each individual name-value binding is enclosed in parentheses,
+and the whole sequence of bindings is closed in another set
+of parentheses. In addition, the entire let* formula
+is enclosed in its opening and closing parentheses.
+The let* formula denotes the value specified
+in the formula that comes at the end of the let*, after the 
+name-value bindings.
+\caption{Naming Local Values with Let*}
+\label{let*-def}
+\end{aside}
 
 Another property of the mod operator
 in the domain of natural numbers
@@ -330,7 +350,7 @@ Axiom \{\emph{natp}\} \\
 
 \begin{aside}
 ACL2 provides two operators,
-ceiling and floor, that divide one number by another, 
+ceiling and floor, that divide one number by another,
 then round up or down to an integer value.
 In algebraic formulas, special brackets known as
 floor and ceiling brackets indicate the direction of rounding.
