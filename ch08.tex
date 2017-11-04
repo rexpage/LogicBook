@@ -1,11 +1,11 @@
-\chapter{Multiplexors and Demultiplexors}
+\chapter{Multiplexers and Demultiplexers}
 \label{ch:mux-dmx}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "book"
 %%% End:
 
-\section{Multiplexor}
+\section{Multiplexer}
 \label{sec:mux}
 
 Suppose you want to take two lists and shuffle them into one.
@@ -113,7 +113,7 @@ definition.
 \end{Verbatim}
 
 \begin{aside}
-The multiplexor operator can be defined with two equations instead of three
+The multiplexer operator can be defined with two equations instead of three
 by swapping the operands in the inductive equation.
 When the first operand is non-empty, mux must satisfy the following equation.
 \begin{quote}
@@ -286,7 +286,7 @@ Since they have the same conclusion,
 \label{mux2-eq-mux}
 Do a paper-and-pencil proof that
 (mux2 $xs$ $ys$) is the same as (mux $xs$ $ys$).\\
-\emph{Note}: mux2 is defined in 
+\emph{Note}: mux2 is defined in
 Aside~\ref{aside:mux-2eq}, page \pageref{aside:mux-2eq}),
 and mux is defined on page \pageref{mux-defun}.
 
@@ -328,10 +328,10 @@ The IFF operator is Boolean equivalence
 \end{aside}
 
 
-\section{Demultiplexor}
+\section{Demultiplexer}
 \label{sec:dmx}
 
-A demultiplexor transforms a list of signals that alternate between
+A demultiplexer transforms a list of signals that alternate between
 $x$-values and $y$-values into two lists,
 with the $x$-values in one list and $y$-values in the other.
 
@@ -374,7 +374,7 @@ and the second component is the empty list.
 \end{Verbatim}
 
 \begin{aside}
-A more clever definition of the demultiplexor
+A more clever definition of the demultiplexer
 observes that if the operand alternates between $x$ and $y$ values,
 starting with an $x$,
 then the same list without is first element alternates similarly
@@ -392,12 +392,12 @@ Axioms for dmx2 (maybe too clever by half)
 \label{aside:dmx-defun-trick}
 \end{aside}
 
-Like the the multiplexor,
-the demultiplexor preserves the total length
+Like the the multiplexer,
+the demultiplexer preserves the total length
 and preserves the values in its operand.
 ACL2 succeeds in verifying these facts without assistance,
 and the pencil-and-paper proofs are similar to the corresponding
-theorems for the multiplexor.
+theorems for the multiplexer.
 
 The two operators also satisfy some round-trip properties
 that bolster or confidence that they do what we expect them to do.
@@ -407,7 +407,7 @@ those two lists, reproduces the original list of $x$-$y$ values.
 It works the other way around, too, if the operands of
 the mux operator are lists of the same length.\footnote{Both
 of the round-trip properties require the operands to be
-true lists because the multiplexor can lose information
+true lists because the multiplexer can lose information
 if its operands aren't true lists.}
 
 \label{thm:mux-inverts-dmx}
@@ -489,7 +489,7 @@ Do a pencil-and-paper proof of the dmx-inverts-mux theorem
 
 \Exercise
 \label{dmx2-eq-dmx}
-Do a paper-and-pencil proof that 
+Do a paper-and-pencil proof that
 (dmx2 $xs$) is the same as (dmx $xs$).\\
 \emph{Note}: dmx2 is defined in Aside~\ref{aside:dmx-defun-trick}, page \pageref{aside:dmx-defun-trick},
 and dmx is defined on page \pageref{dmx-defun}.
