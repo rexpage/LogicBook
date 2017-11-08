@@ -3,9 +3,9 @@
 
 (defun dgts (n)
   (if (zp n)
-      nil
+      nil                          ; {dgts0}
       (cons (mod n 10)
-            (dgts (floor n 10)))))
+            (dgts (floor n 10))))) ; {dgts1}
 
 (check-expect (dgts 1215) '(5 1 2 1))
 (check-expect (dgts 1964) '(4 6 9 1))
@@ -13,14 +13,16 @@
 (check-expect (dgts 0) '())
 
 (defproperty dgts-last-digit-tst
-  (n  :value (+ 1 (random-natural))) ; avoid zero
-  (= (first (dgts n)) 
-     (mod n 10)))
+  (n-1  :value (random-natural))
+  (let* ((n (+ n-1 1))) ; avoid n=0
+    (= (first (dgts n)) 
+       (mod n 10))))
 
 (defproperty dgts-other-digits-tst
-  (n  :value (+ 1 (random-natural))) ; avoid zero
-  (equal (rest (dgts n)) 
-         (dgts (floor n 10))))
+  (n-1  :value (random-natural))
+  (let* ((n (+ n-1 1)))          ; avoid n=0
+    (equal (rest (dgts n))
+           (dgts (floor n 10)))))
 
 (defun num10 (xs)
   (if (consp xs)
@@ -34,9 +36,10 @@
 (check-expect (num10 '()) 0)
 
 (defproperty num10-tst
-  (n  :value (+ 1 (random-natural))) ; avoid zero
-  (= (first (dgts n)) 
-     (mod n 10)))
+  (n-1  :value (random-natural))
+  (let* ((n (+ n-1 1)))  ; avoid n=0
+    (= (first (dgts n)) 
+       (mod n 10))))
 
 (defun char-to-digit (chr)
   (let* ((dgt9  (char-code #\9))
