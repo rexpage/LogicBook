@@ -725,8 +725,8 @@ of its negative), then performing addition modulo $2^{32}$.
 
 The same thing works for any word size.
 With word size $w$, the twos complement system
-handles addition and subtraction for numbers
-in the range $-2^{w-1}, \dots -1, 0, 1, 2, \dots 2^{w-1}-1$
+handles addition and subtraction for numbers $n$
+in the range $-2^{w-1} \leq n < 2^{w-1}$
 by performing ordinary addition of numerals,
 as with the ripple-carry adder, but interpreting
 the numerals according to the twos-complement scheme.
