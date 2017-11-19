@@ -12,7 +12,7 @@ together with some engineering artifacts
 that emerged from its framework,
 will be the primary topics of this book.
 
-The hardware component of a computer system is made up of visible
+The \index{hardware}hardware component of a computer system is made up of visible
 pieces of equipment such as monitors,
 keyboards, printers, web cameras, and USB drives.
 Hardware also includes components inside the computer enclosure,
@@ -28,7 +28,7 @@ but computer hardware can do something that other
 consumer electronic devices cannot.
 It can respond to  the software component of the computer system
 to exhibit an unlimited range of behaviors.
-The software component is a collection of computer programs,
+The \index{software}software component is a collection of computer programs,
 and programs can be added to the collection, or removed from it,
 at any time.
 So, a computer system is a multipurpose device in the extreme,
@@ -45,7 +45,7 @@ the instruction set of the computer chip that performs the computation.
 Instead, software designers use a more compact notation to
 specify the desired behavior, and another piece of software
 builds the list of chip instructions from those specifications.
-The language of the chip, that is its instruction set,
+The language of the chip, that is its \index{instruction set}instruction set,
 is almost always different from the programming language
 of the software designer.
 There are hundreds of different programming languages,
@@ -59,7 +59,7 @@ However, software as a list of instructions is
 not the only alternative.
 Another alternative uses drawings of
 system configurations as a programming language.
-LabView, for example,
+\index{LabView}LabView, for example,
 is used by scientist in laboratories to control equipment,
 by designers of computer hardware,
 and in university programs that educate designers of
@@ -96,14 +96,15 @@ but specification of the hardware and software artifacts that we study
 is not limited to that domain.
 
 \begin{aside}
-Logicians and mathematicians have been studying models of computation
+Logicians and mathematicians have been studying models of \index{computation model}\index{model of computation}computation
 since before computers were invented. This was done, in part, to
 answer a deep mathematical question: What parts of mathematics can,
 in principle, be fully automated?  Is it possible to
 build a machine that can prove all mathematical truths?
 
 Many different models of computation were developed to study this question:
-Turing machines, lambda calculus, partial recursive functions,
+\index{Turing machine}Turing machines, \index{lambda calculus}lambda calculus, 
+partial recursive functions,
 unrestricted grammars, Post production rules, random-access machines,
 and many others.
 Historically, Turing machines have provided the canonical foundation for computation,
@@ -127,11 +128,11 @@ revolves around this hypothesis.
 
 Another remarkable fact is that some problems cannot be solved 
 by any computer program.
-Alan Turing, one of the first theoretical computer scientists,
-was the first to describe uncomputable problems,
-and soon afterwards the logician Kurt G\"odel
+Alan \index{Turing, Alan}Turing, one of the first theoretical computer scientists,
+was the first to describe \index{uncomputable function}uncomputable problems,
+and soon afterwards the logician Kurt \index{G\"odel, Kurt}G\"odel
 showed that mathematical systems of reasoning
-are incomplete. No formal system can be used
+are \index{incompleteness}incomplete. No formal system can be used
 to prove all mathematical truths.
 The theorems of Turing and G\"odel on uncomputability and incompleteness
 prove that it is not possible to build a machine that can verify all mathematical
@@ -154,7 +155,7 @@ that sound like Beethoven's Fifth Symphony.
 
 You can think of the hardware as
 the parts in a computer that you can see,
-and the software as information that tells the computer what to do.
+and the \index{software}software as information that tells the computer what to do.
 However, the distinction between hardware and software is not as
 clear cut as this suggests. Many hardware components actually
 encode software directly and control other pieces of the system.
@@ -200,12 +201,13 @@ using either intrinsic primitive operators or previously defined operators.
 We will use the terms ``operator'' and ``function'' interchangeably.
 Some treatments use these terms to mean different things,
 but we will find it more convenient to think of them as the same thing.
-So, when we say function we mean operator and vice versa.
+So, when we say \index{function}function we mean \index{operator}operator and vice versa.
 What we're talking about when we use either term
 is a transformation that delivers results when supplied with input.
 We refer to the results delivered by an operator as its ``value'',
-and we refer to the input supplied to the operator as its operands.
-Sometimes we use the term ``argument'' or ``parameter'' instead of ``operand,''
+and we refer to the input supplied to the operator as its \index{operand}operands.
+Sometimes we use the term \index{argument}``argument'' 
+or \index{parameter}``parameter'' instead of ``operand,''
 usually in connection with the term ``function,''
 but the terms carry the same meaning in any case.
 
@@ -243,7 +245,7 @@ Other gestures, such as tapping or
 scrolling, would trigger different operators.
 
 To be more specific, let's consider a program to control
-a device that plays the game of rock-paper-scissors against a human opponent.
+a device that plays the game of \index{rock-paper-scissors}\index{game, rock-paper-scissors}rock-paper-scissors against a human opponent.
 The device has three buttons, allowing the human player to select rock, paper, or
 scissors.  It also has a display unit.
 When the human player presses a button,
@@ -393,7 +395,7 @@ rock-paper-scissors device, but in fundamental terms,
 they have the same basic structure.
 Complex behavior from modest beginnings, a bargain if there ever was one.
 
-Consider Deep Blue, the
+Consider \index{Deep Blue}Deep Blue, the
 computer that beat world champion Gary Kasparov at chess on May 11,
 1997.  This chess-playing software can be specified as an operator whose input is
 an 8x8 matrix showing the positions of the pieces
@@ -415,9 +417,9 @@ board positions.
 An operator definition that follows this strategy is circular.
 One of the things it does is to invoke itself with new operands.
 Circular definitions of this kind are common in mathematics.
-We call them ``inductive'' definitions.\footnote{Operators
-with inductive definitions are sometimes
-called ``recursive'' functions. We try to avoid that term because it is
+We call them inductive definitions.\footnote{Operators
+with \index{inductive definition}\index{definition, inductive}inductive definitions are sometimes
+called \index{recursive}``recursive'' functions. We try to avoid that term because it is
 often associated with specialized ways to carry out the computation,
 but we may slip up from time to time and call them recursive functions.
 Besides, you should know the term so you'll know what people are
@@ -428,11 +430,12 @@ the invocation of the operator being defined
 has operands that are closer to those in a non-circular part of the
 definition than the original operands.
 
-Inductive definitions will play a central role throughout the book
+\index{inductive definition}Inductive \index{definition, inductive}definitions 
+will play a central role throughout the book
 and will be discussed in great detail, but we want to provide an
 introduction of sorts at this point, to get the ball rolling.
 A natural number is a whole number that is not negative: $0, 1, 2, 3, \dots$.
-The sum of the five reciprocals of the
+The sum of the five \index{reciprocal}reciprocals of the
 natural numbers $1$ through $5$
 can be written as an algebraic formula, as in the following equation.
 \begin{displaymath}
@@ -444,7 +447,8 @@ namely $\frac{137}{60}$, which is approximately $2.3$.
 
 We could, of course, have written a formula for the sum
 of the first ten reciprocals or a sum with any number of terms.
-Sums of this form generate a mathematical entity known as the harmonic series.
+Sums of this form generate a mathematical entity known as 
+the \index{harmonic series}harmonic \index{series, harmonic}series.
 They are known as the partial sums of the series,
 and we can define  an operator $h$ that computes such a sum
 with any specified number $n$ of terms.
@@ -462,6 +466,7 @@ so the standard convention that the sum of an empty set of numbers
 is zero is consistent with the equation $h(0) = 0$.}
 Then, the following equations express, formally,
 our earlier observation about $h(n+1)$.
+\index{equation!\{h1\}}\index{equation!\{h0\}}
 \label{reciprocalsdef}
 %\begin{displaymath}
 %h(n) =
@@ -482,7 +487,7 @@ $h(0)$   $=$ $0$                    & \{h0\}\\
 It will be a common practice in this text to
 attach names to equations to make it easy to discuss them.
 In this case, we have used the names \{h1\} and \{h0\}.
-The equation \{h1\} is circular because both sides of the equation
+The equation \{h1\} is \index{circular definition}circular because both sides of the equation
 refer to a value delivered by the operator $h$.
 However, the operand $n$ in the circular reference
 (that is, in the formula $h(n)$ on the right-hand side of the equation \{h1\})
@@ -546,7 +551,7 @@ select the best move given a particular arrangement of pieces on the chess board
 would take too much time.
 The sun in our solar system would be long dead
 before the computer could decide on its first move.
-Nevertheless, \textit{Deep Blue}
+Nevertheless, \index{Deep Blue}\index{chess}Deep Blue
 did play like this, but most of the time it looked ahead
 only six to eight moves rather than
 all the way to the end of the game.
@@ -555,8 +560,8 @@ and could consider many moves at the same time, which gave it
 the ability to analyze about 200 million board positions per second.
 The combination of massive computational power and limited look-ahead
 made it possible for the machine to outplay the most accomplished human chess player of the time.
-\textit{Deep Blue} is a complicated function, with a long, complex definition.
-The \textit{Deep Blue} program did not, in fact,
+Deep Blue is a complicated function, with a long, complex definition.
+The {Deep Blue program did not, in fact,
 employ the equation-based model of computation,
 but in principle the program could have been designed
 using equations in a manner similar to our definition of the operator $h$.
@@ -595,13 +600,16 @@ if there is a natural number $m$ such that $n = km$.
         if $n$ is a prime number and false otherwise.
         Refer to the operator \emph{lf}
         from Exercise \ref{largest-factor} in your definition.
+        \emph{Note}: A prime number is a natural number greater than or equal to two
+        that has no factors other than one and itself.
 
 \Exercise Define an operator to compute $rp(n)$,
 the sum of the reciprocals of all the prime numbers that are less than or equal to
 a given natural number $n$.
 Use the equations that define the operator
 $h$ (page~\pageref{reciprocalsdef})\footnote{The
-sum of reciprocals, $h(n)$, grows without bound as $n$ becomes large,
+\index{harmonic series}harmonic \index{series, harmonic}series, $h(n)$, 
+grows without bound as $n$ becomes large,
 but very slowly, at about the same rate of growth as $log(n)$.
 The number $rp(n)$ grows even more slowly, of course,
 but it, too, grows without bound.
@@ -609,15 +617,16 @@ However, the sum of the squares of the reciprocals is bounded
 by $\pi^2/6$, which is about $1.64$.
 Leonhard Euler proved these facts over 200 years ago, during
 a kind of Cambrian explosion of mathematics initiated a hundred years earlier
-by Isaac Newton and Gottfried Leibniz with their invention of the infinitesimal calculus.
+by Isaac \index{Newton, Isaac}Newton and Gottfried \index{Leibniz, Gottfried}Leibniz 
+with their invention of the infinitesimal calculus.
 In their development of calculus,
 Newton and Leibniz conjured up mathematical entities known as infinitesimal numbers
 to justify the new mathematics that they introduced in the 1600s,
-but it wasn't until the 1960s that Abraham Robinson invented a formal logic
+but it wasn't until the 1960s that Abraham \index{Robinson, Abraham}Robinson invented a formal logic
 for reasoning about infinitesimal numbers.
-The proof engine ACL2r, which is an extension the mechanized logic ACL2 that is used
-extensively in this book, employs Robinson's non-standard analysis to support partially
-automated and rigorously checked reasoning about functions with
+The proof engine \index{ACL2r}ACL2r, which is an extension the mechanized logic ACL2 that is used
+extensively in this book, employs Robinson's \index{non-standard analysis}non-standard analysis 
+to support partially automated and rigorously checked reasoning about functions with
 numeric operands of infinite precision.}
 as a model for your definition of $rp(n)$.\\
 \emph{Hint}: Use three equations, one for numbers $n$ that are prime numbers,
