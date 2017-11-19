@@ -67,6 +67,9 @@
 %
 %\usepackage{memhfixc}
 
+\usepackage{makeidx}
+\makeindex
+
 \makeatletter
 \let\Old@ExerciseList\ExerciseList
 \renewcommand\ExerciseList{\section*{Exercises}\addcontentsline{toc}{section}{\protect\numberline {}Exercises}
@@ -237,6 +240,8 @@ First edition:                        & 19 January 2011 \\
 \include{ch15}
 
 \backmatter
+
+\printindex
 
 \cleardoublepage
 \pagestyle{empty}
