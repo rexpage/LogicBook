@@ -103,7 +103,7 @@ in principle, be fully automated?  Is it possible to
 build a machine that can prove all mathematical truths?
 
 Many different models of computation were developed to study this question:
-\index{Turing machine}Turing machines, \index{lambda calculus}lambda calculus, 
+\index{Turing machine}Turing machines, \index{lambda calculus}lambda calculus,
 partial recursive functions,
 unrestricted grammars, Post production rules, random-access machines,
 and many others.
@@ -126,10 +126,10 @@ the lambda-calculus model.
 Much of computer science theory
 revolves around this hypothesis.
 
-Another remarkable fact is that some problems cannot be solved 
+Another remarkable fact is that some problems cannot be solved
 by any computer program.
 Alan \index{Turing, Alan}Turing, one of the first theoretical computer scientists,
-was the first to describe \index{uncomputable function}uncomputable problems,
+was the first to describe \index{uncomputable}uncomputable problems,
 and soon afterwards the logician Kurt \index{G\"odel, Kurt}G\"odel
 showed that mathematical systems of reasoning
 are \index{incompleteness}incomplete. No formal system can be used
@@ -206,7 +206,7 @@ What we're talking about when we use either term
 is a transformation that delivers results when supplied with input.
 We refer to the results delivered by an operator as its ``value'',
 and we refer to the input supplied to the operator as its \index{operand}operands.
-Sometimes we use the term \index{argument}``argument'' 
+Sometimes we use the term \index{argument}``argument''
 or \index{parameter}``parameter'' instead of ``operand,''
 usually in connection with the term ``function,''
 but the terms carry the same meaning in any case.
@@ -227,7 +227,7 @@ $f(3,7)$ would stand for 10, and $f(2x,5)$ would mean $2x+5$.
 
 Once we take the familiar arithmetic operators
 and the ability to define new functions
-as a basic elements of a computation model, 
+as a basic elements of a computation model,
 we can talk about what it is possible for software to do.
 Software can affect
 hardware by the values that an operator delivers.  For example,
@@ -399,7 +399,7 @@ Consider \index{Deep Blue}Deep Blue, the
 computer that beat world champion Gary Kasparov at chess on May 11,
 1997.  This chess-playing software can be specified as an operator whose input is
 an 8x8 matrix showing the positions of the pieces
-on the board after a move by the human player, Kasparov.  
+on the board after a move by the human player, Kasparov.
 The operator would deliver a result showing
 either the positions on the board after its move or a special
 white-flag token used to ``resign'' the game.
@@ -430,7 +430,7 @@ the invocation of the operator being defined
 has operands that are closer to those in a non-circular part of the
 definition than the original operands.
 
-\index{inductive definition}Inductive \index{definition, inductive}definitions 
+\index{inductive definition}Inductive \index{definition, inductive}definitions
 will play a central role throughout the book
 and will be discussed in great detail, but we want to provide an
 introduction of sorts at this point, to get the ball rolling.
@@ -447,7 +447,7 @@ namely $\frac{137}{60}$, which is approximately $2.3$.
 
 We could, of course, have written a formula for the sum
 of the first ten reciprocals or a sum with any number of terms.
-Sums of this form generate a mathematical entity known as 
+Sums of this form generate a mathematical entity known as
 the \index{harmonic series}harmonic \index{series, harmonic}series.
 They are known as the partial sums of the series,
 and we can define  an operator $h$ that computes such a sum
@@ -519,7 +519,7 @@ $h(5) = h(0) + \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{
 \end{tabular}
 \end{center}
 
-According to equation \{h0\}, $h(0) = 0$, 
+According to equation \{h0\}, $h(0) = 0$,
 so the last equation is equivalent to the following one.
 \begin{center}
 \begin{tabular}{l}
@@ -608,7 +608,7 @@ the sum of the reciprocals of all the prime numbers that are less than or equal 
 a given natural number $n$.
 Use the equations that define the operator
 $h$ (page~\pageref{reciprocalsdef})\footnote{The
-\index{harmonic series}harmonic \index{series, harmonic}series, $h(n)$, 
+\index{harmonic series}harmonic \index{series, harmonic}series, $h(n)$,
 grows without bound as $n$ becomes large,
 but very slowly, at about the same rate of growth as $log(n)$.
 The number $rp(n)$ grows even more slowly, of course,
@@ -617,7 +617,7 @@ However, the sum of the squares of the reciprocals is bounded
 by $\pi^2/6$, which is about $1.64$.
 Leonhard Euler proved these facts over 200 years ago, during
 a kind of Cambrian explosion of mathematics initiated a hundred years earlier
-by Isaac \index{Newton, Isaac}Newton and Gottfried \index{Leibniz, Gottfried}Leibniz 
+by Isaac \index{Newton, Isaac}Newton and Gottfried \index{Leibniz, Gottfried}Leibniz
 with their invention of the infinitesimal calculus.
 In their development of calculus,
 Newton and Leibniz conjured up mathematical entities known as infinitesimal numbers
@@ -625,7 +625,7 @@ to justify the new mathematics that they introduced in the 1600s,
 but it wasn't until the 1960s that Abraham \index{Robinson, Abraham}Robinson invented a formal logic
 for reasoning about infinitesimal numbers.
 The proof engine \index{ACL2r}ACL2r, which is an extension the mechanized logic ACL2 that is used
-extensively in this book, employs Robinson's \index{non-standard analysis}non-standard analysis 
+extensively in this book, employs Robinson's \index{non-standard analysis}non-standard analysis
 to support partially automated and rigorously checked reasoning about functions with
 numeric operands of infinite precision.}
 as a model for your definition of $rp(n)$.\\
