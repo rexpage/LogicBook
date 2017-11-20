@@ -3,10 +3,10 @@
 
 Computers are logic in action. Literally.
 Many computer components are realizations of formulas in logic,
-and when activated by Boolean inputs, those components
+and when activated by Boolean signals, those components
 compute the value of the logic formula that they actualize.
 Software, too, is an exhibit in logic.
-A software component is a formula in a formal language
+A software component is a specification in a formal language
 with underpinnings in logic,
 and in some programming languages a software component
 is, literally, an algebraic formula.
@@ -22,14 +22,15 @@ in a discrete math class. The applications of logic that
 they see usually have more to do with traditional mathematics
 than with computer science. Even when the discrete math class
 is ``discrete math for computer science,'' the computer science
-part has more to do with writing programs to solve problems
+part often has more to do with writing programs to solve problems
 in traditional mathematics or compute examples of
 mathematical objects than it has to do with
 concepts in computer science.
 We take the view that computer science students will
 benefit from a substantially more extensive and rigorous
-exposure to logic and especially to applications of
+exposure to logic and especially to seeing many applications of
 logic in their chosen field of study.
+All of the examples in this text arise from issues in computer science.
 
 This book focusses directly on central issues
 in computer science.
@@ -40,8 +41,9 @@ testing and verification of properties, analysis of algorithms,
 to name a few.
 Instead of illustrating mathematical induction by  proving
 that a formula represents the sum of a sequence of numbers,
-we begin with an inductive proof of an important property of an operator
-that concatenates lists, and proceed to verify properties of
+we begin with an inductive proof of an important property of 
+a software component that concatenates lists, 
+and we proceed to verify properties of
 many other software and hardware components.
 It's the same old mathematical induction, but presented
 in the context of things of particular interest to
@@ -58,10 +60,10 @@ of what it takes to absorb a few dozen fifty-minute
 lectures at the college level,
 to understanding some important problems in computer science and
 in pursuing solutions to many of those problems through formal reasoning.
-Formality is a watchword in this presentation, even to the
-point of the mechanized formalism of a partially automated proof engine
+Formalism is a watchword in this presentation, even to the
+point of mechanized formalism of using a partially automated proof engine
 that checks proofs to the last detail and is sometimes able
-to bridge, on its own, the small gaps that most mathematical
+to bridge, on its own, the gaps that most mathematical
 proofs leave open, even when they employ the traditional amount
 of mathematical rigor.
 
@@ -69,14 +71,18 @@ We chose ACL2 as the proof engine for this work
 because in our judgment it provides a more accessible
 introduction to mechanized formalism than any other
 available proof engine. We do not anticipate that any
-reader will become an expert user of ACL2, or even 
-an accomplished user. We bring ACL2 into the discussion 
+reader will become an accomplished ACL2 user,
+much less an ACL2 expert. We bring ACL2 into the discussion 
 to give readers a chance to see how logic, including mechanized logic, 
-can benefit practicing software and hardware designers.
+can benefit practicing software and hardware engineers.
 If at some point they want to realize those benefits in
 large-scale projects, they will need to learn a lot more
 about ACL2 or some other mechanized logic than it will
 be possible to glean from this introduction.
+We have taught the course using a traditional algebraic notation,
+without a mechanized logic, but most students seem more comfortable
+when formal methods are backed up by software tools
+that check proofs and provide some aid with proof details.
 
 Logic is the central topic of the text, but not the only topic.
 Readers interested in the broad outlines of computer science
@@ -86,10 +92,11 @@ to computer science concepts, both for computer science students
 and for students in other fields who want to know
 what computer science is about.
 Earlier versions of the text have been used many times
-in three types of courses: logic for computer scientists,
-introduction to computer science, and computer science for
-students in other disciplines. 
-We believe the text has served well in all three of these realms.
+as the primary text in two types of courses: logic for computer scientists
+and introduction to computer science for both computer science students
+and students in other disciplines. It has been used as a supplementary
+text in discrete math courses for computer science students.
+We believe the text has served well in all of these realms.
 
 There are no prerequisites beyond college prep high-school math. 
 Even less, really.
@@ -100,8 +107,8 @@ and based on experience with the material in the classroom,
 programming experience is not especially helpful 
 because it rarely addresses the equation-based model of computation that 
 informs this text. In fact, we have found that the approach of the text
-tends to level the playing ground, both between people with programming 
-experience and those without it and between genders.
+tends to level the playing ground between people with programming 
+experience and those without it.
 
 The required learning is far from easy. 
 Successful students will have to do a lot of hard thinking 
