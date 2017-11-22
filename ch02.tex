@@ -3,7 +3,8 @@
 
 \section{Reasoning with Equations}
 \label{sec:math-and-equations}
-Symbolic logic, like other parts of mathematics, starts from a small
+\index{symbolic logic}\index{logic, symbolic}Symbolic logic, 
+like other parts of mathematics, starts from a small
 collection of axioms and employs rules of inference to find
 additional propositions consistent with those axioms. This
 chapter will define a grammar of logic formulas, specify a few
@@ -26,7 +27,7 @@ in conclusions than would otherwise be possible.
 \emph{Hold on to your seat!}
 This section illustrates an essential method used throughout the book.
 It introduces the notion of ``formality'' in mathematics.
-That is, formality in the sense of being based on formulas.
+That is, \index{formalism}formality in the sense of being based on formulas.
 The formulas have a prescribed grammar similar to the one
 for ordinary numeric formulas.
 The grammar determines which formulas are well formed
@@ -81,6 +82,7 @@ which could be something simple, such as ``$2$'',
 it could be a more complicated formula, such as ``$3\times(y + 1)$''.
 
 We refer to letters used in this way as
+\index{variable}
 ``variables'' even though, within a particular equation, they
 stand for a fixed number or a particular formula.
 The formula associated with a variable, though unspecified,
@@ -104,6 +106,17 @@ $x \times (y \times z) = (x \times y) \times z$ & \{$\times$ associative\} \\
 $x\times(y+z) = (x \times y)+(x \times z)$      & \{distributive law\} \\
 \end{tabular}
 \end{center}
+\index{equation!\{$+$ identity\}}
+\index{equation!\{$+$ complement\}}
+\index{equation!\{$\times$ identity\}}
+\index{equation!\{$\times$ null\}}
+\index{equation!\{$+$ commutative\}}
+\index{equation!\{$\times$ commutative\}}
+\index{equation!\{$+$ associative\}}
+\index{equation!numeric algebra}
+\index{equation!algebra}
+\index{axiom!algebra}
+\index{axiom!numeric algebra}
 \caption{Equations of Numeric Algebra}
 \label{fig-02-01}
 \end{figure}
@@ -189,6 +202,9 @@ $=$ & $1 + 0$                                     & \{$+$ commutative\} \\
 $=$ & $1$                                         & \{$+$ identity\} \\
 \end{tabular}
 \end{center}
+\index{negative $\times$ negative}
+\index{equation!proof}
+\index{proof}
 \caption{Why $(-1)\times(-1)=1$}
 \label{fig-02-02}
 \end{figure}
@@ -277,6 +293,8 @@ $x \rightarrow x = True$                             & \{self-implication\} \\
 $\neg(\neg x)  = x$                                  & \{double negation\} \\
 \end{tabular}
 \end{center}
+\index{Boolean!algebra}
+\index{algebra, Boolean}
 \caption{Boolean Axioms (basic equations)}
 \label{fig-02-03}
 \end{figure}
@@ -312,6 +330,9 @@ $=$ & $True$               & \{$\vee$ null\}  ~~~---replace $x$ in the axiom wit
 \dots for practice, prove the other two equations yourself \dots
 \end{quote}
 \end{proof}
+\index{equation!proof}
+\index{proof}
+\index{truth table}
 \caption{Proof of Theorem \{$\vee$ Truth Table\}}
 \label{or-truth-table}
 \end{figure}
@@ -395,6 +416,12 @@ $=$ & $True$            & \{self-implication\} \\
 \end{tabular}
 
 \end{proof}
+\index{equation!proof}
+\index{proof}
+\index{equation!\{$\vee$ complement\}}
+\index{excluded middle}
+\index{equation!excluded middle}
+\index{law of excluded middle}
 \caption{Proof of Theorem \{$\vee$ complement\}}
 \label{fig:or-complement-thm}
 \end{figure}
@@ -436,6 +463,9 @@ $=$ & $True$                                   & \\
 \end{tabular}
 
 \end{proof}
+\index{equation!proof}
+\index{proof}
+\index{truth table}
 \caption{Proof of Theorem \{$\neg$ truth table\}}
 \label{fig:neg-truth-table}
 \end{figure}
@@ -511,6 +541,9 @@ Feasible doesn't mean easy, though.
 It usually takes a lot of effort,
 but it can pay off.
 \caption{Truth Tables and Feasibility}
+\index{truth table}
+\index{feasibility}
+\index{infeasibility}
 \label{feasibility}
 \end{aside}
 
@@ -610,6 +643,7 @@ $=$ & $True$                           & \{$\neg$ truth table\}\\
 
 \end{proof}
 \caption{Proof of Theorem \{$\rightarrow$ truth table\}}
+\index{truth table}
 \label{implication-truth-table}
 \end{figure}
 
@@ -663,6 +697,7 @@ $=$ & $False$                                & \{$\neg$ truth table\} \\
 \end{tabular}
 
 \end{proof}
+\index{equation!\{$\wedge$ null\}}
 \caption{Proof of Theorem \{$\wedge$ null\}}
 \label{fig:and-null-thm}
 \end{figure}
@@ -710,6 +745,11 @@ $=$ & $y$                                  & \{$\vee$ identity\} \\
 \end{tabular}
 
 \end{proof}
+\index{equation!proof}
+\index{proof}
+\index{absorption}
+\index{equation!absorption}
+\index{equation!\{$\wedge$ absorption\}}
 \caption{Proof of Theorem \{$\wedge$ absorption\}}
 \label{and-absorption-thm}
 \end{figure}
@@ -880,6 +920,13 @@ $\bullet$ ~~ $\circ$ is a binary operator \\
 \hline
 \end{tabular}
 \end{center}
+\index{grammar, Boolean}
+\index{Boolean!grammar}
+\index{equation!parentheses}
+\index{parentheses}
+\index{equation!parentheses}
+\index{formula}
+\index{Boolean!formula}
 \caption{Rules of Grammar for Boolean Formulas}
 \label{fig-02-grammar}
 \end{figure}
@@ -913,6 +960,35 @@ $\bullet$ ~~ $v$ is a variable or $True$ or $False$ \\
 \hline
 \end{tabular}
 \end{center}
+\index{equation!Boolean algebra}
+\index{equation!algebra}
+\index{axiom!algebra}
+\index{equation!Boolean algebra}
+\index{Boolean!algebra}
+\index{algebra, Boolean}
+\index{equation!\{$\vee$ identity\}}
+\index{equation!identity}
+\index{equation!\{$\vee$ null\}}
+\index{equation!\{$\vee$ commutative\}}
+\index{equation!commutative}
+\index{commutative}
+\index{equation!\{$\vee$ associative\}}
+\index{equation!associative}
+\index{associative}
+\index{equation!\{$\vee$ distributive\}}
+\index{equation!distributive}
+\index{distributive}
+\index{equation!\{implication\}}
+\index{equation!\{$\vee$ DeMorgan\}}
+\index{equation!DeMorgan}
+\index{equation!\{$\vee$ idempotent\}}
+\index{equation!idempotent}
+\index{idempotent}
+\index{equation!\{self-implication\}}
+\index{equation!\{double negation\}}
+\index{equation!\{atomic release\}}
+\index{equation!parentheses}
+\index{parentheses}
 \caption{Axioms of Boolean Algebra}
 \label{fig-02-boolean-axioms}
 \end{figure}
@@ -1076,6 +1152,37 @@ $((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdi
 $(x \rightarrow (\neg x)) = (\neg x)$                                & \{contradiction\}          \label{boolean-contradiction} \\
 \end{tabular}
 \end{center}
+\index{equation!\{$\neg$ as $\rightarrow$\}}
+\index{equation!\{$\wedge$ DeMorgan\}}
+\index{equation!DeMorgan}
+\index{DeMorgan}
+\index{equation!\{$\vee$ complement\} }
+\index{equation!\{$\wedge$ complement\}}
+\index{equation!\{$\neg True$\}}
+\index{equation!\{$\neg False$\}}
+\index{equation!\{$\rightarrow$ identity\}}
+\index{equation!\{$\wedge$ identity\}}
+\index{equation!\{$\wedge$ commutative\}}
+\index{equation!commutative}
+\index{equation!\{$\wedge$ associative\}}
+\index{equation!associative}
+\index{equation!\{$\wedge$ distributive\}}
+\index{equation!distributive}
+\index{equation!\{$\wedge$ idempotent\} }
+\index{equation!idempotent}
+\index{equation!\{contrapositive\}}
+\index{equation!\{Currying\}}
+\index{equation!\{$\vee$ absorption\}}
+\index{equation!absorption}
+\index{equation!\{$\wedge$ implication\}}
+\index{equation!\{$\wedge$ implication\}}
+\index{equation!\{absurd 1\}}
+\index{equation!\{absurd 2\}}
+\index{equation!\{absurdity\}}
+\index{equation!\{contradiction\}}
+\index{equation!absurdity}
+\index{absurdity, equation}
+\index{contrapositive}
 \caption{Some Boolean Theorems}
 \label{some-boolean-theorems}
 \end{figure}
@@ -1087,7 +1194,8 @@ Logic formulas provide a mathematical notation for concepts in symbolic logic.
 These same concepts can be materialized as electronic devices.
 The basic operators of logic represented in the form of electronic devices
 are called ``logic gates''.
-There are logic gates for the logical-and, the logical-or, negation, and
+There are logic \index{gate}\index{logic gate}gates 
+for the logical-and, the logical-or, negation, and
 several other operators that we have not yet discussed.
 
 \begin{aside}
@@ -1116,7 +1224,7 @@ implication operators (no logical-and, logical-or,
 negation, or any other operators)
 that has the same meaning.
 Logical-or and logical-and are not functionally complete.
-However, their negations, \emph{nor} and \emph{nand}, are.
+However, their negations, \index{nor}\emph{nor} and \index{nand}\emph{nand}, are.
 For that reason nor gates and nand gates
 are called \emph{universal gates}.
 Figure~\ref{fig-02-nand-is-all-you-need} (page ~\pageref{fig-02-nand-is-all-you-need})
@@ -1133,9 +1241,11 @@ idea in an interesting video on ``memristor chips''
 (\url{http://www.youtube.com/watch?v=bKGhvKyjgLY}).
 \caption{Implication Gate Is Universal}
 \label{no-implication-gate}
+\index{universal gate}\index{memristor}
+\index{gate!universal}
 \end{aside}
 
-A logic gate takes input signals that correspond
+A logic \index{gate}gate takes input signals that correspond
 to the operands of logic operators and delivers output signals
 that correspond to the values delivered by those operators.
 A logic gate with two inputs is a physical representation of
@@ -1162,7 +1272,7 @@ but we are going to focus on the logic and trust that
 the electronic hardware can faithfully deal with
 a signal representing $True$ and a different one representing $False$.
 
-Circuits can be depicted as wiring diagrams
+\index{circuit}Circuits can be depicted as \index{wiring}wiring diagrams
 in which ``wires'' (represented by lines) carry signals between gates.
 Distinctive shapes in the diagrams represent different logic gates.
 Circuits can be represented as formulas as well as diagrams, and
@@ -1183,6 +1293,8 @@ of the signals $a$ and $b$.
 \includegraphics[scale=0.25]{images/LogicGates.png}
 \todo{I did not have Visio with me. Improvised with PowerPoint. Figure will need to be redrawn.}
 \end{center}
+\index{gate}
+\index{circuit}
 \caption{Digital Circuits = Logic Formulas}
 \label{fig-02-logic-gates}
 \end{figure}
@@ -1252,6 +1364,7 @@ citing the \{$\wedge$ idempotent\} theorem
 (page \pageref{and-idempotent}).
 
 A nand-only circuit for logical-and can be
+\index{gate}\index{logic gate}\index{gate}\index{universal gate}\index{gate}\index{gate!universal}
 put together from two nand gates in sequence.
 The signal from the first nand gate is inverted
 by feeding it into both inputs of a second nand gate.
@@ -1268,7 +1381,7 @@ $(a \wedge b) = (\neg ((\neg (a \wedge b)) \wedge (\neg (a \wedge b))))$ & \{$\w
 \end{tabular}
 \end{center}
 
-Negation took one nand gate and
+\index{negation}Negation took one nand gate and
 logical-and took two.
 Logical-or can be implemented with three nand gates,
 as shown in the following equation,
@@ -1293,6 +1406,8 @@ in terms of nand operations.
 \todo{I did not have Visio with me. Improvised with PowerPoint. Figure will should be redrawn.}
 %% redrew diagram ... still used PowerPoint, but improved the diagram a little 8Aug2017
 \end{center}
+\index{universal gate}
+\index{gate!universal}
 \caption{Nand is All You Need}
 \label{fig-02-nand-is-all-you-need}
 \end{figure}
@@ -1333,6 +1448,42 @@ using implication operators only.
 circuits as examples? problem: they have two outputs, so need to talk about
 tapping outputs from subformulas to show correspondence to algebraic form}
 
+\begin{aside}
+Reasoning with Boolean equations requires a lot of intellectual effort.
+Almost all students struggle when they try to master the concepts 
+and apply them to solve problems. 
+So, if you're \index{struggling}struggling, you're normal.
+If you get discouraged to the point of despair, you're normal.
+It gets easier with every successful solution, but it never gets easy.
+What you are doing here is real mathematics, and it places the same
+kind of burden on the intellect as real \index{engineering}engineering.
+Engineering is the application of principles 
+of math and science to the design of useful things,
+so real engineering and real mathematics share a great deal of common ground.
+
+If it does not appeal to you to struggle through many
+failed attempts and beyond them to a solution, only to
+go on to the next problem and start the process once again, 
+you are going to find engineering to be an unpleasant activity. 
+It's \index{frustration}frustration, frustration, frustration
+ad nausaum, then a solution, then on to the next problem. 
+Finding the solution through all of that fog
+brings a lot of satisfaction, and for engineers and mathematicians,
+that satisfaction makes it all worthwhile.
+
+So, take heart. Keep trying. 
+Hundreds of students have worked their way through the reading
+and exercises of this chapter and the ones that follow, 
+and almost all of them have succeeded.
+To do so, they invested a great deal of energy in solving problems,
+reading, again and again, the examples, and applying the ideas.
+Sometimes it takes many hours, just to solve one problem.
+Don't give up.
+
+\caption{Struggling? Join the Club}
+\label{aside:struggling}
+\end{aside}
+
 \section{Deduction}
 \label{sec:deduction}
 
@@ -1358,10 +1509,10 @@ Theorem \{$\wedge$ commutes\}: $a \wedge b \vdash b \wedge a$
 
 Later, we will prove this theorem using a formal apparatus
 for deductive reasoning known as
-\emph{natural deduction}.\footnote{Natural
-deduction is a formal system of logic pioneered in the 1930s
-by the mathematician, Gerhard Gentzen, and refined in the 1960s
-by the logician, Dag Prawitz.}
+\index{natural deduction}\index{deduction!natural}\emph{natural deduction}.\footnote{Natural
+deduction is a \index{formalism}formal system of logic pioneered in the 1930s
+by the mathematician, \index{Gentzen, Gerhard}Gerhard Gentzen, and refined in the 1960s
+by the logician, \index{Prawitz, Dag}Dag Prawitz.}
 A deductive proof of a theorem with hypothesis $h$ and conclusion $c$
 verifies that the implication $(h \rightarrow c)$ is true:
 \begin{center}
@@ -1416,6 +1567,19 @@ Infer $a \rightarrow b$                         & ~~~~\emph{and concludes with r
 Discharge $a$                                   & \emph{excludes formula} ``$a$'' \emph{from hypotheses of theorem}     \\
 \end{tabular}
 \end{center}
+\index{rules of inference}
+\index{inference rules}
+\index{modus ponens}
+\index{contradiction}
+\index{elimination rules}
+\index{identity}
+\index{introduction rules}
+\index{reductio ad absurdum}
+\index{deduction}
+\index{natural deduction}
+\index{deduction!natural}
+\index{discharge}
+\index{proof!deduction}
 \caption{Rules of Inference for Natural Deduction}
 \label{fig-02-deduction-rules}
 \end{figure}
@@ -1449,6 +1613,7 @@ Assume $man \rightarrow mortal$ \\
 ~~~~~~ $mortal$                 \\
 \end{tabular}
 \end{center}
+\index{Socrates syllogism}\index{syllogism, Socrates}
 \caption{Theorem \{Socrates Was Mortal\}: Citing Modus Ponens}
 \label{fig:socrates-proof}
 \end{figure}
@@ -1474,7 +1639,7 @@ because we will be using logic to reason about
 digital circuits and software that we
 specify with equations.
 So, equations play a central role throughout the discussion.
-Neverthless, we will want reason deductively from time to time,
+Nevertheless, we will want reason deductively from time to time,
 and this introduction is intended to provide a basis for
 deductive proofs when we want to use them.\footnote{If
 you are interested in a more extensive discussion of the natural deduction
@@ -1489,7 +1654,7 @@ to show how deductive proofs employ
 them to derive the logic formula that is the conclusion of the theorem
 from one or more hypotheses, which are also logic formulas.
 
-A citation of an inference rule derives a conclusion formula
+A citation of an inference rule derives a \index{conclusion}conclusion formula
 from the results of prior reasoning in a proof.
 Each rule citation has three parts:
 \begin{quote}
@@ -1509,7 +1674,7 @@ that is its conclusion and/or on the formulas that are the
 conclusions of the proofs that the rule requires above the line.
 For example, the \{$\wedge$ elimination 1\} inference rule
 (Figure~\ref{fig-02-deduction-rules}, page \pageref{fig-02-deduction-rules})
-requires one proof above the line
+requires one \index{proof}proof above the line
 and constrains the conclusion of that proof
 to be a logical-and formula $(a \wedge b)$.
 The \{$\wedge$ introduction\} rule, on the other hand,
@@ -1521,11 +1686,12 @@ above and below the line.
 That is, they place constraints on the formulas
 that are the conclusions of proofs above the line
 and also place constraints
-on the formula below the line.
+on the formula below the 
+\index{line, above/below}\index{above the line}\index{below the line}line.
 For example, the \{$\neg$ introduction\} rule is one that
 constrains formulas both above and below the line.
 
-When a rule is cited in a deductive proof,
+When a rule is \index{citation}cited in a deductive proof,
 the name of the rule is written just to the right of
 the line that separates the proofs that the rule requires above the line
 from the conclusion that the citation derives,
@@ -1538,7 +1704,8 @@ That is, it is also a sequence of citations ending in a conclusion formula,
 and that formula must meet any constraints
 specified in the rule.
 
-The \emph{scope} of a citation of an inference rule
+The \index{scope}\index{inference rule!scope}\emph{scope} of a 
+\index{citation}\index{rule citation}\index{inference rule!citation}citation of an inference rule
 extends upward to the beginning of the first of the proofs
 above the line that the rule requires.
 The scopes of citations in a proof can overlap,
@@ -1585,7 +1752,7 @@ the entire proof.
 It may, instead, be the first line
 in a proof that is nested inside another proof.
 
-The \{modus ponens\} rule
+The \index{modus ponens}\{modus ponens\} rule
 (Figure \ref{fig-02-deduction-rules}, page \pageref{fig-02-deduction-rules})
 is probably the most widely recognized rule of inference because
 of the well known ``Socrates was mortal'' application
@@ -1627,8 +1794,8 @@ a proof, before the citation of an
 inference rule in the proof.
 Assumptions cannot pop up after the citation
 of an inference rule in a proof.
-Of course, since dashed lines indicate separate proofs,
-the assumption need not be at the beginning of the entire
+Of course, since \index{dashed line}\index{line!dashed}dashed lines indicate separate proofs,
+the \index{assumption}assumption need not be at the beginning of the entire
 proof, but could, instead, be at the beginning of
 a proof separated from another proof by a dashed line.
 The \{Socrates was mortal\} theorem has two hypotheses.
@@ -1665,6 +1832,8 @@ Assume $a \wedge b$                             &\emph{hypothesis of theorem (re
 ~~~~~~~~$b \wedge a$                            &\emph{conclusion of theorem}\\
 \end{tabular}
 \end{center}
+\index{proof}
+\index{proof!deduction}
 \caption{\{$\wedge$ commutes\}: Citing Three Inference Rules Involving $\wedge$}
 \label{fig:and-commutes-proof}
 \end{figure}
@@ -1734,6 +1903,8 @@ concept to keep in mind when citing inference rules
 or theorems.
 
 \caption{Variables Stand for Formulas}
+\index{variable}
+\index{formula}
 \label{variable-stand-for-formulas}
 \end{aside}
 
@@ -1765,6 +1936,8 @@ Assume $a$                  &\emph{assumption discharged later}\\
 ~~Discharge $a$             &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation}, \emph{as promised}\\
 \end{tabular}
 \end{center}
+\index{proof}
+\index{proof!deduction}
 \caption{$\vdash$ $a \rightarrow a$: Citing  \{identity\} and \{$\rightarrow$\ introduction\} Inference Rules}
 \label{fig:or-self-imp-proof}
 \end{figure}
@@ -1777,7 +1950,7 @@ except those that are discharged.
 After the turnstile, write the formula in the
 conclusion at the end of the proof.
 
-Now we come to the issue of discharging formulas
+Now we come to the issue of \index{discharge}discharging formulas
 assumed in proofs.
 The inference rule \{$\rightarrow$ introduction\}
 has some unique characteristics.
@@ -1795,8 +1968,8 @@ The scope of the \{$\rightarrow$ introduction\} citation
 extends upward to the required assumption.
 
 Normally, any formula assumed at the beginning of a proof
-becomes a hypothesis of the theorem that was proved.
-However, a discharged assumption
+becomes a \index{hypothesis}hypothesis of the theorem that was proved.
+However, a \index{discharge}discharged assumption
 is not added to the hypotheses of the theorem.
 A citation of the \{$\rightarrow$ introduction\} rule
 triggers a discharge of the assumed formula that the
@@ -1817,7 +1990,7 @@ of the left-hand operand.
 The assumption only applies within the scope
 of the citation of the \{$\rightarrow$ introduction\} inference rule
 and, therefore, does not become a hypothesis of the theorem being proved
-(unless it is assumed elsewhere in the proof and not disharged).
+(unless it is assumed elsewhere in the proof and not discharged).
 
 Figure \ref{fig:or-self-imp-proof} (page \pageref{fig:or-self-imp-proof})
 displays a proof of the \{self-implication\} theorem,
@@ -1830,7 +2003,8 @@ The \{identity\} rule says that a proof of a formula $a$
 can be followed by a citation of \{identity\} rule
 with that same formula, $a$, as its conclusion below the line.
 
-The application of any rule must match the template in the specification of the rule,
+The application of any rule must \index{match}\index{inference rule!match}\index{rule!match}match 
+the template in the specification of the rule,
 and the \{identity\} rule is sometimes needed to make it possible to match a template.
 That is what happens in the proof of self-implication (Figure \ref{fig:or-self-imp-proof}).
 The proof cites the \{$\rightarrow$ introduction\} rule
@@ -1845,7 +2019,8 @@ the derivation of $a$ from $a$ and triggers a discharge
 of the assumption of $a$ at the beginning of the proof.
 There are no other assumed formulas in the proof,
 so the theorem proved has no hypotheses.
-That is, the proof confirms that the conclusion formula
+That is, the \index{proof}proof confirms that the \index{conclusion}conclusion formula
+\index{implication}
 $(a \rightarrow a)$ has the value $True$, regardless of
 the value of the formula $a$.
 
@@ -1874,6 +2049,8 @@ Discharge $b$              &\emph{discharged by} \{$\rightarrow$ introduction\} 
        &~~~~\emph{conclude} $(b \vee a)$\emph{, the conclusion of the theorem}\\
 \end{tabular}
 \end{center}
+\index{proof}
+\index{proof!deduction}
 \caption{\{$\vee$ commutes\}: Citing \{$\vee$ elimination\}}
 \label{fig:or-commutes-proof}
 \end{figure}
@@ -1968,6 +2145,8 @@ Assume $b \rightarrow c$                               &\emph{hypothesis of theo
 ~~~~~Discharge $a$                                     &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation}\emph{, as promised}\\
 \end{tabular}
 \end{center}
+\index{proof}
+\index{proof!deduction}
 \caption{Proving the Implication Chain Rule}
 \label{fig:impchain-proof}
 \end{figure}
@@ -2004,6 +2183,9 @@ $a \rightarrow False$                         &\emph{assumed} $a \rightarrow b$,
 ~~~~$\neg a$                                  &\\
 \end{tabular}
 \end{center}
+\index{proof}
+\index{proof!deduction}
+\index{modus tollens}
 \caption{Modus Tollens: Citing a Theorem to Justify an Inference}
 \label{fig:modtol-proof}
 \end{figure}
@@ -2026,12 +2208,14 @@ Since that theorem has two hypotheses, there are two proofs above
 the line where the theorem is cited, and those proofs conclude in
 the implication formulas that are the hypotheses of the implication chain rule.
 
-The \{reductio ad absurdum\} rule supports ``proof by contradiction''.
+The \{reductio ad absurdum\} rule supports 
+``proof by contradiction''.
 It says that if you can prove that the formula
 $(\neg a) \rightarrow$ \emph{False} is true
 you can conclude that the formula $a$ is true.
 The proof in Figure~\ref{fig:dbl-neg-fwd} (page \pageref{fig:dbl-neg-fwd})
-cites the reductio ad absurdum rule to prove a theorem about double negation.
+cites the \index{reductio ad absurdum}reductio ad absurdum rule 
+to prove a theorem about double negation.
 
 \begin{figure}
 Theorem \{$\neg \neg$ forward\}: $(\neg(\neg a))$ $\vdash$ $a$\\
@@ -2045,6 +2229,10 @@ Assume $(\neg(\neg a))$                       &\emph{hypothesis of theorem}\\
 ~~~~~~~~~~~~$a$                               &\\
 \end{tabular}
 \end{center}
+\index{proof}
+\index{proof!deduction}
+\index{proof!contradiction}
+\index{contradiction!proof by}
 \caption{\{$\neg \neg$ forward\}: Citing Reductio ad Absurdum}
 \label{fig:dbl-neg-fwd}
 \end{figure}
@@ -2076,7 +2264,7 @@ The third proof is similar to the second proof,
 but cites the \{identity\} rule
 where the second proof cited the \{contradition\} rule.
 
-Creating proofs by natural deduction is hard.
+Creating proofs by \index{natural deduction}natural deduction is hard.
 It requires a lot of practice, just to get
 a firm grasp of the ideas.
 The following exercises provide an opportunity
@@ -2112,6 +2300,8 @@ Discharge $b$              & \emph{discharged by} \{$\rightarrow$ introduction\}
 ~~~~~~~~$b$        &\emph{assumed} $(a \vee b)$\emph{, proved} $(a \rightarrow b)$\emph{, proved} $(b \rightarrow b)$\emph{, conclude }$b$\\
 \end{tabular}
 \end{center}
+\index{proof}
+\index{proof!deduction}
 \caption{\{disjunctive syllogism\}: Citing \{contradiction\}}
 \label{fig:disjunctive-syllogism-nd}
 \end{figure}
@@ -2185,8 +2375,11 @@ of the theorem as many times in the proof as you like.
 \label{proposition-def}
 We have been using the term \emph{proposition} to mean a formula that is either true or false.
 \label{predicate-def}
+\index{predicate}
 Any set\footnote{The
-term ``set'' has a checkered history in mathematics.
+term 
+\index{set}
+``set'' has a checkered history in mathematics.
 It is tricky to define in a way that avoids contradictions
 like Russell's paradox, which you can read about
 in online articles or textbooks.
@@ -2210,13 +2403,15 @@ can determine whether or
 not a given item is in the set.}
 of propositions is called,
 when the set is taken as a whole, a \emph{predicate}.
-We will specify predicates as collections of propositions
+We will specify that a \index{predicate}predicate 
+is a collection of propositions
 indexed by a set known as the
 \label{def-universe-of-discourse}
-\emph{universe of discourse}.
-If $P$ is a predicate, and $x$ is an element from
+\index{universe of discourse}\emph{universe of discourse}.
+If $P$ is a \index{predicate!universe of discourse}predicate, and $x$ is an element from
 the universe of discourse, then $P(x)$ is
-the proposition selected from the predicate by the index $x$.\footnote{You
+the \index{proposition}\index{proposition!vs predicate}\index{predicate!vs proposition}proposition 
+selected from the predicate by the index $x$.\footnote{You
 can think of the predicate as an
 operator that delivers the associated proposition as output
 when supplied with the index of the proposition as input,
@@ -2226,10 +2421,10 @@ No matter whether you look at it as a set of propositions
 indexed by a universe of discourse or an operator that
 delivers a true/false value given an element of the universe of discourse,
 the predicate is the same mathematical entity.
-The indexed-set approach is sometimes called an ``extensional'' view
+The indexed-set approach is sometimes called an \index{extensional}``extensional'' view
 because it focuses on the externally observable characteristics of the predicate,
-while the operator perspective is called an ``intensional'' view because it
-involves the internal workings of a way to produce the true/false value
+while the operator perspective is called an \index{intensional}``intensional'' view 
+because it involves the internal workings of a way to produce the true/false value
 of a proposition, given its index.
 Occasionally, a predicate will not correspond to a computation,
 and in that case the operator (intensional) view
@@ -2258,6 +2453,7 @@ The usual way to write the AND of all the propositions in a predicate
 makes use of a symbol that looks like an upside-down letter A ($\forall$)
 which is known as the
 \label{def:universal-quantifier}
+\index{universal quantifier ($\forall$)}\index{quantifier!$\forall$}\index{quantifier!universal}\index{forall ($\forall$)}
 ``universal quantifier''.
 The  formula $(\forall x.P(x))$\footnote{The
 formula $(\forall x. P(x))$ reads ``for all $x$, $P(x)$.''}
@@ -2267,7 +2463,7 @@ if there is no element $x$ from the universe of discourse
 for which the proposition $P(x)$ is $False$.
 
 For example, suppose $n$ stands for a natural number
-and we take use 
+and we take use
 $E(n)$ as a shorthand for the proposition ``$2n$ is a non-negative, even number''.
 Then \{$E(0)$, $E(1)$,$E(2)$, \dots\}
 is a set of propositions indexed by the natural numbers.
@@ -2290,13 +2486,14 @@ is $True$.
 
 A
 \label{def:quantifier}
-quantifier converts a set of propositions (that is, a predicate)
+\index{quantifier}quantifier converts a set of propositions (that is, a predicate)
 into a single, true/false value (that is, a proposition).
 A formula using a quantifier starts with a quantifier symbol followed by
 a variable, then a period, and finally a logic formula
 representing a proposition. The variable,
 which is known as the
 \label{def:bound-variable}
+\index{bound variable}\index{variable!bound}
 ``bound variable'' in the formula, stands for an
 element of the universe of discourse, and the quantification
 ranges over the entire universe of discourse.
@@ -2317,17 +2514,20 @@ let alone one for which the predicate is false.
 Therefore, $\forall x.P(x)$ is true
 when the universe of discourse is empty.
 
-Using a similar rationale, a $\exists$ quantification
+Using a similar rationale, a $\exists$ 
+\index{there exists ($\exists$)}\index{existensial quantifier!$\exists$}quantification
 is false when the universe of discourse is empty
 because it can only be true if there is
 at least one element, $x$, in the universe of discourse
 for which $P(x)$ is true.
 \caption{Quantifier with Empty Universe}
+\index{quantifier!empty universe}
 \label{empty-forall}
 \end{aside}
 
 In a formula, any variable that is not bound is
 called a
+\index{bound variable}\index{variable!free}
 \label{def:free-variable}
 ``free variable''.
 In the formula $(\forall x.P(x)) \vee y$,
@@ -2342,6 +2542,7 @@ but is a free variable on the right-hand side.
 
 There are many quantifiers in logic, but the only other
 quantifier we will use is known as the
+\index{quantifier!$\exists$}\index{quantifier!existential}\index{existential quantifier}
 \label{def:existential-quantifier}
 ``existential quantifier''.
 It forms the OR of all the propositions in a predicate
@@ -2396,7 +2597,8 @@ $Q(n) \equiv ((n + 7) = 12)$                  & ~~~~~ $Q(n)$ \emph{stands for} $
 \end{aside}
 
 Predicates can have more than one index.
-For example, the predicate $R$, defined as follows, has two indexes.
+For example, the \index{predicate}\index{predicate~multi-index}predicate $R$, 
+defined as follows, has two indexes.
 \begin{center}
 $R(m, n) \equiv ((n + 7) = m)$
 \end{center}
@@ -2695,6 +2897,20 @@ $(\exists x.P(\dots x, \dots)) = (\exists y.P(\dots y, \dots))$                 
 ~~~~~~~~$y$ \emph{must not be a free variable in} $P(\dots x, \dots)$                      & \\
 \end{tabular}
 \end{center}
+\index{quantifier}
+\index{quantifier!equation}
+\index{equation!quantifier}
+\index{equation!\{$\forall\wedge$\}}
+\index{equation!\{$\exists\wedge$\}}
+\index{equation!\{$\forall\vee$\}}
+\index{equation!\{$\exists\vee$\}}
+\index{equation!\{$\forall\rightarrow$\}}
+\index{equation!\{$\exists\rightarrow$\}}
+\index{equation!\{$\rightarrow\forall$\}}
+\index{equation!\{$\rightarrow\exists$\}}
+\index{equation!\{R$\forall$\}}
+\index{equation!\{R$\exists$\}}
+\index{Skolemization}
 \caption{Equations of Quantifier Reasoning}
 \label{fig-02-quantifiers}
 \end{figure}
@@ -2846,17 +3062,17 @@ but if we migrate the $\forall u$, we get $\exists$ at the front.
 We prefer to have universal quantifiers at the beginning of the formula
 because it delays the choice of specific values from the universe of discourse
 that removing an existential quantifier requires.
-We want to leave the choice open as long as possible, to give ourselves
+\index{Skolemization}We want to leave the choice open as long as possible, to give ourselves
 the best chance of making a choice that will help the proof.
 Therefore, we're better off migrating the $\forall x$ quantifier first.
 $$(\forall v.((\forall x.((\forall u.P(u, v)) \rightarrow (\exists y.P(x, y))))))$$
 
 It is essential to delay the choice of a universally quantified variable
-as long as possible. 
-For example, take the following statement, which is $True$ 
+as long as possible.
+For example, take the following statement, which is $True$
 when the domain of discourse is the integers.
 $$(\forall x.((\exists y.(x < y))))$$
-To prove this theorem, we would first remove the universal quantifier ($\forall$), 
+To prove this theorem, we would first remove the universal quantifier ($\forall$),
 leaving the formula $(\exists y.(x_0 < y))$.
 Now it is easy to find a suitable value of $y$, namely $x_0+1$, ending up with
 $x_0 < x_0 + 1$.
@@ -2908,8 +3124,8 @@ other previously proven axioms and theorems.
 \section{Boolean Models}
 \label{sec:boolean-models}
 
-A Boolean variable $x$ stands for a proposition,
-such as ``Socrates is a man.''
+A Boolean \index{variable}\index{variable!Boolean}\index{Boolean!variable}variable $x$ 
+stands for a proposition, such as ``Socrates is a man.''
 Within the domain of logic, this represents a true/false value,
 and Boolean formulas and equations provide a way to carry out
 a consistent analysis of relationships between propositions.
@@ -2922,7 +3138,8 @@ Even if we don't know the facts, we expect $x$ to be either $True$ or $False$,
 not both and not something else,
 according to the actual state of underlying conditions unknown to us.
 
-In other words we intend the proposition $x$ to mean something the real world,
+In other words we intend the proposition $x$ 
+to mean something the \index{logic!real world}real world,
 and we use logic to analyze relationships between this proposition and other
 assertions about the real world stated as true/false propositions.
 In logic mode, we apply the mathematical axioms and rules of inference,
@@ -2935,9 +3152,9 @@ the correspondence is extremely reliable.
 It is rare for a digital circuit to go haywire or an interpreter of
 a programming language to go awry.
 
-Accurate modeling of other domains by propositions in logic can be problematic,
+Accurate \index{model}modeling of other domains by propositions in logic can be problematic,
 but we want to expand the horizon a bit with a discussion
-of the game of \emph{Nim}.
+of the game of \index{Nim}\emph{Nim}.
 There are many variants of this game, and we will consider a simple one.
 The game starts with a pile of ten stones. Two players (Alice and Bob in this discussion)
 take turns removing one, two, or three stones from the pile.
@@ -3168,7 +3385,7 @@ that can be used to analyze the play and figure out which player won.
 Now here is something that may surprise you.
 It is one of the central themes of computer science
 that models of computer programs can take a form
-similar to the model we discussed for the game of Nim,
+similar to the \index{model!Boolean}model we discussed for the game of Nim,
 but only if we have an \emph{upper bound on the number of
 steps in the computation the program represents}.
 To do this on the scale of a computer program,
@@ -3234,13 +3451,13 @@ Describe this game using Boolean variables and formulas.
 You now know that Boolean formulas and equations can be used
 to describe and analyze complicated, real world artifacts.
 The Boolean domain has more scope than is apparent at first glance,
-but using it can be cumbersome to the point of infeasibilty.
+but using it can be cumbersome to the point of \index{infeasibility}infeasibility.
 Hundreds, thousands, or millions of Boolean variables are needed,
 and they are difficult to organize in an understandable fashion.
 
-The Boolean model of the game of Nim in Section~\ref{sec:boolean-models}
+The Boolean \index{model!Boolean}\index{Boolean!model}model of the game of Nim in Section~\ref{sec:boolean-models}
 defined 121 variables to deal with various aspects of the game.
-The variable $x_s^t$ 
+The variable $x_s^t$
 was $True$ if after move $t$ there were $s$ stones left in the pile.
 Let's see how this model would work out if we used a predicate X
 instead of 121 individual variables.
@@ -3261,13 +3478,13 @@ The formula means that the game of Nim always ends in ten or fewer moves.
 The Alice-wins formula
 from the Nim model (page \pageref{alice-wins-formula})
 would be $\exists t.(Even(t) \wedge X(0,t))$,
-where 
+where
 $Even(t)$ is the predicate that detects even numbers
 (page \pageref{even-number-predicate-Even}).
 The formula $\forall s.((s < 10) \rightarrow (\neg X(s,0)))$
 is $True$ because there are 10 stones in the pile at move 0.
 
-In the propositional model we specified that the pile after six moves
+In the propositional \index{model!propositional}model we specified that the pile after six moves
 cannot have both no stones and one stone, nor zero stones and two, etc.
 $$(\neg(x_{0}^{6} \wedge x_{1}^{6})) \wedge (\neg(x_{0}^{6} \wedge x_{2}^{6})) \wedge \cdots \wedge (\neg(x_{0}^{6} \wedge x_{10}^{6}))$$
 Using quantifiers, we can write this more succinctly.
@@ -3280,13 +3497,13 @@ possibilities. In fact, we can cover more ground.
 The propositional model also described the fact
 that no pile can have both one and two stones at the same time, or one and three
 stones, etc.  All of those expressions had to be combined using AND.
-Using universal quantification ($\forall$), 
+Using universal quantification ($\forall$),
 we can cover all possible combinations
 for move number 6 with a single formula.
 $$(\forall s_1.(\forall s_2.((s_1 \ne s_2 ) \rightarrow ((\neg(X(s_1, 6) \wedge X(s_2, 6)))))))$$
 
 To specify this constraint for the entire game, not just move number 6,
-we need ten more similar formulas combined with AND. 
+we need ten more similar formulas combined with AND.
 This can be expressed with a universal quantification spanning the move numbers ($\forall t \dots$).
 $$(\forall s_1.(\forall s_2.(\forall t.((s_1 \ne s_2) \rightarrow (\neg(X(s_1, t) \wedge X(s_2, t)))))))$$
 This single formula is equivalent to over 500 formulas that were
@@ -3336,7 +3553,7 @@ Consider the formula with meaning ``Alice wins.''
 In the propositional model this was built by taking together the more specialized formulas
 ``Alice wins at time 2,'' ``Alice wins at time 4,'' \dots, ``Alice wins at time 10''
 and joining them all with OR.
-Using predicates and quantifiers, the formula $(\exists t.(AliceWinsAtTime(t)))$ expresses
+Using \index{model!predicate}predicates and quantifiers, the formula $(\exists t.(AliceWinsAtTime(t)))$ expresses
 the same idea.
 
 This is not just a simple syntactic change.
