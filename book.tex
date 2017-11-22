@@ -94,13 +94,13 @@
 
 % half-title page
 \vspace*{\fill}
-\begin{adjustwidth}{1in}{1in}
+\begin{adjustwidth}{1in}{2cm}
 \begin{flushleft}
 %%\HUGE\sffamily How Computers Work:
 \HUGE\sffamily Logic\\
 \hspace{1cm}\HUGE\sffamily Equations\\
-\hspace{2.5cm}\Huge\sffamily and\\
-\hspace{2cm}\HUGE\sffamily Computer Science\\
+\hspace{3cm}\Huge\sffamily and\\
+\hspace{2.6cm}\HUGE\sffamily Computer Science\\
 \end{flushleft}
 %%\begin{center}
 %%\HUGE\sffamily  Really Work:
@@ -272,6 +272,10 @@ First edition:                        & January 2018 \\
 
 \backmatter
 
+%clear, phantom, addcontents puts Index in ToC at level of Part I, II, ...
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{part}{Index}
 \printindex
 
 \cleardoublepage
