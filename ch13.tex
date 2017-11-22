@@ -1,22 +1,22 @@
 \chapter{Sharding with Facebook}
 
-\index{Facebook}\index{social media}Facebook, 
-with billions of users and a profound, worldwide impact 
+\index{Facebook}\index{social media}Facebook,
+with billions of users and a profound, worldwide impact
 on people, social interaction, commerce, and institutions,
 is as a major force far beyond its beginnings
 as a way for college students to socialize online.
-Having so many users poses tremendous technical challenges, 
+Having so many users poses tremendous technical challenges,
 and Facebook's success is partly due to
-the ability of its engineers to deal with these problems.  
-Facebook may look like an ordinary website, 
+the ability of its engineers to deal with these problems.
+Facebook may look like an ordinary website,
 but behind it lies many important technical innovations,
 some of which are discussed in this chapter.
 
 \section{The Technical Challenge}
 
-To understand the challenges facing Facebook, 
-let's consider just one of its main features.  
-Facebook users can post frequent updates of their doings, 
+To understand the challenges facing Facebook,
+let's consider just one of its main features.
+Facebook users can post frequent updates of their doings,
 and they can view the postings of their friends through online connections
 accessible from ubiquitous devices such as laptops, tablets, and telephones.
 Making this interaction possible requires two pieces of information for each user:
@@ -26,20 +26,20 @@ Making this interaction possible requires two pieces of information for each use
 	\item a list of each user's status updates.
 \end{enumerate}
 \end{quote}
-It's not unusual for these lists to have hundreds of items, 
+It's not unusual for these lists to have hundreds of items,
 so Facebook has to make hundreds of billions of items
 accessible, quickly, online to billions of people.
 That's this year. Next year, it may well be trillions of items.
 
-Traditionally, this data would be stored in a \index{database}database 
+Traditionally, this data would be stored in a \index{database}database
 using two tables, one for the status update\index{update, database}updates,
-and one for the friends.  Figure~\ref{facebook-tables} 
-shows what these tables could look like.  
-Database software inserts, deletes, and modifies 
+and one for the friends.  Figure~\ref{facebook-tables}
+shows what these tables could look like.
+Database software inserts, deletes, and modifies
 rows on these tables as they evolve,
-and supports sophisticated \index{query}queries that can 
-retrieve information from the tables.  
-For example, Facebook could use the following query to determine 
+and supports sophisticated \index{query}queries that can
+retrieve information from the tables.
+For example, Facebook could use the following query to determine
 what status updates to display when a specific user logs in.
 
 \begin{verbatim}
@@ -50,25 +50,25 @@ what status updates to display when a specific user logs in.
 	ORDER BY s.Time DESC
 \end{verbatim}
 
-This approach would work very well if Facebook had a small number of users, 
-but it does not scale to billions users.  
-The problem is that a traditional database cannot process 
+This approach would work very well if Facebook had a small number of users,
+but it does not scale to billions users.
+The problem is that a traditional database cannot process
 this query quickly enough to keep up with a continuous
 and voluminous (to say the least) flood of online demand.
 
-Facebook is not the only company that has this problem.  
-For example, \index{Amazon}\index{store front}Amazon offers over ten million items for sale.  
+Facebook is not the only company that has this problem.
+For example, \index{Amazon}\index{store front}Amazon offers over ten million items for sale.
 It encourages customers to write reviews for each item, and it keeps a history
 of purchases made by its customers so it keep them informed about the status of orders,
 make suggestions other purchases, and provide many other services.
-The information could easily be stored in traditional database tables, 
+The information could easily be stored in traditional database tables,
 but retrieving it would take too long.
 
 In fact, this is a problem faced by any organization that
 allows large numbers of users produce content for its website.
 Organizations that allow users to produce content for their websites
 are knows as \index{Web 2.0 company}Web 2.0 companies.
-Such content can be take the form of passages created directly by users, 
+Such content can be take the form of passages created directly by users,
 such as Facebook updates or Amazon reviews, or it can be content created
 indirectdly, such as Amazon purchase recommendations.
 When a Web 2.0 company is successful,
@@ -111,67 +111,67 @@ its users produce much more content than traditional databases can handle.
 
 \subsection{Caching}
 
-Web 2.0 companies cannot use traditional databases 
+Web 2.0 companies cannot use traditional databases
 because it would take too long to retrieve information needed,
-for example, for display on user's welcome screen. 
+for example, for display on user's welcome screen.
 One way to address this problem is to limit the number of queries that the
 database needs to carry out.
 For example, if a user checks her home screen several times in a short time span,
 the computer can simply remember the previous results, instead of asking the database to
 retrieve them again and again, each time the user checks her screen.
 
-That's called \emph{caching} the data.  
-A \index{cache}cache is a key/value store, 
+That's called \emph{caching} the data.
+A \index{cache}cache is a key/value store,
 in which data (values) are associated with a key
 that facilitates locating the data,
-like the search trees of chapter \ref{search-trees} 
+like the search trees of chapter \ref{ch:search-trees}
 or the hashtables of chapter \ref{hash-tables}.
-When a query arrives, the database first checks 
+When a query arrives, the database first checks
 the cache to see of the information is already there.
-If it is, it is simply reused.  
+If it is, it is simply reused.
 Otherwise, the database executes the query against its underlying store,
 and puts the results in the cache, so they can be reused later.
-A cache is much smaller than the underlying store, 
+A cache is much smaller than the underlying store,
 so data in the cache is frequently flushed and replaced with other active data.
 
 Caching is useful when three conditions are met.
 First, putting information in the cache and retrieving it
 must be faster than ordinary database operations.
-Much faster, so there is a significant gain 
-when the results are in the cache and only a tiny delay when they're not.  
+Much faster, so there is a significant gain
+when the results are in the cache and only a tiny delay when they're not.
 Second, interactions with the database must frequently repeat the same transactions,
-so that results stored in the cache are often reused. 
+so that results stored in the cache are often reused.
 Otherwise, caching data is a waste of time because it will
 have been flushed from the cache before a second or third access request arrives.
-Third, retrieval\index{retrieval, database}retrieval, 
+Third, retrieval\index{retrieval, database}retrieval,
 rather than update, must be the dominant type of database transaction.
 Updates can make the data in the cache inconsistent with information in the database,
-forcing it to be retrieved again from the underlying store, 
+forcing it to be retrieved again from the underlying store,
 just as it would be if there were no cache at all.
-If its not retrievals but updates that are the dominant transaction, 
+If its not retrievals but updates that are the dominant transaction,
 caching is a waste of time and effort.
 
-Caching is used throughout the web. 
-It is especially successful in storefront applications, 
+Caching is used throughout the web.
+It is especially successful in storefront applications,
 where database queries often concern details about a particular product.
 Storefronts offer hundreds of thousands of products,
 but only a handful of them are really popular.
 So, there are frequent requests for the same information,
 which makes the cache effective.
 
-Caching worked well for Amazon, at least before product reviews 
+Caching worked well for Amazon, at least before product reviews
 and recommendations became prevalent in their product pages.
-But caching cannot work well for Facebook.  
-Users look at their welcome pages on an individual basis, 
+But caching cannot work well for Facebook.
+Users look at their welcome pages on an individual basis,
 and they make frequent postings, retrieval of information
 does not dominate the pattern of transactions,
-and it is not the case that many incoming requests 
+and it is not the case that many incoming requests
 are for retrieval of the same data, over and over,
 the way it is with a storefront operation.
 Besides that, one update on Facebook can trigger changes in many pages of the website.
-This is typical in Web 2.0 applications, 
-and this need for frequent updates of customized information 
-for every user eliminates the advantages of caching. 
+This is typical in Web 2.0 applications,
+and this need for frequent updates of customized information
+for every user eliminates the advantages of caching.
 Another solution is needed.
 
 \subsection{Sharding}
@@ -183,15 +183,15 @@ Machines, like J and M, that store just a portion of the data are called \emph{s
 Because the database is stored on many different computers,
 no one computer has to shoulder the entire load.
 That's the upside.
-The downside is that it makes it harder 
+The downside is that it makes it harder
 to automate transactions with the database.
-Programmers have to specify how to distribute 
+Programmers have to specify how to distribute
 individual queries across all of the many computers
 that may be involved in resolving the query.
 
 To see how this might work,
 suppose that the computer needs to generate John's welcome page.
-The first step is to find John's friends, 
+The first step is to find John's friends,
 which can be done by executing a query on machine J:
 \begin{verbatim}
 	SELECT   f.Friend
@@ -223,9 +223,9 @@ Notice that each query retrieves results from only one table.
 The reason is that the related \index{record, database}recordrecords are not necessarily stored in the same shard.
 In this particular example, the information needed to answer the query was
 distributed across shards J, S, and M.
-So the program had to collect the information 
+So the program had to collect the information
 from all the different sources and then combine it.
-Clearly, using sharding is more complicated 
+Clearly, using sharding is more complicated
 than keeping all the information in one place,
 as in a traditional database.
 
@@ -236,7 +236,7 @@ For example, the system could
 split the shard M into two shards, Ma-Mp and Mq-Mz.
 That seems like a good idea, but in practice splitting shards
 is complicated because the software on all the computers that access the data
-need to be modified to make it possible for them 
+need to be modified to make it possible for them
 to find the shard that contains the information they're looking for.
 
 \section{The Cassandra Solution}
@@ -246,8 +246,8 @@ retained the benefits of sharding, but avoided some of the difficulties.
 The goal was to make easy to split a shard into multiple pieces,
 and to hide from the software the complexity of sharding.
 
-\index{Cassandra}Cassandra, the solution they devised, combines features 
-from Amazon's Dynamo project and Google's BigTable.  
+\index{Cassandra}Cassandra, the solution they devised, combines features
+from Amazon's Dynamo project and Google's BigTable.
 From Dynamo, Cassandra borrows the idea of a replication ring,
 and from BigTable, a data model.
 Cassandra's data model groups records into into different tables.
@@ -260,7 +260,7 @@ For example, John's friends may be stored in a record like the one shown in Figu
 The important thing is that a program can retrieve
 all of John's friends by requesting the single record with ID John.
 Once John's friends are known, it is necessary to retrieve their status updates.
-This can be done by looking for the records in the status table that have the appropriate record IDs.  
+This can be done by looking for the records in the status table that have the appropriate record IDs.
 Figure~\ref{status-table} shows what the status table could look like.
 
 The table structures we have presented assume that all fields will fit in a single record.
@@ -310,7 +310,7 @@ the values can be spread across multiple records, with IDs such as John1, John2,
 
 The upshot is that the workflow for retrieving information from Cassandra
 is very similar to the workflow for sharding, but with a major difference.
-The queries that are generated do not need to be aware 
+The queries that are generated do not need to be aware
 of which shard contains the information they need.
 In fact, Cassandra relies on sharding both for performance and for replication.
 The key innovation is that the shards are arranged in a ring.
@@ -326,11 +326,11 @@ All hash values up to A are mapped to shard B,
 those between A and B to shard C, and so on.
 The hash function and mapping of hash values to shards is known to every shard,
 so a program can ask any of the machines to retrieve a given value.
-If the machine does not have the value, 
+If the machine does not have the value,
 it can determine the shard containing the value
 forward the request to that shard.
 
-The ring makes it easier to rebalance the shards, 
+The ring makes it easier to rebalance the shards,
 in case one of them becomes too large.
 Suppose, for example, shard B gets too large.
 To balance it, a new shard, say BM, is created and inserted between B and C.
@@ -338,22 +338,22 @@ During the insertion process, B sends all of its records between BM and C to sha
 \todo{Question (11/22/17):
       Earlier it said that all hash values between B and C mapped to C.
       Now, it says that records between BM and C are sent to shard BM.
-      It's not clear to me what that means. If "record between BM and C" 
+      It's not clear to me what that means. If "record between BM and C"
       means hash values between BM and C, then it seems that the record
       should be sent to shard C, based on the earlier specification.
       If "record between BM and C" means something other than hash value,
       then something needs to be said about what it means.
       Also, it's not clear whether shard and machine mean the same thing
-      or if they are different things. From what is said, they its seems 
+      or if they are different things. From what is said, they its seems
       that machine and shard mean the same thing.
       This needs clarification.}
 When this process completes, all shards are notified of the new
 shard's existence, and shard BM joins the ring.
-This can happen without the knowledge of any programs 
+This can happen without the knowledge of any programs
 that are retrieving data from the system.
 
 Cassandra also uses the ring for \index{replication, database}replication.
-What this means is that records that should be stored in A 
+What this means is that records that should be stored in A
 are \emph{also} stored in B and C.
 This is important, because computers and disks can fail,
 but if shard A should fail, there are two more copies of its data.
@@ -365,7 +365,7 @@ When shard B is split into B and BM, for example, this also affects shards C and
 because they store replicated records for shard B.
 Now this needs to be restructured, so that B's records are replicated in shards BM and C.
 Moreover, C and D should replicate the records for shard BM.
-This means that shards C and D need 
+This means that shards C and D need
 to participate in the insertion of BM into the ring.
 Shard C needs to know that some of the records
 it replicated for B are now associated with BM instead.
