@@ -129,7 +129,8 @@ revolves around this hypothesis.
 Another remarkable fact is that some problems cannot be solved
 by any computer program.
 Alan \index{Turing, Alan}Turing, one of the first theoretical computer scientists,
-was the first to describe \index{uncomputable}\index{incomputable}uncomputable problems,
+was the first to describe 
+\index{uncomputable}\seeonlyindex{incomputable}{uncomputable}uncomputable problems,
 and soon afterwards the logician Kurt \index{G\"odel, Kurt}G\"odel
 showed that mathematical systems of reasoning
 are \index{incompleteness}incomplete. No formal system can be used
@@ -418,7 +419,7 @@ An operator definition that follows this strategy is circular.
 One of the things it does is to invoke itself with new operands.
 Circular definitions of this kind are common in mathematics.
 We call them inductive definitions.\footnote{Operators
-with \index{inductive definition}\index{definition, inductive}inductive definitions are sometimes
+with \seeonlyindex{inductive definition}{definition, inductive}\index{definition, inductive}inductive definitions are sometimes
 called \index{recursive}``recursive'' functions. We try to avoid that term because it is
 often associated with specialized ways to carry out the computation,
 but we may slip up from time to time and call them recursive functions.
@@ -430,7 +431,7 @@ the invocation of the operator being defined
 has operands that are closer to those in a non-circular part of the
 definition than the original operands.
 
-\index{inductive definition}Inductive \index{definition, inductive}definitions
+\seeonlyindex{inductive definition}{definition, inductive}Inductive \index{definition, inductive}definitions
 will play a central role throughout the book
 and will be discussed in great detail, but we want to provide an
 introduction of sorts at this point, to get the ball rolling.
@@ -487,7 +488,7 @@ $h(0)$   $=$ $0$                    & \{h0\}\\
 It will be a common practice in this text to
 attach names to equations to make it easy to discuss them.
 In this case, we have used the names \{h1\} and \{h0\}.
-The equation \{h1\} is \index{circular definition}circular because both sides of the equation
+The equation \{h1\} is \seeonlyindex{circular definition}{definition, inductive}circular because both sides of the equation
 refer to a value delivered by the operator $h$.
 However, the operand $n$ in the circular reference
 (that is, in the formula $h(n)$ on the right-hand side of the equation \{h1\})
