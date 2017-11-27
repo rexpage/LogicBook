@@ -70,6 +70,14 @@
 \usepackage{makeidx}
 \makeindex
 
+%% def'n copied from: https://tex.stackexchange.com/questions/318472/change-index-see-also-and-see-format
+\newcommand\gobbleone[1]{}
+\newcommand{\seeonly}[2]{\ (\emph{\seename} #1)}
+\let\oldindex\index
+\renewcommand{\index}[1]{\def\exptoindex{#1}\expandafter\oldindex\expandafter{\exptoindex}}
+\newcommand{\seeonlyindex}[2]{\index{#1@#1\protect\gobbleone|seeonly{#2}}}
+%% end of copy new command from tex.stackexchange.com
+
 \makeatletter
 \let\Old@ExerciseList\ExerciseList
 \renewcommand\ExerciseList{\section*{Exercises}\addcontentsline{toc}{section}{\protect\numberline {}Exercises}
