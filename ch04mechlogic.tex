@@ -1093,10 +1093,10 @@ $\neg($(h p $x)=0)$ $\rightarrow$ (p $x$) $=$ (loop $x$)&\\
 \label{fig:hminus-thm-proof}
 \end{figure}
 
-The \{absurd 1\} and \{absurd 2\} equations (page \pageref{absurd-1}),
+The \{contradiction\}equation (page \pageref{boolean-contradiction}),
 together with the \{double negation\} equation (Figure~\ref{fig-02-grammar}, page \pageref{fig-02-grammar}),
 prove that $(H($p, $x)$ $\rightarrow$ $(\neg H($p, $x)))$ = $(\neg H($p, $x))$ and
-$((\neg H($p, $x)$ $\rightarrow$ $H($p, $x)) = H($p, $x)$
+$((\neg H($p, $x)$ $\rightarrow$ $H($p, $x)) = H($p, $x)$.
 
 So, we can rewrite the \{H$+$\} and \{H$-$\} theorems as follows.
 \begin{quote}
@@ -1194,6 +1194,10 @@ Insert absurd-1 and absurd-2 equations just before absurdity equation in table i
 $((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
 $(x \rightarrow (\neg x)) = (\neg x)$                                & \{absurd 1\}               \label{absurd-1} \\
 $((\neg x) \rightarrow x) = (\neg x)$                                & \{absurd 2\}               \label{absurd-2} \\
+%% YIKES! {absurd 2} is false, and {absurd 1} is identical to the {contradiction} equation
+%% PULLED BOTH, FIXED "Some Boolean Theorems" figure and other reference
+%% THE ONLY OTHER CITATION WAS IN THE HALTING PROBLEM PROOF, AND THAT CITATION WAS WRONG
+%% SO ALL THAT WAS NEEDED WAS TO PULL IT THERE, TOO
 $((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
 }
 %%\end{comment}
