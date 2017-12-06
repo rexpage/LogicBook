@@ -3,7 +3,8 @@
 
 \section{Lists as Mathematical Objects}
 \label{sec:lists-as-obj}
-A \emph{sequence} is an ordered list of elements.
+A \index{sequence}\index{list}\emph{sequence}
+is an ordered list of elements.
 In fact, for our purposes, the terms ``list'' and ``sequence'' are synonyms.
 Many things that computers do come down to keeping track of lists,
 so lists an important class of mathematical objects.
@@ -18,19 +19,21 @@ second element 3, and third element 7, and
 [9 8 3 7] denotes a list with the same elements,
 plus an additional element 9 at the beginning.
 \label{nil-def}
+\index{nil}\index{empty list (nil)}
 We use the symbol ``nil'' for the empty list
 (that is, the list with no elements).
 \label{square-brackets}
-We use square brackets rather than round ones in formulas
+We use \index{square brackets}\index{brackets!square}\index{list!square bracket notation}square brackets
+rather than round ones in formulas
 specifying lists, to avoid confusion with formulas that invoke operators.
-For example, [4 7 9] denotes a three-element list,
+For example, [4 7 9] denotes a three-element \index{list}list,
 while (+ 7 9) is a numeric formula representing the value 16.
 However, ACL2 does not employ this square-bracket notation.
 When it displays the list [4 7 9],
-it uses round brackets: (4 7 9).
+it uses \index{parentheses}\index{brackets!round}round brackets: (4 7 9).
 
 \begin{aside}
-Most of the time, our pencil-and-paper notation for lists
+Most of the time, our \index{list!square bracket notation}pencil-and-paper notation for lists
 will use square brackets to distinguish lists from computational formulas.
 However, ACL2 does not display lists with square brackets.
 It uses round parentheses both for lists and for computational formulas.
@@ -39,7 +42,9 @@ It uses round parentheses both for lists and for computational formulas.
 \end{aside}
 
 The algebra of lists includes some basic operators.
-One of them, the list construction operator ``cons''
+One of them, the
+\index{list!cons (\emph{see also} operator)}list construction 
+\index{operator, by name!cons (insert at front)}operator ``cons''
 inserts a new element at the beginning of a list.
 Formulas using cons, like all formulas in
 the mathematical notation we have been using to discuss software concepts,
@@ -51,10 +56,10 @@ If $x$ stands for the number 9,
 and $xs$ stands for the list [8 3 7],
 then (cons $x$ $xs$) constructs the list [9 8 3 7].
 
-Any list can be constructed by starting from the empty list
+Any list can be constructed by starting from the \index{empty list (nil)}empty list
 and using the construction operator to insert the elements of the list, one by one.
-The empty list, nil, comes with the system, no construction needed.
-Non-empty lists are constructed using the cons operator.
+The empty list, \index{nil}nil, comes with the system, no construction needed.
+Non-empty \index{list!non-empty}lists are constructed using the cons operator.
 The formula [8 3 7] is our pencil-and-paper shorthand for (cons 8 (cons 3 (cons 7 nil))).
 ACL2 also has a shorthand for nested cons operations.
 It was introduced briefly in
@@ -62,7 +67,10 @@ Chapter~\ref{ch:software-testing-prefix-notation} (page \pageref{list-op-informa
 (list 8 3 7) is an ACL2 shorthand for (cons 8 (cons 3 (cons 7 nil))).
 
 \begin{aside}
-The three-line variation of the equals sign
+The
+\index{equation!defining ($\equiv$)}\index{definition!equation ($\equiv$)}\index{equivalence!by definition ($\equiv$)}
+\index{three-line equal ($\equiv$)}three-line
+variation of the equals sign
 indicates that the term on the left stands
 for the formula on the right, \emph{by definition}.
 \begin{center}
@@ -98,7 +106,9 @@ There is one such equation for each different list $ys$.
 Taken all together those equations comprise a predicate
 whose universe of discourse is ACL2 lists.
 
-The operator ``consp'' checks for non-empty lists.
+The operator \index{operator, by name!consp (predicate)}\seeonlyindex{consp}{predicate}
+\index{predicate, by name!consp (non-empty list)}``consp''
+checks for non-empty lists.
 That is, the formula (consp $xs$) delivers true
 if $xs$ is a non-empty list and false otherwise.
 The \{\emph{consp}\} axiom
@@ -130,6 +140,9 @@ is false.
 Axiom \{\emph{consp}\} \\
 (consp $xs$) $=$  $(\exists y.(\exists ys.(xs =$ (cons $y$ $ys$)$)))))$
 \end{center}
+\index{axiom, by name!\{consp\}}
+\index{operator, by name!consp (\emph{see} predicate)}
+\seeonlyindex{consp}{predicate}\index{predicate, by name!consp}
 \caption{Non-Empty List Predicate: consp}
 \label{consp-axiom}
 \end{figure}
@@ -153,6 +166,8 @@ Axiom \{\emph{nlst}\}
 [$x_{m}$ \dots $x_{n}$]  \emph{denotes a list with $n - m + 1$ elements} \{\emph{nlst}\} \\
 \emph{Note: Denotes the empty list (nil) if $m > n$}
 \end{center}
+\index{numbered list notation}\index{list!numbered}\index{list!ellipsis}
+\index{axiom, by name!\{nlst\}}
 \caption{Numbered List Notation}
 \label{numbered-list-interpretation}
 \end{figure}
@@ -205,6 +220,15 @@ the construction operator in the form of equations,
  (rest nil) = nil                                                     & \{\emph{rst0}\}
 \end{tabular}
 \end{center}
+\index{operator, by name!first (extract first element)}
+\index{operator, by name!rest (drop first element)}
+\index{operator, by name!cons (insert at front)}
+\seeonlyindex{first}{operator}\seeonlyindex{rest}{operator}\seeonlyindex{cons}{operator}
+\index{list!cons (\emph{see also} operator)}
+\index{list!first (\emph{see also} operator)}\index{list!rest (\emph{see also} operator)}
+\index{axiom!axiom, by name\{fst0\}, \{fst\}}
+\index{axiom, by name!\{rst0\}, \{rst\}}\index{axiom, by name!\{cons\}}
+\index{equation, by name!\{fst0\}, \{fst\}}\index{equation, by name!\{rst0\}, \{rst\}}\index{equation, by name!\{cons\}}
 \caption{List Constructor and Deconstructors: cons, first, rest}
 \label{first-rest-cons}
 \end{figure}
@@ -216,7 +240,8 @@ a list like its operand, but without the first element.
 Note that the lists to which the operators first and rest
 are applied in the axioms have at least one element
 because those lists are constructed by the cons operator.
-The axioms \{\emph{fst0}\} and \{\emph{rst0}\}
+The axioms
+\{\emph{fst0}\} and \{\emph{rst0}\}
 provide an interpretation of the formulas (first nil) and (rest nil),
 when the operand is a list with no elements.
 
@@ -242,7 +267,8 @@ The only new factors are
 (1)~the kind of mathematical object they denote, and
 (2)~the syntactic quirk of prefix notation, instead of the more familiar infix notation.
 
-All properties of lists, as mathematical objects,
+All \index{property!of lists}\index{list!properties}properties of lists,
+as mathematical objects,
 derive from the \{cons\}, \{fst\}, and \{rst\} axioms.
 For example, there is an operator called ``len''
 that delivers the number of elements in a list.\footnote{The
@@ -323,7 +349,7 @@ Theorem \{\emph{len-nat}\} $\forall xs.$(natp (len $xs$))
 \end{center}
 \end{samepage}
 
-A related fact is that the the length of a non-empty list is strictly positive.
+A related fact is that the length of a non-empty list is strictly positive.
 One way to state that fact is to observe that the formula (consp $xs$) is true
 if ($>$ (len $xs$) 0) and vice-versa. %(\verb+>+ (len $xs$) 0). %\textit{using math mode instead of \verb}
 %In the notation from Chapter~\ref{ch:Boolean-Formulas}:  %\textit{never covered the equiv op}
@@ -333,8 +359,9 @@ len, consp, and cons. For the moment,
 we state the theorem without proof.
 \begin{samepage}
 \label{consp-len-thm}
+\index{theorem, by name!\{consp $= (len > 0)$\}}
 \begin{center}
-Theorem \{\emph{consp}$=$len$>$0\} $\forall xs.($(consp $xs$) $=$ ($>$ (len $xs$) 0)$)$
+Theorem \{\emph{consp} $= (len > 0)$\} $\forall xs.($(consp $xs$) $=$ ($>$ (len $xs$) 0)$)$
 \end{center}
 \end{samepage}
 
@@ -355,6 +382,8 @@ However, the single-quote mark suppresses that interpretation and
 delivers a list made up of the elements in the parentheses.
 Without the single-quote mark,
 the formula would make no sense because 1 is not the name of an operator.
+\index{single-quote mark}\index{quote mark, single}
+\index{square brackets}\index{brackets!square}\index{list!square bracket notation}
 \caption{Single-quote Shorthand for Lists}
 \label{acl2-single-quote}
 \end{aside}
@@ -416,6 +445,9 @@ Axioms \{\emph{if}\} \\
 (if $p$ $x$ $y$) = $y$, \emph{if} $p$ $=$ nil     & \{\emph{if-false}\} \\
 \end{tabular}
 \end{center}
+\index{axiom!\{if-true\}, \{if-false\}}
+\index{equation, by name!\{if-true\}, \{if-false\}}
+\index{operator, by name!if (select formula)}\seeonlyindex{if}{operator}
 \caption{Formula Selector: if}
 \label{fig:if-axioms}
 \end{figure}
@@ -456,6 +488,15 @@ since we have already had to conform to prefix notation
 instead of the more familiar infix notation.
 So, feel free to use the ``equal'' operator all the time if you want to.
 %We will be using ``='' when we can and hope it doesn't put too much of an extra burden on you.
+\index{equal, vs =}\seeonlyindex{equal}{predicate}
+\index{operator, by name!equal (\emph{see} predicate)}\index{predicate, by name!equal}
+\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}
+\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}
+\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{compare!ACL2 values (equal)}
 \caption{``equal'' vs ``=''}
 \label{equal}
 \end{aside}
@@ -481,6 +522,9 @@ Axioms: \{\emph{append}\} \\
 ~~~~\emph{Note: Cite \{\emph{app0}\} only if \{\emph{app1}\} doesn't match.}&\\
 \end{tabular}
 \end{center}
+\index{axiom!append}\index{equation!append}
+\index{operator, by name!append}\index{append!operator}\index{concatenate}
+\index{equation, by name!\{app0\}, \{app1\}}\index{axiom, by name!\{app0\}, \{app1\}}
 \caption{List Concatenation: append}
 \label{append-equations}
 \end{figure}
@@ -613,7 +657,7 @@ $=$ & (+ (len [$x_1$ $x_2$ $x_3$]) (len $ys$))        & \{\emph{cons}\}     \\
 \end{tabular}
 \end{center}
 
-\label{induction-rationale}
+\label{induction-rationale}\index{induction!rationale}\index{induction!proof by}
 By now, it's easy to see how to derive L(4) from L(3),
 then L(5) from L(4), and so on.
 If you had the time and patience, you could prove L(100), L(1000), or even L(1000000)
@@ -628,6 +672,7 @@ we need a rule of inference that allows us to make conclusions
 from patterns like those we observed in proving L(1), L(2), and so on.
 That rule of inference is known as \emph{mathematical induction}.
 
+\seeonlyindex{mathematical induction}{induction}\index{induction!proof by}
 Mathematical induction provides a way to prove that
 formulas like ($\forall$$n$.P($n$)) are true
 when P is a predicate whose universe of discourse is the natural numbers.
@@ -658,7 +703,8 @@ Those two propositions are
 It's a very good deal if you think about it.
 A direct proof of ($\forall$$n$.P($n$)) would require a proof of proposition P($n$)
 for each value of $n$ (0, 1, 2, \dots).
-But, in a proof by induction, the only proposition that needs to be proved on its own is P(0).
+But, in a \index{proof!by induction}proof by \index{induction!proof by}induction,
+the only proposition that needs to be proved on its own is P(0).
 In the proof any of the other propositions,
 you are allowed to cite the previous one in the sequence as a justification for any step in the proof.
 
@@ -681,13 +727,15 @@ Prove ($\forall$$n$.(P($n$)$\rightarrow$P($n+1$))) &\emph{inductive case}\\
 Infer ($\forall$$n$.P($n$))                        &\\
 \end{tabular}
 \end{center}
+\index{induction!proof by}\index{proof!by induction}
+\index{inference rule, by name!\{induction\}}
 \caption{Mathematical Induction: a Rule of Inference}
 \label{fig-04-01}
 \label{induction-rule}
 \end{figure}
 
 That means that you can cite P($n$) to justify any step in the proof of P($n+1$).
-P($n$), which is known as the \emph{induction hypothesis}, gives you a leg up in the proof of P($n+1$).
+P($n$), which is known as the \index{hypothesis!induction}\index{induction!hypothesis}\emph{induction hypothesis}, gives you a leg up in the proof of P($n+1$).
 \label{induction-hyp-def}
 Now, let's apply mathematical induction to prove
 the additive law of concatenation.
@@ -720,6 +768,8 @@ This completes the mathematical induction proving the
 additive law of concatenation.
 \begin{samepage}
 \begin{center}
+\index{append!additive law}
+\index{theorem, by name!\{additive law of concatenation\}}\index{additive law of concatenation}\index{concatenate!additive law}
 \label{additive-law-concatenation}
 Theorem \{\emph{additive law of concatenation}\} \\
 $\forall$$n$.((len (append [$x_1$ $x_2$ \dots $x_n$] $ys$))
@@ -784,11 +834,13 @@ the operator being defined appears on left-hand side only.
 \end{enumerate}
 \end{tabular}
 \end{center}
+\index{three C's}\index{definition!inductive (circular)}
 \caption{The Three C's: a Guide to Inductive Definitions}
 \label{fig:inductive-def-keys}
 \end{figure}
 
-It turns out that all operators that can be defined in software
+It turns out that all operators that can be defined in
+\index{software!as equations}\index{equation!software}software
 have inductive definitions in the style of the equations
 of the append axioms (Figure~\ref{append-equations}, page \pageref{append-equations}).
 The keys to an inductive definition of an operator are  listed in
@@ -812,7 +864,9 @@ in terms of inductive definitions rather than conventional methods.
 \begin{ExerciseList}
 
 \Exercise Prove $\forall xs.$(natp (len $xs$)).
-You may cite \{natp0\} and \{natp1\}, defined as follows.
+You may cite
+\index{equation, by name!\{natp0\}, \{natp1\}}\index{axiom, by name!\{natp0\}, \{natp1\}}\{natp0\} and \{natp1\},
+defined as follows.
 \begin{center}
 \begin{tabular}{ll}
 (natp $0$)                                            & \{natp0\}\\
@@ -841,6 +895,8 @@ Axioms \{\emph{expt}\} \\
 Prove the following theorem \{\emph{expt}\}, where $n$ is a natural number and $x$ is a number.
 \begin{samepage}
 \label{expt-thm}
+\index{theorem, by name!\{expt\}}\index{axiom!exponent}\index{operator, by name!expt ($x^n$)}\seeonlyindex{expt}{operator}
+\index{axiom, by name!\{expt0\}, \{expt1\}}\index{equation, by name!\{expt0\}, \{expt1\}}
 \begin{center}
 Theorem \{\emph{expt}\} \\
 (expt $x$ $n$) = $x^n$
@@ -868,6 +924,7 @@ So, there are some advantages, especially for studying logic.
 Operators are defined in ACL2 with a defun command,
 which has four parts.
 \begin{quote}
+\index{defun}\index{definition!defun}\index{definition!operator}
 (defun $f$ ($x_1$ $x_2$ \dots $x_n$) \emph{\dots ACL2-formula \dots})
 
 \begin{enumerate}
@@ -921,12 +978,16 @@ Axioms: \{\emph{append}\} \\
       ys))                                     ; {app0}, xs is nil
 \end{Verbatim}
 \end{center}
+\index{axiom!append}\index{append!operator}\index{operator, by name!append}
+\index{axiom, by name!\{app0\}, \{app1\}}\index{equation, by name!\{app0\}, \{app1\}}
 \caption{Defining Concatenation: append}
 \label{fig:append-defun}
 \end{figure}
 
-So, now you know. We've been writing programs on the sly,
-passing them off as axioms.
+So, now you know. We've been writing
+\index{software!as axioms}\index{programs, as axioms}
+\index{axiom!software}\index{equation!software}programs
+on the sly, passing them off as axioms.
 Why? Because that's how we want you to think of them.
 A program is a collection of axioms, expressed as equations
 that specify properties that you want to operators to have.
@@ -940,7 +1001,7 @@ It pays off, though.
 If you stick with the program, you can get the computer to carry out
 the computations you want done.
 
-Since definitions must use the ACL2 syntax,
+Since definitions must use the \index{equation!ACL2}\index{ACL2!equation}ACL2 syntax,
 they don't look much like equations,
 but if they are complete, consistent, and computational
 (Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}),
@@ -1017,6 +1078,10 @@ but is true when its operand is zero and false otherwise.
 Both zp and posp are useful for inductive definitions that
 rely on the domain of natural numbers to ensure that the
 defined operator terminates.
+\index{operator, by name!posp (\emph{see} predicate)}
+\index{predicate, by name!posp (positive integer)}\seeonlyindex{posp}{predicate}
+\index{operator, by name!zp (\emph{see} predicate)}
+\index{predicate, by name!zp (natural number zero)}\seeonlyindex{zp}{predicate}
 \caption{Natural Number Tests: Zero (zp) and Non-Zero (posp)}
 \label{zp-def}
 \end{aside}
@@ -1068,6 +1133,8 @@ Axioms \{\emph{nthcdr}\} \\
       xs))                        ; {sf0}
 \end{Verbatim}
 \end{center}
+\seeonlyindex{nthcdr}{operator}\index{operator, by name!nthcdr (suffix of list)}
+\index{equation, by name!\{sfx0\}, \{sfx1\}}
 \caption{Defining List Suffix Extractor: nthcdr}
 \label{fig:nthcdr-defun}
 % old label for nthcdr axioms: \label{nthcdr-equations}
@@ -1199,6 +1266,7 @@ $=$ & $ys$                                  & \{\emph{sfx0}\}                   
 That takes care of S(0). Next, we prove S($n+1$), assuming that S($n$) is true.
 
 \begin{samepage}
+\index{theorem, by name!\{append-suffix\}}\index{append!suffix theorem}
 \begin{center}
 %\begin{tabular}{lll}
 S($n+1$) $\equiv$ (nthcdr (len [$x_1$ $x_2$ \dots $x_{n+1}$]) (append [$x_1$ $x_2$ \dots $x_{n+1}$] $ys$)) $=$ $ys$
@@ -1287,6 +1355,7 @@ Axioms \{\emph{prefix}\}                                           \\
       xs))                                          ; {pfx0}
 \end{Verbatim}
 \end{center}
+\seeonlyindex{prefix, of list}{operator}\index{operator, by name!prefix (of list)}\index{equation, by name!\{pfx0\}, \{pfx1\}}
 \caption{Defining List Prefix Extractor: prefix}
 \label{prefix-equations}
 \end{figure}
@@ -1367,6 +1436,8 @@ At this point we know three important facts about the append operator:
 \begin{quote}
 \begin{itemize}
 \item additive length theorem: (len (append $xs$ $ys$)) = (+ (len $xs$) (len $ys$))
+\index{theorem, by name!\{append-suffix\}}
+\index{theorem, by name!\{append-prefix\}}\index{append!prefix theorem}
 \label{app-pfx-thm}
 \item append-prefix theorem: (prefix (len $xs$) (append $xs$ $ys$)) = $xs$
 \item append-suffix theorem: (nthcdr (len $xs$) (append $xs$ $ys$)) = $ys$
@@ -1374,7 +1445,9 @@ At this point we know three important facts about the append operator:
 \end{quote}
 
 Together, these theorems provide some assurance that append correctly concatenates lists.
-We could think of them as ``correctness properties'' for the append operation.
+We could think of them as
+\index{property!correctness}\index{correctness property}``correctness properties''
+for the append operation.
 There are, of course, an infinite variety of other facts about the append operation.
 Their relative importance depends on how we are using the operation.
 A property that is sometimes important to know is that concatenation is associative,
@@ -1385,6 +1458,7 @@ you you could concatenate the first list with the concatenation of the last two.
 Or, you could concatenate the first two, then append the third list at the end.
 
 \begin{samepage}
+\index{theorem, by name!\{app-assoc\}}
 \label{app-assoc}
 \begin{center}
 Theorem \{\emph{app-assoc}\} (append $xs$ (append $ys$ $zs$)) = (append (append $xs$ $ys$) $zs$)
@@ -1397,6 +1471,8 @@ we can always write a list $xs$ in the pencil-and-paper format that
 displays its elements. We state this as the \{lst\} axiom.
 
 \begin{center}
+\index{list!axiom}
+\index{axiom, by name!\{lst\}}
 \label{axiom:lst}
 Axiom \{lst\} $\forall xs.\exists n.\exists$[$x_1$ $x_2$ \dots $x_n$].($xs$ $=$ [$x_1$ $x_2$ \dots $x_n$])
 \end{center}
@@ -1435,6 +1511,9 @@ Plan to move and expand mechanized logic section and halting problem to chapter 
 }
 
 \Exercise Suppose the operator rep is defined as follows.
+\index{operator, by name!rep (list of duplicates)}
+\seeonlyindex{rep}{operator}
+\index{equation, by name!\{rep0\}, \{rep1\}}
 \label{rep-equations}
 \begin{Verbatim}
 (defun rep (n x)
@@ -1446,6 +1525,7 @@ Prove the following theorem \{\emph{rep-len}\}.
 In the theorem, $n$ can be any natural number and $x$ can be any entity.
 \begin{samepage}
 \label{rep-len}
+\index{theorem, by name!\{rep-len\}}
 \begin{center}
 Theorem \{\emph{rep-len}\} \\
 (len (rep n x)) = n
@@ -1454,7 +1534,10 @@ Theorem \{\emph{rep-len}\} \\
 
 \Exercise Assume the following axioms \{\emph{mem0}\} and \{\emph{mem1}\} are true.
 \begin{samepage}
-\label{member-equal-equations}
+\label{member-equal-equations}\index{axiom!member-equal}\index{equation!member-equal}
+\seeonlyindex{member-equal}{predicate}\index{operator, by name!member-equal (\emph{see} predicate)}
+\index{predicate, by name!member-equal (element of list)}
+\index{axiom, by name!\{mem0\}, \{mem1\}}\index{equation, by name!\{mem0\}, \{mem1\}}
 \begin{center}
 Axioms \{\emph{member-equal}\} \\
 \begin{tabular}{ll}
@@ -1466,13 +1549,15 @@ Axioms \{\emph{member-equal}\} \\
 Prove the following theorem \{\emph{rep-mem}\}.
 \begin{samepage}
 \label{rep-mem}
+\index{theorem, by name!\{rep-mem\}}
 \begin{center}
 Theorem \{\emph{rep-mem}\} \\
 (member-equal $y$ (rep $n$ $x$)) $\rightarrow$ (member-equal y (cons $x$ nil))
 \end{center}
 \end{samepage}
 
-\Exercise Prove Theorem \{app-nil\}: $\forall n.$([$x_1$ $x_2$ \dots $x_{n}$] = (append [$x_1$ $x_2$ \dots $x_{n}$] nil))
+\Exercise \index{theorem, by name!\{app-nil\}}
+Prove Theorem \{app-nil\}: $\forall n.$([$x_1$ $x_2$ \dots $x_{n}$] = (append [$x_1$ $x_2$ \dots $x_{n}$] nil))
 
 \Exercise Prove $\forall xs.$((nthcdr (len xs) (append $xs$ nil)) $=$ nil).
 

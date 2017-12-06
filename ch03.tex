@@ -26,6 +26,7 @@ If that link fails, look for ``Proof Pad''
 with your web search engine.
 They are well-known systems and should be easy to find.
 They are free, too.
+\index{Proof Pad}
 \label{aside:proof-pad}
 \caption{Proof Pad and ACL2}
 \end{aside}
@@ -35,6 +36,11 @@ can carry out for the addition operator.
 The following tests check some equations that we expect to be true:
 $2 + 2 = 4$, $5 + 7 = 10 + 2$, etc.
 
+\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}
+\index{book!directory (:dir)}
+\index{teachpacks!testing}\index{testing!teachpack}\index{book!testing}
+\index{check-expect test}
+\index{testing!check-expect}
 \begin{Verbatim}
 (include-book "testing" :dir :teachpacks)
 (check-expect (+ 2 2) 4)
@@ -43,9 +49,11 @@ $2 + 2 = 4$, $5 + 7 = 10 + 2$, etc.
 \end{Verbatim}
 
 This notation looks strange, with formulas like (+ $2$ $2$) instead of $2 + 2$.
-ACL2 uses a prefix notation to denote operations, rather than the infix notation
+ACL2 uses a \index{prefix notation}\index{operator!prefix notation}prefix notation
+to denote operations,
+rather than the \index{infix notation}\index{operator!infix notation}infix notation
 that you are accustomed to.
-In ACL2's prefix notation, a computational formula starts with a parenthesis,
+In ACL2's prefix notation, a computational \index{formula!prefix notation}formula starts with a parenthesis,
 followed by the operator it invokes.
 The operator comes first (as a ``prefix''), then the operands.
 Infix notation places the operator between the operands,
@@ -65,9 +73,13 @@ Some people end up liking the prefix format better than infix.
 We will use both, in different contexts, depending on whether
 we're doing paper-and-pencil reasoning or formal, mechanized logic.
 
-Another strange element is the include-book directive.
+Another strange element is the
+\seeonlyindex{include-book}{directive}\index{directive!include-book}include-book directive.
 The facility for tests of this kind resides in an ACL2 book
 known as "testing", which in turn resides in a directory known
+\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}
+\index{book!directory (:dir)}
+\index{teachpacks!testing}\index{testing!teachpack}\index{book!testing}
 as :teachpacks (with the leading colon).
 The include-book directive tells the system
 the name of the testing package and where to find it.
@@ -90,8 +102,11 @@ It was the test that was wrong.
 Direct, one-off, check-expect tests
 are a good way to get started, but
 we will want to test more general properties that we specify with logic formulas.
-Proof Pad facilitates that kind of testing with a package called doublecheck
-that generates random data to run against a predicate
+Proof Pad facilitates that kind of \index{testing!doublecheck}testing with a package called
+\index{doublecheck}\index{book!doublecheck}\index{teachpacks!doublecheck}
+doublecheck
+that generates \index{random data!generating}\index{random data!testing with}\index{testing!with random data}random data
+to run against a predicate
 (that is, a formula representing a true/false value).
 To demonstrate the idea, consider testing the addition operator to see if
 it conforms to the associative law for addition: $(x + (y + z)) = ((x + y) + z)$
@@ -100,6 +115,16 @@ To do that, we define a property as an equation
 and directs Proof Pad to generate some random numbers and
 report whether or not the equation holds on all of the random data.
 
+\index{doublecheck}\index{testing!doublecheck}
+\index{book!doublecheck}\index{teachpacks!doublecheck}
+\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}
+\index{book!directory (:dir)}
+\index{testing!teachpack}\index{book!testing}
+\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}
+\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}
 \begin{Verbatim}
 (include-book "doublecheck" :dir :teachpacks)
 (defproperty +associative-test
@@ -112,11 +137,14 @@ report whether or not the equation holds on all of the random data.
 
 The Proof Pad environment ``doublecheck'' package,
 like the ``testing'' package,
-resides in the teachpacks directory,
+resides in the
+\index{teachpacks!:dir}\index{teachpacks!doublecheck}teachpacks directory,
 and an include-book directive is required so that Proof Pad where to find it.
 
-A property definition with doublecheck begins with a parenthesis, then the keyword
-defproperty and a name for the property to be tested,
+A \index{property!doublecheck}property definition with
+doublecheck begins with a parenthesis, then the keyword
+\index{testing!with random data}\index{random data!testing with}
+\index{defproperty}defproperty and a name for the property to be tested,
 which is ``+associative-test'' in this case.\footnote{The
 rules for naming things in ACL2 are lax, compared to many
 programming languages. Names can be made up of letters and digits, of course,
@@ -138,7 +166,8 @@ Let's look at another example.
 The operator ``list'' creates a list of its operands
 (any number of operands), and
 \label{append-op-informal}
-the operator ``append'' concatenates two lists.
+the \index{operator, by name!append}\index{append!operator}operator ``append''
+\index{concatenate}concatenates two lists.
 A few check-expect tests may clarify what the append operator does.
 We defer, for now, more formal specifications for the append and list operators.
 
@@ -152,7 +181,8 @@ We defer, for now, more formal specifications for the append and list operators.
 We would anticipate that the length of a concatenation of two lists
 would be the length of the first list plus the length of the second.
 \label{len-op-informal}
-Using the ``len'' operator, which computes the length of a list,
+Using the ``len'' \index{operator, by name!len (length of list)}\seeonlyindex{len}{operator}operator,
+which computes the length of a list,
 we can state this property in a doublecheck test.
 Later, we will prove this relationship between append and len,
 but for the moment we confine ourselves to stating properties
@@ -168,7 +198,7 @@ and asking Proof Pad to check them against random data.
 \end{Verbatim}
 
 \begin{aside}
-A ``natural number'' is a whole number (that is, an integer)
+A \index{natural number}``natural number'' is a whole number (that is, an integer)
 that is zero or bigger.
 Some mathematical treatments start the naturals at one,
 rather than zero, but in the computing domain,
@@ -179,13 +209,17 @@ it simplifies a lot of formulas to start the natural numbers at zero.
 
 When we discuss computer arithmetic, we will need to know something about
 arithmetic on finite sets of numbers, and the ``mod'' operator will play a crucial role.
+\index{operator, by name!mod (remainder)}
 \label{mod-function}
 The mod operator takes two operands and
 delivers the remainder in the division of the first operand by the second.
 ACL2 does not restrict the operands to the set of natural numbers,
 but in this discussion, we are going to stick with that domain.
-Think long division: divisor, dividend, quotient,
-remainder . . . third-grade stuff.
+Think
+\index{divisor}divisor, \index{dividend}dividend, \index{quotient}quotient, \index{remainder}remainder
+\index{division!third grade}\index{division!long division}\index{division!floor, mod}
+\seeonlyindex{third-grade long division}{division}
+long division: third-grade stuff.
 
 Let's test drive the mod operator, starting with
 some simple checks, such as using mod
@@ -206,7 +240,9 @@ Here are a few more sanity checks, this time with three as the divisor.
 \end{Verbatim}
 
 \begin{aside}
-Modular arithmetic (sometimes called ``clock arithmetic'')
+\index{arithmetic!modular}\index{modular arithmetic}\index{division!floor, mod}
+\index{operator, by name!mod (remainder)}Modular arithmetic
+(sometimes called \index{clock arithmetic}clock arithmetic)
 deals with integers in a fixed range, $0 \dots (m - 1)$,
 where $m$ is an integer greater than zero known as
 the ``modulus''.
@@ -232,7 +268,7 @@ in the division of $x$ by $m$.
 The divisor (second operand) must be non-zero.
 ACL2 does not restrict the operands to natural numbers,
 but the discussion here assumes that they are.
-\caption{Clock Arithmetic}
+\caption{Modular Arithmetic}
 \label{modular-arithmetic}
 \end{aside}
 
@@ -252,14 +288,15 @@ when the divisor is added to the dividend.
        (mod (+ dividend divisor) divisor))))
 \end{Verbatim}
 
-Generating random data is an art.
+Generating \index{random data!generating}\index{testing!with random data}random data is an art.
 In this example, we have made sure the divisor isn't zero
 by adding one to a natural number.
 Since negative numbers aren't natural numbers, adding one
 to a natural number ensures that the sum is non-zero.
 \label{let-example-brief-explain}
-The definition of the property uses a ``let*'' formula,
-which provides a way to attach names to values temporarily
+The definition of the property uses a
+\index{let* names for values}\index{formula!let*}\index{variable!let*}``let*'' formula,
+which provides a way to attach names to \index{value, let* name for}values temporarily
 (Aside \ref{let*-def}, page \pageref{let*-def}).
 In this case, the let* says that
 the name ``divisor'' will be used to stand for
@@ -294,9 +331,10 @@ and the whole sequence of bindings is closed in another set
 of parentheses. In addition, the entire let* formula
 is enclosed in its opening and closing parentheses.
 The let* formula denotes the value specified
-in the formula that comes at the end of the let*, after the 
+in the formula that comes at the end of the let*, after the
 name-value bindings.
 \caption{Naming Local Values with Let*}
+\index{formula!let*}\index{variable!let*}\index{let* names for values}\index{value, let* name for}
 \label{let*-def}
 \end{aside}
 
@@ -309,6 +347,12 @@ The following property definition uses
 the doublecheck testing facility
 to test whether the mod function delivers values in this range.
 
+\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}
+\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}
+\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}
+\seeonlyindex{less than ($<$)}{predicate}
 \begin{Verbatim}
 (defproperty mod-upper-limit-test
   (divisor-minus-1 :value (random-natural)
@@ -361,13 +405,18 @@ Floor brackets (square brackets without the top part)
 go in the other direction, down to an integer
 that doesn't exceed the enclosed value.
 
+\index{operator, by name!ceiling (divide, round up)}\seeonlyindex{ceiling}{operator}
+\index{ceiling brackets}
+\index{brackets!ceiling}
+\index{operator, by name!floor (divide, round down)}\seeonlyindex{floor}{operator}\index{division!floor, mod}
+\index{floor brackets}
+\index{brackets!floor}
 \begin{center}
 \begin{tabular}{lll}
 (ceiling $x$ $y$)& $= \lceil x  \div y \rceil $ \emph{quotient rounded up}   \\
 (floor $x$ $y$)  & $= \lfloor x \div y \rfloor$ \emph{quotient rounded down} \\
 \end{tabular}
 \end{center}
-
 \caption{Floor and Ceiling Operators, Floor and Ceiling Brackets}
 \label{floor-def}
 \label{ceiling-def}
@@ -429,10 +478,17 @@ when its operands are natural numbers,
 and the divisor (second operand) is not zero.
 Use Proof Pad to run the test.
 
-\Exercise The ``max'' operator chooses the larger of two numbers:
+\Exercise The ``max'' \index{operator, by name!max (of two operands)}\seeonlyindex{max}{operator}operator chooses the larger of two numbers:
 (max 2 7) is 7, (max 9 3) is 9.
 Define a doublecheck property that tests to make sure
-(max $x$ $y$) is greater than or equal to (>=) both $x$ and $y$.
+(max $x$ $y$) is
+\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}
+\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}
+\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
+\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}
+\seeonlyindex{greater or equal ($>=$)}{predicate}
+greater than or equal to (>=) both $x$ and $y$.
 Use Proof Pad to run tests of the property.
 
 \Exercise
@@ -449,8 +505,8 @@ Aside~\ref{modular-arithmetic} (page \pageref{modular-arithmetic}).
 Use Proof Pad to run your tests.
 
 \Exercise
-The ACL2 operator ``reverse'' delivers a list whose
-elements are in the reverse order of those in its operand.
+The ACL2 \index{operator, by name!reverse (elements in list)}\seeonlyindex{reverse}{operator}operator ``reverse''
+delivers a list whose elements are in the reverse order of those in its operand.
 For example (reverse (list 1 2 3)) is (list 3 2 1).
 Find an equation that expresses the value of (reverse (append $xs$ $ys$))
 in terms of (reverse $xs$) and (reverse $ys$).

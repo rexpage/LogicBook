@@ -29,13 +29,13 @@ If you follow the broad outlines of the examples
 and successfully work your way through some of the exercises,
 we think you will gain a basic understanding
 of what can be done with mechanized logic.
-Acquiring a deep expertise with such tools
+Acquiring expertise with such tools
 would require substantially more study and experience.
 \caption{ACL2 Learning Objectives}
 \label{aside:acl2-learning-objectives}
 \end{aside}
 
-ACL2 is one of several systems of mechanized logic that provide this
+ACL2 is one of several systems of \index{mechanized logic}\index{logic!mechanized}mechanized logic that provide this
 kind of assistance with proofs.
 Theorems for the ACL2 proof engine take the same form
 as properties for the doublecheck testing facility in Proof Pad.
@@ -89,7 +89,8 @@ by the ``:value'' keyword), which are not present in the theorem,
 and the keyword ``defproperty'',
 which becomes ``defthm'', instead.
 
-Theorem statements in ACL2 start with the ``defthm'' keyword.
+Theorem statements in ACL2 start with the
+\index{defthm}\index{definition!theorem, ACL2}``defthm'' keyword.
 After that comes a name for the theorem and the Boolean formula
 that states the theorem, as illustrated in
 the following definition.
@@ -104,6 +105,7 @@ the following definition.
 \begin{center}
 \includegraphics[scale=0.55]{images/additive-law-of-concatenation-thm-acl2-prf-bw.png}
 \end{center}
+\index{Proof Pad!proof bar}\index{proof bar}
 \caption{Proof Pad Session with Proof Bar}
 \label{fig:proof-bar-with-chk}
 \end{figure}
@@ -137,6 +139,8 @@ S($n$) $\equiv$ (nthcdr (len [$x_1$ $x_2$ \dots $x_n$]) (append [$x_1$ $x_2$ \do
 
 In ACL2 notation, a definition of this theorem takes the following form.
 
+\index{append!suffix theorem}\index{theorem!append-suffix}
+\index{theorem, by name!\{append-suffix\}}
 \begin{Verbatim}
 (defthm append-suffix-thm
   (equal (nthcdr (len xs) (append xs ys))
@@ -146,16 +150,22 @@ In ACL2 notation, a definition of this theorem takes the following form.
 The mechanized logic can prove this theorem, but
 the proof depends on some equations from numeric algebra.
 Fortunately, ACL2 experts have already proved many such theorems,
-and the ACL2 system makes them available in the form of ``certified books''
+and the ACL2 system makes them available in the form of
+\index{book!ACL2}\seeonlyindex{ACL2 book}{book}
+\index{book!certified}\seeonlyindex{certified book}{book}``certified books''
 (ACL2 terminology for a package of theorems successfully proven by the
 mechanized logic).
 A book known as
+\index{book!arithmetic-3/top}
 \label{arith-top-book} "arithmetic-3/top"
 contains theorems from algebra
+\index{theorem!algebra, ACL2}
 that the mechanized logic can cite in
 a proof of the append-suffix theorem.
 An include-book directive tells ACL2
 to import these theorems.
+\index{directive!include-book}
+\index{directory (:dir)!:system}\index{system, :dir}\index{book!directory (:dir)}
 \begin{center}
 (include-book "arithmetic-3/top" :dir :system)
 \end{center}
@@ -177,16 +187,24 @@ click in the proof bar, and see what happens.
 \begin{center}
 \includegraphics[scale=0.5]{images/append-suffix-thm-acl2-prf-bw.png}
 \end{center}
+\index{theorem!append-suffix}\index{theorem, by name!\{append-suffix\}}
+\index{append!suffix theorem}
 \caption{Append-Suffix: Importing Theorems to Cite in Proof}
 \label{fig:append-suffix-acl2-prf}
 \end{figure}
 
 \begin{ExerciseList}
 
-\Exercise Define the \{\emph{append associativity}\} theorem in ACL2 notation,
+\Exercise Define the
+\index{append!associative}
+\index{theorem!append associative}
+\index{theorem, by name!\{append associative\}}
+\index{associative}\{\emph{append associativity}\}
+theorem in ACL2 notation,
 and use Proof Pad to run it through the ACL2 mechanized logic.
 If you state the theorem correctly, ACL2 will succeed in proving it.\footnote{According
-to J Moore, a pioneer in mechanized logic and a principal developer of ACL2,
+to \index{Moore, J Strother}J Strother Moore, a pioneer
+in mechanized logic and a principal developer of ACL2,
 the associativity of append was one of the driving examples in early work in
 mechanized logic and one of the first theorems that such a system proved autonomously.}
 
@@ -281,6 +299,7 @@ In ACL2 this fact would be stated as an implication.
   (implies (< u v)
            (< (- u 1) (- v 1))))
 \end{Verbatim}
+\index{theorem!constraints}\index{theorem!implication, constraint}
 \caption{Using Implication to Constrain the Domain of a Theorem}
 \label{thm-with-implies}
 \end{aside}
@@ -307,6 +326,8 @@ as in the following statement of the theorem.
 \begin{center}
 \includegraphics[scale=0.43]{images/append-prefix-thm-acl2-prf-bw.png}
 \end{center}
+\index{append!prefix theorem}\index{theorem!append-prefix}
+\index{theorem, by name!\{append-prefix\}}
 \caption{Append-Prefix Theorem: an Implication}
 \label{fig:append-prefix-acl2-prf}
 \end{figure}
@@ -347,6 +368,7 @@ it possible for ACL2 prove termination is, by itself,
 a major project, including importing theorems or coming up with new
 theorems to facilitate the reasoning process.
 Hardware and software with guaranteed properties is not easy to come by.
+\index{admit, ACL2}\index{ACL2!admit}
 \caption{ACL2 Must Prove That Operators Terminate}
 \label{reason-for-acl2-admit}
 \end{aside}
@@ -387,7 +409,7 @@ it is usually necessary to prove
 some simpler properties that the mechanized
 logic can cite in a proof of the more complex property.
 
-Choosing simpler properties that ACL2 can prove
+\index{ACL2!helping}Choosing simpler properties that ACL2 can prove
 and building, finally, to the more complex proof
 calls for insight and creativity.
 This is where your experience with pencil-and-paper proofs
@@ -427,6 +449,12 @@ $f_{n+2}$ $=$ $f_{n+1} + f_{n}$ & \{\emph{f2}\} \\
 \dots & ~~~~~1  &  ~~~~2  &  ~~~~3  &  ~~~~5  & \dots &  ~~~~~55 &  ~~~~~89 & ~~~144   & \dots \\
 \end{tabular}
 \end{center}
+\index{Fibonacci!numbers}\index{axiom!Fibonacci}
+\index{operator, by name!fib, fib-fast (Fibonacci)}
+\index{Fibonacci!operator}
+\index{equation, by name!\{f0\}, \{f1\}, \{f2\}}
+\index{equation, by name!\{fib1\}, \{fib2\}}
+\index{axiom, by name!\{f0\}, \{f1\}, \{f2\}}
 \caption{Fibonacci Numbers}
 \label{fig:Fibonacci-axioms}
 \end{figure}
@@ -485,7 +513,8 @@ it would not take a lot longer to compute (fib 40) than it does to compute (fib 
 It is dramatic, to say the least. We estimate that it would take an hour to compute
 (fib 50) on a typical laptop computer and upwards of a year to compute (fib 75).
 
-The Fibonacci axioms comprise an inductive definition.
+The Fibonacci axioms comprise an
+\index{Fibonacci!definition}inductive definition.
 They conform to the three C's
 (Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}),
 so they guarantee delivery of a Fibonacci number in a finite number
@@ -499,7 +528,8 @@ results with less work.
 Fortunately, that is the case with Fibonacci numbers.
 Figure~\ref{fig:gib-defun} (page \pageref{fig:gib-defun})
 displays another definition that uses a method known as
-``tail recursion''.\footnote{``Recursive definition''
+\index{tail recursion}\index{definition!tail recursive}
+``tail recursion''.\footnote{\index{recursive}``Recursive definition''
 is the most commonly used term for what we call ``inductive definition''.
 We don't say recursive because the term is often conflated
 with an implementation method based on a data structure called a stack,
@@ -516,7 +546,9 @@ mutable variables, as most programming languages do, we would have
 to delve into a stack-based view of recursion.
 Since it doesn't, we don't, and we won't.}
 A tail recursion is a circular reference in an operator definition
-that occurs at the ``top level'', which means that it is not nested
+that occurs at the
+\index{top level, vs nested}\index{nested, vs top level}``top level'',
+which means that it is not nested
 inside a formula to produce an operand for
 another operator. The operator ``op'' occurs at the top level
 in the formula (op $x$), but is nested in the formula (+ (op $x$) 1).
@@ -538,12 +570,17 @@ but sometimes, as with Fibonacci numbers, they do.
    (gib n 1 0))             ; (fib 1)=1, (fib 0)=0
 \end{Verbatim}
 \end{center}
+\seeonlyindex{fib, fib-fast}{operator}\index{Fibonacci!fast}\index{Fibonacci!operator}
+\index{operator, by name!fib, fib-fast (Fibonacci)}
+\index{operator, by name!gib (iterative Fibonacci)}
+\index{equation, by name!\{gib0\}, \{gib1\}, \{gib2\}}\index{gib (\emph{see also} operator)}
 \caption{Fibonacci Numbers: Quick Delivery}
 \label{fig:gib-defun}
 \end{figure}
 
-The downside is that reasoning about tail recursive definitions
-is often more challenging than reasoning about definitions
+The downside is that \index{tail recursion!reasoning about}\index{reasoning!about tail recursion}reasoning
+about tail recursive
+definitions is often more challenging than reasoning about definitions
 with nested recursion. One way to proceed, however,
 is to define an operator both ways, prove that the two definitions
 produce the same results, and then use the efficient definition
@@ -560,6 +597,8 @@ Maybe ACL2 can take it on successfully.
 We would like to know that $\forall n.($(fib-fast $n$) = (fib $n$)$)$.
 The theorem in ACL2 terms can be stated as follows.
 \begin{samepage}
+\index{theorem, by name!\{fib=fib-fast\}}
+\index{Fibonacci!fast}\index{theorem!Fibonacci fast}
 \begin{center}
 \begin{Verbatim}
 (defthm fib=fib-fast ; (fib-fast n) = (fib n)
@@ -584,6 +623,9 @@ This is, to prove that the $n^{th}$ value of gib is
 the sum of the previous two values (as in axiom \{\emph{f2}\}).
 In ACL2 that theorem can be stated as follows.
 \begin{samepage}
+\index{gib (\emph{see also} operator)}
+\index{theorem!gib lemmas (base, inductive)}
+\index{gib (\emph{see also} operator)!lemmas (base, inductive)}
 \begin{center}
 \begin{Verbatim}
 (defthm gib-inductive-equation       ; a la {fib2}
@@ -606,6 +648,7 @@ base case as well as the inductive case, so we
 stated a base case for the gib operator as an ACL2 theorem.
 
 \begin{samepage}
+\index{theorem!gib lemmas (base, inductive)}\index{gib (\emph{see also} operator)!lemmas (base, inductive)}
 \begin{center}
 \begin{Verbatim}
 (defthm gib-base-equation            ; a la {fib1}
@@ -643,7 +686,7 @@ First, verify that $x_{n+1} = 2x_n$.
 Then, use mathematical induction to prove that $x_n = 2^n$,
 and translate this formula for $x_n$
 to a formula for $c_{2n+1}$.\\
-\emph{Law of Exponents}: $2^0 = 1$, $\forall n.(2^{n+1} = 2 \times 2^n)$.
+\index{exponents, law of}\emph{Law of Exponents}: $2^0 = 1$, $\forall n.(2^{n+1} = 2 \times 2^n)$.
 
 \end{ExerciseList}
 
@@ -691,6 +734,7 @@ by distinguished researchers in the USA, the UK, France, Sweden, and elsewhere.
 \item PVS (Sam Owre, Natarajan Shankar, John Rushby, SRI)
 \item Agda (Ulf Norell, Chalmers Univ)
 \end{itemize}
+\index{logic!mechanized}
 \caption{Practical Mechanized Logics: Fifty Years of R\&D, Mostly R}
 \label{mechanized-logic-history}
 \end{aside}
@@ -699,15 +743,16 @@ Proofs are not only hard.
 They are sometimes impossible, as G\"odel famously proved in 1931
 to the great surprise of many mathematicians of the day.
 In the same vein there things computers cannot do.
-A well known example is the \emph{halting problem}, which
+A well known example is the \index{halting problem} \emph{halting problem}, which
 was proved to be outside the realm of computation
-by Alan Turing in 1936
-and, independently, by Alonzo Church.
+by \index{Turing, Alan}Alan Turing in 1936
+and, independently, by \index{Church, Alonzo}Alonzo Church.
 There were no computers at the time,
 but there were mathematical models of computation
 that are used, still today, to study the capabilities of computers.
 
-A program solving the halting problem would be able to determine,
+A program solving the
+\index{uncomputable}\index{halting problem}halting problem would be able to determine,
 given a computer program, whether or not the program would terminate
 on a specified input.
 There are programs that can solve the halting problem for
@@ -718,20 +763,21 @@ but the basic idea of the proof is not too difficult to follow, and
 it provides an example of reasoning that,
 in a perverse sense, fits into a discussion of mechanized logic,
 since it exhibits something that neither computers
-nor people can do.
+nor people can do. There are many such things, as a search
+using the key "uncomputable" shows.
 
 To be specific, the following discussion of the halting problemm
 limits itself to a single programming language, but
 that restriction turns out to be immaterial.\footnote{The
 halting problem cannot be solved
-for any ``general purpose'' programming language,
-by which we mean a Turing complete language,
+for any ``general purpose'' \index{programming language}programming language,
+by which we mean a \index{Turing complete}Turing complete language,
 which itself calls for a long explanation even
 before arriving at a discussion of how Turing completeness
 interacts with the halting problem.
 You can track that down, if you're interested.
 All widely-used programming languages,
-including ACL2, Java, and C++ for example, are Turing complete.
+including \index{ACL2}ACL2, \index{Java}Java, and \index{C++}C++ for example, are \index{Turing complete}Turing complete.
 We leave it at that.}
 Because the discussion the halting problem is clumsy in ACL2,
 we'll present the ideas in terms of a different
@@ -749,7 +795,7 @@ to mechanize the process of proving theorems.
 
 The discussion will include some logic formulas with
 quantification,
-so we need to specify the domain of discourse 
+so we need to specify the domain of discourse
 (page \pageref{def-universe-of-discourse}).
 When the bound variable
 in the formula is $h$, the domain of discourse
@@ -781,6 +827,7 @@ or may not be completed in a finite amount of time.
 Since $H$ is a logic predicate, not a computation,
 it has a value whether or not the formula ($f$ $x$) terminates.
 \begin{quote}
+\index{predicate, by name!H (termination)}\index{termination predicate (H)}
 \label{def:predicate-H}
 Definition of predicate $H$\\
 $H(f, x) = False$, if ($f$ $x$) does not terminates\\
@@ -800,6 +847,7 @@ There is no such definition.
 There are some things that cannot be done, and this is one of them.
 
 \label{church-turing-hypothesis}
+\index{Church-Turing hypothesis}\index{Turing-Church hypothesis}\index{hypothesis!Church-Turing}
 A conjecture of Church and Turing
 concerning the effectiveness of general-purpose programming languages
 asserts that for any computation that can be carried out, there is a program
@@ -816,10 +864,11 @@ Both models are still widely studied in computer science theory.
 The programming language Lisp
 was based on the lambda calculus, so the two are closely related.
 
-We express the halting problem theorem as a logic formula that we will prove
+We express the \index{halting problem}halting problem theorem as a logic formula that we will prove
 using natural deduction (Section \ref{sec:deduction}).
 The theorem has no hypotheses.
 \begin{quote}
+\index{theorem!halting problem}\index{theorem, by name!\{halting problem\}}
 Theorem \{halting problem\}:\\
 $\vdash$ $\neg(\exists h. \forall f. \forall x.
 ((H(f, x) \rightarrow ($($h$ $f$ $x$) $ = 1)) \wedge ((\neg H(f, x)) \rightarrow ($($h$ $f$ $x$) $= 0))))$
@@ -851,6 +900,8 @@ can be derived from it.
 To clarify the derivation, we need to state the \{paradox\} theorem,
 which we will prove later.
 \begin{quote}
+\index{theorem!paradox}\index{theorem, by name!\{paradox\}}
+\index{paradox, halting problem}\index{halting problem}
 Theorem \{paradox\}: $E$ $\vdash$ $False$
 \end{quote}
 
@@ -883,13 +934,15 @@ Discharge $(\neg(\neg E))$                    &\emph{eliminates} $(\neg(\neg E))
 ~~~~~~~~~~~$\neg E$                           &\emph{no program solves halting prob for all programs}\\
 \end{tabular}
 \end{center}
+\index{halting problem}\index{theorem!halting problem}
+\index{theorem, by name!\{halting problem\}}
 \caption{Theorem \{halting problem\}: a proof by contradiction}
 \label{fig:halting-proof-strategy}
 \end{figure}
 
 We are not quite ready to tackle the \{paradox\} theorem.
 The proof will be easier to follow if we break it into parts,
-then paste them together in the final analysis.
+then connect the parts in the final analysis.
 
 Recall that $E$, the hypothesis of the \{paradox\} theorem,
 is a $\exists$ formula.
@@ -911,6 +964,7 @@ the formula (h $f$ $x$) = 0 if $H(f, x)$ is $False$ and
 (h $f$ $x$) = 1 if $H(f,x)$ is $True$.
 We specify those properties in the following two theorems.
 \begin{quote}
+\index{theorem, by name!\{hF\}}\index{theorem, by name!\{hT\}}
 Theorem \{hF\}: $E$ $\vdash$ $\forall f.\forall x.(\neg H(f, x))$ $\rightarrow$ (h $f$ $x$) $= 0$\\
 Theorem \{hT\}: $E$ $\vdash$ $\forall f.\forall x.H(f, x)$      $\rightarrow$ (h $f$ $x$) $= 1$
 \end{quote}
@@ -947,6 +1001,7 @@ Axioms of p\\
       (loop x)))
 \end{Verbatim}
 \end{center}
+\index{loop}
 \caption{Definitions of Operators p and loop}
 \label{fig:paradox-op-defun}
 \end{figure}
@@ -959,6 +1014,7 @@ Since p is an operator, $x$ is a value, and 1 is not 0,
 the following theorems are special cases of
 Theorem \{hF\} and Theorem \{hT\}.
 \begin{quote}
+\index{theorem, by name!\{pF\}}\index{theorem, by name!\{pT\}}
 Theorem \{pF\}: $E$ $\vdash$ $(\neg H($p, $x))$ $\rightarrow$ (h p $x$) $= 0)$ \\
 Theorem \{pT\}: $E$ $\vdash$ $H($p, $x)$ $\rightarrow$ $(\neg($(h p $x$) $= 0))$
 \end{quote}
@@ -997,7 +1053,8 @@ Theorem \{p1\}: $\vdash$  (p $x$) $=$ (loop $x$) $\rightarrow$ $(\neg H($p, $x))
 From the three theorems, \{pF\}, \{h0\}, and \{p0\},
 we can derive Theorem \{H$+$\}, and
 from the other three theorems, \{pT\}, \{h1\}, and \{p1\},
-we can derive Theorem \{H$-$\}.
+we can derive
+\index{halting problem}Theorem \{H$-$\}.
 \begin{quote}
 Theorem \{H$+$\}: $E$ $\vdash$ $(\neg H($p, $x))\rightarrow H($p, $x)$ \\
 Theorem \{H$-$\}: $E$ $\vdash$ $H($p, $x) \rightarrow(\neg H($p, $x))$
@@ -1031,6 +1088,7 @@ $\neg($(h p $x)=0)$ $\rightarrow$ (p $x$) $=$ (loop $x$)&\\
 \end{tabular}
 
 \end{center}
+\index{theorem, by name!\{H$-$\}}
 \caption{Proof of Theorem \{H$-$\}}
 \label{fig:hminus-thm-proof}
 \end{figure}
@@ -1043,6 +1101,7 @@ $((\neg H($p, $x)$ $\rightarrow$ $H($p, $x)) = H($p, $x)$
 So, we can rewrite the \{H$+$\} and \{H$-$\} theorems as follows.
 \begin{quote}
 \label{thm:HplusHminus}
+\index{theorem, by name!\{H$-$\}}\index{theorem, by name!\{H$+$\}}
 Theorem \{H$+$ version 2\}: $E$ $\vdash$ $H($p, $x)$ \\
 Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($p, $x)$
 \end{quote}
@@ -1072,6 +1131,9 @@ proof
 ~~~~~~~~~~~$False$                              &\\
 \end{tabular}
 \end{center}
+\index{theorem!paradox}\index{theorem, by name!\{paradox\}}
+\index{theorem, by name!\{halting problem\}}
+\index{halting problem}
 \caption{Theorem \{halting problem\}: a proof by contradiction}
 \label{fig:proof-paradox-thm}
 \end{figure}
@@ -1080,7 +1142,9 @@ proof
 \Exercise Prove Theorem \{H$+$\} (page \pageref{thm:HplusHminus}).
 
 \Exercise
-Prove that for any value $x$, the formula (loop $x$) represents
+Prove that for any value $x$, the formula
+\index{loop}
+(loop $x$) represents
 the same computation as the formula (loop (loop $x$)).\\
 \emph{Note}: The operator ``loop'' is defined in
 Figure~\ref{fig:paradox-op-defun} (page \pageref{fig:paradox-op-defun}).
@@ -1089,6 +1153,8 @@ Figure~\ref{fig:paradox-op-defun} (page \pageref{fig:paradox-op-defun}).
 Suppose $f$ is an ACL2 operator, $x$ is an ACL2 value,
 and $n$ is a natural number.
 The following equations define the notation ($f^n$ $x$).
+\index{iteration}
+\index{equation, by name!\{iter0\}, \{iter1\}}
 \begin{center}
 \begin{tabular}{ll}
 ($f^0$ $x$) $=$ $x$                    &\{iter0\} \\
@@ -1105,7 +1171,6 @@ $\forall n.\forall x.($(loop $x$) $=$ (loop$^{n+1}$ $x$)$)$
 \end{quote}
 
 \end{ExerciseList}
-
 
 \todo{
 DONE 21Sep2017

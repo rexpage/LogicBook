@@ -96,7 +96,8 @@ but specification of the hardware and software artifacts that we study
 is not limited to that domain.
 
 \begin{aside}
-Logicians and mathematicians have been studying models of \index{computation model}\index{model of computation}computation
+Logicians and mathematicians have been studying
+\index{computation models}\index{model!of computation}models of computation
 since before computers were invented. This was done, in part, to
 answer a deep mathematical question: What parts of mathematics can,
 in principle, be fully automated?  Is it possible to
@@ -129,7 +130,7 @@ revolves around this hypothesis.
 Another remarkable fact is that some problems cannot be solved
 by any computer program.
 Alan \index{Turing, Alan}Turing, one of the first theoretical computer scientists,
-was the first to describe 
+was the first to describe
 \index{uncomputable}\seeonlyindex{incomputable}{uncomputable}uncomputable problems,
 and soon afterwards the logician Kurt \index{G\"odel, Kurt}G\"odel
 showed that mathematical systems of reasoning
@@ -418,9 +419,10 @@ board positions.
 An operator definition that follows this strategy is circular.
 One of the things it does is to invoke itself with new operands.
 Circular definitions of this kind are common in mathematics.
-We call them inductive definitions.\footnote{Operators
-with \seeonlyindex{inductive definition}{definition, inductive}\index{definition, inductive}inductive definitions are sometimes
-called \index{recursive}``recursive'' functions. We try to avoid that term because it is
+We call them inductive definitions.\footnote{Operators with
+\seeonlyindex{inductive definition}{definition}\index{definition!inductive (circular)}inductive definitions
+are sometimes called \index{recursive}``recursive'' functions.
+We try to avoid that term because it is
 often associated with specialized ways to carry out the computation,
 but we may slip up from time to time and call them recursive functions.
 Besides, you should know the term so you'll know what people are
@@ -431,7 +433,7 @@ the invocation of the operator being defined
 has operands that are closer to those in a non-circular part of the
 definition than the original operands.
 
-\seeonlyindex{inductive definition}{definition, inductive}Inductive \index{definition, inductive}definitions
+Inductive \index{definition!inductive}definitions
 will play a central role throughout the book
 and will be discussed in great detail, but we want to provide an
 introduction of sorts at this point, to get the ball rolling.
@@ -467,7 +469,7 @@ so the standard convention that the sum of an empty set of numbers
 is zero is consistent with the equation $h(0) = 0$.}
 Then, the following equations express, formally,
 our earlier observation about $h(n+1)$.
-\index{equation!\{h1\}}\index{equation!\{h0\}}
+\index{equation, by name!\{h0\}, \{h1\}}
 \label{reciprocalsdef}
 %\begin{displaymath}
 %h(n) =
@@ -488,8 +490,8 @@ $h(0)$   $=$ $0$                    & \{h0\}\\
 It will be a common practice in this text to
 attach names to equations to make it easy to discuss them.
 In this case, we have used the names \{h1\} and \{h0\}.
-The equation \{h1\} is \seeonlyindex{circular definition}{definition, inductive}circular because both sides of the equation
-refer to a value delivered by the operator $h$.
+The equation \{h1\} is \seeonlyindex{circular definition}{definition}circular
+because both sides of the equation refer to a value delivered by the operator $h$.
 However, the operand $n$ in the circular reference
 (that is, in the formula $h(n)$ on the right-hand side of the equation \{h1\})
 is closer to zero than the operand $(n+1)$ on the left-hand side of the equation.

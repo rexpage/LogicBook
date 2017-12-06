@@ -14,8 +14,8 @@ $w$ output wires for the numeral denoting the sum.
 The diagram has an additional input wire for the carry bit
 coming into the adder (normally a zero bit, unless the circuit is being
 used for some sort of multi-word arithmetic) and an additional output wire
-for the output carry bit. 
-The output carry bit is normally ignored in single-word arithmetic 
+for the output carry bit.
+The output carry bit is normally ignored in single-word arithmetic
 when one addend is positive and the other is negative,
 but can be used to detect overflow\footnote{Overflow occurs
 when the sum of the two input numerals falls outside
@@ -41,14 +41,15 @@ required to represent the sum of the numbers
 denoted by the input.
 
 An adder expressed in software that is able to deal with numerals
-of any length is often called a ``bignum'' adder.
-It performs precise arithmetic on numbers of any size 
+\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
+of any length is often called a bignum adder.
+It performs precise arithmetic on numbers of any size
 rather than on a fixed range of numbers based on word size.
 To simplify the discussion, we will talk about arithmetic
 for non-negative integers only.
 Negative integers and fractions make things a lot more complicated
 without adding much in the way of intellectual depth.
-Bignum arithmetic on non-negative integers provides plenty of room 
+Bignum arithmetic on non-negative integers provides plenty of room
 for small projects to build an understanding of the concepts.
 
 \section{Bignum Adder}
@@ -69,7 +70,7 @@ and all we have to do is to write some equations that it
 would have to satisfy if it worked. If we manage
 to come up with equations that are consistent, comprehensive, and computational
 (Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys})
-we will have defined an operator. 
+we will have defined an operator.
 However, it won't be just any operator.
 It will be the only operator that satisfies those equations.
 
@@ -125,7 +126,10 @@ the numeral on the left-hand-side of the equation.
 Therefore, the equations define the add-1 operator.
 All we need to do now is to combine them into an ACL2 definition.
 
-\label{add-1-defun}
+\label{add-1-defun}\index{equation, by name!\{add10\}, \{add11\}}
+\index{operator, by name!add, add-1, add-c (\emph{see} bignum)}
+\index{add, add-1, add-c (\emph{see} bignum)}
+\index{bignum!addition (add, add-1, add-c)}\index{arithmetic!bignum addition}\index{addition!bignum}
 \begin{Verbatim}
 (defun add-1 (x)
   (if (and (consp x) (= (first x) 1))
@@ -153,7 +157,7 @@ the previous, lower-order bit.
 
 We already have the apparatus for this: the full-adder operator
 (Figure~\ref{fig:full-adder},  page \pageref{fig:full-adder}).
-We can use that operator, to add two corresponding bits, 
+We can use that operator, to add two corresponding bits,
 $x_n$ and $y_n$, from the addend numerals,
 incorporating the carry, $c_n$, from the lower-order bit position.
 The full-adder delivers the sum bit, $s_n$, for the current
@@ -169,7 +173,7 @@ low-order bits. (This was always the case when
 the numerals had the same number of bits, but in bignum
 arithmetic we will eventually need to account for the
 case when one numeral has more bits than the other,
-so that the numerals will not have corresponding bits 
+so that the numerals will not have corresponding bits
 beyond a certain point.)
 In the case where the corresponding bits involved
 are the low-order bits in the numerals,
@@ -190,12 +194,15 @@ is to have equations for the cases when one or the other addend is an empty nume
 
 If either addend is an empty numeral, then that addend denotes the number zero,
 and the sum would be the other addend with the carry added to it.
-We already have an operator, add1 (page \pageref{add-1-defun}), 
+We already have an operator, add1 (page \pageref{add-1-defun}),
 that we can use to add the carry if it's a one-bit.
 When the carry is a zero-bit, we don't need to add the carry bit
 because adding zero doesn't change the number.
 
 \label{add-c-defun}
+\index{equation, by name!\{addc0\}, \{addc1\}}
+\index{add, add-1, add-c (\emph{see} bignum)}
+\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
 \begin{Verbatim}
 (defun add-c (c x)
   (if (= c 1)
@@ -215,6 +222,12 @@ Now, with all the cases covered, we can translate our sketched equations
 into ACL2.
 
 \label{bignum-add-defun}
+\index{equation, by name!\{add0y\}, \{addx0\}, \{addxy\}}
+\index{add, add-1, add-c (\emph{see} bignum)}
+\index{addition!carry}
+\index{numeral!bignum addition}\index{addition!bignum}
+\index{arithmetic!bignum addition}
+\index{bignum!addition (add, add-1, add-c)}
 \begin{Verbatim}
 (defun add (c0 x y)
   (if (not (consp x))
@@ -248,6 +261,8 @@ holds for all input numerals, and
 the following theorem is a formal assertion of that fact.
 
 \label{bignum-adder-thm}
+\index{theorem!bignum addition}\index{theorem, by name!\{bignum-add-ok\}}
+\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
 \begin{Verbatim}
 (defthm bignum-add-ok
   (= (numb(add c x y))
@@ -259,7 +274,7 @@ and we could do a paper-and-pencil proof following a strategy
 similar to the one for the \{adder ok\} theorem about the ripple-carry adder
 (Figure~\ref{fig:adder-thm-prf}, page \pageref{fig:adder-thm-prf}).
 In any case, we know now, to a mathematical certainty,
-that the bignum add operator delivers 
+that the bignum add operator delivers
 the sum of its two input numerals and the input carry bit.
 
 \begin{ExerciseList}
@@ -271,7 +286,7 @@ by the bignum add operator is also a one-bit.
 The theorem refers to the fin operator (page \pageref{fin-defun}).
 
 \Exercise State the theorem of Exercise~\ref{bignum-add-hi-order-bit-thm}
-in ACL2 and submit it to the mechanized logic. 
+in ACL2 and submit it to the mechanized logic.
 ACL2 will succeed in proving a proper statement of the theorem.
 \end{ExerciseList}
 
@@ -284,7 +299,7 @@ The first step is to multiply the entire multiplicand by the low-order digit
 of the multiplier.
 Then comes next-to-last digit of the multiplier (the tens digit) for the second step.
 In the second step, the product is written below the one from the first step,
-but shifted left one position. 
+but shifted left one position.
 This continues across all of the digits of the multiplier, one by one,
 writing the products shifted one more position to the left at each step.
 After the products are completed for
@@ -318,7 +333,7 @@ we arrive at the following equation.
 \hfill \{long division by 10\} \\
 
 Observe that $(x$ mod $10)$ is $x_0$, the low-order digit of $x$.
-So, the low-order digit of the numeral for $x$, times $y$ is 
+So, the low-order digit of the numeral for $x$, times $y$ is
 $(x$ mod $10) \cdot y$. That is, $x_0 \cdot y$.
 Also, the numeral for the number
 $\lfloor x \div 10 \rfloor$ is the same as the numeral for $x$, but
@@ -498,10 +513,16 @@ case than the formula on the left-hand side of the equation.
 Putting this all together leads to the following ACL2 definition
 of the bignum multiplication operator, mul.
 Most of the work is done by the operator mxy,
-which is invoked by mul when the multiplicand, $y$, 
+which is invoked by mul when the multiplicand, $y$,
 is not the empty numeral.
 
-\label{bignum-mul-defun}
+\label{bignum-mul-defun}\index{arithmetic!bignum multiplication}\index{multiplication!bignum}
+\index{bignum!multiplication (mul, mxy)}
+\index{numeral!binary multiplication}\index{multiplication!binary numerals}\index{binary numeral!multiplication}
+\index{operator, by name!mul, mxy (\emph{see} bignum)}
+\index{mul, mxy (\emph{see} bignum)}
+\index{equation, by name!\{mul0y\}, \{mul0xy\}, \{mul1xy\}}
+\index{equation, by name!\{mulx0\}, \{mulxy\}}
 \begin{Verbatim}
 (defun mxy (x y) ; assumption: y is not nil
   (if (consp x)
@@ -520,6 +541,10 @@ is not the empty numeral.
 From these definitions, ACL2 successfully finds an
 inductive proof of the following theorem.
 \label{bignum-mul-thm}
+\index{theorem!bignum multiplication}
+\index{theorem, by name!\{bignum-mul-ok\}}
+\index{arithmetic!bignum multiplication}
+\index{bignum!multiplication (mul, mxy)}\index{multiplication!bignum}
 \begin{Verbatim}
 (defthm bignum-mul-ok
   (= (numb (mul x y)) (* (numb x) (numb y))))
@@ -528,7 +553,7 @@ inductive proof of the following theorem.
 \begin{ExerciseList}
 \Exercise
 Use an induction on the number of bits in the
-multiplier to do a paper-and-pencil proof of 
+multiplier to do a paper-and-pencil proof of
 the bignum multiplier theorem, bignum-mul-ok.
 \end{ExerciseList}
 

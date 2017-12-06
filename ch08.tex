@@ -9,7 +9,8 @@
 \label{sec:mux}
 
 Suppose you want to take two lists and shuffle them into one.
-You're looking for a perfect shuffle, an element from one list,
+You're looking for a \index{perfect shuffle}\index{shuffle, perfect}perfect shuffle, 
+an element from one list,
 then one from the other list, back to the first list, and so on.
 This is sometimes called ``multiplexing.''
 
@@ -23,7 +24,9 @@ but the same kind of round-robin approach would work for any
 number of signals.
 Multiplexing.
 
-We call the operator ``mux''.
+We call the operator 
+\seeonlyindex{mux (multiplexer)}{operator}
+\index{operator, by name!mux (multiplexer)}``mux''.
 It conforms to the pattern suggested by the following equation.
 
 \hspace{1cm} (mux [$x_1$ $x_2$ $x_3$ $\dots$] [$y_1$ $y_2$ $y_3$ $\dots$]) =
@@ -75,6 +78,9 @@ in the non-empty list, just as they are, into the
 multiplexed list that the mux operator delivers..
 That would make mux satisfy the following equations.
 
+\index{operator, by name!mux (multiplexer)}
+\index{axiom, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}
+\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}
 \begin{center}
 Axioms for mux Operator
 \begin{tabular}{ll}
@@ -100,16 +106,18 @@ defining the mux operator.
 Converting the axioms to ACL2 notation leads to the following
 definition.
 
+\index{operator, by name!mux (multiplexer)}
+\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}
 \label{mux-defun}
 \begin{Verbatim}
 (defun mux (xs ys)
   (if (not (consp xs))
-      ys                                             ; mux0x
+      ys                                             ; {mux0x}
       (if (not (consp ys))
-          xs                                         ; mux0y
+          xs                                         ; {mux0y}
           (cons (first xs)
                 (cons (first ys)
-                      (mux (rest xs) (rest ys))))))) ; mux11
+                      (mux (rest xs) (rest ys))))))) ; {mux11}
 \end{Verbatim}
 
 \begin{aside}
@@ -144,10 +152,11 @@ the the two-equation definition to its mechanized logic.
 (defun mux2 (xs ys)       ; declare induction scheme
    (declare (xargs :measure (+ (len xs) (len ys))))
    (if (consp xs)
-       (cons (first xs) (mux2 ys (rest xs))) ; mux2-1y
-       ys))                                  ; mux2-0x
+       (cons (first xs) (mux2 ys (rest xs))) ; {mux2-1y}
+       ys))                                  ; {mux2-0x}
 \end{Verbatim}
-
+\index{operator, by name!mux (multiplexer)}
+\index{axiom, by name!\{mux2-1y\}, \{mux2-0x0y\}}
 \caption{Defining mux with Two Equations}
 \label{aside:mux-2eq}
 \end{aside}
@@ -161,6 +170,7 @@ would be the sum of the lengths of it operands.
 The following theorem states this property formally,
 and ACL2 succeeds in finding a proof by induction.
 
+\index{theorem, by name!\{mux-length\}}
 \label{mux-length-thm}
 \begin{Verbatim}
 (defthm mux-length-thm
@@ -171,12 +181,14 @@ and ACL2 succeeds in finding a proof by induction.
 For practice, let's construct a pencil-and-paper proof of the theorem.
 Our strategy will be an induction on the length of the first operand.
 We are trying to prove that the following equation holds for all natural numbers, $n$.
+\index{theorem, by name!\{mux-length\}}
 \begin{quote}
 Theorem \{mux-length\}. $\forall n.$L($n$)\\
 L($n$) $\equiv$ (len(mux [$x_1$ $x_2$ $\dots$ $x_n$] $ys$)) = $n$ + (len $ys$) \\
 \end{quote}
 
 In the base case, the first operand is empty.
+\index{theorem, by name!\{mux-length\}}
 \begin{quote}
 Base case: L($0$) $\equiv$ ((len(mux nil $ys$)) = 0 + (len $ys$))
 \end{quote}
@@ -226,6 +238,7 @@ $=$ & ($n$ + 1) + (1 + (len(cons $ys$)))                                     & \
 $=$ & ($n$ + 1) + (len(cons $y$ $ys$))                                       & \{\emph{len1}\} \\
 \end{tabular}
 \end{center}
+\index{theorem, by name!\{mux-length\}}
 \caption{Proof of Inductive Case, Theorem \{mux-length\}}
 \label{fig:prf-mux-len-induc}
 \end{figure}
@@ -249,6 +262,7 @@ That is, a value that occurs in either $xs$ or $ys$ also occurs in (mux $xs$ $ys
 and, vice versa, a value that occurs in (mux $xs$ $ys$) also occurs in either $xs$ or $ys$.
 We will call this the ``mux-val'' theorem:
 
+\index{theorem, by name!\{mux-val\}}
 \begin{quote}
 \label{thm:mux-val}
 Theorem \{mux-val\}.\\
@@ -256,13 +270,20 @@ Theorem \{mux-val\}.\\
 \end{quote}
 
 \label{def:equivalence-op}
-The ``$\leftrightarrow$'' operator in the formula is Boolean equivalence.
+The ``$\leftrightarrow$''
+\index{Boolean!equivalence ($\leftrightarrow$, iff)}
+\index{operator!Boolean equivalence ($\leftrightarrow$)}
+\index{equivalence!Boolean ($\leftrightarrow$)}operator
+in the formula is Boolean equivalence.
 The formula $p \leftrightarrow q$ is true if both $p$ and $q$ are true
 or if both $p$ and $q$ are false. It is false if one of the two is true
 and the other is false. Boolean equivalence means that implication goes both ways:
 $p \leftrightarrow q$ = $((p \rightarrow q) \wedge (q \rightarrow p))$.
 
-The ``occurs-in'' predicate is defined as follows.
+The occurs-in predicate is defined as follows.
+\index{predicate, by name!occurs-in (list)}
+\index{operator, by name!occurs-in (\emph{see} predicate)}
+\seeonlyindex{occurs-in list}{predicate}
 \begin{quote}
 \label{def:occurs-in}
 (occurs-in $v$ $xs$) = (consp $xs$) $\wedge$ (($v$ = (first $xs$)) $\vee$ (occurs-in $v$ (rest $xs$))) ~~ \{\emph{occurs-in}\}
@@ -305,7 +326,12 @@ in the sense of the mechanized proofs of ACL2.
 Below is an ACL2 formalization of these ideas,
 which the ACL2 system succeeds in admitting.
 \label{acl2:iff}
-The IFF operator is Boolean equivalence
+The
+\index{Boolean!equivalence ($\leftrightarrow$, iff)}
+\index{operator!Boolean equivalence (iff)}
+\index{equivalence!Boolean (iff)}
+\index{iff (\emph{see also} operator)}IFF operator
+is Boolean equivalence
 (exercise \ref{ex:mul-val-thm}, page \pageref{def:equivalence-op}).
 \\
 
@@ -322,7 +348,9 @@ The IFF operator is Boolean equivalence
            (occurs-in v ys))))
 \end{Verbatim}
 \label{defthm:mux-val}
-
+\index{theorem, by name!\{mux-val\}}
+\index{predicate, by name!occurs-in (list)}
+\index{operator, by name!occurs-in (\emph{see} predicate)}
 \caption{Formal Version of Mux-Val Theorem}
 \label{aside:mux-val-thm}
 \end{aside}
@@ -345,6 +373,9 @@ the operand has at least two elements
 (that is, it starts with an $x$ and then a $y$),
 and the non-inductive equations cover the cases
 when the operand has just one element or none.
+
+\index{axiom, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}
+\index{equation, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}
 \begin{center}
 Axioms for dmx
 \begin{tabular}{ll}
@@ -360,6 +391,9 @@ The formal version takes advantage of the fact that if the operand
 has less than two elements, then it is the first component of the result,
 and the second component is the empty list.
 
+\index{equation, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}
+\index{operator, by name!dmx (demultiplexer)}
+\seeonlyindex{dmx (demultiplexer)}{operator}
 \label{dmx-defun}
 \begin{Verbatim}
 (defun dmx (xys)
@@ -369,8 +403,8 @@ and the second component is the empty list.
              (xsys (dmx (rest (rest xys))))
              (xs (first xsys))
              (ys (second xsys)))
-        (list (cons x xs) (cons y ys)))      ; dmx2
-      (list xys nil)))  ; 1 element or none  ; dmx1
+        (list (cons x xs) (cons y ys)))      ; {dmx2}
+      (list xys nil)))  ; 1 element or none  ; {dmx1}
 \end{Verbatim}
 
 \begin{aside}
@@ -388,6 +422,8 @@ Axioms for dmx2 (maybe too clever by half)
 (dmx2 nil) $=$ [nil ~ nil]                                             & \{\emph{dmx2-0x}\} \\
 \end{tabular}
 \end{center}
+\index{axiom, by name!\{dmx2-1x\}, \{dmx2-2x\}}
+\index{operator, by name!dmx (demultiplexer)}
 \caption{Cleverness Sometimes Complicates Reasoning}
 \label{aside:dmx-defun-trick}
 \end{aside}
@@ -410,6 +446,7 @@ of the round-trip properties require the operands to be
 true lists because the multiplexer can lose information
 if its operands aren't true lists.}
 
+\index{theorem, by name!\{mux-inverts-dmx\}}\index{theorem, by name!\{dmx-inverts-mux\}}
 \label{thm:mux-inverts-dmx}
 \label{thm:dmx-inverts-mux}
 \begin{Verbatim}
@@ -437,6 +474,11 @@ The second component is also half the length of the operand, but rounded down if
 The mechanized logic of ACL2 succeeds in proving these theorems,
 but it needs the help of some theorems about arithmetic.
 
+\seeonlyindex{mux theorems}{theorems}
+\seeonlyindex{dmx theorems}{theorems}
+\index{theorem, by name!\{dmx-len-first\}, \{dmx-len-second\}}
+\index{book!arithmetic-3/top}\index{directory (:dir)!:system}
+\index{directive!include-book}\index{system, :dir}\index{book!directory (:dir)}
 \label{thm:dmx-length-first-second}
 \begin{Verbatim}
 (include-book "arithmetic-3/top" :dir :system)
@@ -454,6 +496,7 @@ Prove that the dmx operator preserves total length.
 That is, prove the theorem
 stated formally in ACL2 as follows.
 
+\index{theorem, by name!\{dmx-length\}}
 \label{thm:dmx-length}
 \begin{Verbatim}
 (defthm dmx-length-thm
@@ -479,7 +522,7 @@ The dmx-val theorem (Exercise \ref{ex:dmx-val-thm})
 says that dmx neither adds nor drops values from its operand.
 Do a paper-and-pencil proof of the dmx-val theorem.
 
-\Exercise
+\Exercise \index{theorem, by name!\{dmx-val\}}
 Do a pencil-and-paper proof of the mux-inverts-dmx theorem
 (page \pageref{thm:mux-inverts-dmx}).
 

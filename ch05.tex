@@ -13,17 +13,17 @@ They are figments of the imagination.
 However, numbers are useful and to deal with them,
 we need to be able to write them down.
 Decimal numerals are one way to do this.
-The numeral 144 stands for the number
+The \index{numeral!decimal}numeral 144 stands for the number
 of eggs in a dozen cartons of eggs.
 The numeral 1215 stands for the number of
 years between the twenty-seventh year of the reign
 of Caesar Augustus and the signing of the Magna Carta.
 
-However, ``144'' and ``1215'' are numerals.
+However, ``144'' and ``1215'' are \index{numeral!vs number}numerals.
 They are not numbers. They are symbols that stand for numbers,
 and they are not the only symbols in use for that purpose.
-The symbols CXLIV and MCCXV (Roman numerals) stand for the same two numbers.
-So do the symbols $90_{16}$ and $4BF_{16}$ (hexadecimal numerals).
+The symbols CXLIV and MCCXV (Roman \index{numeral!Roman}numerals) stand for the same two numbers.
+So do the symbols $90_{16}$ and $4BF_{16}$ (hexadecimal \index{numeral!hexadecimal}numerals).
 The symbols 144 and 1215 are decimal numerals,
 which is the representation most
 people turn to when they do arithmetic.
@@ -37,11 +37,11 @@ but we are going to use numerals
 to do arithmetic in a mechanized way, and we will
 be careful to separate numbers as mathematical
 objects from the symbols that represent them.
-We will refer to the mathematical object as a ``number''
-and to the symbol representing it as a ``numeral''.
+We will refer to the mathematical object as a \index{number!vs numeral}number
+and to the symbol representing it as a \index{numeral!vs number}numeral.
 
 Let's think about how we interpret a decimal numeral as a number.
-Take the numeral 1215, for example.
+Take the \index{numeral!decimal}numeral 1215, for example.
 Each digit in the numeral has a different interpretation.
 The first digit is the number of thousands in the number
 that 1215 stands for. The second tells us the number
@@ -90,7 +90,7 @@ for any given numeral, decimal, hexadecimal, or any base.
 \begin{aside}
 Perhaps you noticed a subtle confusion in the formulas we use
 to explain the meaning of numerals. At first, we claim that
-1215 is merely a symbol standing for a mathematical object.
+1215 is merely a \index{symbol, for number}symbol standing for a mathematical object.
 And, we claim that the digit 2 is merely a symbol standing
 for the number of items in a pair, along with similar
 claims for the digits 1 and 5. Then, we use those symbols
@@ -122,6 +122,7 @@ to interpret the digits in base sixteen rather than base ten.
 Try to get your head around this.
 We're more-or-less stuck with it. Figments of our imagination have
 to be materialized, somehow, if we are going to talk about them.
+\index{digit}
 \caption{Digits as Numbers}
 \label{aside-digits-as-numbers}
 \end{aside}
@@ -129,11 +130,13 @@ to be materialized, somehow, if we are going to talk about them.
 We'll say more about to converting numerals to numbers later,
 but what about going the other direction, converting
 numbers to numerals?
-Suppose someone gives you an operator called ``dgts'' that
+Suppose someone gives you an operator called dgts that
 converts a number to a decimal numeral.
 Let's say that (dgts 1215) would deliver the sequence [5 1 2 1].
 That is, dgts delivers a list of the decimal digits
-of its operand, starting with the ones digit (a 5 in this case),
+of its operand, 
+\index{representation!decimal numeral}
+starting with the ones digit (a 5 in this case),
 then the tens digit, and so on, reading right-to-left from
 customary way of writing the numeral.
 You might try it on a few numbers to see what it does.
@@ -147,13 +150,16 @@ You might try it on a few numbers to see what it does.
 \begin{aside}
 \emph{What! The dgts operator delivers the digits backwards! Why is that?}
 
-Of course dgts could have delivered the digits in the
+Of course
+\seeonlyindex{dgts}{operator}\index{operator, by name!dgts (digits from number)}dgts
+could have delivered the digits in the
 customary order, but reverse order simplifies some of the
 equations we will use to interpret numerals.
 We will write numerals like 1215 in the usual way, but
 the dgts operator delivers them in the form of
 a sequence with the digits in reverse order: [5 1 2 1].
 
+\index{representation!decimal numeral}
 Besides being backwards, the elements in the sequence are numbers,
 not symbolic digits.
 That is another part of our sleight of hand.
@@ -163,7 +169,8 @@ but leaving them in the form of numbers
 simplifies parts of the discussion.
 
 By the way, the sequence notation [5 1 2 1] is the symbol we use
-to describe the sequence, but the sequence itself is a mathematical object.
+to describe the \index{sequence!for numeral}\index{numeral!seqeuence for}sequence,
+but the sequence itself is a mathematical object.
 It's another figment of our imagination,
 ephemeral in the same sense as a number.
 \caption{Numerals as Sequences \dots Backwards}
@@ -173,14 +180,18 @@ ephemeral in the same sense as a number.
 Wait a minute!
 Why does (dgts 0) deliver the empty sequence instead of the one-element sequence [0]?
 That's another little trick.
-Besides delivering the digits in reverse order, leading zeros are omitted.
+Besides delivering the digits in reverse order, 
+\index{representation!decimal numeral}
+\index{leading zero}\index{numeral!leading zero}leading zeros are omitted.
 We could write the numeral 1964 with as many leading zeros as we like.
 The numerals 01964 and 000001964 also stand for the same number.
 Those numerals correspond to [4 6 9 1 0] and [4 6 9 1 0 0 0 0 0] in
 our list format. ``Leading zeros'' come at the end when the
 digits are in reverse order.
 
-However, dgts doesn't include any leading zeros in the numerals it delivers.
+However, dgts doesn't include any
+ \index{leading zero}\index{numeral!leading zero}leading zeros
+in the numerals it delivers.
 It leaves them all off, even for the number zero.
 That's why (dgts 0) is nil.
 The numeral (dgts 012345) is the same as the numeral (dgts 12345), too.
@@ -221,7 +232,7 @@ compute the remainder in the division of the number by ten.
 
 \begin{aside}
 To get this all straight,
-transport yourself back the the third grade.
+transport yourself back to the third grade.
 In those days, when you learned long division,
 there were four parts to the problem,
 and they all had names.
@@ -239,6 +250,9 @@ $r$ $=$ (mod $n$ $d$)   & \emph{remainder} \\
 $n = qd + r$            & \{\emph{check}$\div$\} \\
 \end{tabular}
 \end{center}
+\index{division!third grade}\index{division!long division}\index{division!floor, mod}
+\seeonlyindex{long division}{division}
+\index{operator, by name!floor (divide, round down)}\seeonlyindex{mod}{operator}\index{operator, by name!mod (remainder)}
 \caption{mod and floor: Think Third-Grade Division}
 \label{third-grade-division}
 \end{aside}
@@ -317,6 +331,7 @@ of course, using some ideas we discussed in putting together tests,
 and will follow the three C's of Figure~\ref{fig:inductive-def-keys}
 (page \pageref{fig:inductive-def-keys}), repeated here and customized for dgts.
 \begin{samepage}
+\index{three C's}\index{definition!inductive (circular)}
 \begin{center}
 \begin{tabular}{lp{3.5in}}
 \emph{Complete}      & Two cases: the number is zero or it isn't. So, two formulas.\\
@@ -329,6 +344,8 @@ and will follow the three C's of Figure~\ref{fig:inductive-def-keys}
 \end{samepage}
 
 \label{dgts-defun}
+\index{operator, by name!dgts (digits from number)}\index{numeral!from number}
+\index{representation!decimal numeral}
 \begin{Verbatim}
 (defun dgts (n)
   (if (zp n)
@@ -353,10 +370,13 @@ This is because operators that don't terminate complicate the reasoning process.
 Proving that dgts terminates for all inputs
 requires applying some theorems of modular arithmetic.
 Fortunately, someone has put together a package of theorems on that topic
-in the ``arithmetic-3/floor-mod/floor-mod'' book.
+in the
+\index{book!arithmetic-3/floor-mod} 
+``arithmetic-3/floor-mod/floor-mod'' book.
 ACL2 will admit the definition of dgts when those theorems
 have been imported into its logic world by an include-book directive
 (see Exercise \ref{mod-div-defthm}, page \pageref{mod-div-defthm}).
+\index{ACL2!admit}\index{admit, ACL2}
 \caption{Termination, ACL2 Admit, and floor/mod Equations}
 \label{admit-def}
 \label{floor-mod-book}
@@ -370,7 +390,9 @@ Find the numeral for $y$ and use dgts (page \pageref{dgts-defun})
 to verify that you got it right.
 
 
-\Exercise \label{modular-division} Prove \{\emph{mod-div}\}:
+\Exercise \label{modular-division}\index{theorem, by name!\{mod-div\}}
+\index{division!floor, mod}
+Prove \{\emph{mod-div}\}:
 (mod (* $a$ $x$) (* $a$ $b$)) = (* $a$ (mod $x$ $b$)) \\
 \emph{Hint}: You won't need induction, but the following facts will help.
 Suppose $x$ is the dividend, $d$ the divisor, and $q$ the quotient
@@ -382,14 +404,19 @@ $(qd + r) = x$. Furthermore, it is always the case
 that $0 \le r < d$. In other words (mod $x$ $d$) is the number $r$
 in the range $0 \le r < d$ such that $qd + r = x$.
 
-\Exercise \label{mod-div-defthm} Define the \{\emph{mod-div}\} theorem
+\Exercise \label{mod-div-defthm}\index{division!floor, mod}
+Define the \{\emph{mod-div}\} theorem
 in ACL2 notation, and use ACL2 to verify that it is a theorem.
 Since the theorem does not hold for all numbers $a$, $b$, and $x$,
 you will need to include certain hypotheses in the implication
 that you ask ACL2 to prove. If you state it correctly and import
 theorems about modular arithmetic contained in the floor-mod book,
 ACL2 will succeed.\\
+
 \label{floor-mod-include-book}
+\index{book!arithmetic-3/floor-mod}\index{directory (:dir)!:system}
+\index{book!directory (:dir)}
+\index{directive!include-book}\index{directory (:dir)!:system}\index{system, :dir}
 \phantom{x}\hspace{2em}(include-book "arithmetic-3/floor-mod/floor-mod" :dir :system)
 \end{ExerciseList}
 
@@ -473,6 +500,7 @@ to extract the digits of the numeral.
 From that point, constructing the ACL2
 is a straightforward translation of the equations to prefix notation.
 
+\seeonlyindex{nmb10}{operator}\index{number!from numeral}
 \begin{center}
 \begin{tabular}{rlll}
 (nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) & $=$ &$(x_0 + 10 \times$ (nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$])$)$ &\emph{\{n10.1\}}\\
@@ -482,7 +510,7 @@ $x_0$                         & $=$ &(first [$x_0$ $x_1$ $\dots$ $x_n$]) &\\
 \end{tabular}
 \end{center}
 
-\label{nmb10-defun}
+\label{nmb10-defun}\index{operator, by name!nmb10 (number from digits)}
 \begin{Verbatim}
 (defun nmb10 (xs)
   (if (consp xs)
@@ -500,6 +528,8 @@ delivers the same number as the formula
 $(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n} \times 10^{n})$.
 \begin{samepage}
 \label{horner10-thm}
+\index{theorem!Horner}
+\index{theorem, by name!\{Horner 10\}}
 \begin{center}
 Theorem \{\emph{Horner 10}\} \\
 (nmb10 [$x_0$ $x_1$ \dots $x_{n}$]) =
@@ -570,7 +600,8 @@ Since we know that nmb10 correctly interprets base 10 numerals,
 we can verify that (dgts $n$) produces the base 10 numeral for $n$
 by proving the following theorem.
 \begin{center}
-\label{dgts-ok}
+\label{dgts-ok}\index{theorem, by name!\{dgts-ok\}}
+\index{number!from digits}
 Theorem \{\emph{dgts-ok}\}:
 (nmb10 (dgts $n$)) = $n$
 \end{center}
@@ -631,7 +662,9 @@ The proof is not difficult, but it's a distraction,
 so we are just going to assume that strong induction works.
 
 \label{strong-induction-rationale}
-The rationale for strong induction is similar to
+The \index{induction!rationale}rationale for
+\index{induction!proof by}\index{proof!by induction}
+\index{strong induction}\index{induction!strong}strong induction is similar to
 the rationale for ordinary, mathematical induction (page \pageref{induction-rationale}).
 Suppose you are proving the propositions
 $P(0)$, $P(1)$, $P(2)$, \dots and so on,
@@ -655,7 +688,7 @@ in practice strong induction encompasses the ordinary induction rule
 as a special case. A proof of $P(n+1)$ that cites only $P(n)$
 and not propositions in the predicate $P$ with smaller indices
 could cite strong induction because $P(n)$ is one of the propositions
-that the strong-induction hypothesis, $(\forall m<n+1.P(m))$, implies are true.
+that the \index{hypothesis!induction}\index{induction!hypothesis}strong-induction hypothesis, $(\forall m<n+1.P(m))$, implies are true.
 So, we may as well cite strong induction, even when we're only relying
 on the ordinary induction rule.
 
@@ -667,6 +700,9 @@ Prove $(\forall m<n.P(m))\rightarrow P(n)$ \\
 Infer $(\forall n.P(n))$
 \end{tabular}
 \end{center}
+\index{strong induction}strong\index{induction!strong}
+\index{inference rule, by name!\{strong induction\}}
+\index{induction!proof by}\index{proof!by induction}
 \caption{Mathematical Induction (strong induction version)}
 \label{strong-induction-rule}
 \end{figure}
@@ -699,9 +735,12 @@ when $n$ is not zero, which is usually expressed in the
 equivalent form $(\forall m<n+1.P(m))\rightarrow P(n+1)$.
 Looking at it this way makes a proof citing strong induction look like
 a proof citing ordinary mathematical induction except that
-in the proof of $P(n+1)$, all of the propositions
-$P(0)$, $P(1)$, $P(2) \dots P(n)$
-are regarded as known facts, not just $P(n)$.
+in the proof of $P(n+1)$, the
+\index{hypothesis!induction}\index{induction!hypothesis}induction hypothesis
+includes all of the propositions $P(0)$, $P(1)$, $P(2) \dots P(n)$, not just $P(n)$.
+Therefore, the proof of $P(n+1)$, in a proof by strong induction, can cite any
+(or some, or even all) of those propositions to justify steps in the proof.
+\index{strong induction}strong\index{induction!strong}\index{induction!proof by}\index{proof!by induction}
 \caption{Strong Induction Requires Two Proofs or One?}
 \label{strong-induction-rule-2-hyps-or-1}
 \end{aside}
@@ -745,6 +784,7 @@ are regarded as known facts, not just $P(n)$.
     largest integer for which $10^{\lfloor log(n) \rfloor} \leq n$,
     where $n$ is a non-zero natural number.
     That is, the following inequalities hold.
+\index{numeral!length}
 \begin{displaymath}
   10^{\lfloor log(n) \rfloor} \le n < 10^{\lfloor log(n) \rfloor + 1}
 \end{displaymath}
@@ -767,7 +807,7 @@ because circuits that deal with numbers do so in terms of binary numerals.
 Decimal numerals require ten different symbols (0, 1, 2, \dots 9)
 to represent digits.
 
-Binary numerals only need two (0 and 1) for their binary digits,
+\index{bit (binary digit)}Binary numerals only need two (0 and 1) for their binary digits,
 which are usually called ``bits'', and that makes them well-suited
 for representation in the form of digital circuits.
 We will be discussing the design and analysis of circuits to do
@@ -798,7 +838,10 @@ in the floor-mod book (page \pageref{floor-mod-book})
 to admit the bits operator to its logic,
 just as it did for the definition of dgts (\pageref{dgts-defun}).
 
-\label{bits-defun}
+\label{bits-defun}\index{numeral!binary}\index{binary numeral}
+\index{operator, by name!bits (numeral from number)}\seeonlyindex{bits}{operator}
+\index{equation, by name!\{bits0\}, \{bits1\}}
+\index{representation!binary numeral}
 \begin{Verbatim}
 (defun bits (n)
   (if (zp n)
@@ -806,6 +849,8 @@ just as it did for the definition of dgts (\pageref{dgts-defun}).
       (cons (mod n 2) (bits (floor n 2))))) ; {bits1}
 \end{Verbatim}
 \label{nmb-defun}
+\index{operator, by name!numb (number from bits)}\seeonlyindex{numb}{operator}
+\index{equation, by name!\{numb0\}, \{2numb\}, \{2numb+1\}}
 \begin{Verbatim}
 (defun numb (xs)
   (if (consp xs)
@@ -853,6 +898,7 @@ The empty list represents the number zero,
 but so does any ACL2 entity $x$ such that (consp $x$) is false.
 Many picayune details in theorems about binary numerals
 are avoided by this elimination of constraints.
+\index{numeral!list representation}
 \caption{Representation Trick: Any List is a Binary Numeral}
 \label{aside:numeral-representation-trick}
 \end{aside}
@@ -862,21 +908,24 @@ are avoided by this elimination of constraints.
 \Exercise
 \label{horner2-thm}
 Adapt the proof of \{\emph{Horner 10}\} (page \pageref{horner10-thm})
-to prove theorem \{\emph{Horner 2}\}:
+to prove
+\index{theorem!Horner}\index{theorem, by name!\{Horner 2\}}
+\index{Horner}theorem \{\emph{Horner 2}\}:
 \begin{quote}
 (numb [$x_0$ $x_1$ $x_2 \dots$ $x_{n}$])
 $= (x_0 + x_1 \times 2^1 + x_2 \times 2^2 + \dots x_{n} \times 2^{n})$
 \end{quote}
 
-\Exercise \label{bits-ok}
+\Exercise \label{bits-ok}\index{theorem, by name!\{bits-ok\}}
 Prove theorem \{\emph{bits ok}\}: ((numb (bits $n$)) = $n$), assuming $n$ is a natural number.
 %That is, the operator numb (page \pageref{nmb-defun})
 %inverts the operator bits (page \pageref{bits-defun}).
 
 \Exercise \label{nmb1}
+\index{equation, by name!\{nmb1\}}\index{theorem, by name!\{nmb1\}}
 Prove \{nmb1\}: (numb [$x_0$ $x_1$ $x_2 \dots$ $x_{n}$]) $=$ (numb [$x_0$]) $+$ $2\times$(numb [$x_1$ $x_2 \dots$ $x_{n}$])
 
-\Exercise \label{nmb1-acl2}
+\Exercise \label{nmb1-acl2}\index{theorem, by name!\{nmb1\}}
 The mechanized logic of ACL2 successfully proves the equation in Exercise \ref{nmb1}.
 Use Proof Pad to submit the following statement of the theorem to ACL2.
 \begin{Verbatim}
@@ -890,7 +939,8 @@ Use Proof Pad to submit the following statement of the theorem to ACL2.
 \Exercise Prove theorem \{\emph{len-pad}\}: (len (pad $n$ $x$ $xs$)) = $n$,
 where ``pad'' is defined as follows. \\
 \begin{samepage}
-\label{pad-defun}
+\label{pad-defun}\index{operator, by name!pad (append padding)}\seeonlyindex{pad}{operator}
+\index{equation, by name!\{pad$+$\}, \{pad$-$\}}
 \begin{Verbatim}
 (defun pad (n x xs)
   (let* ((padding (- n (len xs))))
@@ -908,6 +958,8 @@ to form a list of the desired length.
 \Exercise \label{hi-1} Prove \{\emph{hi-1}\}:
 (fin (bits $n$)) = 1, where fin satisfies the following equations.
 \label{fin-defun}
+\index{operator, by name!fin (extract last element)}\seeonlyindex{fin}{operator}
+\index{equation, by name!\{fin1\}, \{fin2\}}
 \begin{Verbatim}
 (defun fin (xs)
   (if (consp (rest xs))
@@ -915,7 +967,8 @@ to form a list of the desired length.
       (first xs)))    ; {fin1}
 \end{Verbatim}
 
-\Exercise \label{hi-1-defthm} Express theorem \{\emph{hi-1}\}
+\Exercise \label{hi-1-defthm} Express
+\index{theorem, by name!\{hi-1\}}theorem \{\emph{hi-1}\}
 of the previous exercise in ACL2 notation
 and run it through the ACL2 mechanized logic.
 ACL2 will succeed if you state the theorem correctly as an implication,
@@ -925,20 +978,26 @@ Of course the definition of ``bits'' (page \pageref{bits-defun})
 will need to be admitted to the logic  (page \pageref{admit-def})
 before ACL2 can attempt the proof of this theorem.
 
-\Exercise \label{len-bits} Prove \{\emph{len-bits}\}:
+\Exercise \label{len-bits}\index{theorem, by name!\{len-bits\}}
+Prove \{\emph{len-bits}\}:
 $\forall n$.($(2^{n-1} \le m < 2^n) \rightarrow$ ((len (bits $m$)) $= n$))
 
-\Exercise \label{len-bitsLE} Prove \{\emph{len-bits}$\le$\}:
+\Exercise \label{len-bitsLE}\index{theorem, by name!\{len-bits$\le$\}}
+Prove \{\emph{len-bits}$\le$\}:
 $\forall n$.($(0 \le m < 2^n) \rightarrow$ ((len (bits $m$)) $\le n$))
 
-\Exercise \label{log-bits} Prove \{\emph{log-bits}\}:
+\Exercise \label{log-bits}\index{theorem, by name!\{log-bits\}}\index{numeral!length}
+Prove \{\emph{log-bits}\}:
 $\forall n > 0$.((len (bits $n$)) $= \lfloor log_2(n) \rfloor + 1$) \\
 \emph{Note}: $\lfloor x \rfloor$ = biggest integer not exceeding $x$
 
-\Exercise \label{leading-0} Prove \{\emph{leading-0}\}:
+\Exercise \label{leading-0}\index{theorem, by name!\{leading-0\}}
+Prove \{\emph{leading-0}\}:
 $\forall n$.((numb (append (bits n) (list 0))) = (numb (bits $n$)))
 
-\Exercise \label{leading-0s} Prove \{\emph{leading-0s}\}:
+\Exercise \label{leading-0s}\index{theorem, by name!\{leading-0s\}}
+\index{leading zero}\index{numeral!leading zero}
+Prove \{\emph{leading-0s}\}:
 $\forall z$.($\forall n$.((numb (append (bits $n$) (rep $z$ 0))) = (numb (bits $n$)))) \\
 Assume that theorem \{\emph{leading-0}\} in the previous exercise
 has been proven and that $z$ stands for a natural number.
@@ -953,7 +1012,8 @@ Of course the definitions of ``bits'' and ``numb'' will need to
 be admitted to the logic (page \pageref{bits-defun})
 before ACL2 can attempt the proof of this theorem.
 
-\Exercise \label{pfx-mod} Prove \{\emph{pfx-mod}\}:
+\Exercise \label{pfx-mod}\index{theorem, by name!\{pfx-mod\}}
+Prove \{\emph{pfx-mod}\}:
 $\forall w$.($\forall n$.((numb (prefix $w$ (bits $n$))) = (mod $n$ $2^w$))) \\
 \emph{Hint}: Induct on $w$. Split the inductive case into two parts,
 one part where $n = 0$ and one where $n > 0$, and apply
