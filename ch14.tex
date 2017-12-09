@@ -5,242 +5,387 @@
 Some important computer applications are so large that they would take
 unacceptably long to execute on typical computers.  For
 example, your personal computer is more than powerful enough
-to balance your checkbook.  But what about a banking
+to balance your checkbook, but not for a financial
 application that tracks credit card usage in real time to
-detect instances of fraud?  The sheer number of credit card
-transactions make this application far too time-consuming for any
-personal computer to handle.
+detect instances of fraud.  The sheer number of credit card
+transactions make this application far too time-consuming for a
+personal computer.
 
-Since these applications are important uses of computers,
-computer scientists have come up with different ways of coping
-with problems at large scale.  The traditional way is called
-\textbf{vertical scaling}, and it consists of running the
+To handle large applications,
+computer scientists have come up with various ways to coping
+with problems of scale.  The traditional way is called
+\emph{vertical scaling}, and it consists of running the
 application on a single, very powerful machine.
+This is, of course, the easiest possible solution in terms of software
+because the software does not need to change as the machine scales up.
+But what happens as the problems get bigger than any single machine can handle?
+For example, maybe big, fast computer could handle
+a billion credit card transactions an hour,
+but not a few hundred billion.
+At some point, the rate at which transactions take place
+will overwhelm the available computing technology.
 
-This is, of course, the easiest possible solution,
-since the program is unchanged. But what happens as the
-problems get bigger?  For example, the number of credit card
-transactions increases over time.  Can a single computer, even
-a very large one, keep up?  And if it can't, do you have to
-upgrade by buying an even larger, more powerful (and more
-expensive) computer?
-
-\textbf{Horizontal scaling} offers an alternative.  Instead of
-running the application in a single, large computer, with
-horizontal scaling the application is split into smaller
+\emph{Horizontal scaling} offers an alternative.  Instead of
+running the application in a single, large computer,
+the application is split into smaller
 chunks, and each chunk is run on a separate computer.
 Ideally, the computers used are similar in almost all respects
 to personal computers, so that the cost of an additional
-machine is minimal.  This makes it more economical to scale the
-hardware platform as the problems become larger.  Not
-surprisingly, horizontal scaling has become the de facto
-scalability solution for modern websites, including Google,
-eBay, Amazon, and many others.
+machine is a small fraction of the overall system cost.
+This makes it economically feasible to scale the
+hardware platform as the computation requirement increase.
+Not surprisingly, horizontal scaling has become the de facto
+solution for dealing with web services that increase rapidly with scale ,
+such as those provided by Facebook, Google, eBay, Amazon, Netflix, and many others.
 
 The problem with horizontal scaling, however, is that it is
-not always easy to split your application into smaller
+not always easy to split an application into smaller
 chunks.  In fact, this is particularly hard when the program
 is written using traditional programming languages, such as
 C++ or Java.  In those languages, the program is described as
 a sequence of steps that the computer must take.  But that
-becomes more difficult to do, as the number of computers
+becomes more difficult to do as the number of computers
 increases, because the programmer must also take into
 consideration the interaction between the computers.
+Getting the data and the software to the right computer
+at the right time presents a host of problems.
 
-One of the advantages of the functional style of programming
-that we have presented in this book is that there are no
-interactions between different pieces of the code.  Instead,
-everything is defined by mathematical functions, and it does
-not matter where or when the functions are executed, since the
-result is a matter of mathematical definition.
+One advantage of the equation-based software model
+that has been a focus in this book is that the
+different parts of the software are more decoupled
+than the conventional software models presented
+by programming languages like Java and C++.
+Everything is defined in terms of operators
+that, given operands with appropriate data,
+can produce results without
+interacting with other parts of the software.
+For that reason, it does not matter where or when
+the operations are performed.
+The problems of getting the right data to the right place
+remains, but the task of managing a great many small interactions
+between different parts of the software is greatly reduced.
 
 The engineers at Google were faced with one of the largest
-scaling problems in the world, namely searching the entire
-web.  To match the scale of this problem, they decided to use
-the horizontal scaling approach.  Even though they use C++
-internally, they invented and adopted a style of
-programming called MapReduce, which is based on a functional
-programming paradigm, very similar to the programming style
-presented in this book.  Since Google's introduction,
-MapReduce has been adopted in many other settings.  For
+scaling problems that computing had ever seen,
+namely searching the entire web.
+To cope with the scale of this problem and the continual
+increase in that scale,
+the horizontal scaling approach was the only practical option.
+Even though they use conventional programming languages
+(mostly C++, according to reports) for most of their software,
+they invented and adopted a way to manage large-scale components
+with a programming model called MapReduce,
+which has a lot in common equation-based software models.
+Since Google's introduction of MapReduce,
+it has been adopted in many other settings.  For
 instance, the Apache Foundation implemented Hadoop, an
-open-source implementation of MapReduce that you can freely
-download to your computer.  Hadoop is widely used in industry
-and academia.  Although we will not try to describe the full details of
-Google's MapReduce or Apache's Hadoop implementation, we will
-show you how the MapReduce framework simplifies the
+open-source implementation of MapReduce that you can
+download for free to your computer.
+Hadoop is widely used in commercial applications and in research.
+We will plunge into some of the details of the
+MapReduce or Hadoop systems,
+and explain how the MapReduce framework simplifies the
 development of programs that can scale horizontally by
-focusing on just two operations.
+focusing on just two operations, called, as you can
+no doubt guess, Map and Reduce.
 
 \section{Introduction to MapReduce}
 
 The MapReduce paradigm is applicable to problems that process
-a dataset that can be described as a sequence of key/value
-pairs.  Clearly, not all problems can be characterized in this
-manner, but Google engineers recognized that many practical
+data that can be represented as a sequence of key/value pairs.
+Not all problems lend themselves to this representation,
+but Google engineers recognized that many practical
 problems do fit in this category.  Here are some examples.
 
+\begin{quote}
 \begin{itemize}
-\item \textbf{Counting Words in a Document.}  The dataset, of
-course, is the collection of words in the document.  It can be
+\item \emph{Counting Words in a Document.}  The data in this
+case is the collection of words in a document.  It can be
 organized as a list of word/count pairs, where the counts
-are initially set to one.  Note that each word may have more
-than one word/count pair initially.  The result of the
-operation would be a list of word/count pairs where each word
-appears only once.
-\item \textbf{Finding Words that Link to a Webpage.}  The
-purpose of this operation is to find the words that are used
-most commonly to link to a particular page.  For example,
+are initially set to one.  Since any word may appear
+multiple times in the document, most words will, in the beginning,
+occur in more than one word/count pair.
+The objective is to produce a list of word/count pairs
+in which each word appears only once.
+\item \emph{Finding Words that Link to a Webpage.}  The
+purpose of this operation is to find the words that are
+most commonly used to link to a particular page.  For example,
 your name may be the most common phrase used to link into your
-Facebook page.  Google uses this information to select which
-pages to display for a particular search.  This problem, too,
-can be implemented using MapReduce.  The dataset is the
-(very large) collection of links on the Internet.  This can be
-represented as a list of word/URL pairs, where the same word
-may appear multiple times.  The solution will be a list of
+Facebook page.  Google uses this kind of information to select which
+pages to display for a particular search.
+The MapReduce approach applies to this problem.
+The data is the
+collection of links on the Internet.\footnote{Nobody knows how many
+links there are on the internet, worldwide,
+but most estimates place it in the trillions,
+and some credible estimates place it in the hundreds of trillions. }
+Each link can be represented as a word/URL pair,
+where the same word may appear in many different pairs.
+To figure out which most commonly link to a particular page,
+this data needs to be reduced to a collection of
 URL/word pairs, where each URL will appear once, associated
-only with the word that is used the most to link to it.
-\item \textbf{Finding Extreme Values.}  For example, consider
+with the word that is used the most to link to that URL.
+\item \emph{Finding Extreme Values.}  Consider
 an application that finds the record high and low temperature
-for each state.  The initial dataset consists of a list of
+for each state.  The initial data consists of a list of
 city/temperature data.  There would be one record for each
-city and each day, for as long as records are kept.  In fact,
-there may be more than one record for a given data per day,
-e.g., one record each hour.  Similarly, the output consists of
-state/high or state/low records.
+recorded temperature in a city. It might be one per day,
+one per hour, one per minute, or a varying combination,
+depending on the city, and the records would extend over
+different periods of time for different cities,
+a hundred years for some cities, ten years for others,
+and so on. So, each city would occur in many different pairs.
+The desired outcome is a collection of city/temperature
+pairs where each city occurs only once, and the associated
+temperature is the highest (or lowest) one in the recorded data.
 \end{itemize}
+\end{quote}
 
-What all these applications have in common is that it is
-possible to process each individual input record without
-having to simultaneously examine all other records.  For
-example, you can process the November 9, 2010 temperature
-entry for Norman, OK without considering the May 3, 1932 entry
-for Laramie, WY.  This enables horizontal scaling, because the
+What all these applications have in common is that data processing
+can be split into three different parts, each involving a list of
+key/value pairs, and it is possible to process each individual
+data record or key/value pair without having to simultaneously
+examine all the other records.  For
+example, consider the case of finding extreme temperatures,
+and in particular suppose that we want to find the highest
+temperature recorded for each state.
+The computation could proceed in three stages.
+\begin{quote}
+\begin{enumerate}
+    \item \textbf{Input Data} pairs temperatures with associated sensors.
+        Each pair could have a key identifying a
+        specific temperature sensor and
+        and a value that consists of the city and state where
+        the sensor was located, the date the sensor measured
+        the temperature, and the temperature on that date.
+        For example, the input data may contain the following
+        records
+        \begin {quote}
+        \begin{itemize}
+            \item KLAR, Laramie, WY, 2009-05-13, 41
+            \item KLAR, Laramie, WY, 2009-05-14, 47
+            \item KOUN, Norman,  OK, 2009-05-13, 76
+            \item KOUN, Norman,  OK, 2009-05-14, 70
+            \item \dots
+        \end{itemize}
+        \end{quote}
+        The first column is the key for each record (for example, KLAR),
+        and the remaining columns comprise the`value. Many
+        records may have the same key in the input data because the
+        sensor makes many measurements over time.
+        The goal is to produce output where each key appears only once,
+        associated with the maximum temperature measured by that sensor.
+    \item \textbf{Intermediate Data} is used to pass data from
+        the Map operation to the Reduce operation. The Map operation
+        processes the \emph{input data} and produces key/value pairs
+        that make up the \emph{intermediate data}, and the Reduce operation
+        processes the intermediate data to create \emph{output data}.
+        In this application, the goal is to find temperature extremes
+        by state, so the Map operation could extract
+        the state and temperature from each input data record.
+        Then, the intermediate records would be state/temperature pairs.
+        \begin {quote}
+        \begin{itemize}
+            \item WY, 41
+            \item WY, 47
+            \item OK, 76
+            \item OK, 70
+            \item \dots
+        \end{itemize}
+        \end{quote}
+        In general, the Map operation may produce any number of intermediate
+        data points for any given input data record, although in this case
+        precisely one intermediate record is generated for each input record.
+    \item \textbf{Output Data}, the final result of the MapReduce computation,
+        is delivered by the Reduce operation. In our example application, this
+        corresponds to the maximum temperature recorded for each state, so the
+        there would be exactly one record for each state that appeared in the input data.
+        \begin {quote}
+        \begin{itemize}
+            \item WY, 115
+            \item OK, 120
+            \item \dots
+        \end{itemize}
+        \end{quote}
+\end{enumerate}
+\end{quote}
+As you can see, the data records are largely independent of one another, so the computer
+can process the May 13, 2009 temperature entry for Norman, OK without considering the
+May 13, 2009 entry for Laramie, WY.  This enables horizontal scaling, because the
 different entries can be processed in different machines.
-
-However, these applications also show the need for combining
+However, this application also shows the need for combining
 the entries for a specific key at a later time.  For example,
-to find the low temperature record for Laramie, WY, it is
-necessary to consider all entries for Laramie, WY at some
+to find the high temperature record for Oklahoma, it will be
+necessary to consider all the entries for Oklahoma at some
 point.
 
-The MapReduce paradigm makes it easy to implement programs
-such as the above.  Processing is divided into two parts.  The
-first part is the \texttt{map} function, which receives each
-of the initial key/value pairs, one at a time, processes the
-pair, and produces an arbitrary number of intermediate
+The MapReduce paradigm conforms well with these kinds of problems.
+The \texttt{map} operation, which receives each
+of the input key/value pairs, processes the
+pair and produces a large number of intermediate
 key/value pairs.  These intermediate pairs use keys that may
-or may not be completely different than the input keys.  In the
-word counting example, the intermediate keys may be the same
+or may not be completely different than the input keys.
+In the word counting example, the intermediate keys may be the same
 as the input keys, namely the words that are being counted.
 On the other hand, when looking for words that are used to
 link to URLs, the input keys are the words, but the
 intermediate keys are the URLs. The MapReduce framework leaves
-this entirely up to you, and that is one of the reasons why
-MapReduce is so widely applicable.
+this choice up to the software designer, which is
+one of the reasons that MapReduce is widely applicable.
 
-The second step is the \texttt{reduce} function, which
-combines all the entries for each intermediate key and
-produces zero or more final key/value pairs.  As before, the
-final key/value pairs may use the same keys as the
-intermediate or initial key/value pairs---or they may use
+The second step is the \texttt{reduce} operation, which
+combines all the entries for the intermediate keys and
+produces zero or more output key/value pairs.  As before, the
+output key/value pairs may use the same keys as the
+intermediate or input key/value pairs, or they may use
 entirely different keys.
 
 For example, consider the problem of counting words in a
-document.  We can assume that the document has already been
+document.  Assume that the document has already been
 read, and that it has been broken up into key/value pairs
-where each key is a word and the value is always one.  For
-instance, the Gettysburg address would be represented with the
-list
+where each key is a word and the value is always one. These
+key/value pairs make up the input data for this problem. For
+instance, the Gettysburg address could be represented by a
+list of key/value pairs using a dot notation ( \emph{key} ~.~ \emph{value} )
+to denote a pair.
+\begin{quote}
 \begin{itemize}
-\item ( four . 1 )
-\item ( score . 1 )
-\item ( and . 1 )
-\item ( seven . 1 )
-\item ( years . 1 )
+\item ( four~.~1 )
+\item ( score~.~1 )
+\item ( and~.~1 )
+\item ( seven~.~1 )
+\item ( years~.~1 )
 \item \dots
-\item ( from . 1 )
-\item ( the . 1 )
-\item ( earth . 1 )
+\item ( from~.~1 )
+\item ( the~.~1 )
+\item ( earth~.~1 )
 \end{itemize}
-Here we use the notation ``( key . value )'' to denote a single
-key/value pair.
+\end{quote}
 
-Recall that the map function takes in an initial key and
-value, and it should return zero or more intermediate
-key/value pairs.  For the wordcount program, map should return
-a single key/value pair, equal to the initial key and value.
+The map operation takes in an input key and
+value, and delivers a list of zero or more intermediate
+key/value pairs.  For the word-count program, map could
+deliver a list with exactly one element, namely
+the very same input key and value.
+In this case, the map part of MapReduce
+packages the result in a list, which is
+the form expected by the MapReduce system,
+but does not perform any additional computation.
 \begin{displaymath}
-map(k, v) = [ ( k . v ) ]
+map(k, v) = [ ( k ~.~ v ) ]
 \end{displaymath}
+In a more elaborate example, map would perform
+a computation using the key/value pair supplied as
+its operand and deliver a list representing the results
+of that computation.
 
-The reduce function accepts an intermediate key and a list of
-the values returned by map for that key.  It should return a
-list of final key/value pairs.  In the case of wordcount,
-reduce returns only one key/value pair, namely the key and the
-sum of the counts in the list.
+The reduce operation accepts an intermediate key and a list of
+all the values returned by any map operation for that key.
+It delivers a list of zero or more final key/value pairs.
+In the case of word-count, reduce returns only one key/value pair,
+namely the key and the sum of the counts in the list.
 \begin{displaymath}
-reduce(k, vs) = [ ( k . sumlist(vs) ) ]
+reduce(k, vs) = [ ( k ~.~ sumlist(vs) ) ]
 \end{displaymath}
-The function sumlist, which adds all the elements of its
-input, is not defined, but you should be able to fill in the
-details.
+The operator sumlist, which adds all the elements of its
+input, would be defined by the software designer.
 
-The magic of MapReduce is now apparent.  You only need to
-define the map and reduce functions as above.  The MapReduce
-framework takes care of running the program in a single
-computer, or in a cluster of hundreds of computers, depending
-on the size of the problem.
+To make this discussion more concrete, consider the Gettysburg Address,
+which contains the word ``nation'' in four places. Because of this,
+the map operation will be called with the input key/value pair \texttt{(nation~.~1)}
+four times, and each time it will return a list with
+the single intermediate key/value pair \texttt{[(nation~.~1)]}. The MapReduce
+system collects all the values for each intermediate key, and call the reduce
+operation on those values. So at some point it will collect all the four intermediate
+values for ``nation'' and invoke the reduce operation with the operands
+\texttt{nation} and {[1 1 1 ]}. Of course, the reduce operation will then
+return a list with the final key/value pair \texttt{[(nation~.~4)]}.
 
-What, exactly, does the MapReduce framework do?  First, it
-takes the initial key/value pairs and splits them across many
-different machines.  On each machine, it calls the map
-function on each of the key/value pairs that is assigned to
+% \todo{QUESTION (11/23/17): I don't think this makes sense.
+%      Where does vs come from? Earlier, map produced [(k~.~v)].
+%      There was no list of vs, just one v. It seems that
+%      reduce could create the vs list, but map couldn't supply it
+%      a list of vs for each k, but not a list of all the v's
+%      associated with a particular k-value. The reduce step
+%      could coalesce the duplicate k-values, but that's
+%      it wouldn't help much to have reduce sum the v's for
+%      non-coalesced k-values.
+%      Maybe it would be better to define
+%      map(k, v) = v, then explain that the MapReduce
+%      system forms a list of all the results produced
+%      by map when it operates on the key/value pairs, one by one,
+%      then talk about what the reduce step does in this example.
+%      Or something.}
+
+Much of the value of MapReduce is that the programmer only needs to
+define the map and reduce operations as above, and the programmer
+does not need to deal with the details of executing the map and reduce
+operations in a network of computers or sharing the data across the
+network.  It is the MapReduce
+framework that takes care of running the program in a single
+computer, or in a cluster of hundreds or even hundreds of thousands
+of computers, depending on the size of the problem. And the MapReduce
+framework takes care of sending the intermediate key/value pairs
+from the computers processing the map operation to the computers
+processing the appropriate reduce operation.
+
+The MapReduce framework
+takes the input key/value pairs and splits them across many
+different machines.  On each machine, it performs the map
+operation on each of the key/value pairs that is assigned to
 that machine.  As it does this, it combines the intermediate
-key/value pairs returned by each call to map into a single
+key/value pairs returned by each map operation into a single
 list.  The lists from all of the machines are then combined.
 
-On first thought, it may appear that all of the intermediate
-lists need to be combined.  But actually, this is not the
-case.  The reason is that the reduce function needs to see an
-intermediate key and all the values associated with that key.
-But different intermediate keys are independent, so they can
-be processed by different machines.  What this means is that
-it is necessary to collect all of the intermediate values for
-each of the intermediate keys.  This can help to distribute
-the calls to reduce across the entire cluster of machines
-running MapReduce.
+The intermediate lists must be combined because
+the reduce operation expects to see an intermediate key and all
+of the values associated with that key at the same time. For example,
+to find the maximum temperature for the key ``OK'', the reduce
+task needs to see all the records associated with ``OK'' at once.
+Different intermediate keys, such as the ones for ``OK'' and ``WY'',
+are independent, so they can be processed by different machines.
+That is, one machine can process ``OK'' temperatures at the same
+time that another machine is processing ``WY''.
+But all of the ``OK'' records must go to the same machine running
+the reduce operation for ``OK''.
+Therefore, the map operation collects all of the values for
+each of the intermediate keys, and then the reduce operation is
+called only once for each intermediate key.
 
 Once all the values for a given intermediate key are
 collected, the MapReduce framework can call the reduce
-function on that intermediate key.  The result is a list of
-final key/value pairs, and MapReduce collects all these
-results and returns them as the final answer.
+operation on that intermediate key.  The result is a list of
+output key/value pairs. MapReduce collects all these
+results and returns them as the final result of the computation.
 
-As you can see, MapReduce is doing all of the work
-related to distributing the program across multiple machines.
-That is exactly the way it was designed, and it explains its
-growing popularity.  You can develop a MapReduce program on
-your local computer, modifying it until it behaves exactly as
-you want it to on a small set of data.  Then, you can submit
-the program to a large MapReduce cluster and run it on the
-entire data set.
+MapReduce is doing of the work
+related to distributing the program across multiple machines,
+as it was designed to do.
+That is one way it provides value.
+An engineer can develop a MapReduce program on
+a local computer and modify it until it behaves as
+required on a small data set.
+Then, the program can be submitted to a large MapReduce cluster
+to process a full-scale data set.
+The MapReduce system deals with the problem of scale
+automatically, once the program has been developed.
 
 \section{Data Mining with MapReduce}
 
-Now that we have seen the basics of MapReduce, it is time to consider
-a larger example, something that illustrates how MapReduce is being
-used in practice.  The application we will look at is a recommendation
-engine, a piece of code that is used to recommend new things to you based
-on other things you like.  For example, when you visit a product page at
-Amazon.com, you will likely see a section called ``Customers Who Bought
-This Item Also Bought'' that recommends related items.  Based on your
-past purchases and browsing habits, Amazon.com also builds a web page
-full of recommended items that is customized for you.  How can Amazon.com
-do this?
+Now that we have seen the basics of MapReduce, we can look at
+a larger example that illustrates how MapReduce is
+used in practice.  The application we will discuss is a recommendation engine,
+a piece of code that is used to recommend new things to a person,
+based on other things the person likes.
+For example the product page that pops up on a typical visit to
+the Amazon website often has a section called ``Customers Who Bought
+This Item Also Bought'' that recommends related items.
+Based on past purchases and browsing habits, the Amazon software
+builds a customized web page full of recommendations.
+How does Amazon do this?
 
-The answer is easy to understand after we break the problem down into
-two components.  First, Amazon.com needs to finds \textit{customers like
+Let's break the problem down into
+two components.  First, Amazon needs to finds \textit{customers like
 you}.  In the case of a single product, this means other customers who
 have bought this product.  In the more general sense, used to create custom
 recommendation lists for you, it means other customers who have bought many
@@ -251,43 +396,52 @@ find the most popular items in that group.
 
 Finding the most popular items is essentially the same as counting words
 in a document.
-Amazon.com keeps a history of all the purchases that each of its
+Amazon keeps a history of all the purchases that each of its
 customers have made.  To process this list with MapReduce, think of it as
-consisting of entries of the form customer/item, meaning that the given
-customer bought that particular item.  Similar to the wordcount program,
+consisting of entries of the form customer/item, meaning that at some time the specified
+customer bought that particular item.  Similar to the word-count program,
 the map operation produces intermediate entries of the type item/1, meaning
 the given item was bought (once).  Such an entry should be generated for
 each purchased \textit{made by a customer in the reference group.}  That is,
 the map operation filters out the purchases made by customers who are
-not like you.  The reduce operation is identical to wordcount's, but this
-time it counts the number of purchases for each item.  The only remaining
-detail is to consider the results of the reduce operation and select the
-items that were purchased most often.
+not like you.  The reduce operation is identical to that of word-count,
+but this time it counts the number of purchases for each item.
+In the end, the computation must consider the results of the reduce operation
+and select the items that were purchased most often.
 
-Unfortunately, that leaves the first problem, namely finding the group of
+Unfortunately, that leaves the first problem unsolved: finding the group of
 customers who are most like you.  This is the most critical aspect for
-generating useful recommendations.  For instance, if you have only ever
-purchased gardening books from Amazon,com, you are likely to ignore a
-recommendation engine that alerts you to the latest novel in a long-running,
-young adult, vampire series.  Worse, you may start thinking of the recommendations
+generating useful recommendations.  For instance, if all of your purchases
+from Amazon have been gardening books, you are likely to ignore a
+recommendation engine that alerts you to the latest novel in a long-running
+vampire series.  Worse, you may start thinking of the recommendations
 as unwarranted spam.
 
-How can Amazon.com find customers just like you?  Imagine, first of all, that
+How can Amazon find customers just like you?  Imagine, first of all, that
 you have rated all the purchases you have made, giving each item a grade between
-0 (hated it) and 5 (loved it).  To keep things simple, imagine that Amazon.com
+0 (hated it) and 5 (loved it).  To keep things simple, imagine that Amazon
 sells only two items.  Then your ratings for these items can be expressed as
 a pair of numbers, say (2, 0).  Now suppose that other customers have similarly
 rated the items.  The customers who are most like you are precisely the ones
-whose ratings are close to your score or (2, 0).  Effectively, your purchase
-history is represented by a point at coordinate (2, 0), and the customers who
-are most like you are have purchase histories that correspond to nearby points.
+whose ratings are close to your score or (2, 0).  This pair could be viewed
+as the coordinates of a point in a two-dimensional plane,
+and the customers who
+are most like you have purchase histories that correspond to nearby
+points in that plane.\footnote{To
+determine what points are ``nearby'', you will need
+some notion of distance in the plane. You could use the standard,
+Euclidean distance or some other distance measurement customized
+to the problem of solving the customers-like-you problem.
+This is just one of the complex issues that come up
+in fashioning methods for finding clusters in data.}
 
-Of course, Amazon.com sells many more than two items!  And neither you nor any
-of Amazon.com's other customers are likely to have rated even a fraction of them.
+Of course, Amazon sells many more than two items.  And neither you nor any
+of Amazon's other customers are likely to have rated even a fraction of them.
 But the principle stays the same.  Instead of using pairs to represent your
-ratings, we need many more coordinates---as many as Amazon.com has products.
-But this is still just a point, albeit in a space with many dimensions.  And the
-customers most like you will still be represented by points close to yours.
+ratings, we need many more coordinates, as many as the number of
+different products Amazon sells.
+But this is still just a point, albeit in a space with many dimensions.
+The customers most like you will still be represented by points close to yours.
 
 A remaining complication is that customers do not always explicitly rate the
 items they like, but this can be easily resolved by using implicit ratings.
@@ -295,116 +449,241 @@ For example, if you buy an item, we can give it a rating of 4, unless you
 explicitly change it.  And any product that you have never even looked at
 can be given a rating of 0.
 
-So the problem is to find which points in this huge dimensional space are near
-your own.  It is actually more useful to think of this a little differently.
+So the problem is to find which points in this huge domain with many dimensions
+are near your own.  It is actually more useful to think of this a little differently.
 Instead of finding points near yours, think in terms of finding groups of
 points that are clustered together.  One cluster, for example, may consist of
-avid gardeners, while another includes fans of young adult, vampiric fiction.
+avid gardeners, while another includes fans of vampiric fiction.
 
-In general, finding clusters in a large dataset is a very complicated problem.
-But there are some useful approximations.  For example, suppose that you expect
-to find 10 clusters.  You could try to find them as follows:
+In general, finding clusters in a large data set is a difficult problem
+that has been studied extensively by scientists and mathematicians for a long time.
+There are many useful approaches.  One that, on the surface at least,
+is straightforward to describe starts with guessing some cluster locations,
+then gradually refining the guesses by making computations based on the data.
+The computation could proceed as follows.
+\begin{quote}
+\label{cluster-process}
 \begin{enumerate}
-	\item Initially, guess at the location of each cluster.  The guess can consist
-		of the center point of each alleged cluster.
-	\item For each point in the dataset, decide which cluster center is nearest
-		to the point.  Split the points into clusters so that each point is
-		in the cluster determined by the nearest center point.
-	\item Next, recalculate each cluster's center point by averaging all the
-		points that were assigned to that cluster.
-	\item Repeat the previous two steps as many times as necessary to find the
-		clusters.
+    \item Initially, guess at the location of each cluster.  The guess can be
+        taken as the estimated center point of each alleged cluster.
+    \item For each point in the data set, decide which cluster center is nearest
+        to the point.  Split the points into clusters so that each point is
+        in the cluster determined by the nearest center point.
+    \item Next, recalculate each cluster's center point by averaging all the
+        points that were assigned to that cluster.
+    \item Repeat the previous two steps until things settle down or meet
+        some other predetermined conditions.
 \end{enumerate}
+\end{quote}
 The middle two steps can be implemented using MapReduce.  The map operation can
-assign points to clusters, while the reduce function can computes the new center
-point of each cluster.  Note that if we know the center points, it is a trivial
-matter to determine which cluster you belong to.  And once we know that, we can
-determine, as we did before, which products are relevant to customers in your
-cluster.
+assign points to clusters, and the reduce operation can compute the new center
+point of each cluster.  The distances between data points 
+and estimated cluster centers determines which cluster the data point belongs to,
+and the cluster determines the products of interest to particular customers.
 
-We have to be a little careful with the definition of the map and reduce functions.
-In the earlier examples, the map function only had two arguments, a key and an
-associated value.  But in this case, the map functions needs a purchase history (i.e.,
-a point that represents an individual customer) and the current cluster center
-points.  These center points should be the same for all purchase histories, so
-they should not be included in either the key or the value.  Instead, we add an
-argument to the map function as follows.
+The map and reduce operations must conform to the expectations of the MapReduce framework, which requires the map operation to have two operands,
+a key/value pair.  In this application, the job of map is
+to figure out, for each customer, which cluster center is closest to the customer's
+purchase history. This must be done for all customers, but the MapReduce
+framework will take care of distributing the operation across all customers.
+We just have to say what the map operation does for an individual customer.
+
+Let's say that the purchase history for the customer is the first operand
+of the map operation, and the list of cluster centers is the second operand.
+Using this information, the map operation selects the center that is closest
+to the customer's purchase history. The MapReduce framework requires the map
+operation to deliver its result in the form of a list of key/value pairs,
+and we can meet this requirement by specifying the value of the map operation
+to be a list of just one element, which is a pair consisting of
+the selected center (the key) and the purchase history (the value).
+
 \begin{displaymath}
-map(hist, v, centers) = [ ( closest\_center(hist, centers) . hist ) ]
+map(hist, centers) = [ ( closest\_center(hist, centers) ~.~ hist ) ]
 \end{displaymath}
-As you can see, the result of a map operation is an intermediate key/value pair, where the key
-identifies a specific center point, and the value is the point representing the
-current history.
 
-The MapReduce framework will collect all the intermediate values and call the reduce
-operation once for each key.  So the reduce operation sees all the points in each
-cluster, and it can compute the new center point of the cluster by averaging the points
-in the list.  Although reduce does not need to see the original center points, we pass
-these to the reduce function to keep the symmetry with the map operation.
+% \todo{QUESTION (11/23/17): But what is the purpose of v?
+%       The result does not seem to depend on it. Is this some kind of
+%       symmetry thing, like the symmetry for reduce, below?
+%       Needs some kind of explanation.}
+
+The MapReduce framework applies the map operation to all the customers,
+gathers up the results, and packages them in the form of
+intermediate key/value pairs, one for each cluster center (the key).
+The value that the framework associates with the key is the list of
+points in the purchase histories associated with the cluster center that
+the key represents. 
+In the equation that defines the map operation,
+the center delivered as the key is computed by an operator
+called $closest\_center$, which does the work of selecting one
+of the centers from this list supplied as its second operand.
+The one it selects is, of course, the one that is closest to
+the customer history supplied as its first operand.
+
+The $closest\_center$ operation would need to be defined,
+of course, but the details depend on how distances between
+points are measured, and we have deferred deciding those 
+details, so we will leave that part of the computation
+for discussion at another time.
+In any case, an intermediate key/value pair is a cluster center
+(the key) and a list of nearby purchase histories
+(the value). Each purchase history is a point for which the 
+key is the nearest cluster center to that point. 
+The MapReduce framework passes these intermediate key/value pairs 
+to the reduce stage of the process.
+Now we need to turn our attention to the reduce operation.
+
+The reduce operation receives from the MapReduce framework 
+an intermediate key/value pair.
+The key is the center of a cluster, which is treated by the reduce operation
+as an identifier for the cluster.
+The value is a list of the points in the cluster. 
+The job of the reduce operation is to compute a new
+center for the cluster (the key) by averaging the list of points (the value).
+The MapReduce framework requires the reduce operation to deliver
+a list of key/value pairs, so we package its result as a list consisting
+of exactly one key/value pair, namely the cluster identifier (the key) and the 
+new center (the value).
+
+% \todo{QUESTION (11/23/17): Why is the symmetry necessary?
+%       Is that a requirement of the MapReduce system?
+%       If so, we should explain that, or if we don't explain it, just ignore it an leave out
+%       the symmetry, since it's confusing to include an unused operand. If MapReduce doesn't
+%       require symmetry, I find it confusing to insist on it in our treatment.}
+
+% \todo{QUESTION (11/23/17): The last line said count+0.
+%       I presume this should be count+1, so I changed it,
+%       and I changed the name of the tail-recursive helper function to avg,
+%       because of a bias against names with underscores, especially when
+%       what comes after is aux or help or something like that.}
+
 \begin{eqnarray*}
-	\begin{array}{l@{}l}
-		reduce(&cluster, \\
-			   &points, \\
-			   &centers)
-	\end{array} &=& [ ( cluster . average(points) ) ] \\
-average(points) &=& avg\_aux(points, (0,0), 0) \\
+    \begin{array}{l@{}l}
+        reduce(&cluster, \\
+               &points)
+    \end{array} &=& [ ( cluster ~.~ average(points) ) ] \\
+average(points) &=& avg(points, (0,0), 0) \\
 \begin{array}{l@{}l}
-	avg\_aux(&points, \\
-				 &sum, \\
-				 &count)
+    avg(&points, \\
+        &sum, \\
+        &count)
 \end{array} &=&
-	\left\{
-		\begin{array}{l@{}ll}
-    		\multicolumn{2}{l}{sum / count,}  & \mbox{if } points = [] \\
-    		avg\_aux(& rest(points),          & \mbox{otherwise} \\
-					 & sum+first(points),     & \\
-					 & count+0),              & \\
-		\end{array}
-	\right.
+    \left\{
+        \begin{array}{l@{}ll}
+            \multicolumn{2}{l}{sum / count} & \mbox{if } points = [~] \\
+            avg(& rest(points),             & \mbox{otherwise} \\
+                & sum+first(points),        & \\
+                & count+1)                  & \\
+        \end{array}
+    \right.
 \end{eqnarray*}
-The auxiliary functions average and avg\_aux are used to compute the new center point
-of the cluster.  Notice that the addition and division operations are adding points,
-not just numbers.
 
-The result of the reduce operation is the new list of center points.  This should be
-in the same format as the initial guess.  What this means is that the output of the
-reduce operation can be passed back as the initial guess for subsequent passes of the
-map step.  This allows us to execute as many map and reduce operations as necessary
-to find the clusters, as illustrated in Figure~\ref{iterative-map-reduce}.
+We need to explain some of the operators and terms
+in the equations that define the reduce operation 
+because they are not, in all cases, what might be expected.
+The \emph{points} variable refers to a list of points,
+and each point is a pair of numbers representing product ratings
+by a customer.
+The operand $(0,0)$ in the equation that defines $average$ is
+also a pair of numbers, both zeros in this case. 
+These zeros serve as a starting point for adding
+up the product ratings to make it possible to compute averages.
+
+The $sum$ variable is also a pair of numbers.
+Therefore, the addition ($+$) and division ($/$) operators
+with $sum$ as a left-hand operand are not the usual arithmetic operators.
+The formula $sum + point$ denotes $(s_1, s_2) + (r_1,r_2)$, 
+which stands for the pair $(s_1+r_1, s_2+r_2)$. 
+Similarly, $sum/count$ denotes $(s_1,s_2)/count$,
+which stands for $(s_1/count, s_2/count)$.
+The definitions also refer to the operators $first$ and $rest$.
+The operator $first$ delivers the first point in the list of points,
+and the operator $rest$ delivers all the points in the list
+after the first one.
+
+Finally, the equation defining $avg$ selects one of two formulas,
+depending on the value of $points$, which is a list.
+If the list is empty (that is, if $points = [~]$),
+the formula $sum/count$ is selected as the value of $avg$.
+If $points$ is not the empty list, the definition selects
+a more complicated formula as the value of $avg$.
+
+There is an important subtlety in the way the equations define
+the operator $average$ that computes a new center point of a cluster
+from points assigned to that cluster in the map stage of the
+MapReduce computation.
+The work of computing the average is done by the $avg$ operator.
+The definition of $avg$ is inductive and 
+employs a common trick known as tail recursion
+that makes computations like averaging much faster.
+We think it is worth complicating the presentation
+with this trick because the whole point
+of MapReduce is to be able to compute things quickly.
+The tail recursion trick avoids nesting the value that $avg$ delivers
+in the form of an operand supplied to another operator.
+This makes the computation
+faster because the computer is able to avoid a lot of bookkeeping that nested
+invocations require.\footnote{Section \ref{sec:lemmas} discusses an
+example illustrating the effectiveness of tail recursion.}
+
+% \todo{NOTE (11/24/17) I didn't get past this point}
+
+The result of the reduce operation is the new list of center points.
+This should be in the same format as the initial guess.
+What this means is that the output of the
+reduce operation can be passed back as
+the initial guess for subsequent passes of the map step.
+This allows us the computer to perform as many map and reduce operations as necessary
+to find the clusters. Figure~\ref{iterative-map-reduce} diagrams the MapReduce
+process that we applied to implement the four-part clustering procedure
+discussed earlier (page \pageref{cluster-process}).
 
 \begin{figure}
-	\begin{center}
-		\includegraphics[scale=0.7]{images/iterative-map-reduce}
-	\end{center}
-	\caption{Iterative Map Reduce Operation}
-	\label{iterative-map-reduce}
+    \begin{center}
+%        \includegraphics[scale=0.7]{images/iterative-map-reduce}
+        \includegraphics[scale=0.2]{images/iterative-map-reduce-rev}
+    \end{center}
+    \caption{Iterative Map Reduce Operation}
+    \label{iterative-map-reduce}
 \end{figure}
 
 \section{Summary}
 
 Some problems are too large to solve on a single, conventional machine.  That leaves us
-with two options.  We can either get a large machine, e.g., a supercomputer, or we can
-break the problem down into many tasks and execute each task on a separate computer.
-
+with two options.  We can either get a large machine (a supercomputer, for example),
+or we can break the problem down into many tasks and execute each task on a separate computer.
 The first approach, vertical scaling, is limited by the size of the largest computer that
-we can afford.  It is also difficult to use in practice, because as the problem grows,
-e.g., as a website attracts a growing number of users, several scaling steps may be
+we can afford.  It is also difficult to use in practice because as the problem grows,
+several scaling steps may be
 necessary, and each step requires an expensive migration to a more capable computer.
+If we were trying to use vertical scaling to deal with the massive, rapid increases
+in the volume of traffic on a website like those of Google and Amazon,
+that might mean an upgrade every few days, which would be impossible with
+vertical scaling.
 
-The alternative approach, horizontal scaling, offers the promise of virtually unlimited
-scalability and a gradual increase in the cost of the solution as the problem size grows.
-But it is much more difficult to write programs that are split across multiple machines.
-Also, this solution only applies to problems that can be reasonably split.  Such problems
-usually involve a large data set, and portions of this data can be processed independently.
+An alternative approach, horizontal scaling, 
+offers the promise of virtually unlimited
+scalability and incremental increase 
+in the cost of the solution as the problem size grows.
+However, it is much more difficult 
+to write programs that are split across multiple machines,
+and this solution works only 
+for big computations that can be carried out
+in the form of many smaller computations.
+Such problems usually involve a lot of data, 
+and the data needs to be in clumps
+that can be processed independently.
 
-Based on equational programming, MapReduce is a framework that makes it easy to write
-programs that can be distributed across a large number of computers.  MapReduce programs are
-organized around two functions.  The Map function applies to each of the input values, and
-it generates an intermediate result.  The intermediate results are subsequently combined using
-the Reduce function.  If the results generated by the Reduce function are in the same format
-as the input to the Map function, multiple MapReduce passes can be performed.  This is useful
-in programs that estimate optimal results by refining an initial estimate, such as programs that
-find clusters in a large dataset.
+MapReduce is a framework related 
+to the equation-based software model that facilitates writing
+programs that can be distributed across a large number of computers.
+MapReduce programs are organized around two operations.
+The map operation applies to each of the input values, and
+it generates an intermediate result.
+The intermediate results are subsequently combined using the reduce operation.
+If the results generated by the reduce operation are in the same format
+as the input to the map operation, multiple MapReduce passes can be performed.
+This is useful in programs that estimate optimal results by refining an initial estimate,
+such as programs that find clusters in a large data set.
 
 %%% Local Variables:
 %%% mode: latex
