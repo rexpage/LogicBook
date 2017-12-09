@@ -8,8 +8,8 @@ see on Rex's local copy if needed: ch03WITHRECIPROCALSSTUFFINCASEWEREVERTTOIT16S
 
 We will be using a software development environment that automates parts of the software testing process.
 To use it, we can define tests that check results corresponding to inputs provided directly in the test.
-Or, we can ask the system to generate certain kinds of random data check results
-against logic formulas specifying properties that we expect of the results.
+Or, we can ask the system to generate random data and
+check results against logic formulas specifying properties that we expect of the results.
 
 \begin{aside}
 Proof Pad is a tool that provides a convenient way
@@ -31,7 +31,8 @@ They are free, too.
 \caption{Proof Pad and ACL2}
 \end{aside}
 
-To get the syntax straight, let's specify some direct tests that Proof Pad
+To get the syntax straight, let's specify some direct tests that Proof Pad,
+the environment we will be using,
 can carry out for the addition operator.
 The following tests check some equations that we expect to be true:
 $2 + 2 = 4$, $5 + 7 = 10 + 2$, etc.
@@ -57,7 +58,7 @@ In ACL2's prefix notation, a computational \index{formula!prefix notation}formul
 followed by the operator it invokes.
 The operator comes first (as a ``prefix''), then the operands.
 Infix notation places the operator between the operands,
-and prefix puts it before the operands.
+but prefix puts it before the operands.
 
 That seems simple enough, but it gets gradually more unfamiliar
 as the formulas get more complicated.
@@ -67,7 +68,7 @@ This will take a little getting used to,
 but is a lot easier to get good at than
 most of the stuff you have been studying.
 We hope you will be willing to accept it as just another way of writing formulas.
-One advantage is the formulas are, by default, fully parenthesized,
+One advantage is that the formulas are, by default, fully parenthesized,
 so there is never any question about what operands go with which operators.
 Some people end up liking the prefix format better than infix.
 We will use both, in different contexts, depending on whether
@@ -77,10 +78,8 @@ Another strange element is the
 \seeonlyindex{include-book}{directive}\index{directive!include-book}include-book directive.
 The facility for tests of this kind resides in an ACL2 book
 known as "testing", which in turn resides in a directory known
-\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}
-\index{book!directory (:dir)}
-\index{teachpacks!testing}\index{testing!teachpack}\index{book!testing}
-as :teachpacks (with the leading colon).
+\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}\index{book!directory (:dir)}\index{teachpacks!testing}\index{testing!teachpack}\index{book!testing}as 
+:teachpacks (with a leading colon).
 The include-book directive tells the system
 the name of the testing package and where to find it.
 This boilerplate is needed (including the keyword :dir, with the leading colon)
@@ -103,8 +102,7 @@ Direct, one-off, check-expect tests
 are a good way to get started, but
 we will want to test more general properties that we specify with logic formulas.
 Proof Pad facilitates that kind of \index{testing!doublecheck}testing with a package called
-\index{doublecheck}\index{book!doublecheck}\index{teachpacks!doublecheck}
-doublecheck
+\index{doublecheck}\index{book!doublecheck}\index{teachpacks!doublecheck}doublecheck
 that generates \index{random data!generating}\index{random data!testing with}\index{testing!with random data}random data
 to run against a predicate
 (that is, a formula representing a true/false value).
@@ -146,7 +144,7 @@ doublecheck begins with a parenthesis, then the keyword
 \index{testing!with random data}\index{random data!testing with}
 \index{defproperty}defproperty and a name for the property to be tested,
 which is ``+associative-test'' in this case.\footnote{The
-rules for naming things in ACL2 are lax, compared to many
+rules for naming things in ACL2 are lax compared to many
 programming languages. Names can be made up of letters and digits, of course,
 but can also include some special characters,
 such as plus signs and colons (not semicolons, though).}
@@ -216,10 +214,10 @@ delivers the remainder in the division of the first operand by the second.
 ACL2 does not restrict the operands to the set of natural numbers,
 but in this discussion, we are going to stick with that domain.
 Think
-\index{divisor}divisor, \index{dividend}dividend, \index{quotient}quotient, \index{remainder}remainder
-\index{division!third grade}\index{division!long division}\index{division!floor, mod}
-\seeonlyindex{third-grade long division}{division}
-long division: third-grade stuff.
+\index{divisor}divisor, \index{dividend}dividend, \index{quotient}quotient, \index{remainder}remainder,
+\index{division!third grade}\index{division!long division}\index{division!floor, mod}as in
+\seeonlyindex{third-grade long division}{division}long division: 
+third-grade stuff.
 
 Let's test drive the mod operator, starting with
 some simple checks, such as using mod
@@ -295,10 +293,10 @@ Since negative numbers aren't natural numbers, adding one
 to a natural number ensures that the sum is non-zero.
 \label{let-example-brief-explain}
 The definition of the property uses a
-\index{let* names for values}\index{formula!let*}\index{variable!let*}``let*'' formula,
-which provides a way to attach names to \index{value, let* name for}values temporarily
+\index{let* names for values}\index{formula!let*}\index{variable!let*}``let$*$'' formula,
+which provides a way to attach names to \index{value, let$*$ name for}values temporarily
 (Aside \ref{let*-def}, page \pageref{let*-def}).
-In this case, the let* says that
+In this case, the let$*$ says that
 the name ``divisor'' will be used to stand for
 the value represented by the formula (+ divisor-minus-1 1).
 To see the testing facility in action,
@@ -306,35 +304,35 @@ define the ``mod-test'' property in a .lisp file,
 and use Proof Pad to run the tests.
 
 \begin{aside}
-A \emph{let* formula} attaches names to values
-to be used within the scope of the let* formula.
-The scope of the let* opens with a parenthesis followed
-by the keyword ``let*''. It continues with
+A \emph{let$*$ formula} attaches names to values
+to be used within the scope of the let$*$ formula.
+The scope of the let$*$ opens with a parenthesis followed
+by the keyword ``let$*$''. It continues with
 a sequence of name-value bindings, and ends with
-a formula for the value to be delivered by the let*
+a formula for the value to be delivered by the let$*$
 and a closing parenthesis matching the one just prior
-to the let* keyword.
+to the let$*$ keyword.
 
 Each binding has two elements: first a name,
 then a formula specifying a value to be associated with the name.
 Any of the names attached to values in the bindings
-can be used subsequently in scope of the let* to denote those values.
+can be used subsequently in the scope of the let$*$ to denote those values.
 There can be any number of bindings.
-The most common use of ``let*'' is to give names
+The most common use of ``let$*$'' is to give names
 to values needed more than once in a computation,
 but sometimes it's used just to give mnemonic names
 to significant elements in a computational formula.
 
-The parentheses in a let* formula are tricky.
+The parentheses in a let$*$ formula are tricky.
 Each individual name-value binding is enclosed in parentheses,
 and the whole sequence of bindings is closed in another set
-of parentheses. In addition, the entire let* formula
+of parentheses. In addition, the entire let$*$ formula
 is enclosed in its opening and closing parentheses.
-The let* formula denotes the value specified
-in the formula that comes at the end of the let*, after the
+The let$*$ formula denotes the value specified
+in the formula that comes at the end of the let$*$, after the
 name-value bindings.
-\caption{Naming Local Values with Let*}
-\index{formula!let*}\index{variable!let*}\index{let* names for values}\index{value, let* name for}
+\caption{Naming Local Values with Let$*$}
+\index{formula!let$*$}\index{variable!let$*$}\index{let$*$ names for values}\index{value, let$*$ name for}
 \label{let*-def}
 \end{aside}
 
@@ -371,7 +369,7 @@ For practice, add this property to the .lisp file with the other tests and run i
 Another fact about remainders in division in the domain of natural numbers is that
 they are non-negative integers (that is, natural numbers).
 We can use the logical-and operator (``and'' is the ACL2 name for $\wedge$)
-to combine the upper-limit test with the natural-number test.
+to combine the upper-limit test with the natural-number test
 in one property definition.
 \label{natp-op}
 The value of the formula ``(natp $x$)'' is true
@@ -402,16 +400,16 @@ Ceiling brackets (like square brackets with the bottom chopped off)
 indicate the next integer that is the same as or larger than
 the enclosed value.
 Floor brackets (square brackets without the top part)
-go in the other direction, down to an integer
-that doesn't exceed the enclosed value.
-
+go in the other direction, down to the next integer
+that is the same as or smaller than the enclosed value.
+\\
+\begin{center}
 \index{operator, by name!ceiling (divide, round up)}\seeonlyindex{ceiling}{operator}
 \index{ceiling brackets}
 \index{brackets!ceiling}
 \index{operator, by name!floor (divide, round down)}\seeonlyindex{floor}{operator}\index{division!floor, mod}
 \index{floor brackets}
 \index{brackets!floor}
-\begin{center}
 \begin{tabular}{lll}
 (ceiling $x$ $y$)& $= \lceil x  \div y \rceil $ \emph{quotient rounded up}   \\
 (floor $x$ $y$)  & $= \lfloor x \div y \rfloor$ \emph{quotient rounded down} \\
@@ -482,18 +480,13 @@ Use Proof Pad to run the test.
 (max 2 7) is 7, (max 9 3) is 9.
 Define a doublecheck property that tests to make sure
 (max $x$ $y$) is
-\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}
-\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
-\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}
-\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
-\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}
-\seeonlyindex{greater or equal ($>=$)}{predicate}
-greater than or equal to (>=) both $x$ and $y$.
+\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{greater or equal ($>=$)}{predicate}greater
+than or equal to (>=) both $x$ and $y$.
 Use Proof Pad to run tests of the property.
 
 \Exercise
 Define a doublecheck property to test the distributive law
-of arithmetic (Figure~\ref{fig-02-01}, page \pageref{fig-02-01}).
+of arithmetic (\{distributive law\}, Figure~\ref{fig-02-01}, page \pageref{fig-02-01}).
 Use Proof Pad to run your test.
 
 \Exercise
