@@ -320,14 +320,23 @@ as an axiom for the len operator in the case
 when its operand is a non-empty list.
 The axiom for the empty case is simpler.
 Figure~\ref{fig:len-axioms} states these two axioms for
-the len operator.
+the len operator. Axiom \{\emph{len1}\} applies when
+the operand is non-empty, and the other axiom
+applies in all other circumstances.\footnote{Normally
+the operand of len will be either a non-empty list or nil, the empty list.
+That is a good way to think of it for now,  
+but the operand may not be a list at all, 
+and according to axiom \{\emph{len0}\} its value is zero in that case.
+So, (len nil) $= 0$, but (len $3$) $= 0$, too, since
+$3$ is not a list. Later, we will say more about this kind of axiom.}
 
 \begin{figure}
 \begin{center}
 Axioms \{\emph{len}\} \\
 \begin{tabular}{ll}
-(len nil) = 0                            & \{\emph{len0}\} \\
-(len (cons $x$ $xs$)) = (+ 1 (len $xs$)) & \{\emph{len1}\}
+(len (cons $x$ $xs$)) = (+ 1 (len $xs$)) & \{\emph{len1}\} \\
+(len $e$) = 0                            & \{\emph{len0}\} \\
+~~~~\emph{Note: Cite \{\emph{len0}\} only if \{\emph{len1}\} doesn't match.}&\\
 \end{tabular}
 \end{center}
 \caption{Length of List: len}
@@ -1119,9 +1128,8 @@ being non-zero is the same as being one or more.
 In that case you would expect (nthcdr $n$ $xs$) to deliver
 the same list that it would deliver
 if you dropped the first element of $xs$
-and then, in addition, dropped one fewer elements than $n$ says to drop.
-Together, these two actions would drop $n$ elements:
-first one element, then $(n - 1)$ more elements.
+and then, in addition, dropped $(n - 1)$ more elements.
+Together, these two actions would drop $n$ elements.
 The axioms in Figure~\ref{fig:nthcdr-defun} (page \pageref{fig:nthcdr-defun})
 express these observations as equations.
 
@@ -1183,25 +1191,33 @@ So the definition is complete, having covered all the cases.
 The cases do not overlap, so we don't need to worry about
 consistency between the axioms.
 
-There is a subtlety that needs explanation, however.
+\begin{aside}
+There is a subtlety in the axioms for nthcdr (Figure~\ref{fig:nthcdr-defun})
+that needs to be discussed.
 The operand prototypes in the
-\{sfx1\} axiom match when the first operand is a non-zero natural number\footnote{$(n+1)$
-cannot be zero when $n$ is a natural number.}
-and the second operand is a non-empty list.\footnote{That
-is, when (consp(cons $x$ $xs$)) is true,
-as it must be according to the consp axiom (page \pageref{consp-axiom}).}
+\{sfx1\} axiom match whenever the first operand is a non-zero natural number
+($n+1$ cannot be zero when $n$ is a natural number)
+and the second operand is a non-empty list.
 However, the operand prototypes in the \{sfx0\} axiom match anything.
 There is a note restricting
 citations of the second axiom to cases
 where the first axiom does not apply.
-This is a new wrinkle.
-Usually we state axioms that are independent of each other,
-but the constraint in the note conforms to the meaning
+The definition of the len operator 
+had a fall-through axiom like this, too
+(Figure~\ref{fig:len-axioms}, page \pageref{fig:len-axioms}).
+
+Usually we state axioms with operand prototypes that constrain
+the operands to specific forms, 
+but in the case of nthcdr, Note 2 conforms to the meaning
 of the (if $p$ $a$ $b$) formula, which chooses formula $b$
 only if $p$ has the value nil (representing false).
-With this convention, the two axioms
-do not share any combination of operands, so they cannot
+Since \{\emph{sfx0}\} only applies if the operand prototypes in 
+\{\emph{sfx0}\} don't match the operands in a formula that refers to nthcdr,
+the two axioms do not share any combination of operands, so they cannot
 cause an inconsistency in the specified results.
+\caption{Fall-Through Axioms}
+\label{fig:fall-through-axioms}
+\end{aside}
 
 That covers two of the three C's guidelines for inductive definitions of operators
 (Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}).
@@ -1291,7 +1307,7 @@ $=$ & $ys$                                  & \{\emph{sfx0}\} (page \pageref{fig
 \end{tabular}
 \end{center}
 
-That takes care of S(0). Next, we prove S($n+1$), assuming that 
+That takes care of S(0). Next, we prove S($n+1$), assuming that
 the induction hypothesis S($n$) is true.
 
 \begin{samepage}
@@ -1366,8 +1382,8 @@ P($n$) $\equiv$ (prefix (len [$x_1$ $x_2$ \dots $x_n$]) (append [$x_1$ $x_2$ \do
 \end{samepage}
 
 As the \{induction\} rule of inference requires, we will prove that P(0) is true
-and also that P($n+1$) is true whenever P($n$) is true. 
-Those two proofs will allow us to conclude that 
+and also that P($n+1$) is true whenever P($n$) is true.
+Those two proofs will allow us to conclude that
 $\forall n.$P($n$) is true by \{induction\}.
 
 \begin{figure}
@@ -1395,9 +1411,9 @@ Axioms \{\emph{prefix}\}                                           \\
 P($0$) $\equiv$ (prefix (len nil) (append nil $ys$)) $=$ nil
 \end{center}
 
-As in the proof of the append suffix theorem, we start 
-with the formula on one side of the P(0) equation 
-and use known equations to gradually transform 
+As in the proof of the append suffix theorem, we start
+with the formula on one side of the P(0) equation
+and use known equations to gradually transform
 that formula to the one on the other side of the equation.
 
 \begin{center}
@@ -1507,7 +1523,7 @@ would expect for a concatenation operator.
 We could think of them as
 \index{property!correctness}\index{correctness property}correctness properties
 for append.
-Of course the append operator has 
+Of course the append operator has
 an infinite variety of other properties, too.
 Their relative importance depends on how we are using the operation.
 A property that is sometimes important to know is that concatenation is associative,
