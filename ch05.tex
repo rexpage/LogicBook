@@ -23,25 +23,21 @@ However, ``144'' and ``1215'' are \index{numeral!vs number}numerals.
 They are not numbers. They are symbols that stand for numbers,
 and they are not the only symbols in use for that purpose.
 The symbols CXLIV and MCCXV (Roman \index{numeral!Roman}numerals) stand for the same two numbers.
-So do the symbols $90_{16}$ and $4BF_{16}$ (hexadecimal \index{numeral!hexadecimal}numerals).
-The symbols 144 and 1215 are decimal numerals,
-which is the representation most
-people turn to when they do arithmetic.
+So do the symbols $90_{16}$ and $4BF_{16}$ (hexadecimal \index{numeral!hexadecimal}numerals),
+but most people use the decimal numerals 144 and 1215 when they do arithmetic.
 
 The decimal representation is, in fact, so embedded in
-our experience and practice that we often confuse
-the symbol with the number.
-In fact, the dictionary lists ``number'' and ``numeral'' as synonyms.
-Usually, there is no harm in considering them to be the same thing,
-but we are going to use numerals
-to do arithmetic in a mechanized way, and we will
-be careful to separate numbers as mathematical
-objects from the symbols that represent them.
-We will refer to the mathematical object as a \index{number!vs numeral}number
-and to the symbol representing it as a \index{numeral!vs number}numeral.
+our experience and practice that we often conflate
+numerals and numbers, and some dictionaries treat the terms as synonyms.
+Usually there is no harm in considering numbers and numerals 
+to be the same thing, but we are going to use numerals
+to do arithmetic in a mechanized way, so we will
+do well to distinguish between 
+\index{number!vs numeral}numbers (mathematical objects)
+and \index{numeral!vs number}numerals (symbols for numbers).
 
 Let's think about how we interpret a decimal numeral as a number.
-Take the \index{numeral!decimal}numeral 1215, for example.
+Consider the \index{numeral!decimal}numeral 1215, for example.
 Each digit in the numeral has a different interpretation.
 The first digit is the number of thousands in the number
 that 1215 stands for. The second tells us the number
@@ -49,7 +45,7 @@ of hundreds, then the tens, and finally the units.
 The following formula is a way to express this interpretation.
 
 \begin{center}
-$1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
+$\textbf{1} \times 10^3 + \textbf{2} \times 10^2 + \textbf{1} \times 10^1 + \textbf{5} \times 10^0$
 \end{center}
 
 This formula computes a number from the individual digits
@@ -80,12 +76,12 @@ That leads to the following
 formula to express the meaning of the hexadecimal numeral $4BF_{16}$.
 (Remember, B stands for eleven, F for fifteen.)
 \begin{center}
-$4 \times 16^2 + 11 \times 16^1 + 15 \times 16^0$
+$\textbf{4} \times 16^2 + \textbf{11} \times 16^1 + \textbf{15} \times 16^0$
 \end{center}
 Formulas like this
 convert numerals to numbers.
 No doubt you could construct the appropriate formula
-for any given numeral, decimal, hexadecimal, or any base.
+for any given numeral: decimal, hexadecimal, or any other base.
 
 \begin{aside}
 Perhaps you noticed a subtle confusion in the formulas we use
@@ -134,12 +130,13 @@ Suppose someone gives you an operator called dgts that
 converts a number to a decimal numeral.
 Let's say that (dgts 1215) would deliver the sequence [5 1 2 1].
 That is, dgts delivers a list of the decimal digits
-of its operand, 
+of its operand,
 \index{representation!decimal numeral}
 starting with the ones digit (a 5 in this case),
 then the tens digit, and so on, reading right-to-left from
 customary way of writing the numeral.
-You might try it on a few numbers to see what it does.
+If you had a definition of dgts, 
+you might test it on a few numbers to see if it does what you expect.
 \begin{Verbatim}
 (check-expect (dgts 1215) '(5 1 2 1))
 (check-expect (dgts 1964) '(4 6 9 1))
@@ -162,13 +159,11 @@ a sequence with the digits in reverse order: [5 1 2 1].
 \index{representation!decimal numeral}
 Besides being backwards, the elements in the sequence are numbers,
 not symbolic digits.
-That is another part of our sleight of hand.
-We are using numbers to represent the digit symbols.
-We could convert them to pure symbols,
-but leaving them in the form of numbers
-simplifies parts of the discussion.
+We could use pure symbols, but we indulge in
+this sleight of hand to
+simplify parts of the discussion.
 
-By the way, the sequence notation [5 1 2 1] is the symbol we use
+In a similar vein, the sequence notation [5 1 2 1] is the symbol we use
 to describe the \index{sequence!for numeral}\index{numeral!seqeuence for}sequence,
 but the sequence itself is a mathematical object.
 It's another figment of our imagination,
@@ -180,13 +175,13 @@ ephemeral in the same sense as a number.
 Wait a minute!
 Why does (dgts 0) deliver the empty sequence instead of the one-element sequence [0]?
 That's another little trick.
-Besides delivering the digits in reverse order, 
+Besides delivering the digits in reverse order,
 \index{representation!decimal numeral}
 \index{leading zero}\index{numeral!leading zero}leading zeros are omitted.
 We could write the numeral 1964 with as many leading zeros as we like.
-The numerals 01964 and 000001964 also stand for the same number.
-Those numerals correspond to [4 6 9 1 0] and [4 6 9 1 0 0 0 0 0] in
-our list format. ``Leading zeros'' come at the end when the
+The numerals 1964, 01964, and 000001964 all stand for the same number.
+Those numerals correspond to [4 6 9 1], [4 6 9 1 0], and [4 6 9 1 0 0 0 0 0] 
+in our list format. ``Leading zeros'' come at the end when the
 digits are in reverse order.
 
 However, dgts doesn't include any
@@ -194,8 +189,11 @@ However, dgts doesn't include any
 in the numerals it delivers.
 It leaves them all off, even for the number zero.
 That's why (dgts 0) is nil.
-The numeral (dgts 012345) is the same as the numeral (dgts 12345), too.
-Both of those formulas would deliver the sequence [5 4 3 2 1].
+The numeral (dgts 012345) is the same as the numeral (dgts 12345), too,
+because dgts interprets its operand as a number.
+Since 012345 and 12345 stand for the same number,
+both the formula (dgts 012345) and the formula (dgts 12345) 
+deliver the sequence [5 4 3 2 1].
 No leading zeros.
 
 The computer interprets the decimal numeral 012345 in the formula (dgts 012345)
@@ -207,8 +205,9 @@ Later, we'll study the way most computers do this,
 but for now we will assume that the computer has some way of turning
 numerals into whatever form it uses to represent numbers.
 
-Now that we've run a few sanity checks, we want to do some serious testing.
-That means big batches of automated tests on random data.
+After running few sanity checks on the dgts operator, 
+if you had one, you might want to do some serious testing.
+Big batches of automated tests on random data perhaps.
 Coming up with automated tests calls for a little more thought.
 Let's start small. How about the last digit in a decimal numeral?
 What mathematical formula would deliver the last digit in a
@@ -223,18 +222,17 @@ $1 \times 10^3 + 2 \times 10^2 + 1 \times 10^1 + 5 \times 10^0$
 
 Each of the terms in the formula is a product of a power
 of ten with another number. A power of ten is, of course,
-a multiple of ten, so none of the terms contribute to the remainder
+a multiple of ten, so none of those terms contribute to the remainder
 when dividing by ten. None of them, that is, except the last one.
-It does not have a factor of ten in it because the ten is raised to the
-power zero, and $10^0$ is one, which is not a multiple of ten.
-So, to get the last digit in the numeral, all we need to do is to
+It does not have a factor of ten in it because 
+$10^0$ is one, which is not a multiple of ten.
+So, to get the last digit in the numeral, 
 compute the remainder in the division of the number by ten.
 
 \begin{aside}
-To get this all straight,
-transport yourself back to the third grade.
-In those days, when you learned long division,
-there were four parts to the problem,
+Transport yourself back to the third grade.
+when you learned long division.
+There were four parts to the problem,
 and they all had names.
 
 \begin{tabular}{ll}
@@ -258,8 +256,8 @@ $n = qd + r$            & \{\emph{check}$\div$\} \\
 \end{aside}
 
 The remainder is
-what the mod operator delivers (page \pageref{mod-function}).
-The following formula uses mod to make sure the last digit in the numeral
+what the mod operator delivers (Aside~\ref{third-grade-division}, page \pageref{third-grade-division}).
+The following test uses mod to make sure the last digit in the numeral
 that the dgts operator delivers for the number $n$ is correct.
 \begin{Verbatim}
 (= (first (dgts n)) (mod n 10))
@@ -298,15 +296,17 @@ No fraction, no decimal point, no remainder. Just the whole-number quotient.
 Since we've already tested to make sure the last digit is correct,
 we don't need to worry about that.
 We only need to worry about the other digits.
-The intrinsic operator ``floor'' (page \pageref{floor-def})
-produces the quotient (discarding the remainder).
+The intrinsic operator ``floor'' 
+(Aside~\ref{third-grade-division}, page \pageref{third-grade-division})
+produces the quotient, discarding the remainder.
 We can get those other digits by applying dgts to (floor $n$ $10$)
 
 The following formula implements the test we have in mind.
 It checks to make sure the digits other than the units digit
-in the sequence dgts delivers for $n$
-are the same as the digits in the sequence
-dgts delivers for the quotient in $(n \div 10)$.
+in the sequence that (dgts $n$) delivers
+are the same as the digits in the sequence that
+dgts delivers when its operand is the quotient in
+the division $(n \div 10)$.
 \begin{Verbatim}
 (equal (rest (dgts n))       ; all digits except the units digit
        (dgts (floor n 10)))) ; digits of the quotient
@@ -328,8 +328,9 @@ We have to provide a definition for it.
 To do that we use the defun command, which is similar to defproperty,
 but without any value specifications. The definition will be inductive,
 of course, using some ideas we discussed in putting together tests,
-and will follow the three C's of Figure~\ref{fig:inductive-def-keys}
-(page \pageref{fig:inductive-def-keys}), repeated here and customized for dgts.
+and will conform to the requirements of the three C's 
+(Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}), 
+repeated here and customized for dgts.
 \begin{samepage}
 \index{three C's}\index{definition!inductive (circular)}
 \begin{center}
@@ -349,37 +350,50 @@ and will follow the three C's of Figure~\ref{fig:inductive-def-keys}
 \begin{Verbatim}
 (defun dgts (n)
   (if (zp n)
-      nil                          ; {dgts0}
-      (cons (mod n 10)
-            (dgts (floor n 10))))) ; {dgts1}
+      nil                                     ; {dgts0}
+      (cons (mod n 10) (dgts (floor n 10))))) ; {dgts1}
 \end{Verbatim}
 
 This definition uses the predicate zp (Aside \ref{zp-def}, page \pageref{zp-def})
 to detect the value zero within the domain of natural numbers..
-If you put the definition of dgts at the beginning of a program
-and import the ``testing'' and ``doublecheck" facilities, you
-can enter the tests and run them using Proof Pad.
+If you put the definition of dgts at the beginning of a program,
+import the ``testing'', ``doublecheck" facilities
+(include-book, 
+Chapter~\ref{ch:software-testing-prefix-notation}, page \pageref{ch:software-testing-prefix-notation}), 
+and import some theorems about modular arithmetic
+(Aside~\ref{admit-def}, page \pageref{admit-def}),
+you can enter the tests and run them using Proof Pad.
 You can also enter formulas in the command panel to compute
 decimal numerals for any natural numbers you choose.
 
 \begin{aside}
-ACL2 will not admit an operator into its logic unless
+ACL2 will not accept the definition of
+an operator unless
 it can prove that the operator always delivers a value in
 a finite number of computational steps.
-This is because operators that don't terminate complicate the reasoning process.
+That is because non-terminating operators complicate the reasoning process.
 Proving that dgts terminates for all inputs
 requires applying some theorems of modular arithmetic.
-Fortunately, someone has put together a package of theorems on that topic
-in the
-\index{book!arithmetic-3/floor-mod} 
-``arithmetic-3/floor-mod/floor-mod'' book.
-ACL2 will admit the definition of dgts when those theorems
-have been imported into its logic world by an include-book directive
-(see Exercise \ref{mod-div-defthm}, page \pageref{mod-div-defthm}).
-\index{ACL2!admit}\index{admit, ACL2}
+Fortunately, experts have put together a package of theorems on that topic,
+and the following include-book directive will import them 
+to make it possible for the mechanized logic to prove termination
+and admit the dgts operator to the ACL2 logic.
+\vspace{2mm}
+\begin{center}
+(include-book "arithmetic-3/floor-mod/floor-mod" :dir :system)
+\end{center}
 \caption{Termination, ACL2 Admit, and floor/mod Equations}
 \label{admit-def}
 \label{floor-mod-book}
+\index{ACL2!admit}
+\index{admit, ACL2}
+\index{book!arithmetic-3/floor-mod}
+\label{floor-mod-include-book}
+\index{directory (:dir)!:system}
+\index{book!directory (:dir)}
+\index{directive!include-book}
+\index{directory (:dir)!:system}
+\index{system, :dir}
 \end{aside}
 
 \begin{ExerciseList}
@@ -389,35 +403,31 @@ the signing of the United States Declaration of Independence.
 Find the numeral for $y$ and use dgts (page \pageref{dgts-defun})
 to verify that you got it right.
 
-
 \Exercise \label{modular-division}\index{theorem, by name!\{mod-div\}}
-\index{division!floor, mod}
-Prove \{\emph{mod-div}\}:
+\index{division!floor, mod}Prove \{\emph{mod-div}\}:
 (mod (* $a$ $x$) (* $a$ $b$)) = (* $a$ (mod $x$ $b$)) \\
 \emph{Hint}: You won't need induction, but the following facts will help.
-Suppose $x$ is the dividend, $d$ the divisor, and $q$ the quotient
-in a third-grade division problem (page \pageref{third-grade-division}).
-Then, $r$ = (mod $x$ $d$) is the remainder (page \pageref{mod-function}).
-The standard method of verifying a correct solution to a
-third-grade division problem is to verify the equation
-$(qd + r) = x$. Furthermore, it is always the case
-that $0 \le r < d$. In other words (mod $x$ $d$) is the number $r$
+Suppose $x$ is the dividend and $d$ the divisor
+in a third-grade division problem 
+(Aside~\ref{third-grade-division}, page \pageref{third-grade-division}).
+Then, $r$ = (mod $x$ $d$) is the remainder,
+and $q$ = (floor $x$ $d$) is the quotient.
+Third-graders use the equation $(qd + r) = x$ 
+to make sure they have done the division correctly.
+They also know that $0 \le r < d$. 
+In other words (mod $x$ $d$) is the number $r$
 in the range $0 \le r < d$ such that $qd + r = x$.
 
-\Exercise \label{mod-div-defthm}\index{division!floor, mod}
-Define the \{\emph{mod-div}\} theorem
+\Exercise \label{mod-div-defthm}\index{division!floor, mod}Define  
+the \{\emph{mod-div}\} theorem
 in ACL2 notation, and use ACL2 to verify that it is a theorem.
 Since the theorem does not hold for all numbers $a$, $b$, and $x$,
-you will need to include certain hypotheses in the implication
-that you ask ACL2 to prove. If you state it correctly and import
-theorems about modular arithmetic contained in the floor-mod book,
-ACL2 will succeed.\\
-
-\label{floor-mod-include-book}
-\index{book!arithmetic-3/floor-mod}\index{directory (:dir)!:system}
-\index{book!directory (:dir)}
-\index{directive!include-book}\index{directory (:dir)!:system}\index{system, :dir}
-\phantom{x}\hspace{2em}(include-book "arithmetic-3/floor-mod/floor-mod" :dir :system)
+you will need to ask ACL2 to prove an implication with
+hypotheses that constrain the theorem to the domain in which it is true. 
+If you state it correctly and import the
+theorems about modular arithmetic contained in the floor-mod book
+(Aside~\ref{floor-mod-book}, page \pageref{floor-mod-book}),
+ACL2 will succeed.
 \end{ExerciseList}
 
 \section{Numbers from Numerals}
@@ -438,7 +448,7 @@ $1 \times 10^2 + 4 \times 10^1 + 4 \times 10^0$                 &$=$ &  144 \\
 
 What properties would an operator
 converting decimal numerals to numbers have?
-Since dgts produces numerals represented as sequences
+Since dgts produces a numeral represented as a sequence
 of decimal digits in the reverse of the usual order
 (that is, with the units digit first,
 then the tens digit, then hundreds, and so on),
@@ -453,57 +463,54 @@ The equation in that case would be (nmb10 [$x_0$]) = $x_0$.
 
 If there are two or more digits, the numeral would take the form
 [$x_0$ $x_1$ \dots $x_{n+1}$].
-Then, the equation would be
-\begin{center}
+Then, the equation would take the following form.\\
+\hspace*{1cm}
 (nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) =
-$(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n+1} \times 10^{n+1})$
-\end{center}
+$x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n+1} \times 10^{n+1}$ \hfill \{\emph{a}\}\\
 
-Since all of the terms in the sum
-include a factor of ten, except the first term,
-we can factor ten out of all of the terms beyond the first.
-Factoring the formula in this way produces a new equation.
-\begin{center}
-(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) = $(x_0 + 10 \times (x_1 \times 10^0 + x_2 \times 10^1 + \dots x_n \times 10^n))$
-\end{center}
+All of the terms in the sum
+include a factor of ten except the first term,
+so can factor ten out of those terms.
+Factoring the formula in this way produces a new equation.\\
+\hspace*{1cm}
+(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) = $x_0 + 10 \times (x_1 \times 10^0 + x_2 \times 10^1 + \dots x_n \times 10^n)$ \hfill \{\emph{b}\}\\
 
-But, the sequence [$x_1$ $x_2$ \dots $x_{n+1}$] is also a decimal numeral,
+The sequence [$x_1$ $x_2$ \dots $x_{n+1}$] is also a decimal numeral,
 albeit for a different number.
 The number it denotes is
 $(x_1 \times 10^0 + x_2 \times 10^1 + \dots x_n \times 10^n)$,
-which is the value nmb10 should deliver, given the numeral [$x_1$ $x_2$ \dots $x_{n+1}$].
-\begin{center}
-(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$]) = $(x_1 + x_2 \times 10^1 + \dots x_{n+1} \times 10^n)$
-\end{center}
+which is the value nmb10 should deliver, given the numeral [$x_1$ $x_2$ \dots $x_{n+1}$].\\
+\hspace*{1cm}
+(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$]) = $x_1 + x_2 \times 10^1 + \dots x_{n+1} \times 10^n$ \hfill \{\emph{c}\}\\
 
-Observe that this formula for (nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$]) is identical
-to the part of the formula in the previous equation that is multiplied by ten.
-Therefore, we can rewrite that equation as follows.
-\begin{center}
-(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) = $(x_0 + 10 \times$ (nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$])$)$
-\end{center}
+Observe that the formula on the right-hand side of equation \{\emph{c}\}
+is identical
+to the part of the formula in equation \{\emph{b}\} that is multiplied by ten.
+Therefore, we can rewrite equation \{\emph{b}\} as follows.\\
+\hspace*{1cm}
+(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) = $x_0 + 10 \times$(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$]) \hfill \{\emph{d}\}\\
 
-This is an inductive equation that delivers the right value for
+Equation \{\emph{d}\} is an inductive equation that delivers the right value for
 numerals with two or more digits. It also works
-for one-digit numerals because (nmb10 nil) is zero:
-(nmb10 [$x_0$]) = $(x_0 + 10 \times$ (nmb10 nil)$) = (x_0 + 10 \times 0) = x_0$.
+for one-digit numerals because (nmb10 nil) is zero.\\
+\hspace*{1cm}
+(nmb10 [$x_0$]) = $x_0 + 10 \times$(nmb10 nil) $ = (x_0 + 10 \times 0) = x_0$ \hfill \{\emph{d}$*$\}\\
 
-Together, the equation for numerals with one or more digits
-and the equation for empty numerals conform to the
-rule of the three C's
-(page \pageref{fig:inductive-def-keys}),
+Together, equation \{\emph{d}\} for numerals with one or more digits
+and the equation for empty numerals, (nmb10 nil) $= 0$, conform to the
+rule of the three C's (page \pageref{fig:inductive-def-keys}),
 so we have the makings of an inductive definition of nmb10.
 The following equations summarize our analysis and show how
 the first and rest operators
-(page \pageref{first-rest-cons}) can be used
-to extract the digits of the numeral.
+(page \pageref{first-rest-cons})
+extract the required digits from the numeral.
 From that point, constructing the ACL2
 is a straightforward translation of the equations to prefix notation.
 
-\seeonlyindex{nmb10}{operator}\index{number!from numeral}
 \begin{center}
+\seeonlyindex{nmb10}{operator}\index{number!from numeral}
 \begin{tabular}{rlll}
-(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) & $=$ &$(x_0 + 10 \times$ (nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$])$)$ &\emph{\{n10.1\}}\\
+(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$]) & $=$ &$x_0 + 10\times$(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$]) &\emph{\{n10.1\}}\\
 (nmb10 nil)                           & $=$ &$0$   &\emph{\{n10.0\}}\\
 $x_0$                         & $=$ &(first [$x_0$ $x_1$ $\dots$ $x_n$]) &\\
 {[$x_1$ $\dots$ $x_n$]}       & $=$ &(rest  [$x_0$ $x_1$ $\dots$ $x_n$]) &\\ % mysterious error without curly braces {[ ... ]}, something to do with an optional parameter after
@@ -519,7 +526,7 @@ $x_0$                         & $=$ &(first [$x_0$ $x_1$ $\dots$ $x_n$]) &\\
       0))                         ; {n10.0}
 \end{Verbatim}
 
-We have derived this definition carefully,
+We have derived this definition carefully
 from things we know about numbers,
 but we can use logic to be sure we got it right.
 We want to prove that
@@ -539,26 +546,25 @@ $x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n} \times 10^{n}$
 
 Theorem \{\emph{Horner 10}\} states that the operator nmb10
 computes a sum of multiples of successive powers of ten.
-The multipliers (known as ``coefficients'') of the powers
+The multipliers (known as coefficients) of the powers
 of ten are the digits in a decimal numeral.
 We call it the theorem \emph{Horner 10} because
-the scheme it uses to carry out the computation is
+the scheme that the operator nmb10 uses to carry out the computation is
 known as Horner's rule.
 Proving Theorem \{\emph{Horner 10}\} amounts to
 verifying that $(\forall n.H(n))$ is true,
-where the predicate $P$ is defined on the natural numbers,
+where the predicate $H$ is defined on the natural numbers,
 its universe of discourse, as follows.
 \begin{center}
 $H(n) \equiv$
-((nmb10 [$x_0$ $x_1$ \dots $x_{n}$]) =
-$(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n} \times 10^{n}))$
+(nmb10 [$x_0$ $x_1$ \dots $x_{n}$]) =
+$x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n} \times 10^{n}$
 \end{center}
 
-The proof will use mathematical induction.
-We begin by proving he base case, $H(0)$.
+We begin a proof by mathematical induction with the base case, $H(0)$.
 \begin{center}
 \begin{tabular}{lll}
-    & $H(0) \equiv$ ((nmb10 [$x_0$]) = $x_0$) & \\
+    & $H(0) \equiv$ (nmb10 [$x_0$]) = $x_0$ & \\
 \hline
     & (nmb10 [$x_0$])           & \\
 $=$ & (nmb10 (cons $x_0$ nil))  & \{\emph{cons}\} \emph{(page \pageref{first-rest-cons})} \\
@@ -579,16 +585,16 @@ citing mathematical induction
 \begin{center}
 \begin{tabular}{lll}
  & $H(n+1) \equiv$
-((nmb10 [$x_0$ $x_1$ \dots $x_{n+1}$]) =
-$(x_0 + x_1 \times 10^1 +  \dots x_{n+1} \times 10^{n+1}))$ & \\
+(nmb10 [$x_0$ $x_1$ \dots $x_{n+1}$]) =
+$x_0 + x_1 \times 10^1 +  \dots x_{n+1} \times 10^{n+1}$ & \\
 \hline
     & (nmb10 [$x_0$ $x_1$ \dots $x_{n+1}$])           & \\
 $=$ & (nmb10 (cons $x_0$ [$x_1$ \dots $x_{n+1}$]))  & \{\emph{cons}\}\\
 $=$ & (+ (first (cons $x_0$ [$x_1$ \dots $x_{n+1}$])) ($*$ 10 (nmb10 (rest (cons $x_0$ [$x_1$ \dots $x_{n+1}$])))))  & \{\emph{n10.1}\} \\
-$=$ & (+ $x_0$ ($*$ 10 (nmb10 (rest (cons $x_0$ [$x_1$ \dots $x_{n+1}$])))))  & \{\emph{first}\} \\
-$=$ & (+ $x_0$ ($*$ 10 (nmb10 [$x_1$ \dots $x_{n+1}$])))  & \{\emph{rest}\}\\
+$=$ & (+ $x_0$ ($*$ 10 (nmb10 (rest (cons $x_0$ [$x_1$ \dots $x_{n+1}$])))))      & \{\emph{first}\} \\
+$=$ & (+ $x_0$ ($*$ 10 (nmb10 [$x_1$ \dots $x_{n+1}$])))                          & \{\emph{rest}\}\\
 $=$ & (+ $x_0$ ($*$ 10 $(x_1 + x_2 \times 10^1 + \dots x_{n+1} \times 10^{n})))$  & \{$H(n)$\}\\
-$=$ & $(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n+1} \times 10^{n+1})$  & \{\emph{algebra}\} \\
+$=$ & $x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n+1} \times 10^{n+1}$   & \{\emph{algebra}\} \\
 \end{tabular}
 \end{center}
 
@@ -609,7 +615,7 @@ Theorem \{\emph{dgts-ok}\}:
 In other words, we want to prove that
 $(\forall n.D(n))$ is true, where D($n$) stands the following proposition.
 \begin{center}
-$D(n) \equiv$ ((nmb10 (dgts $n$)) $=$ $n$)
+$D(n) \equiv$ (nmb10 (dgts $n$)) $=$ $n$
 \end{center}
 
 The universe of discourse
@@ -621,7 +627,7 @@ a proof of $(\forall n.(D(n) \rightarrow D(n+1)))$.
 
 \begin{center}
 \begin{tabular}{lll}
-    & $D(0) \equiv$ ((nmb10 (dgts $0$)) = $0$) & \\
+    & $D(0) \equiv$ (nmb10 (dgts $0$)) = $0$ & \\
     \hline
     & (nmb10 (dgts $0$)) & \\
 $=$ & (nmb10 nil)        & \{\emph{dgts0}\} (page \pageref{dgts-defun}) \\
@@ -631,7 +637,7 @@ $=$ & 0                  & \{\emph{n10.0}\} (page \pageref{nmb10-defun}) \\
 
 \begin{center}
 \begin{tabular}{lll}
-    & $D(n+1) \equiv$ ((nmb10 (dgts (+ $n$ 1))) = (+ $n$ 1)) & \\
+    & $D(n+1) \equiv$ (nmb10 (dgts (+ $n$ 1))) = (+ $n$ 1) & \\
     \hline
     & (nmb10 (dgts (+ $n$ 1)))           & \\
 $=$ & (nmb10 (cons (mod (+ $n$ 1) 10) (dgts (floor (+ $n$ 1) 10)))  & \{\emph{dgts1}\} (page \pageref{dgts-defun})\\
@@ -642,7 +648,7 @@ $=$ & (+ $n$ 1)  & \{\emph{check}$\div$\} (page \pageref{third-grade-division})
 \end{center}
 
 If you were paying very close attention,
-you may have noticed that we our proof of $D(n) \rightarrow D(n+1)$
+you may have noticed that we the proof of $D(n) \rightarrow D(n+1)$
 was not according to Hoyle.
 To prove this implication, we need to prove that $D(n+1)$ is true whenever $D(n)$ is true.
 That means we can cite $D(n)$ to justify any step in our proof of $D(n+1)$.
@@ -700,10 +706,10 @@ Prove $(\forall m<n.P(m))\rightarrow P(n)$ \\
 Infer $(\forall n.P(n))$
 \end{tabular}
 \end{center}
-\index{strong induction}strong\index{induction!strong}
+\caption{Mathematical Induction (strong induction version)}
+\index{strong induction}\index{induction!strong}
 \index{inference rule, by name!\{strong induction\}}
 \index{induction!proof by}\index{proof!by induction}
-\caption{Mathematical Induction (strong induction version)}
 \label{strong-induction-rule}
 \end{figure}
 
@@ -740,9 +746,9 @@ in the proof of $P(n+1)$, the
 includes all of the propositions $P(0)$, $P(1)$, $P(2) \dots P(n)$, not just $P(n)$.
 Therefore, the proof of $P(n+1)$, in a proof by strong induction, can cite any
 (or some, or even all) of those propositions to justify steps in the proof.
-\index{strong induction}strong\index{induction!strong}\index{induction!proof by}\index{proof!by induction}
 \caption{Strong Induction Requires Two Proofs or One?}
 \label{strong-induction-rule-2-hyps-or-1}
+\index{strong induction}\index{induction!strong}\index{induction!proof by}\index{proof!by induction}
 \end{aside}
 
 \begin{ExerciseList}
@@ -753,17 +759,17 @@ Therefore, the proof of $P(n+1)$, in a proof by strong induction, can cite any
      and nmb10 (page \pageref{nmb10-defun}),
      but without citing any of the theorems from this section.
 \Exercise Define a doublecheck property that tests
-     the formula (= (nmb10 (dgts $n$)) $n$) for random
+     the equation (nmb10 (dgts $n$)) $= n$ for random
      natural numbers $n$.
      Of course, all of the tests should succeed because
      we proved that the formula always delivers true.
      If a test fails, something is wrong with
      with the definition of the property or operators it refers to.
 \Exercise Define a doublecheck property to test the formula
-     (equal (dgts (nmb10 $xs$)) $xs$) for random, non-empty
-     decimal numerals $xs$.
+     (equal (dgts (nmb10 $xs$)) $xs$) for random
+     decimal numerals $xs$.\\
      \emph{Hint}: (random-list-of (random-between 0 9))
-     generates random decimal numerals.
+     generates random decimal numerals.\\
      \emph{Note}: This test can fail.
      If it does, check out the data that causes the failure.
 \Exercise We proved that the operator nmb10
@@ -783,11 +789,7 @@ Therefore, the proof of $P(n+1)$, in a proof by strong induction, can cite any
 \Exercise Let $\lfloor log(n) \rfloor$ stand for the
     largest integer for which $10^{\lfloor log(n) \rfloor} \leq n$,
     where $n$ is a non-zero natural number.
-    That is, the following inequalities hold.
-\index{numeral!length}
-\begin{displaymath}
-  10^{\lfloor log(n) \rfloor} \le n < 10^{\lfloor log(n) \rfloor + 1}
-\end{displaymath}
+    That is, \index{numeral!length}$10^{\lfloor log(n) \rfloor} \le n < 10^{\lfloor log(n) \rfloor + 1}$.
     Prove the following relationship between the operators
     len (page \pageref{len-equations}) and dgts (page \pageref{dgts-defun}).
 \begin{quote}
@@ -795,7 +797,6 @@ Therefore, the proof of $P(n+1)$, in a proof by strong induction, can cite any
 \end{quote}
 
 \end{ExerciseList}
-
 
 \section{Binary Numerals}
 \label{sec:binary-numerals}
@@ -834,9 +835,9 @@ Like the corresponding operators for decimal numerals
 bits and numb use the predicate zp (page \pageref{zp-def}) to choose
 between the base case ($n = 0$) and the inductive case ($n > 0$).
 ACL2 needs access to the theorems
-in the floor-mod book (page \pageref{floor-mod-book})
+in the floor-mod book (Aside~\ref{floor-mod-book}, page \pageref{floor-mod-book})
 to admit the bits operator to its logic,
-just as it did for the definition of dgts (\pageref{dgts-defun}).
+just as it did for the definition of dgts.
 
 \label{bits-defun}\index{numeral!binary}\index{binary numeral}
 \index{operator, by name!bits (numeral from number)}\seeonlyindex{bits}{operator}
@@ -860,11 +861,11 @@ just as it did for the definition of dgts (\pageref{dgts-defun}).
       0))                              ; {numb0}
 \end{Verbatim}
 
-The theorem about numb concerning the interpretation of
-binary numerals as numbers and the theorem about the numb
-being the inverse of the bits operator are
-also true in the new context, and the proofs are similar to the ones
-on decimal numerals presented earlier in this chapter.
+A theorem about numb concerning the interpretation of
+binary numerals as numbers and a theorem about the numb
+being the inverse of the bits operator are true, 
+and the proofs are similar to the proofs of the corresponding
+theorems about decimal numerals presented earlier in this chapter.
 Constructing those proofs is a good exercise.
 It will help you understand decimal numerals better,
 and clarify your understanding of binary numerals.
@@ -913,7 +914,7 @@ to prove
 \index{Horner}theorem \{\emph{Horner 2}\}:
 \begin{quote}
 (numb [$x_0$ $x_1$ $x_2 \dots$ $x_{n}$])
-$= (x_0 + x_1 \times 2^1 + x_2 \times 2^2 + \dots x_{n} \times 2^{n})$
+$= x_0 + x_1 \times 2^1 + x_2 \times 2^2 + \dots x_{n} \times 2^{n}$
 \end{quote}
 
 \Exercise \label{bits-ok}\index{theorem, by name!\{bits-ok\}}
@@ -937,7 +938,7 @@ Use Proof Pad to submit the following statement of the theorem to ACL2.
 \end{Verbatim}
 
 \Exercise Prove theorem \{\emph{len-pad}\}: (len (pad $n$ $x$ $xs$)) = $n$,
-where ``pad'' is defined as follows. \\
+where pad is defined as follows.\\
 \begin{samepage}
 \label{pad-defun}\index{operator, by name!pad (append padding)}\seeonlyindex{pad}{operator}
 \index{equation, by name!\{pad$+$\}, \{pad$-$\}}
@@ -951,12 +952,14 @@ where ``pad'' is defined as follows. \\
 \end{samepage}
 \emph{Note}: The definition of pad refers to the operators
 rep (page \pageref{rep-equations}) and prefix (page \pageref{prefix-equations}).
-and uses a ``let*'' formula (Aside \ref{let*-def}, page \pageref{let*-def})
-to the name ``padding'' with the number of elements to append to $xs$
-to form a list of the desired length.
+It uses a ``let$*$'' formula (Aside \ref{let*-def}, page \pageref{let*-def})
+to associate the name ``padding'' with the number of elements to append to $xs$
+to form a list of the desired length. If $n$ is less than (len $xs$),
+pad delivers the first $n$ elements of $xs$. In any case, the length of
+(pad $n$ $x$ $xs$) is $n$.
 
 \Exercise \label{hi-1} Prove \{\emph{hi-1}\}:
-(fin (bits $n$)) = 1, where fin satisfies the following equations.
+(fin (bits $n$)) = 1 if $n > 0$, where fin satisfies the following equations.
 \label{fin-defun}
 \index{operator, by name!fin (extract last element)}\seeonlyindex{fin}{operator}
 \index{equation, by name!\{fin1\}, \{fin2\}}
@@ -975,8 +978,8 @@ ACL2 will succeed if you state the theorem correctly as an implication,
 using the predicate posp (Aside \ref{zp-def} , page \pageref{zp-def})
 to test for a non-zero, natural number.
 Of course the definition of ``bits'' (page \pageref{bits-defun})
-will need to be admitted to the logic  (page \pageref{admit-def})
-before ACL2 can attempt the proof of this theorem.
+will need to be admitted to the ACL2 logic  (Aside~\ref{admit-def}, page \pageref{admit-def})
+before it can attempt the proof of this theorem.
 
 \Exercise \label{len-bits}\index{theorem, by name!\{len-bits\}}
 Prove \{\emph{len-bits}\}:
@@ -999,7 +1002,7 @@ $\forall n$.((numb (append (bits n) (list 0))) = (numb (bits $n$)))
 \index{leading zero}\index{numeral!leading zero}
 Prove \{\emph{leading-0s}\}:
 $\forall z$.($\forall n$.((numb (append (bits $n$) (rep $z$ 0))) = (numb (bits $n$)))) \\
-Assume that theorem \{\emph{leading-0}\} in the previous exercise
+Assume that theorem \{\emph{leading-0}\} of Exercise~\ref{leading-0}
 has been proven and that $z$ stands for a natural number.
 The operator rep is defined on page \pageref{rep-equations}.
 
@@ -1007,20 +1010,22 @@ The operator rep is defined on page \pageref{rep-equations}.
 of the previous exercise in ACL2 notation
 and run it through the ACL2 mechanized logic.
 ACL2 will succeed if you state the theorem correctly as an implication,
-referring to the predicate ``natp'' to constrain $n$ and $z$ to be natural numbers.
-Of course the definitions of ``bits'' and ``numb'' will need to
-be admitted to the logic (page \pageref{bits-defun})
-before ACL2 can attempt the proof of this theorem.
+referring to the predicate natp to constrain $n$ and $z$ to be natural numbers.
+Of course the definitions of the operators bits and numb (page \pageref{bits-defun}) 
+will need to be admitted to the ACL2 logic (Aside~\ref{admit-def}, page \pageref{admit-def})
+before it can attempt the proof of this theorem.
 
 \Exercise \label{pfx-mod}\index{theorem, by name!\{pfx-mod\}}
 Prove \{\emph{pfx-mod}\}:
 $\forall w$.($\forall n$.((numb (prefix $w$ (bits $n$))) = (mod $n$ $2^w$))) \\
 \emph{Hint}: Induct on $w$. Split the inductive case into two parts,
-one part where $n = 0$ and one where $n > 0$, and apply
-\{$\vee$ elimination\} (page \pageref{fig-02-deduction-rules}) to complete
-the proof of the inductive case.
-In the $n > 0$ part, the \{\emph{mod-div}\} theorem
-(page \pageref{modular-division}) will be helpful.
+one part where $n = 0$ and one where $n > 0$, and do a separate proof
+of the theorem for each case.
+In the $n > 0$ case, the \{\emph{mod-div}\} theorem
+(page \pageref{modular-division}) will be helpful.\\
+\emph{Note}: The \{$\vee$ elimination\} inference rule
+(Figure~\ref{fig-02-deduction-rules}, page \pageref{fig-02-deduction-rules})
+formally justifies case-by-case proofs.
 
 %\Exercise We created the definitions of bits and numb
 %by copying those of dgts and nmb10, and changing the twos to tens.
