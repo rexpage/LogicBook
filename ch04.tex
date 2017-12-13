@@ -324,8 +324,8 @@ the len operator. Axiom \{\emph{len1}\} applies when
 the operand is non-empty, and the other axiom
 applies in all other circumstances.\footnote{Normally
 the operand of len will be either a non-empty list or nil, the empty list.
-That is a good way to think of it for now,  
-but the operand may not be a list at all, 
+That is a good way to think of it for now,
+but the operand may not be a list at all,
 and according to axiom \{\emph{len0}\} its value is zero in that case.
 So, (len nil) $= 0$, but (len $3$) $= 0$, too, since
 $3$ is not a list. Later, we will say more about this kind of axiom.}
@@ -397,6 +397,12 @@ the formula would make no sense because 1 is not the name of an operator.
 \caption{Single-quote Shorthand for Lists}
 \label{acl2-single-quote}
 \end{aside}
+
+\begin{ExerciseList}
+\Exercise \label{rst1}
+Prove \{\emph{rst1}\}: (rest [\emph{x}]) = nil.\\
+Hint: Cite some equations from Figure~\ref{first-rest-cons} (page \pageref{first-rest-cons}).
+\end{ExerciseList}
 
 \section{Mathematical Induction}
 \label{sec:induction}
@@ -1202,16 +1208,16 @@ However, the operand prototypes in the \{sfx0\} axiom match anything.
 There is a note restricting
 citations of the second axiom to cases
 where the first axiom does not apply.
-The definition of the len operator 
+The definition of the len operator
 had a fall-through axiom like this, too
 (Figure~\ref{fig:len-axioms}, page \pageref{fig:len-axioms}).
 
 Usually we state axioms with operand prototypes that constrain
-the operands to specific forms, 
+the operands to specific forms,
 but in the case of nthcdr, Note 2 conforms to the meaning
 of the (if $p$ $a$ $b$) formula, which chooses formula $b$
 only if $p$ has the value nil (representing false).
-Since \{\emph{sfx0}\} only applies if the operand prototypes in 
+Since \{\emph{sfx0}\} only applies if the operand prototypes in
 \{\emph{sfx0}\} don't match the operands in a formula that refers to nthcdr,
 the two axioms do not share any combination of operands, so they cannot
 cause an inconsistency in the specified results.
