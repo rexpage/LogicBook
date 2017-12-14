@@ -7,7 +7,7 @@
 \label{sec:addition-by-numeral}
 
 When people do paper-and-pencil \index{arithmetic!paper and pencil}arithmetic,
-they use numerals.
+they use decimal numerals.
 For example, to add two numbers, a person
 writes down the decimal numerals for the numbers,
 one under the other with the digits lined up so that
@@ -18,7 +18,7 @@ Then, the units digits are added together,
 and the low-order digit of that sum is written
 in the units-digit column.
 
-If the sum of the units digit is ten or more, a 
+If the sum of the units digit is ten or more, a
 \index{carry, addition}\index{addition!carry}carry is indicated in the tens-digit column.
 The sum of the tens digits is computed and the
 carry (if there was one) added to the sum.
@@ -54,7 +54,7 @@ There are a hundred entries in the table ($10 \times 10$, one for each
 possible pair of decimal digits).
 
 Decimal numerals are not the only kind,
-and addition can be carried out similarly, regardless of numeral base.
+and addition can be done in a similar way, regardless of the numeral base.
 The table of one-digit sums is much smaller for binary numerals
 than for decimal numerals because it only has to account for $0$ and $1$,
 not $0$, $1$, $2$, \dots $9$, but
@@ -62,8 +62,8 @@ the process of adding numerals is in other respects
 the same (Figure~\ref{fig:adding-binary-numerals}).
 The small size of the one-digit-sum table simplifies the
 both pencil-and-paper process and the difficulty of designing
-digital circuits for performing addition on binary numerals, compared to what
-it would be for decimal numerals.
+digital circuits for performing addition on binary numerals, compared to
+designing circuits for decimal numerals.
 
 \begin{figure}[!tbp]
 \begin{center}
@@ -130,7 +130,8 @@ into a logical-and gate.
 
 Another close look reveals that the sum bit
 matches the table of values of the
-digital gate for exclusive-or (Figure \ref{fig-02-logic-gates}).
+digital gate for exclusive-or
+(XOR, Figure~\ref{fig-02-logic-gates}, page \pageref{fig-02-logic-gates}).
 That is, the sum bit is 0 if the two inputs are the same
 and 1 if they are different.
 So, constructing a digital circuit to compute the sum bit
@@ -187,7 +188,7 @@ and the carry bit from the previous column.
 The half-adder circuit is not up to this task,
 since it has only two input signals.
 However, we can put together a full-adder circuit
-by combining two half-adders with an or-gate,
+by combining two half-adders and an or-gate,
 as shown in the circuit of Figure \ref{fig:full-adder}
 (page \pageref{fig:full-adder}).
 Since the full-adder circuit has three inputs,
@@ -258,7 +259,9 @@ both in paper-and-pencil form and in ACL2 notation.\footnote{The
 full-adder operator delivers a list [$s$ $c$] whose first
 element is the sum bit and whose second element is the carry bit.
 The order of elements in the result delivered by full-adder was designed
-to form a numeral for the sum of its three, one-bit operands.}
+to form a numeral for the sum of its three, one-bit operands.
+The list [$c$ $s$] would also work,
+but would complicate the analysis.}
 
 \begin{figure}
 \begin{center}
@@ -288,7 +291,8 @@ directs the output carry-bit produced by adding the low-order bits
 to the input carry-bit of the second full-adder circuit.
 Since there is never a carry into the low-order position,
 we just supply zero as the carry-in for the full-adder circuit
-that deals with the low-order bit.
+that deals with the low-order bit. That is, let
+$c_0 = 0$ in Figure~\ref{fig:adder2} (page \pageref{fig:adder2}).
 
 \begin{figure}
 \begin{center}
@@ -319,22 +323,23 @@ that deals with the low-order bit.
 This two-bit addition circuit takes two, two-bit binary numerals
 [$x_0$ $x_1$] and [$y_0$ $y_1$] as inputs, and
 delivers as output a two-bit numeral along with a carry-bit,
-as shown in Figure \ref{fig:adder2} (\pageref{fig:adder2}).
+as shown in Figure \ref{fig:adder2}.
 We refer to the output two-bit numeral, without the carry bit,
 as the sum bits.
 Ignoring the carry bit amounts to doing
 modular arithmetic, mod 4 (that is, mod $2^2$).
-This is confirmed by theorem \{\emph{pfx-mod}\} (page \pageref{pfx-mod}).
+This is confirmed by theorem \{\emph{pfx-mod}\}
+(Exercise~\ref{pfx-mod}, page \pageref{pfx-mod}).
 
 A mechanized verification of the arithmetic properties of adder2
-could be constructed as a comprehensive test,
+could be constructed as a comprehensive sequence of check-expect tests,
 as we did with the full-adder for one-bit addition
 (page \pageref{full-adder-model-check}).
 However, there would be 32 cases to check
 because there are five bits of input
 (a carry-in and two bits in each numeral, $2^5$ combinations in all).
-That makes a comprehensive test tedious to construct,
-and it's easy to make a mistake.
+That makes it tedious to construct a comprehensive sequence of check-expect tests.
+It would be easy to make a mistake.
 
 A better approach is to think of a formula in logic that expresses
 the properties we expect the model to have,
@@ -364,17 +369,17 @@ to interpret binary numerals as numbers.
   (let* ((a (adder2 c0 (list x0 x1) (list y0 y1)))
          (s (first a)) (c (second a)))
     (= (numb (append s (list c)))
-       (+ (numb(list c0))
+       (+ (numb (list c0))
           (numb (list x0 x1))
           (numb (list y0 y1))))))
 \end{Verbatim}
 
-
 \begin{ExerciseList}
-\Exercise Define a doublecheck property that tests
-for correctness of the two-bit adder model
-(Figure \ref{fig:adder2}, page \pageref{fig:adder2}).
-Run the test using Proof Pad.
+\Exercise Define a doublecheck property that checks the
+output of the two-bit adder model
+(Figure \ref{fig:adder2}, page \pageref{fig:adder2})
+against expectations.
+Run the test using Proof Pad.\\
 \emph{Note}: The data generator (random-between 0 1) delivers
 a 0 or a 1 at random.
 
@@ -391,13 +396,13 @@ confident that all 32 different cases for the two-bit adder have been tested?
 By now, you can predict what a circuit for adding three-bit
 binary numerals would look like.
 Just put another full adder in the circuit, and feed the
-carry from adding the two low-order bits into the carry-in
-of the new full-adder in the circuit, along with
-the high-order bits in the two numerals.
+carry from adding the two low-order bits into the carry-in,
+of the new full-adder in the circuit
+along with the high-order bits in the two numerals.
 
 Producing the circuit diagram for any number of bits
 is just a matter of wiring the appropriate number of
-full-adder components together in the appropriate way.
+full-adder components together in that way.
 Figure \ref{fig:adder} (page \pageref{fig:adder}) presents a schematic
 for a circuit that adds \emph{w}-bit numerals.
 The circuit is known as a ``ripple-carry adder'' because
@@ -416,7 +421,7 @@ of full-adder components.
              (a0 (full-adder c0 x0 y0))
              (s0 (first a0)) (c1 (second a0)) ; {add.bit0}
              (a  (adder c1 xs ys))
-             (ss (first a)) (c (second a)))
+             (ss (first a)) (c (second a)))   ; {add.bits}
         (list (cons s0 ss) c))                ; {add1}
       (list nil c0)))                         ; {add0}
 \end{Verbatim}
@@ -499,7 +504,7 @@ a paper-and-pencil proof.
 Our proof will, of course, work from
 the model of the adder circuit
 (Figure \ref{fig:adder}, page \pageref{fig:adder}),
-not from the circuit diagram.
+rather than from the circuit diagram.
 Aside \ref{circuit-vs-model} (page \pageref{circuit-vs-model})
 discusses some of the ramifications of this approach.
 
@@ -537,15 +542,15 @@ we have left that step to the imagination.
 Theorem \{\emph{adder ok}\} \\
 (numb [$s_0$ $s_1$ \dots $s_{n}$ $c$]) $=$
 (numb [$c_0$]) + (numb [$x_0$ $x_1$ \dots $x_{n}$]) + (numb [$y_0$ $y_1$ \dots $y_{n}$]) \\
-where [[$s_0$ $s_1$ \dots $s_{n}$] [$c$]] $=$ (adder $c_0$ [$x_0$ $x_1$ \dots $x_{n}$] [$y_0$ $y_1$ \dots $y_{n}$])\\
+where [[$s_0$ $s_1$ \dots $s_{n}$] $c$] $=$ (adder $c_0$ [$x_0$ $x_1$ \dots $x_{n}$] [$y_0$ $y_1$ \dots $y_{n}$])\\
 \end{tabular}
 \end{center}
 \end{samepage}
 
 Proving Theorem \{\emph{adder ok}\} amounts to
 verifying that $(\forall n.R(n))$ is true,
-where the predicate $R$ is defined on the natural numbers,
-its universe of discourse, as follows.
+where the predicate $R$, with the natural numbers as
+its universe of discourse, is defined as follows.
 \begin{center}
 \begin{tabular}{l}
 $R(n) \equiv$ $($(numb [$s_0$ $s_1$ \dots $s_{n}$ $c$]) $=$
@@ -555,35 +560,81 @@ $R(n) \equiv$ $($(numb [$s_0$ $s_1$ \dots $s_{n}$ $c$]) $=$
 \end{center}
 
 The proof will use mathematical induction.
-To prove the base case $R(0)$,
-we start our reasoning from the right-hand side of the equation.
+Figure~\ref{fig:adder-thm-prf} (page \pageref{fig:adder-thm-prf})
+displays the equation of the base case, $R(0)$,
+and sketches its proof. Here we elaborate some of the details
+that were omitted in the sketch.
 The first step is
 to compute the value of (adder $c_0$ [$x_0$] [$y_0$])
 by working through the definition of the adder operator
-(Figure \ref{fig:full-adder-thm}, page \pageref{fig:full-adder-thm}).
-With these operands, the IF operator selects the inductive invocation \{add1\}:
-[(cons $s_0$ $ss$) $c$], where [$ss$ $c$] $=$ (adder $c$ (rest [$x_0$]) (rest [$y_0$])).
-The second and third operands in the invocation
-are empty lists because (rest [$x_0$]) $=$ (rest [$y_0$]) $=$ nil.
-The first operand is $c$, where [$s_0$ $c$] $=$ (full-adder $c_0$ $x_0$ $y_0$).
-The theorem \{full-adder ok\} says that
-(numb (full-adder $c_0$ $x_0$ $y_0$)) $=$ (numb [$c_0$]) + (numb [$x_0$]) + (numb [$y_0$]).
-Therefore, (numb [$s_0$ $c$]) $=$ (numb [$c_0$]) + (numb [$x_0$]) + (numb [$y_0$]).
+(Figure \ref{fig:adder}, page \pageref{fig:adder}).
+With these operands, the IF operator in adder
+selects \{add1\}.
+\begin{quote}
+\begin{tabular}{rll}
+       & (adder $c_0$ [$x_0$] [$y_0$])               & \\
+\vspace{1mm}
+$=$    & [(cons $s_0$ $ss$) $c$]                     & \{add1\} (page \pageref {fig:adder})  \\
+where  & [$ss$ ~ $c$]                                & \\
+$=$    & (adder $c_1$ (rest [$x_0$]) (rest [$y_0$])) & \{add.bits\} (page \pageref {fig:adder}) \\
+$=$    & (adder $c_1$ nil nil)                       & \{\emph{rst1}\} (page \pageref {rst1}) \\
+$=$    & [nil ~ $c_1$]                               & \{add0\} (page \pageref {fig:adder}) \\
+\end{tabular}
+\end{quote}
+\setlength{\tabcolsep}{1mm}
+\begin{tabular}{rll}
+Therefore, & $ss$ $=$ nil                                       & \\
+           & $c$ $=$ $c_1$                                      & \{$\dagger$\} \\
+and        & (cons $s_0$ $ss$) $=$ (cons $s_0$ nil) $=$ [$s_0$] & \{$\ddagger$\}\\
+           &                                                    & \\
+\end{tabular}
 
-Figure \ref{fig:adder-thm-prf} (page \pageref{fig:adder-thm-prf}) sketches
-this line of reasoning,
-and presents a similar proof for the inductive case: $(R(n) \rightarrow R(n+1))$.
-When the proof arrives at the sum
+Figure~\ref{fig:adder-thm-prf} constrains
+the variables in the equation $R(0)$.
+Assume constraint \{$\star$\} holds.
+\vspace{1mm}\\
+%For reference, the constraint is labeled \{$\star$\}.
+\hspace*{1.5cm}[[$s_0$] $c$] $=$ (adder $c_0$ [$x_0$] [$y_0$]) ~~~~ \{$\star$\}
+
+~~\\
+The proof of $R(0)$ (Figure~\ref{fig:adder-thm-prf}) can then proceed as follows.
+\begin{quote}
+\begin{tabular}{rll}
+    & (numb [$s_0$ $c$])                               &                   \\
+$=$ & (numb [$s_0$ $c_1$])                             & \{$\dagger$\}    \\
+$=$ & (numb (full-adder $c_0$ $x_0$ $y_0$))            & \{add.bit0\}      \\
+$=$ & (numb [$c_0$]) + (numb [$x_0$]) + (numb [$y_0$]) & \{full-adder ok\} \\
+\end{tabular}
+\end{quote}
+
+The last step is to verify constraint \{$\star$\}.
+That goes as follows.
+\begin{quote}
+\begin{tabular}{rll}
+    & (adder $c_0$ [$x_0$] [$y_0$]) &               \\
+$=$ & [(cons $s_0$ $ss$) $c$]       & \{add1\}      \\
+$=$ & [[$s_0$] $c$]                 & \{$\ddagger$\}\\
+\end{tabular}
+\end{quote}
+
+This completes the proof of equation $R(0)$.
+So much for the base case.
+
+Figure~\ref{fig:adder-thm-prf} also presents
+a proof of the inductive case: $\forall n.(R(n) \rightarrow R(n+1))$.
+When that proof arrives at the sum
 (numb [$c_1$]) $+$ (numb [$x_1$ \dots $x_{n+1}$]) $+$ (numb [$y_1$ \dots $y_{n+1}$]),
-it recognizes that the induction hypthesis, $R(n)$, applies because
+it recognizes that the induction hypothesis, $R(n)$, applies because
 the numerals [$x_1$ \dots $x_{n+1}$] and [$y_1$ \dots $y_{n+1}$] have $n+1$
 elements, like the numerals in the equation $R(n)$.
 The subscripts run from $1$ to $n+1$ instead of from $0$ to $n$,
-but it's the number of bits that counts, not their subscripts.
-The induction hypothesis implies that this sum equals
+but it's the number of bits that counts, not the subscripts.
+The induction hypothesis says that this sum equals
 (numb [$s_1$ \dots $s_{n+1}$ $c$]), and
 the \{\emph{nmb1}\} theorem (Exercise \ref{nmb1}, page \pageref{nmb1})
-combines this formula with (numb [$s_0$]) to arrive at left-hand side
+adds (numb [$s_0$]) $+$ (numb [$s_1$ \dots $s_{n+1}$ $c$]) 
+to arrive at (numb [$s_0$ $s_1$ \dots $s_{n}$ $c$]).
+We have derived the left-hand side
 of the equation $R(n+1)$, having started from the right-hand side.
 By mathematical induction, we conclude that
 the \{adder ok\} theorem is true.
@@ -627,14 +678,14 @@ $R(n+1)$ $\equiv$ $($(numb [$s_0$ $s_1$ \dots $s_{n+1}$ $c$]) $=$ \\
 \hline
 \end{tabular}
 \begin{tabular}{ll}
-(numb [$c_0$]) $+$ (numb [$x_0$ $x_1$ \dots $x_{n+1}$]) $+$ (numb [$y_0$ $y_1$ \dots $y_{n+1}$])          & \\
+\hspace*{3mm}(numb [$c_0$]) $+$ (numb [$x_0$ $x_1$ \dots $x_{n+1}$]) $+$ (numb [$y_0$ $y_1$ \dots $y_{n+1}$])& \\
 $=$ (numb [$c_0$]) $+$ (numb [$x_0$]) $+$ $2\times$(numb [$x_1$ \dots $x_{n+1}$])                         & \{\emph{nmb1}\} \emph{(p. \pageref{nmb1})} \\
 \hphantom{$=$ (numb [$c_0$]) }$+$ (numb [$y_0$]) $+$ $2\times$(numb [$y_1$ \dots $y_{n+1}$])                  & \{\emph{nmb1}\} \\
 $=$ (numb [$c_0$]) $+$ (numb [$x_0$]) + (numb [$y_0$]) $+$                                                & \\
  ~~~~~~ $2\times($(numb [$x_1$ \dots $x_{n+1}$]) $+$ (numb [$y_1$ \dots $y_{n+1}$])$)$                    & \{\emph{algebra}\} \\
 $=$ (numb (full-adder $c_0$ $x_0$ $y_0$)) $+$                                                             & \{\emph{full-adder ok}\} \\
  ~~~~~~ $2\times($(numb [$x_1$ \dots $x_{n+1}$]) $+$ (numb [$y_1$ \dots $y_{n+1}$])$)$                    & \\
-$=$ (numb [$s_0$ $c_1$]) + $2\times($(numb [$x_1$ \dots $x_{n+1}$]) $+$ (numb [$y_1$ \dots $y_{n+1}$])$)$ & \{\emph{add.bit0}\} \emph{(\{adder\}}) \\
+$=$ (numb [$s_0$ $c_1$]) + $2\times($(numb [$x_1$ \dots $x_{n+1}$]) $+$ (numb [$y_1$ \dots $y_{n+1}$])$)$ & \{\emph{add.bit0}\} \emph{(p.\pageref{fig:full-adder-thm})} \\
 $=$ (numb [$s_0$]) $+$ $2\times$(numb [$c_1$]) +                                                          & \{\emph{nmb1}\} \\
 \hphantom{$=$ (numb [$s_0$ $c_1$]) + }$2\times($(numb [$x_1$ \dots $x_{n+1}$]) $+$ (numb [$y_1$ \dots $y_{n+1}$])$)$  & \\
 $=$ (numb [$s_0$]) $+$                                                                                    & \{\emph{algebra}\} \\
@@ -646,7 +697,7 @@ $=$ (numb [$s_0$ $s_1$ \dots $s_{n+1}$ $c$])                                    
 \index{theorem, by name!\{adder-ok\}}\seeonlyindex{adder-ok theorem}{theorem}\index{theorem!ripple-carry adder}
 \index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}
 \index{arithmetic!binary numeral}
-\caption{Theorem \{adder ok\} and Proof by Mathematical Induction}
+\caption{Theorem \{adder ok\}: Proof by Mathematical Induction}
 \label{fig:adder-thm-prf}
 \end{figure}
 
@@ -777,15 +828,15 @@ Subtraction is handled by negating a number
 (that is, computing the twos-complement representation
 of its negative), then performing addition modulo $2^{32}$.
 
-The same thing works for any word size.
+This method works for any word size.
 With word size $w$, the twos complement system
 handles addition and subtraction for numbers $n$
 in the range $-2^{w-1} \leq n < 2^{w-1}$
 by performing ordinary addition of numerals,
 as with the ripple-carry adder, but interpreting
 the numerals according to the twos-complement scheme.
-Circuits for performing addition (and subtraction, since
-it is the same operation in a twos-complement system)
+Circuits for performing addition (and subtraction, which
+it the same operation in a twos-complement system)
 take advantage of the consistency between modular arithmetic
 and ordinary arithmetic (page \pageref{modular-arithmetic}).
 
@@ -811,7 +862,7 @@ The ``twos'' operator, defined as follows, delivers the twos-complement numeral
 for a number $n$ in the set $I(w)$.
 
 \label{twos-defun}
-\index{twos complement!operator})\index{operator, by name!twos (twos complment)}
+\index{twos complement!operator}\index{operator, by name!twos (twos complment)}
 \index{operator!twos complement}
 \index{equation, by name!\{2s$+$\}, \{2s$-$\}}
 \index{arithmetic!negative numeral}
@@ -884,13 +935,12 @@ outside the set $I(w)$, so the sum has no \emph{w}-bit, twos-complement numeral.
 This outcome is known as an overflow.
 Similarly, adding two numbers in the bottom half of the
 negative range ($-2^{w-1} \leq m,n < -2^{w-2}$)
-produces a number outside the twos-complement range, an overflow.}
+produces a number outside the twos-complement range, an overflow in the negative direction.}
 
-Now, here is an interesting
-\index{negative numeral}\index{numeral!negative}\index{number!negative}
-\index{numeral!twos complement}\index{twos complement!numeral}
-\index{twos complement!negation}\index{twos complement!word}\index{word!twos complement}
-trick for computing the twos-complement numeral of a negative number without
+Now, here is an 
+interesting
+\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!twos complement}\index{twos complement!numeral}\index{twos complement!negation}\index{twos complement!word}\index{word!twos complement}trick
+for computing the twos-complement numeral of a negative number without
 computing $2^w$ or doing subtraction.
 It works like this.
 Let $x_{w-1}x_{w-2} \dots x_2x_1x_0$
@@ -922,7 +972,8 @@ It's an exercise in algebra and modular arithmetic.\footnote{The
 proof of the \{$ys$ increment\} equation
 in Figure~\ref{fig:2s-comp-negation}
 cites a formula for the sum of a geometric progression.
-The formula is proved at, for example, \url{https://en.wikipedia.org/wiki/Geometric_progression}.}
+You can prove the formula by induction or look it up at, for example,
+\url{https://en.wikipedia.org/wiki/Geometric_progression}.}
 
 \begin{figure}
 \emph{Some facts, notation, and equations:}
@@ -957,7 +1008,7 @@ $1$ $+$ (numb $ys$) $=$ $2^w - n$                      & \{$ys$ \emph{increment}
   & (bits (+ 1 (numb $ys$)))        & \\
 = & (bits $(2^w - n)$)              & \{$ys$ \emph{increment}\} \emph{equation} \\
 = & (bits $(2^w + (- n))$)          & \{\emph{algebra}\}                        \\
-= & (bits (+ (expt 2 $w$) $(- n)$)) & $(2^w + (- n))$ \emph{in ACL2 notation}   \\
+= & (bits (+ (expt 2 $w$) $(- n)$)) & \emph{ACL2 notation for} $(2^w + (- n))$\\
 = & (twos $w$ $(- n)$)              & \{$2s-$\} \emph{(}\{\emph{twos}\}\emph{, page \pageref{twos-defun})} \\
 \end{tabular}
 \end{center}
@@ -1007,8 +1058,7 @@ of the ripple carry adder in
 Figure \ref{fig:adder} (page \pageref{fig:adder}).
 
 \Exercise Define and run a doublecheck property that
-tests the correctness of
-an ACL2 model of the negation circuit of
+tests the ACL2 model of the negation circuit of
 Excercise~\ref{2s-negation-circuit-model}.
 
 \Exercise \label{2s-subtraction-circuit}
@@ -1025,8 +1075,7 @@ Define an ACL2 model of the twos-complement
 subtraction circuit of Exercise~\ref{2s-subtraction-circuit}.
 
 \Exercise Define and run a doublecheck property that
-tests the correctness of
-the ACL2 model of the subtraction circuit
+tests the ACL2 model of the subtraction circuit
 in Exercise~\ref{2s-subtraction-circuit-model}.
 
 \Exercise \label{2s-comparison-circuit}
@@ -1047,7 +1096,7 @@ Your model may refer to the subtraction circuit model
 of Exercise~\ref{2s-subtraction-circuit-model}.
 
 \Exercise Define and run a doublecheck property
-that tests the correctness of the comparison circuit model
+that tests the comparison circuit model
 of Exercise~\ref{2s-comparison-circuit-model}.
 
 \end{ExerciseList}
