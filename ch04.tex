@@ -470,14 +470,14 @@ Axioms \{\emph{if}\} \\
 
 Consider the value of (append $xs$ $ys$).
 If the first operand is not nil (that is, if (consp $xs$) is true),
-we use a formula that appends (rest $xs$) and $ys$: (append (rest $xs$) $ys$).
-If the first operand is nil, the value of append
+that value is (append (rest $xs$) $ys$).
+However, ff $xs$ is nil, the value of append
 is simply its second operand.
-So, we have two formulas for append, and we can use the consp operator,
-in conjunction with the ``if'' operator
-to write another doublecheck test for append.
+So, there are two formulas for append.
+A doublecheck test in Figure~\ref{fig:append-test} (page \pageref{fig:append-test}) 
+uses the consp and IF operators to select between them.
 
-\begin{samepage}
+\begin{figure}
 \begin{Verbatim}
 (defproperty append-test
   (xs :value (random-list-of (random-natural))
@@ -488,7 +488,9 @@ to write another doublecheck test for append.
                    (append (rest xs) ys))
              ys)))
 \end{Verbatim}
-\end{samepage}
+\caption{Doublecheck Test of Append}
+\label{fig:append-test}
+\end{figure}
 
 \begin{aside}
 Why does the property say (equal (append $xs$ $ys$) \dots)
@@ -983,7 +985,7 @@ one for the case when the first operand was a non-empty list,
 and the other for all other possibilities.
 The ACL2 definition, following that pattern, has two subformulas,
 one for each case.
-It uses the ``if'' operator
+It uses the IF operator
 (Figure~\ref{fig:if-axioms}, page \pageref{fig:if-axioms})
 to select the appropriate formula.
 
