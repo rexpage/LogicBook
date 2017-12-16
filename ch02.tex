@@ -1239,7 +1239,7 @@ $(x \rightarrow (\neg x)) = (\neg x)$                                & \{contrad
 \end{figure}
 
 \section{Digital Circuits}
-\label{sec:digital-circuits}boolean-contradiction
+\label{sec:digital-circuits}
 
 Logic formulas provide a mathematical notation for concepts in symbolic logic.
 These same concepts can be materialized as electronic devices.
@@ -2541,7 +2541,7 @@ item is an element of the set or not.
 Usually, our sets will be familiar ones,
 such as the set of natural numbers, which
 is the universe of discourse indexing the propositions
-in proofs by mathematical induction or
+in proofs by mathematical induction, or
 the set of lists that can be constructed
 by an ACL2 program.
 Occasionally, the universe of discourse will be
@@ -3221,7 +3221,7 @@ $=$ & $(\forall x.(\forall v.(\exists u.(P(u, v) \rightarrow (\exists y.P(x, y))
 $=$ & $(\forall x.(\forall v.(\exists u.(\exists y.(P(u, v) \rightarrow P(x, y))))))$     & \{$\rightarrow\exists$\}\\
 \end{tabular}
 \end{center}
-\caption{Renaming Bound Variables and Migrating Quantifiers}
+\caption{Example: Renaming Variables and Migrating Quantifiers}
 \label{fig:rename-migrate-example}
 \end{figure}
 
@@ -3291,7 +3291,7 @@ Both migrations lead to a $\forall$ quantifier in the front,
 so they are equally advantageous.
 We chose to migrate the $\forall x$, but let's try migrating
 the $\exists v$, instead, to see how it goes.
-When migrate $\exists v$ first (citing \{$\exists\rightarrow$\}), 
+When migrate $\exists v$ first (citing \{$\exists\rightarrow$\}),
 we get the following formula.
 
 $$(\forall v.((\forall u.(P(u, v))) \rightarrow (\forall x.(\exists y.(P(x, y))))))$$
@@ -3311,7 +3311,7 @@ Therefore, we're better off migrating the $\forall x$ quantifier first.
 $$(\forall v.((\forall x.((\forall u.P(u, v)) \rightarrow (\exists y.P(x, y))))))$$
 
 To see the advantage of having forall quantifiers at the front of the formula,
-consider the formula $(\forall x.((\exists y.(x < y))))$, 
+consider the formula $(\forall x.((\exists y.(x < y))))$,
 with pairs $(x,y)$ of integers as the universe of discourse.
 We can remove the quantifier ($\forall x$), choosing $x_0$ to
 represent an integer constant.
@@ -3319,7 +3319,7 @@ This leaves the formula $(\exists y.(x_0 < y))$.
 Now it is easy to choose an integer for the variable $y$
 that makes the formula true. For example,  $y = x_0+1$
 leaves us with the formula $x_0 < x_0 + 1$.
-This exhibits an integer $y$ for which $x_0 < y$, 
+This exhibits an integer $y$ for which $x_0 < y$,
 which means that $(\exists y.(x_0 < y)) = True$.
 Of course there are many other choices for $y$ that would also work,
 but by the definition of the there-exists ($\exists$) quantifier, we only need one.
@@ -3347,7 +3347,7 @@ but it calls for additional rules of inference
 to incorporate quantifiers into the scheme.
 The equations of Figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
 have many uses beyond the four-step method.
-They fit well into the equation-based approach to reasoning that 
+They fit well into the equation-based approach to reasoning that
 is a central theme of this book.
 
 \begin{ExerciseList}
@@ -3527,7 +3527,7 @@ We will account for this constraint later, and in a more general way.}
 $$x_{0}^{6} \vee x_{1}^{6} \vee x_{2}^{6} \vee \cdots \vee x_{10}^{6}.$$
 
 Our model has ten formulas like this,
-When we combine all of them with logical-and 
+When we combine all of them with logical-and
 (referred to as AND, here, to make the description more compact),
 we get a formula that constrains the number of stones
 in the pile at each stage in the game.
@@ -3565,7 +3565,7 @@ be captured with the following rule.
 
 $$x_{5}^{3} \rightarrow (x_{4}^{4} \vee x_{3}^{4} \vee x_{2}^{4})$$
 
-We need to be careful when we get down to piles with fewer than three stones. 
+We need to be careful when we get down to piles with fewer than three stones.
 For example, for the case when there are only
 two stones left in the pile, we need a rule of the following form.
 
@@ -3703,7 +3703,7 @@ Describe this game using Boolean variables and formulas.
 Boolean formulas and equations can be used
 to describe and analyze complicated, real world artifacts.
 That makes the Boolean domain have a greater scope than is apparent at first glance,
-but using it, even for artifacts of modest size, 
+but using it, even for artifacts of modest size,
 can be cumbersome to the point of \index{infeasibility}infeasibility.
 Hundreds, thousands, or millions of Boolean variables are needed,
 and they are difficult to deal with in an understandable fashion.
@@ -3788,7 +3788,7 @@ sound fuzzy in an informal description.
 Quantifiers are the device that makes formulas using predicates more compact than
 formulas that stay in the domain of propositions.
 We saw in the previous section that it
-is possible to characterize the game of Nim using just Boolean variables, 
+is possible to characterize the game of Nim using just Boolean variables,
 with a formula that has the following characteristics.
 
 \begin{quote}
