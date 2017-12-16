@@ -57,17 +57,17 @@ the ripple-carry adder to software that performs addition on
 binary numerals with an arbitrary number of bits,
 representing numbers of unlimited size.
 The first step is to work out a way to increment a
-binary numeral by one. 
+binary numeral by one.
 That is,
 we want to define an operator add1 that, given a
 binary numeral $x$ for the natural number $n$, delivers the
-binary numeral for $(n+1)$. 
+binary numeral for $(n+1)$.
 The operator will have the following
 property with respect to the operators bits and numb from
 Section~\ref{sec:binary-numerals} (page \pageref{bits-defun})
 for converting between numbers and our representation
 of binary numerals. The property is stated in terms of numbers,
-but add1 will work directly with numerals, 
+but add1 will work directly with numerals,
 bypassing entirely the intrinsic numbers of the computer system.
 \\
 \vspace{2mm}
@@ -80,7 +80,7 @@ and all we have to do is to write some equations that it
 would have to satisfy if it worked. If we manage
 to come up with equations that are consistent, comprehensive, and computational
 (Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys})
-we will have defined an operator, 
+we will have defined an operator,
 and it will be the only operator that makes all of those equations true.
 
 A particularly simple situation occurs when the numeral to be incremented
@@ -136,7 +136,7 @@ Now we have three equations.
 They are consistent (no overlapping cases) and
 comprehensive (all cases covered).
 The equations are also computational because the input numeral
-on the right-hand side of the inductive equation 
+on the right-hand side of the inductive equation
 \{add11\} is shorter than
 the numeral on the left-hand-side of the equation.
 Therefore, the equations define the add-1 operator.
@@ -185,7 +185,7 @@ bit position and the carry bit, $c_{n+1}$, for the next bit position.
 This analysis provides the basis for
 one of the equations for the bignum adder.
 The equation is inductive and applies
-when neither addend is the empty numeral, 
+when neither addend is the empty numeral,
 so that both have low-order bits.
 
 \begin{center}
@@ -320,7 +320,7 @@ Grade-school students learn this procedure without knowing
 the algebra behind it. However, we want to specify the operations in
 the form of equations, so we need to work out the algebra.
 Figure~\ref{fig:grade-school-mult} (page \pageref{fig:grade-school-mult})
-presents the multiplication procedure, 
+presents the multiplication procedure,
 and provides an algebraic argument that justifies it.
 The algebra relies on the equation
 that grade-school students use to check the correctness of their long-division problems.
@@ -342,15 +342,16 @@ parlays this idea to elucidate digit-by-digit multiplication.
 \emph{Nomenclature}
 \begin{center}
 \begin{tabular}{ll}
-$x$                       &number represented by the numeral of the multiplier\\
-$x_0$ $=$ $x$ mod $10$    &low-order digit of the numeral for $x$\\
-$\lfloor x\div 10\rfloor$ &number represented by the other digits of the numeral for $x$\\
-$y$                       &number represented by the numeral of the multiplicand\\
-$m$   $=$ $x_0\cdot y$    &product of the low-order digit of $x$ and $y$\\
-$m_0$ $=$ $m$ mod $10$    &low-order digit of the numeral for $m$\\
-$\lfloor m\div 10\rfloor$ &number represented by the other digits of the numeral for $m$\\
+$x$                         &number represented by the numeral of the multiplier\\
+$x_0$ $=$ $x$ mod $10$      &low-order digit of the numeral for $x$\\
+$\lfloor x\div 10\rfloor$   &number represented by the other digits of the numeral for $x$\\
+$y$                         &number represented by the numeral of the multiplicand\\
+$m$   $=$ $x_0\cdot y$      &product of $y$ and the low-order digit of $x$\\
 $p$   $=$ $\lfloor x\div 10\rfloor\cdot y$ &product of $y$ and the number represented by other digits of $x$\\
+$m_0$ $=$ $m$ mod $10$      &low-order digit of the numeral for $m$\\
+$\lfloor m\div 10\rfloor$   &number represented by the other digits of the numeral for $m$\\
 $s$   $=$ $\lfloor m\div 10\rfloor + p$    &sum of $p$ and the number represented by the other digits of $m$\\
+$x y$ $=$ $s\cdot 10 + m_0$ &shift the numeral for $s$ and bring down digit $m_0$\\
 \end{tabular}
 \end{center}
 
@@ -363,14 +364,14 @@ of the numeral for the multiplier, $x$: $m = x_0\cdot y$.
 
 \item \emph{Digit by Digit}:
 Multiply $y$ by the number
-represented by the other digits of the numeral for $x$: 
+represented by the other digits of the numeral for $x$:
 $p=\lfloor x\div 10\rfloor\cdot y$.
 
 \item \emph{Shift and Add}:
-Add $p$ to the number represented by 
+Add $p$ to the number represented by
 the other digits of the numeral for $m$: $s = p + \lfloor m\div 10\rfloor$.
 (In grade-school terminology, this is the step where you
-shift left one digit and add.)
+shift and add.)
 
 \item \emph{Bring It Down}:
 Observe that the low-order digit, $m_0$, of $m$
@@ -411,7 +412,7 @@ because the multiplication table for bits is much simpler
 than for decimal digits.
 We are looking for some equations that define a multiplication operator.
 That is, an operator that delivers the binary numeral for the product of the numbers
-represented by its operands, which are also binary numerals. 
+represented by its operands, which are also binary numerals.
 Let's call it mul, and let's call its operands, which are binary numerals,
 $x$ and $y$ (Section~\ref{sec:binary-numerals}, page \pageref{sec:binary-numerals}).
 If $y$ is nil, it stands for zero, which makes the product zero, represented by nil.
@@ -420,7 +421,7 @@ That gives us one equation.
 \hspace*{2cm} (mul $x$ nil) = nil \hspace{2cm} \hfill \{mulx0\}
 \\
 
-That completes the computation when $y$ is nil, 
+That completes the computation when $y$ is nil,
 so we can now focus on the case when $y$ is not nil.
 For this case, we are going to invoke another operator, mxy,
 that assumes $y$ is not nil. That gives us the other equation
@@ -432,18 +433,19 @@ for mul.
 Now, we turn our attention to defining mxy, which multiplies binary
 numerals $x$ and $y$, assuming that $y$ is not an empty numeral.
 It may happen that $x$ is empty, which stands for zero, so that
-the product is also zero, and in that case (mxy $x$ $y$) is nil, 
+the product is also zero, and in that case (mxy $x$ $y$) is nil,
 which gives us one of the equations for mxy.
 
 \hspace*{2cm} (mxy nil $y$) = nil  \hfill \{mul0y\}
 \\
 
 That leaves the case when $x$ $=$ [$x_0$ $x_1$ $x_2$ ...] is not empty.
-Follow along, again, in Figure~\ref{fig:grade-school-mult}, 
-but this time, because we're in binary mode, think $2$ when you see $10$.
-We'll discuss step 1 shortly, but first look at step 2, 
+Follow along, again, in Figure~\ref{fig:grade-school-mult},
+but this time, because we're in binary mode, think $2$ when you see $10$,
+and think bits where you see digits.
+We'll discuss step 1 shortly, but first look at step 2,
 which will be necessary, regardless of what happens in step 1.
-Step 2 requires the computation of 
+Step 2 requires the computation of
 $p = \lfloor x \div 2 \rfloor \cdot y$.
 The numeral for $\lfloor x \div 2 \rfloor$ is just $x$ without its
 low-order bit: numeral for $\lfloor x \div 2 \rfloor =$ (rest $x$).
@@ -456,7 +458,7 @@ is a numeral at this point, not a number.
 \\
 
 Binary numerals make the first step of the
-multiplication procedure ($m = x_0 \cdot y$) 
+multiplication procedure ($m = x_0 \cdot y$)
 simpler than with decimal numerals.
 The bit $x_0$ is either a zero or a one.
 If it's a zero, $m = m_0 = 0$, so all
@@ -473,7 +475,7 @@ So, when $x_0 = 0$, we get the following equation for mxy.
       (let* ((p  (mxy (rest x) y)))             ; {mul.p}
         (if (= (first x) 1)
             (cons (first y) (add 0 p (rest y))) ; {mul1xy}
-            (cons 0 m)))                        ; {mul0xy}
+            (cons 0 p)))                        ; {mul0xy}
       nil))                                     ; {mul0y}
 
 (defun mul (x y)
@@ -495,9 +497,9 @@ Again, $y$ is a numeral, so the numeral for $\lfloor y\div 2\rfloor$
 is just like $y$, but without the first bit: (rest $y$).
 That gives us another equation for mxy.
 We use the bignum add operator to compute the sum in step 3
-of the multiplication procedure. 
+of the multiplication procedure.
 The first operand of the add operator is the input carry bit,
-and in that would be zero because we only want to add $p$ and (rest $y$).
+which is zero because we only want to add $p$ and (rest $y$).
 We bring down the low-order bit of $m$, but $m = y$
 ($x_0 = 1$, you remember), so that's (first $y$).
 
@@ -510,7 +512,7 @@ or $y$ is not empty, in which case \{mulxy\} applies, and
 the computation is left up to the operator mxy,
 so we have to analyze the definition of mxy.
 
-The equations in the definition of mxy are comprehensive 
+The equations in the definition of mxy are comprehensive
 because either $x$ is empty, in which case
 equation \{m0y\} applies, or $x$ is not empty.
 If $x$ is not empty, its low-order bit is either zero,
@@ -524,14 +526,14 @@ are empty, they deliver the same result, namely the empty numeral.
 They are computational because in the inductive equations,
 \{m0xy\} and \{m1xy\}, the first operand in
 the invocation of the operator mxy on the right-hand side,
-is the numeral (rest $x$). Since $x$ is non-empty, 
+is the numeral (rest $x$). Since $x$ is non-empty in the inductive case,
 (rest $x$) has fewer bits than the $x$, which is the first operand
-on the left-hand side. 
+on the left-hand side.
 So, the inductive invocation is closer to a non-inductive
 case than the formula on the left-hand side of the equation.
 
 Putting this all together leads to the ACL2 definition
-of the bignum multiplication operator mul in 
+of the bignum multiplication operator mul in
 Figure~\ref{fig:bignum-mul-defun} (page \pageref{fig:bignum-mul-defun}.
 Most of the work is done by the operator mxy.
 From these definitions, ACL2 successfully finds an
