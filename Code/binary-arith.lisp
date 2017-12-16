@@ -84,7 +84,7 @@
              (a0 (full-adder c0 x0 y0)) 
              (s0 (first a0)) (c1 (second a0)) ; {add.bit0}
              (a  (adder c1 xs ys)) 
-             (ss (first a)) (c (second a)))
+             (ss (first a)) (c (second a)))   ; {add.bits}
         (list (cons s0 ss) c))                ; {add1}
       (list nil c0)))                         ; {add0}
 (defthm adder-ok

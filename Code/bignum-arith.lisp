@@ -8,7 +8,7 @@
 
 (defun add-c (c x)
   (if (= c 1)
-      (add-1 x)  ; [addc1}
+      (add-1 x)  ; {addc1}
       x))        ; {addc0}
 
 (defun add (c0 x y)
@@ -25,10 +25,10 @@
 
 (defun mxy (x y) ; assumption: y is not nil
   (if (consp x)
-      (let* ((m  (mxy (rest x) y)))
+      (let* ((p  (mxy (rest x) y)))             ; {mul.p}
         (if (= (first x) 1)
-            (cons (first y) (add 0 (rest y) m)) ; {mul1xy}
-            (cons 0 m)))                        ; {mul0xy}
+            (cons (first y) (add 0 p (rest y))) ; {mul1xy}
+            (cons 0 p)))                        ; {mul0xy}
       nil))                                     ; {mul0y}
 
 (defun mul (x y)
