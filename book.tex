@@ -11,6 +11,10 @@
 %\usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
 
+% package "nth" allows \nth{2} to be 2nd with superscipt, without the italics of math mode
+%WinEdt couldn't find it, or something
+%\usepackage[super]{nth}
+
 % fancyvrb and fvset are for Verbatim directive
 \usepackage{fancyvrb}
 \fvset{frame=single,numbers=left}
@@ -203,10 +207,8 @@ First edition:                        & January 2018 \\
 
 \begin{center}
 \normalsize\textsf{\emph{To Warren R Page, who would have enjoyed knowing some of this stuff}}\par
-\end{center}
-
-\begin{center}
-\normalsize\textsf{\emph{Ruben's dedication goes here}}\par
+\normalsize\textsf{\emph{and}}\par
+\normalsize\textsf{\emph{To \dots Ruben's dedication goes here}}\par
 \end{center}
 
 \vspace*{\fill}
@@ -215,14 +217,21 @@ First edition:                        & January 2018 \\
 
 \pagestyle{headings}
 
+%short ToC
 \setupshorttoc
 \tableofcontents
 \clearpage
+
+% long ToC
 \setupparasubsecs
 \setupmaintoc
 \tableofcontents
+
+% list of figures
 \clearpage
 \listoffigures
+
+%list of asides
 \clearpage
 \listofasides
 \clearpage
@@ -234,7 +243,7 @@ First edition:                        & January 2018 \\
 
 \raggedbottom
 
-\part{Introduction to Computers and Logic}
+\part{Logic and Equations}
 
 \include{ch01}
 
