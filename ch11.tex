@@ -15,7 +15,7 @@ so people can find them.
 The importance of being organized increases with the number of items.
 If you run a warehouse, you might have to keep track of many thousands of things.
 One solution is to associate a stock number with each
-kind of item, set up a bin for each, and arrange the bins by 
+kind of item, set up a bin for each, and arrange the bins by
 \index{stock number search}stock number.
 That works reasonably well, even if there are many thousands of kinds of items.
 When the warehouse decides to stock a new kind of item, you just set up
@@ -73,7 +73,7 @@ The average number of pairs
 you need to look through to find a particular, randomly selected, pair
 probably will be about half the number of pairs.
 
-\emph{Binary search method}.
+\emph{Binary search method}.\label{binary-search-method}
 If you had a thousand books on your bookshelves,
 you could arrange them in alphabetical order by title.
 When you get a new book, you just insert it in the right place,
@@ -108,9 +108,9 @@ when there are $n$ items, altogether, is the
 first integer $k$ that makes $2^k \geq n$, or
 what amounts to the same thing, $k \geq log_2(n)$.
 
-That is, the number of steps in a 
+That is, the number of steps in a
 \index{search!binary}\index{binary search}binary search through
-$n$ items is the first integer that is at least as large as 
+$n$ items is the first integer that is at least as large as
 \index{logarithm}$log_2(n)$.
 
 The first integer that is at least as large as a number $x$ is known
@@ -128,7 +128,7 @@ in the pile-of-socks approach to
 to a maximum of $\lceil log_2(n) \rceil$
 using binary search.
 
-That's $(n/2)/\lceil log_2(n) \rceil$ times faster, 
+That's $(n/2)/\lceil log_2(n) \rceil$ times faster,
 and $(n/2)/\lceil log_2(n) \rceil$ turns
 out to be a very big number when there are a lot of items.
 \index{search!binary vs linear}
@@ -157,7 +157,7 @@ becomes unwieldy, to say the least, when there are
 millions of items.
 
 That's what happens when the items are entries in
-an \index{search, array}\index{array search}array of $n$ elements, 
+an \index{search, array}\index{array search}array of $n$ elements,
 numbered, say, 0 to $n - 1$.
 Whenever you add a new item or delete an old one,
 you have to slide the array elements around to make space
@@ -174,15 +174,15 @@ other than just numbering them sequentially.
 
 Not long after computers began to have enough
 memory to keep track of many thousands of items,
-the mathematicians \index{Adelson-Velskii, Georgy}Adelson-Velskii 
+the mathematicians \index{Adelson-Velskii, Georgy}Adelson-Velskii
 
 and \index{Landis, Evgenii}Landis
 devised a structure that
 eliminated the problem of sliding things around in arrays to
 accommodate new items (the \emph{insertion problem})
 or get rid of old ones (the \emph{deletion problem}).
-This structure, known as the 
-\index{AVL tree}\index{binary tree!AVL}\index{tree!AVL}AVL tree 
+This structure, known as the
+\index{AVL tree}\index{binary tree!AVL}\index{tree!AVL}AVL tree
 (``AVL'' for Adelson-Velskii and Landis)\label{AVL-tree},
 makes it possible to find an item or
 insert a new one
@@ -202,7 +202,7 @@ will mean either a special tree called the \emph{empty tree},
 or a \label{node-def} non-empty collection of \emph{nodes},
 \label{root-def}one of which is known as the \emph{root}.
 Each node has a sequence of subtrees, and
-\label{subtree-def}each \index{subtree, definition}\emph{subtree} 
+\label{subtree-def}each \index{subtree, definition}\emph{subtree}
 is also a tree.
 That is, each subtree is either the empty tree,
 or it consists of a root and a sequence of subtrees.\footnote{Yet
@@ -221,10 +221,10 @@ if there are any nodes, is made up of four things:
 \item a search tree knows as the \emph{right subtree}.
 \end{enumerate}
 \end{quote}
-The \index{empty tree}\index{tree!empty}\index{search tree!empty}empty tree 
+The \index{empty tree}\index{tree!empty}\index{search tree!empty}empty tree
 is a search tree,  by default.
 \label{sibling-def}
-We refer to the two subtrees in a node as 
+We refer to the two subtrees in a node as
 \index{tree!sibling}
 \index{sibling, in tree}\index{search tree!sibling}\emph{siblings}.
 
@@ -310,7 +310,7 @@ an empty subtree.
 At that point, the search stops with the conclusion that the key
 does not occur in the tree.
 
-The  
+The
 \index{height!tree}\index{tree!height}\index{AVL tree!height definition}
 \index{search tree!height}\emph{height}  of a tree is
 \label{height-is-max-steps}
@@ -323,7 +323,7 @@ in a binary search for a key in the tree.
 AVL trees maintain, in every node,
 a balance between the heights of the subtrees in the node.
 The process of inserting new nodes or deleting old ones
-maintains balance, 
+maintains balance,
 which keeps the tree from getting too tall
 on one side or the other.
 In this way the AVL method preserves
@@ -405,11 +405,11 @@ left subtree of the node,
 and numerically less than
 all the keys that occur in the right subtree of the node.
 \label{empty-tree-representation}
-The empty list, ``nil'', will represent the 
+The empty list, ``nil'', will represent the
 \index{empty tree}\index{search tree!empty}
 \index{AVL tree!empty}empty tree.
 \label{node-representation}
-A \index{search tree!node}\index{AVL tree!node}\index{node, in AVL tree}node 
+A \index{search tree!node}\index{AVL tree!node}\index{node, in AVL tree}node
 in a search tree will be a list of four elements:
 \index{representation!AVL tree}\index{AVL tree!representation}
 \index{search tree!representation}
@@ -418,9 +418,9 @@ key (a number), data (of any kind), left subtree, and right subtree.
 Those are the essentials of the representation.
 
 \label{root-node-def}
-The 
+The
 \index{root node, AVL tree}\index{search tree!root}\index{tree!root}
-\index{AVL tree!root}``root node'' 
+\index{AVL tree!root}``root node''
 of a search tree
 is the node that represents the entire tree.
 The formula for the root node is
@@ -1561,7 +1561,7 @@ for possible rotations at every level in the
 tree, there are a great many height computations to perform, and this
 makes the insertion process take way too many computation steps.
 
-Fortunately, there is a way to avoid the 
+Fortunately, there is a way to avoid the
 \index{operator, by name!ht (AVL height, fast)}
 \index{AVL tree!ht (height, fast)}height computation
 by recording tree height
