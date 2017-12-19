@@ -2,29 +2,28 @@
 \label{ch:Preface}
 
 Computers are logic in action. Literally.
-Many computer components are realizations of formulas in logic,
+Computer components are realizations of formulas in logic,
 and when activated by Boolean signals, those components
-compute the value of the logic formula that they actualize.
+compute the value of the formula that they actualize.
 Software, too, is an exhibit in logic.
 A software component is a specification in a formal language
 with underpinnings in logic,
-and in some programming languages a software component
-is, literally, an algebraic formula.
-A big formula, but a formula nevertheless.
+and some software components
+are, literally, algebraic formulas.
+Big formulas, but formulas nevertheless.
 
 Therefore, people studying computer science
-can derive substantial benefit from a study of logic,
-and it is perhaps for that reason most computer science students
-are exposed to logic during their education.
-In many cases, maybe most cases, this exposure comes
+benefit from studying logic, and
+most computer science students
+are exposed to logic in their education.
+Often this exposure comes
 in the form of a few lectures and a problem set or two
-in a discrete math course. The applications of logic that
-they see usually have more to do with traditional mathematics
-than with computer science. Even when the discrete math course
+in a discrete math course. Applications of logic that
+students see usually have more to do with traditional mathematics
+than with computer science. Even when the course
 is ``discrete math for computer science,'' the computer science
 part often has more to do with writing programs to solve problems
-in traditional mathematics or to compute examples of
-mathematical objects than it has to do with
+in traditional mathematics than it has to do with
 concepts in computer science.
 We think computer science students will
 benefit from a substantially more extensive and rigorous
@@ -32,7 +31,7 @@ exposure to logic and to seeing many applications of
 logic in their chosen field of study.
 All the examples in this text arise from issues in computer science.
 
-This book focusses directly on central issues
+This book focusses directly on central themes
 in computer science.
 It frames the discussion in terms of logic,
 and it applies logic to problems in the domain of computer science.
@@ -49,9 +48,9 @@ It's the same old mathematical induction, but presented
 in the context of topics that interest
 students of computer science.
 The logic of induction is at the forefront,
-unobscured by the clever tricks of numeric algebra
+unobscured by tricks in numeric algebra
 that many exercises on induction require in
-discussions of the idea that are grounded in topics
+discussions grounded in topics
 of particular interest to mathematicians.
 
 We hope that readers will be inclined
@@ -63,44 +62,68 @@ to pursue solutions to many of those problems through formal reasoning.
 Formalism is a watchword in this presentation, even to the
 point of using the mechanized logic of a partially automated proof engine,
 ACL2, that checks proofs to the last detail and can sometimes
-bridge, on its own, gaps that mathematical
-proofs often leave open, even when they employ traditional
-mathematical rigor.
+bridge, on its own, gaps that traditional mathematical
+proofs, even rigorous ones, leave open.
+
+The text uses ACL2 as one of three formal notations:
+traditional algebraic formulas of propositional and predicate logic
+(and numeric algebra, occasionally), 
+digital circuit diagrams, and ACL2, which is syntactically
+like Lisp, the programming language, but embedded
+in a mechanized logic that assists in producing
+formal, mathematical proofs in first order logic.
+ACL2 serves as a mathematical notation, and all
+of the material can be understood in terms of 
+traditional, paper-and-pencil reasoning 
+without using ACL2 to put formalizations 
+through their paces on a computer system.
+For readers who want to see formalization
+in action, the text presents the process with
+the help of Proof Pad, a lightweight, ACL2 environment. 
+ACL2 experts use emacs or the ACL2 Sedan
+as their interface, and readers of this text can
+use those tools if they prefer, but the examples in the text
+illustrate the process in the Proof Pad framework,
+which we believe puts a low burden on novices.
+In any case, Proof Pad will be adequate to support 
+study with this text.
 
 We chose ACL2 as the proof engine for this work
 because in our judgment it provides a more accessible
 introduction to mechanized formalism than any other
-available proof engine. We do not anticipate that any
+available tool. We do not anticipate that any
 reader will become an accomplished ACL2 user,
 much less an ACL2 expert. We bring ACL2 into the discussion
 to show how logic, including mechanized logic,
 can benefit practicing software and hardware engineers.
-If at some point readers want to realize those benefits in
-large-scale projects, they will need to learn a lot more
-about ACL2 or some other mechanized logic than it will
-be possible to glean from this introduction.
-In early classroom usage of this material,
-we introduced formal methods using a traditional algebraic notation,
-without a mechanized logic, but most students seem more comfortable
-when formal methods are backed up by software tools
-that check proofs and provide some aid with proof details.
+Readers who want to realize those benefits in
+large-scale projects will need to learn a lot more
+about ACL2 or another mechanized logic than they
+will glean from this introduction.
+In former years, we presented logic in the classroom
+without a mechanized logic, but found through experience 
+that most students are more comfortable and motivated
+when formal methods are backed up by tools
+that check proofs and help 
+push through the details.
 
 Logic is the central topic of the text, but not the only topic.
 Readers interested in the broad outlines of computer science
 will find material useful in that pursuit.
-We think the text can provide a basis for a serious introduction
+The text can provide a basis for a serious introduction
 to computer science concepts, both for computer science students
 and for students in other fields who want to know
 what computer science is about.
 Earlier versions of the text have been used many times,
-both by the authors and by other instructors,
+by the authors and other instructors,
 as the primary text in two types of courses: logic for computer science
 and introduction to computer science for both computer science students
-and students in other disciplines. It has been used as a supplementary
+and students in other disciplines. 
+It has also been used as a supplementary
 text in discrete math courses for computer science students.
 The text has served well in all three realms.
 
-There are no prerequisites beyond college prep high-school math.
+There are no prerequisites beyond college prep, high-school math.
 Even less, really.
 High-school algebra is helpful,
 but no geometry, trigonometry, or calculus is needed.
@@ -109,16 +132,16 @@ the equation-based approach that informs this presentation can
 help level the playing ground between people
 with programming experience and those without it.
 Students whose goal is to certify that they already
-know the material are often surprised to find that they don't,
+know the material are surprised to find that they don't,
 while those who arrive with less background tend
 to invest the necessary effort from the outset.
 
 The required learning is far from easy.
 Successful students will have to do a lot of hard thinking
-to work their way through a few dozen of the exercises,
+to work their way through a few dozen exercises,
 and they will surely need to do a few dozen exercises to grasp the concepts.
 Reading alone won't be enough.
-Well over 150 exercises in the text afford students with plenty of opportunities
+Exercises in the text (over 150 of them) afford students with opportunities
 for problem solving.
 Fortunately, the work pays off, both in terms of immediate satisfaction
 and in the long term, if the testimonies of former students are a
@@ -128,10 +151,9 @@ the book, and that they will find what they learn
 edifying as they go on to other projects.
 \\
 \\
-\emph{Santa Cruz, California}   \hfill Rex Page \\
-\emph{and Laramie, Wyoming}         \hfill Ruben Gamboa \\
+\emph{Santa Cruz, California}   \hfill Rex Page     \\
+\emph{Laramie, Wyoming}         \hfill Ruben Gamboa \\
 \emph{January 2018}
-
 
 %%% Local Variables:
 %%% mode: latex
