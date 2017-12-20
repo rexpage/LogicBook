@@ -598,16 +598,16 @@ and makes an interesting study if you delve into it.}
        (cons (first bkts)
              (bump-bkt (- idx 1) (rest bkts)))
        (cons (+ 1 (first bkts)) (rest bkts))))
-(defun fill-bkts (hash-base num-bkts bkts wrds)
+(defun fill-bkt-counts (hash-base num-bkts bkts wrds)
    (if (consp wrds)
        (let* ((idx (hash-idx hash-base num-bkts (first wrds)))
               (newbs (bump-bkt idx bkts)))
-          (fill-bkts hash-base num-bkts newbs (rest wrds)))
+          (fill-bkt-counts hash-base num-bkts newbs (rest wrds)))
        bkts))
-(defun hash-tbl (hash-base num-bkts wrds)
-   (fill-bkts hash-base num-bkts (rep num-bkts 0) wrds))
+(defun hash-bukcet-sizes (hash-base num-bkts wrds)
+   (fill-bkt-counts hash-base num-bkts (rep num-bkts 0) wrds))
 (defconst *example-tbl-25-most-common-English-words*
-   (hash-tbl 31 10
+   (hash-bukcet-sizes 31 10
              (list "the" "be" "to" "of" "and"
                    "a" "in" "that" "have" "I"
                    "it" "for" "not" "with" "he"
@@ -648,18 +648,18 @@ In your project, try to answer the following questions.
 \item ~~Which one of these measures best estimates how well this hash works?
 \end{enumerate}
 \end{quote}
-You can use the operators defined in 
+You can use the operators defined in
 Figure~\ref{fig:hash-defuns} (page \pageref{fig:hash-defuns})
-to get started on the project. 
+to get started on the project.
 The operators use lists instead of arrays, so they are only  prototypes
 for experimentation, not for practical use.
-The definitions invoke some ACL2 intrinsic operators 
+The definitions invoke some ACL2 intrinsic operators
 that have not been discussed, such as
 \texttt{coerce} and \texttt{char-code}.
 The coerce operator converts a string to a list of characters,
 and the char-code operator converts a character to a number.
 The numbers are not 'A' 1, 'B' 2, 'C' 3 codes, but that is immaterial.
-Different characters are associated with different numbers, 
+Different characters are associated with different numbers,
 which is the important thing. If you are interested,
 you can find more information about these intrinsic
 operators in the ACL2 online documentation.
