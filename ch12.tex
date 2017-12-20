@@ -11,7 +11,7 @@ in the list and to the elements after it, in sequence one by one.
 This is fine when you want to
 process all the elements in the list, but what if you're only interested
 in the student with ID \#93574 or Mary Shelley's ``Frankenstein; or,
-The Modern Prometheus''? 
+The Modern Prometheus''?
 Computer scientists have designed many
 ways to get fast and convenient access
 to individual records out of collection of them.
@@ -19,7 +19,7 @@ In this chapter we'll study a solution known as ``hashing.''
 
 \section{Lists and Arrays}
 
-Suppose we have a list of states and their capitals, 
+Suppose we have a list of states and their capitals,
 such as the following one.\label{states-capitals-list}
 \begin{Verbatim}
 [ ["Alabama"  "Montgomery"]
@@ -103,7 +103,7 @@ It also takes time to compare search keys
 (state names, in the problem at hand).
 Hashing addresses that problem by converting the search key
 into a numeric index and putting the data
-in an array in which any element is accessible 
+in an array in which any element is accessible
 in one step.
 
 There is an operator called \texttt{nth} that,
@@ -157,7 +157,7 @@ how much faster would the operator \texttt{capital} be?
 
 A fast implementation of \texttt{nth} is part of
 the answer, but as we pointed out earlier,
-it's not enough to make accessing list-elements 
+it's not enough to make accessing list-elements
 by index a one-step operation
 because we still need to find the right state.
 That is, it still takes many steps to find Wyoming.
@@ -315,7 +315,7 @@ It would be better to put the same number of states in each
 array element. We could, for example have 25 boxes and put
 two states in each box. Or, we could have 50 boxes, and put
 one state in each box.
-We could even have a hundred boxes and put one state in 50 
+We could even have a hundred boxes and put one state in 50
 of the boxes and no states in the other 50.
 Sounds stupid, but it's not, depending on how
 the \texttt{state-idx} operator is defined,
@@ -326,12 +326,12 @@ if the states were distributed more evenly among the boxes.
 To make that work, the definition
 \texttt{state-idx} would need to be more sophisticated
 the just going by the first letter in the name of the state.
-It would need to use more letters in the name 
+It would need to use more letters in the name
 to compute the index of the box containing the corresponding
 state/capital pair.
 
 Choosing a way to distribute the states among the boxes
-and defining a special version of \texttt{state-idx} 
+and defining a special version of \texttt{state-idx}
 to compute the index of the right box is closer to an
 art than a science. This kind of problem comes up in
 many kinds of table-lookup problems. We are using
@@ -371,40 +371,40 @@ definition that makes for a fast \texttt{state-idx} operation.
 
 Let's discuss this problem in a more general context
 where the keys are strings of characters that we will
-call ``words,'' even though they might be odd-looking 
+call ``words,'' even though they might be odd-looking
 strings like URLs.
-A common solution is to use two steps. First, the word, 
+A common solution is to use two steps. First, the word,
 which we refer to as the search key, is converted
 into a list of numbers by mapping each character to a number. For
 example, we could convert 'A' to 1, 'B' to 2, 'C' to 3, and so on.
 This is not the usual scheme, and we're conflating upper-case and
 lower-case letters, here, but any assignment of numbers to letters
 will work.
-Using the 'A' 1, 'B' 2 scheme, the word ``life'' becomes the list 
+Using the 'A' 1, 'B' 2 scheme, the word ``life'' becomes the list
 \texttt{[12 9 6 5]},
 and the word ``file'' becomes \texttt{[6 9 12 5]}.
 
 The second step is to take the list of numbers corresponding
 to the letters in the search key
-and combine them into a single number, which we will call 
+and combine them into a single number, which we will call
 the \index{hash!key}\emph{hash key}.
 The operator that computes the hash key is called
 the \index{hash!operator}\emph{hash operator}.
 Ideally, the hash operator associates a different hash key
-with each search key. 
+with each search key.
 One way to compute a hash key from the list of numbers
 corresponding to the letters in the search key is
-to add multiples of powers of a 
+to add multiples of powers of a
 prime number.\footnote{Why choose a prime?
 There is a lot of number theory involved in these kinds
 of problems, but it that's a story for a different book.
 We'll leave it as a mystery in this treatment.}
-We will refer to the prime number as the 
+We will refer to the prime number as the
 \index{hash!base}hash base.
 
 If we choose the prime number $31$
 as the hash base, the list \texttt{[12 9 6 5]} maps to the hash key
-$12 + 9\times31 + 6\times31^2 + 5\times31^3 = 155,012$. 
+$12 + 9\times31 + 6\times31^2 + 5\times31^3 = 155,012$.
 The numbers 12, 9, 6, and 5 are used as coefficients to powers of
 the hash base.
 The list \texttt{[6 9 12 5]} maps to the hash key
@@ -413,7 +413,7 @@ That might be okay if there were hundreds of thousands of words
 that we need to associate with indexes, as there would be
 if the words were URLs, for example.
 
-In the problem at hand, there are fifty states, 
+In the problem at hand, there are fifty states,
 so there are fifty search keys.
 Let's get back to that again.
 The \texttt{fcapital} operator uses the
@@ -423,18 +423,18 @@ state/capital pairs, in which
 \texttt{lookup} will find the capital of the state.
 A hash table with 160,772 elements is overkill for
 a problem with fifty search keys.
-We had a hash table with 26 elements when we used the first letter of the state. 
-Suppose we look for a solution with a hash table of a hundred elements. 
+We had a hash table with 26 elements when we used the first letter of the state.
+Suppose we look for a solution with a hash table of a hundred elements.
 Then, we would need to compute hash index between zero and ninety-nine
 from the hash key. One way to do that would be to
 consider only the last two digits of the hash key.
 Then, the hash index for the hash key 160,772 would be 72.
-The word ``life'' (not the name of a state, but you get the idea) 
+The word ``life'' (not the name of a state, but you get the idea)
 would go into the bucket
 with index 72.
-There's nothing special about 100. 
+There's nothing special about 100.
 If we wanted a fifty-bucket solution,
-we could compute the index from the hash key by taking the 
+we could compute the index from the hash key by taking the
 remainder\footnote{Aside~\ref{third-grade-division},
 page \pageref{third-grade-division} discusses
 divisions, remainders, and the mod operator,
@@ -442,26 +442,26 @@ but it's just the long division that you learned in the third grade.}
 in the division by 50: (160,772 mod 50) = 22
 The method works for a hash table with any number of buckets.
 
-To pick a hash base and hash table size 
+To pick a hash base and hash table size
 that works well is a matter of analyzing how
 the hash keys come out for the words we want to look up.
 If we want to extend this problem to take into
-account Canadian provinces or all the countries in the world, we could 
-use an array with, say, a thousand elements. 
+account Canadian provinces or all the countries in the world, we could
+use an array with, say, a thousand elements.
 The hash operator could use the number-letter assignment scheme and
 the hash base discussed earlier to compute a hash key $h$ from a search key $s$,
 and then deliver ($h$ mod 1,000) as the hash index.
 
-So far in this chapter, we've discussed a lot of ideas 
-that are important and practical in computer science. 
+So far in this chapter, we've discussed a lot of ideas
+that are important and practical in computer science.
 Let's take a moment to recap these ideas.
 The general problem we set out to solve was how to find quickly a value
 associated with a name. In general, we think of having many key/value pairs,
 and what we'd like to do is to find the \emph{value} associated with a given
 \emph{key}. This general problem is so important that many computer languages
 offer ready-made solutions, with names such as \emph{memories}, \emph{dictionaries},
-\emph{maps}, and \emph{associative arrays}. 
-We call them hash tables in this discussion, 
+\emph{maps}, and \emph{associative arrays}.
+We call them hash tables in this discussion,
 but they are all similar ideas.
 
 A simplistic solution to this problem is to keep all the key/value pairs in a
@@ -471,17 +471,17 @@ On the average, if search keys all have roughly the same likelihood of
 being the target of a search,
 the search will have to look at roughly half
 of the key/value pairs before it finds the one it's looking for.
-For many, real-world problems, that is too long. 
+For many, real-world problems, that is too long.
 A hash table alleviates this problem
 by splitting the list of key/value pairs into many smaller lists.
 Each of these lists goes into one of the buckets of the hash table.
 That way the time required to locate a key
-in a bucket will be, at worst, proportional 
+in a bucket will be, at worst, proportional
 to the number of search keys in the biggest bucket.
 That is much smaller than the total number of search keys.
 There is a trade-off between the number of buckets and the size of the buckets
 Smaller buckets, faster search, but more total space because,
-depending on how the hash index is computed, 
+depending on how the hash index is computed,
 there can be a lot of empty buckets
 that take up space even though they are empty.
 
@@ -490,8 +490,8 @@ That is determined by the \emph{hash operator} and
 the computation of the hash index
 from the hash key. Hash operators are
 designed so that, in conjunction with the number of buckets
-in the hash table, they lead to hash indexes 
-that associate about the same number of search keys with each bucket. 
+in the hash table, they lead to hash indexes
+that associate about the same number of search keys with each bucket.
 A popular hash operator for
 strings is to treat each letter as a number, to use these numbers as the
 coefficients for a sum of powers of 31, and then to trim that number to
@@ -508,7 +508,7 @@ This overall process is illustrated in Figure \ref{fig:hash-table-process}.
 \end{figure}
 
 In our state/capital example the search keys were state names and the
-associated values were the state capital cities. 
+associated values were the state capital cities.
 Using a hash table with ten buckets and the hash operator
 we discussed, the key/value pairs would be associated with the
 buckets as seen in Table \ref{table:hash-table-state-capitals}.
@@ -516,13 +516,13 @@ As the table shows, the states are not distributed evenly in the
 buckets. Bucket 7 has
 eight states, but bucket 4 has only two.
 Keeping the same hash operator but using thirty buckets
-instead of ten does a better job of distributing states to buckets. 
+instead of ten does a better job of distributing states to buckets.
 Keeping the hash operator separate from the number of buckets
 makes it easy to change the size of the
 hash table, depending on how fast the search needs
 to be.\footnote{For small problems like the state/capital problem,
 there are mechanized ways to design hash operators and
-hash arrays that lead to ``perfect hashes'' with no 
+hash arrays that lead to ``perfect hashes'' with no
 more than one key into each bucket. Sometimes there are
 empty buckets, but that doesn't affect the search time,
 just takes up more space. Some of the methods of
@@ -536,40 +536,40 @@ and makes an interesting study if you delve into it.}
 \begin{tabular}{c|p{4in}}
 \emph{Bucket} & \emph{[Key Value] Pairs} \\
 \hline
-0 & [''Washington'' ''Olympia'']  [''Utah''  ''Salt Lake City'']  \hfill\break 
+0 & [''Washington'' ''Olympia'']  [''Utah''  ''Salt Lake City'']  \hfill\break
 [''Rhode Island''  ''Providence'']  [''New Hampshire''  ''Concord'']  \hfill\break
 [''Minnesota''  ''St Paul'']  [''Kentucky''  ''Frankfort''] \\
 \hline
 1 & [''Nebraska''  ''Lincoln''] [''Louisiana''  ''Baton Rouge''] \hfill\break
 [''Hawaii''  ''Honolulu'']  [''Alabama''  ''Montgomery''] \\
 \hline
-2 & [''Pennsylvania''  ''Harrisburg'']  [''New York'' ''Albany''] \hfill\break  
-[''New Mexico''  ''Santa Fe'']  [''Maine''  ''Augusta''] \hfill\break  
+2 & [''Pennsylvania''  ''Harrisburg'']  [''New York'' ''Albany''] \hfill\break
+[''New Mexico''  ''Santa Fe'']  [''Maine''  ''Augusta''] \hfill\break
 [''Indiana''  ''Indianapolis'']  [''Georgia''  ''Atlanta''] \\
 \hline
 3 & [''Missouri''  ''Jefferson City'']  [''Colorado''  ''Denver''] \\
 \hline
-4 & [''Oregon''  ''Salem'']  [''Michigan''  ''Lansing''] \hfill\break  
+4 & [''Oregon''  ''Salem'']  [''Michigan''  ''Lansing''] \hfill\break
 [''Arkansas''  ''Little Rock'']  [''Arizona''  ''Phoenix''] \\
 \hline
-5 & [''Wisconsin'' ''Madison'']  [''New Jersey''  ''Trenton''] \hfill\break  
-[''Kansas''  ''Topeka'']  [''Florida''  ''Tallahassee''] \hfill\break  
+5 & [''Wisconsin'' ''Madison'']  [''New Jersey''  ''Trenton''] \hfill\break
+[''Kansas''  ''Topeka'']  [''Florida''  ''Tallahassee''] \hfill\break
 [''Alaska''  ''Juneau''] \\
 \hline
-6 & [''Wyoming''  ''Cheyenne'']  [''Tennessee''  ''Nashville''] \hfill\break  
+6 & [''Wyoming''  ''Cheyenne'']  [''Tennessee''  ''Nashville''] \hfill\break
 [''South Dakota''  ''Pierre'']  [''Oklahoma''  ''Oklahoma City''] \\
 \hline
-7 & [''West Virginia''  ''Charleston'']  [''Vermont''  ''Montpelier''] \hfill\break  
-[''South Carolina''  ''Columbia'']  [''Ohio''  ''Columbus''] \hfill\break  
-[''Nevada''  ''Carson City'']  [''Mississippi''  ''Jackson''] \hfill\break 
+7 & [''West Virginia''  ''Charleston'']  [''Vermont''  ''Montpelier''] \hfill\break
+[''South Carolina''  ''Columbia'']  [''Ohio''  ''Columbus''] \hfill\break
+[''Nevada''  ''Carson City'']  [''Mississippi''  ''Jackson''] \hfill\break
 [''Idaho  boise'']  [''Connecticut''  ''Hartford''] \\
 \hline
-9 & [''North Dakota''  ''Bismarck'']  [''Montana''  ''Helena''] \hfill\break  
-8''Massachusetts''  ''Boston'']  [''Maryland''  ''Annapolis''] \hfill\break  
+9 & [''North Dakota''  ''Bismarck'']  [''Montana''  ''Helena''] \hfill\break
+8''Massachusetts''  ''Boston'']  [''Maryland''  ''Annapolis''] \hfill\break
 [''Iowa'' ''Des Moines'']  [''California''  ''Sacramento''] \\
 \hline
 9 & [''Virginia''  ''Richmond'']  [''Texas'' ''Austin''] \hfill\break
-[''North Carolina'' ''Raleigh'']  [''Illinois''  ''Springfield''] \hfill\break 
+[''North Carolina'' ''Raleigh'']  [''Illinois''  ''Springfield''] \hfill\break
 [''Delaware''  ''Dover''] \\
 \end{tabular}
 \end{center}
@@ -577,47 +577,104 @@ and makes an interesting study if you delve into it.}
 \label{table:hash-table-state-capitals}
 \end{table}
 
+\begin{figure}
+\begin{center}
+\begin{Verbatim}
+(defun hash-op (hash-base chars)
+   (if (consp chars)
+       (+ (char-code (first chars))
+          (* hash-base (hash-op hash-base (rest chars))))
+       0))
+(defun hash-key (hash-base wrd)
+   (hash-op hash-base (coerce wrd 'list)))
+(defun hash-idx (hash-base num-bkts wrd)
+   (mod (hash-key hash-base wrd) num-bkts))
+(defun rep (n x)
+  (if (posp n)
+  (cons x (rep (- n 1) x)) ; {rep1}
+  nil))                    ; {rep0}
+(defun bump-bkt (idx bkts)
+   (if (posp idx)
+       (cons (first bkts)
+             (bump-bkt (- idx 1) (rest bkts)))
+       (cons (+ 1 (first bkts)) (rest bkts))))
+(defun fill-bkts (hash-base num-bkts bkts wrds)
+   (if (consp wrds)
+       (let* ((idx (hash-idx hash-base num-bkts (first wrds)))
+              (newbs (bump-bkt idx bkts)))
+          (fill-bkts hash-base num-bkts newbs (rest wrds)))
+       bkts))
+(defun hash-tbl (hash-base num-bkts wrds)
+   (fill-bkts hash-base num-bkts (rep num-bkts 0) wrds))
+(defconst *example-tbl-25-most-common-English-words*
+   (hash-tbl 31 10
+             (list "the" "be" "to" "of" "and"
+                   "a" "in" "that" "have" "I"
+                   "it" "for" "not" "with" "he"
+                   "as" "you" "do" "at" "this"
+                   "but" "his" "by" "from" "they")))
+\end{Verbatim}
+\caption{Prototype Hashing Operators (slow: using lists, not arrays)}
+\label{fig:hash-defuns}
+\end{center}
+\end{figure}
+
 \begin{ExerciseList}
-\Exercise Consider the words ``age'', ``cage'', and ``cape''. 
-Using the hash operator from this chapter, compute the hash key of each word 
+\Exercise Consider the words ``age'', ``cage'', and ``cape''.
+Using the hash operator from this chapter, compute the hash key of each word
 and the bucket the word maps to, assuming there are ten buckets.
 
-\Exercise Implement the operator \texttt{state-idx} in ACL2. For this
-project, you will need to read about the built-in operators \texttt{char},
-\texttt{char-code}, and \texttt{coerce}
-in the online ACL2 documentation. 
-Don't worry about whether 'A' is 1,
-'B' is 2, and so on. Any number will do, so just use the one that 
-\texttt{char-code} delivers.
+%\Exercise Implement the operator \texttt{state-idx} in ACL2. For this
+%project, you will need to read about the built-in operators \texttt{char},
+%\texttt{char-code}, and \texttt{coerce}
+%in the online ACL2 documentation.
+%Don't worry about whether 'A' is 1,
+%'B' is 2, and so on. Any number will do, so just use the one that
+%\texttt{char-code} delivers.
 
-\Exercise There are many websites in the Internet that contain lists of words: 
+\Exercise There are many websites in the Internet that contain lists of words:
 most popular baby names, most popular English words, etc.\\
 \hspace*{1cm}\url{https://www.babycenter.com/top-baby-names-2017.htm} \\
 \hspace*{1cm}\url{https://www.englishclub.com/vocabulary/common-words-100.htm}\\
-Pick a list of words and explore how the hash operator of this chapter works 
-for the chosen list when there are 128 buckets in the hash table.
+Pick a list of words and explore how the hash operator of this chapter works.
+Use 31 for the hash base and try different sizes for the hash table.
 In your project, try to answer the following questions.
 \begin{quote}
 \begin{enumerate}
-\item ~~How many search keys are there in the biggest bucket? 
+\item ~~How many search keys are there in the biggest bucket?
 \item ~~What is the average number of search keys in a bucket?
 \item ~~How many empty buckets are there?
-\item ~~What is the average length of a non-empty bucket? 
+\item ~~What is the average length of a non-empty bucket?
 \item ~~Which one of these measures best estimates how well this hash works?
 \end{enumerate}
 \end{quote}
+You can use the operators defined in 
+Figure~\ref{fig:hash-defuns} (page \pageref{fig:hash-defuns})
+to get started on the project. 
+The operators use lists instead of arrays, so they are only  prototypes
+for experimentation, not for practical use.
+The definitions invoke some ACL2 intrinsic operators 
+that have not been discussed, such as
+\texttt{coerce} and \texttt{char-code}.
+The coerce operator converts a string to a list of characters,
+and the char-code operator converts a character to a number.
+The numbers are not 'A' 1, 'B' 2, 'C' 3 codes, but that is immaterial.
+Different characters are associated with different numbers, 
+which is the important thing. If you are interested,
+you can find more information about these intrinsic
+operators in the ACL2 online documentation.
 \end{ExerciseList}
 
 \section{Some Applications}
 
-Hash tables provide a very effective solution to the search problem, 
-so it is no surprise that they are all around us. 
+Hash tables provide a very effective solution to the search problem,
+so it is no surprise that they are all around us.
 Hash tables are used behind the scenes in computing all the time.
-They are ubiquitous in many aspects of computation. 
+They are ubiquitous in many aspects of computation.
 Let's look at some common examples.
 
 One has to do with operator definitions in ACL2. When
-you run an ACL2 program (or a program in any other computer language), 
+you run an ACL2 program (or a program in any other computer language),
 the computer needs to find the definition of each of the operators
 the program uses.
 For example, the computer needs to know the definition of
@@ -628,7 +685,7 @@ so a fast lookup procedure is essential.
 Hash tables offer a way to do it. Store the operator
 definitions in a hash table where the key is the name of the operator
 and the value is the definition. This is almost certainly the solution
-that your computer system uses when it runs your ACL2 programs. 
+that your computer system uses when it runs your ACL2 programs.
 Another viable alternative is to use a binary search tree
 (Chapter \ref{ch:search-trees}), but hash tables work better
 in this situation because there are a moderate number of search keys
@@ -658,13 +715,13 @@ transactions at every register in any Walmart, the
 cast members for every movie produced in Hollywood,
 the medical records of almost every person throughout their entire life.
 Governments and corporations use databases to store literally
-thousands of records related for each person involved in the system, 
+thousands of records related for each person involved in the system,
 which can easily amount to billions
 of records for an organization as a whole.
 
 But, what is a database system? At its core, a database system
 manages one or more tables, and each table is made up of one or more
-records consisting of several attributes. 
+records consisting of several attributes.
 Think of a database table as a
 spreadsheet, where each record corresponds to a row in the spreadsheet
 and each column corresponds to an attribute. If the table
@@ -673,8 +730,8 @@ record (or row in the spreadsheet) would have one attribute for the
 state name and another attribute for the capital.
 
 It is common to design a database table in such a way that the
-data in a particular attribute is sufficient 
-to single out a specific record in the database. 
+data in a particular attribute is sufficient
+to single out a specific record in the database.
 For example, a table containing student records might use the attribute
 ``Student ID'' to identify each student, so there would be
 a column in the table containing student IDs.
@@ -682,8 +739,8 @@ Given a student ID, the
 database system can find the record for that student in the
 table. Part of the magic of database systems is that they can retrieve
 records quickly using specialized data
-structures called \emph{database indexes}. 
-Database systems use indexes to retrieve specific records quickly, 
+structures called \emph{database indexes}.
+Database systems use indexes to retrieve specific records quickly,
 even when the table has millions of records that are stored
 in separate files on a disk drive.
 
@@ -696,13 +753,13 @@ sufficient to identify a particular record and the value is the record
 it identifies.
 
 It turns out that hash-based indexes and tree-based indexes
-in databases are, 
-in essence, hash tables similar to those in this chapter 
+in databases are,
+in essence, hash tables similar to those in this chapter
 and trees similar to those of Chapter~\ref{ch:search-trees}.
 The only substantial difference
 is that our trees and hash tables are ACL2 objects that
-to reside in the fast-access memory of a computer, 
-whereas database indexes are designed to retrieve records 
+to reside in the fast-access memory of a computer,
+whereas database indexes are designed to retrieve records
 that can be stored in very large files.
 
 However, database systems go beyond storing and retrieving records
@@ -733,7 +790,7 @@ in each bucket must be considered exhaustively, but there is less work to do
 than before.
 To see this, suppose that there are 1,000 buckets, so
 each has an average of 13 students and 80 courses. Each bucket
-contains 1,040 combinations, for a total of 1,040,000 combinations. 
+contains 1,040 combinations, for a total of 1,040,000 combinations.
 That makes retrieval a thousand times than the direct approach.
 
 The reason that hash tables work so well in this context is that they take
@@ -744,14 +801,14 @@ be even more dramatic if the smaller problems can be performed in different
 computers. For example, if you have 1,000 computers, each one of them can be
 working on a different bucket, so the total time to find the answer is
 just the time to consider 1,040 combinations, which is a million times
-faster than the direct approach. 
+faster than the direct approach.
 This is kind of thing that companies with large databases do---companies like Google, Facebook, and Amazon,
 for example. They use thousands of computers to process the databases, and
 hash tables are the key to spreading the work evenly across all those
 machines.
 
 Another important application of the hashing idea focuses on hash operators
-rather than hash tables. 
+rather than hash tables.
 Suppose that we were to send you a very large file. After waiting a few hours
 for the file to transfer to your computer, how do you know that the file
 transferred correctly? It is possible, after all, that one of the characters
@@ -773,7 +830,7 @@ costs more, but the sensitivity the information can justify the cost.
 Variations of this idea are behind digital signatures, and sophisticated
 algorithms that keep multiple copies of a file synchronized with one another.
 
-Hash operators and hash tables are central to practical, large scale computing. 
+Hash operators and hash tables are central to practical, large scale computing.
 We'll consider more aspects of large-scale, practical computing
 in Part IV of this book.
 
