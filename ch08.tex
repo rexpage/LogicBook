@@ -292,10 +292,10 @@ Since the two parts cover all the possibilities,
 you can infer that inductive case is true.
 
 \Exercise\label{mux-val-len-not-enough}
-Give an example of lists [$x$], [$y$], and [$u$ $w$] for which \\
+Give an example of lists [$x$], [$y$], and [$u$ $w$] for which 
+[$u$ $w$] $\neq$ (mux [$x$] [$y$]), but the following formula is true.\\
 \hspace*{1cm}$\forall v.(($(occurs-in $v$ [$x$]) $\vee$ (occurs-in $v$ [$y$])$)
-\leftrightarrow$ (occurs-in $v$ [$u$ $w$])$)$\\
-is true, but [$u$ $w$] $\neq$ (mux [$x$] [$y$]).
+\leftrightarrow$ (occurs-in $v$ [$u$ $w$])$)$
 
 \Exercise\label{mux2-eq-mux}
 Do a paper-and-pencil proof that
@@ -319,13 +319,9 @@ Below is an ACL2 formalization of these ideas,
 which the ACL2 system succeeds in admitting.
 \label{acl2:iff}
 The
-\index{Boolean!equivalence ($\leftrightarrow$, iff)}
-\index{operator!Boolean equivalence (iff)}
-\index{equivalence!Boolean (iff)}
-\index{iff (\emph{see also} operator)}IFF operator
-is Boolean equivalence
+\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator!Boolean equivalence (iff)}\index{equivalence!Boolean (iff)}\index{iff (\emph{see also} operator)}IFF
+operator is Boolean equivalence
 (Aside~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
-\\
 
 \label{defun:occurs-in}
 \begin{Verbatim}
@@ -506,10 +502,14 @@ two cases, one when the number of elements in the operand is even
 the other when the number of elements is odd ($2n+1$).
 
 \Exercise\label{dmx-val-len-not-enough}
-Give an example of lists [$x$ $y$], [$u$], and [$w$] for which \\
+Give an example of lists [$x$ $y$], [$u$], and [$w$] for which 
+[[$u$] [$w$]] $\neq$ (dmx [$x$ $y$]), but the following formula is true.\\
 \hspace*{1cm}$\forall v.(($(occurs-in $v$ [$u$]) $\vee$ (occurs-in $v$ [$w$])$)
 \leftrightarrow$ (occurs-in $v$ [$x$ $y$])$)$\\
-is true, but [[$u$] [$w$]] $\neq$ (dmx [$x$ $y$]).
+\emph{Note}: Such an example demonstrates that length and value
+preservation are not enough to guarantee the dmx delivers the right value.
+They aren't enough for the mux operator, either 
+(Exercise~\ref{mux-val-len-not-enough}, page \pageref{mux-val-len-not-enough}).
 
 \Exercise [label={ex:dmx-val-thm}]
 State formally, in ACL2, the ``dmx-val'' theorem
