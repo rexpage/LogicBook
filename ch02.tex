@@ -1061,6 +1061,62 @@ that matches with a variable in the rule of grammar
 is also grammatically correct.
 Atomic formulas have no substructure,
 so they require no further analysis when checking for grammatical correctness.
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+$(x \rightarrow False) = (\neg x)$                                   & \{$\neg$ as $\rightarrow$\}\label{neg-as-imp} \\
+$(\neg(x \wedge y)) = ((\neg x) \vee (\neg y))$                      & \{$\wedge$ DeMorgan\}      \label{and-DeMorgan} \\
+$(x \vee (\neg x)) = True$                                           & \{$\vee$ complement\}      \label{or-complement} \\
+$(x \wedge (\neg x)) = False$                                        & \{$\wedge$ complement\}    \label{and-complement} \\
+$(\neg True) = False$                                                & \{$\neg True$\}            \label{not-True} \\
+$(\neg False) = True$                                                & \{$\neg False$\}           \label{not-False} \\
+$(True \rightarrow x) = x$                                           & \{$\rightarrow$ identity\} \label{imp-identity} \\
+$(x \wedge True) = x$                                                & \{$\wedge$ identity\}      \label{and-identity} \\
+$(x \wedge y) = (y \wedge x)$                                        & \{$\wedge$ commutative\}   \label{and-commutative} \\
+$(x \wedge (y \wedge z)) = ((x \wedge y) \wedge z)$                  & \{$\wedge$ associative\}   \label{and-associative} \\
+$(x \wedge (y \vee z)) = ((x \wedge y) \vee (x \wedge z))$           & \{$\wedge$ distributive\}  \label{and-distributive} \\
+$(x \wedge x) = x$                                                   & \{$\wedge$ idempotent\}    \label{and-idempotent} \\
+$(x \rightarrow y) = ((\neg y) \rightarrow (\neg x))$                & \{contrapositive\}         \label{contrapositive} \\
+$(x \rightarrow (y \rightarrow z)) = ((x \wedge y) \rightarrow z)$   & \{Currying\}               \label{currying} \\
+$((x \wedge y) \vee y) = y$                                          & \{$\vee$ absorption\}      \label{or-absorption} \\
+$((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
+$((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
+$((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
+$(x \rightarrow (\neg x)) = (\neg x)$                                & \{contradiction\}          \label{boolean-contradiction} \\
+\end{tabular}
+\end{center}
+\index{equation, by name!\{$\neg$ as $\rightarrow$\}}
+\index{equation, by name!\{$\wedge$ DeMorgan\}}
+\index{equation!DeMorgan}
+\index{DeMorgan}
+\index{equation, by name!\{$\vee$ complement\} }
+\index{equation, by name!\{$\wedge$ complement\}}
+\index{equation, by name!\{$\neg True$\}}
+\index{equation, by name!\{$\neg False$\}}
+\index{equation, by name!\{$\rightarrow$ identity\}}
+\index{equation, by name!\{$\wedge$ identity\}}
+\index{equation, by name!\{$\wedge$ commutative\}}
+\index{equation!commutative}
+\index{commutative}\index{distributive}
+\index{equation, by name!\{$\wedge$ associative\}}
+\index{equation!associative}
+\index{equation, by name!\{$\wedge$ distributive\}}
+\index{equation!distributive}
+\index{equation, by name!\{$\wedge$ idempotent\}}
+\index{equation!idempotent}
+\index{equation, by name!\{contrapositive\}}
+\index{equation, by name!\{Currying\}}
+\index{equation, by name!\{$\vee$ absorption\}}
+\index{equation!absorption}
+\index{equation, by name!\{$\wedge$ implication\}}
+\index{equation, by name!\{$\wedge$ implication\}}
+\index{equation, by name!\{absurdity\}}
+\index{equation, by name!\{contradiction\}}
+\index{absurdity, equation}
+\index{contrapositive}
+\caption{Some Boolean Theorems}
+\label{some-boolean-theorems}
+\end{figure}
 
 For example, consider the formula
 $((x \vee (\neg y)) \wedge (x \rightarrow z))$.
@@ -1179,64 +1235,45 @@ to prove the equations in
 Figure~\ref{some-boolean-theorems} (page \pageref{some-boolean-theorems}).\\
 \emph{Note}: After proving an equation, you may cite it in subsequent proofs.
 
+\Exercise\label{ex:boolean-equiv1}
+Prove the following equation.\\
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = ((x \rightarrow y) \wedge ((\neg x) \rightarrow (\neg y)))$
+
+\Exercise\label{ex:boolean-equiv2}
+Prove the following equation.\\
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (((\neg x) \vee y) \wedge (x \vee (\neg y)))$
+
+\Exercise\label{ex:boolean-equiv-notxor}
+Prove the following equation.\\
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (\neg((x \wedge (\neg y)) \vee ((\neg x) \wedge y)))$
+
+\Exercise\label{ex:boolean-equiv4}
+Prove the following equation.\\
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = ((x \wedge y) \vee ((\neg x) \wedge (\neg y)))$
+
 \end{ExerciseList}
 
-\begin{figure}
-\begin{center}
-\begin{tabular}{ll}
-$(x \rightarrow False) = (\neg x)$                                   & \{$\neg$ as $\rightarrow$\}\label{neg-as-imp} \\
-$(\neg(x \wedge y)) = ((\neg x) \vee (\neg y))$                      & \{$\wedge$ DeMorgan\}      \label{and-DeMorgan} \\
-$(x \vee (\neg x)) = True$                                           & \{$\vee$ complement\}      \label{or-complement} \\
-$(x \wedge (\neg x)) = False$                                        & \{$\wedge$ complement\}    \label{and-complement} \\
-$(\neg True) = False$                                                & \{$\neg True$\}            \label{not-True} \\
-$(\neg False) = True$                                                & \{$\neg False$\}           \label{not-False} \\
-$(True \rightarrow x) = x$                                           & \{$\rightarrow$ identity\} \label{imp-identity} \\
-$(x \wedge True) = x$                                                & \{$\wedge$ identity\}      \label{and-identity} \\
-$(x \wedge y) = (y \wedge x)$                                        & \{$\wedge$ commutative\}   \label{and-commutative} \\
-$(x \wedge (y \wedge z)) = ((x \wedge y) \wedge z)$                  & \{$\wedge$ associative\}   \label{and-associative} \\
-$(x \wedge (y \vee z)) = ((x \wedge y) \vee (x \wedge z))$           & \{$\wedge$ distributive\}  \label{and-distributive} \\
-$(x \wedge x) = x$                                                   & \{$\wedge$ idempotent\}    \label{and-idempotent} \\
-$(x \rightarrow y) = ((\neg y) \rightarrow (\neg x))$                & \{contrapositive\}         \label{contrapositive} \\
-$(x \rightarrow (y \rightarrow z)) = ((x \wedge y) \rightarrow z)$   & \{Currying\}               \label{currying} \\
-$((x \wedge y) \vee y) = y$                                          & \{$\vee$ absorption\}      \label{or-absorption} \\
-$((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
-$((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
-$((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
-$(x \rightarrow (\neg x)) = (\neg x)$                                & \{contradiction\}          \label{boolean-contradiction} \\
-\end{tabular}
-\end{center}
-\index{equation, by name!\{$\neg$ as $\rightarrow$\}}
-\index{equation, by name!\{$\wedge$ DeMorgan\}}
-\index{equation!DeMorgan}
-\index{DeMorgan}
-\index{equation, by name!\{$\vee$ complement\} }
-\index{equation, by name!\{$\wedge$ complement\}}
-\index{equation, by name!\{$\neg True$\}}
-\index{equation, by name!\{$\neg False$\}}
-\index{equation, by name!\{$\rightarrow$ identity\}}
-\index{equation, by name!\{$\wedge$ identity\}}
-\index{equation, by name!\{$\wedge$ commutative\}}
-\index{equation!commutative}
-\index{commutative}\index{distributive}
-\index{equation, by name!\{$\wedge$ associative\}}
-\index{equation!associative}
-\index{equation, by name!\{$\wedge$ distributive\}}
-\index{equation!distributive}
-\index{equation, by name!\{$\wedge$ idempotent\}}
-\index{equation!idempotent}
-\index{equation, by name!\{contrapositive\}}
-\index{equation, by name!\{Currying\}}
-\index{equation, by name!\{$\vee$ absorption\}}
-\index{equation!absorption}
-\index{equation, by name!\{$\wedge$ implication\}}
-\index{equation, by name!\{$\wedge$ implication\}}
-\index{equation, by name!\{absurdity\}}
-\index{equation, by name!\{contradiction\}}
-\index{absurdity, equation}
-\index{contrapositive}
-\caption{Some Boolean Theorems}
-\label{some-boolean-theorems}
-\end{figure}
+\begin{aside}
+The following equation defines the Boolean equivalence operator ($\leftrightarrow$).\\
+\hspace*{1cm}$(x \leftrightarrow y) = ((x \rightarrow y) \wedge (y \rightarrow x))$
+\vspace{2mm}\\
+If an implication goes both ways $(x \leftrightarrow y)$, 
+then $x$ and $y$ have the same value ($x = y$).
+This is the negation of the statement that 
+$x$ and $y$ have different values (one is $True$, the other $False$),
+which is the exclusive-or operation defined by the formula
+$(x \wedge (\neg y)) \vee ((\neg x) \wedge y)$.
+Exercise\ref{ex:boolean-equiv-notxor} shows that Boolean equivalence
+is the negation of the exclusive-or operator.
+Exercises~\ref{ex:boolean-equiv1}, \ref{ex:boolean-equiv2}, and \ref{ex:boolean-equiv4}
+show three other formulas that also produce 
+the same value as the Boolean equivalence operator. 
+In other words, the four formulas on the right-hand sides of the equations
+in those exercises are all equivalent to 
+Boolean equivalence.\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator!Boolean equivalence ($\leftrightarrow$)}\index{equivalence!Boolean ($\leftrightarrow$)}
+\caption{Boolean Equivalence ($\leftrightarrow$)}
+\label{aside:boolean-equivlance}\label{def:equivalence-op}
+\end{aside}
 
 \section{Digital Circuits}
 \label{sec:digital-circuits}
@@ -2733,8 +2770,7 @@ The three-line variation of the equals sign
 indicates that the term on the left stands
 for the formula on the right, \emph{by definition}.
 \begin{center}
-\index{equation!defining ($\equiv$)}\index{definition!equation ($\equiv$)}
-\index{equivalence!by definition ($\equiv$)}\index{three-line equal ($\equiv$)}
+\index{equation!defining ($\equiv$)}\index{definition!equation ($\equiv$)}\index{equal, three-line ($\equiv$)}\index{equivalence!by definition ($\equiv$)}\index{three-line equal ($\equiv$)}
 \begin{tabular}{ll}
 $term \equiv \dots \emph{some formula} \dots$ & ~~~~~ \emph{definition of term} \\
 $Q(n) \equiv ((n + 7) = 12)$                  & ~~~~~ $Q(n)$ \emph{stands for} $((n + 7) = 12)$ \\
