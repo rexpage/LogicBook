@@ -18,7 +18,7 @@ When there are many more signals than channels to send them on,
 one way to share a channel between two signals is to
 send a small part of one signal, then part of the other,
 then part of the first one again, and so on.
-There could be any number signals sharing the channel, 
+There could be any number signals sharing the channel,
 and the same kind of round-robin approach would work.
 Multiplexing.
 
@@ -177,7 +177,7 @@ We are trying to prove that the following equation holds for all natural numbers
 \index{theorem, by name!\{mux-length\}}
 \begin{quote}
 Theorem \{mux-length\}. $\forall n.$L($n$)\\
-L($n$) $\equiv$ (len(mux [$x_1$ $x_2$ $\dots$ $x_n$] $ys$)) = $n$ + (len $ys$) \\
+L($n$) $\equiv$ (len(mux [$x_1$ $x_2$ $\dots$ $x_n$] $ys$)) = $n$ + (len $ys$)
 \end{quote}
 
 In the base case, the first operand is empty.
@@ -293,7 +293,7 @@ you can infer that inductive case is true.
 
 \Exercise\label{mux-val-len-not-enough}
 Give an example of lists [$x$], [$y$], and [$u$ $w$] for which \\
-\hspace*{1cm}$\forall v.(($(occurs-in $v$ [$x$]) $\vee$ (occurs-in $v$ [$y$])$) 
+\hspace*{1cm}$\forall v.(($(occurs-in $v$ [$x$]) $\vee$ (occurs-in $v$ [$y$])$)
 \leftrightarrow$ (occurs-in $v$ [$u$ $w$])$)$\\
 is true, but [$u$ $w$] $\neq$ (mux [$x$] [$y$]).
 
@@ -315,7 +315,6 @@ and the axioms for the occurs-in predicate
 have been stated in the form we use for pencil-and-paper proofs.
 These proofs are rigorous, but not formal
 in the sense of the mechanized proofs of ACL2.
-
 Below is an ACL2 formalization of these ideas,
 which the ACL2 system succeeds in admitting.
 \label{acl2:iff}
