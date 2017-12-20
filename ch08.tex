@@ -9,25 +9,23 @@
 \label{sec:mux}
 
 Suppose you want to take two lists and shuffle them into one.
-You're looking for a \index{perfect shuffle}\index{shuffle, perfect}perfect shuffle, 
+You're looking for a \index{perfect shuffle}\index{shuffle, perfect}perfect shuffle,
 an element from one list,
 then one from the other list, back to the first list, and so on.
 This is sometimes called ``multiplexing.''
-
 The term comes from the realm of signal transmission.
-There are many more signals than channels to send them on.
-One way to share a channel between two signals is to
+When there are many more signals than channels to send them on,
+one way to share a channel between two signals is to
 send a small part of one signal, then part of the other,
 then part of the first one again, and so on.
-It could be any number signals sharing the channel, not just two,
-but the same kind of round-robin approach would work for any
-number of signals.
+There could be any number signals sharing the channel, 
+and the same kind of round-robin approach would work.
 Multiplexing.
 
-We call the operator 
+We call the operator
 \seeonlyindex{mux (multiplexer)}{operator}
 \index{operator, by name!mux (multiplexer)}``mux''.
-It conforms to the pattern suggested by the following equation.
+It conforms to the pattern in the following equation.
 
 \hspace{1cm} (mux [$x_1$ $x_2$ $x_3$ $\dots$] [$y_1$ $y_2$ $y_3$ $\dots$]) =
      [$x_1$ $y_1$ $x_2$ $y_2$ $x_3$ $y_3$ $\dots$] \hfill \{\emph{mux}\}
@@ -40,7 +38,7 @@ If both lists are non-empty,
 then the first element of the multiplexed list is the first element of the first list,
 and the second element of the multiplexed list is the first element of the other list.
 So, the following formula would
-get the first two elements of the multiplexed list right.
+get the first two elements into the right places in the multiplexed list.
 
 \hspace{1cm} (mux (cons $x$ $xs$) (cons $y$ $ys$)) =
 (cons $x$ (cons $y$ $\dots$ \emph{rest of formula goes here} $\dots$))
@@ -48,15 +46,14 @@ get the first two elements of the multiplexed list right.
 Fortunately, there is no great mystery concerning the missing part of the formula.
 Multiplexing what's left of the two input lists will get all the elements
 in the right place for the perfect shuffle that the mux operator is supposed to deliver.
-
-That gives us an equation that the mux operator
-would have to satisfy if it worked properly.
+That gives us an inductive equation that the mux operator
+would satisfy if it worked properly.
 
 \hspace{1cm} (mux (cons $x$ $xs$) (cons $y$ $ys$)) = (cons $x$ (cons $y$ (mux $xs$ $ys$)))
 \hfill \{\emph{mux11}\}
 
 The \{mux11\} equation covers the case when both lists are non-empty.
-It's an inductive equation, so we need to be careful to make sure
+Since it's an inductive equation, we need to be careful to make sure
 that operands of mux on the right-hand-side of the equation
 are closer to those in a non-inductive equation than they are
 to the operands on the left-hand side.
@@ -64,25 +61,22 @@ If not, the equation will fail to be computational, and
 we won't be able to use it to define the operator.
 We observe that the operands in the invocation on the
 right are shorter lists than the operands on the left.
-Only  element shorter, but that's enough.
-
+Only one element shorter, but that's enough.
 Therefore, the equation \{\emph{mux11}\} can be used
 as a defining axiom. It applies whenever both lists are non-empty.
+
 If both lists are empty, there is nothing to multiplex,
 so mux would deliver the empty list in that case, but
 what should it deliver if one list is empty, but the other isn't?
-
 There are several reasonable choices, and each of them produces
 a different operator. One choice is to incorporate the elements
 in the non-empty list, just as they are, into the
 multiplexed list that the mux operator delivers..
 That would make mux satisfy the following equations.
 
-\index{operator, by name!mux (multiplexer)}
-\index{axiom, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}
-\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}
+\index{operator, by name!mux (multiplexer)}\index{axiom, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\},\{mux11\}}
 \begin{center}
-Axioms for mux Operator
+Axioms for mux Operator\label{axioms:mux}
 \begin{tabular}{ll}
 (mux nil $ys$) = $ys$  & \{\emph{mux0x}\}     \\
 (mux $xs$ nil) = $xs$  & \{\emph{mux0y}\}     \\
@@ -93,8 +87,7 @@ Axioms for mux Operator
 \label{def:mux}
 The three equations, \{\emph{mux0x}\}, \{\emph{mux0y}\}, and \{\emph{mux11}\},
 are comprehensive (either both operands are non-empty
-or at least one of them is) and computational
-(inductive invocations have operands closer to operands in non-inductive equations).
+or at least one of them is empty) and computational (as we discussed).
 They are consistent because the only overlapping case
 occurs when both lists are empty, and in that case,
 the overlapping equations
@@ -102,7 +95,6 @@ the overlapping equations
 (namely, the empty list).
 We can, therefore, take the equations as axioms
 defining the mux operator.
-
 Converting the axioms to ACL2 notation leads to the following
 definition.
 
@@ -152,8 +144,9 @@ the the two-equation definition to its mechanized logic.
 (defun mux2 (xs ys)       ; declare induction scheme
    (declare (xargs :measure (+ (len xs) (len ys))))
    (if (consp xs)
-       (cons (first xs) (mux2 ys (rest xs))) ; {mux2-1y}
-       ys))                                  ; {mux2-0x}
+       (cons (first xs)            ; {mux2-1y}
+              (mux2 ys (rest xs)))
+       ys))                        ; {mux2-0x}
 \end{Verbatim}
 \index{operator, by name!mux (multiplexer)}
 \index{axiom, by name!\{mux2-1y\}, \{mux2-0x0y\}}
@@ -162,8 +155,8 @@ the the two-equation definition to its mechanized logic.
 \end{aside}
 
 As always, the axioms that define an operator
-determine not only the properties they specify
-but also determine all of the other properties of the operator.
+determine not only the properties they specify directly,
+but all other properties of the operator, too.
 What properties would we expect the mux operator to have?
 Surely, the number of elements in the multiplexed list
 would be the sum of the lengths of it operands.
@@ -194,9 +187,9 @@ Base case: L($0$) $\equiv$ ((len(mux nil $ys$)) = 0 + (len $ys$))
 \end{quote}
 \begin{center}
 \begin{tabular}{lll}
-     & (len(mux nil $ys$))    &                 \\
- $=$ & (len $ys$)             & \{\emph{mux0x}\}\\
- $=$ & 0 + (len $ys$)         & \emph{algebra}  \\
+     & (len(mux nil $ys$))    &                   \\
+ $=$ & (len $ys$)             & \{\emph{mux0x}\}  \\
+ $=$ & 0 + (len $ys$)         & \{\emph{algebra}\}\\
 \end{tabular}
 \end{center}
 
@@ -208,9 +201,15 @@ Inductive case: L($n+1$) $\equiv$ (len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] $ys$)
 
 We split the inductive case, $L(n+1)$, into two parts.
 The second operand of mux is either nil or it's not.
-We derive the conclusion from both possibilities and cite the \{$\vee$ elimination\}
-inference rule (page \pageref{fig-02-deduction-rules})
-to conclude that $L(n+1)$ holds.
+We derive the conclusion from both possibilities,
+and that completes the proof because we can infer
+that the conclusion holds in all
+circumstances.\footnote{Formal proofs of this kind,
+based on separate proofs in two cases that cover all circumstances,
+cite the \{$\vee$ elimination\}
+inference rule (page \pageref{fig-02-deduction-rules}).
+The proof here is rigorous, but not formal.
+ACL2 carries out a formal proof.}
 
 The proof of the inductive case when $ys$ is nil
 is like the proof when $xs$ is nil,
@@ -229,13 +228,13 @@ L($n+1$) $\equiv$ (len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$))) = $
 \end{quote}
 \begin{center}
 \begin{tabular}{lll}
-    & (len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$)))             &   \\
-$=$ & (len(mux (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$))))      & \{\emph{cons}\} \emph{(page \pageref{first-rest-cons})} \\
-$=$ & (len(cons $x$ (cons $y$ (mux [$x_2$ $\dots$ $x_{n+1}$] (cons $ys$))))) & \emph{algebra} \\
-$=$ & 1 + (1 + (len(mux [$x_2$ $\dots$ $x_{n+1}$] (cons $ys$))))             & \{\emph{len1}\} \emph{twice (page \pageref{len-equations})} \\
-$=$ & 1 + (1 + ($n$ + (len(cons $ys$))))                                     & \{\emph{L(n)}\} \emph{induction hypothesis} \\
-$=$ & ($n$ + 1) + (1 + (len(cons $ys$)))                                     & \emph{algebra} \\
-$=$ & ($n$ + 1) + (len(cons $y$ $ys$))                                       & \{\emph{len1}\} \\
+    & (len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$)))        &   \\
+$=$ & (len(mux (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$)))) & \{\emph{cons}\} \emph{(page \pageref{first-rest-cons})} \\
+$=$ & (len(cons $x_1$ (cons $y$ (mux [$x_2$ $\dots$ $x_{n+1}$] $ys$)))) & \{\emph{mux11}\} \emph{(page \pageref{axioms:mux})}\\
+$=$ & 1 + (1 + (len(mux [$x_2$ $\dots$ $x_{n+1}$] $ys$)))               & \{\emph{len1}\} \emph{twice (page \pageref{len-equations})}\\
+$=$ & 1 + (1 + ($n$ + (len $ys$)))                                      & \{\emph{L(n)}\} \emph{induction hypothesis} \\
+$=$ & ($n$ + 1) + (1 + (len $ys$))                                      & \{\emph{algebra}\} \\
+$=$ & ($n$ + 1) + (len(cons $y$ $ys$))                                  & \{\emph{len1}\} \\
 \end{tabular}
 \end{center}
 \index{theorem, by name!\{mux-length\}}
@@ -245,7 +244,8 @@ $=$ & ($n$ + 1) + (len(cons $y$ $ys$))                                       & \
 
 The next section discusses an operator that goes in the other direction.
 It ``demultiplexes'' a list into two lists, reversing the perfect shuffle.
-We will prove that the two operators invert each other.
+We will prove that dmx undoes the effect of mux, and vice versa.
+That is, the two operators invert each other.
 
 \begin{ExerciseList}
 \Exercise
@@ -266,45 +266,38 @@ We will call this the ``mux-val'' theorem:
 \begin{quote}
 \label{thm:mux-val}
 Theorem \{mux-val\}.\\
-((occurs-in $v$ $xs$) $\vee$ (occurs-in $v$ $ys$)) $\leftrightarrow$ (occurs-in $v$ (mux $xs$ $ys$))
+$\forall v.(($(occurs-in $v$ $xs$) $\vee$ (occurs-in $v$ $ys$)$) \leftrightarrow$ (occurs-in $v$ (mux $xs$ $ys$))$)$ \\
+\emph{Note}: The ``$\leftrightarrow$'' operator
+is Boolean equivalence (Aside~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
 \end{quote}
 
-\label{def:equivalence-op}
-The ``$\leftrightarrow$''
-\index{Boolean!equivalence ($\leftrightarrow$, iff)}
-\index{operator!Boolean equivalence ($\leftrightarrow$)}
-\index{equivalence!Boolean ($\leftrightarrow$)}operator
-in the formula is Boolean equivalence.
-The formula $p \leftrightarrow q$ is true if both $p$ and $q$ are true
-or if both $p$ and $q$ are false. It is false if one of the two is true
-and the other is false. Boolean equivalence means that implication goes both ways:
-$p \leftrightarrow q$ = $((p \rightarrow q) \wedge (q \rightarrow p))$.
-
 The occurs-in predicate is defined as follows.
-\index{predicate, by name!occurs-in (list)}
-\index{operator, by name!occurs-in (\emph{see} predicate)}
-\seeonlyindex{occurs-in list}{predicate}
+\index{predicate, by name!occurs-in (list)}\index{operator, by name!occurs-in (\emph{see} predicate)}\seeonlyindex{occurs-in list}{predicate}
 \begin{quote}
 \label{def:occurs-in}
 (occurs-in $v$ $xs$) = (consp $xs$) $\wedge$ (($v$ = (first $xs$)) $\vee$ (occurs-in $v$ (rest $xs$))) ~~ \{\emph{occurs-in}\}
 \end{quote}
 
 \emph{Hint:} The inductive case of your proof
-(that is, the case when $xs$ is non-empty)
-can cite the \{$\vee$ elimination\} inference rule,
+(that is, the case when $xs$ is non-empty),
+split the proof into two parts.
 as in the proof of the mux-length theorem (page \pageref{mux-length-thm}).
-The proof of the inductive case will have two parts.
 In one part, the value $v$ will be equal to
 the first element of $xs$:
 $v$ = (first $xs$).
 In the other part, $v$ will occur in (rest $xs$).
 That is, (occurs-in $v$ (rest $xs$)) will be true.
-Prove both parts, separately.
-Since they have the same conclusion,
-\{$\vee$ elimination\} confirms that the conclusion is true.
+Prove each part separately.
+Since the two parts cover all the possibilities,
+you can infer that inductive case is true.
 
-\Exercise
-\label{mux2-eq-mux}
+\Exercise\label{mux-val-len-not-enough}
+Give an example of lists [$x$], [$y$], and [$u$ $w$] for which \\
+\hspace*{1cm}$\forall v.(($(occurs-in $v$ [$x$]) $\vee$ (occurs-in $v$ [$y$])$) 
+\leftrightarrow$ (occurs-in $v$ [$u$ $w$])$)$\\
+is true, but [$u$ $w$] $\neq$ (mux [$x$] [$y$]).
+
+\Exercise\label{mux2-eq-mux}
 Do a paper-and-pencil proof that
 (mux2 $xs$ $ys$) is the same as (mux $xs$ $ys$).\\
 \emph{Note}: mux2 is defined in
@@ -332,7 +325,7 @@ The
 \index{equivalence!Boolean (iff)}
 \index{iff (\emph{see also} operator)}IFF operator
 is Boolean equivalence
-(exercise \ref{ex:mul-val-thm}, page \pageref{def:equivalence-op}).
+(Aside~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
 \\
 
 \label{defun:occurs-in}
@@ -397,7 +390,7 @@ and the second component is the empty list.
 \label{dmx-defun}
 \begin{Verbatim}
 (defun dmx (xys)
-  (if (consp (rest xys))      ; 2 or more elements?
+  (if (consp (rest xys)) ; 2 or more elements?
       (let* ((x (first xys))
              (y (second xys))
              (xsys (dmx (rest (rest xys))))
@@ -406,27 +399,6 @@ and the second component is the empty list.
         (list (cons x xs) (cons y ys)))      ; {dmx2}
       (list xys nil)))  ; 1 element or none  ; {dmx1}
 \end{Verbatim}
-
-\begin{aside}
-A more clever definition of the demultiplexer
-observes that if the operand alternates between $x$ and $y$ values,
-starting with an $x$,
-then the same list without is first element alternates similarly
-starting with a $y$. The definition is shorter,
-but makes reasoning more complicated.\\
-\begin{center}
-Axioms for dmx2 (maybe too clever by half)
-\begin{tabular}{ll}
-(dmx2 [$x_1$ $y_1$ $x_2$ $y_2$ $\dots$]) $=$ [(cons $x_1$ $xs$) $ys$]  & \{\emph{dmx2-1x}\} \\
-~~~~~~where [$ys$ $xs$] $=$ (dmx2 [$y1$ $x_2$ $y_2$ $\dots$])          & \\
-(dmx2 nil) $=$ [nil ~ nil]                                             & \{\emph{dmx2-0x}\} \\
-\end{tabular}
-\end{center}
-\index{axiom, by name!\{dmx2-1x\}, \{dmx2-2x\}}
-\index{operator, by name!dmx (demultiplexer)}
-\caption{Cleverness Sometimes Complicates Reasoning}
-\label{aside:dmx-defun-trick}
-\end{aside}
 
 Like the the multiplexer,
 the demultiplexer preserves the total length
@@ -474,6 +446,27 @@ The second component is also half the length of the operand, but rounded down if
 The mechanized logic of ACL2 succeeds in proving these theorems,
 but it needs the help of some theorems about arithmetic.
 
+\begin{aside}
+A more clever definition of the demultiplexer
+observes that if the operand alternates between $x$ and $y$ values,
+starting with an $x$,
+then the same list without is first element alternates similarly
+starting with a $y$. The definition is shorter,
+but makes reasoning more complicated.\\
+\begin{center}
+Axioms for dmx2 (maybe too clever by half)
+\begin{tabular}{ll}
+(dmx2 (cons $x$ $yxs$) $=$ [(cons $x$ $xs$) $ys$] & \{\emph{dmx2-1x}\} \\
+~~~~~~where [$ys$ $xs$] $=$ (dmx2 $yxs$)          & \\
+(dmx2 nil) $=$ [nil ~ nil]                        & \{\emph{dmx2-0x}\} \\
+\end{tabular}
+\end{center}
+\index{axiom, by name!\{dmx2-1x\}, \{dmx2-2x\}}
+\index{operator, by name!dmx (demultiplexer)}
+\caption{Cleverness Sometimes Complicates Reasoning}
+\label{aside:dmx-defun-trick}
+\end{aside}
+
 \seeonlyindex{mux theorems}{theorems}
 \seeonlyindex{dmx theorems}{theorems}
 \index{theorem, by name!\{dmx-len-first\}, \{dmx-len-second\}}
@@ -512,6 +505,12 @@ You may find the proofs easier if you split them into
 two cases, one when the number of elements in the operand is even
 (that is, $2n$, for some natural number $n$),
 the other when the number of elements is odd ($2n+1$).
+
+\Exercise\label{dmx-val-len-not-enough}
+Give an example of lists [$x$ $y$], [$u$], and [$w$] for which \\
+\hspace*{1cm}$\forall v.(($(occurs-in $v$ [$u$]) $\vee$ (occurs-in $v$ [$w$])$)
+\leftrightarrow$ (occurs-in $v$ [$x$ $y$])$)$\\
+is true, but [[$u$] [$w$]] $\neq$ (dmx [$x$ $y$]).
 
 \Exercise [label={ex:dmx-val-thm}]
 State formally, in ACL2, the ``dmx-val'' theorem
