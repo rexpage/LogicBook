@@ -7,8 +7,8 @@
              (xsys (dmx (rest (rest xys))))
              (xs (first xsys))
              (ys (second xsys)))
-        (list (cons x xs) (cons y ys)))      ; dmx2
-      (list xys nil)))  ; 1 element or none  ; dmx1
+        (list (cons x xs) (cons y ys)))      ; {dmx2}
+      (list xys nil)))  ; 1 element or none  ; {dmx1}
 (defthm dmx-len-thm
   (mv-let (odds evns)
           (dmx xs)
@@ -43,12 +43,12 @@
             :measure (len xs)
             :hints (("Goal"
                     :use ((:instance dmx-shortens-list-thm))))))
-  (if (consp (rest xs))   ; xs has 2 or more elements?
+  (if (consp (rest xs))      ; 2 or more elements?
       (let* ((splt (dmx xs))
              (odds (first splt))
              (evns (second splt)))
-        (mrg (msort odds) (msort evns)))    ; {msrt2}
-      xs))                ; (len xs) <= 1   ; {msrt1}                       
+        (mrg (msort odds) (msort evns))) ; {msrt2}
+      xs))             ; (len xs) <= 1   ; {msrt1}                      
 
 (defthm mrg-order-thm
   (implies (and (up xs) (up ys))
