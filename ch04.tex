@@ -59,6 +59,21 @@ If $x$ stands for the number 9,
 and $xs$ stands for the list [8 3 7],
 then (cons $x$ $xs$) constructs the list [9 8 3 7].
 
+\begin{figure}
+\begin{center}
+[$x_1$ $x_2$ \dots $x_n$] $=$
+(list $x_1$ $x_2$ \dots $x_n$) $=$ (cons $x_1$ (cons $x_2$ \dots (cons $x_n$ nil) \dots))\\
+\vspace{2mm}
+\begin{tabular}{lclcl}
+{[$1$ $2$]}             &$=$ &(list $1$ $2$)            &$=$ &(cons $1$ (cons $2$ nil))\\
+{[$16$ ~$256$ ~$4096$]} &$=$ &(list $16$ ~$256$ ~$4096$)&$=$ &(cons $16$ (cons $256$ (cons $4096$ nil)))\\
+{[$1$ $9$ $4$ $7$]}     &$=$ &(list $1$ $9$ $4$ $7$)    &$=$ &(cons $1$ (cons $9$ (cons $4$ (cons $7$ nil))))
+\end{tabular}
+\end{center}
+\caption{Shorthand for Nested Cons: list}
+\label{fig:list-nested-cons}
+\end{figure}
+
 Any list can be constructed by starting from the \index{empty list (nil)}empty list
 and using the construction operator to insert the elements of the list, one by one.
 The empty list, \index{nil}nil, which is intrinsic in ACL2, needs no construction.
