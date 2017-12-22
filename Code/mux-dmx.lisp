@@ -1,11 +1,11 @@
 (defun mux (xs ys)
   (if (not (consp xs))
-      ys                                             ; mux0x
+      ys                                             ; {mux0x}
       (if (not (consp ys))
-          xs                                         ; mux0y
+          xs                                         ; {mux0y}
           (cons (first xs)
                 (cons (first ys)
-                      (mux (rest xs) (rest ys))))))) ; mux11
+                      (mux (rest xs) (rest ys))))))) ; {mux11}
 
 (defun dmx (xys)
   (if (consp (rest xys))      ; 2 or more elements?
@@ -14,8 +14,8 @@
              (xsys (dmx (rest (rest xys))))
              (xs (first xsys))
              (ys (second xsys)))
-        (list (cons x xs) (cons y ys)))      ; dmx2
-      (list xys nil)))  ; 1 element or none  ; dmx1
+        (list (cons x xs) (cons y ys)))      ; {dmx2}
+      (list xys nil)))  ; 1 element or none  ; {dmx1}
 
 (defthmd dmx-preserves-length-thm
   (= (len xys)
@@ -71,16 +71,16 @@
 (defun mux2 (xs ys)       ; declare induction scheme
    (declare (xargs :measure (+ (len xs) (len ys))))
    (if (consp xs)
-       (cons (first xs) (mux2 ys (rest xs))) ; mux2-1y
-       ys))                                  ; mux2-0x
+       (cons (first xs) (mux2 ys (rest xs))) ; {mux2-1y}
+       ys))                                  ; {mux2-0x}
 (defun dmx2 (xys) ; too clever by half
   (if (consp xys)
       (let* ((x (first xys))
              (ysxs (dmx2 (rest xys)))
              (ys (first ysxs))
              (xs (second ysxs)))
-        (list (cons x xs) ys))                      ; dmx2-1
-      (list xys xys)))                              ; dmx2-0
+        (list (cons x xs) ys))        ; {dmx2-1}
+      (list xys xys)))                ; {dmx2-0}
 (defthm mux=mux2
    (equal (mux2 xs ys) (mux xs ys)))
 (defthm dmx=dmx2
