@@ -12,21 +12,24 @@ together with some engineering artifacts
 that emerged from its framework,
 will be the primary topics of this book.
 
-The \index{hardware}hardware component of a computer system is made up of visible
-pieces of equipment such as monitors,
+The \index{hardware}hardware component of a computer system is made up
+of physical pieces of equipment such as monitors,
 keyboards, printers, web cameras, and USB drives.
 Hardware also includes components inside the computer enclosure,
 such as chips, cables, hard drives, and circuit boards.
 The properties of hardware devices are largely fixed when the system is
-constructed. For example, a hard drive may store a terabyte, but not more.
-A cable may be able to carry 25 different signals
-simultaneously, but not 26.
+constructed. For example, the capacity of a hard drive is
+determined when it is manufactured. A three terabyte drive
+stores three terabytes of data, not more.
+A particular cable may constructed to carry twenty-five different signals
+simultaneously. Need to send twenty-six signals at the same time?
+Get a different cable, or more of them.
 
 The hardware that makes up a computer system is not much different
 than the electronics inside a television set or a navigational device,
-but computer hardware can do something that other
-consumer electronic devices cannot.
-It can respond to  the software component of the computer system
+but computer hardware can do something that most
+consumer electronic devices cannot do.
+It can respond to the software component of the computer system
 to exhibit an unlimited range of behaviors.
 The \index{software}software component is a collection of computer programs,
 and programs can be added to the collection, or removed from it,
@@ -34,48 +37,58 @@ at any time.
 So, a computer system is a multipurpose device in the extreme,
 capable of doing things that its designers never thought about.
 
-You have not doubt heard of various computer chips,
-such as the Intel chips that may be at the heart of your laptop.
+You have no doubt heard of various computer chips.
+Maybe your laptop is powered by an Intel i7 or
+an AMD Athlon X4.
 Software for these chips consists of a list of
 instructions that, when carried out one by one, in sequence,
-modify the state of the computer system to make it carry out
+modify the state of the computer system to make it perform
 the function the software designer had in mind.
 However, software designers rarely put together programs using
-the instruction set of the computer chip that performs the computation.
+the \index{instruction set}instruction set of the computer chip
+that performs the computation.
 Instead, software designers use a more compact notation to
 specify the desired behavior, and another piece of software
 builds the list of chip instructions from those specifications.
-The language of the chip, that is its \index{instruction set}instruction set,
-is almost always different from the programming language
-of the software designer.
-There are hundreds of different programming languages,
-and in most cases software expressed in them consists
+
+The instructions that the chip can carry out
+are almost always different from the instructions
+that the software designer uses to build computer programs.
+There are hundreds of different programming languages
+that software designers can choose from.
+In most cases software expressed in these languages consists
 of a list of instructions to be carried out, one by one,
+in the manner of chip instructions,
 but each instruction in the programming language gives
 rise to a sequence of at least a few and sometimes many
-steps in the instruction set of the underlying computer chip.
+commands in the instruction set of the underlying computer chip.
 
 However, software as a list of instructions is
 not the only alternative.
 Another alternative uses drawings of
-system configurations as a programming language.
-\index{LabView}LabView, for example,
-is used by scientist in laboratories to control equipment,
-by designers of computer hardware,
-and in university programs that educate designers of
-electronic devices. Programs in LabView look like engineering drawings.
-Another diagram-based language,
-S4SL, can be used to program the internet services provided
-by an application known as Second Life, and there
-are other diagram-based programming languages, too.
+system configurations to build software.
+For example, scientists use
+\index{LabView}LabView
+to control laboratory equipment.
+Engineers use it to design digital systems,
+and college students use it in projects to
+design electronic devices.
+Computer programs in LabView look like engineering drawings, 
+not like lists of instructions.
+Another visual language,
+Scratch, created by the MIT Media Lab,
+is used by children to construct software for games 
+and other educational projects. 
+LabView and Scratch programs don't
+look anything like chip instructions, 
+but they are just as capable of describing computations.
 
-A related alternative is to specify software in the form of
+A related alternative is to specify software as
 a collection of equations in which
 the left-hand side names a computation to be carried out
-along with some data to be used in the computation
 and the right-hand side reduces the computation to
-some smaller operations producing parts of the result
-along with an operator that combines the parts to deliver the whole.
+some smaller components producing parts of the result
+and combining them to deliver the whole.
 An advantage of the equation-based approach
 is that a form of reasoning similar to that used
 in ordinary, high-school algebra can be used to derive
@@ -87,7 +100,8 @@ so that if the software designer can think of tests
 that the software should pass, the software itself
 can emerge from specifications of the tests.
 
-These approaches are fundamentally different, but they
+Instruction lists, visual programming languages, and equation-based
+software are fundamentally different, but they
 are fully equivalent in terms of capabilities.
 Since the primary focus of this text is on logical reasoning
 about properties of hardware and software components of computer systems,
@@ -109,7 +123,7 @@ partial recursive functions,
 unrestricted grammars, Post production rules, random-access machines,
 and many others.
 Historically, Turing machines have provided the canonical foundation for computation,
-but he random-access model conforms more closely to modern computers,
+but the random-access model conforms more closely to modern computers,
 and the lambda calculus model is used in both computer science theory and practice.
 The equation-based model of computation that is the focus of this book
 falls into the lambda calculus bailiwick.
@@ -146,7 +160,7 @@ truths, not even in principle.
 
 It is software that gives a computer system its power and flexibility.
 An iPhone, for example, has a screen that
-can display hundreds of thousands of pixels,
+can display millions of pixels,
 but it is the software that determines whether the
 iPhone displays an album cover or a weather update.
 Software makes hardware useful by extending its range of behavior.
@@ -161,18 +175,18 @@ and the \index{software}software as information that tells the computer what to 
 However, the distinction between hardware and software is not as
 clear cut as this suggests. Many hardware components actually
 encode software directly and control other pieces of the system.
-In fact, hardware is designed and built using many techniques
-first developed to build large software projects,
-and major elements of hardware designs look just like software
+In fact, many techniques used in the design of 
+hardware were originated to build software.
+Major elements of hardware designs look like software
 and can use the same language and notation.
-And a major theme of this book
+A major theme of this book
 is that both hardware and software are realizations of formal logic.
 In this sense, computer systems are logic in action.
 
 \section{Structure of a Program}
 
 The distinction between hardware and software
-leaves many questions to the imagination, a few of which are the following.
+leaves many questions to the imagination.
 \begin{quote}
 \begin{enumerate}
 \item How can software control hardware?\\
@@ -180,21 +194,20 @@ leaves many questions to the imagination, a few of which are the following.
 \item How can software detect the status of hardware?\\
       Example: Determine whether a switch is pressed or not.
 \item What kinds of instructions can software give to hardware?\\
-      Examples: Add two numbers. Select between formulas. Replace one formula by another.
+      Examples: Add numbers. Replace one formula by another. Select a formula. 
 \end{enumerate}
 \end{quote}
 
-Any model of computation (see Aside~\ref{aside-model-of-computation})
-answers the question about software instructions,
-so there are as many answers as there are
-models of computation, and
+A model of computation (Aside~\ref{aside-model-of-computation})
+shows how software can control hardware,
+so there are as many answers to the first of these questions 
+as there are models of computation, and
 logicians have been very prolific when it
 comes to constructing such models.
 Luckily, since there are many equivalent models,
-we can choose the one
-that tailored to a particular kind of project.
+the requirements of a project can guide the choice of models.
 Generally, a programming language based on any model of computation
-employs primitive arithmetic and logic operators
+includes primitive arithmetic and logic operators
 (addition, multiplication, etc)
 and provides the ability to define new operators
 using either intrinsic primitive operators or previously defined operators.
@@ -202,7 +215,8 @@ using either intrinsic primitive operators or previously defined operators.
 \begin{aside}
 We will use the terms ``operator'' and ``function'' interchangeably.
 Some treatments use these terms to mean different things,
-but we will find it more convenient to think of them as the same thing.
+but we find it more convenient in this presentation 
+to think of them as the same thing.
 So, when we say \index{function}function we mean \index{operator}operator and vice versa.
 What we're talking about when we use either term
 is a transformation that delivers results when supplied with input.
@@ -227,22 +241,24 @@ $f(3,7)$ would stand for 10, and $f(2x,5)$ would mean $2x+5$.
 \label{operations-and-functions}
 \end{aside}
 
-Once we take the familiar arithmetic operators
-and the ability to define new functions
-as a basic elements of a computation model,
+Once we take the familiar operators
+and the ability to define new ones
+as basic elements of a computation model,
 we can talk about what it is possible for software to do.
 Software can affect
-hardware by the values that an operator delivers.  For example,
-a computer program can tell an iPhone what to display
-in its screen by delivering a matrix of pixels.
+hardware by the values that an operator delivers.  
+For example, a computer program can tell an iPhone what to display
+on its screen by delivering a matrix of pixels.
 Each entry in the matrix
-can be a number that represents a color, 16,777,215 for
+can be a number that represents a color: 16,777,215 for
 red or 65,280 for green, for example.
 Similarly, the hardware can inform the
-software of the status of a component by triggering a operator
-defined in the software and supplying the status in the operands.
-For example, the operands of a particular operator could be
-the coordinates of the pixel selected by touching the screen.
+software of the status of a component by 
+invoking an operator and supplying the status as an operand.
+For example, touching the screen of an iPhone might
+trigger a software operator and supply the operator with
+the coordinates of the pixel selected by the touch.
+The operator could then control the device's response.
 Other gestures, such as tapping or
 scrolling, would trigger different operators.
 
@@ -258,7 +274,7 @@ by invoking an operator called \texttt{emily},\footnote{This operator is
 named after a daughter of one of the authors who, when she was young,
 played the rock-paper-scissors game just like the program described here.}
 This operator will deliver
-either rock or paper or scissors as its value.
+rock or paper or scissors as its value.
 We could use numbers like 0, 1, and 2 as shorthand for these values,
 but most programming languages include many
 kinds of information, not just numbers,
@@ -269,8 +285,8 @@ selection with that of the device and determine the winner of the round.
 
 To make the game fair, the program will use
 separate operators for the device's choice and
-examining the choices to determine the winner,
-so the device cannot know the human player's choice before making its own.
+for examining the choices to determine the winner.
+That way, the device cannot know the human player's choice before making its own.
 The operator \texttt{emily} will deliver the device's choice for a round of the game.
 It needs some kind of information because an operator with no operands
 always delivers the same value, and that would make for a very boring game.
@@ -280,7 +296,7 @@ making a choice for the next round.
 To keep things simple, we will supply the human player's choice for the
 immediately previous round to \texttt{emily} as an operand.
 With that in mind, we could design the operator \texttt{emily} to choose
-according to the following scheme.
+a play according to the following scheme.
 \begin{displaymath}
 emily(u) =
    \left\{
@@ -298,8 +314,8 @@ the other specifying the human player's choice.
 The \texttt{score} operator delivers a value with two elements:
 the winner of the round and the human player's choice for that round.
 It reports the human player's choice so that the software
-can inform  the operator \texttt{emily} of that choice,
-so it can use it to determine the device's selection for the next round
+can inform  the operator \texttt{emily} of that choice.
+It can then use the choice to determine the device's selection for the next round
 according to the scheme we specified for \texttt{emily}.
 The following scheme for the \texttt{score} operator specifies,
 for each possible pair of operands,
@@ -341,15 +357,16 @@ In those models, programs use variables to record values
 and can use or update the recorded values later in the computation.
 In our equation-based model,
 programs consist of collections of mathematical functions (operators)
-that base their results entirely on their operands
-and not depending on recorded values beyond the data supplied in operands.
+that base their results entirely on their operands.
+Operators do not make use of recorded values 
+beyond the data supplied in operands.
 This makes it possible to
 understand equation-based programs in terms of classical
 logic and traditional algebraic formulas.
 
-After the first round of the game, the display component of our hardware
+After the first round of the game, the display component of the hardware
 for the rock-paper-scissors game
-would show first element $w_1$ of the pair $(w_1, u_1)$ delivered by the formula
+would show the first element $w_1$ of the pair $(w_1, u_1)$ delivered by the formula
 \texttt{score}(\texttt{emily}(none), $b_1$),
 where $b_1$ stands for rock, paper, or scissors, depending on which button
 the human player pressed.
@@ -379,7 +396,7 @@ A more complicated version of the software
 could define an operator \textit{play} that would
 generate a sequence of $n$ plays, where $n$ stands for
 an operand supplied to \textit{play}.
-In such a scenario, there would need to be some way to supply a operand $n$
+In such a scenario, there would need to be some way to supply an operand $n$
 to the operator \textit{play}, where $n$
 might be a fixed number, like five or ten, or
 might be a number selected with the help of another button on the hardware.
@@ -389,35 +406,45 @@ specifies a way to use those components.
 
 \section{Deep Blue and Inductive Definitions}
 
-Our model of computation is small, but it has as much power to specify computations
-as any other model. Knowing the great diversity of things that computers can do,
+The equation-based model of computation is small, 
+but it has as much power to specify computations
+as any other known model. Knowing the great diversity of things that computers can do,
 it seems reasonable to expect them to be much more complicated than that.
-It is true that computers have many more components than our
+It is true that computers have many more components than, for example,
 rock-paper-scissors device, but in fundamental terms,
 they have the same basic structure.
 Complex behavior from modest beginnings, a bargain if there ever was one.
 
 Consider \index{Deep Blue}Deep Blue, the
-computer that beat world champion Gary Kasparov at chess on May 11,
-1997.  This chess-playing software can be specified as an operator whose input is
+computer that beat world champion Gary Kasparov in a chess match on May 11,
+1997. It was the first time a computer had performed so well in a 
+game that challenges the mental capacities of human players.
+The Deep Blue chess-playing software can be specified as an operator whose input is
 an 8x8 matrix showing the positions of the pieces
-on the board after a move by the human player, Kasparov.
+on the board after a move by the human player (Kasparov, in the 1997 game).
 The operator would deliver a result showing
 either the positions on the board after its move or a special
-white-flag token used to ``resign'' the game.
+white-flag token used to resign the game.
 
-In principle, a chess-playing operator can be described as follows.
+In principle, a chess-playing computer program can be an operator 
+in software with the following characteristics.
 Given a matrix describing the board at a particular point in a game,
-determine all possible legal moves.  If there
-are no legal moves, resign.  If there is a legal move that results
-in checkmate, make that move.  Otherwise, for each legal move, consider
-each of the possible moves by the opponent.  Each one of those results
-in a new board, which can then be examined by the chess-playing operator
+the operator determines all possible legal moves.  If there
+are no legal moves, the operator delivers the white flag,
+signaling that the Deep Blue has resigned.  
+If there is a legal move that results
+in checkmate, the operator delivers the 8x8 matrix specifying the
+new board position after that move.  Otherwise, for each legal move, 
+the operator considers
+each of the possible moves in response by the human opponent. 
+Each one of those moves leads to in a new board that can be
+examined by the chess-playing operator
 to choose a move based on a calculation that estimates the value of
 board positions.
 
-An operator definition that follows this strategy is circular.
-One of the things it does is to invoke itself with new operands.
+An operator that follows this strategy can be defined
+in a circular way, circular in the sense that
+the operator invokes itself with new operands.
 Circular definitions of this kind are common in mathematics.
 We call them inductive definitions.\footnote{Operators with
 \seeonlyindex{inductive definition}{definition}\index{definition!inductive (circular)}inductive definitions
@@ -431,7 +458,7 @@ The trick that makes inductive definitions useful in mathematics
 is that at the point of circularity,
 the invocation of the operator being defined
 has operands that are closer to those in a non-circular part of the
-definition than the original operands.
+definition than to the original operands.
 
 Inductive \index{definition!inductive}definitions
 will play a central role throughout the book
@@ -446,11 +473,11 @@ h5 = \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{5}
 \end{displaymath}
 This is non-inductive definition of $h5$,
 and $h5$ has no operands, so it simply stands for a number,
-namely $\frac{137}{60}$, which is approximately $2.3$.
+namely $\frac{137}{60}$, which is about $2.3$.
 
 We could, of course, have written a formula for the sum
 of the first ten reciprocals or a sum with any number of terms.
-Sums of this form generate a mathematical entity known as
+Sums of this form comprise a mathematical entity known as
 the \index{harmonic series}harmonic \index{series, harmonic}series.
 They are known as the partial sums of the series,
 and we can define  an operator $h$ that computes such a sum
@@ -467,8 +494,8 @@ informal definition is that $h(n)$ stands for the sum of the first $n$ reciproca
 When $n$ is zero, there would be no terms in the sum,
 so the standard convention that the sum of an empty set of numbers
 is zero is consistent with the equation $h(0) = 0$.}
-Then, the following equations express, formally,
-our earlier observation about $h(n+1)$.
+Then, the following equations express that decision and
+the observation about the relationship between $h(n)$ and $h(n+1)$.
 \index{equation, by name!\{h0\}, \{h1\}}
 \label{reciprocalsdef}
 %\begin{displaymath}
@@ -493,7 +520,7 @@ In this case, we have used the names \{h1\} and \{h0\}.
 The equation \{h1\} is \seeonlyindex{circular definition}{definition}circular
 because both sides of the equation refer to a value delivered by the operator $h$.
 However, the operand $n$ in the circular reference
-(that is, in the formula $h(n)$ on the right-hand side of the equation \{h1\})
+(that is, the formula $h(n)$ on the right-hand side of the equation \{h1\})
 is closer to zero than the operand $(n+1)$ on the left-hand side of the equation.
 Furthermore, in equation \{h0\}, the operand on the left-hand side is zero and
 the equation is not circular.
@@ -502,9 +529,10 @@ It turns out, and we will study this is in great detail later,
 that these two characteristics of a collection of equations
 (a reduced operand on the right-hand side in circular equations
 and a specific operand on the left-hand side in non-circular equations)
-makes the equations a useful definition of an operator.
-Since equations \{h1\} and \{h0\} have these characteristics,
-we can take them as a formal definition of the operator $h$.
+turns circular equations into a useful definition of an operator.
+Therefore, we can say that equations \{h1\} and \{h0\}
+define the operator $h$. The definition is mathematically rigorous
+and is also computational.
 To see how this works, observe that, according to equation \{h1\},
 $h(5) = h(4)+\frac{1}{5}$.
 Furthermore, \{h1\} also says that $h(4) = h(3)+\frac{1}{4}$.
@@ -522,7 +550,7 @@ $h(5) = h(0) + \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{
 \end{tabular}
 \end{center}
 
-According to equation \{h0\}, $h(0) = 0$,
+Equation \{h0\} says $h(0) = 0$,
 so the last equation is equivalent to the following one.
 \begin{center}
 \begin{tabular}{l}
@@ -541,12 +569,12 @@ must in all cases stand for a strictly positive number
 and that its value must be a ratio of whole numbers,
 can be derived from \{h1\} and \{h0\}.
 It turns out that every computable function has a definition consisting
-of some equations specifying particular properties of the function,
+of some equations specifying properties of the function,
 and this approach provides the basis for much of the reasoning
 discussed in this text.
 The implications of inductive equations are broader than they seem at first glance.
 
-To get back to the chess-playing function, the problem with our
+To get back to the chess-playing computer, the problem with our
 na\"ive approach is that there are too many moves to consider.
 While the function can, \emph{in principle},
 select the best move given a particular arrangement of pieces on the chess board,
@@ -554,20 +582,25 @@ select the best move given a particular arrangement of pieces on the chess board
 would take too much time.
 The sun in our solar system would be long dead
 before the computer could decide on its first move.
-Nevertheless, \index{Deep Blue}\index{chess}Deep Blue
-did play like this, but most of the time it looked ahead
-only six to eight moves rather than
-all the way to the end of the game.
-In addition it used a computer with thousands of processing units
-and could consider many moves at the same time, which gave it
-the ability to analyze about 200 million board positions per second.
+
+\index{Deep Blue}\index{chess}Deep Blue
+did play in more-or-less this way, but it didn't look at board positions
+all the way to the end of the game. Most of the time, it looked
+six to eight moves ahead. Even that is a very big computation, 
+but it was a feasible one for Deep Blue because it had
+thousands of processing units and could consider many moves at the same time.
+That gave it the ability to analyze about 200 million board positions per second.
 The combination of massive computational power and limited look-ahead
-made it possible for the machine to outplay the most accomplished human chess player of the time.
-Deep Blue is a complicated function, with a long, complex definition.
-The {Deep Blue program did not, in fact,
-employ the equation-based model of computation,
+made it possible for Deep Blue to outplay 
+the most accomplished human chess player of the time.
+
+Deep Blue is a combination of a complicated computer 
+and a computer program with a long, complex definition.
+The Deep Blue software conformed to a conventional computation model,
+not the equation-based model we used to describe it,
 but in principle the program could have been designed
-using equations in a manner similar to our definition of the operator $h$.
+using equations in a manner similar to the 
+way equations provided a definition of the operator $h$.
 
 \begin{ExerciseList}
 \Exercise Can you use equations \{h0\} and \{h1\}
@@ -580,9 +613,9 @@ Assume that the formula $mod(k,n)$ stands for the remainder
 in $k \div n$.
 For example, $mod(17,5)=2$, $mod(9,2)=1$, and $mod(12,4)=0$.
 Use the $mod$ function in your definition of \emph{factor}.\\
-\emph{Hint}: You will need only one equation.\\
-\emph{Note}: The natural number $k$ is a factor of the natural number $n$
-if there is a natural number $m$ such that $n = km$.
+\emph{Note}: For natural numbers $k$ and $n$, $k$ is a factor $n$
+if there is a number $m$ such that $n = km$.\\
+\emph{Hint}: You will need only one equation.
 
 \Exercise \label{largest-factor}
         Define an operator to compute \emph{lf}$(n)$,
@@ -590,19 +623,20 @@ if there is a natural number $m$ such that $n = km$.
         For example, \emph{lf}$(30)=15$ and
         \emph{lf}$(15)=5$.
         Assume that the formula
-        \emph{lft}$(n,k)$  returns the largest factor of
+        \emph{lft}$(n,k)$ stands for the largest factor of
         $n$ that doesn't exceed $k$ (the largest factor up to $k$).
         For example, \emph{lft}$(30,7)=6$.
         In your definition, use a formula like \emph{lft}$(n,k)$,
         with appropriate choices for $n$ and $k$.
-        You may want to use the notation $\lfloor n \div k\rfloor$
-        to denote the largest integer that does not exceed $n \div k$.
+        You can use the notation $\lfloor n \div k\rfloor$
+        to denote the largest integer that does not exceed $n \div k$
+        (that is, $n \div k$ rounded down to an integer).
 
 \Exercise \label{prime-predicate}
         Define an operator to compute $p(n)$, which is true
         if $n$ is a prime number and false otherwise.
         Refer to the operator \emph{lf}
-        from Exercise \ref{largest-factor} in your definition.
+        from Exercise \ref{largest-factor} in your definition.\\
         \emph{Note}: A prime number is a natural number greater than or equal to two
         that has no factors other than one and itself.
 
@@ -610,7 +644,8 @@ if there is a natural number $m$ such that $n = km$.
 the sum of the reciprocals of all the prime numbers that are less than or equal to
 a given natural number $n$.
 Use the equations that define the operator
-$h$ (page~\pageref{reciprocalsdef})\footnote{The
+$h$ (page~\pageref{reciprocalsdef})
+as a model for your definition of $rp(n)$.\footnote{The
 \index{harmonic series}harmonic \index{series, harmonic}series, $h(n)$,
 grows without bound as $n$ becomes large,
 but very slowly, at about the same rate of growth as $log(n)$.
@@ -627,12 +662,11 @@ Newton and Leibniz conjured up mathematical entities known as infinitesimal numb
 to justify the new mathematics that they introduced in the 1600s,
 but it wasn't until the 1960s that Abraham \index{Robinson, Abraham}Robinson invented a formal logic
 for reasoning about infinitesimal numbers.
-The proof engine \index{ACL2r}ACL2r, which is an extension of ACL2, the mechanized logic 
-that is used extensively in this book, employs Robinson's 
-\index{non-standard analysis}non-standard analysis
-to support partially automated and rigorously checked reasoning about functions with
-numeric operands of infinite precision.}
-as a model for your definition of $rp(n)$.\\
+The proof engine \index{ACL2r}ACL2r, which is an extension of ACL2,
+the mechanized logic used extensively in this book,
+employs Robinson's \index{non-standard analysis}non-standard analysis
+to support partially automated, formal reasoning about functions with
+numeric operands of infinite precision.}\\
 \emph{Hint}: Use three equations, one for numbers $n$ that are prime numbers,
 another for non-zero numbers that are not prime,
 and a third for the case when $n = 0$.
