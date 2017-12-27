@@ -16,7 +16,7 @@ inference.
 You will probably find this familiar from your
 experience with numeric algebra, but the discourse here will attend carefully
 to details, and this formality may extend beyond what you are
-accustomed to. What it buys us is mechanization. That is,
+accustomed to. What it buys is mechanization. That is,
 logic formulas and reasoning about them will amount to
 mechanized computation, and this will make it possible for
 computers to check that our reasoning follows all the rules,
@@ -69,7 +69,8 @@ not know that it is a consequence of some basic facts about
 arithmetic.
 That is, the fact that multiplying two
 negative numbers produces a positive one
-is not independent of other facts about numbers.
+is not independent of other facts about numbers,
+and it is not an arbitrary decision, either.
 Instead, it is an inference one can draw
 from an acceptance of other familiar equations.
 We will derive the equation $(-1)\times(-1) = 1$
@@ -220,8 +221,15 @@ the equation $(-1)\times(-1) = 1$ does not depend on vague,
 philosophical assertions like ``two negatives make a positive.''
 Instead, the equation $(-1)\times(-1) = 1$ is a consequence of some
 basic arithmetic equations. If you accept the basic equations
-and the idea of substituting equals for equals, you must, as a
-rational consequence, accept the equation $(-1)\times(-1) = 1$.
+and the idea of substituting equals for equals,\footnote{Substituting
+equals for equals applies the first of Euclid's common notions:
+Things which are equal to the same thing are also equal to one another.
+%Failed attempt to quote Euclid in Greek ... probably bad idea anyway
+%(Or, ``\textgreek{Ηἰτήσθω ἀπὸ παντὸς σημείου ἐπὶ πᾶν σημεῖον εὐθεῖαν γραμμὴν ἀγαγεῖν}'',
+%as Euclid may have put it.)
+People have been reasoning by substitution for a long time.}
+you must, as a rational consequence, accept the equation
+$(-1)\times(-1) = 1$.
 
 Using this same kind of reasoning, we will derive new Boolean equations
 from a few, basic ones postulated as axioms.
@@ -237,9 +245,8 @@ literally, a formula, we will be able to derive
 properties of software directly from the programs, themselves.
 This makes it possible for us to be entirely
 certain about some of the behavioral characteristics of
-software, and of computer hardware, too,
-since a hardware component is a physical embodiment of a formula
-in logic.
+software and of the digital circuits that
+comprise hardware components.
 Our certainty stems from the mechanistic
 formalism that we insist on from the beginning,
 which can be checked to the last detail with automated computation.
@@ -250,7 +257,7 @@ which can be checked to the last detail with automated computation.
 Use the equations of Figure~\ref{fig-02-01} (page \pageref{fig-02-01}),
 together with the additional equation (1+1)=2, to derive the equation $(x + x) = (2 \times x)$.
 
-\Exercise
+\Exercise\label{ex:times-negation}
 Derive the following equation
 using using the equations of Figure~\ref{fig-02-01}.
 \begin{center}
@@ -263,7 +270,7 @@ $((-1) \times x) + x = 0$    & \{$\times$ negation\}
 Derive the equation $((x + (((-1) \times (x + y)) + z)) + y) = z$
 using using the equations of Figure~\ref{fig-02-01} and,
 if you like,
-the \{$\times$ negation\} equation from the previous exercise.
+the \{$\times$ negation\} equation from Exercise \ref{ex:times-negation}.
 \end{ExerciseList}
 
 \section{Boolean equations}
@@ -561,7 +568,7 @@ Truth tables are infeasible in this realm.
 Proofs like those that make up the core of this book
 are not the only effective way to work with large formulas.
 Hardware and software designers sometimes use
-SMT solvers (satisfiability modula theories),
+SMT solvers (satisfiability modulo theories),
 BDD tools (binary decision diagrams), or other similar tools
 to verify properties of circuits and computer programs,
 but such tools don't apply to all formulas.
@@ -617,11 +624,11 @@ It is tempting to copy the
 old component, change $2 \times x$ to $3 \times x$,
 and paste the revised component into the program.
 
-In our experience
+In our experience,
 \index{copy-and-paste programming}copy-and-paste programming is
 a common source of errors in software,
 especially in programs maintained
-over time because when a maintainer finds an error in
+over time. When a maintainer finds an error in
 a component that was copied from elsewhere,
 there is nothing to direct the maintainer to fix
 the same error in the original component.
@@ -638,8 +645,7 @@ the error only needs to be fixed in one place, not two,
 or maybe ten or a hundred places, depending on how many engineers
 copied the original component to make a change.
 Abstraction is an important engineering method.
-Citing old theorems to prove new ones
-is part of that tradition.
+Citing old theorems to prove new ones has similar advantages.
 \caption{Abstraction}
 \label{abstraction}
 \index{abstraction}
@@ -740,29 +746,29 @@ $=$ & $False$                                & \{$\neg$ truth table\} \\
 \label{fig:and-null-thm}
 \end{figure}
 
-This regime of theorem after theorem, proof after proof, is a little tiresome, isn't it?
+This regime of theorem after theorem, proof after proof, is tiresome, isn't it?
 Nevertheless, let's push through one more.
-Then we'll give you a few to work out on your own, and go on to other topics.
-We're not abandoning proofs, though.
-Just taking a little break from proofs about equations.
+Then you can work some out on your own before going on to another topic.
 It's going to be one proof after another, all the way down the line.
 
 Some equations simplify the target formula when used in one direction,
 but make the target formula more complicated when used in the other direction.
 For example, applying
-the null law for logical-or, \{$\vee$ null\}, from left to right simplifies a logical-or formula to $True$.
+the null law for logical-or (\{$\vee$ null\}: $x \vee True = True$)
+from left to right simplifies a logical-or formula to $True$.
 When the equation is applied in the other direction, however,
 it transforms the simple formula $True$ into something more complicated $(x \vee True)$.
 The variable $x$ on the left-hand side
 stands for any formula you want to make up (as long as it's grammatically correct).
 It can have hundreds of variables and thousands operations.
-This may seem perverse, but if that's what it takes to complete the proof, so be it.
+This may seem perverse, but if that's what it takes to complete a proof, so be it.
 
-The null law for logical-and, \{$\wedge$ null\}, is similarly asymmetric.
+The null law for logical-and (\{$\wedge$ null\}: $x \wedge False = False$)
+is similarly asymmetric.
 It goes from complicated to simple in one direction
 and from simple to complicated in the other.
 A particularly interesting and important asymmetric equation
-is the absorption law for logical-and
+is the \index{absorption}absorption law
 (Figure~\ref{and-absorption-thm}, page \pageref{and-absorption-thm}).
 It has two variables and two operations on one side, but only one variable and no operations on the other.
 
@@ -802,10 +808,10 @@ The
 It involves replacing the variables in the known equation
 by constituents of the formula you are trying to match.
 This is based in the mechanics of a formal grammar.
+
 Unfortunately, it is surprisingly easy
 to have a lapse of concentration and make a mistake
 while trying to substitute equals for equals.
-
 Fortunately, it is easy for computers to verify
 correct matchings and report erroneous ones.
 A computer system that does this is known as a ``mechanized logic.''
@@ -814,20 +820,18 @@ we will begin to use a mechanized logic to make sure our reasoning is correct.
 
 \begin{ExerciseList}
 \Exercise
-Use the Boolean axioms (Figure~\ref{fig-02-03}, page \pageref{fig-02-03})
-and the \{$\wedge$-absorption\} theorem
+Use the Boolean axioms (Figure~\ref{fig-02-03}, page \pageref{fig-02-03}) and the
+\index{absorption}\index{equation!absortion}\index{equation, by name!\{$\wedge$ absorption\}}\{$\wedge$-absorption\}
+theorem
 (Figure~\ref{and-absorption-thm}, page \pageref{and-absorption-thm}),
 to derive the \{$\vee$-absorption\} equation: $(x \wedge y) \vee y = y$.
 
-\Exercise
+\Exercise\label{ex:xor}
 Derive the equation
-$(((\neg x) \wedge y) \vee (x \wedge (\neg y))) = ((x \vee y) \wedge (\neg(x \wedge y)))$
-from the Boolean axioms.
-
-\Exercise
-Derive the equation
-$(((\neg x) \wedge y) \vee (x \wedge (\neg y))) = (\neg((x \rightarrow y) \wedge (x \rightarrow y)))$
-from the Boolean axioms.
+$((x \vee y) \wedge (\neg(x \wedge y))) = (((\neg x) \wedge y) \vee (x \wedge (\neg y)))$
+from the Boolean axioms.\\
+\index{exclusive or}\index{or, exclusive}\emph{Note}:
+These formulas define the exclusive-or operator.
 
 \Exercise
 Use the Boolean axioms
@@ -846,33 +850,37 @@ and on the right-hand side will have the value ($True$ or $False$) of the formul
 We have been doing proofs based on the grammatical elements of formulas,
 but instead of taking the time to put together a precise definition of that grammar,
 we have been relying on your experience with numeric algebra.
-It is better to have a precise definition of the grammar,
-starting with the most basic elements,
-and working up from there to more complicated ones.
+However, it is good to have a precise definition of the grammar.
+We start with the most basic elements,
+then up to more complicated ones.
 
 The simplest Boolean formulas are the basic constants ($True$ and $False$)
-and variables ($x$, $y$, $\dots$). We normally use ordinary, lower-case letters,
-for variables, but sometimes variables are letters with subscripts,
+and variables ($x$, $y$, $\dots$).
+We normally use ordinary, lower-case letters,
+for \index{variable}\index{variable!Boolean}\index{formula!variables}variables,
+but sometimes variables are letters with subscripts,
 such as $x_3$, $y_i$, or $z_n$.
 This gives us sufficient variety for any formula,
-but we won't necessarily limit ourselves to lower-case, Roman letters.
-We might use Greek letters, or
-even make up recognizable squiggles, like Dr Seuss.
+but we don't need to limit ourselves to lower-case, Roman letters.
+We could use Greek letters, or
+even make up recognizable squiggles, like
+\index{Dr Seuss}\index{Seuss, Dr}Dr Seuss.
 
 So, if you write $True$, $False$, or a letter from the alphabet,
 you have composed a grammatically correct Boolean formula.
 This is the first rule of Boolean grammar.
 Formulas conforming to this rule have no substructure,
-so we call them \emph{atomic} formulas.
+so we call them
+\index{atomic formula}\index{formula!atomic}\emph{atomic} formulas.
 
 Boolean operators make it possible to construct more complicated formulas.
 We refer to operators that require two operands as \emph{binary operators }
 ($\wedge$, $\vee$, and $\rightarrow$).
 These operators lead to the second rule of Boolean grammar:
 If $a$ and $b$ are grammatically correct Boolean formulas,
- and $\circ$ is a binary operator
- (that is, $\circ$ is one of the symbols $\wedge$, $\vee$, or $\rightarrow$),
- then $(a \circ b)$ is also a grammatically correct Boolean formula.
+and $\circ$ is a binary operator
+(such as one of the symbols $\wedge$, $\vee$, or $\rightarrow$),
+then $(a \circ b)$ is also a grammatically correct Boolean formula.
 
 For example, the first rule confirms that $x$ and $True$ are
 grammatically correct Boolean formulas. Since $\wedge$ is a binary operator,
@@ -882,10 +890,11 @@ and $y$ is a grammatically correct Boolean formula (by the first rule),
 $((x \wedge True) \rightarrow y)$ must be a grammatically correct
 Boolean formula (by the second rule).
 
-The third rule of Boolean grammar shows how to incorporate the negation operator into formulas.
-The rule is that if $x$ is a grammatically correct formula, then so is $(\neg x)$.
+The third rule of Boolean grammar shows
+how to incorporate the negation operator into formulas.
+If $x$ is a grammatically correct formula, then so is $(\neg x)$.
 
-These three rules are sufficient to
+The three rules of grammar are sufficient to
 cover a full range of grammatically correct Boolean formulas,
 and, they lead to an infinite variety of grammatically correct formulas.
 However, there is a fine point to discuss about parentheses.
@@ -895,14 +904,14 @@ The formulas covered by the three rules are fully parenthesized,
 including a top level of parentheses enclosing the entire formula
 when an operator is involved.
 Top level parentheses are often omitted in informal presentations,
-and we have often omitted them.
+and we have usually done that.
 
 For example, we have been writing formulas like ``$x \vee y$'',
 without the top-level parentheses
 the grammar requires.
 To conform to the grammar,
-we would have to write $(x \vee y)$, with the parentheses.
-Because we have often omitted top-level parentheses,
+we would have to write ``$(x \vee y)$'', with the parentheses.
+Because we have omitted top-level parentheses,
 requiring them probably comes as a surprise.
 But, allowing non-atomic formulas without top-level parentheses
 requires additional rules of grammar,
@@ -924,7 +933,7 @@ minimize the possibility of misinterpretation,
 especially because Boolean formulas may be new to you.
 
 We will sometimes be informal enough to omit
-the top level of parentheses around the whole formula,
+top level of parentheses around the whole formula,
 but we will not omit any interior parentheses.
 The grammar does allow redundant parentheses, however.
 For example, the formula $(x \vee ((x \wedge y)))$
@@ -932,8 +941,9 @@ is grammatically correct and has the same meaning as the formula
 $(x \vee (x \wedge y))$.
 The first formula has redundant parentheses,
 but the second one doesn't.
-Allowing redundant parentheses requires a fourth rule of grammar:
-If $a$ is a grammatically correct Boolean formula, then so is $(a)$.
+Allowing redundant parentheses requires a fourth rule of grammar,
+which says that $(a)$ is a grammatically correct formula
+if $a$ is.
 
 \begin{figure}
 \begin{center}
@@ -1080,7 +1090,6 @@ $(x \rightarrow y) = ((\neg y) \rightarrow (\neg x))$                & \{contrap
 $(x \rightarrow (y \rightarrow z)) = ((x \wedge y) \rightarrow z)$   & \{Currying\}               \label{currying} \\
 $((x \wedge y) \vee y) = y$                                          & \{$\vee$ absorption\}      \label{or-absorption} \\
 $((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
-$((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
 $((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
 $(x \rightarrow (\neg x)) = (\neg x)$                                & \{contradiction\}          \label{boolean-contradiction} \\
 \end{tabular}
@@ -1123,31 +1132,44 @@ $((x \vee (\neg y)) \wedge (x \rightarrow z))$.
 It matches with the \{bin-op\} rule.
 The variables in the rule match
 with the elements of the formula in the following way.
+
+\vspace{2mm}
+\begin{minipage}{\textwidth}
 \begin{center}
-\begin{tabular}{ll}
+\begin{tabular}{cc}
+\hline
 \emph{symbol from \{bin-op\} rule}      & \emph{matching element in} $((x \vee (\neg y)) \wedge (x \rightarrow z))$ \\
+\hline
 $a$                                     & $(x \vee (\neg y))$ \\
 $\circ$                                 & $\wedge$ \\
 $b$                                     & $(x \rightarrow z)$ \\
 \end{tabular}
 \end{center}
+\end{minipage}
+\vspace{1mm}
 
 The only other symbols in the rule are the top-level parentheses, and these match identically with the outer parentheses in the target formula. Therefore, the target formula is grammatically correct if the formulas $(x \vee (\neg y))$ and $(x \rightarrow z)$  are grammatically correct. We use the same approach to verify the grammatical correctness of those formulas.
 
 The first one, $(x \vee (\neg y))$,
 again matches with the \{bin-op\} rule,
-but this time the matchings of the elements
-in the target formula with variables in the rule are as follows:
+and the following table shows how the analysis continues in this case.
+
+\vspace{2mm}
+\begin{minipage}{\textwidth}
 \begin{center}
 \index{matching!equation}\index{formula!matching}\index{equation!matching}
 \index{equation!grammar}\index{formula!grammar}\index{grammar, of formulas}
-\begin{tabular}{ll}
+\begin{tabular}{cc}
+\hline
 \emph{symbol from \{bin-op\} rule}      & \emph{matching element in}  $(x \vee (\neg y))$ \\
+\hline
 $a$                                     & $x$ \\
 $\circ$                                 & $\vee$ \\
 $b$                                     & $(\neg y)$ \\
 \end{tabular}
 \end{center}
+\end{minipage}
+\vspace{1mm}
 
 This reduces the verification of the grammatical correctness of $(x \vee (\neg y))$
 to the verification of the two formulas $x$ and $(\neg y)$.
@@ -1156,15 +1178,16 @@ The $(\neg y)$ element matches with the \{negation\} rule,
 with $y$ from the formula matching $a$ in the rule.
 So, $(\neg y)$ is grammatically correct if $y$ is,
 and $y$ is grammatically correct because it matches with the \{atomic\} rule.
-That completes the verification that the $(x \vee (\neg y))$ formula is grammatically correct.
+Altogether, this verifies that $(x \vee (\neg y))$ is grammatically correct.
 
 The second element of the original formula,
 $(x \rightarrow z)$, is easier to verify.
 It matches the \{bin-op\} rule with $x$ corresponding to $a$ in the rule,
 $y$ corresponding to $b$, and $\rightarrow$ corresponding to $\circ$ in the rule.
 Since $x$ and $z$ match the \{atomic\} rule, they are grammatically correct.
-This completes the verification of the grammatical
-correctness of the formula $((x \vee (\neg y)) \wedge (x \rightarrow z))$.
+This completes the verification that
+$((x \vee (\neg y)) \wedge (x \rightarrow z))$
+is grammatically correct.
 
 Let's look at another example: $(x \vee (\wedge y)$.
 This sequence of symbols matches with the \{bin-op\} rule,
@@ -1177,9 +1200,9 @@ However, there is no rule that matches $(\wedge y)$.
 The only place the symbol $\wedge$ could match a rule
 in the table is in the \{bin-op\} rule.
 In the \{bin-op\} rule, there must be
-a grammatically correct formula between
+a formula between
 the opening parenthesis and the operator.
-Since there is no such element present
+Since there is nothing
 between the opening parenthesis
 and the $\wedge$ operator in the target formula,
 it cannot be grammatically correct.
@@ -1188,24 +1211,22 @@ That covers the grammar of Boolean formulas.
 What about meaning?
 Every grammatically correct Boolean formula denotes,
 when the values of its variables are specified,
-either the constant $True$ or the constant $False$.
+either the value $True$ or the value $False$.
 Each of the binary operators, given specific operands ($True$ or $False$),
 delivers a specific result ($True$ or $False$).
-We worked out what values the operators deliver
-when we derived truth-table theorems for them
-(as in Figure~\ref{or-truth-table}, page \pageref{or-truth-table}, for example).
+Truth-table theorems
+(as in Figure~\ref{or-truth-table}, page \pageref{or-truth-table})
+derive the values that the operators deliver when
+supplied with \emph{True}/\emph{False} operands.
+We can derive the meaning of any grammatically correct formula
+in that same way, down to \emph{True} or \emph{False} if the formula
+doesn't have any variables in it.
 
-In the process of deriving the truth tables,
-we used the Boolean axioms of
-Figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
-We can use this same method to derive the meaning
-of any grammatically correct formula that contains no variables.
 However, to deal with parentheses in a completely mechanized way,
 we need to add two equations to those of Figure~\ref{fig-02-03}.
 The axioms of Figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
 provides all of the information needed to determine
-the value of any grammatically correct formula
-that contains no variables.
+the value of any grammatically correct formula.
 In fact the equations in the figure have even more general applicability.
 They provide all the information needed
 to verify not only whether a given formula
@@ -1215,8 +1236,8 @@ grammatically correct, formulas have the same meaning.
 
 \begin{ExerciseList}
 
-\Exercise Use the rules of grammar for Boolean formulas (Figure~\ref{fig-02-grammar}, page \pageref{fig-02-grammar})
-to determine which of the following formulas are grammatically correct.
+\Exercise Determine which of the following are Boolean formulas
+by the rules of grammar (Figure~\ref{fig-02-grammar}, page \pageref{fig-02-grammar}).
 \begin{center}
 \begin{tabular}{l}
 $((x \wedge y) \vee y )$ \\
@@ -1224,7 +1245,6 @@ $((x \rightarrow y) \wedge (x \rightarrow (\neg y)))$ \\
 $((False \rightarrow (\neg y)) \neg (x \vee True))$ \\
 \end{tabular}
 \end{center}
-
 
 \Exercise Derive the truth tables (see page \pageref{truth-tables})
 of the formulas from the previous exercise.
@@ -1243,9 +1263,13 @@ Prove the following equation.\\
 Prove the following equation.\\
 \hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (((\neg x) \vee y) \wedge (x \vee (\neg y)))$
 
-\Exercise\label{ex:boolean-equiv-notxor}
+\Exercise\label{ex:boolean-equiv-notxor2}
 Prove the following equation.\\
 \hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (\neg((x \wedge (\neg y)) \vee ((\neg x) \wedge y)))$
+
+\Exercise\label{ex:boolean-equiv-notxor}
+Prove the following equation.\\
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (\neg((x \vee y) \wedge (\neg(x \wedge y))))$
 
 \Exercise\label{ex:boolean-equiv4}
 Prove the following equation.\\
@@ -1254,22 +1278,24 @@ Prove the following equation.\\
 \end{ExerciseList}
 
 \begin{aside}
-The following equation defines the Boolean equivalence operator ($\leftrightarrow$).\\
-\hspace*{1cm}$(x \leftrightarrow y) = ((x \rightarrow y) \wedge (y \rightarrow x))$
-\vspace{2mm}\\
-If an implication goes both ways $(x \leftrightarrow y)$, 
-then $x$ and $y$ have the same value ($x = y$).
-This is the negation of the statement that 
-$x$ and $y$ have different values (one is $True$, the other $False$),
-which is the exclusive-or operation defined by the formula
-$(x \wedge (\neg y)) \vee ((\neg x) \wedge y)$.
-Exercise\ref{ex:boolean-equiv-notxor} shows that Boolean equivalence
-is the negation of the exclusive-or operator.
-Exercises~\ref{ex:boolean-equiv1}, \ref{ex:boolean-equiv2}, and \ref{ex:boolean-equiv4}
-show three other formulas that also produce 
-the same value as the Boolean equivalence operator. 
-In other words, the four formulas on the right-hand sides of the equations
-in those exercises are all equivalent to 
+The following equation defines the Boolean equivalence operator ($\leftrightarrow$).
+\vspace{1mm}
+\begin{center}
+$(x \leftrightarrow y) = ((x \rightarrow y) \wedge (y \rightarrow x))$\hspace{5mm}\{equivalence\}
+\end{center}
+\vspace{1mm}
+\noindent When an implication goes both ways $(x \leftrightarrow y)$,
+both operands have the same value ($x = y$).
+This is the negation of the
+\index{exclusive or}\index{or, exclusive}exclusive or
+(Exercise~\ref{ex:xor}, page \pageref{ex:xor}),
+which is true when the operands have different values.
+Exercise~\ref{ex:boolean-equiv-notxor} proves this relationship
+between Boolean equivalence and exclusive or.
+Altogether,
+Exercises~\ref{ex:boolean-equiv1}--\ref{ex:boolean-equiv4}
+show six formulas that deliver the value of the Boolean equivalence operator.
+In other words, the exercises provide six formulas that are all equivalent to
 Boolean equivalence.\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator!Boolean equivalence ($\leftrightarrow$)}\index{equivalence!Boolean ($\leftrightarrow$)}
 \caption{Boolean Equivalence ($\leftrightarrow$)}
 \label{aside:boolean-equivlance}\label{def:equivalence-op}
@@ -1278,24 +1304,24 @@ Boolean equivalence.\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{o
 \section{Digital Circuits}
 \label{sec:digital-circuits}
 
-Logic formulas provide a mathematical notation for concepts in symbolic logic.
-These same concepts can be materialized as electronic devices.
+Logic formulas provide a mathematical notation for operations in symbolic logic.
+These same operations can be materialized as electronic devices.
 The basic operators of logic represented in the form of electronic devices
-are called ``logic gates''.
+are called ``logic gates.''
 There are logic
 \index{digital gate}\index{Boolean!gate}\index{gate!logic}\index{logic!gate}gates
 for the logical-and, the logical-or, negation, and
-several other operators that we have not yet discussed.
+several other operators not yet discussed.
 
 \begin{aside}
-One of the operators we have discussed at length, implication
-($\rightarrow$), is not among the operators normally represented
-in the form of logic gates. This does not restrict the kinds of
+One of the operators discussed at length, implication
+($\rightarrow$), is not among the operators commonly fabricated
+as a logic gate. This does not restrict the kinds of
 operations that can be performed by digital logic because,
 as we know from the \{implication\} axiom of Boolean algebra
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms}),
-the formula $(x \rightarrow y)$ has the same meaning as the
-formula $((\neg x) \vee y)$. So, anything we can do with
+$(x \rightarrow y) = ((\neg x) \vee y)$.
+So, anything we can do with
 the implication operator, we can also do with
 negation and logical-or.
 
@@ -1318,15 +1344,17 @@ but their negations,
 Figure~\ref{fig-02-nand-is-all-you-need} (page ~\pageref{fig-02-nand-is-all-you-need})
 shows how to write logic formulas using only nand gates.
 
-Implication gates could
-become common in digital circuits in the future
-because there is a way to fabricate implication gates that may allow extensive,
-three-dimensional stacking of circuits, which up to now has been infeasible.
+There may be a way
+to fabricate implication gates that allows extensive,
+three-dimensional stacking of circuits, which is infeasible with
+most gates.
 If that pans out, it could be possible to build
 faster circuits with more components in a smaller space.
 R. Stanley Williams discusses this
-idea in an interesting video on ``memristor chips''
-(\url{http://www.youtube.com/watch?v=bKGhvKyjgLY}).
+idea in an interesting video on memristor chips.
+\begin{center}
+\url{https://www.youtube.com/watch?v=bKGhvKyjgLY}
+\end{center}
 \caption{Implication Gate Is Universal}
 \label{no-implication-gate}
 \index{universal gate}\index{memristor}
@@ -1362,18 +1390,19 @@ a signal representing $True$ and a different one representing $False$.
 
 \index{circuit!Boolean}\index{circuit!wiring}\seeonlyindex{wiring}{circuit, wiring}Circuits
 can be depicted as wiring diagrams
-in which ``wires'' (represented by lines) carry signals between gates.
+in which wires, represented by lines, carry signals between gates.
 Distinctive shapes in the diagrams represent different logic gates.
-Circuits can be represented as formulas as well as diagrams, and
-the logic formulas we have been using would serve the purpose,
+Circuits can be represented as formulas as well as diagrams.
+The logic formulas we have been using would serve the purpose,
 but traditionally the algebraic notation for circuits takes a
 different form.
-The algebraic notation commonly used by circuit
-designers represents the logical-and by the juxtaposition
+In algebraic formulas for digital circuits, circuit designers usually
+represent the logical-and by the juxtaposition
 of the names being used for the input signals (in the same way
 that juxtaposition of variables is used to denote multiplication
-in numeric algebra). Logical-or is represented by a plus sign (+),
-and negation is represented by a bar over the formula being negated
+in numeric algebra).
+They represent logical-or by a plus sign ($+$),
+and negation by a bar over the formula.
 For example, the formula $\overline{ab}$ denotes the negation of the logical-and
 of the signals $a$ and $b$.
 
@@ -1391,12 +1420,13 @@ of the signals $a$ and $b$.
 \index{nand!logic gate}
 \index{xor (logic gate)}
 \index{xnor (logic gate)}
+\index{exclusive or}\index{or, exclusive}
 \caption{Digital Circuits = Logic Formulas}
 \label{fig-02-logic-gates}
 \end{figure}
 
 Figure~\ref{fig-02-logic-gates} (page \pageref{fig-02-logic-gates})
-presents the symbols used for logic gates in circuit diagrams
+presents symbols used for logic gates in circuit diagrams
 and annotates them with both
 the algebraic notation used by circuit designers
 and the logic formulas we have been using.
@@ -1423,8 +1453,10 @@ discarding implication from the set of logic operations.
 Surprisingly, the reverse is also true.
 That is, for any given input/output relationship that can be expressed
 in a formula using logical-and, logical-or, and negation,
-there is a logic formula using implication as
-the only operator that has the same input/output relationship.
+there is an equivalent logic formula using implication as
+the only operator. The new formula, using only the
+implication operator, produces the same results
+as the original formula.
 The \{$\neg$ as $\rightarrow$\} equation
 (Figure~\ref{some-boolean-theorems}, page \pageref{some-boolean-theorems})
 provides a start in this direction by showing how to express
@@ -1438,10 +1470,10 @@ nand gates can run faster and be more reliable than other gates,
 so many integrated circuits make frequent use of nand gates.
 
 It is interesting to see how to put together digital
-circuits for basic operators.
-$\wedge$, $\vee$, and $\neg$, using only nand gates.
+circuits for basic operators
+($\wedge$, $\vee$, and $\neg$) using only nand gates.
 Consider negation, for example.
-Negation has only one input signals, and nand has two.
+Negation has only one input signal, and nand has two.
 Feeding the same signal into both
 inputs of a nand gate produces the behavior of
 the negation operator,
@@ -1804,15 +1836,14 @@ The \{$\wedge$ introduction\} rule, on the other hand,
 requires two proofs above the line and
 constrains its conclusion (below the line)
 to be a logical-and formula $(a \wedge b)$.
-Some rules place constraints both on formulas
-above the line and on formulas below the line.
-That is, they place constraints on the formulas
+Some rules place constraints on the formulas
 above the line (which have been derived earlier in the proof)
 and also place constraints on the formula
 \seeonlyindex{above the line}{proof}\seeonlyindex{below the line}{proof}\index{line (natural deduction)!above/below}below the line.
 For example the \{$\neg$ introduction\} rule requires
-the formula above the line to be an implication ($a \rightarrow False$)
+the formula above the line to be an implication
 whose conclusion is the logical constant \emph{False}
+($a \rightarrow False$)
 and constrains the formula below the line to be
 a negation formula ($\neg a$).
 Furthermore, the hypothesis of the implication above the line must be the same
@@ -1829,8 +1860,7 @@ When an inference rule requires multiple proofs above the line,
 dashed lines separate those proofs.
 Each of the proofs that the rule requires above the line
 is, itself, a proof.
-That is, it is also a sequence of citations ending in a conclusion formula,
-and that formula must meet whatever constraints the rule requires.
+That is, it is also a sequence of citations ending in a conclusion formula.
 
 The \index{scope}\index{inference rule!scope}\emph{scope} of a
 \index{citation!inference rule}\index{inference rule!citation}citation
@@ -1991,8 +2021,8 @@ the two proofs required by \{$\wedge$ introduction\}.
 The second of the proofs comes next.
 It has the same form as the first proof,
 except that it cites \{$\wedge$ elimination 1\} instead of \{$\wedge$ elimination 2\}.
-The \{$\wedge$ elimination 1\} rule brings the first operand of the $\wedge$
-down below the line.
+The \{$\wedge$ elimination 1\} rule brings the left-hand operand of the $\wedge$
+down below the line.($a \rightarrow False$)
 The \{$\wedge$ introduction\} rule requires the
 conclusion of the first proof above line to
 become the left-hand operand of the $\wedge$
@@ -2166,7 +2196,7 @@ There are no other \index{Assume (natural deduction)}assumed formulas in the pro
 so the theorem proved has no hypotheses.
 That is, the \index{proof}proof confirms that the \index{conclusion}conclusion formula
 \index{implication}$(a \rightarrow a)$ has the value $True$, regardless of
-the value of the formula $a$.
+what formula $a$ stands for.
 
 \begin{figure}
 Theorem \{$\vee$ commutes\}: $a \vee b$ $\vdash$ $b \vee a$ \\
@@ -2497,17 +2527,20 @@ Use natural deduction to prove
 \{$\wedge$ complement\}: $a$, $\neg a$ $\vdash$ $False$
 
 \Exercise
+\label{ex:dbl-mod-pon}
 Use natural deduction to prove the following theorem:
 $a$, $a \rightarrow b$, $b \rightarrow c$ $\vdash$ $c$
 
 \Exercise
+\label{ex:dbl-mod-pon-eq}
 Derive the equation
 $((a \wedge ((a \rightarrow b) \wedge (b \rightarrow c))) \rightarrow c)$ = $True$
 using the axioms of Boolean algebra
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms}).
 
 \Exercise
-Explain the connection between the previous two exercises.
+Explain the connection between
+Exercises~\ref{ex:dbl-mod-pon} and \ref{ex:dbl-mod-pon-eq}.
 
 \Exercise
 Use natural deduction to prove the following theorem:
@@ -2536,14 +2569,21 @@ Use natural deduction to prove
 \{nor elimination 1\}: $\neg (a \vee b)$ $\vdash$ $\neg a$
 
 \Exercise
+\label{ex:DeMfwd}
 Use natural deduction to prove
 \index{DeMorgan}\index{theorem!DeMorgan}\index{theorem, by name!\{DeMorgan $\vee$ forward\}}\{DeMorgan $\vee$ forward\}:
 $\neg (a \vee b)$ $\vdash$ $(\neg a) \wedge (\neg b)$
 
 \Exercise
+\label{ex:DeMbkw}
 Use natural deduction to prove
 \index{DeMorgan}\index{theorem!DeMorgan}\index{theorem, by name!\{DeMorgan $\vee$ backward\}}\{DeMorgan $\vee$ backward\}:
 $(\neg a) \wedge (\neg b)$ $\vdash$ $\neg (a \vee b)$
+
+\Exercise
+Explain the connection between Exercises~\ref{ex:DeMfwd} and \ref{ex:DeMbkw}.\\
+\emph{Hint}: Review Aside~\ref{aside:boolean-equivlance} (page \pageref{aside:boolean-equivlance}).
+
 
 \Exercise
 Use natural deduction to prove\index{theorem, by name!\{$\vee$ complement\}}
@@ -2553,6 +2593,16 @@ cite the \{nor elimination 1\} and \{$\wedge$ complement\}
 theorems from earlier exercises,
 and remember that you can assume the hypothesis
 of the theorem as many times in the proof as you like.
+
+\Exercise
+The proof of the \{disjunctive syllogism\} theorem in Figure~\ref{fig:disjunctive-syllogism-nd}
+(page \pageref{fig:disjunctive-syllogism-nd})
+would be shorter if it cited the \{self-implication\} theorem
+(Figure~\ref{fig:or-self-imp-proof}, page \pageref{fig:or-self-imp-proof})
+to derive the formula $(b \rightarrow b)$ instead of using the
+\{identity\} and \{$\rightarrow$ introduction\} inference rules
+to derive that formula.
+Change the proof to make it shorter in this way.
 
 \end{ExerciseList}
 
@@ -2591,8 +2641,8 @@ not a given item is in the set.}
 of propositions is called,
 when the set is taken as a whole, a
 \label{predicate-def}\index{predicate}\emph{predicate}.
-We will specify that a predicate
-is a collection of propositions
+We will require a predicate
+to be a collection of propositions
 indexed by a set known as the
 \label{def-universe-of-discourse}\index{universe of discourse}\emph{universe of discourse}.
 If $P$ is a \index{predicate!universe of discourse}predicate, and $x$ is an element from
@@ -2638,9 +2688,10 @@ The usual way to write the logical-and of all the propositions in a predicate
 makes use of a symbol that looks like an upside-down letter A
 and is known as the
 \label{def:universal-quantifier}\index{universal quantifier ($\forall$)}\index{quantifier!$\forall$, forall}\index{quantifier!universal ($\forall$)}\index{forall ($\forall$)}\emph{universal quantifier} ($\forall$).
-The  formula $(\forall x.P(x))$\footnote{The
+The  formula $(\forall x.P(x))$
+stands for the logical-and of all the propositions in the predicate
+\emph{P}.\footnote{The
 formula $(\forall x. P(x))$ reads ``for all $x$, $P(x)$ is \emph{True}.''}
-stands for the logical-and of all the propositions in the predicate \emph{P}.
 The value of the formula is $True$
 if there is no element $x$ from the universe of discourse
 for which the proposition $P(x)$ is $False$.
@@ -2651,7 +2702,7 @@ $E(n)$ as a shorthand for the proposition ``$2n$ is a non-negative, even number'
 Then \{$E(0)$, $E(1)$,$E(2)$, \dots\}
 is a set of propositions indexed by the natural numbers.
 For each natural number $n$, there is a corresponding proposition $E(n)$,
-so E is a predicate with the natural numbers
+so \emph{E} is a predicate with the natural numbers
 as its universe of discourse.
 
 If we write a formula that connects some of these propositions with
@@ -2730,13 +2781,13 @@ There are many quantifiers in logic, but the only other
 quantifier we will use the
 \label{def:existential-quantifier}\index{existential quantifier ($\exists$)}\index{quantifier!$\exists$, there exists}\index{quantifier!existential ($\exists$)}\index{there exists ($\exists$)}\emph{existential quantifier}.
 It forms the logical-or of all the propositions in a predicate
-and is represented by a symbol that looks like a backwards E.
-The  formula $(\exists x.P(x))$\footnote{The
-formula for all $(\exists x.P(x))$ reads
-``there exists $x$ such that $P(x)$ is \emph{True}.''}
+and is represented by a symbol that looks like a backwards letter E.
+The  formula $(\exists x.P(x))$
 has the value $True$
 if there is an element $x$ from the universe of discourse
-for which the proposition $P(x)$ is $True$.
+for which the proposition $P(x)$ is $True$.\footnote{The
+formula for all $(\exists x.P(x))$ reads
+``there exists $x$ such that $P(x)$ is \emph{True}.''}
 
 Consider the equation $(n + 7 = 12)$.
 Any equation is a proposition because it is either
@@ -2747,7 +2798,7 @@ because for each natural number $n$,
 $Q(n)$ stands for a proposition.
 You know from algebra that there is a natural number
 $n$ for which equation $(n + 7 = 12)$ holds.
-That is, there is a value in the domain
+That is, there is a value (namely, the number 5) in the domain
 of discourse for which the proposition $Q(n)$ is $True$.
 Therefore, according to the definition of the
 existential quantifier,
@@ -2814,7 +2865,7 @@ By the definition of the predicate $R$,
 $S(m)$ would be $True$ if there were no natural numbers $m$
 for which the quantification $(\exists n.((n+7) = m))$ were $False$.
 Suppose $m$ is the natural number zero.
-The proposition $S(0)$ says $(\exists n.((n+7) = m))$.
+The proposition $S(0)$ says $(\exists n.((n+7) = 0))$.
 There are no natural numbers $n$ such that
 $((n+7) = 0))$ because $n$ would have to be negative,
 and all natural numbers are zero or bigger.
@@ -2929,9 +2980,9 @@ from a proof that $(\exists x.(P(5, x)))$ is $True$.
 
 One way to make use of that fact is to use a notational convention
 to indicate that what looks like a variable (which could stand for any
-value in the universe of discourse our even a formula representing such a value)
+value in the universe of discourse or even a formula representing such a value)
 is not really a variable, but is, instead, a specific value in the universe of
-discourse. This is, the symbol is a constant, not a variable.
+discourse. That is, the symbol is a constant, not a variable.
 One way to do this would be to designate a special symbol, capital $C$ perhaps,
 to use when we want to indicate that what looks like a variable is really a constant.
 \label{def:skolem-constant}
@@ -2956,8 +3007,8 @@ $x_0$ stands for a particular element in the universe of discourse whose value
 we don't know, but which in any case stands for just one value and cannot
 be replaced by another variable or formula.
 Since there are no variables, this is really just a Boolean formula,
-so it can be proved using precisely the same techniques we used for Boolean
-formulas earlier.
+so it can be proved using the same methods we used to prove Boolean
+formulas.
 
 This approach to reasoning about quantified formulas is a four-step process.
 The last step is the already familiar area of reasoning
@@ -2988,15 +3039,19 @@ where the domain of discourse for both quantifiers is the integers.\footnote{$Od
 $Even(n) \equiv (\exists k.(n = 2k))$.
 The integers are the universe of discourse for the predicates (variable $n$)
 and the quantifications (variable $k$).}
-This formula has the value $False$ because is it not true
-that all natural numbers are even numbers,
-and it also not true that all are odd numbers.
+This formula has the value $False$ because there
+is a natural number $n$ for which $Odd(n$) is false (the number $2$, for example).
+That makes $(\forall x.Odd(x))$ false.
+Similarly, $(\forall x.Even(x))$ is false,
+and since both operands of $\vee$ in $(\forall x.Odd(x)) \vee (\forall x.Even(x))$
+are false, the truth table for $\vee$ shows that the formula is false.
 There are two bound variables in the formula.
 These are different variables even though they both have
 the same name $x$.
 The formula $(\forall x.(Odd(x) \vee Even(x)))$, on the other hand,
 only has one bound variable.
-Furthermore, the formula has the value $True$,
+Furthermore, the formula can have the value $True$,
+depending on what number $x$ stands for,
 so we have to be careful to keep these formulas straight.
 They look similar, but they have totally different meanings.
 
@@ -3027,7 +3082,7 @@ Obviously, choosing a new name for $x$ that is the same as the name
 of some other variable would defeat our purpose.
 Second, we must ensure that when we rename a bound variable $x$ as, say,
 $y$, that we replace all occurrences of that bound variable $x$ with $y$.
-However, we must be careful not change to $y$ any occurrence of different bound variable
+However, we must be careful not to change any occurrence of a different bound variable
 that happens also to have the name $x$.
 For example, recall that there are two different, but identically named,
 bound variables in the formula
@@ -3047,7 +3102,8 @@ $$(\exists y. (\forall x. P(x, y))) \rightarrow (\forall x. (\exists y. P(x, y))
 
 To prove this theorem using our four-step strategy,
 we would first apply the
-equation from Figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
+equation \{R$\exists$\} from 
+Figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
 to justify renaming the bound variable $y$ in $(\exists y\dots)$
 on the left-hand side of the implication.
 Any name is okay, as long as it is not already present in the formula.
@@ -3166,7 +3222,7 @@ we can conclude that there is some value $x_0$ in the universe of discourse for 
 $P(\dots x_0, \dots)$ is $False$. That is, $\neg P(\dots x_0, \dots)$ is $True$.
 Then, from the definition of existential quantification
 ($\exists$, page \pageref{def:existential-quantifier})
-we conclude that $(\exists x.(\neg P(\dots x_0, \dots))) = True$.
+we conclude that $(\exists x.(\neg P(\dots x, \dots))) = True$.
 
 Finally, there are four equations in Figure~\ref{fig-02-quantifiers} that
 describe how quantifiers behave with respect to implication ($\rightarrow$).
@@ -3387,9 +3443,12 @@ They fit well into the equation-based approach to reasoning that
 is a central theme of this book.
 
 \begin{ExerciseList}
-\Exercise Prove that $(\forall x.P(x)) \rightarrow (\exists x.P(x))$.
-\Exercise What goes wrong when you attempt to prove that $(\exists x.P(x)) \rightarrow (\forall x.P(x))$?
-Explain why this is different than the previous exercise.
+\Exercise
+\label{ex:forall-exist}
+Prove $(\forall x.P(x)) \rightarrow (\exists x.P(x)) = True$ if the universe of discourse is not empty.
+\Exercise What is the value of $(\forall x.P(x)) \rightarrow (\exists x.P(x))$ if the universe of discourse is empty?
+\Exercise What goes wrong in trying to prove $(\exists x.P(x)) \rightarrow (\forall x.P(x)) = True$?
+Explain why this is different from Exercise~\ref{ex:forall-exist}.
 \Exercise Prove that $((\forall x.(P(x) \rightarrow Q(x))) \wedge (\forall x.(Q(x) \rightarrow R(x)))) \rightarrow (\forall x.(P(x) \rightarrow R(x)))$.
 \Exercise Derive the four quantifier-implication equations (Figure~\ref{fig-02-quantifiers})
 from other axioms and theorems.
@@ -3425,7 +3484,7 @@ In logic mode, we apply the mathematical axioms and rules of inference,
 and in the end we interpret our conclusions, which are statements in logic,
 as statements about the real world.
 This makes sense only so far as the propositions we started with
-accurately model the real-world domain we want them to represent.
+accurately model the real-world domain that we want them to represent.
 In the domains of software and digital circuits,
 the correspondence is extremely reliable.
 It is rare for a digital circuit to go haywire or an interpreter of
@@ -3651,7 +3710,7 @@ the following formulas.
 \end{tabular}
 \end{center}
 
-If the value of the Alice-wins formula it $True$
+If the Alice-wins formula is $True$
 for a combination values of the variables that represents a particular game,
 then Alice won the game. If it is $False$, Bob won.
 If we were to AND the Nim-constraints formula with the Alice-wins formula
@@ -3819,6 +3878,8 @@ In some branches of mathematics, it is common to use the
 quantifiers ``almost everywhere'' and ``almost nowhere''
 which have precise mathematical definitions even though
 sound fuzzy in an informal description.
+\caption{Other Quantifiers}
+\label{aside:other-quantifiers}
 \end{aside}
 
 Quantifiers are the device that makes formulas using predicates more compact than
@@ -3870,8 +3931,9 @@ The computation can be open-ended because the domain of discourse for computatio
 can have an infinite number of elements. It could be the set of natural numbers, for example.
 It is possible, in principle, to describe \emph{all} possible computer programs
 using formulas in predicate logic.
-Predicate logic is also a useful tool in analyzing computer programs and digital circuits,
-and that use of predicate logic will be a central element in our discussions.
+Our primary use of predicate logic will be in the analysis of
+computer programs and digital circuits,
+which will involve describing models of programs and circuits.
 
 \todo{DONE Sep2017 Not sure whether we need a section on one-directional reasoning or not ...
 seems like we do, but a full-fledged Gentzen-style treatment gets tedious ...
