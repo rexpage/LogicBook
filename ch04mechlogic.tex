@@ -104,8 +104,8 @@ has a representation in the form [$x_1$ $x_2$ \dots $x_n$].
 
 The \{\emph{lst}\} axiom states this assumption in terms of
 the bound variables $xs$ and $n$,
-with lists and natural numbers, respectively, as their 
-universes of discourse and where 
+with lists and natural numbers, respectively, as their
+universes of discourse and where
 [$x_1$ $x_2$ \dots $x_n$] stands for a list of $n$
 elements from specifiable domains.
 \begin{center}
@@ -252,7 +252,7 @@ $\forall xs.$((len (nthcdr (len xs) xs)) $=$ 0).
 \label{sec:implies-constraints}
 
 Another of the pencil-and-paper proofs in Section~\ref{sec:append-prefix-suffix}
-was the append-prefix theorem 
+was the append-prefix theorem
 (Figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation}),
 which referred to the prefix operator.
 
@@ -575,9 +575,9 @@ of the definition.
 We want you to think of inductive (aka recursive)
 definitions as axiomatic equations that can be used to reason about the
 operators they define. We leave it to the computer system
-to determine how to carry out the computation. 
+to determine how to carry out the computation.
 Sometimes, as in the Fibonacci problem
-where an inductive definition leads to inefficient computation, 
+where an inductive definition leads to inefficient computation,
 we will look for more efficient alternatives,
 but we will not relinquish our view of operator definitions
 as axioms to support reasoning. If our programming language allowed
@@ -772,9 +772,16 @@ by distinguished researchers in the USA, the UK, France, Sweden, and elsewhere.
 \item PVS: Sam Owre, Natarajan Shankar, John Rushby, SRI
 \item Agda: Ulf Norell, Chalmers Univ
 \item LF: Robert Harper, Furio Honsell, Gordon Plotkin, Carnegie Mellon Univ, Univ of Udine, Univ of Edinburgh
-\item Twelf: Frank Pfenning, Carstem Sch\"urmann, Carnegie Mellon Univ, Univ of Copenhagen
+\item Twelf: Frank Pfenning, Carsten Sch\"urmann, Carnegie Mellon Univ, Univ of Copenhagen
 \end{itemize}
 \index{logic!mechanized}
+\index{Twelf}\index{Pfenning!Frank}\index{Sch\"urmann, Carsten}
+\index{LF}\index{Harper, Robert}\index{Honsell, Furio}\index{Plotkin, Gordon}
+\index{Agda}\index{Norell, Ulf}
+\index{PVS}\index{Owre, sam}\index{Natarajan, Shankar}\index{Rushby, John}
+\index{Coq}\index{Coquand, Thierry}\index{Huet, G\'erard}
+\index{LCF}\index{HOL}\index{Isabelle}\index{Milner, Robert}\index{Gordon, Mike}\index{Paulson, Lawrence}
+\index{ACL2}\index{Moore, J Strother}\index{Boyer, Robert}\index{Kaufmann, Matt}
 \caption{Mechanized Logics: Fifty Years of R\&D, Mostly R}
 \label{mechanized-logic-history}
 \end{aside}
@@ -1134,9 +1141,9 @@ $\neg($(h p $x)=0)$ $\rightarrow$ (p $x$) $=$ (loop $x$)&\\
 \end{figure}
 
 The \{contradiction\} equation (page \pageref{boolean-contradiction}),
-together with the \{double negation\} equation 
+together with the \{double negation\} equation
 (Figure~\ref{fig-02-grammar}, page \pageref{fig-02-grammar}),
-prove that 
+prove that
 $((\neg H($p, $x)$ $\rightarrow$ $H($p, $x)) = H($p, $x)$
 and
 $(H($p, $x)$ $\rightarrow$ $(\neg H($p, $x)))$ = $(\neg H($p, $x))$.
@@ -1228,7 +1235,7 @@ Let $T$ stand for the number of computation steps required to
 compute (loop $x$).
 Using the definitions and theorems of Exercise~\ref{ex:loop-loop},
 Exercise~\ref{ex:loop-n}, and Exercise~\ref{ex:f-n},
-prove that $(\forall n.(T > n))$, where the universe of 
+prove that $(\forall n.(T > n))$, where the universe of
 discourse of $\forall n$ is the natural numbers.
 
 \end{ExerciseList}
