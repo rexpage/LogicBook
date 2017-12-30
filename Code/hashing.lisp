@@ -22,13 +22,12 @@
               (newbs (bump-bkt idx bkts)))
           (fill-bkt-counts hash-base num-bkts newbs (rest wrds)))
        bkts))
-(defun hash-bukcet-sizes (hash-base num-bkts wrds)
+(defun hash-bucket-sizes (hash-base num-bkts wrds)
    (fill-bkt-counts hash-base num-bkts (rep num-bkts 0) wrds))
 (defconst *example-tbl-25-most-common-English-words*
-   (hash-bukcet-sizes 31 10
+   (hash-bucket-sizes 31 10
              (list "the" "be" "to" "of" "and"
                    "a" "in" "that" "have" "I"
                    "it" "for" "not" "with" "he"
                    "as" "you" "do" "at" "this"
                    "but" "his" "by" "from" "they")))
-
