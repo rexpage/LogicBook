@@ -8,9 +8,9 @@ as a way for college students to socialize online.
 Having so many users poses tremendous technical challenges,
 and Facebook's success is partly due to
 the ability of its engineers to deal with these problems.
-Facebook may look like an ordinary website,
-but behind it lies many important technical innovations,
-some of which are discussed in this chapter.
+Many important technical innovations
+have made the Facebook website possible.
+Some of them are discussed in this chapter.
 
 \section{The Technical Challenge}
 
@@ -57,17 +57,18 @@ this query quickly enough to keep up with a continuous
 and voluminous (to say the least) flood of online demand.
 
 Facebook is not the only company that has this problem.
-For example, \index{Amazon}\index{store front}Amazon offers over ten million items for sale.
+For example, \index{Amazon}\index{store front}Amazon 
+offers millions of items for sale.
 It encourages customers to write reviews for each item, and it keeps a history
-of purchases made by its customers so it keep them informed about the status of orders,
+of purchases made by its customers so it can keep them informed about the status of orders,
 make suggestions other purchases, and provide many other services.
-The information could easily be stored in traditional database tables,
+The information could be stored in traditional database tables,
 but retrieving it would take too long.
 
 In fact, this is a problem faced by any organization that
-allows large numbers of users produce content for its website.
+allows large numbers of users to produce content for its website.
 Organizations that allow users to produce content for their websites
-are knows as \index{Web 2.0 company}Web 2.0 companies.
+are known as \index{Web 2.0 company}Web 2.0 companies.
 Such content can be take the form of passages created directly by users,
 such as Facebook updates or Amazon reviews, or it can be content created
 indirectdly, such as Amazon purchase recommendations.
@@ -112,8 +113,8 @@ its users produce much more content than traditional databases can handle.
 \subsection{Caching}
 
 Web 2.0 companies cannot use traditional databases
-because it would take too long to retrieve information needed,
-for example, for display on user's welcome screen.
+because, for example, it would take too long to retrieve information needed 
+to display a user's welcome screen.
 One way to address this problem is to limit the number of queries that the
 database needs to carry out.
 For example, if a user checks her home screen several times in a short time span,
@@ -124,12 +125,12 @@ That's called \emph{caching} the data.
 A \index{cache}cache is a key/value store,
 in which data (values) are associated with a key
 that facilitates locating the data,
-like the search trees of chapter \ref{ch:search-trees}
-or the hashtables of chapter \ref{hash-tables}.
+like the search trees of Chapter \ref{ch:search-trees}
+or the hash tables of Chapter \ref{ch:hash-tables}.
 When a query arrives, the database first checks
 the cache to see of the information is already there.
 If it is, it is simply reused.
-Otherwise, the database executes the query against its underlying store,
+Otherwise, the database performs the query against its underlying store,
 and puts the results in the cache, so they can be reused later.
 A cache is much smaller than the underlying store,
 so data in the cache is frequently flushed and replaced with other active data.
@@ -142,13 +143,13 @@ when the results are in the cache and only a tiny delay when they're not.
 Second, interactions with the database must frequently repeat the same transactions,
 so that results stored in the cache are often reused.
 Otherwise, caching data is a waste of time because it will
-have been flushed from the cache before a second or third access request arrives.
-Third, retrieval\index{retrieval, database}retrieval,
+have been flushed from the cache before a second or third request arrives.
+Third, \index{retrieval, database}retrieval,
 rather than update, must be the dominant type of database transaction.
 Updates can make the data in the cache inconsistent with information in the database,
 forcing it to be retrieved again from the underlying store,
-just as it would be if there were no cache at all.
-If its not retrievals but updates that are the dominant transaction,
+just as if there were no cache at all.
+If it's not retrievals but updates that are the dominant transaction,
 caching is a waste of time and effort.
 
 Caching is used throughout the web.
@@ -192,7 +193,7 @@ that may be involved in resolving the query.
 To see how this might work,
 suppose that the computer needs to generate John's welcome page.
 The first step is to find John's friends,
-which can be done by executing a query on machine J:
+which can be done by executing a query on machine J.
 \begin{verbatim}
 	SELECT   f.Friend
 	FROM     Friends f
@@ -219,8 +220,9 @@ and then merge them, keeping
 the combined list in reverse chronological order.
 
 Queries like this show one of the shortcomings of sharding.
-Notice that each query retrieves results from only one table.
-The reason is that the related \index{record, database}recordrecords are not necessarily stored in the same shard.
+Each query retrieves results from only one table
+because the related \index{record, database}records 
+are not necessarily stored in the same shard.
 In this particular example, the information needed to answer the query was
 distributed across shards J, S, and M.
 So the program had to collect the information
@@ -236,23 +238,24 @@ For example, the system could
 split the shard M into two shards, Ma-Mp and Mq-Mz.
 That seems like a good idea, but in practice splitting shards
 is complicated because the software on all the computers that access the data
-need to be modified to make it possible for them
+needs to be modified to make it possible for the computers
 to find the shard that contains the information they're looking for.
 
 \section{The Cassandra Solution}
 
 Faced with these difficulties, Facebook engineers developed a solution that
 retained the benefits of sharding, but avoided some of the difficulties.
-The goal was to make easy to split a shard into multiple pieces,
+The goal was to make it easy to split a shard into multiple pieces,
 and to hide from the software the complexity of sharding.
 
 \index{Cassandra}Cassandra, the solution they devised, combines features
-from Amazon's Dynamo project and Google's BigTable.
+from the Dynamo project at Amazon and the BigTable project at Google.
 From Dynamo, Cassandra borrows the idea of a replication ring,
 and from BigTable, a data model.
 Cassandra's data model groups records into into different tables.
 Each record in a table is identified with a key.
-The key of key must be unique in a given table, but the same key may be used in different tables.
+The key must be unique in a given table, 
+but the same key may be used in different tables.
 Each record consists of one or more key/value pairs, and
 different records in a Cassandra table may have different keys.
 
@@ -285,7 +288,7 @@ the values can be spread across multiple records, with IDs such as John1, John2,
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Storing friends lists in Cassandra}
+	\caption{Storing Friends Lists in Cassandra}
 	\label{users-table}
 \end{figure}
 
@@ -304,12 +307,12 @@ the values can be spread across multiple records, with IDs such as John1, John2,
 			\hline
 		\end{tabular}
 	\end{center}
-	\caption{Storing status updates in Cassandra}
+	\caption{Storing Status Updates in Cassandra}
 	\label{status-table}
 \end{figure}
 
 The upshot is that the workflow for retrieving information from Cassandra
-is very similar to the workflow for sharding, but with a major difference.
+is similar to the workflow for sharding, but with a major difference.
 The queries that are generated do not need to be aware
 of which shard contains the information they need.
 In fact, Cassandra relies on sharding both for performance and for replication.
@@ -353,8 +356,8 @@ This can happen without the knowledge of any programs
 that are retrieving data from the system.
 
 Cassandra also uses the ring for \index{replication, database}replication.
-What this means is that records that should be stored in A
-are \emph{also} stored in B and C.
+Records that should be stored in A
+are also stored in B and C.
 This is important, because computers and disks can fail,
 but if shard A should fail, there are two more copies of its data.
 It can also serve to improve performance during spikes.
@@ -373,6 +376,7 @@ Shard D needs to know that some of the records it was replicating
 on behalf of B can now be forgotten, and the rest need to be associated with BM.
 Finally, the new shard BM needs to receive not just its share
 of B's records, but all of B's records, so that it can replicate B's remaining data.
+
 That's a lot of data movement, and it might be surprising that it helps.
 Part of the reason it works is that Facebook has the luxury of not having
 to get all the data right all the time.
@@ -383,14 +387,15 @@ on a minute-by-minute basis.
 
 \section{Summary}
 
-Web 2.0 applications bring up many challenges due to scaling.
+Web 2.0 applications bring up many scaling challenges.
 These challenges go beyond what traditional database solutions can offer.
 So, leading Web 2.0 companies have developed custom solutions,
 and the idea of sharding plays a prominent role in some of those solutions.
 Cassandra, Facebook's solution, successfully met the challenge, and
 fortunately, Facebook decided to make \index{Cassandra}Cassandra available to the
 programming community via an open source process.
-Programmers can download Cassandra from \url{http://cassandra.apache.org}
+
+Programmers can download Cassandra (\url{http://cassandra.apache.org})
 and use it to develop new software.
 
 %%% Local Variables:
