@@ -9,12 +9,11 @@
    (mod (hash-key hash-base wrd) num-bkts))
 (defun rep (n x)
   (if (posp n)
-  (cons x (rep (- n 1) x)) ; {rep1}
-  nil))                    ; {rep0}
+      (cons x (rep (- n 1) x)) ; {rep1}
+      nil))                    ; {rep0}
 (defun bump-bkt (idx bkts)
    (if (posp idx)
-       (cons (first bkts)
-             (bump-bkt (- idx 1) (rest bkts)))
+       (cons (first bkts) (bump-bkt (- idx 1) (rest bkts)))
        (cons (+ 1 (first bkts)) (rest bkts))))
 (defun fill-bkt-counts (hash-base num-bkts bkts wrds)
    (if (consp wrds)
@@ -26,8 +25,6 @@
    (fill-bkt-counts hash-base num-bkts (rep num-bkts 0) wrds))
 (defconst *example-tbl-25-most-common-English-words*
    (hash-bucket-sizes 31 10
-             (list "the" "be" "to" "of" "and"
-                   "a" "in" "that" "have" "I"
-                   "it" "for" "not" "with" "he"
-                   "as" "you" "do" "at" "this"
-                   "but" "his" "by" "from" "they")))
+      (list "the" "be" "to" "of" "and" "a" "in" "that" "have" "I"
+            "it" "for" "not" "with" "he" "as" "you" "do" "at" "this"
+            "but" "his" "by" "from" "they")))
