@@ -27,7 +27,8 @@
           xs     ; ys is empty            ; {mg0}
           ys)))  ; xs is empty            ; {mg1}
 (defthm mrg-len-thm
-  (= (len (mrg xs ys)) (+ (len xs) (len ys))))
+  (= (len (mrg xs ys)) 
+     (+ (len xs) (len ys))))
 
 (defthm dmx-shortens-list-lemma ; to help ACL2 admit msort
   (implies (consp (rest xs))
@@ -61,7 +62,8 @@
   (= (len (msort (cons x xs)))
      (1+ (len (msort xs)))))
 (defthm msort-len-thm
-  (= (len (msort xs)) (len xs)))
+  (= (len (msort xs)) 
+     (len xs)))
 (defthm msort-val-thm
   (iff (occurs-in e xs)
        (occurs-in e (msort xs)))
