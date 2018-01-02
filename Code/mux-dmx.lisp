@@ -68,11 +68,11 @@
               (and (< (len odds) (len xs))
                    (< (len evns) (len xs))))))
 
-(defun mux2 (xs ys)       ; declare induction scheme
+(defun mux2 (xs ys) ; declare induction scheme
    (declare (xargs :measure (+ (len xs) (len ys))))
    (if (consp xs)
-       (cons (first xs) (mux2 ys (rest xs))) ; {mux2-1y}
-       ys))                                  ; {mux2-0x}
+       (cons (first xs) (mux2 ys (rest xs))) ; {mux1}
+       ys))                                  ; {mux0}
 (defun dmx2 (xys) ; too clever by half
   (if (consp xys)
       (let* ((x (first xys))
