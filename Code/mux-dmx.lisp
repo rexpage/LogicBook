@@ -79,8 +79,8 @@
              (ysxs (dmx2 (rest xys)))
              (ys (first ysxs))
              (xs (second ysxs)))
-        (list (cons x xs) ys))        ; {dmx2-1}
-      (list xys xys)))                ; {dmx2-0}
+        (list (cons x xs) ys))        ; {dmx2-1x}
+      (list xys xys)))                ; {dmx2-0x}
 (defthm mux=mux2
    (equal (mux2 xs ys) (mux xs ys)))
 (defthm dmx=dmx2
