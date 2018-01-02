@@ -284,22 +284,28 @@ However, the theorem as stated
 is not quite correct,
 and to explain why, we need to mention
 some things we haven't told you about lists.
-\label{true-list-def}
-A \emph{true list} in ACL2 is either nil (the empty list)
-or a value of the form (cons $x$ $xs$),
+\label{true-list-def}\index{true list}\index{list, true}A 
+\emph{true list} in ACL2 is either \textsf{nil} (the empty list)
+or a value of the form \textsf{(cons $x$ $xs$)},
 where $xs$ is a true list.
+The predicate
+\index{true-listp predicate}\index{predicate!true-listp}\textsf{true-listp}
+is true when its operand
+is a true list and false otherwise.
+
 It can be verified by induction that
 the prefix operator always delivers a true list.
-The value (prefix 0 xs) is nil (a true list by definition).
+The value (prefix 0 xs) is \textsf{nil}.
 That takes care of the base case.
-The value of (prefix $(n+1)$ xs) is either nil (again a true list)
-or (cons (first xs) (prefix $n$ (rest xs))).
+The value of \textsf{(prefix $(n+1)$ xs)} is either \textsf{nil} 
+(again a true list)
+or \textsf{(cons (first xs) (prefix $n$ (rest xs)))}.
 We can assume by the induction hypothesis that
-(prefix $n$ (rest xs)) is a true list,
-which means (by the definition of ``true list'')
-that (cons (first xs) (prefix $n$ (rest $xs$))) is a true list.
+\textsf{(prefix $n$ (rest xs))} is a true list,
+which means (by the definition of the term ``true list'')
+that \textsf{(cons (first xs) (prefix $n$ (rest $xs$)))} is a true list.
 That takes care of the inductive case and completes the proof
-that (prefix $n$ $x$s) is always a true list.
+that \textsf{(prefix $n$ $x$s)} is always a true list.
 
 When the second operand of cons is not a true list,
 the value it constructs isn't a true list, either.
@@ -569,7 +575,7 @@ displays another definition that uses a method known as
 ``tail recursion''.\footnote{\index{recursive}``Recursive definition''
 is the most commonly used term for what we call ``inductive definition''.
 We don't say recursive because the term is often conflated
-with an implementation method based on a data structure called a stack,
+with a computation strategy based on a data structure called a stack,
 and we think fixating on computational detail obscures the meaning
 of the definition.
 We want you to think of inductive (aka recursive)
@@ -589,8 +595,9 @@ that occurs at the
 \index{top level, vs nested}\index{nested, vs top level}``top level'',
 which means that it is not nested
 inside a formula to produce an operand for
-another operator. The operator ``op'' occurs at the top level
-in the formula (op $x$), but is nested in the formula (+ (op $x$) 1).
+another operator. The operator \textsf{h} occurs at the top level
+in the formula \textsf{(h $x$)}, 
+but is nested in the formula \textsf{(+ (h $x$) 1)}.
 Most computing systems, including ACL2,
 implement tail recursions efficiently. Nested recursions are
 more problematic. They don't always lead to inefficient computations,
