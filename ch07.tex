@@ -59,20 +59,20 @@ representing numbers of unlimited size.
 The first step is to work out a way to increment a
 binary numeral by one.
 That is,
-we want to define an operator add1 that, given a
+we want to define an operator \textsf{add-1} that, given a
 binary numeral $x$ for the natural number $n$, delivers the
 binary numeral for $(n+1)$.
 The operator will have the following
-property with respect to the operators bits and numb from
+property with respect to the operators \textsf{bits} and \textsf{numb} from
 Section~\ref{sec:binary-numerals} (page \pageref{bits-defun})
 for converting between numbers and our representation
 of binary numerals. The property is stated in terms of numbers,
-but add1 will work directly with numerals,
+but \textsf{add1} will work directly with numerals,
 bypassing entirely the intrinsic numbers of the computer system.
 \\
 \vspace{2mm}
 \hspace*{2cm}
-(add-1 $x$) = (bits ($+$ (numb $x$) $1$)\hfill\{add-1 \emph{property}\}
+\textsf{(add-1 $x$)} $=$ \textsf{(bits ($+$ (numb $x$) $1$)}\hfill\{add-1 \emph{property}\}
 
 Following our usual practice when we are trying to define an operator,
 we assume that someone has already defined it,
@@ -87,23 +87,23 @@ A particularly simple situation occurs when the numeral to be incremented
 has no bits in it. The interpretation we settled on
 in Chapter \ref{ch:binary-numerals} is that
 the empty numeral stands for the number zero
-(equation \{numb0\} in the definition of numb, page \pageref{nmb-defun}).
+(equation \{numb0\} in the definition of \textsf{numb} (page \pageref{nmb-defun}).
 So, incrementing the empty numeral should produce a numeral for the number $1$,
-which is the list [$1$].
+which is the list \textsf{[$1$]}.
 \\
 \vspace{2mm}
 \hspace*{2cm}
-(add-1 nil) = (list $1$) = (cons $1$ nil)  \hfill \{add1nil\}
+\textsf{(add-1 nil)} $=$ \textsf{(list $1$)} $=$ \textsf{(cons $1$ nil)}  \hfill \{add1nil\}
 
 Another simple situation occurs when the low-order bit in the
 numeral to be incremented is a zero.
-In that case, the ouput numeral is
+In that case, the output numeral is
 just like the input numeral, except that its
 low-order bit is a one rather than a zero.
 \\
 \vspace{2mm}
 \hspace*{2cm}
-(add-1 (cons 0 $x$)) = (cons 1 $x$)    \hfill \{add10\}
+\textsf{(add-1 (cons 0 $x$))} $=$ \textsf{(cons 1 $x$)}    \hfill \{add10\}
 
 At this point, we have equations to cover all numerals
 that have either no bits at all or a low-order bit
@@ -122,15 +122,15 @@ It will need to be added to the higher-order bits of
 the input numeral. But, that is just a matter of incrementing
 the higher-order bits by one.
 The higher-order bits are, themselves, a numeral,
-and because of our standard assumption that
-someone has already defined the operator we need,
+and because of our standard assumption with inductive definitions that
+someone has already defined the operator, \textsf{add-1} in this case,
 we can just use it to increment that numeral.
-That is, we can write an inductive equation that the add-1 operator
-must satisfy.
+That is, we can write an inductive equation that the \textsf{add-1} operator
+would satisfy if it were defined.
 \\
 \vspace{2mm}
 \hspace*{2cm}
-(add-1 (cons 1 $x$)) = (cons 0 (add-1 $x$))   \hfill \{add11\}
+\textsf{(add-1 (cons 1 $x$))} $=$ \textsf{(cons 0 (add-1 $x$))}   \hfill \{add11\}
 
 Now we have three equations.
 They are consistent (no overlapping cases) and
@@ -139,13 +139,10 @@ The equations are also computational because the input numeral
 on the right-hand side of the inductive equation
 \{add11\} is shorter than
 the numeral on the left-hand-side of the equation.
-Therefore, the equations define the add-1 operator.
+Therefore, the equations define the \textsf{add-1} operator.
 All we need to do now is to combine them into an ACL2 definition.
 
-\label{add-1-defun}\index{equation, by name!\{add10\}, \{add11\}}
-\index{operator, by name!add, add-1, add-c (\emph{see} bignum)}
-\index{add, add-1, add-c (\emph{see} bignum)}
-\index{bignum!addition (add, add-1, add-c)}\index{arithmetic!bignum addition}\index{addition!bignum}
+\label{add-1-defun}\index{equation, by name!\{add10\}, \{add11\}}\index{operator, by name!add, add-1, add-c (\emph{see} bignum)}\index{add, add-1, add-c (\emph{see} bignum)}\index{bignum!addition (add, add-1, add-c)}\index{arithmetic!bignum addition}\index{addition!bignum}
 \begin{Verbatim}
 (defun add-1 (x)
   (if (and (consp x) (= (first x) 1))
@@ -155,12 +152,13 @@ All we need to do now is to combine them into an ACL2 definition.
 
 It turns out that the \{add1nil\} equation
 and the \{add10\} equation can be expressed as one equation because
-the ACL2 formula (cons 1 (rest $x$)), which is the proper
+the ACL2 formula \textsf{(cons 1 (rest $x$))}, which is the proper
 translation for the right-hand-side of \{add10\} equation,
 also works for the right-hand-side of the \{add1nil\} equation
-because (cons 1 (rest nil)) $=$ (cons 1 nil) $=$ (list 1).
+because \textsf{(cons 1 (rest nil))} $=$ \textsf{(cons 1 nil)} $=$ \textsf{(list 1)}
+(\{\emph{rst0}\}, Figure~\ref{first-rest-cons}, page \pageref{first-rest-cons}).
 This observation reduces the definition from three equations to two,
-and completes the definition of the add1 operator.
+and completes the definition of the \textsf{add-1} operator.
 
 The ripple-carry adder propagated the carry from each bit position
 to the next higher-order bit position.
@@ -171,15 +169,15 @@ Each bit in the sum will depend on the
 corresponding bits in the addends and the carry from
 the previous, lower-order bit.
 
-We already have the apparatus for this: the full-adder operator
+We already have the apparatus for this: the \textsf{full-adder} operator
 (Figure~\ref{fig:full-adder},  page \pageref{fig:full-adder}).
 We can use that operator, to add two corresponding bits,
 $x_n$ and $y_n$, from the addend numerals,
 incorporating the carry, $c_n$, from the lower-order bit position.
-The full-adder delivers the sum bit, $s_n$, for the current
+The \textsf{full-adder} operator delivers the sum bit, $s_n$, for the current
 bit position and the carry bit, $c_{n+1}$, for the next bit position.
 \begin{center}
-[$s_n$ $c_{n+1}$] = (full-adder $c_n$ $x_n$ $y_n$)
+\textsf{[$s_n$ $c_{n+1}$]} $=$ \textsf{(full-adder $c_n$ $x_n$ $y_n$)}
 \end{center}
 
 This analysis provides the basis for
@@ -190,10 +188,10 @@ so that both have low-order bits.
 
 \begin{center}
 \begin{tabular}{ll}
-(add $c_0$ [$x_0$ $x_1$ $x_2$ \dots ] [$y_0$ $y_1$ $y_2$ \dots ]) = [$s_0$ $s_1$ $s_2$ \dots ]   & \{addxy\} \\
+\textsf{(add $c_0$ [$x_0$ $x_1$ $x_2$ \dots ] [$y_0$ $y_1$ $y_2$ \dots ])} $=$ \textsf{[$s_0$ $s_1$ $s_2$ \dots ]}   & \{addxy\} \\
 where & \\
-$[s_0$ $c_1] =$ (full-adder $c_0$ $x_0$ $y_0$) & \\
-$[s_1$ $s_2 \dots ] =$ (add $c_1$ $[x_1$ $x_2 \dots ]$ $[y_1$ $y_2 \dots ]$) & \\
+\textsf{[$s_0$ $c_1$]} $=$ \textsf{(full-adder $c_0$ $x_0$ $y_0$)} & \\
+\textsf{[$s_1$ $s_2$ \dots ]} $=$ \textsf{(add $c_1$ [$x_1$ $x_2$ \dots ] [$y_1$ $y_2$ \dots ])} & \\
 \end{tabular}
 \end{center}
 
@@ -203,11 +201,11 @@ is to have equations for the cases when one or the other addend is an empty nume
 
 If either addend is an empty numeral, then that addend denotes the number zero.
 The sum, then, would be the other addend with the carry added to it.
-We already have an operator, add1 (page \pageref{add-1-defun}),
+We already have an operator, \textsf{add-1} (page \pageref{add-1-defun}),
 that we can use to add the carry if it's a one-bit.
 When the carry is a zero-bit, we don't need to add the carry bit
 because adding zero doesn't change the number.
-We define an operator add-c that uses add-1 to add the carry bit
+We define an operator \textsf{add-c} that uses \textsf{add-1} to add the carry bit
 when it is a one.
 
 \label{add-c-defun}\index{equation, by name!\{addc0\}, \{addc1\}} \index{add, add-1, add-c (\emph{see} bignum)}\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
@@ -218,11 +216,11 @@ when it is a one.
       x))        ; {addc0}
 \end{Verbatim}
 
-We also use add-c to complete the addition when either of the addends is empty.
+We also use \textsf{add-c }to complete the addition when either of the addends is empty.
 \begin{center}
 \begin{tabular}{ll}
-(add $c$ $x$ nil) = (add-c $c$ $x$)   & \{add10\} \\
-(add $c$ nil $y$) = (add-c $c$ $y$)   & \{add01\} \\
+\textsf{(add $c$ $x$ nil)} $=$ \textsf{(add-c $c$ $x$)}   & \{add10\} \\
+\textsf{(add $c$ nil $y$)} $=$ \textsf{(add-c $c$ $y$)}   & \{add01\} \\
 \end{tabular}
 \end{center}
 
@@ -244,26 +242,21 @@ translates the equations into ACL2.
                  (c1 (second a)))
             (cons s0 (add c1 (rest x) (rest y))))))) ; {addxy}
 \end{Verbatim}
-\index{equation, by name!\{add0y\}, \{addx0\}, \{addxy\}}
-\index{add, add-1, add-c (\emph{see} bignum)}
-\index{addition!carry}
-\index{numeral!bignum addition}\index{addition!bignum}
-\index{arithmetic!bignum addition}
-\index{bignum!addition (add, add-1, add-c)}
+\index{equation, by name!\{add0y\}, \{addx0\}, \{addxy\}}\index{add, add-1, add-c (\emph{see} bignum)}\index{addition!carry}\index{numeral!bignum addition}\index{addition!bignum}\index{arithmetic!bignum addition}\index{bignum!addition (add, add-1, add-c)}
 \caption{Bignum Operator for Adding Binary Numerals}
 \label{fig:bignum-add-defun}
 \end{figure}
 
-Let's look at some examples of adding numerals with bignum add.
+Let's look at some examples of adding numerals with bignum \textsf{add}.
 \begin{center}
-\begin{tabular}{lllll}
-(add $0$ [$0$ $1$]             &[$0$ $1$]~~~~)  &$=$ &[$0$ $0$ 1]           & ~~$2 + 2 = 4$   \\
-(add $0$ [$0$ $1$ $1$ $1$]     &[$1$ $0$ $1$]~) &$=$ &[$1$ $1$ $0$ $0$ $1$] & ~~$14 + 5 = 19$ \\
-(add $0$ [$1$ $0$ $0$ $1$ $1$] &[$0$ $1$ $1$]~) &$=$ &[$1$ $1$ $1$ $1$ $1$] & ~~$25 + 6 = 31$ \\
+\begin{tabular}{llll|rcr}
+\textsf{(add $0$ [$0$ $1$]}             &\textsf{[$0$ $1$]}    &\textsf{)} $=$ &\textsf{[$0$ $0$ $1$]}         & ~~$2 + 2$  &$=$& $4$   \\
+\textsf{(add $0$ [$0$ $1$ $1$ $1$]}     &\textsf{[$1$ $0$ $1$]}&\textsf{)} $=$ &\textsf{[$1$ $1$ $0$ $0$ $1$]} & ~~$14 + 5$ &$=$& $19$ \\
+\textsf{(add $0$ [$1$ $0$ $0$ $1$ $1$]} &\textsf{[$0$ $1$ $1$]}&\textsf{)} $=$ &\textsf{[$1$ $1$ $1$ $1$ $1$]} & ~~$25 + 6$ &$=$& $31$ \\
 \end{tabular}
 \end{center}
 
-The properties that the bignum add operator is designed to satisfy
+The properties that the bignum \textsf{add} operator is designed to satisfy
 deliver a binary numeral for the sum of
 the numbers represented by the input numerals and the input carry.
 The examples show that the property holds for three
@@ -279,21 +272,23 @@ the following theorem makes that assertion formally.
      (+ (numb (list c)) (numb x) (numb y))))
 \end{Verbatim}
 
-The ACL2 system succeeds in proving this theorem by induction,
+The ACL2 system succeeds in proving this theorem,
 and we could do a paper-and-pencil proof following a strategy
 similar to the one for the \{adder ok\} theorem about the ripple-carry adder
 (Figure~\ref{fig:adder-thm-prf}, page \pageref{fig:adder-thm-prf}).
 In any case, we know now, to a mathematical certainty,
-that the bignum add operator delivers
+that the bignum \textsf{add} operator delivers
 the sum of its two input numerals and the input carry bit.
 
 \begin{ExerciseList}
 \Exercise \label{bignum-add-hi-order-bit-thm}
 Do a pencil-and-paper proof by induction of the following
-theorem, which says that if the high-order bit in both input numerals is a one-bit,
+theorem, which says that if the high-order bit in both input numerals is a $1$,
 then the high-order bit of the numeral delivered
-by the bignum add operator is also a one-bit.
-The theorem refers to the fin operator (page \pageref{fin-defun}).
+by the bignum \textsf{add} operator is also a $1$.
+The theorem refers to the \textsf{fin} operator (page \pageref{fin-defun}).\\
+\hspace*{1cm}$(($\textsf{(fin $x$) $=$ $1)$ $\wedge$ $($(fin $y$)}$= 1)) 
+\rightarrow ($\textsf{(fin (add 0 $x$ $y$))} $=$ $1)$
 
 \Exercise State the theorem of Exercise~\ref{bignum-add-hi-order-bit-thm}
 in ACL2 and submit it to the mechanized logic.
@@ -316,14 +311,22 @@ After the products are completed for
 all the digits in the multiplier, they are totaled, taking care to keep
 the digits lined up according to the left shifts that occurred at each stage.
 
-Grade-school students learn this procedure without knowing
-the algebra behind it. However, we want to specify the operations in
-the form of equations, so we need to work out the algebra.
+Grade-school students learn this procedure
+without knowing the algebra behind it.
+However, we want to specify a
+multiplication operator in the form of equations, 
+so we need to work out the algebra.
 Figure~\ref{fig:grade-school-mult} (page \pageref{fig:grade-school-mult})
 presents the multiplication procedure,
 and provides an algebraic argument that justifies it.
 The algebra relies on the equation
-that grade-school students use to check the correctness of their long-division problems.
+that grade-school students use to check the correctness of their long-division 
+problems.\footnote{We're not
+sure they do this is grade school anymore.
+With computers and calculators constantly at hand,
+it probably makes more sense to learn something else. 
+Nevertheless, we will need this
+division-check equation to justify the multiplication procedure.}
 
 \hspace{2mm} $x = (\lfloor x \div d \rfloor \cdot d) + $($x$ mod $d)$ \hfill \{check$\div$\}\footnote{As
 usual $\lfloor x\rfloor$ stands for the greatest integer that is $x$ or less,
@@ -354,6 +357,8 @@ $s$   $=$ $\lfloor m\div 10\rfloor + p$    &sum of $p$ and the number represente
 $x y$ $=$ $s\cdot 10 + m_0$ &shift the numeral for $s$ and bring down digit $m_0$\\
 \end{tabular}
 \end{center}
+\hspace*{1cm}\emph{Note}: In this figure $x$, $x_0$, $y$, $m$, $m_0$, $p$, and $s$ denote numbers.\\
+\hspace*{1cm}\phantom{\emph{Note}: }In practice, a person or computer doing multiplication would use numerals.
 
 \emph{Procedure}
 \begin{quote}
@@ -394,7 +399,7 @@ $=$ & $(\lfloor x \div 10\rfloor \cdot 10 + x_0) y$           & \{$x_0=x$ mod $1
 $=$ & $(\lfloor x \div 10\rfloor \cdot y) \cdot 10 + x_0 y$   & \{\emph{algebra}\} \\
 $=$ & $(\lfloor x \div 10\rfloor \cdot y) \cdot 10 + m$       & \{$m=x_0\cdot y$\} \\
 $=$ & $p \cdot 10 + m$                                        & \{$p=\lfloor x \div 10\rfloor \cdot y$\} \\
-$=$ & $p \cdot 10 + \lfloor m \div 10 \rfloor \cdot 10 + (m$ mod $10)$& \{\emph{check}$\div$\} \\
+$=$ & $p \cdot 10 + (\lfloor m \div 10 \rfloor \cdot 10 + (m$ mod $10))$& \{\emph{check}$\div$\} \\
 $=$ & $(p + \lfloor m \div 10 \rfloor) \cdot 10 + (m$ mod $10)$       & \{\emph{algebra}\} \\
 $=$ & $s \cdot 10 + (m$ mod $10)$                             & \{$s=p + \lfloor m \div 10 \rfloor$\} \\
 $=$ & $s \cdot 10 + m_0$                                      & \{$m_0=m$ mod $10$\} \\
@@ -405,7 +410,7 @@ $=$ & $s \cdot 10 + m_0$                                      & \{$m_0=m$ mod $1
 \label{fig:grade-school-mult}
 \end{figure}
 
-Of course, our bignum multiplier
+Of course, the bignum multiplier
 will use binary numerals rather than decimal numerals.
 The procedure is the same, but permits some economies
 because the multiplication table for bits is much simpler
@@ -413,60 +418,77 @@ than for decimal digits.
 We are looking for some equations that define a multiplication operator.
 That is, an operator that delivers the binary numeral for the product of the numbers
 represented by its operands, which are also binary numerals.
-Let's call it mul, and let's call its operands, which are binary numerals,
+Let's call it \textsf{mul}, and let's call its operands, which are binary numerals,
 $x$ and $y$ (Section~\ref{sec:binary-numerals}, page \pageref{sec:binary-numerals}).
-If $y$ is nil, it stands for zero, which makes the product zero, represented by nil.
-That gives us one equation.
+If $y$ is nil, it stands for zero, 
+which makes the product zero (that is, \textsf{nil}).
+That analysis yields an equation and completes
+the computation when $y$ is \textsf{nil}
 
-\hspace*{2cm} (mul $x$ nil) = nil \hspace{2cm} \hfill \{mulx0\}
+\hspace*{2cm} \textsf{(mul $x$ nil)} $=$ \textsf{nil} \hspace{2cm} \hfill \{mulx0\}
 \\
 
-That completes the computation when $y$ is nil,
-so we can now focus on the case when $y$ is not nil.
-For this case, we are going to invoke another operator, mxy,
-that assumes $y$ is not nil. That gives us the other equation
-for mul.
+We can now focus on the case when $y$ is not \textsf{nil}.
+To complete the multiplication,
+we are going to invoke another operator, \textsf{mxy},
+which assumes that $y$ is not \textsf{nil}.
+That leads to another equation for \textsf{mul}.
 
-\hspace*{2cm} (mul $x$ $y$) = (mxy x y), if (consp $y$) \hfill \{mulxy\}
+\hspace*{2cm} \textsf{(mul $x$ $y$)} $=$ \textsf{(mxy x y)}, if \textsf{(consp $y$)} \hfill \{mulxy\}
 \\
 
-Now, we turn our attention to defining mxy, which multiplies binary
-numerals $x$ and $y$, assuming that $y$ is not an empty numeral.
+Now, we turn our attention to defining \textsf{mxy}, which multiplies binary
+numerals $x$ and $y$ when $y$ is not the empty numeral.
 It may happen that $x$ is empty, which stands for zero, so that
-the product is also zero, and in that case (mxy $x$ $y$) is nil,
-which gives us one of the equations for mxy.
+the product is also zero, and in that case (mxy $x$ $y$) is \textsf{nil},
+which gives us one of the equations for \textsf{mxy}.
 
-\hspace*{2cm} (mxy nil $y$) = nil  \hfill \{mul0y\}
+\hspace*{2cm} \textsf{(mxy nil $y$)} $=$ \textsf{nil}  \hfill \{mul0y\}
 \\
 
-That leaves the case when $x$ $=$ [$x_0$ $x_1$ $x_2$ ...] is not empty.
+That leaves the case when $x$ $=$ \textsf{[$x_0$ $x_1$ $x_2$ ...]} is not empty.
 Follow along, again, in Figure~\ref{fig:grade-school-mult},
 but this time, because we're in binary mode, think $2$ when you see $10$,
 and think bits where you see digits.
 We'll discuss step 1 shortly, but first look at step 2,
 which will be necessary, regardless of what happens in step 1.
-Step 2 requires the computation of
-$p = \lfloor x \div 2 \rfloor \cdot y$.
-The numeral for $\lfloor x \div 2 \rfloor$ is just $x$ without its
-low-order bit: numeral for $\lfloor x \div 2 \rfloor =$ (rest $x$).
-Since the numeral (rest $x$) is shorter than $x$,
-we can simply invoke mxy, relying on induction.
+
+In Figure~\ref{fig:grade-school-mult}, the variables $x$, $y$, $m$, $p$, and $s$
+stand for numbers, but in this discussion outside the figure,
+they stand for binary numerals. 
+We will sometimes want to refer, instead, to numbers 
+and will use underlines to make the distinction.
+For example, $x$ is a binary numeral, 
+but $\underline{x}$ $=$ \textsf{(numb $x$)}
+is the number that $x$ stands for.
+Similarly, $x_0$ is a symbol for a bit,
+but $\underline{x_0}$ is the number it denotes (zero or one).
+
+Step 2 in Figure~\ref{fig:grade-school-mult}requires the computation of
+$\underline{p} = \lfloor \underline{x} \div 2 \rfloor \cdot \underline{y}$.
+The numeral for $\lfloor \underline{x} \div 2 \rfloor$ is just $x$ without its
+low-order bit. Since the low-order bit comes first
+in our representation of binary numerals,
+the numeral for $x$ without is low-order bit is \textsf{(rest $x$)}.
+Observing that the numeral \textsf{(rest $x$)} 
+is shorter than the numeral $x$,
+we can invoke \textsf{mxy} and rely on induction.
 That gives us a way to compute $p$, which, don't forget,
 is a numeral at this point, not a number.
 
-\hspace*{2cm} $p$ = (mxy (rest $x$) $y$)) \hfill \{mul.p\}
+\hspace*{2cm} $p$ $=$ \textsf{(mxy (rest $x$) $y$))} \hfill \{mul.p\}
 \\
 
-Binary numerals make the first step of the
-multiplication procedure ($m = x_0 \cdot y$)
+Binary numerals make step 1 in Figure~\ref{fig:grade-school-mult}
+($\underline{m} = \underline{x_0} \cdot \underline{y}$)
 simpler than with decimal numerals.
 The bit $x_0$ is either a zero or a one.
-If it's a zero, $m = m_0 = 0$, so all
+If $x_0 = 0$, then $\underline{m} = \underline{m_0} = 0$, so all
 we have to do is multiply $p$ by $2$ (just shift, no add).
 Multiplying a binary numeral by $2$ is a matter
-of inserting a zero in at the beginning.
+of inserting a zero at the beginning.
 (This is where we bring down a zero.)
-So, when $x_0 = 0$, we get the following equation for mxy.
+So, when $x_0 = 0$, we get the following equation for \textsf{mxy}.
 
 \begin{figure}
 \begin{Verbatim}
@@ -477,7 +499,6 @@ So, when $x_0 = 0$, we get the following equation for mxy.
             (cons (first y) (add 0 p (rest y))) ; {mul1xy}
             (cons 0 p)))                        ; {mul0xy}
       nil))                                     ; {mul0y}
-
 (defun mul (x y)
   (if (consp y)
       (mxy x y) ; {mulxy}
@@ -488,31 +509,32 @@ So, when $x_0 = 0$, we get the following equation for mxy.
 \label{fig:bignum-mul-defun}
 \end{figure}
 
-\hspace*{2cm} (mxy [$0$ $x_1$ $x_2$ \dots] $y$) = (cons $0$ $p$) \hfill \{mul0xy\}
+\hspace*{2cm} \textsf{(mxy [$0$ $x_1$ $x_2$ \dots] $y$)} $=$ \textsf{(cons $0$ $p$)} \hfill \{mul0xy\}
 \\
 
 If $x_0 = 1$, then $m = y$,
-so $s = \lfloor m\div 2\rfloor + p = \lfloor y\div 2\rfloor + p$.
-Again, $y$ is a numeral, so the numeral for $\lfloor y\div 2\rfloor$
+so $\underline{s} = \lfloor \underline{m}\div 2\rfloor + \underline{p} = \lfloor \underline{y}\div 2\rfloor + \underline{p}$.
+Again, $y$ is a numeral, so the numeral for $\lfloor \underline{y}\div 2\rfloor$
 is just like $y$, but without the first bit: (rest $y$).
-That gives us another equation for mxy.
-We use the bignum add operator to compute the sum in step 3
-of the multiplication procedure.
-The first operand of the add operator is the input carry bit,
-which is zero because we only want to add $p$ and (rest $y$).
+That gives us another equation for \textsf{mxy}.
+We use the bignum add operator to compute the sum 
+shown in in step 3 of Figure\ref{fig:bignum-mul-defun}.
+The first operand of the \textsf{add} operator is the input carry bit,
+which is zero because we only want to add $p$ and \textsf{(rest $y$)}.
 We bring down the low-order bit of $m$, but $m = y$
-($x_0 = 1$, you remember), so that's (first $y$).
+($x_0 = 1$, you remember), so the low-order bit of $m$
+is also the low-order bit of $y$, namely \textsf{(first $y$)}.
 
-\hspace*{2cm} (mxy [$1$ $x_1$ $x_2$ \dots] $y$) = (cons (first y) (add 0 (rest y) p) \hfill \{mul1xy\}
+\hspace*{2cm} \textsf{(mxy [$1$ $x_1$ $x_2$ \dots] $y$)} $=$ \textsf{(cons (first $y$) (add 0 (rest $y$) $p$))} \hfill \{mul1xy\}
 \\
 
-These equations for mul are comprehensive because $y$ is either empty,
+These equations for \textsf{mul} are comprehensive because $y$ is either empty,
 in which case equation \{mulx0\} applies,
 or $y$ is not empty, in which case \{mulxy\} applies, and
-the computation is left up to the operator mxy,
-so we have to analyze the definition of mxy.
+the computation is left up to the operator \textsf{mxy},
+so we have to analyze the definition of \textsf{mxy}.
 
-The equations in the definition of mxy are comprehensive
+The equations in the definition of \textsf{mxy} are comprehensive
 because either $x$ is empty, in which case
 equation \{m0y\} applies, or $x$ is not empty.
 If $x$ is not empty, its low-order bit is either zero,
@@ -525,20 +547,21 @@ are empty, they deliver the same result, namely the empty numeral.
 
 They are computational because in the inductive equations,
 \{m0xy\} and \{m1xy\}, the first operand in
-the invocation of the operator mxy on the right-hand side,
-is the numeral (rest $x$). Since $x$ is non-empty in the inductive case,
-(rest $x$) has fewer bits than the $x$, which is the first operand
+the invocation of the operator \textsf{mxy} on the right-hand side,
+is the numeral \textsf{(rest $x$)}. 
+Since $x$ is non-empty in the inductive case,
+\textsf{(rest $x$)} has fewer bits than the $x$, which is the first operand
 on the left-hand side.
 So, the inductive invocation is closer to a non-inductive
 case than the formula on the left-hand side of the equation.
 
 Putting this all together leads to the ACL2 definition
-of the bignum multiplication operator mul in
+of the bignum multiplication operator \textsf{mul} in
 Figure~\ref{fig:bignum-mul-defun} (page \pageref{fig:bignum-mul-defun}.
-Most of the work is done by the operator mxy.
+Most of the work is done by the operator \textsf{mxy}.
 From these definitions, ACL2 successfully finds an
 inductive proof of the following theorem,
-which confirms that (mul $x$ $y$) is the binary numeral
+which confirms that \textsf{(mul $x$ $y$)} is the binary numeral
 for the product of the numbers that the numerals $x$ and $y$ represent.
 
 \label{bignum-mul-thm}\index{theorem!bignum multiplication}\index{theorem, by name!\{bignum-mul-ok\}}\index{arithmetic!bignum multiplication}\index{bignum!multiplication (mul, mxy)}\index{multiplication!bignum}
@@ -549,9 +572,8 @@ for the product of the numbers that the numerals $x$ and $y$ represent.
 
 \begin{ExerciseList}
 \Exercise
-Use an induction on the number of bits in the
-multiplier to do a paper-and-pencil proof of
-the bignum multiplier theorem, bignum-mul-ok.
+Do a paper-and-pencil proof of
+the bignum multiplier theorem, \textsf{bignum-mul-ok}.
 \end{ExerciseList}
 
 
