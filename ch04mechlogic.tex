@@ -79,11 +79,12 @@ we defined a doublecheck test of this equation.
 
 \begin{aside}
 \begin{center}
- \setlength{\tabcolsep}{0pt}
+\addtolength{\tabcolsep}{-6pt}
 \begin{tabular}{ll}
 ~&L($n$) $\equiv$ (len (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ ($+$ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$))\\
 ~&~~~versus A($xs$, $ys$) $\equiv$ (len (append $xs$ $ys$)) $=$ ($+$ (len $xs$) (len $ys$))\\
 \end{tabular}
+\addtolength{\tabcolsep}{6pt}
 \end{center}
 \vspace{2mm}
 A proof of ($\forall$$n$.L($n$))

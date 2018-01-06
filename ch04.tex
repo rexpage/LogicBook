@@ -1450,7 +1450,8 @@ That takes care of P(0). Figure~\ref{pfx-induc} (page \pageref{pfx-induc}) displ
 
 \begin{figure}
 \begin{center}
-\setlength{\tabcolsep}{1pt}
+\addtolength{\tabcolsep}{-5pt}
+%\setlength{\tabcolsep}{1pt}
 \begin{tabular}{llll}
 ~~~~(prefix &(len    &[$x_1$ $x_2$ \dots $x_{n+1}$])             &\\
             &(append &[$x_1$ $x_2$ \dots $x_{n+1}$] $ys$))       &\\
@@ -1468,6 +1469,7 @@ $=$ (cons   &$x_1$   &                                           &\\
             &[$x_2$ ~ $x_3$ &\dots ~~ $x_{n+1}$] )               &\{P($n$)\} \\
 $=$ [$x_1$ $x_2$ & \dots~$x_{n+1}$]                             &&\{\emph{cons}\} (page \pageref{first-rest-cons}) \\
 \end{tabular}
+\addtolength{\tabcolsep}{5pt}
 ~~\\
 \vspace{2mm}
 P($n+1$) $\equiv$ (prefix (len [$x_1$ $x_2$ \dots $x_{n+1}$]) (append [$x_1$ $x_2$ \dots $x_{n+1}$] $ys$)) $=$ [$x_1$ $x_2$ \dots $x_{n+1}$]

@@ -6,7 +6,7 @@
 \section{Adding Numerals}
 \label{sec:addition-by-numeral}
 
-When people do paper-and-pencil 
+When people do paper-and-pencil
 \index{arithmetic!paper and pencil}arithmetic,
 they use decimal numerals.
 For example, to add two numbers, a person
@@ -38,11 +38,11 @@ below the units-digit column.
 \end{figure}
 
 If the sum of the units digits is ten or more, a
-\index{carry, addition}\index{addition!carry}carry 
+\index{carry, addition}\index{addition!carry}carry
 is marked above the tens-digit column.
-Then, the sum of that carry (if there was one) and 
+Then, the sum of that carry (if there was one) and
 the tens digits is computed.
-As before, the low-order digit of the sum 
+As before, the low-order digit of the sum
 goes into the numeral, this time in the
 tens-digit column, and the carry,
 if there was one, is marked
@@ -54,16 +54,16 @@ To add decimal numerals in this way, a person needs to know
 the table for one-digit sums (0+0=0, 0+1=1, \dots 2+2=4 \dots 9+8=17, 9+9=18).
 To add binary numerals, a similar table of one-bit sums is needed,
 but the table is much smaller for binary numerals
-than for decimal numerals because it only has to account for 
+than for decimal numerals because it only has to account for
 two kinds of bits ($0$ and $1$), not ten digits ($0$, $1$, $2$, \dots $9$).
 The process of adding numerals is in other respects
-the same for binary numerals as for decimal numerals 
+the same for binary numerals as for decimal numerals
 (Figure~\ref{fig:adding-binary-numerals}).
-The small size of the table for one-bit addition simplifies 
+The small size of the table for one-bit addition simplifies
 both the pencil-and-paper process and the design of
 digital circuits for addition of binary numerals, compared to
 designing circuits for decimal numerals.\footnote{The table
-in Figure~\ref{fig:adding-binary-numerals} 
+in Figure~\ref{fig:adding-binary-numerals}
 relies on commutativity and associativity
 (Figure~\ref{fig-02-02}, page \pageref{fig-02-02})
 for completeness.}
@@ -122,11 +122,11 @@ displays the sum as two separate bits:
 a carry bit $c$ and a sum bit $s$.
 A close look at the table shows that
 the carry bit matches the table of values of the
-digital gate for logical-and 
+digital gate for logical-and
 (Figure \ref{fig-02-logic-gates}, page \pageref{fig-02-logic-gates}).
 That is, the carry bit is 1 only if both inputs are 1s.
 Otherwise, the carry bit is 0.
-So, a logical-and gate can serve 
+So, a logical-and gate can serve
 as a digital circuit to compute the carry bit
 in the addition of two one-bit, binary numerals.
 Feed the signals for the one-bit numerals
@@ -181,7 +181,7 @@ So, Figure \ref{fig:half-adder} also specifies the half-adder circuit in ACL2 te
 We refer to this specification as an
 ACL2 model of the half-adder circuit.
 We use the same name for the model as the circuit:
-the operator \textsf{half-adder} 
+the operator \textsf{half-adder}
 delivers the two output signals as a list of two elements,
 the first element being the sum bit and the second, the carry bit.
 
@@ -191,9 +191,9 @@ and we saw in an example (Figure \ref{fig:adding-binary-numerals})
 that this would require us to deal with three input bits
 in each column:
 the corresponding bits in the two addends
-and the carry bit brought from adding 
+and the carry bit brought from adding
 the bits in the previous column.
-The half-adder circuit is not up to this task 
+The half-adder circuit is not up to this task
 because it has only two input signals.
 However, we can put together a full-adder circuit
 by combining two half adders and a logical-or gate,
@@ -256,7 +256,7 @@ the number it denotes, and the \{\emph{Horner 2}\} theorem
 (Exercise \ref{horner2-thm}, page \pageref{horner2-thm})
 asserts that \textsf{(numb [$x$])} computes that number.
 The same theorem asserts that if $s$ and $c$ are bits,
-then \textsf{(numb [$s$ $c$])} is 
+then \textsf{(numb [$s$ $c$])} is
 the number that the numeral \textsf{[$s$ $c$]} denotes.
 Combining these observations with the full-adder table
 (Figure \ref{fig:full-adder})
@@ -266,7 +266,7 @@ Figure \ref{fig:full-adder-thm} (page \pageref{fig:full-adder-thm}).\footnote{Th
 element is the sum bit and whose second element is the carry bit.
 The order of elements in the result delivered by \textsf{full-adder} was designed
 to form a numeral for the sum of its three, one-bit operands.
-The list in reverse order, \textsf{[$c$ $s$]}, 
+The list in reverse order, \textsf{[$c$ $s$]},
 would contain the same information,
 but would not conform to our representation of binary numerals
 because the low-order bit would no longer come first.}
@@ -295,28 +295,28 @@ A circuit that adds two-bit, binary numerals
 comes from combining two full-adder circuits
 (Figure~\ref{fig:adder2}, page \pageref{fig:adder2}).
 The first full-adder circuit gets, as input, the
-low-order bits, $x_0$ and $y_0$,  of the two addends. 
+low-order bits, $x_0$ and $y_0$,  of the two addends.
 The second full adder gets the high-order bits,
-$x_1$ and $y_1$. 
-The circuit directs the output carry, $c_1$, from 
-the first full adder to the input carry of the 
+$x_1$ and $y_1$.
+The circuit directs the output carry, $c_1$, from
+the first full adder to the input carry of the
 second full adder.
 
 The circuit produces three output signals: one sum bit from
-each full adder ($s_0$ and $s_1$) and the carry-out 
+each full adder ($s_0$ and $s_1$) and the carry-out
 from the second full adder ($c_2$).
 With a carry-in of zero for the first full adder
 ($c_0 = 0$), the output signals form a two-bit
 numeral \textsf{[$s_0$ $s_1$]} and a carry bit $c_2$
 that represent the sum of the two input numerals.
-More generally, the output signals 
+More generally, the output signals
 represent the sum of the two input numerals and the
 carry-in bit.
 The following equation \{$\star$\} shows how to interpret the
 input and output signals as numbers.
 
 \begin{center}
-\textsf{(numb [$s_0$ $s_1$]) $+$ (numb [$c_2$])} $=$ 
+\textsf{(numb [$s_0$ $s_1$]) $+$ (numb [$c_2$])} $=$
 \textsf{(numb [$c_0$]) $+$ (numb [$x_0$ $x_1$]) $+$ (numb [$y_0$ $y_1$])}~~~\{$\star$\}
 \end{center}
 
@@ -363,7 +363,7 @@ It would be easy to make a mistake.
 
 A better approach is to write equation \{$\star$\}
 formally in ACL2. The equation states our expectations of
-ACL2 model, \textsf{adder2}, of the 
+ACL2 model, \textsf{adder2}, of the
 two-bit adder circuit (Figure~\ref{fig:adder2})
 in the same way that the \{full-adder-ok\} theorem
 (Figure \ref{fig:full-adder-thm}, page \pageref{fig:full-adder-thm})
@@ -514,7 +514,7 @@ the model of the adder circuit
 (Figure \ref{fig:adder}, page \pageref{fig:adder}),
 rather than from the circuit diagram.
 Aside \ref{circuit-vs-model} (page \pageref{circuit-vs-model})
-discusses some of the ramifications of this approach, 
+discusses some of the ramifications of this approach,
 which we have used throughout the discussion of circuits.
 
 \begin{aside}
@@ -530,7 +530,7 @@ that we verify guarantee that the circuits also have those properties.
 In a complete formalization, we would
 need a way to convert models into instructions
 for fabricating circuits.
-The fabricated circuit would have the properties 
+The fabricated circuit would have the properties
 of the model. Such a formalization
 would use the methods we have employed to formalize other operations.
 However, in this treatment of the subject
@@ -574,7 +574,7 @@ The first step is
 to compute the value of \textsf{(adder $c_0$ [$x_0$] [$y_0$])}
 by working through the definition of the \textsf{adder} operator
 (Figure \ref{fig:adder}, page \pageref{fig:adder}).
-With those operands, the \textsf{if} operator in 
+With those operands, the \textsf{if} operator in
 the definition of \textsf{adder} selects the \{add1\} equation.
 \begin{quote}
 \begin{tabular}{rll}
@@ -588,18 +588,19 @@ $=$    & \textsf{(adder $c_1$ nil nil)}                      & \{\emph{rst1}\} (
 $=$    & \textsf{[nil  $c_1$]}                               & \{add0\} (page \pageref {fig:adder}) \\
 \end{tabular}
 \end{quote}
-\setlength{\tabcolsep}{1mm}
+\addtolength{\tabcolsep}{-1mm} 
 \begin{tabular}{rll}
 Therefore, & $ss$ $=$ \textsf{nil}                                       & \\
            & $c$ $=$ $c_1$                                      & \{$\dagger$\} \\
 and        & \textsf{(cons $s_0$ $ss$}) $=$ \textsf{(cons $s_0$ nil)} $=$ \textsf{[$s_0$]} & \{$\ddagger$\}\\
            &                                                    & \\
 \end{tabular}\\
+\addtolength{\tabcolsep}{1mm}
 The equation $R(0)$ (Figure~\ref{fig:adder-thm-prf}) makes the following requirement.
 \vspace{1mm}\\
 \hspace*{1.5cm}\textsf{[[$s_0$] $c$]} $=$ \textsf{(adder $c_0$ [$x_0$] [$y_0$])}
 ~~\vspace{2mm}\\
-The following argument, which proceeds 
+The following argument, which proceeds
 from the right-hand side to the left-hand side of the requirement,
 confirms that it is consistent with the definition of the \textsf{adder} operator.\\
 \begin{tabular}{rll}
@@ -634,7 +635,7 @@ adds \textsf{(numb [$s_0$])} $+$ $2\times$\textsf{(numb [$s_1$ \dots $s_{n+1}$ $
 to arrive at \textsf{(numb [$s_0$ $s_1$ \dots $s_{n}$ $c$])}.
 We have derived the left-hand side
 of equation $R(n+1)$, having started from the right-hand side.
-That completes the proof of the \{adder ok\} theorem  
+That completes the proof of the \{adder ok\} theorem
 by mathematical induction.
 
 The proof is tedious, to say the least.
@@ -1019,9 +1020,9 @@ $\forall w.(((n \in I(w)) \wedge (n \geq 0)) \rightarrow ($\textsf{(fin(twos $w$
 \Exercise \label{2s-negation-circuit}\index{twos complement!negation circuit}
 \index{circuit!twos complement negation}
 Diagram a negation circuit whose input signals represent a
-twos-complement numeral for a number $n$ in the range 
+twos-complement numeral for a number $n$ in the range
 $-2^{w-1} < n < 2^{w-1}$
-and whose output signals represent 
+and whose output signals represent
 the twos-complement numeral for $(-n)$.
 In your diagram, rely on the twos-complement negation trick
 (Figure~\ref{fig:2s-comp-negation}),
