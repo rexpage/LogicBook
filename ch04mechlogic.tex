@@ -12,9 +12,11 @@ cites a known equation to transform the formula
 to another one with the same meaning,
 and moves gradually, step by step, to the formula
 on the other side of the equation of the theorem.
-It is easy for people to make mistakes in this detailed, syntax-matching process,
-but computers can carry it out flawlessly and
-relieve us from an obligation to focus with monk-like devotion on grammatical details.
+It is easy for people to make mistakes 
+in this detailed, syntax-matching process,
+but computers can carry it out flawlessly,
+relieving people from an obligation to focus 
+with monk-like devotion on grammatical details.
 
 \begin{aside}
 One of the aims of this book is to help students learn to
@@ -34,10 +36,11 @@ would require substantially more study and experience.
 \label{aside:acl2-learning-objectives}
 \end{aside}
 
-ACL2 is one of several systems of \index{mechanized logic}\index{logic!mechanized}mechanized logic that provide this
-kind of assistance with proofs.
+ACL2 is one of several systems of 
+\index{mechanized logic}\index{logic!mechanized}mechanized logic 
+that provide this kind of assistance with proofs.
 Theorems for the ACL2 proof engine take the same form
-as properties for the doublecheck testing facility in Proof Pad.
+as properties for the DoubleCheck testing facility in Proof Pad.
 ACL2 has a built-in way to look for inductive proofs,
 and for some theorems it succeeds without guidance.
 Most of the time, however, ACL2 needs some help in
@@ -49,7 +52,7 @@ discussed in Chapter~\ref{ch:mathematical-induction}.
 The syntax of ACL2 requires prefix notation exclusively,
 as you would expect, and there are additional issues
 to be discussed, but the form of the theorems
-will be familiar from your experience with doublecheck.
+will be familiar from your experience with DoubleCheck.
 
 \section{ACL2 Theorems and Proofs}
 \label{sec:theorems-and-acl2-proofs}
@@ -58,16 +61,16 @@ The first proof by mathematical induction
 in Chapter~\ref{ch:mathematical-induction}
 verified the additive law of concatenation
 (page \pageref{additive-law-concatenation}).
-The statement of the theorem asserted that a proposition L($n$) is true,
-regardless of which natural number $n$ stands for: ($\forall$$n$.L($n$)),
+The statement of the theorem asserts that ($\forall$$n$.L($n$)) ia true,
 where L($n$) stands for the following equation.
 \label{eq:Ln-additive-law}
 \begin{center}
-L($n$) $\equiv$ (len (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ ($+$ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$))
+L($n$) $\equiv$ $($\textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} $=$ 
+\textsf{($+$ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$))}$)$
 \end{center}
 
 In Chapter~\ref{ch:software-testing-prefix-notation} (page \pageref{additive-lengths-test})
-we defined a doublecheck test of this equation.
+we defined a DoubleCheck test of this equation.
 
 \begin{Verbatim}
 (defproperty additive-law-of-concatenation-test
@@ -79,14 +82,16 @@ we defined a doublecheck test of this equation.
 
 \begin{aside}
 \begin{center}
-\addtolength{\tabcolsep}{-6pt}
+%\addtolength{\tabcolsep}{-6pt}
 \begin{tabular}{ll}
-~&L($n$) $\equiv$ (len (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ ($+$ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$))\\
-~&~~~versus A($xs$, $ys$) $\equiv$ (len (append $xs$ $ys$)) $=$ ($+$ (len $xs$) (len $ys$))\\
+A($xs$, $ys$) $\equiv$ $($\textsf{(len (append $xs$ $ys$))} $=$
+\textsf{($+$ (len $xs$) (len $ys$))}$)$ & \emph{formal} \\
+L($n$) $\equiv$ $($\textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} & \emph{informal}\\ 
+\phantom{L($n$) $\equiv$ $($~~~~} $=$ \textsf{($+$ (len [$x_1$ $x_2$ $\dots$ $x_n$]) (len $ys$))}$)$ \\
 \end{tabular}
-\addtolength{\tabcolsep}{6pt}
+%\addtolength{\tabcolsep}{6pt}
 \end{center}
-\vspace{2mm}
+~\\
 A proof of ($\forall$$n$.L($n$))
 is intended to apply to all lists with $n$ elements,
 regardless of what those elements are.
@@ -94,41 +99,40 @@ The formula $(\forall xs.(\forall ys.$A($xs$, $ys$)$))$
 is a more formal statement of the intended theorem,
 where A is a predicate whose universe of discourse
 is pairs of lists.
-
 A proof of ($\forall$$n$.L($n$)) accomplishes this goal
 rigorously (but not with full formality)
 if it avoids depending in any way on the elements in the lists that
-[$x_1$ $x_2$ \dots $x_n$] and $ys$ stand for, other than
-the requirement that $n$ is a natural number.
+\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]} and $ys$ stand for.
+~\vspace{2mm}\\
 Furthermore, the proof assumes that any list of length $n$
-has a representation in the form [$x_1$ $x_2$ \dots $x_n$].
-
-The \{\emph{lst}\} axiom states this assumption in terms of
+has a representation in the form \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}.
+The following axiom \{\emph{lst}\} states this assumption in terms of
 the bound variables $xs$ and $n$,
 with lists and natural numbers, respectively, as their
-universes of discourse and where
-[$x_1$ $x_2$ \dots $x_n$] stands for a list of $n$
+universes of discourse. The formula
+\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]} stands for a list of $n$
 elements from specifiable domains.
 \begin{center}
-  Axiom \{\emph{lst}\}: $(\forall xs.(\exists n.(\exists$[$x_1$ $x_2$ \dots $x_n$]$.(xs = $[$x_1$ $x_2$ \dots $x_n$]$))))$
+  Axiom \{\emph{lst}\}: $(\forall xs.(\exists n.(\exists$\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}$.(xs = 
+  $\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}$))))$
 \end{center}
-\caption{An Informality: [$x_1$ $x_2$ \dots $x_n$] versus $xs$}
+\caption{An Informality: \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]} versus $xs$}
 \label{axiom:lst}
 \end{aside}
 
-Of course, the doublecheck specification
+Of course, the DoubleCheck specification
 cannot employ the informal notation of numbered lists
 (page \pageref{numbered-list-interpretation}).
-Instead, the property uses the variable $xs$ to designate the list.
+Instead, the property uses the variable \textsf{xs} to designate the list.
 The ACL2 statement of the theorem corresponding to this property
 is the same as the property specification
-except for and the keyword ``defproperty'',
-which becomes ``defthm,'' and
+except for and the keyword \textsf{defproperty},
+which becomes \textsf{defthm}, and
 the random data generators (introduced
-by the ``:value'' keyword), which are not present in the theorem.
+by the \textsf{:value} keyword), which are not present in the theorem.
 Theorem statements in ACL2 start with the
-\index{defthm}\index{definition!theorem, ACL2}``defthm'' keyword.
-After that comes a name for the theorem and the Boolean formula
+\index{defthm}\index{definition!theorem, ACL2}\textsf{defthm} keyword.
+After that comes a name for the theorem and then the Boolean formula
 that states the theorem.
 
 \begin{Verbatim}
@@ -162,21 +166,21 @@ when the mechanized logic succeeds.
 The append-suffix theorem, which states that
 if the first operand of the append operator is a list of length $n$,
 then dropping $n$ elements from the front of the concatenation
-reproduces the second operand of append.
+reproduces the second operand of \textsf{append}.
 In Section~\ref{sec:append-prefix-suffix} (page \pageref{append-suffix-thm-pencil-proof})
 we stated this theorem in the form ($\forall$$n$.S($n$)),
 where S($n$) is a shorthand for the following equation.
 
 \begin{samepage}
 \begin{center}
-S($n$) $\equiv$ (nthcdr (len [$x_1$ $x_2$ \dots $x_n$]) (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ $ys$
+S($n$) $\equiv$ $($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ \dots $x_n$] $ys$))} 
+$=$ $ys)$
 \end{center}
 \end{samepage}
 
 In ACL2 notation, a definition of this theorem takes the following form.
 
-\index{append!suffix theorem}\index{theorem!append-suffix}
-\index{theorem, by name!\{append-suffix\}}
+\index{append!suffix theorem}\index{theorem!append-suffix}\index{theorem, by name!\{append-suffix\}}
 \begin{Verbatim}
 (defthm append-suffix-thm
   (equal (nthcdr (len xs) (append xs ys))
@@ -187,28 +191,24 @@ The mechanized logic can prove this theorem, but
 the proof depends on some equations from numeric algebra.
 Fortunately, ACL2 experts have already proved many such theorems,
 and the ACL2 system makes them available in the form of
-\index{book!ACL2}\seeonlyindex{ACL2 book}{book}
-\index{book!certified}\seeonlyindex{certified book}{book}``certified books''
+\index{book!ACL2}\seeonlyindex{ACL2 book}{book}\index{book!certified}\seeonlyindex{certified book}{book}``certified books''
 (ACL2 terminology for a package of theorems successfully proven by the
 mechanized logic).
 A book known as
-\index{book!arithmetic-3/top}
-\label{arith-top-book} "arithmetic-3/top"
+\index{book!arithmetic-3/top}\label{arith-top-book}\textsf{arithmetic-3/top}
 contains theorems from algebra
-\index{theorem!algebra, ACL2}
-that the mechanized logic can cite in
+\index{theorem!algebra, ACL2}that the mechanized logic can cite in
 a proof of the append-suffix theorem.
-An include-book directive tells ACL2
+An \textsf{include-book} directive tells ACL2
 to import these theorems.
-\index{directive!include-book}
-\index{directory (:dir)!:system}\index{system, :dir}\index{book!directory (:dir)}
+\index{directive!include-book}\index{directory (:dir)!:system}\index{system, :dir}\index{book!directory (:dir)}
 \begin{center}
-(include-book "arithmetic-3/top" :dir :system)
+\textsf{(include-book "arithmetic-3/top" :dir :system)}
 \end{center}
 
 To make the theorems in the book available
 for ACL2 to cite in a proof,
-the directive precedes the defthm command that
+the directive precedes the \textsf{defthm} command that
 defines the theorem to be proved, as shown in
 Figure~\ref{fig:append-suffix-acl2-prf} (page \pageref{fig:append-suffix-acl2-prf}).
 Clicking in the proof bar sets the mechanized logic in motion,
@@ -223,8 +223,7 @@ click in the proof bar, and see what happens.
 \begin{center}
 \includegraphics[scale=0.5]{images/append-suffix-thm-acl2-prf-bw.png}
 \end{center}
-\index{theorem!append-suffix}\index{theorem, by name!\{append-suffix\}}
-\index{append!suffix theorem}
+\index{theorem!append-suffix}\index{theorem, by name!\{append-suffix\}}\index{append!suffix theorem}
 \caption{Append-Suffix: Importing Theorems to Cite in Proof}
 \label{fig:append-suffix-acl2-prf}
 \end{figure}
@@ -232,20 +231,18 @@ click in the proof bar, and see what happens.
 \begin{ExerciseList}
 
 \Exercise Define the
-\index{append!associative}
-\index{theorem!append associative}
-\index{theorem, by name!\{append associative\}}
-\index{associative}\{\emph{append associativity}\}
+\index{append!associative}\index{theorem!append associative}\index{theorem, by name!\{append associative\}}\index{associative}\{\emph{append associativity}\}
 theorem in ACL2 notation,
 and use Proof Pad to run it through the ACL2 mechanized logic.
 If you state the theorem correctly, ACL2 will succeed in proving it.\footnote{According
 to \index{Moore, J Strother}J Strother Moore, a pioneer
 in mechanized logic and a principal developer of ACL2,
-the associativity of append was one of the driving examples in early work in
+the associativity of \textsf{append} was one of the driving examples in early work in
 mechanized logic and one of the first theorems that such a system proved autonomously.}
+\emph{Hint}: \textsf{(defthm +associative (= (+ $x$ (+ $y$ $z$)) (+ (+ $x$ $y$) $z$)))}
 
-\Exercise Define the following theorem for ACL2 and get the mechanized logic to prove it:
-$\forall xs.$((len (nthcdr (len xs) xs)) $=$ 0).
+\Exercise Define the following theorem in ACL2 and get the mechanized logic to prove it.\\
+\hspace*{16mm}$\forall xs.($\textsf{(len (nthcdr (len xs) xs))} $=$ $0)$
 
 \end{ExerciseList}
 
@@ -272,7 +269,7 @@ The same theorem in ACL2 terminology uses a variable to designate the list.
 \begin{samepage}
 \begin{quote}
 Theorem \{append-prefix\} $\forall n.$S$(n)$ \\
-S($n$) $\equiv$ (nthcdr (len [$x_1$ $x_2$ \dots $x_n$]) (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) $=$ $ys$
+where S($n$) $\equiv$ $($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} $=$ $ys)$
 \begin{Verbatim}
 (defthm append-prefix-thm-NOT-QUITE-RIGHT
   (equal (prefix (len xs) (append xs ys))
@@ -284,9 +281,9 @@ S($n$) $\equiv$ (nthcdr (len [$x_1$ $x_2$ \dots $x_n$]) (append [$x_1$ $x_2$ \do
 However, the theorem as stated
 is not quite correct,
 and to explain why, we need to mention
-some things we haven't told you about lists.
-\label{true-list-def}\index{true list}\index{list!true list}A
-\emph{true list} in ACL2 is either \textsf{nil} (the empty list)
+some things we haven't told you about lists. A
+\label{true-list-def}\index{true list}\index{list!true list}\emph{true list} 
+in ACL2 is either \textsf{nil} (the empty list)
 or a value of the form \textsf{(cons $x$ $xs$)},
 where $xs$ is a true list.
 The predicate
@@ -295,35 +292,35 @@ is true when its operand
 is a true list and false otherwise.
 
 It can be verified by induction that
-the prefix operator always delivers a true list.
-The value (prefix 0 xs) is \textsf{nil}.
+the \textsf{prefix} operator always delivers a true list.
+The value \textsf{(prefix 0 $xs$)} is \textsf{nil}.
 That takes care of the base case.
-The value of \textsf{(prefix $(n+1)$ xs)} is either \textsf{nil}
+The value of \textsf{(prefix $(n+1)$ $xs$)} is either \textsf{nil}
 (again a true list)
-or \textsf{(cons (first xs) (prefix $n$ (rest xs)))}.
+or \textsf{(cons (first $xs$) (prefix $n$ (rest $xs$)))}.
 We can assume by the induction hypothesis that
-\textsf{(prefix $n$ (rest xs))} is a true list,
+\textsf{(prefix $n$ (rest $xs$))} is a true list,
 which means (by the definition of the term ``true list'')
-that \textsf{(cons (first xs) (prefix $n$ (rest $xs$)))} is a true list.
+that \textsf{(cons (first $xs$) (prefix $n$ (rest $xs$)))} is a true list.
 That takes care of the inductive case and completes the proof
-that \textsf{(prefix $n$ $x$s)} is always a true list.
+that \textsf{(prefix $n$ $xs$)} is always a true list.
 
-When the second operand of cons is not a true list,
+When the second operand of \textsf{cons} is not a true list,
 the value it constructs isn't a true list, either.
-For example, (cons 2 1) is not a true list because 1 is not a true list.
-The formula (cons 3 (cons 2 1)) also is not a true list,
+For example, \textsf{(cons 2 1)} is not a true list because 1 is not a true list.
+The formula \textsf{(cons 3 (cons 2 1))} also is not a true list,
 again because the second operand,
-in this case (cons 2 1), is not a true list.
-However, (len (cons 3 (cons 2 1)) is 2, which you can work
+in this case \textsf{(cons 2 1)}, is not a true list.
+However, \textsf{(len (cons 3 (cons 2 1))} is \textsf{2}, which you can work
 out from the axioms or, easier,
 just submit the formula to ACL2 and let it do the computation.
 A similar computation reveals that
-(prefix (len (cons 3 (cons 1 2))) (cons 3 (cons 1 2)))
-is (cons 3 (cons 2 nil)), not (cons 3 (cons 2 1)).
-That is, when $xs$ is (cons 3 (cons 2 1)),
-then (prefix (len xs) (append xs ys)) is not equal to $xs$.
+\textsf{(prefix (len (cons 3 (cons 2 1))) (cons 3 (cons 2 1)))}
+is \textsf{(cons 3 (cons 2 nil))}, not \textsf{(cons 3 (cons 2 1))}.
+That is, when $xs$ is \textsf{(cons 3 (cons 2 1))},
+then \textsf{(prefix (len $xs$) (append $xs$ $ys$))} is not equal to $xs$.
 The equation that theorem append-prefix-thm-NOT-QUITE-RIGHT
-guarantees does not hold when $xs$ is (cons 3 (cons 2 1)).
+guarantees does not hold when $xs$ is \textsf{(cons 3 (cons 2 1))}.
 Since a theorem cannot have exceptions,
 the theorem append-prefix-thm-NOT-QUITE-RIGHT
 isn't true.
@@ -333,7 +330,7 @@ A theorem that takes the form of an implication, $x \rightarrow y$,
 says that the conclusion, $y$, will be true when the hypothesis, $x$,
 is true, but says nothing about the status of the conclusion when
 the hypothesis is false. The ACL2 equivalent of the Boolean formula $x \rightarrow y$
-is (implies $x$ $y$).
+is \textsf{(implies $x$ $y$)}.
 For example, one can conclude that $u - 1 < v - 1$
 if one knows that $u < v$.
 In ACL2 this fact would be stated as an implication.
@@ -352,7 +349,8 @@ constrained to the domain of true lists.
 In the statement of the append-prefix theorem in
 Section~\ref{sec:append-prefix-suffix} (page \pageref{append-prefix-thm-predicate}),
 the role of $xs$ was played by the numbered list
-[$x_1$ $x_2$ \dots $x_n$], which is a true list, by definition
+\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}, 
+which is a true list, by definition
 (page \pageref{numbered-list-interpretation}).
 ACL2 does not permit the use of the numbered list syntax,
 so the true-list constraint must be explicit.
@@ -379,14 +377,15 @@ Now we have a theorem that we believe is true
 based on our pencil-and-paper proof.
 The mechanized logic of ACL2
 succeeds in proving this theorem, but, as was the case with
-the append suffix theorem
+the append-suffix theorem
 (Figure~\ref{fig:append-suffix-acl2-prf}, page \pageref{fig:append-suffix-acl2-prf}),
 it needs to cite some theorems of numeric algebra.
 Figure~\ref{fig:append-prefix-acl2-prf} (page \pageref{fig:append-prefix-acl2-prf})
 displays a Proof Pad session that imports those theorems,
 defines the prefix operator, and then states and proves the theorem.
 The figure indicates that ACL2
-``admits'' the prefix operator when it encounters its definition.
+\index{admit, ACL2}\index{ACL2!admit}``admits'' 
+the prefix operator when it encounters its definition.
 This means that ACL2 allows the definition to join
 the universe of entities that can participate in
 the mechanized reasoning process.
@@ -395,7 +394,7 @@ explains what this entails.
 
 \begin{aside}
 In Figure~\ref{fig:append-prefix-acl2-prf}
-there is a step that has the label ``admit operator''.
+there is a step that has the label ``admit operator.''
 That is the terminology ACL2 uses for the process of accepting
 an operator into its mechanized logic.
 A domain in which operators may fail to terminate
@@ -404,7 +403,7 @@ restricted to operators that are guaranteed to complete their
 computation in a finite number of steps.
 To give itself a better shot at succeeding in mechanized proofs,
 ACL2 does not deal with operators with a potential for non-termination.
-It admits operators to its domain of logic
+It will \emph{admit} an operator to its domain of logic
 only if it can verify termination in all cases.
 Sometimes, coming up with an operator definition that makes
 it possible for ACL2 prove termination is, by itself,
@@ -418,15 +417,15 @@ Hardware and software with guaranteed properties is not easy to come by.
 
 \begin{ExerciseList}
 
-\Exercise Define the \{\emph{rep-len}\} theorem (page \pageref{rep-len}) in ACL2 notation,
-and use Proof Pad to run it through the ACL2 mechanized logic.
-(Hint: You will need to constrain the first operand of rep to the domain of natural numbers.)
+\Exercise Define the \{\emph{rep-len}\} theorem (page \pageref{rep-len}) in ACL2,
+and use Proof Pad to run it through the mechanized logic.
+(\emph{Hint}: Use \textsf{natp} to constrain the first operand of \textsf{rep}.)
 
 \Exercise An exercise in Section~\ref{sec:append-prefix-suffix} required a pencil-and-paper
-proof of the following proposition: $\forall xs.$((nthcdr (len \emph{xs}) $xs$) $=$ nil).
-Define this theorem in ACL2 notation and get the mechanized logic to prove it.
+proof of the following proposition: $\forall xs.($\textsf{(nthcdr (len $xs$) $xs$)} $=$ \textsf{nil}$)$.
+Define this theorem in ACL2 and get the mechanized logic to prove it.
 
-\Exercise The formula (equal (prefix (len $xs$) $xs$) $xs$) is true with a certain
+\Exercise The formula \textsf{(equal (prefix (len $xs$) $xs$) $xs$)} is true with a certain
 constraint on $xs$. Define an ACL2 theorem with this equation as its conclusion
 and get the mechanized logic to prove it.
 
@@ -492,58 +491,52 @@ $f_{n+2}$ $=$ $f_{n+1} + f_{n}$ & \{\emph{f2}\} \\
 \dots & ~~~~~1  &  ~~~~2  &  ~~~~3  &  ~~~~5  & \dots &  ~~~~~55 &  ~~~~~89 & ~~~144   & \dots \\
 \end{tabular}
 \end{center}
-\index{Fibonacci!numbers}\index{axiom!Fibonacci}
-\index{operator, by name!fib, fib-fast (Fibonacci)}
-\index{Fibonacci!operator}
-\index{equation, by name!\{f0\}, \{f1\}, \{f2\}}
-\index{equation, by name!\{fib1\}, \{fib2\}}
-\index{axiom, by name!\{f0\}, \{f1\}, \{f2\}}
+\index{Fibonacci!numbers}\index{axiom!Fibonacci}\index{operator, by name!fib, fib-fast (Fibonacci)}\index{Fibonacci!operator}\index{equation, by name!\{f0\}, \{f1\}, \{f2\}}\index{equation, by name!\{fib1\}, \{fib2\}}\index{axiom, by name!\{f0\}, \{f1\}, \{f2\}}
 \caption{Fibonacci Numbers}
 \label{fig:Fibonacci-axioms}
 \end{figure}
 
-The Fibonacci operator, fib, defined in ACL2
+The Fibonacci operator, \textsf{fib}, defined in ACL2
 mirrors the algebraic equations.
 It selects the inductive formula,
-(fib$(n - 1)$) + (fib$(n - 2)$),
+\textsf{(fib$(n - 1)$) + (fib$(n - 2)$)},
 for an operand $n$ that is 2 or bigger
 (that is, when $(n-1)$ is a positive, natural number).
 For smaller operands, the ACL2 definition
 observes that the corresponding Fibonacci number
 is the same as the operand:
-(fib 0) $=$ $f_0$ $=$ $0$ by axiom \{\emph{f0}\}
-and (fib 1) $=$ $f_1$ $=$ $1$ by axiom \{\emph{f1}\}.
+\textsf{(fib 0)} $=$ $f_0$ $=$ $0$ by axiom \{\emph{f0}\}
+and \textsf{(fib 1)} $=$ $f_1$ $=$ $1$ by axiom \{\emph{f1}\}.
 
-We can be confident that $\forall n.($(fib $n$) $=$ $f_n)$
-because the ACL2 definition of fib is a direct
+We can be confident that $\forall n.($\textsf{(fib $n$)} $=$ $f_n)$
+because the ACL2 definition of \textsf{fib} is a direct
 transliteration of the Fibonacci equations.
-We can use the operator fib as a calculator
+We can use the operator \textsf{fib} as a calculator
 to compute some Fibonacci numbers.
-This works well for small numbers,
-but it turns out that there are
-a huge number of
-computational steps required to derive
-(fib $n$) from the Fibonacci axioms when $n$ gets above a few dozen.
-For example the computation of (fib 30) proceeds quickly,
-but you will see a noticeable delay if ask ACL2 to compute (fib 40),
-and you would have to wait a long time for (fib 50).
+This works well for small numbers, but it turns out that there are
+a huge number of computational steps required to derive
+\textsf{(fib $n$)} from the Fibonacci axioms when $n$ gets above a few dozen.
+For example the computation of \textsf{(fib 30)} proceeds quickly,
+but you will see a noticeable delay if ask ACL2 to compute \textsf{(fib 40)},
+and you would have to wait a long time for \textsf{(fib 50)}.
 
 It's not to hard to see the reason for this.
-The axioms calculate (fib $(n+2)$) by first calculating
-(fib $(n+1)$), and then calculating (fib $n$), and finally
+The axioms calculate \textsf{(fib $(n+2)$)} by first calculating
+(\textsf{fib $(n+1)$)}, and then calculating \textsf{(fib $n$)}, and finally
 adding those two numbers together.
-However many computational steps it takes to compute (fib $n$),
-it will take at least a few more to compute (fib $(n+1)$).
-So, there will be more than twice as many steps in the computation of (fib $(n+2)$)
-as there are in the computation of (fib $n$).
+However many computational steps it takes to compute \textsf{(fib $n$)},
+it will take at least a few more to compute \textsf{(fib $(n+1)$)}.
+So, there will be more than twice as many steps in the computation of \textsf{(fib $(n+2)$)}
+as there are in the computation of \textsf{(fib $n$)}.
 That is, when $n$ increases by 2, the number of computational steps more than doubles.
+
 If we let $c_n$ stand for the number of computational steps in the calculation
-of (fib $n$), then our observation about doubling amounts to the
+of \textsf{(fib $n$)}, then our observation about doubling amounts to the
 inductive relationship $c_{n+2} \geq 2c_n$.
 We think you have had enough experience to prove (by induction of course)
 that $\forall n.(c_{2n+1} \geq 2^n)$,
-assuming it takes at least one computational step to compute (fib $1$).
-That's what they call ``exponential growth''.\footnote{The term
+assuming it takes at least one computational step to compute \textsf{(fib $1$)}.
+That's what they call \emph{exponential growth}.\footnote{The term
 ``exponential growth'' is bandied about a lot, but mostly
 in ways that do not match the standard mathematical meaning.
 The most common usage is to describe something that
@@ -551,10 +544,10 @@ gets big fast, which is certainly true of exponential growth,
 but is also true of quadratic growth.
 Quadratic growth often gets passed off, informally, as exponential growth,
 but it's not even close. If the number of computational steps
-in computing (fib $n$) from the axioms grew quadratically instead of exponentially,
-it would not take a lot longer to compute (fib 40) than it does to compute (fib 30).}
+in computing \textsf{(fib $n$)} from the axioms grew quadratically instead of exponentially,
+it would not take a lot longer to compute \textsf{(fib 40)} than it does to compute \textsf{(fib 30)}.}
 It is dramatic, to say the least. We estimate that it would take an hour to compute
-(fib 50) on a typical laptop computer and upwards of a year to compute (fib 75).
+\textsf{(fib 50)} on a typical laptop computer and upwards of a year to compute \textsf{(fib 75)}.
 
 The Fibonacci axioms comprise an
 \index{Fibonacci!definition}inductive definition.
@@ -572,8 +565,7 @@ results with less work,
 and that is the case with Fibonacci numbers.
 Figure~\ref{fig:gib-defun} (page \pageref{fig:gib-defun})
 displays another definition that uses a method known as
-\index{tail recursion}\index{definition!tail recursive}
-``tail recursion''.\footnote{\index{recursive}``Recursive definition''
+\index{tail recursion}\index{definition!tail recursive}\emph{tail recursion}.\footnote{\index{recursive}``Recursive definition''
 is the most commonly used term for what we call ``inductive definition''.
 We don't say recursive because the term is often conflated
 with a computation strategy based on a data structure called a stack,
@@ -593,11 +585,11 @@ delve into a stack-based view of recursion.
 Since it doesn't, we won't.}
 A tail recursion is a circular reference in an operator definition
 that occurs at the
-\index{top level, vs nested}\index{nested, vs top level}``top level'',
+\index{top level, vs nested}\index{nested, vs top level}\emph{top level},
 which means that it is not nested
-inside a formula to produce an operand for
-another operator. The operator \textsf{h} occurs at the top level
-in the formula \textsf{(h $x$)},
+inside a formula to produce an operand for another operator. 
+The operator \textsf{h} occurs at the top level
+in the formula \textsf{(h (+ $x$ 1))},
 but is nested in the formula \textsf{(+ (h $x$) 1)}.
 Most computing systems, including ACL2,
 implement tail recursions efficiently. Nested recursions are
@@ -617,10 +609,7 @@ but sometimes, as with Fibonacci numbers, they do.
    (gib n 1 0))     ; (fib 1)=1, (fib 0)=0
 \end{Verbatim}
 \end{center}
-\seeonlyindex{fib, fib-fast}{operator}\index{Fibonacci!fast}\index{Fibonacci!operator}
-\index{operator, by name!fib, fib-fast (Fibonacci)}
-\index{operator, by name!gib (iterative Fibonacci)}
-\index{equation, by name!\{gib0\}, \{gib1\}, \{gib2\}}\index{gib (\emph{see also} operator)}
+\seeonlyindex{fib, fib-fast}{operator}\index{Fibonacci!fast}\index{Fibonacci!operator}\index{operator, by name!fib, fib-fast (Fibonacci)}\index{operator, by name!gib (iterative Fibonacci)}\index{equation, by name!\{gib0\}, \{gib1\}, \{gib2\}}\index{gib (\emph{see also} operator)}
 \caption{Fibonacci Numbers: Quick Delivery}
 \label{fig:gib-defun}
 \end{figure}
@@ -634,18 +623,16 @@ produce the same results, and then use the efficient definition
 for computation and the inefficient one when it
 simplifies the reasoning process.
 
-If you look at the definition of fib-fast (Figure~\ref{fig:gib-defun})
+If you look at the definition of \textsf{fib-fast} (Figure~\ref{fig:gib-defun})
 closely, we think you will agree that, while it may seem plausible
-that (gib $n$ $1$ $0$) is the $n^{th}$ Fibonacci number,
+that \textsf{(gib $n$ $1$ $0$)} is the $n^\textnormal{th}$ Fibonacci number,
 it isn't obvious.
 Some reasoning is required.
-
 Maybe ACL2 can take it on successfully.
-We would like to know that $\forall n.($(fib-fast $n$) = (fib $n$)$)$.
+We would like to know that $\forall n.($\textsf{(fib-fast $n$)} $=$ \textsf{(fib $n$)}$)$.
 The theorem in ACL2 terms can be stated as follows.
 \begin{samepage}
-\index{theorem, by name!\{fib=fib-fast\}}
-\index{Fibonacci!fast}\index{theorem!Fibonacci fast}
+\index{theorem, by name!\{fib=fib-fast\}}\index{Fibonacci!fast}\index{theorem!Fibonacci fast}
 \begin{center}
 \begin{Verbatim}
 (defthm fib=fib-fast ; (fib-fast n) = (fib n)
@@ -665,14 +652,12 @@ so we interrupted it again.
 
 We guessed that it might be having trouble coming up with an effective
 induction hypothesis, so we decided to ask it to prove that
-the gib operator satisfies the basic Fibonacci axioms.
-This is, to prove that the $n^{th}$ value of gib is
+the \textsf{gib} operator satisfies the basic Fibonacci axioms.
+This is, to prove that the $n^\textnormal{th}$ value of \textsf{gib} is
 the sum of the previous two values (as in axiom \{\emph{f2}\}).
 In ACL2 that theorem can be stated as follows.
 \begin{samepage}
-\index{gib (\emph{see also} operator)}
-\index{theorem!gib lemmas (base, inductive)}
-\index{gib (\emph{see also} operator)!lemmas (base, inductive)}
+\index{gib (\emph{see also} operator)}\index{theorem!gib lemmas (base, inductive)}\index{gib (\emph{see also} operator)!lemmas (base, inductive)}
 \begin{center}
 \begin{Verbatim}
 (defthm gib-inductive-equation ; a la {fib2}
@@ -689,9 +674,9 @@ to find an induction scheme that worked.
 So, our attempt to help ACL2 along didn't work, exactly,
 but at least ACL2 could determine quickly that
 things were not going well.
-Next, we decided that ACL2 might need help with the
+Next, we guessed that ACL2 might need help with the
 base case as well as the inductive case, so we
-stated a base case for the gib operator as an ACL2 theorem.
+stated a base case for the \textsf{gib} operator as an ACL2 theorem.
 
 \begin{samepage}
 \index{theorem!gib lemmas (base, inductive)}\index{gib (\emph{see also} operator)!lemmas (base, inductive)}
@@ -705,11 +690,14 @@ stated a base case for the gib operator as an ACL2 theorem.
 
 This idea worked. ACL2 was able to prove the gib-base-equation
 and the gib-inductive-equation, and then, finally,
-use them to prove that $\forall n.($(fib-fast $n$) = (fib $n$)$)$,
-in the form defined in the fib=fib-fast theorem.
+use them to prove that $\forall n.($\textsf{(fib-fast $n$)} $=$ \textsf{(fib $n$)}$)$,
+in the form defined in the \textsf{fib=fib-fast} theorem.
 Figure~\ref{fig:fib-gib-thm} (page \pageref{fig:fib-gib-thm})
 displays the Proof Pad session with the check-marks
 indicating completed proofs by the mechanized logic of ACL2.
+Try out the \textsf{fib-fast} operator in a Proof Pad session.
+The Fibonacci number \textsf{(fib-fast $n$)} seems to appear
+instantaneously, even for large values of $n$.
 
 \begin{figure}
 \begin{center}
@@ -718,10 +706,6 @@ indicating completed proofs by the mechanized logic of ACL2.
 \caption{Fast Fibonacci Delivers Fibonacci Numbers}
 \label{fig:fib-gib-thm}
 \end{figure}
-
-Try out the fib-fast operator in a Proof Pad session.
-The Fibonacci number (fib-fast $n$) seems to appear
-instantaneously, even for large values of $n$.
 
 \begin{ExerciseList}
 
@@ -782,14 +766,7 @@ by distinguished researchers in the USA, the UK, France, Sweden, and elsewhere.
 \item LF: Robert Harper, Furio Honsell, Gordon Plotkin, Carnegie Mellon Univ, Univ of Udine, Univ of Edinburgh
 \item Twelf: Frank Pfenning, Carsten Sch\"urmann, Carnegie Mellon Univ, Univ of Copenhagen
 \end{itemize}
-\index{logic!mechanized}
-\index{Twelf}\index{Pfenning!Frank}\index{Sch\"urmann, Carsten}
-\index{LF}\index{Harper, Robert}\index{Honsell, Furio}\index{Plotkin, Gordon}
-\index{Agda}\index{Norell, Ulf}
-\index{PVS}\index{Owre, sam}\index{Natarajan, Shankar}\index{Rushby, John}
-\index{Coq}\index{Coquand, Thierry}\index{Huet, G\'erard}
-\index{LCF}\index{HOL}\index{Isabelle}\index{Milner, Robert}\index{Gordon, Mike}\index{Paulson, Lawrence}
-\index{ACL2}\index{Moore, J Strother}\index{Boyer, Robert}\index{Kaufmann, Matt}
+\index{logic!mechanized}\index{Twelf}\index{Pfenning!Frank}\index{Sch\"urmann, Carsten}\index{LF}\index{Harper, Robert}\index{Honsell, Furio}\index{Plotkin, Gordon}\index{Agda}\index{Norell, Ulf}\index{PVS}\index{Owre, sam}\index{Natarajan, Shankar}\index{Rushby, John}\index{Coq}\index{Coquand, Thierry}\index{Huet, G\'erard}\index{LCF}\index{HOL}\index{Isabelle}\index{Milner, Robert}\index{Gordon, Mike}\index{Paulson, Lawrence}\index{ACL2}\index{Moore, J Strother}\index{Boyer, Robert}\index{Kaufmann, Matt}
 \caption{Mechanized Logics: Fifty Years of R\&D, Mostly R}
 \label{mechanized-logic-history}
 \end{aside}
@@ -797,8 +774,8 @@ by distinguished researchers in the USA, the UK, France, Sweden, and elsewhere.
 Proofs are not only hard.
 They are sometimes impossible, as G\"odel famously proved in 1931
 to the great surprise of many mathematicians of the day.
-In the same vein there are things computers cannot do.
-A well known example is the \index{halting problem} \emph{halting problem}, which
+In the same vein, there are things computers cannot do.
+A well known example is the \index{halting problem}\emph{halting problem}, which
 was proved to be outside the realm of computation
 by \index{Turing, Alan}Alan Turing in 1936
 and, independently, by \index{Church, Alonzo}Alonzo Church.
@@ -814,8 +791,8 @@ There are programs that can solve the halting problem for
 a limited set of programs,
 but no program can solve the halting problem for all programs.
 Proving that the halting problem is unsolvable is tricky,
-but the basic idea of the proof is not too difficult to follow, and
-it provides an example of reasoning that,
+but the basic ideas are not too difficult to follow, and
+they provide an example of reasoning that,
 in a perverse sense, fits into a discussion of mechanized logic,
 since it exhibits something that neither computers
 nor people can do. There are many such things, as a search
@@ -854,13 +831,13 @@ so we need to specify the universe of discourse
 (page \pageref{def-universe-of-discourse}).
 When the bound variable
 in the formula is $h$, the universe of discourse
-is the set of operators that have
+will be the set of operators that have
 two operands and can be defined in Lisp:
-(defun $h$ ($f$ $x$) \dots \emph{Lisp formula} \dots ).
+\textsf{(defun $h$ ($f$ $x$)} $\dots$ \emph{Lisp formula} $\dots$ \textsf{)}.
 When the bound variable is $f$,
-the universe of discourse is  set of operators
+the universe of discourse will be the set of operators
 that have one operand and can be defined in Lisp:
-(defun $f$ ($x$) \dots \emph{Lisp formula} \dots ).\footnote{The
+\textsf{(defun $f$ ($x$)} $\dots$ \emph{Lisp formula} $\dots$ \textsf{)}.\footnote{The
 restriction to one operand simplifies the presentation,
 but is not really a restriction because the operand could
 be a list containing any number of values.}
@@ -877,16 +854,16 @@ to use symbols and formulas to talk about
 whether or not a computation terminates.
 
 The definition of the predicate $H$ uses the Lisp
-formula ($f$ $x$) to designate a computation that may
+formula \textsf{($f$ $x$)} to designate a computation that may
 or may not be completed in a finite amount of time.
 Since $H$ is a logic predicate, not a computation,
-it has a value whether or not the formula ($f$ $x$) terminates.
+it has a value whether or not the formula \textsf{($f$ $x$)} terminates.
 \begin{quote}
 \index{predicate, by name!H (termination)}\index{termination predicate (H)}
 \label{def:predicate-H}
 \emph{Definition of predicate} $H$\\
-\hspace*{3mm}$H(f, x) = False$, if ($f$ $x$) does not terminate\\
-\hspace*{3mm}$H(f, x) = True$, if ($f$ $x$) terminates
+\hspace*{3mm}$H(f, x) = False$, if \textsf{($f$ $x$)} does not terminate\\
+\hspace*{3mm}$H(f, x) = True$, if \textsf{($f$ $x$)} terminates
 \end{quote}
 
 The theorem that Turing and Church proved is that
@@ -894,16 +871,16 @@ no operator $h$ can be defined in Lisp
 that accepts a Lisp operator $f$ as its
 first operand and a Lisp value $x$ as its second operand
 such that, regardless of the definition of the operator $f$,
-($h$ $f$ $x$) = 0 if the computation ($f$ $x$) terminates, and
-($h$ $f$ $x$) = 1 if ($f$ $x$) does not terminate.
+\textsf{($h$ $f$ $x$)} $=$ 0 if the computation \textsf{($f$ $x$)} terminates, and
+\textsf{($h$ $f$ $x$)} $=$ 1 if \textsf{($f$ $x$)} does not terminate.
 This means not just that it would be hard to define the operator $h$.
 It means that nobody can define $h$ with any amount of effort or cleverness.
 There is no such definition.
 There are some things that cannot be done, and this is one of them.
 
-\label{church-turing-hypothesis}
-\index{Church-Turing hypothesis}\index{Turing-Church hypothesis}\index{hypothesis!Church-Turing}
-A conjecture of Church and Turing
+
+\label{church-turing-hypothesis}\index{Church-Turing hypothesis}\index{Turing-Church hypothesis}\index{hypothesis!Church-Turing}A
+conjecture of Church and Turing
 concerning the effectiveness of general-purpose programming languages
 asserts that for any computation that can be carried out, there is a program
 that can be written in Lisp (or any other general-purpose programming language)
@@ -919,30 +896,31 @@ Both models are still widely studied in computer science theory.
 The programming language Lisp
 was based on the lambda calculus, so the two are closely related.
 
-We express the \index{halting problem}halting problem theorem as a logic formula that we will prove
+We express the \index{halting problem}halting problem 
+theorem as a logic formula that we will prove
 using natural deduction (Section \ref{sec:deduction}).
 The theorem has no hypotheses.
 \begin{quote}
 \index{theorem!halting problem}\index{theorem, by name!\{halting problem\}}
 Theorem \{halting problem\}:\\
 $\vdash$ $\neg(\exists h. \forall f. \forall x.
-((H(f, x) \rightarrow ($($h$ $f$ $x$) $ = 1)) \wedge ((\neg H(f, x)) \rightarrow ($($h$ $f$ $x$) $= 0))))$
+((H(f, x) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $1)) \wedge ((\neg H(f, x)) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $0))))$
 \end{quote}
 
 There are two Lisp formulas embedded in
 the logic formula of the theorem, both the same:
-($h$ $f$ $x$).
+\textsf{($h$ $f$ $x$)}.
 Those formulas invoke an operator $h$, which is defined in Lisp because that is the universe
 of discourse for $h$, the bound variable in the $\exists$ quantification.
 The logic formula then compares the value that
-the formula ($h$ $f$ $x$) represents to a natural number.
+the formula \textsf{($h$ $f$ $x$)} represents to a natural number.
 
 To make the proof more compact and, we hope, more readable,
 we will use $E$ as an abbreviation for the
 long $\exists$ formula whose negation is the conclusion of the theorem.
 \begin{quote}
 $E$ $\equiv$ $\exists h. \forall f. \forall x.
-((H(f, x) \rightarrow ($($h$ $f$ $x$) $ = 1)) \wedge ((\neg H(f, x)) \rightarrow ($($h$ $f$ $x$) $= 0)))$
+((H(f, x) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $1)) \wedge ((\neg H(f, x)) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $0)))$
 \end{quote}
 
 With the abbreviation, the \{halting problem\} theorem is: $\vdash$ $\neg E$.
@@ -974,7 +952,7 @@ as it is stated.
 \begin{figure}
 Theorem \{halting problem\}: $\vdash$ $\neg E$ ~~~~~~~~\emph{Note: This theorem has no hypotheses.}\\
 proof~~~~(\emph{Note}: $E$ $\equiv$ $\exists h. \forall f. \forall x.
-((H(f, x) \rightarrow ($($h$ $f$ $x$) $ = 1)) \wedge ((\neg H(f, x)) \rightarrow ($($h$ $f$ $x$) $= 0)))$)
+((H(f, x) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $1)) \wedge ((\neg H(f, x)) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $0)))$)
 \begin{center}
 \begin{tabular}{ll}
 Assume $(\neg(\neg E))$                       &\emph{discharged later; E abbreviates long $\exists$ formula}\\
@@ -989,8 +967,7 @@ Discharge $(\neg(\neg E))$                    &\emph{eliminates} $(\neg(\neg E))
 ~~~~~~~~~~~$\neg E$                           &\emph{no program solves halting prob for all programs}\\
 \end{tabular}
 \end{center}
-\index{halting problem}\index{theorem!halting problem}
-\index{theorem, by name!\{halting problem\}}
+\index{halting problem}\index{theorem!halting problem}\index{theorem, by name!\{halting problem\}}
 \caption{Theorem \{halting problem\}: a proof by contradiction}
 \label{fig:halting-proof-strategy}
 \end{figure}
@@ -1010,42 +987,42 @@ to the halting problem.
 Since there is at least one such operator,
 let's assume someone has handed us a
 definition of the operator, and that the operator has the name h:
-(defun h (f x)  \dots \emph{Lisp formula} \dots ).
+\textsf{(defun h (f x)}  $\dots$ \emph{Lisp formula} $\dots$ \textsf{)}.
 
-We don't know the definition of h, but the formula $E$
+We don't know the definition of \textsf{h}, but the formula $E$
 tells us some of its properties.
 In particular, $E$ says that for any operator $f$ and any value $x$,
-the formula (h $f$ $x$) = 0 if $H(f, x)$ is $False$ and
-(h $f$ $x$) = 1 if $H(f,x)$ is $True$.
+the formula \textsf{(h $f$ $x$)} $=$ \textsf{0} if $H(f, x)$ is $False$ and
+\textsf{(h $f$ $x$)} $=$ \textsf{1} if $H(f,x)$ is $True$.
 We specify those properties in the following two theorems.
 \begin{quote}
 \index{theorem, by name!\{hF\}}\index{theorem, by name!\{hT\}}
-Theorem \{hF\}: $E$ $\vdash$ $\forall f.\forall x.(\neg H(f, x))$ $\rightarrow$ (h $f$ $x$) $= 0$\\
-Theorem \{hT\}: $E$ $\vdash$ $\forall f.\forall x.H(f, x)$      $\rightarrow$ (h $f$ $x$) $= 1$
+Theorem \{hF\}: $E$ $\vdash$ $\forall f.\forall x.(\neg H(f, x))$ $\rightarrow ($\textsf{(h $f$ $x$)} $=$ \textsf{0}$)$\\
+Theorem \{hT\}: $E$ $\vdash$ $\forall f.\forall x.H(f, x)$      $\rightarrow ($\textsf{(h $f$ $x$)} $=$ \textsf{1}$)$
 \end{quote}
 
-Since h is a Lisp operator, we can refer to it in the definition of
+Since \textsf{h} is a Lisp operator, we can refer to it in the definition of
 another Lisp operator.
 Figure~\ref{fig:paradox-op-defun} (page \pageref{fig:paradox-op-defun})
-defines the operator p.
-It invokes h to decide whether to deliver the value 0 or
-the computation represented by an invocation of an operator called ``loop'',
+defines the operator \textsf{p}.
+It invokes \textsf{h} to decide whether to deliver the value \textsf{0} or
+the computation represented by an invocation of an operator called \textsf{loop},
 which is also defined in
 Figure~\ref{fig:paradox-op-defun}.
-The loop operator doesn't do anything.
+The \textsf{loop} operator doesn't do anything.
 Or, rather,
 it does way too much by doing nothing over and over, forever.
-We are going to take it on faith that (loop $x$) does not terminate,
+We are going to take it on faith that \textsf{(loop $x$)} does not terminate,
 regardless of the value of its operand $x$.
 We think you can probably convince yourself of that,
-so we assert that $\forall x.(H($loop, $x) = False)$.
+so we assert that $\forall x.(H($\textsf{loop}, $x)$ $=$ $False)$.
 
 \begin{figure}
 \begin{center}
 Axioms of p\\
 \begin{tabular}{lll}
-(p $x$) $= 0$          & if (h p $x$) $=  0$      &\{p0\}\\
-(p $x$) $=$ (loop $x$) & if (h p $x$) $\neq 0$    &\{p1\}\\
+\textsf{(p $x$)} $=$ \textsf{0}          & if \textsf{(h p $x$)} $=$ \textsf{0}    &\{p0\}\\
+\textsf{(p $x$)} $=$ \textsf{(loop $x$)} & if \textsf{(h p $x$)} $\neq$ \textsf{0} &\{p1\}\\
 \end{tabular}
 \begin{Verbatim}
 (defun loop (x)  ; a non-terminating computation
@@ -1057,52 +1034,62 @@ Axioms of p\\
 \end{Verbatim}
 \end{center}
 \index{loop}
-\caption{Definitions of Operators p and loop}
+\caption{Definitions of Operators \textsf{p} and \textsf{loop}}
 \label{fig:paradox-op-defun}
 \end{figure}
 
-We can inquire about p using the predicate $H$.
+We can inquire about \textsf{p} using the predicate $H$.
 In particular, we would like to know, given a value $x$,
-whether $H($p, $x)=True$ or $H($p, $x)=False$.
+whether $H($\textsf{p}, $x)$ $=$ $True$ or $H($\textsf{p}, $x)$ $=$ $False$.
 It has to be one or the other because $H$ is a predicate.
-Since p is an operator, $x$ is a value, and 1 is not 0,
+Since \textsf{p} is an operator, $x$ is a value, and \textsf{1} is not \textsf{0},
 the following theorems are special cases of
 Theorem \{hF\} and Theorem \{hT\}.
 \begin{quote}
 \index{theorem, by name!\{pF\}}\index{theorem, by name!\{pT\}}
-Theorem \{pF\}: $E$ $\vdash$ $(\neg H($p, $x))$ $\rightarrow$ (h p $x$) $= 0)$ \\
-Theorem \{pT\}: $E$ $\vdash$ $H($p, $x)$ $\rightarrow$ $(\neg($(h p $x$) $= 0))$
+Theorem \{pF\}: $E$ $\vdash$ $(\neg H($\textsf{p}, $x))$ $\rightarrow$ $($\textsf{(h p $x$)} $=$ \textsf{0}$)$ \\
+Theorem \{pT\}: $E$ $\vdash$ $H($\textsf{p}, $x)$ $\rightarrow$ $(\neg($\textsf{(h p $x$)} $=$ \textsf{0}$))$
 \end{quote}
 
-Now, let's reason from the definition of p (Figure~\ref{fig:paradox-op-defun}).
-In the definition, we find that if (h p $x$) $= 0$, then (p $x$) $=0 $.
-We also find that if (h p $x$) $\neq 0$, then (p $x$) represents
-the computation (loop $x$). We will use the notation (p $x$) $=$ (loop $x$)
-to indicate this relationship between (p $x$) and (loop $x$).\footnote{This
+Now, let's reason from the definition of 
+\textsf{p} (Figure~\ref{fig:paradox-op-defun}).
+In the definition, we find that if \textsf{(h p $x$)} $=$ \textsf{0}, 
+then \textsf{(p $x$)} $=$ \textsf{0}.
+We also find that if \textsf{(h p $x$)} $\neq$ \textsf{0}, 
+then \textsf{(p $x$)} represents
+the computation \textsf{(loop $x$)}. 
+We will use the notation \textsf{(p $x$)} $=$ \textsf{(loop $x$)}
+to indicate this relationship between \textsf{(p $x$)} and \textsf{(loop $x$)}.\footnote{This
 \label{caveat:equality-for-loop}
-interpretation of the equation (p $x$) $=$ (loop $x$) conforms with
+interpretation of the equation \textsf{(p $x$)} $=$ \textsf{(loop $x$)} conforms with
 our usual practice of substituting the formula designated in the
-definition of $f$ for an invocation ($f$ $x$).
+definition of $f$ for an invocation \textsf{($f$ $x$)}.
 That is, we interpret the substitution a new formula
 in place of an old one with the same meaning as an equation
 between the old formula and the new one.
-It is an odd sort of equality in the case of (p $x$) $=$ (loop $x$)
-because the formula (loop $x$) represents a computation, but not a value.
-The loop operator at every stage delivers a new formula,
+It is an odd sort of equality in the case of \textsf{(p $x$)} $=$ \textsf{(loop $x$)}
+because the formula \textsf{(loop $x$)} represents a computation, 
+but not a value.
+The \textsf{loop} operator at every stage delivers a new formula,
 but never manages to produce a value.}
-This reasoning verifies two more theorems:
+This reasoning verifies two more theorems.
 \begin{quote}
-Theorem \{h0\}: $\vdash$  (h p $x$) $=0$  $\rightarrow$ (p $x$) $= 0$    \\
-Theorem \{h1\}: $\vdash$  $\neg($(h p $x$) $= 0)$ $\rightarrow$ (p $x$) $=$ (loop $x$)
+Theorem \{h0\}: $\vdash$  \textsf{(h p $x$)} $=$ \textsf{0}  $\rightarrow$ \textsf{(p $x$)} $=$ \textsf{0}    \\
+Theorem \{h1\}: $\vdash$  $\neg($\textsf{(h p $x$)} $=$ \textsf{0}$)$ $\rightarrow$ \textsf{(p $x$)} $=$ \textsf{(loop $x$)}
 \end{quote}
 
-If we apply the definition of $H$ again (page \pageref{def:predicate-H})
-and observe that (1)~(p $x$) $= 0$ implies that (p $x$) terminates and
-(2)~(p $x$) $=$ (loop $x$) implies that (p $x$) does not terminate,
-we get two more theorems:
+An inspection of the definition of \textsf{p}
+(Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun})
+confirms that (1)~\textsf{(p $x$)} $=$ \textsf{0} 
+implies that \textsf{(p $x$)} terminates and
+(2)~\textsf{(p $x$)} $=$ \textsf{(loop $x$)} 
+implies that \textsf{(p $x$)} does not terminate.
+Combining these observations with
+the definition of $H$ again (page \pageref{def:predicate-H}),
+proves the following two theorems, \{p0\} and \{p1\}.
 \begin{quote}
-Theorem \{p0\}: $\vdash$  (p $x$) $= 0$ $\rightarrow$ $H($p, $x)$ \\
-Theorem \{p1\}: $\vdash$  (p $x$) $=$ (loop $x$) $\rightarrow$ $(\neg H($p, $x))$
+Theorem \{p0\}: $\vdash$  \textsf{(p $x$)} $=$ \textsf{0} $\rightarrow$ $H($\textsf{p}, $x)$ \\
+Theorem \{p1\}: $\vdash$  \textsf{(p $x$)} $=$ \textsf{(loop $x$)} $\rightarrow$ $(\neg H($\textsf{p}, $x))$
 \end{quote}
 
 From the three theorems, \{pF\}, \{h0\}, and \{p0\},
@@ -1111,8 +1098,8 @@ from the other three theorems, \{pT\}, \{h1\}, and \{p1\},
 we can derive
 \index{halting problem}Theorem \{H$-$\}.
 \begin{quote}
-Theorem \{H$+$\}: $E$ $\vdash$ $(\neg H($p, $x))\rightarrow H($p, $x)$ \\
-Theorem \{H$-$\}: $E$ $\vdash$ $H($p, $x) \rightarrow(\neg H($p, $x))$
+Theorem \{H$+$\}: $E$ $\vdash$ $(\neg H($\textsf{p}, $x)) \rightarrow H($\textsf{p}, $x)$ \\
+Theorem \{H$-$\}: $E$ $\vdash$ $H($\textsf{p}, $x) \rightarrow (\neg H($\textsf{p}, $x))$
 \end{quote}
 
 Figure~\ref{fig:hminus-thm-proof} (page \pageref{fig:hminus-thm-proof}) displays
@@ -1127,21 +1114,20 @@ proof
 \begin{tabular}{ll}
 ~~~~~~~~~~Assume $E$                                &\emph{hypothesis of theorem}\\
 -------------------------------------------\{pT\}   &\\
-$H($p, $x)$ $\rightarrow$ $(\neg($(h p $x) = 0))$   &\\
+$H($\textsf{p}, $x)$ $\rightarrow$ $(\neg($\textsf{(h p $x$)} $=$ 0$))$   &\\
  - - - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs req'd to cite} \{$\rightarrow$ chain\} \emph{thm}\\
                                                     &\emph{no hypotheses required}\\
 -------------------------------------------\{h1\}   &~~~~~~\emph{for Theorem} \{h1\}\\
-$\neg($(h p $x)=0)$ $\rightarrow$ (p $x$) $=$ (loop $x$)&\\
+$\neg($\textsf{(h p $x$)} $=$ \textsf{0}$) \rightarrow$ \textsf{(p $x$)} $=$ \textsf{(loop $x$)}&\\
 -------------------------------------------\{$\rightarrow$ chain\} &\{$\rightarrow$ chain\} \emph{thm (Figure~\ref{fig:impchain-proof}, page \pageref{fig:impchain-proof})}\\
-~~~$H($p, $x)$ $\rightarrow$ (p $x$) $=$ (loop $x$) &\\
+~~~$H($\textsf{p}, $x) \rightarrow$ \textsf{(p $x$)} $=$ \textsf{(loop $x$)} &\\
  - - - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs req'd to cite} \{$\rightarrow$ chain\} \emph{thm}\\
                                                     &\emph{no hypotheses required}\\
 -------------------------------------------\{p1\}   &~~~~~~\emph{for Theorem} \{p1\}\\
-~~(p $x$) $=$ (loop $x$) $\rightarrow$ $(\neg H($p, $x))$ &\\
+~~\textsf{(p $x$)} $=$ \textsf{(loop $x$)} $\rightarrow$ $(\neg H($\textsf{p}, $x))$ &\\
 -------------------------------------------\{$\rightarrow$ chain\} &\emph{another citation of} \{$\rightarrow$ chain\} \emph{thm}\\
-~~~~~~$H($p, $x)$ $\rightarrow$ $(\neg H($p, $x))$  &\\
+~~~~~~$H($\textsf{p}, $x) \rightarrow$ $(\neg H($\textsf{p}, $x))$  &\\
 \end{tabular}
-
 \end{center}
 \index{theorem, by name!\{H$-$\}}
 \caption{Proof of Theorem \{H$-$\}}
@@ -1152,17 +1138,15 @@ The \{contradiction\} equation (page \pageref{boolean-contradiction}),
 together with the \{double negation\} equation
 (Figure~\ref{fig-02-grammar}, page \pageref{fig-02-grammar}),
 prove that
-$((\neg H($p, $x)$ $\rightarrow$ $H($p, $x)) = H($p, $x)$
+$((\neg H($\textsf{p}, $x) \rightarrow H($\textsf{p}, $x))$ $=$ $H($\textsf{p}, $x)$
 and
-$(H($p, $x)$ $\rightarrow$ $(\neg H($p, $x)))$ = $(\neg H($p, $x))$.
-
+$(H($\textsf{p}, $x) \rightarrow (\neg H($\textsf{p}, $x)))$ $=$ $(\neg H($\textsf{p}, $x))$.
 
 So, we can rewrite the \{H$+$\} and \{H$-$\} theorems as follows.
 \begin{quote}
-\label{thm:HplusHminus}
-\index{theorem, by name!\{H$-$\}}\index{theorem, by name!\{H$+$\}}
-Theorem \{H$+$ version 2\}: $E$ $\vdash$ $H($p, $x)$ \\
-Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($p, $x)$
+\label{thm:HplusHminus}\index{theorem, by name!\{H$-$\}}\index{theorem, by name!\{H$+$\}}
+Theorem \{H$+$ version 2\}: $E$ $\vdash$ $H($\textsf{p}, $x)$ \\
+Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($\textsf{p}, $x)$
 \end{quote}
 
 Now, at last, we're ready to take on
@@ -1181,18 +1165,16 @@ proof
 \begin{tabular}{ll}
 ~~~~~Assume $E$                                 &\emph{hypothesis of theorem}\\
 ------------------------\{H$+$ version 2\}      &\emph{proof of} \{H$+$\} \emph{left as exercise}\\
-~~~~~~~~~~$H($p, $x)$                           &\\
+~~~~~~~~~~$H($\textsf{p}, $x)$                  &\\
  - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs req'd to cite} \{$\wedge$ complement\} \emph{thm}\\
 ~~~~~Assume $E$                                 &\emph{hypothesis of theorem}\\
 ------------------------\{H$-$ version 2\}      &\emph{\{H$-$\} proved in Figure~\ref{fig:hminus-thm-proof} (page \pageref{fig:hminus-thm-proof})}\\
-~~~~~~~~$\neg H($p, $x)$                        &\\
+~~~~~~~~$\neg H($\textsf{p}, $x)$               &\\
 ------------------------\{$\wedge$ complement\} &\emph{see Figure~\ref{thm:and-complement}, page \pageref{thm:and-complement}}\\
 ~~~~~~~~~~~$False$                              &\\
 \end{tabular}
 \end{center}
-\index{theorem!paradox}\index{theorem, by name!\{paradox\}}
-\index{theorem, by name!\{halting problem\}}
-\index{halting problem}
+\index{theorem!paradox}\index{theorem, by name!\{paradox\}}\index{theorem, by name!\{halting problem\}}\index{halting problem}
 \caption{Theorem \{halting problem\}: a proof by contradiction}
 \label{fig:proof-paradox-thm}
 \end{figure}
@@ -1201,50 +1183,49 @@ proof
 \Exercise Prove Theorem \{H$+$\} (page \pageref{thm:HplusHminus}).
 
 \Exercise \label{ex:loop-loop}
-Suppose $x$ is a suitable operand for the operator loop
+Suppose $x$ is a suitable operand for the operator \textsf{loop}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun}).
 Prove that the formula
 \index{loop}
-(loop $x$) represents
-the same computation as the formula (loop (loop $x$)).
+\textsf{(loop $x$}) represents
+the same computation as the formula \textsf{(loop (loop $x$)}).
 
 \Exercise \label{ex:loop-n}
 Suppose $f$ is an ACL2 operator, $x$ is an ACL2 value,
 and $n$ is a natural number.
-The following equations define the notation ($f^n$ $x$).
+The following equations define the notation \textsf{($f^n$ $x$)}.
 \index{iteration}
 \index{equation, by name!\{iter0\}, \{iter1\}}
 \begin{center}
 \begin{tabular}{ll}
-($f^0$ $x$) $=$ $x$                    &\{iter0\} \\
-($f^{n+1}$ $x$) $=$ ($f$ ($f^n$ $x$))  &\{iter1\} \\
+\textsf{($f^0$ $x$)} $=$ $x$                             &\{iter0\} \\
+\textsf{($f^{n+1}$ $x$)} $=$ \textsf{($f$ ($f^n$ $x$))}  &\{iter1\} \\
 \end{tabular}
-Example: ($f^3$ $x$) $=$ ($f$ ($f$ ($f$ $x$)))
+Example: \textsf{($f^3$ $x$)} $=$ \textsf{($f$ ($f$ ($f$ $x$)))}
 \end{center}
-Interpreting the relationship between (loop $x$) and (loop (loop $x$))
+Interpreting the relationship between \textsf{(loop $x$)} and \textsf{(loop (loop $x$))}
 stated in Exercise~\ref{ex:loop-loop}
 as an equation (see footnote, page \pageref{caveat:equality-for-loop}),
 use mathematical induction to verify the following formula.
 \begin{quote}
-$\forall n.\forall x.($(loop $x$) $=$ (loop$^{n+1}$ $x$)$)$
+$\forall n.\forall x.($\textsf{(loop $x$)} $=$ \textsf{(loop$^{n+1}$ $x$)}$)$
 \end{quote}
 
 \Exercise \label{ex:f-n}
 Assume that $f$ is an operator and $x$ is an appropriate operand for $f$.
-Assuming that it takes at least one computational step to compute ($f$ $x$).
+Assuming that it takes at least one computational step to compute \textsf{($f$ $x$)}.
 Prove by induction that it takes at least $n$ computational steps
-to compute ($f^n$ $x$), where ($f^n$ $x$) satisfies the axioms
+to compute \textsf{($f^n$ $x$)}, where \textsf{($f^n$ $x$)} satisfies the axioms
 \{iter0\} and \{iter1\} in Exercise~\ref{ex:loop-n}.
 
 \Exercise
-Suppose $x$ is a suitable operand for the operator loop
+Suppose $x$ is a suitable operand for the operator \textsf{loop}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun}).
 Let $T$ stand for the number of computation steps required to
-compute (loop $x$).
+compute \textsf{(loop $x$)}.
 Using the definitions and theorems of Exercise~\ref{ex:loop-loop},
 Exercise~\ref{ex:loop-n}, and Exercise~\ref{ex:f-n},
-prove that $(\forall n.(T > n))$, where the universe of
-discourse of $\forall n$ is the natural numbers.
+prove $(\forall n.(T > n))$.
 
 \end{ExerciseList}
 
