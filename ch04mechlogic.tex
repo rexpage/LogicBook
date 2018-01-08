@@ -12,10 +12,10 @@ cites a known equation to transform the formula
 to another one with the same meaning,
 and moves gradually, step by step, to the formula
 on the other side of the equation of the theorem.
-It is easy for people to make mistakes 
+It is easy for people to make mistakes
 in this detailed, syntax-matching process,
 but computers can carry it out flawlessly,
-relieving people from an obligation to focus 
+relieving people from an obligation to focus
 with monk-like devotion on grammatical details.
 
 \begin{aside}
@@ -36,8 +36,8 @@ would require substantially more study and experience.
 \label{aside:acl2-learning-objectives}
 \end{aside}
 
-ACL2 is one of several systems of 
-\index{mechanized logic}\index{logic!mechanized}mechanized logic 
+ACL2 is one of several systems of
+\index{mechanized logic}\index{logic!mechanized}mechanized logic
 that provide this kind of assistance with proofs.
 Theorems for the ACL2 proof engine take the same form
 as properties for the DoubleCheck testing facility in Proof Pad.
@@ -65,7 +65,7 @@ The statement of the theorem asserts that ($\forall$$n$.L($n$)) ia true,
 where L($n$) stands for the following equation.
 \label{eq:Ln-additive-law}
 \begin{center}
-L($n$) $\equiv$ $($\textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} $=$ 
+L($n$) $\equiv$ $($\textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} $=$
 \textsf{($+$ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$))}$)$
 \end{center}
 
@@ -86,7 +86,7 @@ we defined a DoubleCheck test of this equation.
 \begin{tabular}{ll}
 A($xs$, $ys$) $\equiv$ $($\textsf{(len (append $xs$ $ys$))} $=$
 \textsf{($+$ (len $xs$) (len $ys$))}$)$ & \emph{formal} \\
-L($n$) $\equiv$ $($\textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} & \emph{informal}\\ 
+L($n$) $\equiv$ $($\textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} & \emph{informal}\\
 \phantom{L($n$) $\equiv$ $($~~~~} $=$ \textsf{($+$ (len [$x_1$ $x_2$ $\dots$ $x_n$]) (len $ys$))}$)$ \\
 \end{tabular}
 %\addtolength{\tabcolsep}{6pt}
@@ -113,7 +113,7 @@ universes of discourse. The formula
 \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]} stands for a list of $n$
 elements from specifiable domains.
 \begin{center}
-  Axiom \{\emph{lst}\}: $(\forall xs.(\exists n.(\exists$\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}$.(xs = 
+  Axiom \{\emph{lst}\}: $(\forall xs.(\exists n.(\exists$\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}$.(xs =
   $\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}$))))$
 \end{center}
 \caption{An Informality: \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]} versus $xs$}
@@ -173,7 +173,7 @@ where S($n$) is a shorthand for the following equation.
 
 \begin{samepage}
 \begin{center}
-S($n$) $\equiv$ $($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ \dots $x_n$] $ys$))} 
+S($n$) $\equiv$ $($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ \dots $x_n$] $ys$))}
 $=$ $ys)$
 \end{center}
 \end{samepage}
@@ -231,15 +231,15 @@ click in the proof bar, and see what happens.
 \begin{ExerciseList}
 
 \Exercise Define the
-\index{append!associative}\index{theorem!append associative}\index{theorem, by name!\{append associative\}}\index{associative}\{\emph{append associativity}\}
-theorem in ACL2 notation,
+\index{append!associative}\index{theorem!append associative}\index{theorem, by name!\{append associative\}}\index{associative}associativity property 
+of \textsf{append} (\{\emph{app-assoc}\}, page \pageref{app-assoc})
+in ACL2 notation,
 and use Proof Pad to run it through the ACL2 mechanized logic.
 If you state the theorem correctly, ACL2 will succeed in proving it.\footnote{According
 to \index{Moore, J Strother}J Strother Moore, a pioneer
 in mechanized logic and a principal developer of ACL2,
 the associativity of \textsf{append} was one of the driving examples in early work in
 mechanized logic and one of the first theorems that such a system proved autonomously.}
-\emph{Hint}: \textsf{(defthm +associative (= (+ $x$ (+ $y$ $z$)) (+ (+ $x$ $y$) $z$)))}
 
 \Exercise Define the following theorem in ACL2 and get the mechanized logic to prove it.\\
 \hspace*{16mm}$\forall xs.($\textsf{(len (nthcdr (len xs) xs))} $=$ $0)$
@@ -282,7 +282,7 @@ However, the theorem as stated
 is not quite correct,
 and to explain why, we need to mention
 some things we haven't told you about lists. A
-\label{true-list-def}\index{true list}\index{list!true list}\emph{true list} 
+\label{true-list-def}\index{true list}\index{list!true list}\emph{true list}
 in ACL2 is either \textsf{nil} (the empty list)
 or a value of the form \textsf{(cons $x$ $xs$)},
 where $xs$ is a true list.
@@ -349,7 +349,7 @@ constrained to the domain of true lists.
 In the statement of the append-prefix theorem in
 Section~\ref{sec:append-prefix-suffix} (page \pageref{append-prefix-thm-predicate}),
 the role of $xs$ was played by the numbered list
-\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}, 
+\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]},
 which is a true list, by definition
 (page \pageref{numbered-list-interpretation}).
 ACL2 does not permit the use of the numbered list syntax,
@@ -384,7 +384,7 @@ Figure~\ref{fig:append-prefix-acl2-prf} (page \pageref{fig:append-prefix-acl2-pr
 displays a Proof Pad session that imports those theorems,
 defines the prefix operator, and then states and proves the theorem.
 The figure indicates that ACL2
-\index{admit, ACL2}\index{ACL2!admit}``admits'' 
+\index{admit, ACL2}\index{ACL2!admit}``admits''
 the prefix operator when it encounters its definition.
 This means that ACL2 allows the definition to join
 the universe of entities that can participate in
@@ -587,7 +587,7 @@ A tail recursion is a circular reference in an operator definition
 that occurs at the
 \index{top level, vs nested}\index{nested, vs top level}\emph{top level},
 which means that it is not nested
-inside a formula to produce an operand for another operator. 
+inside a formula to produce an operand for another operator.
 The operator \textsf{h} occurs at the top level
 in the formula \textsf{(h (+ $x$ 1))},
 but is nested in the formula \textsf{(+ (h $x$) 1)}.
@@ -896,7 +896,7 @@ Both models are still widely studied in computer science theory.
 The programming language Lisp
 was based on the lambda calculus, so the two are closely related.
 
-We express the \index{halting problem}halting problem 
+We express the \index{halting problem}halting problem
 theorem as a logic formula that we will prove
 using natural deduction (Section \ref{sec:deduction}).
 The theorem has no hypotheses.
@@ -1051,13 +1051,13 @@ Theorem \{pF\}: $E$ $\vdash$ $(\neg H($\textsf{p}, $x))$ $\rightarrow$ $($\texts
 Theorem \{pT\}: $E$ $\vdash$ $H($\textsf{p}, $x)$ $\rightarrow$ $(\neg($\textsf{(h p $x$)} $=$ \textsf{0}$))$
 \end{quote}
 
-Now, let's reason from the definition of 
+Now, let's reason from the definition of
 \textsf{p} (Figure~\ref{fig:paradox-op-defun}).
-In the definition, we find that if \textsf{(h p $x$)} $=$ \textsf{0}, 
+In the definition, we find that if \textsf{(h p $x$)} $=$ \textsf{0},
 then \textsf{(p $x$)} $=$ \textsf{0}.
-We also find that if \textsf{(h p $x$)} $\neq$ \textsf{0}, 
+We also find that if \textsf{(h p $x$)} $\neq$ \textsf{0},
 then \textsf{(p $x$)} represents
-the computation \textsf{(loop $x$)}. 
+the computation \textsf{(loop $x$)}.
 We will use the notation \textsf{(p $x$)} $=$ \textsf{(loop $x$)}
 to indicate this relationship between \textsf{(p $x$)} and \textsf{(loop $x$)}.\footnote{This
 \label{caveat:equality-for-loop}
@@ -1068,7 +1068,7 @@ That is, we interpret the substitution a new formula
 in place of an old one with the same meaning as an equation
 between the old formula and the new one.
 It is an odd sort of equality in the case of \textsf{(p $x$)} $=$ \textsf{(loop $x$)}
-because the formula \textsf{(loop $x$)} represents a computation, 
+because the formula \textsf{(loop $x$)} represents a computation,
 but not a value.
 The \textsf{loop} operator at every stage delivers a new formula,
 but never manages to produce a value.}
@@ -1078,18 +1078,31 @@ Theorem \{h0\}: $\vdash$  \textsf{(h p $x$)} $=$ \textsf{0}  $\rightarrow$ \text
 Theorem \{h1\}: $\vdash$  $\neg($\textsf{(h p $x$)} $=$ \textsf{0}$)$ $\rightarrow$ \textsf{(p $x$)} $=$ \textsf{(loop $x$)}
 \end{quote}
 
-An inspection of the definition of \textsf{p}
+Furthermore, to compute the value of the formula \textsf{(p $x$)},
+the \textsf{if} operator in the definition of \textsf{p}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun})
-confirms that (1)~\textsf{(p $x$)} $=$ \textsf{0} 
-implies that \textsf{(p $x$)} terminates and
-(2)~\textsf{(p $x$)} $=$ \textsf{(loop $x$)} 
-implies that \textsf{(p $x$)} does not terminate.
-Combining these observations with
-the definition of $H$ again (page \pageref{def:predicate-H}),
-proves the following two theorems, \{p0\} and \{p1\}.
+selects one of two formulas:
+\textsf{0} or \textsf{(loop $x$)}. 
+If it selects the formula \textsf{0}, then (p $x$) terminates. 
+Therefore, from the definition of the predicate $H$ (page \pageref{def:predicate-H}),
+we conclude that $H($p, $x)=True$. 
+That is, $($\textsf{(p $x$)}$=$\textsf{0}$)\rightarrow H($\textsf{p}, $x)$.
+Label this implication \{p0\}.
+
+On the other hand, if the \textsf{if} operator in the definition of \textsf{p}
+selects the formula \textsf{(loop $x$)}, then (p $x$) 
+does not terminate.\footnote{The formula \textsf{(loop $x$)} does not complete its
+computation in a finite amount of time
+(Exercise \ref{ex:loop-nonterminating}, page \pageref{ex:loop-nonterminating}).}
+Therefore, from the definition of the predicate $H$,
+we conclude that $H($p, $x)=False$. 
+That is, $($\textsf{(p $x$)}$=$\textsf{(loop $x$)}$)\rightarrow(\neg H($\textsf{p}, $x))$.
+Label this implication \{p1\}.
+Theorems \{p0\} and \{p1\} restate these implications.
+
 \begin{quote}
-Theorem \{p0\}: $\vdash$  \textsf{(p $x$)} $=$ \textsf{0} $\rightarrow$ $H($\textsf{p}, $x)$ \\
-Theorem \{p1\}: $\vdash$  \textsf{(p $x$)} $=$ \textsf{(loop $x$)} $\rightarrow$ $(\neg H($\textsf{p}, $x))$
+Theorem \{p0\}: $\vdash$  $($\textsf{(p $x$)} $=$ \textsf{0}$)$ $\rightarrow$ $H($\textsf{p}, $x)$ \\
+Theorem \{p1\}: $\vdash$  $($\textsf{(p $x$)} $=$ \textsf{(loop $x$)}$)$ $\rightarrow$ $(\neg H($\textsf{p}, $x))$
 \end{quote}
 
 From the three theorems, \{pF\}, \{h0\}, and \{p0\},
@@ -1097,15 +1110,15 @@ we can derive Theorem \{H$+$\}, and
 from the other three theorems, \{pT\}, \{h1\}, and \{p1\},
 we can derive
 \index{halting problem}Theorem \{H$-$\}.
+Figure~\ref{fig:hminus-thm-proof} (page \pageref{fig:hminus-thm-proof}) displays
+a proof of Theorem \{H$-$\}.
+The proof of Theorem \{H$+$\} is similar, and working through it would be
+good practice (Exercise \ref{ex:Hplus}, page \pageref{ex:Hplus}).
+
 \begin{quote}
 Theorem \{H$+$\}: $E$ $\vdash$ $(\neg H($\textsf{p}, $x)) \rightarrow H($\textsf{p}, $x)$ \\
 Theorem \{H$-$\}: $E$ $\vdash$ $H($\textsf{p}, $x) \rightarrow (\neg H($\textsf{p}, $x))$
 \end{quote}
-
-Figure~\ref{fig:hminus-thm-proof} (page \pageref{fig:hminus-thm-proof}) displays
-a proof of Theorem \{H$-$\}.
-The proof of Theorem \{H$+$\} is similar, and working through it would be
-a good way to get a solid understanding the proof in Figure~\ref{fig:hminus-thm-proof}.
 
 \begin{figure}
 Theorem \{H$-$\}: $E$ $\vdash$ $H($p, $x) \rightarrow(\neg H($p, $x))$~\\
@@ -1141,7 +1154,6 @@ prove that
 $((\neg H($\textsf{p}, $x) \rightarrow H($\textsf{p}, $x))$ $=$ $H($\textsf{p}, $x)$
 and
 $(H($\textsf{p}, $x) \rightarrow (\neg H($\textsf{p}, $x)))$ $=$ $(\neg H($\textsf{p}, $x))$.
-
 So, we can rewrite the \{H$+$\} and \{H$-$\} theorems as follows.
 \begin{quote}
 \label{thm:HplusHminus}\index{theorem, by name!\{H$-$\}}\index{theorem, by name!\{H$+$\}}
@@ -1180,7 +1192,9 @@ proof
 \end{figure}
 
 \begin{ExerciseList}
-\Exercise Prove Theorem \{H$+$\} (page \pageref{thm:HplusHminus}).
+
+\Exercise\label{ex:Hplus}
+Prove Theorem \{H$+$\} (page \pageref{thm:HplusHminus}).
 
 \Exercise \label{ex:loop-loop}
 Suppose $x$ is a suitable operand for the operator \textsf{loop}
@@ -1218,7 +1232,7 @@ Prove by induction that it takes at least $n$ computational steps
 to compute \textsf{($f^n$ $x$)}, where \textsf{($f^n$ $x$)} satisfies the axioms
 \{iter0\} and \{iter1\} in Exercise~\ref{ex:loop-n}.
 
-\Exercise
+\Exercise \label{ex:loop-nonterminating}
 Suppose $x$ is a suitable operand for the operator \textsf{loop}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun}).
 Let $T$ stand for the number of computation steps required to
