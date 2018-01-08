@@ -73,14 +73,14 @@ to control laboratory equipment.
 Engineers use it to design digital systems,
 and college students use it in projects to
 design electronic devices.
-Computer programs in LabView look like engineering drawings, 
+Computer programs in LabView look like engineering drawings,
 not like lists of instructions.
 Another visual language,
 Scratch, created by the MIT Media Lab,
-is used by children to construct software for games 
-and other educational projects. 
+is used by children to construct software for games
+and other educational projects.
 LabView and Scratch programs don't
-look anything like chip instructions, 
+look anything like chip instructions,
 but they are just as capable of describing computations.
 
 A related alternative is to specify software as
@@ -175,7 +175,7 @@ and the \index{software}software as information that tells the computer what to 
 However, the distinction between hardware and software is not as
 clear cut as this suggests. Many hardware components actually
 encode software directly and control other pieces of the system.
-In fact, many techniques used in the design of 
+In fact, many techniques used in the design of
 hardware were originated to build software.
 Major elements of hardware designs look like software
 and can use the same language and notation.
@@ -194,13 +194,13 @@ leaves many questions to the imagination.
 \item How can software detect the status of hardware?\\
       Example: Determine whether a switch is pressed or not.
 \item What kinds of instructions can software give to hardware?\\
-      Examples: Add numbers. Replace one formula by another. Select a formula. 
+      Examples: Add numbers. Replace one formula by another. Select a formula.
 \end{enumerate}
 \end{quote}
 
 A model of computation (Aside~\ref{aside-model-of-computation})
 shows how software can control hardware,
-so there are as many answers to the first of these questions 
+so there are as many answers to the first of these questions
 as there are models of computation, and
 logicians have been very prolific when it
 comes to constructing such models.
@@ -215,7 +215,7 @@ using either intrinsic primitive operators or previously defined operators.
 \begin{aside}
 We will use the terms ``operator'' and ``function'' interchangeably.
 Some treatments use these terms to mean different things,
-but we find it more convenient in this presentation 
+but we find it more convenient in this presentation
 to think of them as the same thing.
 So, when we say \index{function}function we mean \index{operator}operator and vice versa.
 What we're talking about when we use either term
@@ -246,14 +246,14 @@ and the ability to define new ones
 as basic elements of a computation model,
 we can talk about what it is possible for software to do.
 Software can affect
-hardware by the values that an operator delivers.  
+hardware by the values that an operator delivers.
 For example, a computer program can tell an iPhone what to display
 on its screen by delivering a matrix of pixels.
 Each entry in the matrix
 can be a number that represents a color: 16,777,215 for
 red or 65,280 for green, for example.
 Similarly, the hardware can inform the
-software of the status of a component by 
+software of the status of a component by
 invoking an operator and supplying the status as an operand.
 For example, touching the screen of an iPhone might
 trigger a software operator and supply the operator with
@@ -358,7 +358,7 @@ and can use or update the recorded values later in the computation.
 In our equation-based model,
 programs consist of collections of mathematical functions (operators)
 that base their results entirely on their operands.
-Operators do not make use of recorded values 
+Operators do not make use of recorded values
 beyond the data supplied in operands.
 This makes it possible to
 understand equation-based programs in terms of classical
@@ -406,7 +406,7 @@ specifies a way to use those components.
 
 \section{Deep Blue and Inductive Definitions}
 
-The equation-based model of computation is small, 
+The equation-based model of computation is small,
 but it has as much power to specify computations
 as any other known model. Knowing the great diversity of things that computers can do,
 it seems reasonable to expect them to be much more complicated than that.
@@ -417,7 +417,7 @@ Complex behavior from modest beginnings, a bargain if there ever was one.
 
 Consider \index{Deep Blue}Deep Blue, the
 computer that beat world champion Gary Kasparov in a chess match on May 11,
-1997. It was the first time a computer had performed so well in a 
+1997. It was the first time a computer had performed so well in a
 game that challenges the mental capacities of human players.
 The Deep Blue chess-playing software can be specified as an operator whose input is
 an 8x8 matrix showing the positions of the pieces
@@ -426,17 +426,17 @@ The operator would deliver a result showing
 either the positions on the board after its move or a special
 white-flag token used to resign the game.
 
-In principle, a chess-playing computer program can be an operator 
+In principle, a chess-playing computer program can be an operator
 in software with the following characteristics.
 Given a matrix describing the board at a particular point in a game,
 the operator determines all possible legal moves.  If there
 are no legal moves, the operator delivers the white flag,
-signaling that the Deep Blue has resigned.  
+signaling that the Deep Blue has resigned.
 If there is a legal move that results
 in checkmate, the operator delivers the 8x8 matrix specifying the
-new board position after that move.  Otherwise, for each legal move, 
+new board position after that move.  Otherwise, for each legal move,
 the operator considers
-each of the possible moves in response by the human opponent. 
+each of the possible moves in response by the human opponent.
 Each one of those moves leads to in a new board that can be
 examined by the chess-playing operator
 to choose a move based on a calculation that estimates the value of
@@ -460,7 +460,7 @@ the invocation of the operator being defined
 has operands that are closer to those in a non-circular part of the
 definition than to the original operands.
 
-Inductive \index{definition!inductive}definitions
+Inductive definitions
 will play a central role throughout the book
 and will be discussed in great detail, but we want to provide an
 introduction of sorts at this point, to get the ball rolling.
@@ -586,20 +586,20 @@ before the computer could decide on its first move.
 \index{Deep Blue}\index{chess}Deep Blue
 did play in more-or-less this way, but it didn't look at board positions
 all the way to the end of the game. Most of the time, it looked
-six to eight moves ahead. Even that is a very big computation, 
+six to eight moves ahead. Even that is a very big computation,
 but it was a feasible one for Deep Blue because it had
 thousands of processing units and could consider many moves at the same time.
 That gave it the ability to analyze about 200 million board positions per second.
 The combination of massive computational power and limited look-ahead
-made it possible for Deep Blue to outplay 
+made it possible for Deep Blue to outplay
 the most accomplished human chess player of the time.
 
-Deep Blue is a combination of a complicated computer 
+Deep Blue is a combination of a complicated computer
 and a computer program with a long, complex definition.
 The Deep Blue software conformed to a conventional computation model,
 not the equation-based model we used to describe it,
 but in principle the program could have been designed
-using equations in a manner similar to the 
+using equations in a manner similar to the
 way equations provided a definition of the operator $h$.
 
 \begin{ExerciseList}
