@@ -9,7 +9,7 @@ see on Rex's local copy if needed: ch03WITHRECIPROCALSSTUFFINCASEWEREVERTTOIT16S
 We will be using a software development environment that automates parts of the software testing process.
 To use it, we can define tests that check results corresponding to inputs provided directly in the test.
 Or, we can ask the system to generate random data and
-check results against logic formulas specifying properties that we expect of the results.
+check results against logic formulas specifying properties that we expect the results to have.
 
 \begin{aside}
 Proof Pad is a tool that provides a convenient way
@@ -19,21 +19,18 @@ ACL2 includes a mechanized logic that
 supports rigorous checking of the reasoning process,
 and we will use it for that purpose starting in this chapter.
 
-We will begin to use Proof Pad in this chapter,
+We will begin to use \index{Proof Pad}Proof Pad in this chapter,
 so you should install it on your computer.
-To install Proof pad, follow the instructions at \url{http://proofpad.org}.
-If that link fails, look for ``Proof Pad''
-with your web search engine.
-They are well-known systems and should be easy to find.
-They are free, too.
-\index{Proof Pad}
-\label{aside:proof-pad}
+Get it at the following URL. It's free.\\ 
+\hspace*{38mm}\url{http://proofpad.org}
+
 \caption{Proof Pad and ACL2}
+\label{aside:proof-pad}
 \end{aside}
 
-To get the syntax straight, let's specify some direct tests that Proof Pad,
-the environment we will be using,
-can carry out for the addition operator.
+To get the syntax straight, 
+let's specify some direct tests that Proof Pad
+can carry out for the numeric addition operator.
 The following tests check some equations that we expect to be true:
 $2 + 2 = 4$, $5 + 7 = 10 + 2$, etc.
 
@@ -49,21 +46,21 @@ $2 + 2 = 4$, $5 + 7 = 10 + 2$, etc.
 (check-expect (+ 27 6) (+ (+ 23 5) (+ 2 2)))
 \end{Verbatim}
 
-This notation looks strange, with formulas like (+ $2$ $2$) instead of $2 + 2$.
-ACL2 uses a \index{prefix notation}\index{operator!prefix notation}prefix notation
-to denote operations,
-rather than the \index{infix notation}\index{operator!infix notation}infix notation
-that you are accustomed to.
-In ACL2's prefix notation, a computational \index{formula!prefix notation}formula starts with a parenthesis,
+This notation looks strange, with formulas like \textsf{(+ 2 2)} instead of $2 + 2$.
+ACL2 expresses formulas with a 
+\index{prefix notation}\index{operator!prefix notation}prefix notation,
+rather than the customary \index{infix notation}\index{operator!infix notation}infix notation.
+In ACL2's prefix notation, a computational 
+\index{formula!prefix notation}formula starts with a parenthesis,
 followed by the operator it invokes.
-The operator comes first (as a ``prefix''), then the operands.
+The operator comes first (as a ``prefix''), then the operands follow.
 Infix notation places the operator between the operands,
-but prefix puts it before the operands.
+but prefix notation puts it before the operands.
 
 That seems simple enough, but it gets gradually more unfamiliar
 as the formulas get more complicated.
 For example, a formula for the sum of $x$ and three times $y$, $(x + 3*y)$,
-comes out as (+ $x$ ($*$ $3$ $y$)) in prefix form.
+comes out as \textsf{(+ $x$ ($*$ 3 $y$))} in prefix form.
 This will take a little getting used to,
 but is a lot easier to get good at than
 most of the stuff you have been studying.
@@ -74,19 +71,21 @@ Some people end up liking the prefix format better than infix.
 We will use both, in different contexts, depending on whether
 we're doing paper-and-pencil reasoning or formal, mechanized logic.
 
-Another strange element is the
-\seeonlyindex{include-book}{directive}\index{directive!include-book}include-book directive.
+Another important element is the
+\seeonlyindex{include-book}{directive}\index{directive!include-book}\textsf{include-book} 
+directive.
 The facility for tests of this kind resides in an ACL2 book
-known as "testing", which in turn resides in a directory known
-\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}\index{book!directory (:dir)}\index{teachpacks!testing}\index{testing!teachpack}\index{book!testing}as 
-:teachpacks (with a leading colon).
-The include-book directive tells the system
+known as "\textsf{testing}", which in turn resides in a directory known
+\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}\index{book!directory (:dir)}\index{teachpacks!testing}\index{testing!teachpack}\index{book!testing}as
+\textsf{:teachpacks} (with a leading colon).
+The \textsf{include-book} directive tells the system
 the name of the testing package and where to find it.
-This boilerplate is needed (including the keyword :dir, with the leading colon)
-whenever you want to use check-expect testing,
+This boilerplate is needed (including the keyword \textsf{:dir}, with the leading colon)
+whenever you want to use \textsf{check-expect} testing,
 even though we won't repeat it in all of our examples.
+
 If you install Proof Pad and put these tests in a file
-with the .lisp extension (plusoptests.lisp, for example),
+with a .lisp extension (plusoptests.lisp, for example),
 you can use Proof Pad to run the tests.
 The first tests two pass without fanfare,
 but the third test has a mistake.
@@ -95,34 +94,32 @@ The system reports that the assertion failed.
 If you change the 6 to 5, the test will pass, as it should.
 Normally, when we run tests, we want to know whether the
 operator is doing the right thing,
-but in this case the operator ($+$) was fine.
+but in this case the operator (\textsf{+}) was fine.
 It was the test that was wrong.
 
-Direct, one-off, check-expect tests
+Direct, one-off, \textsf{check-expect} tests
 are a good way to get started, but
 we will want to test more general properties that we specify with logic formulas.
-Proof Pad facilitates that kind of \index{testing!doublecheck}testing with a package called
-\index{doublecheck}\index{book!doublecheck}\index{teachpacks!doublecheck}doublecheck
-that generates \index{random data!generating}\index{random data!testing with}\index{testing!with random data}random data
+Proof Pad facilitates that kind of \index{testing!doublecheck}testing 
+with a package called
+\index{DoubleCheck}\index{book!doublecheck}\index{teachpacks!doublecheck}DoubleCheck
+that generates 
+\index{random data!generating}\index{random data!testing with}\index{testing!with random data}random data
 to run against a predicate
 (that is, a formula representing a true/false value).
 To demonstrate the idea, consider testing the addition operator to see if
 it conforms to the associative law for addition: $(x + (y + z)) = ((x + y) + z)$
 (\{+ associative\}, Figure~\ref{fig-02-01}, page \pageref{fig-02-01}).
 To do that, we define a property as an equation
-and directs Proof Pad to generate some random numbers and
-report whether or not the equation holds on all of the random data.
+and direct Proof Pad to generate some random numbers and
+report whether or not the equation holds for all of the random data.
+The Proof Pad ``doublecheck'' package,
+like the ``testing'' package,
+resides in the
+\index{teachpacks!:dir}\index{teachpacks!doublecheck}teachpacks directory.
+An \textsf{include-book} directive is required to make it accessible for use.
 
-\index{doublecheck}\index{testing!doublecheck}
-\index{book!doublecheck}\index{teachpacks!doublecheck}
-\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}
-\index{book!directory (:dir)}
-\index{testing!teachpack}\index{book!testing}
-\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
-\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}
-\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
-\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}
-\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}
+\index{DoubleCheck}\index{testing!doublecheck}\index{book!doublecheck}\index{teachpacks!doublecheck}\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}\index{book!directory (:dir)}\index{testing!teachpack}\index{book!testing}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}
 \begin{Verbatim}
 (include-book "doublecheck" :dir :teachpacks)
 (defproperty +associative-test
@@ -133,41 +130,41 @@ report whether or not the equation holds on all of the random data.
      (+ (+ x y) z)))
 \end{Verbatim}
 
-The Proof Pad environment ``doublecheck'' package,
-like the ``testing'' package,
-resides in the
-\index{teachpacks!:dir}\index{teachpacks!doublecheck}teachpacks directory,
-and an include-book directive is required so that Proof Pad where to find it.
-
 A \index{property!doublecheck}property definition with
-doublecheck begins with a parenthesis, then the keyword
-\index{testing!with random data}\index{random data!testing with}
-\index{defproperty}defproperty and a name for the property to be tested,
-which is ``+associative-test'' in this case.\footnote{The
+DoubleCheck begins with a parenthesis, then the keyword
+\index{testing!with random data}\index{random data!testing with}\index{defproperty}\textsf{defproperty} 
+and a name for the property to be tested,
+which is \textsf{+associative-test} in this example.\footnote{The
 rules for naming things in ACL2 are lax compared to many
 programming languages. Names can be made up of letters and digits, of course,
 but can also include some special characters,
-such as plus signs and colons (not semicolons, though).}
+such as plus signs, hyphens, and colons (not semicolons or commas, though).}
 A sequence of data generator specifications follows the name of the property.
 The entire sequence is enclosed in parentheses,
-and each specification has three parts: a name, the keyword :value (with the leading colon),
+and each specification has three parts: a name, 
+the keyword \textsf{:value} (with the leading colon),
 and a generator, also enclosed in parentheses.
-In this case, the definition says to use random integers.
-Doublecheck is able to generate many kinds of random data,
+In this example, the definition says to use random integers.
+DoubleCheck is able to generate many kinds of random data,
 and we will gradually introduce different data generators as the story progresses.
 Finally, a predicate formula specifies the test.
 In this case, the predicate is an equation,
 written of course in prefix notation.
 
 Let's look at another example.
-\label{list-op-informal}
-The operator ``list'' creates a list of its operands
-(any number of operands), and
-\label{append-op-informal}
-the \index{operator, by name!append}\index{append!operator}operator ``append''
+ACL2 can deal with a collection of data elements
+by keeping them in an ordered sequence called, 
+and this is a technical term, a \emph{list}.
+There is an operator, 
+\label{list-op-informal}\textsf{list}, 
+that creates a list of its operands
+(any number of operands).
+Another operator,
+\label{append-op-informal}\index{operator, by name!append}\index{append!operator}\textsf{append},
 \index{concatenate}concatenates two lists.
-A few check-expect tests may clarify what the append operator does.
-We defer, for now, more formal specifications for the append and list operators.
+A few \textsf{check-expect} tests may clarify 
+what the \textsf{append} and \textsf{list} operators do.
+Later, we will describe them formally.
 
 \begin{Verbatim}
 (check-expect (append (list 1 2 3 ) (list 4 5)) (list 1 2 3 4 5))
@@ -178,11 +175,11 @@ We defer, for now, more formal specifications for the append and list operators.
 
 We would anticipate that the length of a concatenation of two lists
 would be the length of the first list plus the length of the second.
-\label{len-op-informal}
-Using the ``len'' \index{operator, by name!len (length of list)}\seeonlyindex{len}{operator}operator,
-which computes the length of a list,
-we can state this property in a doublecheck test.
-Later, we will prove this relationship between append and len,
+Using the 
+\label{len-op-informal}\index{operator, by name!len (length of list)}\seeonlyindex{len}{operator}\textsf{len}
+operator, which computes the length of a list,
+we can state this property in a DoubleCheck test.
+Later, we will prove this relationship between \textsf{append} and \textsf{len},
 but for the moment we confine ourselves to stating properties
 and asking Proof Pad to check them against random data.
 
@@ -196,19 +193,19 @@ and asking Proof Pad to check them against random data.
 \end{Verbatim}
 
 \begin{aside}
-A \index{natural number}``natural number'' is a whole number (that is, an integer)
-that is zero or bigger.
-Some mathematical treatments start the naturals at one,
+A \index{natural number}\emph{natural number} is a whole number 
+(that is, an integer) that is zero or more.
+Some treatments start the naturals with one,
 rather than zero, but in the computing domain,
-it simplifies a lot of formulas to start the natural numbers at zero.
+starting with zero simplifies some formulas.
 \caption{Natural Numbers}
 \label{natural-number-def}
 \end{aside}
 
 When we discuss computer arithmetic, we will need to know something about
-arithmetic on finite sets of numbers, and the ``mod'' operator will play a crucial role.
-\index{operator, by name!mod (remainder)}
-\label{mod-function}
+arithmetic on finite sets of numbers,  and the 
+\index{operator, by name!mod (remainder)}\label{mod-function}mod
+operator will play a crucial role.
 The mod operator takes two operands and
 delivers the remainder in the division of the first operand by the second.
 ACL2 does not restrict the operands to the set of natural numbers,
@@ -216,11 +213,11 @@ but in this discussion, we are going to stick with that domain.
 Think
 \index{divisor}divisor, \index{dividend}dividend, \index{quotient}quotient, \index{remainder}remainder,
 \index{division!third grade}\index{division!long division}\index{division!floor, mod}as in
-\seeonlyindex{third-grade long division}{division}long division: 
+\seeonlyindex{third-grade long division}{division}long division:
 third-grade stuff.
 
-Let's test drive the mod operator, starting with
-some simple checks, such as using mod
+Let's test drive the \textsf{mod} operator, starting with
+some simple checks, such as using \textsf{mod}
 to compute the remainder when dividing by two,
 which will produce zero for even numbers and one for odd numbers.
 
@@ -238,12 +235,12 @@ Here are a few more sanity checks, this time with three as the divisor.
 \end{Verbatim}
 
 \begin{aside}
-\index{arithmetic!modular}\index{modular arithmetic}\index{division!floor, mod}
-\index{operator, by name!mod (remainder)}Modular arithmetic
+\index{arithmetic!modular}\index{modular arithmetic}\index{division!floor, mod}\index{operator, by name!mod (remainder)}Modular 
+arithmetic
 (sometimes called \index{clock arithmetic}clock arithmetic)
-deals with integers in a fixed range, $0 \dots (m - 1)$,
+deals with integers in a fixed range, $0$ $\dots$ $(m - 1)$,
 where $m$ is an integer greater than zero known as
-the ``modulus''.
+the \emph{modulus}.
 If $x$ is an integer, the formula ($x$ mod $m$) stands for
 the remainder in the division of $x$ by $m$.
 
@@ -260,8 +257,8 @@ The same is true of subtraction and multiplication.
 ($(x \times y)$ mod $m$) = ((($x$ mod $m$) $\times$ ($y$ mod $m$)) mod $m$)
 \end{quote}
 
-The ACL2 operator ``mod'' converts numbers to the modular range
-for a given modulus. That is, (mod $x$ $m$) delivers the remainder
+The ACL2 operator \textsf{mod} converts numbers to the modular range
+for a given modulus. That is, (\textsf{mod} $x$ $m$) delivers the remainder
 in the division of $x$ by $m$.
 The divisor (second operand) must be non-zero.
 ACL2 does not restrict the operands to natural numbers,
@@ -270,8 +267,8 @@ but the discussion here assumes that they are.
 \label{modular-arithmetic}
 \end{aside}
 
-We can put ``mod''
-through its paces on a large number of tests using doublecheck,
+We can put \textsf{mod}
+through its paces on a large number of tests using DoubleCheck,
 but for that we will need to come up with relationships
 that express more general properties of division and remainders.
 One such property is that the remainder doesn't change
@@ -286,71 +283,68 @@ when the divisor is added to the dividend.
        (mod (+ dividend divisor) divisor))))
 \end{Verbatim}
 
-Generating \index{random data!generating}\index{testing!with random data}random data is an art.
+Generating 
+\index{random data!generating}\index{testing!with random data}random data 
+is an art.
 In this example, we have made sure the divisor isn't zero
 by adding one to a natural number.
 Since negative numbers aren't natural numbers, adding one
 to a natural number ensures that the sum is non-zero.
 \label{let-example-brief-explain}
 The definition of the property uses a
-\index{let* names for values}\index{formula!let*}\index{variable!let*}``let$*$'' formula,
+\index{let* names for values}\index{formula!let*}\index{variable!let*}\textsf{let$*$} formula,
 which provides a way to attach names to \index{value, let$*$ name for}values temporarily
 (Aside \ref{let*-def}, page \pageref{let*-def}).
-In this case, the let$*$ says that
-the name ``divisor'' will be used to stand for
-the value represented by the formula (+ divisor-minus-1 1).
+In this case, the \textsf{let$*$} says that
+the name \textsf{divisor} will be used to stand for
+the value represented by the formula \textsf{(+ divisor-minus-1 1)}.
 To see the testing facility in action,
-define the ``mod-test'' property in a .lisp file,
+define the mod-test property in a .lisp file,
 and use Proof Pad to run the tests.
 
 \begin{aside}
-A \emph{let$*$ formula} attaches names to values
-to be used within the scope of the let$*$ formula.
-The scope of the let$*$ opens with a parenthesis followed
-by the keyword ``let$*$''. It continues with
+A \textsf{let$*$ }formula attaches names to values
+to be used within the scope of the \textsf{let$*$} formula.
+The scope of the \textsf{let$*$} opens with a parenthesis followed
+by the keyword \textsf{let$*$}. It continues with
 a sequence of name-value bindings, and ends with
-a formula for the value to be delivered by the let$*$
-and a closing parenthesis matching the one just prior
-to the let$*$ keyword.
+a formula for the value to be delivered by the \textsf{let$*$}
+and a closing parenthesis matching the one before
+the \textsf{let$*$} keyword.
 
 Each binding has two elements: first a name,
 then a formula specifying a value to be associated with the name.
 Any of the names attached to values in the bindings
-can be used subsequently in the scope of the let$*$ to denote those values.
+can be used subsequently in the scope of the \textsf{let$*$ }to denote those values.
 There can be any number of bindings.
-The most common use of ``let$*$'' is to give names
+The most common use of \textsf{let$*$} is to give names
 to values needed more than once in a computation,
 but sometimes it's used just to give mnemonic names
-to significant elements in a computational formula.
+to significant elements in a formula.
 
-The parentheses in a let$*$ formula are tricky.
+The parentheses in a \textsf{let$*$} formula are tricky.
 Each individual name-value binding is enclosed in parentheses,
 and the whole sequence of bindings is closed in another set
-of parentheses. In addition, the entire let$*$ formula
+of parentheses. In addition, the entire \textsf{let$*$} formula
 is enclosed in its opening and closing parentheses.
-The let$*$ formula denotes the value specified
-in the formula that comes at the end of the let$*$, after the
-name-value bindings.
-\caption{Naming Local Values with Let$*$}
-\index{formula!let$*$}\index{variable!let$*$}\index{let$*$ names for values}\index{value, let$*$ name for}
+The \textsf{let$*$ }formula denotes the value specified
+in the formula that comes at the end of the 
+\index{formula!let$*$}\index{variable!let$*$}\index{let$*$ names for values}\index{value, let$*$ name for}\textsf{let$*$}, 
+after the name-value bindings.
+\caption{Naming Local Values with \textsf{let$*$}}
 \label{let*-def}
 \end{aside}
 
-Another property of the mod operator
+Another property of the \textsf{mod} operator
 in the domain of natural numbers
 is that the remainder
 is always smaller than the divisor.
-That is, (mod dividend divisor) < divisor.
+That is, \textsf{(mod $dividend$ $divisor$)} < $divisor$.
 The following property definition uses
-the doublecheck testing facility
-to test whether the mod function delivers values in this range.
+the DoubleCheck testing facility
+to test whether the \textsf{mod} function delivers values in this range.
 
-\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}
-\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
-\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}
-\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}
-\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}
-\seeonlyindex{less than ($<$)}{predicate}
+\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{less than ($<$)}{predicate}
 \begin{Verbatim}
 (defproperty mod-upper-limit-test
   (divisor-minus-1 :value (random-natural)
@@ -364,21 +358,24 @@ but as an inequality
 specified with the less-than operator ($<$).
 As always, the formula puts the operator in the prefix position,
 in front of its operands.
-For practice, add this property to the .lisp file with the other tests and run it.
+For practice, add this property to the .lisp file with the other tests and 
+use Proof Pad to run it.
 
 Another fact about remainders in division in the domain of natural numbers is that
 they are non-negative integers (that is, natural numbers).
-We can use the logical-and operator (``and'' is the ACL2 name for $\wedge$)
+We can use the logical-and operator
 to combine the upper-limit test with the natural-number test
-in one property definition.
-\label{natp-op}
-The value of the formula ``(natp $x$)'' is true
+in one property definition
+(``\textsf{and}'' is the ACL2 name for $\wedge$).
+\label{natp-op}The value of the formula 
+\textsf{(natp $x$)} is true
 if $x$ is a natural number and false if it isn't.
 
 \label{natp-axiom-formal}
 \begin{center}
 Axiom \{\emph{natp}\} \\
-(natp $x$) $=$ $x$ \emph{is a natural number}
+(natp $x$) $=$ $x$ \emph{is a natural number} $=$ \textsf{(and (integerp $x$) (>= $x$ 0))}\\
+\emph{Note}: \textsf{(integerp $x$)} is true if $x$ a whole number and false otherwise.
 \end{center}
 
 \begin{Verbatim}
@@ -392,7 +389,7 @@ Axiom \{\emph{natp}\} \\
 
 \begin{aside}
 ACL2 provides two operators,
-ceiling and floor, that divide one number by another,
+\textsf{ceiling} and \textsf{floor}, that divide one number by another,
 then round up or down to an integer value.
 In algebraic formulas, special brackets known as
 floor and ceiling brackets indicate the direction of rounding.
@@ -404,15 +401,10 @@ go in the other direction, down to the next integer
 that is the same as or smaller than the enclosed value.
 \\
 \begin{center}
-\index{operator, by name!ceiling (divide, round up)}\seeonlyindex{ceiling}{operator}
-\index{ceiling brackets}
-\index{brackets!ceiling}
-\index{operator, by name!floor (divide, round down)}\seeonlyindex{floor}{operator}\index{division!floor, mod}
-\index{floor brackets}
-\index{brackets!floor}
+\index{operator, by name!ceiling (divide, round up)}\seeonlyindex{ceiling}{operator}\index{ceiling brackets}\index{brackets!ceiling}\index{operator, by name!floor (divide, round down)}\seeonlyindex{floor}{operator}\index{division!floor, mod}\index{floor brackets}\index{brackets!floor}
 \begin{tabular}{lll}
-(ceiling $x$ $y$)& $= \lceil x  \div y \rceil $ \emph{quotient rounded up}   \\
-(floor $x$ $y$)  & $= \lfloor x \div y \rfloor$ \emph{quotient rounded down} \\
+\textsf{(ceiling $x$ $y$)}& $= \lceil x  \div y \rceil $ \emph{quotient rounded up}   \\
+\textsf{(floor $x$ $y$)}  & $= \lfloor x \div y \rfloor$ \emph{quotient rounded down} \\
 \end{tabular}
 \end{center}
 \caption{Floor and Ceiling Operators, Floor and Ceiling Brackets}
@@ -423,8 +415,8 @@ that is the same as or smaller than the enclosed value.
 
 There are two parts to the result
 of dividing one number by another: the quotient and the remainder.
-The mod operator delivers the remainder,
-and an operator called FLOOR (Aside~\ref{floor-ceiling-ops-brackets})
+The \textsf{mod} operator delivers the remainder,
+and an operator called \textsf{floor} (Aside~\ref{floor-ceiling-ops-brackets})
 delivers the quotient.
 The quotient is always strictly smaller
 than the dividend when the divisor is bigger than one
@@ -451,7 +443,7 @@ of multiplying the quotient by the divisor and adding the remainder.
 If this fails to reproduce the dividend,
 something has gone wrong in the division process.
 The following property tests this relationship
-between the mod and floor operators.
+between the \textsf{mod} and \textsf{floor} operators.
 It needs to use the multiplication operator, which is denoted by an asterisk.
 
 \label{division-check-test}
@@ -470,39 +462,40 @@ and the Proof Pad test facilities.
 The exercises will give you a chance to practice.
 
 \begin{ExerciseList}
-\Exercise Define a test of the floor operator
+\Exercise Define a test of the \textsf{floor} operator
 that checks to make sure its value is a natural number
 when its operands are natural numbers,
 and the divisor (second operand) is not zero.
 Use Proof Pad to run the test.
 
-\Exercise The ``max'' \index{operator, by name!max (of two operands)}\seeonlyindex{max}{operator}operator chooses the larger of two numbers:
-(max 2 7) is 7, (max 9 3) is 9.
-Define a doublecheck property that tests to make sure
-(max $x$ $y$) is
+\Exercise The 
+\index{operator, by name!max (of two operands)}\seeonlyindex{max}{operator}\textsf{max} 
+operator chooses the larger of two numbers:
+\textsf{(max 2 7)} is \textsf{7}, \textsf{(max 9 3)} is \textsf{9}.
+Define a DoubleCheck property that tests to make sure
+\textsf{(max $x$ $y$)} is
 \index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{greater or equal ($>=$)}{predicate}greater
-than or equal to (>=) both $x$ and $y$.
+than or equal to (\textsf{>=}) both $x$ and $y$.
 Use Proof Pad to run tests of the property.
 
 \Exercise
-Define a doublecheck property to test the distributive law
+Define a DoubleCheck property to test the distributive law
 of arithmetic (\{distributive law\}, Figure~\ref{fig-02-01}, page \pageref{fig-02-01}).
 Use Proof Pad to run your test.
 
 \Exercise
-Define doublecheck properties to test
-consistency between clock
-arithmetic and ordinary arithmetic
-as described in
+Define DoubleCheck properties to test consistency between clock
+arithmetic and ordinary arithmetic as described in
 Aside~\ref{modular-arithmetic} (page \pageref{modular-arithmetic}).
 Use Proof Pad to run your tests.
 
 \Exercise
-The ACL2 \index{operator, by name!reverse (elements in list)}\seeonlyindex{reverse}{operator}operator ``reverse''
+The ACL2 operator 
+\index{operator, by name!reverse (elements in list)}\seeonlyindex{reverse}{operator}\textsf{reverse}
 delivers a list whose elements are in the reverse order of those in its operand.
-For example (reverse (list 1 2 3)) is (list 3 2 1).
-Find an equation that expresses the value of (reverse (append $xs$ $ys$))
-in terms of (reverse $xs$) and (reverse $ys$).
+For example \textsf{(reverse (list 1 2 3))} is \textsf{(list 3 2 1)}.
+Find an equation that expresses the value of \textsf{(reverse (append $xs$ $ys$))}
+in terms of \textsf{(reverse $xs$)} and \textsf{(reverse $ys$)}.
 Define a property based on your equation and
 use Proof Pad to test it.
 
