@@ -117,7 +117,7 @@ The invocation \textsf{(mux $ys$ $xs$)}
 on the right-hand-side of \{mux1y\}
 delivers a list that starts with the first element of $ys$,
 then alternates between $xs$ and $ys$
-for a perfect shuffle. 
+for a perfect shuffle.
 It's a two-equation definition.
 
 \label{mux-2eq-defun}
@@ -135,7 +135,7 @@ However, the new definition makes reasoning more complicated
 because the operands switch roles in the inductive invocation.
 A \textsf{declare} directive in the definition
 helps ACL2 cope with this wrinkle in its
-proof that \textsf{mux2} terminates, 
+proof that \textsf{mux2} terminates,
 which the mechanized logic must complete before
 admitting the operator to the logic.
 \index{operator, by name!mux (multiplexer)}\index{axiom, by name!\{mux2-1y\}, \{mux2-0x0y\}}
@@ -192,7 +192,7 @@ We derive the conclusion from both possibilities,
 and that completes the proof because we can infer
 that the conclusion holds in all
 circumstances.\footnote{Case by case proofs of this kind
-would cite the \{$\vee$ elimination\} inference rule 
+would cite the \{$\vee$ elimination\} inference rule
 (page \pageref{fig-02-deduction-rules}) if they
 took the form of natural deduction.
 The proof here is rigorous, but not formal.
@@ -255,7 +255,7 @@ $\forall v.(($\textsf{(occurs-in $v$ $xs$)} $\vee$ \textsf{(occurs-in $v$ $ys$)}
 is Boolean equivalence (Aside~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
 \end{quote}
 
-The occurs-in predicate is defined as 
+The occurs-in predicate is defined as
 follows.\index{predicate, by name!occurs-in (list)}\index{operator, by name!occurs-in (\emph{see} predicate)}\seeonlyindex{occurs-in list}{predicate}
 \begin{center}
 \label{def:occurs-in}
@@ -303,7 +303,7 @@ Below is an ACL2 formalization of these ideas,
 which the ACL2 system succeeds in admitting.
 \label{acl2:iff}
 The
-\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator!Boolean equivalence (iff)}\index{equivalence!Boolean (iff)}\index{iff (\emph{see also} operator)}\textsf{iff}
+\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, logic!Boolean equivalence (iff)}\index{equivalence!Boolean (iff)}\index{iff (\emph{see also} operator)}\textsf{iff}
 operator is Boolean equivalence
 (Aside~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
 
@@ -471,7 +471,7 @@ two cases, one when the operand has an even number of elements
 the other when it has an odd number of elements $(2n+1)$.
 
 \Exercise\label{dmx-val-len-not-enough}
-Give an example of lists 
+Give an example of lists
 \textsf{[$x$ $y$]}, \textsf{[$u$]}, and \textsf{[$w$]} for which
 \textsf{[[$u$] [$w$]]} $\neq$ \textsf{(dmx [$x$ $y$])}, but the following formula is true.\\
 \hspace*{1cm}$\forall v.(($\textsf{(occurs-in $v$ [$u$])} $\vee$ \textsf{(occurs-in $v$ [$w$])}$)
@@ -502,7 +502,7 @@ Do a pencil-and-paper proof of the dmx-inverts-mux theorem
 \label{dmx2-eq-dmx}
 Do a paper-and-pencil proof that
 \textsf{(dmx2 $xs$)} $=$ \textsf{(dmx $xs$)}.\\
-\emph{Note}: \textsf{dmx2} is defined in 
+\emph{Note}: \textsf{dmx2} is defined in
 Aside~\ref{aside:dmx-defun-trick}, page \pageref{aside:dmx-defun-trick},
 and \textsf{dmx} is defined on page \pageref{dmx-defun}.
 
