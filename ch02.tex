@@ -20,33 +20,38 @@ accustomed to. What it buys is mechanization. That is,
 logic formulas and reasoning about them will amount to
 mechanized computation, and this will make it possible for
 computers to check that our reasoning follows all the rules,
-without exception. This provides a higher level of confidence
+without exception. This justifies more confidence
 in conclusions than would otherwise be possible.
 
 \begin{aside}
-\emph{Hold on to your seat!}
-\index{seat, hold on}This
-section illustrates an essential method used throughout the book.
-It introduces the notion of ``formality'' in mathematics.
-That is, \index{formalism}formality in the sense of being based on formulas.
-The formulas have a prescribed grammar similar to the one
-for ordinary numeric formulas.
-The grammar determines which formulas are well formed
-(that is, grammatically correct) and which are not.
-For example, ``$x+3\times(y + z)$'' conforms to the grammar
-of numeric formulas,
-so it is grammatically correct,
-but the non-formula ``$x+3\times(y + ) \times z$'' is not.
+Mathematical formulas communicate
+information using a formal grammar imbued with specific meanings.
+The grammar determines which phrases are well formed
+and which are not.
+For example, ``$x+3\times(y + z)$'' conforms to a grammar
+of numeric formulas.
+It is grammatically correct, and it stands for a
+particular and carefully prescribed calculation.
+The non-formula ``$x+3\times(y + ) \times z$'' 
+does not conform to that grammar and, therefore,
+carries no meaning.
+Reasoning about computer hardware and software
+calls for a high degree of \index{formalism}formality to ensure
+a level of consistency that is essential to  its usefulness.
 
+Rigorous formality takes many readers by surprise.
+It takes some getting used to.
 Things may seem overly simple in the beginning.
 Then, suddenly, you may find yourself thrashing around in deep water.
 Take a deep breath, and slowly work  through the material.
 It provides a basis for everything to follow.
 The ideas and methods call for careful study and frequent review.
 When things start to go off track,
-just slow down, back up a little, and try
+slow down, back up a little, and try
 again.\index{panic, don't}\index{disheartened?}\index{frustration}\index{baffled?}\index{worried?}\index{scared?}\index{funk, in a}
-Gradually, the pieces will fall into place.
+Gradually, the pieces will fall into place, 
+but you can expect to run into some bumps.
+\index{seat, hold on}\emph{Hold on to your seat.}
 \caption{Hold on to Your Seat}
 \label{aside-hold-on-to-seat}
 \end{aside}
@@ -56,7 +61,7 @@ includes operations like ``logical or'' and ``logical negation'',
 rather than arithmetic operations, such as addition and
 multiplication.
 We will be doing Boolean algebra, rather than numeric algebra,
-but the rule of inference that the reasoning is based on, namely
+but the underlying rule of inference, namely
 substitution\index{reasoning!with equations}\index{substitution}\index{formula!substitution}
 of equals for equals,
 applies equally well to both Boolean and numeric formulas.
@@ -90,7 +95,7 @@ We refer to letters used in this way as
 stand for a fixed number or a particular formula.
 The formula associated with a variable, though unspecified,
 is the same for every occurrence of the variable in the equation.
-That is, if $x$ stands for $3\times(y + 1)$ at one point in the
+If $x$ stands for $3\times(y + 1)$ at one point in the
 equation, then everywhere else $x$ occurs in the equation,
 it stands for that same formula, $3\times(y + 1)$.
 This is the usual custom in algebra.
@@ -130,7 +135,7 @@ transform that formula to a new one, and so on.
 We look for a way to apply the
 accepted equations one by one, so that in the end we
 arrive at the formula ``1''. At every step, we know that the
-new formula stands for the same value as the old one, so in
+new formula stands for the same number as the old one, so in
 the end we know that $(-1)\times(-1) = 1$.
 
 Figure~\ref{fig-02-02} (page \pageref{fig-02-02})
@@ -186,7 +191,7 @@ Pay particular attention to the last three lines of the proof.
 Most people tend to jump from the formula $0+1$ to the
 formula $1$ in one step. That jump requires knowing the equation
 $0+1 = 1$. However, that equation is not among those listed in
-Figure~\ref{fig-02-01} (page \pageref{fig-02-01}).
+Figure~\ref{fig-02-01}.
 We want to do the proof without citing any equations
 other than those in Figure~\ref{fig-02-01}, so we need two steps
 to get from ``$(0+1)$'' to ``$1$'',
@@ -222,7 +227,8 @@ philosophical assertions like ``two negatives make a positive.''
 Instead, the equation $(-1)\times(-1) = 1$ is a consequence of some
 basic arithmetic equations. If you accept the basic equations
 and the idea of substituting equals for equals,\footnote{Substituting
-equals for equals applies the first of Euclid's common notions:
+equals for equals applies the first of 
+\index{Euclid}Euclid's \index{common notions}common notions:
 Things which are equal to the same thing are also equal to one another.
 %Failed attempt to quote Euclid in Greek ... probably bad idea anyway
 %(Or, ``\textgreek{Ηἰτήσθω ἀπὸ παντὸς σημείου ἐπὶ πᾶν σημεῖον εὐθεῖαν γραμμὴν ἀγαγεῖν}'',
@@ -248,7 +254,7 @@ certain about some of the behavioral characteristics of
 software and of the digital circuits that
 comprise hardware components.
 Our certainty stems from the mechanistic
-formalism that we insist on from the beginning,
+\index{formalism}formalism that we insist on from the beginning,
 which can be checked to the last detail with automated computation.
 
 \begin{ExerciseList}
@@ -277,11 +283,13 @@ the \{$\times$ negation\} equation from Exercise \ref{ex:times-negation}.
 \label{sec:boolean-equations}
 Let's start with the Boolean equations in
 Figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
-These equations, which we will call the Boolean axioms,
+These equations, which we will call the 
+\index{Boolean!axiom}Boolean \index{axiom!Boolean algebra}axioms,
 are the starting point for our system of reasoning.
 They form the basis from which we will derive
 a host of other equations.
-If these axiomatic equations are new to you and seem strange,
+If these axiomatic \index{equation!as axiom}equations 
+are new to you and seem strange,
 try to view them as ordinary,
 algebraic equations, but with a different collection of operators.
 A formula in numeric algebra has operations like addition
@@ -345,6 +353,11 @@ $\neg(\neg x)  = x$                                  & \{double negation\} \\
 \index{equation, by name!\{idempotent\}}
 \index{equation, by name!\{self-implication\}}
 \index{equation, by name!\{double negation\}}
+\index{operator, logic!and ($\wedge$)}
+\index{operator, logic!or ($\vee$)}
+\index{operator, logic!not ($\neg$)}
+\index{operator, logic!implication ($\rightarrow$)}
+\seeonlyindex{logic operator}{operator, logic}
 \caption{Boolean Axioms (basic equations)}
 \label{fig-02-03}
 \end{figure}
@@ -352,12 +365,12 @@ $\neg(\neg x)  = x$                                  & \{double negation\} \\
 When we derive a new equation by citing an equation that was,
 itself, derived, rather than by citing an axiomatic equation
 from Figure~\ref{fig-02-03},
-we refer to the cited equation as a \emph{theorem} to
+we refer to the cited equation as a \index{theorem}\emph{theorem} to
 distinguish it from an axiom.
-The new equation is also a theorem,
-and it can be cited in derivations of other new equations.
+The new \index{equation!as theorem}equation is also a theorem,
+and it can be cited in \index{derivation}derivations of other new equations.
 We call such a derivation of a new equation a
-\emph{proof} of the equation.
+\index{proof}\emph{proof} of the equation.
 
 \begin{figure}
 \begin{theorem}[\{$\vee$ truth table\}]
@@ -406,11 +419,7 @@ by citing axioms in a similar way.
 
 We are serious about that. Did you prove the other two equations?
 No? Well \dots go back and do it, then. Without participation, there
-is no learning.
-
-\smallskip
-$\dots$ \emph{We'll wait here}$\dots$
-\smallskip
+is no learning. $\dots$ \emph{We'll wait here}$\dots$
 
 Finished now? Good for you. You cited the \{$\vee$ identity\} axiom in your
 proof of the third equation in the theorem and the \{$\vee$ null\}
@@ -444,8 +453,7 @@ That formula has two variables, so the truth table has four equations.
 \end{aside}
 
 Derivations are usually more than one step, of course.
-For example, the
-\{$\vee$ complement\} theorem
+The \{$\vee$ complement\} theorem
 (Figure~\ref{fig:or-complement-thm}, page \pageref{fig:or-complement-thm})
 has a two-step proof, citing the \{implication\} axiom
 and the \{self-implication\} axiom.
@@ -536,11 +544,12 @@ The rewritten version of $h$
 becomes the new, derived formula.
 We know that the derived formula stands for the same value
 as the original formula because the axiom asserts this equivalence,
-and we are assuming that axioms are right.
+and we assume the axioms are right.
 
 \begin{aside}
-Another way to prove that two formulas stand
-for the same value is to build truth tables for both formulas.
+Reasoning from equations is one way to prove that two formulas stand
+for the same value. 
+Another way is to build truth tables for both formulas.
 If the tables match, value for value, you can conclude that
 the formulas are equal.
 When there are only a few variables, and therefore only a few combinations,
@@ -569,7 +578,7 @@ Proofs like those that make up the core of this book
 are not the only effective way to work with large formulas.
 Hardware and software designers sometimes use
 SMT solvers (satisfiability modulo theories),
-BDD tools (binary decision diagrams), or other similar tools
+BDD tools (binary decision diagrams), or other similar methods
 to verify properties of circuits and computer programs,
 but such tools don't apply to all formulas.
 Reasoning based on grammatical form
@@ -624,9 +633,8 @@ It is tempting to copy the
 old component, change $2 \times x$ to $3 \times x$,
 and paste the revised component into the program.
 
-In our experience,
-\index{copy-and-paste programming}copy-and-paste programming is
-a common source of errors in software,
+In our experience, \index{copy-and-paste programming}copy-and-paste 
+programming is a common source of errors in software,
 especially in programs maintained
 over time. When a maintainer finds an error in
 a component that was copied from elsewhere,
@@ -681,21 +689,25 @@ $=$ & $True$                           & \{$\neg$ truth table\}\\
 \label{implication-truth-table}
 \end{figure}
 
-In day-to-day life outside the sphere of symbolic logic,
+In day-to-day life outside the domain of symbolic logic,
 the usual interpretation of the logical implication ``$x \rightarrow y$''
-is that we can conclude that $y$ is true if we know that
+is to conclude that $y$ is true if whenever
 $x$ is true. However, the implication says nothing
 about $y$ when $x$ is not true. In particular, it
-does not say that $y$ is not true whenever $x$ is not true.
+does not say that $y$ is not true when $x$ is not true.
 Theorem \{$\rightarrow$ truth table\} shows that the
 formula ``$False \rightarrow y$'' has the value $True$ when $y$ is $True$
 and also when $y$ is $False$.
 In other words, the truth of the formula $x \rightarrow y$ in the case
-where the hypothesis, $x$, is $False$ provides
-no information about the conclusion, $y$.
+where the operand on the left of the arrow (which is known as the 
+\index{discharge assumption}\index{Assume (natural deduction)!discharge}\index{hypothesis!discharge}\index{implication ($\rightarrow$)}\index{implication ($\rightarrow$)!hypothesis}\index{hypothesis!implication ($\rightarrow$)}\emph{hypothesis}
+of the implication), $x$, is $False$ provides
+no information about the right-hand operand, $y$ (which is known as the 
+\index{conclusion!implication ($\rightarrow$)}\index{implication ($\rightarrow$)!conclusion}\emph{conclusion} 
+of the implication).
 
-A common mistake in everyday life is to assume that if the
-implication ``$x \rightarrow y$'' is true, then the implication
+A common mistake in everyday life is to infer from the truth of the
+implication ``$x \rightarrow y$'' that the implication
 ``$(\neg x) \rightarrow (\neg y)$''
 is also true. Sometimes this leads to bad
 results, even in everyday life.\footnote{If turtles
@@ -758,7 +770,8 @@ the null law for logical-or (\{$\vee$ null\}: $x \vee True = True$)
 from left to right simplifies a logical-or formula to $True$.
 When the equation is applied in the other direction, however,
 it transforms the simple formula $True$ into something more complicated $(x \vee True)$.
-The variable $x$ on the left-hand side
+When you apply the equation from right to left,
+the variable $x$ on the left-hand side
 stands for any formula you want to make up (as long as it's grammatically correct).
 It can have hundreds of variables and thousands operations.
 This may seem perverse, but if that's what it takes to complete a proof, so be it.
@@ -830,8 +843,8 @@ to derive the \{$\vee$-absorption\} equation: $(x \wedge y) \vee y = y$.
 Derive the equation
 $((x \vee y) \wedge (\neg(x \wedge y))) = (((\neg x) \wedge y) \vee (x \wedge (\neg y)))$
 from the Boolean axioms.\\
-\index{exclusive or}\index{or, exclusive}\emph{Note}:
-These formulas define the exclusive-or operator.
+\emph{Note}: These formulas define the 
+\index{exclusive or}\index{or, exclusive}exclusive-or operator.
 
 \Exercise
 Use the Boolean axioms
@@ -848,11 +861,11 @@ and on the right-hand side will have the value ($True$ or $False$) of the formul
 \label{sec:boolean-formuas}
 
 We have been doing proofs based on the grammatical elements of formulas,
-but instead of taking the time to put together a precise definition of that grammar,
-we have been relying on your experience with numeric algebra.
-However, it is good to have a precise definition of the grammar.
+but we never tried to put together a precise definition of that grammar.
+We have been relying on your experience with numeric algebra.
+However, we really should have a precise definition of the grammar.
 We start with the most basic elements,
-then up to more complicated ones.
+then go on to more complicated ones.
 
 The simplest Boolean formulas are the basic constants ($True$ and $False$)
 and variables ($x$, $y$, $\dots$).
@@ -896,7 +909,7 @@ If $x$ is a grammatically correct formula, then so is $(\neg x)$.
 
 The three rules of grammar are sufficient to
 cover a full range of grammatically correct Boolean formulas,
-and, they lead to an infinite variety of grammatically correct formulas.
+and they lead to an infinite variety of grammatically correct formulas.
 However, there is a fine point to discuss about parentheses.
 Parentheses are important because they make it easy to define
 the grammar and to explain the meaning of a formula.
@@ -904,11 +917,11 @@ The formulas covered by the three rules are fully parenthesized,
 including a top level of parentheses enclosing the entire formula
 when an operator is involved.
 Top level parentheses are often omitted in informal presentations,
-and we have usually done that.
+and we have usually omitted them.
 
 For example, we have been writing formulas like ``$x \vee y$'',
 without the top-level parentheses
-the grammar requires.
+that the grammar requires.
 To conform to the grammar,
 we would have to write ``$(x \vee y)$'', with the parentheses.
 Because we have omitted top-level parentheses,
@@ -934,7 +947,7 @@ especially because Boolean formulas may be new to you.
 
 We will sometimes be informal enough to omit
 top level of parentheses around the whole formula,
-but we will not omit any interior parentheses.
+but we will not omit interior parentheses.
 The grammar does allow redundant parentheses, however.
 For example, the formula $(x \vee ((x \wedge y)))$
 is grammatically correct and has the same meaning as the formula
@@ -1052,6 +1065,10 @@ $\bullet$ ~~ $v$ is a variable or $True$ or $False$ \\
 \index{equation, by name!\{self-implication\}}
 \index{equation, by name!\{double negation\}}
 \index{equation, by name!\{atomic release\}}
+\index{operator, logic!and ($\wedge$)}
+\index{operator, logic!or ($\vee$)}
+\index{operator, logic!not ($\neg$)}
+\index{operator, logic!implication ($\rightarrow$)}
 \caption{Axioms of Boolean Algebra}
 \label{fig-02-boolean-axioms}
 \end{figure}
@@ -1063,7 +1080,6 @@ is a grammatically correct Boolean formula.
 The definition of the grammar is circular,
 but in a useful way that shows
 how to build more complicated formulas from simpler ones.
-
 To verify that a formula is grammatically correct,
 find the rule of grammar that matches it,
 then verify that each part of the formula
@@ -1071,6 +1087,7 @@ that matches with a variable in the rule of grammar
 is also grammatically correct.
 Atomic formulas have no substructure,
 so they require no further analysis when checking for grammatical correctness.
+
 \begin{figure}
 \begin{center}
 \begin{tabular}{ll}
@@ -1131,7 +1148,7 @@ For example, consider the formula
 $((x \vee (\neg y)) \wedge (x \rightarrow z))$.
 It matches with the \{bin-op\} rule.
 The variables in the rule match
-with the elements of the formula in the following way.
+with elements of the formula in the following way.
 
 \vspace{2mm}
 \begin{minipage}{\textwidth}
@@ -1278,7 +1295,8 @@ Prove the following equation.\\
 \end{ExerciseList}
 
 \begin{aside}
-The following equation defines the Boolean equivalence operator ($\leftrightarrow$).
+The following equation defines the 
+\index{operator, logic!Boolean equivalence ($\leftrightarrow$)}Boolean equivalence operator ($\leftrightarrow$).
 \vspace{1mm}
 \begin{center}
 $(x \leftrightarrow y) = ((x \rightarrow y) \wedge (y \rightarrow x))$\hspace{5mm}\{equivalence\}
@@ -1296,7 +1314,7 @@ Altogether,
 Exercises~\ref{ex:boolean-equiv1}--\ref{ex:boolean-equiv4}
 show six formulas that deliver the value of the Boolean equivalence operator.
 In other words, the exercises provide six formulas that are all equivalent to
-Boolean equivalence.\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator!Boolean equivalence ($\leftrightarrow$)}\index{equivalence!Boolean ($\leftrightarrow$)}
+Boolean equivalence.\index{Boolean!equivalence ($\leftrightarrow$)}\index{equivalence!Boolean ($\leftrightarrow$)}
 \caption{Boolean Equivalence ($\leftrightarrow$)}
 \label{aside:boolean-equivlance}\label{def:equivalence-op}
 \end{aside}
@@ -1309,7 +1327,7 @@ These same operations can be materialized as electronic devices.
 The basic operators of logic represented in the form of electronic devices
 are called ``logic gates.''
 There are logic
-\index{digital gate}\index{Boolean!gate}\index{gate!logic}\index{logic!gate}gates
+\seeonlyindex{digital gate}{gate}\index{Boolean!gate}\index{gate!logic}\index{logic!gate}gates
 for the logical-and, the logical-or, negation, and
 several other operators not yet discussed.
 
@@ -1330,7 +1348,7 @@ is ironic.
 George Boole himself, the inventor of Boolean algebra,
 called implication the queen of logic operators.
 It is one of only a few basic operators that are
-\index{gate!functionally complete}\index{operator!functionally complete}\index{gate!universal}\index{universal gate}\index{functionally complete}\emph{functionally complete} (or \emph{universal})
+\index{operator, logic!functionally complete}\index{gate!functionally complete}\index{operator!functionally complete}\index{gate!universal}\index{universal gate}\index{functionally complete}\emph{functionally complete} (or \emph{universal})
 in the sense that, for any formula in logic, there is an equivalent formula
 with no operators other than implication.
 That is, given any grammatically correct logic formula,
@@ -1368,7 +1386,7 @@ A logic gate with two inputs is a physical representation of
 a binary operator. The negation operator corresponds to a
 logic gate with one input.
 
-Logic operands and values are always either $True$ or $False$.
+Logic operands and values always stand for either $True$ or $False$.
 Similarly, an input line of a logic gate can distinguish between
 only two distinct signals
 and deliver only two distinct \index{signals, Boolean}\index{Boolean!signals}signals on an output line.
@@ -1421,6 +1439,23 @@ of the signals $a$ and $b$.
 \index{xor (logic gate)}
 \index{xnor (logic gate)}
 \index{exclusive or}\index{or, exclusive}
+\index{operator, logic!nand}
+\index{operator, logic!and ($\wedge$)}
+\index{operator, logic!or ($\vee$)}
+\index{operator, logic!nor}
+\index{operator, logic!not ($\neg$)}
+\index{operator, logic!exclusive or}
+\index{operator, logic!exclusive nor}
+\index{gate!and}
+\index{gate!or}
+\index{gate!not}
+\index{gate!negation}
+\index{inverter, gate}
+\index{gate!nand}
+\index{gate!nor}
+\index{gate!xnor}
+\index{gate!xor}
+\index{gate!inverter}
 \caption{Digital Circuits = Logic Formulas}
 \label{fig-02-logic-gates}
 \end{figure}
@@ -1437,7 +1472,8 @@ and the algebraic notation used by circuit designers are three
 different notations for exactly the same mathematical objects.
 In this sense, digital circuits, and, therefore, computers,
 are materializations of logic formulas.
-Computers are logic in action.
+Computers are 
+\index{logic!in action}logic in action.
 
 The logic operators that we have been using
 ($\wedge$, $\vee$, $\neg$, $\rightarrow$)
@@ -1464,7 +1500,8 @@ negation in terms of the implication operator.
 Furthermore, implication is not the only logic operator
 that is universal in this sense.
 Another one
-is the negation of logical-and, which is called ``nand''.
+is the negation of logical-and, which is called 
+\index{nand!logic gate}\index{operator, logic!nand}\emph{nand}.
 When fabricated using certain widespread technologies,
 nand gates can run faster and be more reliable than other gates,
 so many integrated circuits make frequent use of nand gates.
@@ -1485,8 +1522,8 @@ $(\neg a) = (\neg (a \wedge a))$  & \{$\neg$ as nand\}\label{neg-as-nand}
 \end{tabular}
 \end{center}
 
-In this way a nand gate can serve in place of a
-negation gate (also known as an inverter).
+In this way a \index{gate!nand}\index{operator, logic!nand}\index{nand!logic gate}nand gate can serve in place of a
+negation gate (also known as an \index{inverter, gate}\index{gate!inverter}inverter).
 There is a one-step proof of the equation,
 citing the \{$\wedge$ idempotent\} theorem
 (page \pageref{and-idempotent}).
@@ -1543,8 +1580,10 @@ in terms of nand operations.
 \end{figure}
 
 \begin{ExerciseList}
-\Exercise Using a negation-gate and an or-gate, draw a circuit diagram with the input/output behavior of the implication operator.
-We refer to this circuit diagram as an ``implication circuit''.\\
+\Exercise\label{ex:implication-gate}
+Using a negation-gate and an or-gate, 
+draw a circuit diagram for an ``implication circuit'' 
+that has the same input/output behavior as the implication operator.\\
 \emph{Hint}: Follow the example of the \{implication\} axiom
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})).
 One of the inputs will need to be a constant rather than a variable.
@@ -1553,7 +1592,7 @@ One of the inputs will need to be a constant rather than a variable.
 Since we don't have a symbol for an implication gate,
 you can either make up you own symbol or
 materialize logic gates where you need them
-using the circuit diagram from the previous exercise.
+using the circuit diagram from Exercise \ref{ex:implication-gate}.
 \begin{center}
 \begin{tabular}{l}
 $((a \vee (b \wedge (\neg a))) \vee (\neg (a \vee b)))$ \\
@@ -1570,7 +1609,7 @@ Use the \{implication\} axiom to represent
 implications using negation and logical-or.
 
 \Exercise Draw circuit diagrams with behavior
-of the and gate, the or gate, and the negation gate
+of the and-gate, the or-gate, and the negation-gate
 using implication operators only.
 \end{ExerciseList}
 
@@ -1617,8 +1656,10 @@ Don't give up.
 \section{Deduction}
 \label{sec:deduction}
 
-We have been reasoning with equations, which means we are reasoning in two directions
-at the same time, since equations go both ways. Deductive \index{reasoning!deductive}\index{deductive reasoning}reasoning is one-directional.
+We have been reasoning with equations, 
+which means we are reasoning in two directions
+at the same time. Equations go both ways. 
+Deductive \index{reasoning!deductive}\index{deductive reasoning}reasoning is one-directional.
 It derives a conclusion from hypotheses using one-directional rules of inference.
 A proof shows that the conclusion is true whenever the hypotheses are true, but provides
 no information about the conclusion when the truth of one or more of the hypotheses is
@@ -1626,9 +1667,10 @@ unknown.
 
 In the following discussion of proof by \index{deduction!proof by}deduction,
 theorems will be stated using the symbol ``$\vdash$'',
-which is called a \index{turnstile}turnstile,
-to separate the \index{hypothesis}hypotheses from the \index{conclusion}conclusions.
-Hypotheses go on the left of the turnstile and the conclusion goes on the right.
+which is called a \index{turnstile ($\vdash$)}turnstile,
+to separate the \index{hypothesis!theorem}hypotheses 
+from the \index{conclusion!theorem}conclusions.
+Hypotheses go on the left of the turnstile and the conclusion on the right.
 All of the hypotheses are formulas in logic, as is the conclusion.
 A turnstile asserts that there is a derivation of the conclusion
 from the hypotheses using the rules of inference.
@@ -1735,8 +1777,8 @@ Discharge $a$                                   & \emph{excludes formula} ``$a$'
 \index{deductive proof}
 \index{natural deduction}
 \index{deduction!natural}
-\index{discharge  hypothesis}\index{hypothesis!discharge}
-\index{inference rule!discharge hypothesis}
+\index{discharge assumption}\index{Assume (natural deduction)!discharge}\index{hypothesis!discharge}
+\index{inference rule!discharge assumption}
 \index{proof!deductive}
 \caption{Rules of Inference for Natural Deduction}
 \label{fig-02-deduction-rules}
@@ -1797,7 +1839,7 @@ Many presentations of classical logic begin with
 \index{deductive reasoning}deductive \index{reasoning!deductive}reasoning,
 but we started with Boolean algebra
 because we will be using logic to reason about
-digital circuits and software specified with equations.
+digital circuits and software specified in the form of equations.
 So, equations play a central role throughout the
 discussion.\footnote{An accessible,
 more extensive discussion of natural deduction can be found
@@ -1836,9 +1878,9 @@ The \{$\wedge$ introduction\} rule, on the other hand,
 requires two proofs above the line and
 constrains its conclusion (below the line)
 to be a logical-and formula $(a \wedge b)$.
-Some rules place constraints on the formulas
+Some rules place constraints both on the formulas
 above the line (which have been derived earlier in the proof)
-and also place constraints on the formula
+and on the formula
 \seeonlyindex{above the line}{proof}\seeonlyindex{below the line}{proof}\index{line (natural deduction)!above/below}below the line.
 For example the \{$\neg$ introduction\} rule requires
 the formula above the line to be an implication
@@ -1862,7 +1904,7 @@ Each of the proofs that the rule requires above the line
 is, itself, a proof.
 That is, it is also a sequence of citations ending in a conclusion formula.
 
-The \index{scope}\index{inference rule!scope}\emph{scope} of a
+The \index{scope, inference rule citation}\index{inference rule!scope of citation}\emph{scope} of a
 \index{citation!inference rule}\index{inference rule!citation}citation
 of an inference rule
 extends upward to the beginning of the first of the proofs
@@ -1873,7 +1915,7 @@ In fact, the scope of the last rule citation in a proof
 always extends upward to the beginning of the proof,
 so the scopes of all of the other citations are nested
 within the scope of the last citation.\footnote{Because
-of the nesting in the scopes of rule citations,
+of nested scopes,
 proofs by natural deduction
 are sometimes written with parentheses,
 like algebraic formulas,
@@ -1924,8 +1966,8 @@ those proofs, together with a citation of modus ponens,
 derive the conclusion $b$.\footnote{Deductive
 proofs are one-directional,
 and so is the theorem about Socrates.
-One can conclude mortality from two hypotheses stating certain conditions of life,
-but one cannot derive those conditions of life from the mortality of Socrates.
+One can conclude mortality from two hypotheses about circumstances of life,
+but one cannot derive those circumstances from the mortality of Socrates.
 Rabbits, for example, are mortal, but they are not men.}
 
 Proofs by natural deduction follow strictly a prescribed format,
@@ -2106,8 +2148,8 @@ Assume $a$                  &\emph{assumption discharged later}\\
 \index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}
 \index{inference rule, by name!\{identity\}}
 \index{inference rule, by name!\{$\rightarrow$ introduction\}}
-\index{hypothesis!discharge}\index{discharge hypothesis}\index{Assume (natural deduction)!discharge}
-\index{inference rule!discharge hypothesis}
+\index{hypothesis!discharge}\index{discharge assumption}\index{Assume (natural deduction)!discharge}
+\index{inference rule!discharge assumption}
 \index{theorem, by name!\{self-implication\}}
 \caption{$\vdash$ $a \rightarrow a$: Citing  \{identity\} and \{$\rightarrow$\ introduction\} Inference Rules}
 \label{fig:or-self-imp-proof}
@@ -2122,7 +2164,7 @@ After the turnstile, write the formula in the
 conclusion at the end of the proof.
 
 Now we come to the issue of
-\index{hypothesis!discharge}\index{discharge hypothesis}\index{Assume (natural deduction)!discharge}\index{inference rule!discharge hypothesis}\index{proof!discharge hypothesis}\index{Assume (natural deduction)!discharge}discharging
+\index{hypothesis!discharge}\index{discharge assumption}\index{Assume (natural deduction)!discharge}\index{inference rule!discharge assumption}\index{proof!discharge assumption}\index{Assume (natural deduction)!discharge}discharging
 formulas assumed in proofs.
 The inference rule \{$\rightarrow$ introduction\}
 has some unique characteristics.
@@ -2142,7 +2184,7 @@ extends upward to the required assumption.
 Normally, any formula assumed at the beginning of a proof
 becomes a \index{hypothesis}hypothesis of the theorem that was proved.
 However, a
-\index{hypothesis!discharge}\index{discharge hypothesis}\index{Assume (natural deduction)!discharge}\index{inference rule!discharge hypothesis}\index{proof!discharge hypothesis}discharged
+\index{hypothesis!discharge}\index{discharge assumption}\index{Assume (natural deduction)!discharge}\index{inference rule!discharge assumption}\index{proof!discharge assumption}discharged
 assumption
 is not added to the hypotheses of the theorem.
 A citation of the
@@ -2175,7 +2217,7 @@ which is included among the inference rules to make it
 possible for proofs by natural deduction to stay strictly
 within the formalism required by the system.
 The \{identity\} rule says that a proof of a formula $a$
-can be followed by a citation of \{identity\} rule
+can be followed by a citation of the \{identity\} rule
 with that same formula, $a$, as its conclusion below the line.
 
 The application of any rule must \index{matching!inference rule}\index{inference rule!matching}match
@@ -2189,13 +2231,16 @@ a proof above the line that begins with the assumption of $a$
 and concludes with the formula $a$, just above the line.
 The \{identity\} rule makes it possible to satisfy this requirement.
 In the proof of self-implication,
-the citation of \{$\rightarrow$ introduction\} rule follows
-the derivation of $a$ from $a$ and triggers a discharge
+the citation of 
+\index{implication ($\rightarrow$)!introduction}\{$\rightarrow$ introduction\} rule 
+follows the derivation of $a$ from $a$ and triggers a 
+\index{discharge assumption}discharge
 of the assumption of $a$ at the beginning of the proof.
 There are no other \index{Assume (natural deduction)}assumed formulas in the proof,
 so the theorem proved has no hypotheses.
-That is, the \index{proof}proof confirms that the \index{conclusion}conclusion formula
-\index{implication}$(a \rightarrow a)$ has the value $True$, regardless of
+That is, the \index{proof}proof confirms that the 
+\index{conclusion}conclusion formula
+$(a \rightarrow a)$ has the value $True$, regardless of
 what formula $a$ stands for.
 
 \begin{figure}
@@ -2223,17 +2268,7 @@ Discharge $b$              &\emph{discharged by} \{$\rightarrow$ introduction\} 
        &~~~~\emph{conclude} $(b \vee a)$\emph{, the conclusion of the theorem}\\
 \end{tabular}
 \end{center}
-\index{hypothesis!Assume (natural deduction)}
-\index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}
-\index{inference rule, by name!\{$\vee$ elimination\}}
-\index{inference rule, by name!\{$\vee$ introduction 2\}}
-\index{inference rule, by name!\{$\rightarrow$ introduction\}}
-\index{inference rule, by name!\{$\vee$ introduction 1\}}
-\index{inference rule!discharge hypothesis}
-\index{discharge hypothesis}\index{Assume (natural deduction)!discharge}
-\index{hypothesis!discharge}
-\index{theorem, by name!\{$\vee$ commutes\}}
-\index{commutative}
+\index{hypothesis!Assume (natural deduction)}\index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}\index{inference rule, by name!\{$\vee$ elimination\}}\index{inference rule, by name!\{$\vee$ introduction 2\}}\index{inference rule, by name!\{$\rightarrow$ introduction\}}\index{inference rule, by name!\{$\vee$ introduction 1\}}\index{inference rule!discharge assumption}\index{discharge assumption}\index{Assume (natural deduction)!discharge}\index{hypothesis!discharge}\index{theorem, by name!\{$\vee$ commutes\}}\index{commutative}
 \caption{\{$\vee$ commutes\}: Citing \{$\vee$ elimination\}}
 \label{fig:or-commutes-proof}
 \end{figure}
@@ -2287,8 +2322,8 @@ the proof cites the \{$\rightarrow$ introduction\} rule twice.
 Both of those citations require discharges,
 so there's lot of action in the proof.
 Figure~\ref{fig:or-commutes-proof}
-elucidates some of the details with commentary
-intended to help you work through the details
+elucidates the details with commentary
+intended to help you work through the proof
 to understand how the citations fit together and
 comprise a proof of the \{$\vee$ commutes\} theorem.
 
@@ -2335,8 +2370,8 @@ Assume $b \rightarrow c$                               &\emph{hypothesis of theo
 \index{inference rule, by name!\{$\rightarrow$ introduction\}}
 \index{modus ponens}
 \index{theorem, by name!\{$\rightarrow$ chain\}}
-\index{inference rule!discharge hypothesis}
-\index{discharge hypothesis}\index{Assume (natural deduction)!discharge}
+\index{inference rule!discharge assumption}
+\index{discharge assumption}\index{Assume (natural deduction)!discharge}
 \index{hypothesis!discharge}
 \caption{Proving the Implication Chain Rule}
 \label{fig:impchain-proof}
@@ -2400,8 +2435,9 @@ The modus tollens theorem says that the hypothesis
 of an implication can be derived from the negation of its conclusion.}
 The proof cites the implication chain rule theorem.
 Since that theorem has two hypotheses, there are two proofs above
-the line where the theorem is cited, and those proofs conclude in
+the line where the theorem is cited. Those proofs conclude in
 the implication formulas that are the hypotheses of the implication chain rule.
+Finally, the a citation of the \{$\neg$ introduction\} rule completes the proof.
 
 The \{reductio ad absurdum\} rule supports
 ``proof by contradiction''.
@@ -2468,7 +2504,18 @@ Creating proofs by
 It requires a lot of practice, just to get
 a firm grasp of the ideas.
 The following exercises provide an opportunity
-to get some of that practice.
+to get some of that practice. As a
+\index{natural deduction!where to start}\index{rule of thumb!natural deduction}\index{deduction!rule of thumb}rule of thumb, 
+it often helps to start at the bottom
+of a proof by natural deduction. Write the conclusion formula
+at the bottom (it will have to go there, anyway),
+and draw a line above it. Choose an inference rule that
+might be cited on that line, and think about how you might
+be able to cite the rule, possibly considering the hypotheses of
+the theorem you are trying to prove or other formulas
+that might be derivable from them. Working from the bottom
+of the proof in this way can be an effective strategy for
+finding the insights needed to create a proof.
 
 \begin{figure}
 Theorem \{disjunctive syllogism\}: $a \vee b$, $\neg a$ $\vdash$ $b$ \\
@@ -2508,8 +2555,8 @@ Discharge $b$              & \emph{discharged by} \{$\rightarrow$ introduction\}
 \index{inference rule, by name!\{contradiction\}}
 \index{inference rule, by name!\{$\rightarrow$ introduction\}}
 \index{inference rule, by name!\{identity\}}
-\index{inference rule!discharge hypothesis}
-\index{discharge hypothesis}\index{Assume (natural deduction)!discharge}
+\index{inference rule!discharge assumption}
+\index{discharge assumption}\index{Assume (natural deduction)!discharge}
 \index{hypothesis!discharge}
 \index{theorem, by name!\{disjunctive syllogism\}}
 \index{disjunctive syllogism}
@@ -2727,7 +2774,7 @@ a variable, then a period, and finally a logic formula
 representing a proposition. The variable,
 which is known as the
 \label{def:bound-variable}
-\index{bound variable}\index{variable!bound}``bound variable''
+\index{bound variable}\index{variable!bound}\emph{bound variable}
 in the formula, stands for an
 element of the universe of discourse, and the quantification
 ranges over the entire universe of discourse.
@@ -2766,7 +2813,7 @@ for which $P(x)$ is true.
 
 Any variable that is not bound is
 called a
-\index{bound variable}\index{variable!free}\index{variable!bound}\index{free variable}\label{def:free-variable}``free variable''.
+\index{bound variable}\index{variable!free}\index{variable!bound}\index{free variable}\label{def:free-variable}\emph{free variable}.
 In the formula $(\forall x.P(x)) \vee y$,
 $x$ is a bound variable, and $y$ is a free variable.
 This can get a bit tricky, but you have to keep it
@@ -2789,7 +2836,7 @@ for which the proposition $P(x)$ is $True$.\footnote{The
 formula for all $(\exists x.P(x))$ reads
 ``there exists $x$ such that $P(x)$ is \emph{True}.''}
 
-Consider the equation $(n + 7 = 12)$.
+Consider the equation $((n + 7) = 12)$.
 Any equation is a proposition because it is either
 $True$ or $False$. Let's call this proposition $Q(n)$.
 We can take the view that $Q$ is a predicate
@@ -2797,7 +2844,7 @@ with the natural numbers as its domain of discourse
 because for each natural number $n$,
 $Q(n)$ stands for a proposition.
 You know from algebra that there is a natural number
-$n$ for which equation $(n + 7 = 12)$ holds.
+$n$ for which equation $((n + 7) = 12)$ holds.
 That is, there is a value (namely, the number 5) in the domain
 of discourse for which the proposition $Q(n)$ is $True$.
 Therefore, according to the definition of the
@@ -3012,16 +3059,17 @@ formulas.
 
 This approach to reasoning about quantified formulas is a four-step process.
 The last step is the already familiar area of reasoning
-with Boolean formulas and equations,
+with Boolean formulas that represent propositions,
 but the first three steps involve new ideas.
 
 \begin{center}
-\begin{tabular} {l}
-\emph{Reasoning with Quantifiers: a Four-Step Strategy} \\
-~~~~~~1. Rename bound variables \\
-~~~~~~2. Migrate quantifiers \\
-~~~~~~3. Eliminate quantifiers \\
-~~~~~~4. Prove theorem about Boolean formula \\
+\emph{Reasoning with Quantifiers: a Four-Step Strategy}\\
+\begin{tabular} {ll}
+\hline
+~&1. Rename bound variables \\
+~&2. Migrate quantifiers \\
+~&3. Eliminate quantifiers (leaving a proposition) \\
+~&4. Prove theorem about the proposition \\
 \end{tabular}
 \label{four-step-strategy-quantifiers}
 \index{Skolemization}
@@ -3034,17 +3082,19 @@ a quantifier from accidentally referring to a different bound variable
 that happens to have the same name.
 For example, consider the formula
 $(\forall x.Odd(x)) \vee (\forall x.Even(x))$,
-where the domain of discourse for both quantifiers is the integers.\footnote{$Odd(n) \equiv (\exists k.(n = 2k+1))$.
+where the domain of discourse for both quantifiers is the integers.\footnote{$Odd(x) \equiv (\exists y.(x = 2y+1))$.
 \label{even-number-predicate-Even}
-$Even(n) \equiv (\exists k.(n = 2k))$.
-The integers are the universe of discourse for the predicates (variable $n$)
-and the quantifications (variable $k$).}
+$Even(x) \equiv (\exists y.(x = 2y))$.
+The integers are the universe of discourse 
+for the predicates $Odd$ and $Even$ (variable $x$)
+and the quantifications (bound variable $y$).}
 This formula has the value $False$ because there
-is a natural number $n$ for which $Odd(n$) is false (the number $2$, for example).
+is an integer $x$ for which $Odd(x$) is false (the number $2$, for example).
 That makes $(\forall x.Odd(x))$ false.
 Similarly, $(\forall x.Even(x))$ is false,
 and since both operands of $\vee$ in $(\forall x.Odd(x)) \vee (\forall x.Even(x))$
-are false, the truth table for $\vee$ shows that the formula is false.
+are false, the formula is false (\{$\vee$ truth table\}, 
+Figure~\ref{or-truth-table}, pagee \pageref{or-truth-table}).
 There are two bound variables in the formula.
 These are different variables even though they both have
 the same name $x$.
@@ -3098,11 +3148,11 @@ if $P$ is a predicate with two indexes,
 %%that have the same universe of discourse,
 then the following formula has the value $True$.
 
-$$(\exists y. (\forall x. P(x, y))) \rightarrow (\forall x. (\exists y. P(x, y))) = True$$
+$$((\exists y. (\forall x. P(x, y))) \rightarrow (\forall x. (\exists y. P(x, y)))) = True$$
 
 To prove this theorem using our four-step strategy,
 we would first apply the
-equation \{R$\exists$\} from 
+equation \{R$\exists$\} from
 Figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
 to justify renaming the bound variable $y$ in $(\exists y\dots)$
 on the left-hand side of the implication.
@@ -3143,12 +3193,12 @@ $((\forall x.P(\dots x, \dots)) \wedge Q) = (\forall x.(P(\dots x, \dots) \wedge
 $((\exists x.P(\dots x, \dots)) \wedge Q) = (\exists x.(P(\dots x, \dots) \wedge Q))$               & \{$\exists\wedge$\} \\
 $((\forall x.P(\dots x, \dots)) \vee Q) = (\forall x.(P(\dots x, \dots) \vee Q))$                   & \{$\forall\vee$\} \\
 $((\exists x.P(\dots x, \dots)) \vee Q) = (\exists x.(P(\dots x, \dots) \vee Q))$                   & \{$\exists\vee$\} \\
-$(\neg (\forall x.P(\dots x, \dots))) = (\exists x.(\neg P(\dots x, \dots)))$                       & \{$\neg\forall$\} \\
-$(\neg (\exists x.P(\dots x, \dots))) = (\forall x.(\neg P(\dots x, \dots)))$                       & \{$\neg\exists$\} \\
 $((\forall x.P(\dots x, \dots)) \rightarrow Q) = (\exists x.(P(\dots x, \dots) \rightarrow Q))$     & \{$\forall\rightarrow$\} \\
 $((\exists x.P(\dots x, \dots)) \rightarrow Q) = (\forall x.(P(\dots x, \dots) \rightarrow Q))$     & \{$\exists\rightarrow$\} \\
 $(Q \rightarrow (\forall x.P(\dots x, \dots))) = (\forall x.(Q \rightarrow P(\dots x, \dots)))$     & \{$\rightarrow\forall$\} \\
 $(Q \rightarrow (\exists x.P(\dots x, \dots))) = (\exists x.(Q \rightarrow P(\dots x, \dots)))$     & \{$\rightarrow\exists$\} \\
+$(\neg (\forall x.P(\dots x, \dots))) = (\exists x.(\neg P(\dots x, \dots)))$                       & \{$\neg\forall$\} \\
+$(\neg (\exists x.P(\dots x, \dots))) = (\forall x.(\neg P(\dots x, \dots)))$                       & \{$\neg\exists$\} \\
 $(\forall x.P(\dots x, \dots)) = (\forall y.P(\dots y, \dots))$                                     & \{R$\forall$\} \\
 $(\exists x.P(\dots x, \dots)) = (\exists y.P(\dots y, \dots))$                                     & \{R$\exists$\} \\
 ~~~~~~~~$x$ \emph{must not be a free variable in} $Q$ \emph{or in} $P(\dots y, \dots)$     & \\
@@ -3179,42 +3229,43 @@ careful attention to detail.
 The equations in Figure~\ref{fig-02-quantifiers}
 provide the basis for quantifier migration.
 In your study of the following example,
-take care to see how each equations we cite justifies
+take care to see how each equation we cite justifies
 the migration of a quantifier in the formula.
 
-The restrictions on names in Figure~\ref{fig-02-quantifiers} are necessary to avoid
-accidently converting a free variable to a bound variable.
-In the first four equations, the formula $Q$ must not make use of the variable $x$.
-If it does, the bound variable $x$ in the quantified formulas of the equation
-must be renamed, citing the appropriate renaming equations \{R$\forall$\} and \{R$\exists$\}.
-For example,
-suppose that $((\exists x.P(\dots x, \dots)) \wedge Q)$ is $True$.
-Then $Q$ must be $True$ and there is
-some $x$, let's call it $x_0$, such that $P(\dots x_0, \dots)$ is $True$.
-But then, $(P(\dots x_0,\dots) \wedge Q)$
-is $True$, so $(\exists x.(P(x, \dots) \wedge Q))$ is also $True$.
-The key observation is that the choice of a value for $x$
-cannot affect the truth value of $Q$ because $x$ does
-not occur as a free variable in $Q$.
+The equations of Figure~\ref{fig-02-quantifiers} show how quantifiers
+interact with certain logic operators ($\wedge$, $\vee$, $\rightarrow$, and $\neg$).
+In the equations with binary operators, one of the operands
+is a proposition $Q$ that stands outside the quantification
+on the left-hand side of the equation, but inside
+the quantification on the right-hand side of the equation.
+Since $x$ is the bound variable in the quantification,
+the formula for $Q$ must not have a free variable named $x$.
+If it did, that variable would be \emph{captured} by the quantification
+thereby becoming a bound variable, which would change the meaning
+of the formula. This explains the note in the figure
+that constrains variables in $Q$. 
+A similar constraint applies to the renaming
+equations (\{R$\forall$\} and \{R$\exists$\}),
+and for the same reason: to avoid the 
+\index{capture, variable}\index{bound variable!capture}\index{variable!capture}\index{free variable!capture}capture 
+of a variable by a quantification.
+The constraint doesn't affect the applicability of
+the equations because the renaming equations
+can always be used to change the names of bound variables
+to avoid conflicts.
 
-\index{quantifier!negation}
-\index{universal quantifier ($\forall$)!negation}
-\index{quantifier!universal ($\forall$)}
-\index{forall ($\forall$)!negation}
-\index{existential quantifier ($\exists$)!negation}
-\index{there exists ($\exists$)!negation}
-\label{why-neg-forall}
-The rules $\{\neg\forall\}$ and $\{\neg\exists\}$
+\label{why-neg-forall}\index{quantifier!negation}\index{universal quantifier ($\forall$)!negation}\index{quantifier!universal ($\forall$)}\index{forall ($\forall$)!negation}\index{existential quantifier ($\exists$)!negation}\index{there exists ($\exists$)!negation}The
+rules $\{\neg\forall\}$ and $\{\neg\exists\}$
 are the quantifier analogs of the DeMorgan equations for $\wedge$ and $\vee$
 of Figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
 and Figure~\ref{some-boolean-theorems} (page \pageref{some-boolean-theorems}).
-If we sketch a proof of the$\{\neg\forall\}$ equation, we think you will be able
+If we sketch a proof of the \{$\neg\forall$\} equation, we think you will be able
 to use your experience in reasoning with Boolean equations to fill in the details
-and prove the equations $\{\neg\exists\}$, \{$\forall\wedge$\},
+and prove the equations \{$\neg\exists$\}, \{$\forall\wedge$\},
 \{$\exists\wedge$\}, \{$\forall\vee$\}, and \{$\exists\vee$\}.
 
 Suppose that $\neg(\forall x.P(\dots x, \dots)) = True$.
-Then (by the double-negation equation and the truth table of the negation operator
+Then (by the \{double-negation equation\} and the truth table of the negation operator
 in Section~\ref{sec:boolean-equations}),  $(\forall x.P(\dots x, \dots)) = False$.
 Therefore, from the definition of universal quantification
 ($\forall$, page \pageref{def:universal-quantifier}),
@@ -3224,30 +3275,47 @@ Then, from the definition of existential quantification
 ($\exists$, page \pageref{def:existential-quantifier})
 we conclude that $(\exists x.(\neg P(\dots x, \dots))) = True$.
 
-Finally, there are four equations in Figure~\ref{fig-02-quantifiers} that
-describe how quantifiers behave with respect to implication ($\rightarrow$).
-When the quantifier is on the left-hand side of an implication, it flips from
-$\forall$ to $\exists$ and vice versa when it migrates to the right through the implication,
-but it remains the same when it migrates from the right-hand side to the left.
-%%This can be surprising, like
-%%other aspects of implication (such as, for example, that $False \rightarrow False = True$).
-This can be understood by recalling that $(p \rightarrow q) = ((\neg p) \vee q)$
-(\{implication\}, Figure~\ref{fig-02-boolean-axioms}),
-so if the quantifier appears on the left-hand side of
-the implication, the $\neg$ flips it before it can migrate to the right past the implication,
-but the negation doesn't come into play
-in the reverse migration, from the right hand operand of the implication to the left.
-The quantifier-implication equations can be derived
-using the \{implication\}, \{$\neg\forall$\}, and \{$\neg\exists$\} equations.
+Four of the equations in Figure~\ref{fig-02-quantifiers} 
+show how quantifiers behave interact with implication ($\rightarrow$).
+In these equations, the implication is outside of the quantification
+on the left-hand side of the equation, but inside the quantification 
+on the right-hand side of the equation. When the quantification is on
+the left-hand-side of the implication, as it is in
+equations (\{$\forall\rightarrow$\} and \{$\exists\rightarrow$\}),
+the quantified formula, $P(\dots x, \dots)$, becomes the
+left-hand operand of the implication.
+That change flips the sense of the quantification.
+It becomes $\forall$ if it was $\exists$ and
+$\exists$ if it was $\forall$.\footnote{This
+flip is related the \{implication\} equation,
+($(x \rightarrow y) = ((\neg x) \vee y)$,
+Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
+and the quantifier negation equations (\{$\neg\forall$\} and \{$\neg\exists$\}).}
+The flip does not occur when the quantification 
+is on the right-hand side of the implication
+because in that case, the quantified formula, $P(\dots x, \dots)$, becomes the
+right-hand operand of the implication.
+
+%A quantifier on the left-hand side of an implication flips from
+%$\forall$ to $\exists$ (or from $\exists$ to $\forall$)
+%when it migrates to the right through the implication.
+%However, the quantifier remains the same when it migrates from the right-hand side
+%of an implication to the left.
+%%%This can be surprising, like
+%%%other aspects of implication (such as, for example, that $False \rightarrow False = True$).
+%This can be understood by recalling that $(p \rightarrow q) = ((\neg p) \vee q)$
+%(\{implication\}, Figure~\ref{fig-02-boolean-axioms}),
+%so if the quantifier appears on the left-hand side of
+%the implication, the $\neg$ flips it before it can migrate to the right past the implication,
+%but the negation doesn't come into play
+%in the reverse migration, from the right hand operand of the implication to the left.
+%The quantifier-implication equations can be derived
+%using the \{implication\}, \{$\neg\forall$\}, and \{$\neg\exists$\} equations.
 
 Let's continue working on a proof of the equation we mentioned in the beginning.
-
 $$((\exists y.(\forall x.P(x, y))) \rightarrow (\forall x.(\exists y.P(x, y)))) = True$$
-
 As before, we rename variables to avoid conflicts.
-
 $$((\exists v.(\forall u.P(u, v))) \rightarrow (\forall x.(\exists y.P(x, y))))$$
-
 We want to migrate the quantifiers to the left-hand side of the formula,
 so we need to choose a quantifier to start with.
 Later we will say something about how to make such a choice,
@@ -3298,7 +3366,7 @@ That completes the migration of quantifiers, which is the second step in our fou
 for reasoning about quantified formulas.
 Figure~\ref{fig:rename-migrate-example} (page \pageref{fig:rename-migrate-example})
 puts the renaming and quantifier migration steps all in one place
-to make it convenient for you to check each step to make sure
+to make it convenient for you to check each step to be sure
 you see how they make use of the equations in Figure~\ref{fig-02-quantifiers}.
 
 \begin{figure}
@@ -3337,7 +3405,6 @@ Note that the symbols $x_0$ and $v_0$ are
 different from every other symbol in the formula $(P(u, v) \rightarrow P(x, y))$.
 That is crucial, as we pointed out earlier.
 Without the first two quantifiers, we are left with the following formula.
-
 $$(\exists u.(\exists y.(P(u, v_0) \rightarrow P(x_0, y))))$$
 
 If we can prove that it is true regardless of what values
@@ -3347,18 +3414,23 @@ By definition an existential quantification is true if
 there is a value from the universe of discourse that
 makes the quantified formula true when it takes the place of
 the bound variable.
-So, we want to find values for $u$ and $y$
+So, we want to find a value for $u$ and a value for $y$
 for which $(P(u, v_0) \rightarrow P(x_0, y)) = True$.
+The $\exists$ quantification is not particular about
+what these values are. We just need to find some that work.
 
 %% rlp 12/7/17: I DON'T THINK THE HYPOTHESIS ABOUT SAME UNIV OF DISCOURSE IS NEEDED
 %% A hypothesis of the theorem we are trying to prove
 %%is that both indexes of the predicate have the same universe of discourse.
 %Therefore,
-The value $x_0$ is in the universe of discourse for $u$,
-and $v_0$ is in the universe of discourse for $y$,
-so can choose those values for $u$ and $y$ if we want to.
-Let's do that: let $u = x_0$ and $y = v_0$.
-Then, the formula of interest is $(P(x_0, v_0) \rightarrow P(x_0, v_0))$.
+Since $u$ is the first index of the predicate $P$,
+and so is $x_0$, both $u$ and $x_0$ come from the same universe of discourse.
+Therefore, we can choose $u = x_0$ if we want to. Let's do that.
+And, let's choose $y = v_0$. 
+We can do that because $v_0$
+is in the universe of discourse for $y$.
+With these choices,
+the formula of interest is $(P(x_0, v_0) \rightarrow P(x_0, v_0))$.
 There are no variables left in the formula, just constants.
 So, the formula is an ordinary proposition in Boolean algebra.
 We can cite the \{self-implication\} axiom
@@ -3376,7 +3448,6 @@ one that will become a there-exists ($\exists$).
 For example, when we were migrating quantifiers in the following formula,
 we considered migrating $\exists v$ (citing the \{$\exists\rightarrow$\} equation),
 and we also considered migrating $\forall x$ (citing \{$\rightarrow\forall$\}).
-
 $$((\exists v.(\forall u.P(u, v))) \rightarrow (\forall x.(\exists y.P(x, y))))$$
 
 Both migrations lead to a $\forall$ quantifier in the front,
@@ -3385,7 +3456,6 @@ We chose to migrate the $\forall x$, but let's try migrating
 the $\exists v$, instead, to see how it goes.
 When migrate $\exists v$ first (citing \{$\exists\rightarrow$\}),
 we get the following formula.
-
 $$(\forall v.((\forall u.(P(u, v))) \rightarrow (\forall x.(\exists y.(P(x, y))))))$$
 
 Now, there is a choice of migrating the $\forall u$ (citing \{$\forall\rightarrow$\})
@@ -3399,7 +3469,6 @@ in the quantifier removal step.
 \index{Skolemization}We want to leave the choice open as long as possible, to give ourselves
 the best chance of making a choice that will help the proof.
 Therefore, we're better off migrating the $\forall x$ quantifier first.
-
 $$(\forall v.((\forall x.((\forall u.P(u, v)) \rightarrow (\exists y.P(x, y))))))$$
 
 To see the advantage of having forall quantifiers at the front of the formula,
@@ -3438,9 +3507,9 @@ Natural deduction can also support reasoning about quantified formulas,
 but it calls for additional rules of inference
 to incorporate quantifiers into the scheme.
 The equations of Figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
-have many uses beyond the four-step method.
-They fit well into the equation-based approach to reasoning that
-is a central theme of this book.
+extend the equations for propositions of
+Figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
+into the realm of predicates and quantification.
 
 \begin{ExerciseList}
 \Exercise
@@ -3454,10 +3523,9 @@ Explain why this is different from Exercise~\ref{ex:forall-exist}.
 from other axioms and theorems.
 \Exercise Derive the \{$\neg\exists$\} equation from the \{$\neg\forall$\} equation
 (Figure~\ref{fig-02-quantifiers}) and
-other previously proven axioms and theorems.
+other axioms and theorems.
 
 \end{ExerciseList}
-
 
 \section{Boolean Models}
 \label{sec:boolean-models}
@@ -3471,7 +3539,7 @@ However, stating the proposition in the form ``Socrates is a man''
 suggests that we expect proposition to have a meaning in a real-world domain.
 If the variable $x$ stands for the statement ``Socrates is a man,''
 we expect $x$ to be $True$ if the statement is consistent with a fact
-in the real world, $False$ if it is inconsistent with observations.
+in the real world, but $False$ if it is inconsistent with observations.
 Even if we don't know the facts, we expect $x$ to be either $True$ or $False$,
 not both and not something else,
 according to the actual state of underlying conditions unknown to us.
@@ -3479,7 +3547,7 @@ according to the actual state of underlying conditions unknown to us.
 In other words we intend the proposition $x$
 to mean something in the \index{logic!real world}real world,
 and we use logic to analyze relationships between this proposition and other
-assertions about the real world stated as true/false propositions.
+assertions about the real world stated in the form or true/false propositions.
 In logic mode, we apply the mathematical axioms and rules of inference,
 and in the end we interpret our conclusions, which are statements in logic,
 as statements about the real world.
@@ -3504,7 +3572,7 @@ summarizes a game that Alice won.
 \begin{figure}
 \begin{center}
 %\begin{flushleft}
-\begin{tabular}{l|l|l|l}
+\begin{tabular}{c|c|c|c}
 Move & Alice     & Bob      & Stones \\
 \hline
 0    &           &          & 10     \\
@@ -3572,7 +3640,6 @@ We need to add a time component to the model.
 To do that, we will need to have many more variables,
 and it will help if we name them in a way that helps
 us remember what they mean in the game.
-
 %%% superscript = move
 %%% subscript = stones
 
@@ -3618,7 +3685,6 @@ That is, the following formula has the value $True$.\footnote{Actually,
 the formula could be more restrictive because
 after move six there cannot be more than four stones remaining.
 We will account for this constraint later, and in a more general way.}
-
 $$x_{0}^{6} \vee x_{1}^{6} \vee x_{2}^{6} \vee \cdots \vee x_{10}^{6}.$$
 
 Our model has ten formulas like this,
@@ -3630,17 +3696,15 @@ The formula will have the value $True$ for any properly played game of Nim.
 
 Another kind of constraint in a properly played game is one
 we discussed before we added variables to the model to account for the move number.
-At every stage, there is only one number of stones remaining in the pile.
+At every stage, there is a particular number of stones remaining in the pile.
 After move 3, for example, there cannot be both three stones remaining
 and five stones remaining.
 So we need some rules like the following after six moves.
-
 $$(\neg(x_{0}^{6}) \wedge (x_{1}^{6})) \wedge (\neg(x_{0}^{6} \wedge x_{2}^{6})) \wedge \cdots \wedge (\neg(x_{0}^{6} \wedge x_{10}^{6}))$$
 
 This formula disallows piles having both zero and five stones or zero and seven stones,
 but as before we need nine additional
 formulas to disallow piles with both one and two stones, one and three stones, and so on.
-
 $$(\neg(x_{1}^{6} \wedge x_{2}^{6})) \wedge (\neg(x_{1}^{6} \wedge x_{3}^{6})) \wedge \cdots \wedge (\neg(x_{1}^{6} \wedge x_{10}^{6}))$$
 
 That is a total of ten formulas that must be combined using AND
@@ -3657,35 +3721,32 @@ then it must have four, three, or two stones after four,
 since the player removes either one, two, or three stones in step four.
 This can
 be captured with the following rule.
-
 $$x_{5}^{3} \rightarrow (x_{4}^{4} \vee x_{3}^{4} \vee x_{2}^{4})$$
 
 We need to be careful when we get down to piles with fewer than three stones.
 For example, for the case when there are only
 two stones left in the pile, we need a rule of the following form.
-
 $$x_{2}^{3} \rightarrow (x_{1}^{4} \vee x_{0}^{4})$$
 
 And what do we do when we run out out of stones?
 One way to proceed is to continue the pattern
 and just ensure that there are no stones at the next turn.
-
 $$x_{0}^{3} \rightarrow x_{0}^{4}$$
 
 Of course, many such rules will be needed,
 one rule for each possible combination of stones left and number of moves made.
 
 Now consider a single formula combining all the constraints.
-\begin{quote}
+
 \begin{center}
 \emph{Nim-constraints (a formula that is $True$ for all Nim games)}
+\begin{tabular}{l}
+\hline
+the initial pile containing ten stones AND\\
+the possible legal descriptions of piles at all times AND\\
+the legal ways in which a pile transform from one move to the next\\
+\end{tabular}
 \end{center}
-\begin{enumerate}
-\item the initial pile containing ten stones, AND
-\item the possible legal descriptions of piles at all times, AND
-\item the legal ways in which a pile transform from one move to the next.
-\end{enumerate}
-\end{quote}
 
 The Nim-constraints formula has the value $True$ for all properly played games of Nim.
 Every Nim game corresponds to a particular combination of values of
@@ -3786,8 +3847,8 @@ to take care of this complication.
 \Exercise
 There are many variants of the game of Nim.
 In another variant, there are three piles of stones, and each player can remove
-one or more stones from any single pile. T
-he player who removes the last stone loses the game.
+one or more stones from any single pile.
+The player who removes the last stone loses the game.
 Describe this game using Boolean variables and formulas.
 
 \end{ExerciseList}
@@ -3835,6 +3896,7 @@ is $True$ because there are 10 stones in the pile at move 0.
 In the propositional \index{model!propositional}model we specified that the pile after six moves
 cannot have both no stones and one stone, nor zero stones and two, etc.
 $$(\neg(x_{0}^{6} \wedge x_{1}^{6})) \wedge (\neg(x_{0}^{6} \wedge x_{2}^{6})) \wedge \cdots \wedge (\neg(x_{0}^{6} \wedge x_{10}^{6}))$$
+
 Using quantifiers, we can write this more succinctly.
 $$(\forall s.((s \neq 0) \rightarrow (\neg(X(0, 6) \wedge X(s, 6))))$$
 
@@ -3854,6 +3916,7 @@ To specify this constraint for the entire game, not just move number 6,
 we need ten more similar formulas combined with AND.
 This can be expressed with a universal quantification spanning the move numbers ($\forall t \dots$).
 $$(\forall s_1.(\forall s_2.(\forall t.((s_1 \ne s_2) \rightarrow (\neg(X(s_1, t) \wedge X(s_2, t)))))))$$
+
 This single formula is equivalent to over 500 formulas that were
 necessary we were building the model without using predicates and quantifiers.
 
