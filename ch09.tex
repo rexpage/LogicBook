@@ -1602,7 +1602,7 @@ $I_0 = I_1 = 3$                                      & \{i1\} \\
 $I_{n+2} = I_{n+1} + (4n+6) + 5 = I_{n+1} + 4n + 11$ & \{i2\} \\
 &\\
 \end{tabular}
-
+\addtolength{\tabcolsep}{-3pt}
 \begin{tabular}{rll}
     & Closed-Form Formula for $I_n$ & \\
 \hline
@@ -1615,9 +1615,10 @@ $=$ & $I_{2} + (4\cdot 1 + 11) + (4\cdot 2 + 11) + (4\cdot 3 + 11) + \dots (4n+1
 $=$ & $I_{1} + (4\cdot 0 + 11) + (4\cdot 1 + 11) + (4\cdot 2 + 11) + (4\cdot 3 + 11) + \dots (4n+11)$ & \{i2\} $I_{2}$ \\
 $=$ & $~~3    + (4\cdot 0 + 11) + (4\cdot 1 + 11) + (4\cdot 2 + 11) + (4\cdot 3 + 11) + \dots (4n+11)$ & \{i1\} \\
 $=$ & $~~3 + 11 + 4\cdot(1 + 2 + + 3 + \dots n) + 11n$ & \{\emph{algebra}\} \\
-$=$ & $~~3 + 11 + 4\cdot(n(n+1)/2) + 11n$            & \{\emph{triangular \#}\} \\
+$=$ & $~~3 + 11 + 4\cdot(n(n+1)/2) + 11n$            & \{\emph{triangular\#}\} \\
 $=$ & $(2n+11)(n+1) + 3$                             & \{\emph{algebra}\} \\
 \end{tabular}
+\addtolength{\tabcolsep}{3pt}
 \vspace{1mm}\\
 $I_n = (2(n-2)+11)(n-2+1) + 3 = (2n+7)(n-1)+3$ if $n\geq 2$
 \end{center}
