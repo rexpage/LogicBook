@@ -32,7 +32,7 @@ For example, ``$x+3\times(y + z)$'' conforms to a grammar
 of numeric formulas.
 It is grammatically correct, and it stands for a
 particular and carefully prescribed calculation.
-The non-formula ``$x+3\times(y + ) \times z$'' 
+The non-formula ``$x+3\times(y + ) \times z$''
 does not conform to that grammar and, therefore,
 carries no meaning.
 Reasoning about computer hardware and software
@@ -49,7 +49,7 @@ The ideas and methods call for careful study and frequent review.
 When things start to go off track,
 slow down, back up a little, and try
 again.\index{panic, don't}\index{disheartened?}\index{frustration}\index{baffled?}\index{worried?}\index{scared?}\index{funk, in a}
-Gradually, the pieces will fall into place, 
+Gradually, the pieces will fall into place,
 but you can expect to run into some bumps.
 \index{seat, hold on}\emph{Hold on to your seat.}
 \caption{Hold on to Your Seat}
@@ -227,7 +227,7 @@ philosophical assertions like ``two negatives make a positive.''
 Instead, the equation $(-1)\times(-1) = 1$ is a consequence of some
 basic arithmetic equations. If you accept the basic equations
 and the idea of substituting equals for equals,\footnote{Substituting
-equals for equals applies the first of 
+equals for equals applies the first of
 \index{Euclid}Euclid's \index{common notions}common notions:
 Things which are equal to the same thing are also equal to one another.
 %Failed attempt to quote Euclid in Greek ... probably bad idea anyway
@@ -283,12 +283,12 @@ the \{$\times$ negation\} equation from Exercise \ref{ex:times-negation}.
 \label{sec:boolean-equations}
 Let's start with the Boolean equations in
 Figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
-These equations, which we will call the 
+These equations, which we will call the
 \index{Boolean!axiom}Boolean \index{axiom!Boolean algebra}axioms,
 are the starting point for our system of reasoning.
 They form the basis from which we will derive
 a host of other equations.
-If these axiomatic \index{equation!as axiom}equations 
+If these axiomatic \index{equation!as axiom}equations
 are new to you and seem strange,
 try to view them as ordinary,
 algebraic equations, but with a different collection of operators.
@@ -548,7 +548,7 @@ and we assume the axioms are right.
 
 \begin{aside}
 Reasoning from equations is one way to prove that two formulas stand
-for the same value. 
+for the same value.
 Another way is to build truth tables for both formulas.
 If the tables match, value for value, you can conclude that
 the formulas are equal.
@@ -633,7 +633,7 @@ It is tempting to copy the
 old component, change $2 \times x$ to $3 \times x$,
 and paste the revised component into the program.
 
-In our experience, \index{copy-and-paste programming}copy-and-paste 
+In our experience, \index{copy-and-paste programming}copy-and-paste
 programming is a common source of errors in software,
 especially in programs maintained
 over time. When a maintainer finds an error in
@@ -699,11 +699,11 @@ Theorem \{$\rightarrow$ truth table\} shows that the
 formula ``$False \rightarrow y$'' has the value $True$ when $y$ is $True$
 and also when $y$ is $False$.
 In other words, the truth of the formula $x \rightarrow y$ in the case
-where the operand on the left of the arrow (which is known as the 
+where the operand on the left of the arrow (which is known as the
 \index{discharge assumption}\index{Assume (natural deduction)!discharge}\index{hypothesis!discharge}\index{implication ($\rightarrow$)}\index{implication ($\rightarrow$)!hypothesis}\index{hypothesis!implication ($\rightarrow$)}\emph{hypothesis}
 of the implication), $x$, is $False$ provides
-no information about the right-hand operand, $y$ (which is known as the 
-\index{conclusion!implication ($\rightarrow$)}\index{implication ($\rightarrow$)!conclusion}\emph{conclusion} 
+no information about the right-hand operand, $y$ (which is known as the
+\index{conclusion!implication ($\rightarrow$)}\index{implication ($\rightarrow$)!conclusion}\emph{conclusion}
 of the implication).
 
 A common mistake in everyday life is to infer from the truth of the
@@ -843,7 +843,7 @@ to derive the \{$\vee$-absorption\} equation: $(x \wedge y) \vee y = y$.
 Derive the equation
 $((x \vee y) \wedge (\neg(x \wedge y))) = (((\neg x) \wedge y) \vee (x \wedge (\neg y)))$
 from the Boolean axioms.\\
-\emph{Note}: These formulas define the 
+\emph{Note}: These formulas define the
 \index{exclusive or}\index{or, exclusive}exclusive-or operator.
 
 \Exercise
@@ -1295,7 +1295,7 @@ Prove the following equation.\\
 \end{ExerciseList}
 
 \begin{aside}
-The following equation defines the 
+The following equation defines the
 \index{operator, logic!Boolean equivalence ($\leftrightarrow$)}Boolean equivalence operator ($\leftrightarrow$).
 \vspace{1mm}
 \begin{center}
@@ -1472,7 +1472,7 @@ and the algebraic notation used by circuit designers are three
 different notations for exactly the same mathematical objects.
 In this sense, digital circuits, and, therefore, computers,
 are materializations of logic formulas.
-Computers are 
+Computers are
 \index{logic!in action}logic in action.
 
 The logic operators that we have been using
@@ -1500,7 +1500,7 @@ negation in terms of the implication operator.
 Furthermore, implication is not the only logic operator
 that is universal in this sense.
 Another one
-is the negation of logical-and, which is called 
+is the negation of logical-and, which is called
 \index{nand!logic gate}\index{operator, logic!nand}\emph{nand}.
 When fabricated using certain widespread technologies,
 nand gates can run faster and be more reliable than other gates,
@@ -1581,8 +1581,8 @@ in terms of nand operations.
 
 \begin{ExerciseList}
 \Exercise\label{ex:implication-gate}
-Using a negation-gate and an or-gate, 
-draw a circuit diagram for an ``implication circuit'' 
+Using a negation-gate and an or-gate,
+draw a circuit diagram for an ``implication circuit''
 that has the same input/output behavior as the implication operator.\\
 \emph{Hint}: Follow the example of the \{implication\} axiom
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})).
@@ -1656,9 +1656,9 @@ Don't give up.
 \section{Deduction}
 \label{sec:deduction}
 
-We have been reasoning with equations, 
+We have been reasoning with equations,
 which means we are reasoning in two directions
-at the same time. Equations go both ways. 
+at the same time. Equations go both ways.
 Deductive \index{reasoning!deductive}\index{deductive reasoning}reasoning is one-directional.
 It derives a conclusion from hypotheses using one-directional rules of inference.
 A proof shows that the conclusion is true whenever the hypotheses are true, but provides
@@ -1668,7 +1668,7 @@ unknown.
 In the following discussion of proof by \index{deduction!proof by}deduction,
 theorems will be stated using the symbol ``$\vdash$'',
 which is called a \index{turnstile ($\vdash$)}turnstile,
-to separate the \index{hypothesis!theorem}hypotheses 
+to separate the \index{hypothesis!theorem}hypotheses
 from the \index{conclusion!theorem}conclusions.
 Hypotheses go on the left of the turnstile and the conclusion on the right.
 All of the hypotheses are formulas in logic, as is the conclusion.
@@ -2231,14 +2231,14 @@ a proof above the line that begins with the assumption of $a$
 and concludes with the formula $a$, just above the line.
 The \{identity\} rule makes it possible to satisfy this requirement.
 In the proof of self-implication,
-the citation of 
-\index{implication ($\rightarrow$)!introduction}\{$\rightarrow$ introduction\} rule 
-follows the derivation of $a$ from $a$ and triggers a 
+the citation of
+\index{implication ($\rightarrow$)!introduction}\{$\rightarrow$ introduction\} rule
+follows the derivation of $a$ from $a$ and triggers a
 \index{discharge assumption}discharge
 of the assumption of $a$ at the beginning of the proof.
 There are no other \index{Assume (natural deduction)}assumed formulas in the proof,
 so the theorem proved has no hypotheses.
-That is, the \index{proof}proof confirms that the 
+That is, the \index{proof}proof confirms that the
 \index{conclusion}conclusion formula
 $(a \rightarrow a)$ has the value $True$, regardless of
 what formula $a$ stands for.
@@ -2505,7 +2505,7 @@ It requires a lot of practice, just to get
 a firm grasp of the ideas.
 The following exercises provide an opportunity
 to get some of that practice. As a
-\index{natural deduction!where to start}\index{rule of thumb!natural deduction}\index{deduction!rule of thumb}rule of thumb, 
+\index{natural deduction!where to start}\index{rule of thumb!natural deduction}\index{deduction!rule of thumb}rule of thumb,
 it often helps to start at the bottom
 of a proof by natural deduction. Write the conclusion formula
 at the bottom (it will have to go there, anyway),
@@ -2833,7 +2833,7 @@ The  formula $(\exists x.P(x))$
 has the value $True$
 if there is an element $x$ from the universe of discourse
 for which the proposition $P(x)$ is $True$.\footnote{The
-formula for all $(\exists x.P(x))$ reads
+formula $(\exists x.P(x))$ reads
 ``there exists $x$ such that $P(x)$ is \emph{True}.''}
 
 Consider the equation $((n + 7) = 12)$.
@@ -3085,7 +3085,7 @@ $(\forall x.Odd(x)) \vee (\forall x.Even(x))$,
 where the domain of discourse for both quantifiers is the integers.\footnote{$Odd(x) \equiv (\exists y.(x = 2y+1))$.
 \label{even-number-predicate-Even}
 $Even(x) \equiv (\exists y.(x = 2y))$.
-The integers are the universe of discourse 
+The integers are the universe of discourse
 for the predicates $Odd$ and $Even$ (variable $x$)
 and the quantifications (bound variable $y$).}
 This formula has the value $False$ because there
@@ -3093,7 +3093,7 @@ is an integer $x$ for which $Odd(x$) is false (the number $2$, for example).
 That makes $(\forall x.Odd(x))$ false.
 Similarly, $(\forall x.Even(x))$ is false,
 and since both operands of $\vee$ in $(\forall x.Odd(x)) \vee (\forall x.Even(x))$
-are false, the formula is false (\{$\vee$ truth table\}, 
+are false, the formula is false (\{$\vee$ truth table\},
 Figure~\ref{or-truth-table}, pagee \pageref{or-truth-table}).
 There are two bound variables in the formula.
 These are different variables even though they both have
@@ -3121,7 +3121,7 @@ The meaning of the formula remains the same,
 but the change of name prevents confusion between two different bound variables.
 
 So suppose we have a formula that contains
-a quantifier $(\forall x.(P(\dots x, \dots)))$.
+a quantifier $(\forall x.(P(\dots x \dots)))$.
 How do we rename the variable $x$ in this quantifier?
 First of all, we insist that when we rename $x$ we use a completely new variable name,
 that is, one that does
@@ -3130,6 +3130,7 @@ This is for the same reason as before, namely that we do not want to confuse the
 $x$ with a different variable that happens to have the same name.
 Obviously, choosing a new name for $x$ that is the same as the name
 of some other variable would defeat our purpose.
+
 Second, we must ensure that when we rename a bound variable $x$ as, say,
 $y$, that we replace all occurrences of that bound variable $x$ with $y$.
 However, we must be careful not to change any occurrence of a different bound variable
@@ -3147,62 +3148,69 @@ if $P$ is a predicate with two indexes,
 %% rlp 12/7/17: I DON'T THINK THE HYPOTHESIS ABOUT SAME UNIV OF DISCOURSE IS NEEDED
 %%that have the same universe of discourse,
 then the following formula has the value $True$.
-
 $$((\exists y. (\forall x. P(x, y))) \rightarrow (\forall x. (\exists y. P(x, y)))) = True$$
 
-To prove this theorem using our four-step strategy,
-we would first apply the
-equation \{R$\exists$\} from
+The formula has four different bound variables
+but only two different names.
+We need to rename two of them to avoid conflicts.
+That the first step in our four-step strategy.
+We apply the equation \{R$\exists$\} from
 Figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
-to justify renaming the bound variable $y$ in $(\exists y\dots)$
-on the left-hand side of the implication.
+to justify renaming the bound variable $y$ in $\exists y$
+in the left-hand operand of the implication.
 Any name is okay, as long as it is not already present in the formula.
-Choosing $v$ as the new name produces the following formula,
-which according to equation \{R$\exists$\} has the same value as
+We choose $v$ and get a new formula
+that, according to equation \{R$\exists$\}, has the same value as
 the formula we started with.
-
 \begin{center}
 \begin{tabular}{ll}
-$(\exists v. (\forall x. P(x, v))) \rightarrow (\forall x. (\exists y. P(x, y)))$ & \{R$\exists$\} \\
+$((\exists y. (\forall x. P(x, y))) \rightarrow (\forall x. (\exists y. P(x, y)))) =
+ ((\exists v. (\forall x. P(x, v))) \rightarrow (\forall x. (\exists y. P(x, y))))$ & \{R$\exists$\} \\
 \end{tabular}
 \end{center}
 
-Next, we rename the bound variable \emph{x} in $(\dots(\forall x\dots)\dots)$
-in the left operand of the implication. Again, we choose a name for the new variable
-that is different from all of the other names of variables in the formula.
-
+Next, we rename the bound variable \emph{x} in $\forall x$
+on the left of the implication.
+We change $x$ to $u$, again choosing a name that differs
+from all the other variable names in the formula.
 \begin{center}
 \begin{tabular}{ll}
-$(\exists v. (\forall u. P(u, v))) \rightarrow (\forall x. (\exists y. P(x, y)))$ & \{R$\forall$\} \\
+$((\exists v. (\forall x. P(x, v))) \rightarrow (\forall x. (\exists y. P(x, y)))) =
+  (\exists v. (\forall u. P(u, v))) \rightarrow (\forall x. (\exists y. P(x, y)))$ & \{R$\forall$\} \\
 \end{tabular}
 \end{center}
 
-Now we have four variables in the formula: $u$, $v$, $x$, and $y$.
+We now have four variables in the formula: $u$, $v$, $x$, and $y$.
 Each quantifier is associated with a bound variable of a different name,
-so we won't mix up the roles of different variables.
+so we won't mix up the roles of the variables.
 The next step is to migrate the quantifiers to the front of the formula.
-We want to end up with a formula that has no quantifiers
-in the innermost formula $( \dots )$.
-
-$$(\forall x.(\forall v.(\exists u.(\exists y.( \dots )))))$$
+Then the implication will be inside the scope of all the quantifiers:
+$(\forall x.(\forall v.(\exists u.(\exists y.(\dots\rightarrow\dots)))))$.
+The equations in Figure~\ref{fig-02-quantifiers}
+provide the basis for quantifier migration.
+Applying the equations in a proof calls for a close look
+at parentheses to be sure that the cited equation from
+the figure matches the syntax of the formula that is under scrutiny.
+Migrating quantifiers is a tedious process and requires
+careful attention to detail.
 
 \begin{figure}
 \begin{center}
 \begin{tabular}{ll}
-$((\forall x.P(\dots x, \dots)) \wedge Q) = (\forall x.(P(\dots x, \dots) \wedge Q))$               & \{$\forall\wedge$\} \\
-$((\exists x.P(\dots x, \dots)) \wedge Q) = (\exists x.(P(\dots x, \dots) \wedge Q))$               & \{$\exists\wedge$\} \\
-$((\forall x.P(\dots x, \dots)) \vee Q) = (\forall x.(P(\dots x, \dots) \vee Q))$                   & \{$\forall\vee$\} \\
-$((\exists x.P(\dots x, \dots)) \vee Q) = (\exists x.(P(\dots x, \dots) \vee Q))$                   & \{$\exists\vee$\} \\
-$((\forall x.P(\dots x, \dots)) \rightarrow Q) = (\exists x.(P(\dots x, \dots) \rightarrow Q))$     & \{$\forall\rightarrow$\} \\
-$((\exists x.P(\dots x, \dots)) \rightarrow Q) = (\forall x.(P(\dots x, \dots) \rightarrow Q))$     & \{$\exists\rightarrow$\} \\
-$(Q \rightarrow (\forall x.P(\dots x, \dots))) = (\forall x.(Q \rightarrow P(\dots x, \dots)))$     & \{$\rightarrow\forall$\} \\
-$(Q \rightarrow (\exists x.P(\dots x, \dots))) = (\exists x.(Q \rightarrow P(\dots x, \dots)))$     & \{$\rightarrow\exists$\} \\
-$(\neg (\forall x.P(\dots x, \dots))) = (\exists x.(\neg P(\dots x, \dots)))$                       & \{$\neg\forall$\} \\
-$(\neg (\exists x.P(\dots x, \dots))) = (\forall x.(\neg P(\dots x, \dots)))$                       & \{$\neg\exists$\} \\
-$(\forall x.P(\dots x, \dots)) = (\forall y.P(\dots y, \dots))$                                     & \{R$\forall$\} \\
-$(\exists x.P(\dots x, \dots)) = (\exists y.P(\dots y, \dots))$                                     & \{R$\exists$\} \\
-~~~~~~~~$x$ \emph{must not be a free variable in} $Q$ \emph{or in} $P(\dots y, \dots)$     & \\
-~~~~~~~~$y$ \emph{must not be a free variable in} $P(\dots x, \dots)$                      & \\
+$((\forall x.P(\dots x \dots)) \wedge Q) = (\forall x.(P(\dots x \dots) \wedge Q))$               & \{$\forall\wedge$\} \\
+$((\exists x.P(\dots x \dots)) \wedge Q) = (\exists x.(P(\dots x \dots) \wedge Q))$               & \{$\exists\wedge$\} \\
+$((\forall x.P(\dots x \dots)) \vee Q) = (\forall x.(P(\dots x \dots) \vee Q))$                   & \{$\forall\vee$\} \\
+$((\exists x.P(\dots x \dots)) \vee Q) = (\exists x.(P(\dots x \dots) \vee Q))$                   & \{$\exists\vee$\} \\
+$((\forall x.P(\dots x \dots)) \rightarrow Q) = (\exists x.(P(\dots x \dots) \rightarrow Q))$     & \{${\forall}{\rightarrow}$\} \\
+$((\exists x.P(\dots x \dots)) \rightarrow Q) = (\forall x.(P(\dots x \dots) \rightarrow Q))$     & \{${\exists}{\rightarrow}$\} \\
+$(Q \rightarrow (\forall x.P(\dots x \dots))) = (\forall x.(Q \rightarrow P(\dots x \dots)))$     & \{${\rightarrow}{\forall}$\} \\
+$(Q \rightarrow (\exists x.P(\dots x \dots))) = (\exists x.(Q \rightarrow P(\dots x \dots)))$     & \{${\rightarrow}{\exists}$\} \\
+$(\neg (\forall x.P(\dots x \dots))) = (\exists x.(\neg P(\dots x \dots)))$                       & \{$\neg\forall$\} \\
+$(\neg (\exists x.P(\dots x \dots))) = (\forall x.(\neg P(\dots x \dots)))$                       & \{$\neg\exists$\} \\
+$(\forall x.P(\dots x \dots)) = (\forall y.P(\dots y \dots))$                                     & \{R$\forall$\} \\
+$(\exists x.P(\dots x \dots)) = (\exists y.P(\dots y \dots))$                                     & \{R$\exists$\} \\
+~~~~~~~~$x$ \emph{must not be a free variable in} $Q$ \emph{or in} $P(\dots y \dots)$     & \\
+~~~~~~~~$y$ \emph{must not be a free variable in} $P(\dots x \dots)$                      & \\
 \end{tabular}
 \end{center}
 \index{quantifier!reasoning with}\index{Skolemization}
@@ -3214,87 +3222,107 @@ $(\exists x.P(\dots x, \dots)) = (\exists y.P(\dots y, \dots))$                 
 \index{equation, by name!\{$\exists\wedge$\}}
 \index{equation, by name!\{$\forall\vee$\}}
 \index{equation, by name!\{$\exists\vee$\}}
-\index{equation, by name!\{$\forall\rightarrow$\}}
-\index{equation, by name!\{$\exists\rightarrow$\}}
-\index{equation, by name!\{$\rightarrow\forall$\}}
-\index{equation, by name!\{$\rightarrow\exists$\}}
+\index{equation, by name!\{${\forall}{\rightarrow}$\}}
+\index{equation, by name!\{${\exists}{\rightarrow}$\}}
+\index{equation, by name!\{${\rightarrow}{\forall}$\}}
+\index{equation, by name!\{${\rightarrow}{\exists}$\}}
 \index{equation, by name!\{R$\forall$\}}
 \index{equation, by name!\{R$\exists$\}}
 \caption{Equations of Quantifier Reasoning}
 \label{fig-02-quantifiers}
 \end{figure}
 
-Migrating the quantifiers is a tedious process and requires
-careful attention to detail.
-The equations in Figure~\ref{fig-02-quantifiers}
-provide the basis for quantifier migration.
-In your study of the following example,
-take care to see how each equation we cite justifies
-the migration of a quantifier in the formula.
+Before continuing with the migration example, 
+let's discuss the equations of Figure~\ref{fig-02-quantifiers},
+which show how quantifiers interact with certain logic operators.
+The figure lists some constraints on the names of variables.
+In the equations with binary operators ($\wedge$, $\vee$, $\rightarrow$), 
+one of the operands
+is a proposition $Q$.
+On the left-hand side of the equation, 
+$Q$ stands outside the quantification, but
+on the right-hand side it resides inside the quantification.
+The bound variable, $x$, in the quantification
+must not occur as a free variable in the formula for $Q$.
+If it did, the quantifier would 
+\index{capture, variable}\index{bound variable!capture}\index{variable!capture}\index{free variable!capture}\emph{capture} 
+the free variable on the right-hand side of the equation,
+where $Q$ moves inside the scope of the quantifier.
+That capture would change the free variable $x$ to a bound variable
+and change the meaning of the formula.
+That explains the note prohibiting the occurrence of $x$ as
+a free variable in $Q$.
 
-The equations of Figure~\ref{fig-02-quantifiers} show how quantifiers
-interact with certain logic operators ($\wedge$, $\vee$, $\rightarrow$, and $\neg$).
-In the equations with binary operators, one of the operands
-is a proposition $Q$ that stands outside the quantification
-on the left-hand side of the equation, but inside
-the quantification on the right-hand side of the equation.
-Since $x$ is the bound variable in the quantification,
-the formula for $Q$ must not have a free variable named $x$.
-If it did, that variable would be \emph{captured} by the quantification
-thereby becoming a bound variable, which would change the meaning
-of the formula. This explains the note in the figure
-that constrains variables in $Q$. 
 A similar constraint applies to the renaming
 equations (\{R$\forall$\} and \{R$\exists$\}),
-and for the same reason: to avoid the 
-\index{capture, variable}\index{bound variable!capture}\index{variable!capture}\index{free variable!capture}capture 
-of a variable by a quantification.
-The constraint doesn't affect the applicability of
-the equations because the renaming equations
-can always be used to change the names of bound variables
-to avoid conflicts.
+and for the same reason: to avoid the
+capture of a variable by a quantifier.
+The constraints on variable names do not affect the applicability of
+the equations because the bound variables can
+always be renamed to avoid conflicts.
+Renaming a bound variable to a name that does
+not occur elsewhere in the formula never changes
+the meaning of the formula.
 
 \label{why-neg-forall}\index{quantifier!negation}\index{universal quantifier ($\forall$)!negation}\index{quantifier!universal ($\forall$)}\index{forall ($\forall$)!negation}\index{existential quantifier ($\exists$)!negation}\index{there exists ($\exists$)!negation}The
 rules $\{\neg\forall\}$ and $\{\neg\exists\}$
-are the quantifier analogs of the DeMorgan equations for $\wedge$ and $\vee$
-of Figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
-and Figure~\ref{some-boolean-theorems} (page \pageref{some-boolean-theorems}).
-If we sketch a proof of the \{$\neg\forall$\} equation, we think you will be able
-to use your experience in reasoning with Boolean equations to fill in the details
-and prove the equations \{$\neg\exists$\}, \{$\forall\wedge$\},
-\{$\exists\wedge$\}, \{$\forall\vee$\}, and \{$\exists\vee$\}.
+are the quantifier analogs of the DeMorgan equations, \{$\vee$ DeMorgan\} and \{$\wedge$ DeMorgan\}
+(Figures~\ref{fig-02-boolean-axioms} and \ref{some-boolean-theorems}, page \pageref{some-boolean-theorems}).
+We will sketch a proof of the \{$\neg\forall$\} equation, 
+but leave the details and proofs of equations
+(\{$\neg\exists$\}, \{$\forall\wedge$\},
+\{$\exists\wedge$\}, \{$\forall\vee$\}, and \{$\exists\vee$\}) as exercises.
 
-Suppose that $\neg(\forall x.P(\dots x, \dots)) = True$.
-Then (by the \{double-negation equation\} and the truth table of the negation operator
-in Section~\ref{sec:boolean-equations}),  $(\forall x.P(\dots x, \dots)) = False$.
-Therefore, from the definition of universal quantification
+
+Suppose that $\neg(\forall x.P(\dots x \dots)) = True$.
+Then, by the \{double negation\} equation and the truth table of the negation operator
+(Figure~\ref{fig:neg-truth-table}, page \pageref{fig:neg-truth-table}), 
+$(\forall x.P(\dots x \dots)) = False$.
+Therefore, according to the definition of universal quantification
 ($\forall$, page \pageref{def:universal-quantifier}),
-we can conclude that there is some value $x_0$ in the universe of discourse for which
-$P(\dots x_0, \dots)$ is $False$. That is, $\neg P(\dots x_0, \dots)$ is $True$.
-Then, from the definition of existential quantification
+there is some value $x_0$ in the universe of discourse for which
+$P(\dots x_0, \dots)=False$, which implies that
+$\neg P(\dots x_0, \dots)=True$.
+From the definition of existential quantification
 ($\exists$, page \pageref{def:existential-quantifier})
-we conclude that $(\exists x.(\neg P(\dots x, \dots))) = True$.
+we conclude that $(\exists x.(\neg P(\dots x \dots))) = True$.
 
-Four of the equations in Figure~\ref{fig-02-quantifiers} 
-show how quantifiers behave interact with implication ($\rightarrow$).
+Four of the equations in Figure~\ref{fig-02-quantifiers}
+show how quantifiers interact with implication:
+\{${\forall}{\rightarrow}$\},
+\{${\exists}{\rightarrow}$\},
+\{${\rightarrow}{\forall}$\},
+\{${\rightarrow}{\exists}$\}.
 In these equations, the implication is outside of the quantification
-on the left-hand side of the equation, but inside the quantification 
-on the right-hand side of the equation. When the quantification is on
-the left-hand-side of the implication, as it is in
-equations (\{$\forall\rightarrow$\} and \{$\exists\rightarrow$\}),
-the quantified formula, $P(\dots x, \dots)$, becomes the
-left-hand operand of the implication.
-That change flips the sense of the quantification.
-It becomes $\forall$ if it was $\exists$ and
-$\exists$ if it was $\forall$.\footnote{This
-flip is related the \{implication\} equation,
-($(x \rightarrow y) = ((\neg x) \vee y)$,
-Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
-and the quantifier negation equations (\{$\neg\forall$\} and \{$\neg\exists$\}).}
-The flip does not occur when the quantification 
-is on the right-hand side of the implication
-because in that case, the quantified formula, $P(\dots x, \dots)$, becomes the
-right-hand operand of the implication.
+on the left-hand side of the equation, but inside the quantification
+on the right-hand side.
+In two of the equations (\{${\forall}{\rightarrow}$\} and \{${\exists}{\rightarrow}$\})),
+the quantified formula is the left-hand operand of an implication ($\rightarrow$),
+and in those equations, the quantifiers flip when implication moves inside
+the quantification:$\forall$ flips to $\exists$, $\exists$ flips to $\forall$.
+The equations \{$\neg\forall$\}, \{$\neg\exists$\}, and \{implication\}
+team up to justify the flipping quantifiers.
+Figure~\ref{fig:quantifier-negation} provides the details for
+equation \{${\forall}{\rightarrow}$\}.
+The proof is similar for the for equation \{${\exists}{\rightarrow}$\}.
+The other two equations (\{${\rightarrow}{\forall}$\} and \{${\rightarrow}{\exists}$\})
+have proofs similar to this one, too, but because the quantified
+formula is the right-hand operand of the implication,
+the quantifiers don't flip.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{cll}
+   & $(\forall x.P(\dots x \dots)) \rightarrow Q$ & \\
+$=$&  $(\neg(\forall x.P(\dots x \dots))) \vee Q$ & \{implication\}\\
+$=$& $(\exists x.(\neg P(\dots x \dots))) \vee Q$ & \{$\neg\forall$\}\\
+$=$&  $\exists x.((\neg P(\dots x \dots)) \vee Q)$& \{$\exists\vee$\}\\
+$=$&  $\exists x.(P(\dots x \dots) \rightarrow Q)$& \{implication\}\\
+\end{tabular}
+\end{center}
+\caption{Proof of Equation \{${\forall}{\rightarrow}$\}}
+\label{fig:quantifier-negation}
+\end{figure}
 
 %A quantifier on the left-hand side of an implication flips from
 %$\forall$ to $\exists$ (or from $\exists$ to $\forall$)
@@ -3312,44 +3340,53 @@ right-hand operand of the implication.
 %The quantifier-implication equations can be derived
 %using the \{implication\}, \{$\neg\forall$\}, and \{$\neg\exists$\} equations.
 
-Let's continue working on a proof of the equation we mentioned in the beginning.
-$$((\exists y.(\forall x.P(x, y))) \rightarrow (\forall x.(\exists y.P(x, y)))) = True$$
-As before, we rename variables to avoid conflicts.
-$$((\exists v.(\forall u.P(u, v))) \rightarrow (\forall x.(\exists y.P(x, y))))$$
-We want to migrate the quantifiers to the left-hand side of the formula,
-so we need to choose a quantifier to start with.
-Later we will say something about how to make such a choice,
-but for the moment, we'll make what might seem like an arbitrary
-choice to migrate the $\forall x$ quantification.
-Applying the \{$\rightarrow\forall$\} equation (Figure~\ref{fig-02-quantifiers})
+Let's continue the migration of quantifiers that
+we started earlier.
+We were working on a formula with quantifiers on both sides
+of an implication operator ($\rightarrow$), and 
+we renamed some of the variables to avoid conflicts.
+$$((\exists y.(\forall x.P(x, y))) \rightarrow (\forall x.(\exists y.P(x, y)))) =
+((\exists v.(\forall u.P(u, v))) \rightarrow (\forall x.(\exists y.P(x, y))))$$
+
+We are now working with the formula on the right-hand side of the equation,
+which has a different name for each bound variable.
+Presently, the implication resides 
+outside of the scope of all four quantifiers.
+We want to migrate the quantifiers to the beginning of the formula
+and force the implication inside the scope of the quantifiers.
+We will migrate all four quantifiers, and we need to start somewhere.
+Later we will say something about how to choose a starting point,
+but for the moment we'll just pick one.
+Let's migrate the $\forall x$ quantification.
+Applying the \{${\rightarrow}{\forall}$\} equation (Figure~\ref{fig-02-quantifiers})
 leads to the following formula.
 
 \begin{center}
 \begin{tabular}{ll}
 $((\dots) \rightarrow (\forall x.(\dots))) =
- (\forall x.((\exists v.(\forall u.P(u, v))) \rightarrow (\exists y.P(x, y))))$ &  \{$\rightarrow\forall$\}\\
+ (\forall x.((\exists v.(\forall u.P(u, v))) \rightarrow (\exists y.P(x, y))))$ &  \{${\rightarrow}{\forall}$\}\\
 \end{tabular}
 \end{center}
 
 Again we have a choice of quantifications to migrate.
 This time we choose $\exists v$ and come to the following formula
-by way of the \{$\exists\rightarrow$\} equation.
+by way of the equation \{${\exists}{\rightarrow}$\}.
 
 \begin{center}
 \begin{tabular}{ll}
 $(\dots ((\exists v.(\dots)) \rightarrow (\dots)) \dots) =
- (\forall x.(\forall v.((\forall u.P(u, v)) \rightarrow (\exists y.P(x, y)))))$ & \{$\exists\rightarrow$\}\\
+ (\forall x.(\forall v.((\forall u.P(u, v)) \rightarrow (\exists y.P(x, y)))))$ & \{${\exists}{\rightarrow}$\}\\
 \end{tabular}
 \end{center}
 
-Now we can choose either $\forall u$ or $\exists y$.
-Either choice works in this case.
-We choose $\forall u$.
+At this point, the implication remains outside the scope
+of two quantifiers: $\forall u$ and $\exists y$.
+We migrate $\forall u$ first.
 
 \begin{center}
 \begin{tabular}{ll}
 $(\dots ((\forall u.(\dots)) \rightarrow (\dots)) \dots) =
- (\forall x.(\forall v.(\exists u.(P(u, v) \rightarrow (\exists y.P(x, y))))))$ & \{$\forall\rightarrow$\}\\
+ (\forall x.(\forall v.(\exists u.(P(u, v) \rightarrow (\exists y.P(x, y))))))$ & \{${\forall}{\rightarrow}$\}\\
 \end{tabular}
 \end{center}
 
@@ -3358,7 +3395,7 @@ Finally, we migrate $\exists y$.
 \begin{center}
 \begin{tabular}{ll}
 $(\dots ((\dots) \rightarrow (\exists y.(\dots))) \dots) =
- (\forall x.(\forall v.(\exists u.(\exists y.(P(u, v) \rightarrow P(x, y))))))$ & \{$\rightarrow\exists$\}
+ (\forall x.(\forall v.(\exists u.(\exists y.(P(u, v) \rightarrow P(x, y))))))$ & \{${\rightarrow}{\exists}$\}
 \end{tabular}
 \end{center}
 
@@ -3375,13 +3412,13 @@ you see how they make use of the equations in Figure~\ref{fig-02-quantifiers}.
     & $((\exists y.(\forall x.P(x, y))) \rightarrow (\forall x.(\exists y.P(x, y))))$     &                         \\
 $=$ & $((\exists v. (\forall x. P(x, v))) \rightarrow (\forall x. (\exists y. P(x, y))))$ & \{R$\exists$\}          \\
 $=$ & $((\exists v. (\forall u. P(u, v))) \rightarrow (\forall x. (\exists y. P(x, y))))$ & \{R$\forall$\}          \\
-$=$ & $(\forall x.((\exists v.(\forall u.P(u, v))) \rightarrow (\exists y.P(x, y))))$     & \{$\rightarrow\forall$\}\\
-$=$ & $(\forall x.(\forall v.((\forall u.P(u, v)) \rightarrow (\exists y.P(x, y)))))$     & \{$\exists\rightarrow$\}\\
-$=$ & $(\forall x.(\forall v.(\exists u.(P(u, v) \rightarrow (\exists y.P(x, y))))))$     & \{$\forall\rightarrow$\}\\
-$=$ & $(\forall x.(\forall v.(\exists u.(\exists y.(P(u, v) \rightarrow P(x, y))))))$     & \{$\rightarrow\exists$\}\\
+$=$ & $(\forall x.((\exists v.(\forall u.P(u, v))) \rightarrow (\exists y.P(x, y))))$     & \{${\rightarrow}{\forall}$\}\\
+$=$ & $(\forall x.(\forall v.((\forall u.P(u, v)) \rightarrow (\exists y.P(x, y)))))$     & \{${\exists}{\rightarrow}$\}\\
+$=$ & $(\forall x.(\forall v.(\exists u.(P(u, v) \rightarrow (\exists y.P(x, y))))))$     & \{${\forall}{\rightarrow}$\}\\
+$=$ & $(\forall x.(\forall v.(\exists u.(\exists y.(P(u, v) \rightarrow P(x, y))))))$     & \{${\rightarrow}{\exists}$\}\\
 \end{tabular}
 \end{center}
-\caption{Example: Renaming Variables and Migrating Quantifiers}
+\caption{Example: Migrating Quantifiers}
 \label{fig:rename-migrate-example}
 \end{figure}
 
@@ -3390,17 +3427,17 @@ Step three is quantifier removal, and we start with the first quantifier, $\fora
 A universal quantification is true if
 the quantified formula is always true regardless of what value from
 the universe of discourse is chosen for the bound variable.
-Our procedure is to discard the $\forall$ quantifier,
-replace its bound variable by a constant symbol, then
-prove that regardless of which value from the universe of discourse
-the constant symbol stands for, the formula has the value $True$.
+We want to prove that the formula is true,
+so if we remove $\forall x$, we will need to prove that
+the formula that remains is true, regardless of which value
+from the universe of discourse $x$ denotes.
+We discard the $\forall$ quantifier and
+replace its bound variable by the symbol $x_0$.
+Then, we set out to prove that regardless of which value $x_0$
+denotes, the formula has the value $True$.
 
-Following this procedure, we remove the $\forall x$ quantifier
-at the beginning of the formula and replace the bound variable $x$
-by the constant symbol $x_0$.
 We do the same for the second quantifier, $\forall v$,
-replacing its bound variable
-by the constant symbol $v_0$.
+replacing its bound variable by the symbol $v_0$.
 Note that the symbols $x_0$ and $v_0$ are
 different from every other symbol in the formula $(P(u, v) \rightarrow P(x, y))$.
 That is crucial, as we pointed out earlier.
@@ -3416,7 +3453,7 @@ makes the quantified formula true when it takes the place of
 the bound variable.
 So, we want to find a value for $u$ and a value for $y$
 for which $(P(u, v_0) \rightarrow P(x_0, y)) = True$.
-The $\exists$ quantification is not particular about
+The existential quantifications ($\exists$) are not particular about
 what these values are. We just need to find some that work.
 
 %% rlp 12/7/17: I DON'T THINK THE HYPOTHESIS ABOUT SAME UNIV OF DISCOURSE IS NEEDED
@@ -3426,13 +3463,14 @@ what these values are. We just need to find some that work.
 Since $u$ is the first index of the predicate $P$,
 and so is $x_0$, both $u$ and $x_0$ come from the same universe of discourse.
 Therefore, we can choose $u = x_0$ if we want to. Let's do that.
-And, let's choose $y = v_0$. 
+And, let's choose $y = v_0$.
 We can do that because $v_0$
 is in the universe of discourse for $y$.
-With these choices,
-the formula of interest is $(P(x_0, v_0) \rightarrow P(x_0, v_0))$.
-There are no variables left in the formula, just constants.
-So, the formula is an ordinary proposition in Boolean algebra.
+With these choices, we remove the existential quantifiers and
+get the following formula.
+$$P(x_0, v_0) \rightarrow P(x_0, v_0)$$
+
+That formula is an ordinary proposition in Boolean algebra.
 We can cite the \{self-implication\} axiom
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
 to conclude that $(P(x_0, v_0) \rightarrow P(x_0, v_0)) = True$,
@@ -3443,35 +3481,40 @@ $\forall x$, then $\exists v$, and finally $\forall u$ and $\exists y$.
 We were motivated by the desire to wait as long as possible before having to
 choose values for bound variables.
 That means that whenever we have a choice, we want to migrate a quantifier
-that will become a forall ($\forall$) before we migrate
-one that will become a there-exists ($\exists$).
+that will become a universal quantifier ($\forall$) before we migrate
+one that will become an existential quantifier ($\exists$).
 For example, when we were migrating quantifiers in the following formula,
-we considered migrating $\exists v$ (citing the \{$\exists\rightarrow$\} equation),
-and we also considered migrating $\forall x$ (citing \{$\rightarrow\forall$\}).
+we considered migrating $\exists v$,
+and we also considered migrating $\forall x$.
 $$((\exists v.(\forall u.P(u, v))) \rightarrow (\forall x.(\exists y.P(x, y))))$$
 
 Both migrations lead to a $\forall$ quantifier in the front,
 so they are equally advantageous.
 We chose to migrate the $\forall x$, but let's try migrating
-the $\exists v$, instead, to see how it goes.
-When migrate $\exists v$ first (citing \{$\exists\rightarrow$\}),
-we get the following formula.
+the $\exists v$, instead (citing \{${\exists}{\rightarrow}$\}) to see how it goes.
+We get the following formula.
 $$(\forall v.((\forall u.(P(u, v))) \rightarrow (\forall x.(\exists y.(P(x, y))))))$$
 
-Now, there is a choice of migrating the $\forall u$ (citing \{$\forall\rightarrow$\})
-or $\forall x$ (citing \{$\rightarrow\forall$\}).
-This time it \emph{does} matter.
-If we migrate the $\forall x$ first, we get $\forall x$ at the front,
-but if we migrate the $\forall u$, we get $\exists u$ at the front.
+Now, there is a choice of migrating the $\forall u$ or $\forall x$.
+This time the choice matters.
+If we migrate $\forall x$ first (citing \{${\rightarrow}{\forall}$\}),
+we get $\forall x$ at the front,
+but if we migrate $\forall u$ (citing \{${\forall}{\rightarrow}$\}), 
+we get $\exists u$ at the front.
 We prefer to have universal quantifiers at the beginning of the formula
-because it delays being forced to choose specific values from the universe of discourse
-in the quantifier removal step.
-\index{Skolemization}We want to leave the choice open as long as possible, to give ourselves
-the best chance of making a choice that will help the proof.
-Therefore, we're better off migrating the $\forall x$ quantifier first.
+because eliminating an existential quantifier forces us to choose 
+a particular value from the universe of discourse for which the quantified
+formula is true. 
+There might be only one such value, and we would be stuck with it.
+\index{Skolemization}We want to leave the choice open if we can 
+because that could make it possible to choose a beneficial value at
+a later stage.
+Therefore, we're better off migrating $\forall x$ first
+(citing \{${\rightarrow}{\forall}$\}).
+That leaves us with the following formula.
 $$(\forall v.((\forall x.((\forall u.P(u, v)) \rightarrow (\exists y.P(x, y))))))$$
 
-To see the advantage of having forall quantifiers at the front of the formula,
+To see the advantage of having universal quantifiers at the front of the formula,
 consider the formula $(\forall x.((\exists y.(x < y))))$,
 with pairs $(x,y)$ of integers as the universe of discourse.
 We can remove the quantifier ($\forall x$), choosing $x_0$ to
@@ -3483,7 +3526,7 @@ leaves us with the formula $x_0 < x_0 + 1$.
 This exhibits an integer $y$ for which $x_0 < y$,
 which means that $(\exists y.(x_0 < y)) = True$.
 Of course there are many other choices for $y$ that would also work,
-but by the definition of the there-exists ($\exists$) quantifier, we only need one.
+but by the definition of the existential quantifier ($\exists$), we only need one.
 
 On the other hand, suppose we were trying to prove the following statement, which
 is \emph{actually false}:
@@ -3491,12 +3534,13 @@ $(\exists y.((\forall x.(x < y))))$.
 The $\exists y$ quantifier has to be removed first,
 and we would like to choose an advantageous value for $y$.
 However, we don't get a choice with $\exists y$ because
-the truth of a there-exists quantification only guarantees that
+the truth of an existential quantification ($\exists$) only guarantees that
 there is at least one value that works.
 So, there may be only one value available, and even if there were many,
 we could not pick one that would exceed all possible values of $x$.
 The upshot is that, whenever possible, we want to migrate quantifiers
-in such a way that forall quantifiers precede there-exists quantifiers,
+in such a way that universal quantifiers ($\forall$) 
+precede existential quantifiers ($\exists$),
 to keep from getting trapped by early choices that don't work out in the end.
 
 The four-step strategy is only one of many ways to prove theorems about
@@ -3512,18 +3556,20 @@ Figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
 into the realm of predicates and quantification.
 
 \begin{ExerciseList}
+
 \Exercise
 \label{ex:forall-exist}
 Prove $(\forall x.P(x)) \rightarrow (\exists x.P(x)) = True$ if the universe of discourse is not empty.
 \Exercise What is the value of $(\forall x.P(x)) \rightarrow (\exists x.P(x))$ if the universe of discourse is empty?
 \Exercise What goes wrong in trying to prove $(\exists x.P(x)) \rightarrow (\forall x.P(x)) = True$?
 Explain why this is different from Exercise~\ref{ex:forall-exist}.
-\Exercise Prove that $((\forall x.(P(x) \rightarrow Q(x))) \wedge (\forall x.(Q(x) \rightarrow R(x)))) \rightarrow (\forall x.(P(x) \rightarrow R(x)))$.
-\Exercise Derive the four quantifier-implication equations (Figure~\ref{fig-02-quantifiers})
-from other axioms and theorems.
-\Exercise Derive the \{$\neg\exists$\} equation from the \{$\neg\forall$\} equation
-(Figure~\ref{fig-02-quantifiers}) and
-other axioms and theorems.
+\Exercise Prove $((\forall x.(P(x){\rightarrow}Q(x))) \wedge (\forall x.(Q(x){\rightarrow}R(x)))) \rightarrow (\forall x.(P(x) {\rightarrow}R(x)))=True$.
+\Exercise Prove equation \{$\neg\exists$\}. \emph{Hint}: Cite equations \{$\neg\forall$\} and \{double negation\}.
+\Exercise Prove equation \{$\exists\wedge$\}. Hint: Emulate the proof of \{$\forall\wedge$\}.
+\Exercise Derive the equations \{$\forall\vee$\} and \{$\exists\vee$\} from axioms and proven equations.\\
+\emph{Hint}: Cite \{$\exists\wedge$\} and the DeMorgan equations.
+\Exercise Prove equations \{${\exists}{\rightarrow}$\}, \{${\rightarrow}{\forall}$\}, and
+\{${\rightarrow}{\exists}$\}. \emph{Hint}: Emulate the proof of \{${\forall}{\rightarrow}$\}.
 
 \end{ExerciseList}
 
@@ -3934,13 +3980,13 @@ at all possible points in time, which is false because the size of the pile
 changes with every move.
 
 \begin{aside}
-``For all'' and ``there exists'' are not the only possible logical quantifiers.
-For example, you may imagine a context
-in which ``for most'' is a perfectly sensible quantifier.
+Universal ($\forall$) and existential ($\exists$) quantifiers 
+are not the only possibilities.
+A ``for most'' quantifier (${\sim}{\forall}$) might be perfectly sensible.
 In some branches of mathematics, it is common to use the
-quantifiers ``almost everywhere'' and ``almost nowhere''
-which have precise mathematical definitions even though
-sound fuzzy in an informal description.
+quantifiers ``almost everywhere'' and ``almost nowhere.''
+They sound fuzzy, but they're not.
+They have precise mathematical definitions.
 \caption{Other Quantifiers}
 \label{aside:other-quantifiers}
 \end{aside}
@@ -4035,7 +4081,7 @@ This would change the look of theorems:
 
 \todo{DONE Sep2017
 Check to make sure predicates and quantifiers are covered somewhere.
-Show how to convert between forall and exists.
+Show how to convert between universal and existential quantifiers.
 put halting problem where forall is introduced;
    cite (x -> not x) = (not x) {contradiction} \label{boolean-contradiction}
 }
