@@ -39,7 +39,7 @@ capable of doing things that its designers never thought about.
 
 You have no doubt heard of various computer chips.
 Maybe your laptop is powered by an Intel i7 or
-an AMD Athlon X4.
+an Apple A10.
 Software for these chips consists of a list of
 instructions that, when carried out one by one, in sequence,
 modify the state of the computer system to make it perform
@@ -47,17 +47,18 @@ the function the software designer had in mind.
 However, software designers rarely put together programs using
 the \index{instruction set}instruction set of the computer chip
 that performs the computation.
-Instead, software designers use a more compact notation to
-specify the desired behavior, and another piece of software
-builds the list of chip instructions from those specifications.
+Instead, they use a programming language in which
+the program tends to be shorter and 
+in some ways easier to understand than it would
+be if it were a list of chip instructions. 
+Another piece of software
+translates the program into instructions that the
+chip is wired to carry out.
 
-The instructions that the chip can carry out
-are almost always different from the instructions
-that the software designer uses to build computer programs.
-There are hundreds of different programming languages
+There are hundreds of programming languages
 that software designers can choose from.
 In most cases software expressed in these languages consists
-of a list of instructions to be carried out, one by one,
+of a list of instructions to be performed, one by one,
 in the manner of chip instructions,
 but each instruction in the programming language gives
 rise to a sequence of at least a few and sometimes many
@@ -67,9 +68,9 @@ However, software as a list of instructions is
 not the only alternative.
 Another alternative uses drawings of
 system configurations to build software.
-For example, scientists use
+For example, scientists use a programming language called 
 \index{LabView}LabView
-to control laboratory equipment.
+to design software to control laboratory equipment.
 Engineers use it to design digital systems,
 and college students use it in projects to
 design electronic devices.
@@ -81,14 +82,14 @@ is used by children to construct software for games
 and other educational projects.
 LabView and Scratch programs don't
 look anything like chip instructions,
-but they are just as capable of describing computations.
+but they have the same capability for specifying computations.
 
 A related alternative is to specify software as
 a collection of equations in which
-the left-hand side names a computation to be carried out
+the left-hand side of the equation names a computation to be carried out
 and the right-hand side reduces the computation to
-some smaller components producing parts of the result
-and combining them to deliver the whole.
+more basic computations producing parts of the result
+and combines them to deliver the whole.
 An advantage of the equation-based approach
 is that a form of reasoning similar to that used
 in ordinary, high-school algebra can be used to derive
@@ -101,13 +102,13 @@ that the software should pass, the software itself
 can emerge from specifications of the tests.
 
 Instruction lists, visual programming languages, and equation-based
-software are fundamentally different, but they
-are fully equivalent in terms of capabilities.
+software are fundamentally different ways to describe computer programs, 
+but they are fully equivalent in terms of capabilities.
 Since the primary focus of this text is on logical reasoning
-about properties of hardware and software components of computer systems,
+about hardware and software components of computer systems,
 we will use the equation-based approach,
 but specification of the hardware and software artifacts that we study
-is not limited to that domain.
+is not limited to that approach.
 
 \begin{aside}
 Logicians and mathematicians have been studying
@@ -120,8 +121,8 @@ build a machine that can prove all mathematical truths?
 Many different models of computation were developed to study this question:
 \index{Turing machine}Turing machines, \index{lambda calculus}lambda calculus,
 partial recursive functions,
-unrestricted grammars, Post production rules, random-access machines,
-and many others.
+unrestricted grammars, Post production rules, and random-access machines,
+to name a few.
 Historically, Turing machines have provided the canonical foundation for computation,
 but the random-access model conforms more closely to modern computers,
 and the lambda calculus model is used in both computer science theory and practice.
@@ -131,10 +132,10 @@ falls into the lambda calculus bailiwick.
 It is truly remarkable that all of these models of
 computation are equivalent.  That is,
 any computation that can be described in one of the models can
-be described in any of the others.
-A conjecture based on this equivalence
-and known as the Church-Turing thesis
-says that all realizable computations can
+also be described in any of the others.
+A conjecture known as the Church-Turing thesis
+is based on this equivalence.
+It says that all realizable computations can
 be carried out by a Turing machine or by
 any equivalent model of computation, such as
 the lambda-calculus model.
@@ -142,15 +143,16 @@ Much of computer science theory
 revolves around this hypothesis.
 
 Another remarkable fact is that some problems cannot be solved
-by any computer program.
-Alan \index{Turing, Alan}Turing, one of the first theoretical computer scientists,
+by computer hardware or software.
+Alan \index{Turing, Alan}Turing, one of the first computer scientists,
 was the first to describe
 \index{uncomputable}\seeonlyindex{incomputable}{uncomputable}uncomputable problems,
 and soon afterwards the logician Kurt \index{G\"odel, Kurt}G\"odel
-showed that mathematical systems of reasoning
+showed that all mathematical systems that are at least as
+powerful as arithmetic
 are \index{incompleteness}incomplete. No formal system can be used
 to prove all mathematical truths.
-The theorems of Turing and G\"odel on uncomputability and incompleteness
+The theorems of Turing and G\"odel
 prove that it is not possible to build a machine that can verify all mathematical
 truths, not even in principle.
 
@@ -164,24 +166,25 @@ can display millions of pixels,
 but it is the software that determines whether the
 iPhone displays an album cover or a weather update.
 Software makes hardware useful by extending its range of behavior.
-For instance, iPhone audio hardware may be able to produce
-only a single tone at a time, but the software controlling it
-can produce a sequence of tones
-that sound like Beethoven's Fifth Symphony.
+Whereas iPhone audio hardware may be able to produce
+only a single tone at a time, the software controlling it
+can direct it to produce a sequence of tones
+that sound like Beethoven's Ninth.
 
 You can think of the hardware as
-the parts in a computer that you can see,
+the parts of a computer that you can see,
 and the \index{software}software as information that tells the computer what to do.
 However, the distinction between hardware and software is not as
-clear cut as this suggests. Many hardware components actually
+clear cut as this suggests. Many hardware components
 encode software directly and control other pieces of the system.
-In fact, many techniques used in the design of
+And, many techniques used in the design of
 hardware were originated to build software.
 Major elements of hardware designs look like software
 and can use the same language and notation.
 A major theme of this book
 is that both hardware and software are realizations of formal logic.
-In this sense, computer systems are logic in action.
+In this sense, computer systems are 
+\index{logic!in action}logic in action.
 
 \section{Structure of a Program}
 
@@ -192,25 +195,27 @@ leaves many questions to the imagination.
 \item How can software control hardware?\\
       Example: Instruct an audio device to emit a sound.
 \item How can software detect the status of hardware?\\
-      Example: Determine whether a switch is pressed or not.
+      Example: Determine whether or not a switch is pressed.
 \item What kinds of instructions can software give to hardware?\\
       Examples: Add numbers. Replace one formula by another. Select a formula.
 \end{enumerate}
 \end{quote}
 
 A model of computation (Aside~\ref{aside-model-of-computation})
-shows how software can control hardware,
+a way for software to control hardware,
 so there are as many answers to the first of these questions
 as there are models of computation, and
-logicians have been very prolific when it
-comes to constructing such models.
-Luckily, since there are many equivalent models,
+there are a lot of models.
+Logicians have made sure of that.
+Since there are many equivalent models,
 the requirements of a project can guide the choice of models.
 Generally, a programming language based on any model of computation
-includes primitive arithmetic and logic operators
-(addition, multiplication, etc)
-and provides the ability to define new operators
-using either intrinsic primitive operators or previously defined operators.
+has intrinsic arithmetic and logic operators
+(adders, multipliers, inverters, etc)
+and provides the ability to combine 
+intrinsic operators and operators
+defined elsewhere in the software to
+define new operators.
 
 \begin{aside}
 We will use the terms ``operator'' and ``function'' interchangeably.
@@ -220,8 +225,9 @@ to think of them as the same thing.
 So, when we say \index{function}function we mean \index{operator}operator and vice versa.
 What we're talking about when we use either term
 is a transformation that delivers results when supplied with input.
-We refer to the results delivered by an operator as its ``value'',
-and we refer to the input supplied to the operator as its \index{operand}operands.
+We refer to the results delivered by an operator as its \emph{value},
+and we refer to the input supplied 
+to the operator as its \index{operand}\emph{operands}.
 Sometimes we use the term \index{argument}``argument''
 or \index{parameter}``parameter'' instead of ``operand,''
 usually in connection with the term ``function,''
@@ -270,7 +276,7 @@ When the human player presses a button,
 the display unit shows the devices's choice (rock, paper, or scissors)
 and shows the winner of the round.
 The program will compute the device's choice
-by invoking an operator called \texttt{emily},\footnote{This operator is
+by invoking an operator called \textsf{emily},\footnote{This operator is
 named after a daughter of one of the authors who, when she was young,
 played the rock-paper-scissors game just like the program described here.}
 This operator will deliver
@@ -285,67 +291,82 @@ selection with that of the device and determine the winner of the round.
 
 To make the game fair, the program will use
 separate operators for the device's choice and
-for examining the choices to determine the winner.
-That way, the device cannot know the human player's choice before making its own.
-The operator \texttt{emily} will deliver the device's choice for a round of the game.
+for examining the choice of the human player to determine the winner.
+That way, the device won't know the human player's choice before making its own.
+The operator \textsf{emily} will deliver the device's choice for a round of the game.
 It needs some kind of information because an operator with no operands
 always delivers the same value, and that would make for a very boring game.
 Any player will have seen the choices of the other player for
-all previous rounds, so it seems fair to use some of that information in
+previous rounds, so it seems fair to use some of that information in
 making a choice for the next round.
-To keep things simple, we will supply the human player's choice for the
-immediately previous round to \texttt{emily} as an operand.
-With that in mind, we could design the operator \texttt{emily} to choose
-a play according to the following scheme.
+The player for the device, which is the operator \textsf{emily}, 
+will receive as its operand the choice that the human player selected
+in the immediately previous round.
+The operator \textsf{emily} 
+(and this is heart of the device's ``prowess''
+at the game, if prowess is the right term, and it probably isn't) 
+will, in turn, choose a play according to the following scheme.
+The operand $u$ is the human player's choice for the previous round.
 \begin{displaymath}
 emily(u) =
    \left\{
         \begin{array}{ll}
-        \mbox{rock}     & \mbox{if } u = \mbox{scissors} \\
-        \mbox{paper}    & \mbox{if } u = \mbox{rock} \\
-        \mbox{scissors} & \mbox{otherwise}
+        \mbox{\textsf{rock}}     & \mbox{if } u = \mbox{\textsf{scissors}} \\
+        \mbox{\textsf{paper}}    & \mbox{if } u = \mbox{\textsf{rock}} \\
+        \mbox{\textsf{scissors}} & \mbox{otherwise}
         \end{array}
    \right.
 \end{displaymath}
 
-The other operator, which we will call \texttt{score},
-has two operands, one specifying the choice of the device in the current round,
-the other specifying the human player's choice.
-The \texttt{score} operator delivers a value with two elements:
-the winner of the round and the human player's choice for that round.
-It reports the human player's choice so that the software
-can inform  the operator \texttt{emily} of that choice.
-It can then use the choice to determine the device's selection for the next round
-according to the scheme we specified for \texttt{emily}.
-The following scheme for the \texttt{score} operator specifies,
-for each possible pair of operands,
-the two-element value that the operator delivers.
+The other operator, which we will call \textsf{score},
+has two operands: ($d$, $u$).
+The first operand, $d$,
+indicates the  device's choice for the round.
+It will be \textsf{rock}, \textsf{paper}, or \textsf{scissors}.
+The second operand, $u$, indicates the human player's choice for the round.
 
+The \textsf{score} operator delivers a value with two components: ($w$, $u$).
+The first component, $w$, indicates the winner of the round.
+It will be \textsf{device}, \textsf{human}, or \textsf{none}
+(in case both players make the same choice in a round).
+The second component, $u$, indicates the human player's choice for the round
+(\textsf{rock}, \textsf{paper}, or \textsf{scissors}).
+The \textsf{score} operator reports the human player's choice so that
+in the next round the software
+can tell the operator \textsf{emily} 
+the choice that the human player made in the previous round,
+and \textsf{emily} can use that information in deciding on a choice
+for the next round.
+
+The following table specifies
+the two-component value, ($w$, $u$), that the \textsf{score} operator
+delivers, given the two operands indicating the player's choices, ($d$, $u$).
 \begin{displaymath}
-score(c,u) =
+score(d,u) =
    \left\{
         \begin{array}{ll}
-        (\mbox{none}, u)     & \mbox{if } c = u \\
-        (\mbox{computer}, u) & \mbox{if } (c,u) = (\mbox{rock}, \mbox{scissors}) \\
-        (\mbox{human}, u)    & \mbox{if } (c,u) = (\mbox{rock}, \mbox{paper}) \\
-        (\mbox{computer}, u) & \mbox{if } (c,u) = (\mbox{paper}, \mbox{rock}) \\
-        (\mbox{human}, u)    & \mbox{if } (c,u) = (\mbox{paper}, \mbox{scissors}) \\
-        (\mbox{computer}, u) & \mbox{if } (c,u) = (\mbox{scissors}, \mbox{paper}) \\
-        (\mbox{human}, u)    & \mbox{if } (c,u) = (\mbox{scissors}, \mbox{rock})
+        (\mbox{\textsf{none}}, u)   & \mbox{if } d = u \\
+        (\mbox{\textsf{device}}, u) & \mbox{if } (d,u) = (\mbox{\textsf{rock}}, \mbox{\textsf{scissors}}) \\
+        (\mbox{\textsf{human}}, u)  & \mbox{if } (d,u) = (\mbox{\textsf{rock}}, \mbox{\textsf{paper}}) \\
+        (\mbox{\textsf{device}}, u) & \mbox{if } (d,u) = (\mbox{\textsf{paper}}, \mbox{\textsf{rock}}) \\
+        (\mbox{\textsf{human}}, u)  & \mbox{if } (d,u) = (\mbox{\textsf{paper}}, \mbox{\textsf{scissors}}) \\
+        (\mbox{\textsf{device}}, u) & \mbox{if } (d,u) = (\mbox{\textsf{scissors}}, \mbox{\textsf{paper}}) \\
+        (\mbox{\textsf{human}}, u)  & \mbox{if } (d,u) = (\mbox{\textsf{scissors}}, \mbox{\textsf{rock}}) \\ 
         \end{array}
    \right.
 \end{displaymath}
 
-We could make the device play a more sophisticated game of
-rock-paper-scissors by defining a different \texttt{score} operator.
-For example, the operator might
-keep track of the number of times that the player has selected scissors
+More sophisticated software could make the device play a better game of
+rock-paper-scissors.
+For example, the \textsf{score} operator might
+keep track of the number of times that the human player has selected scissors
 in previous rounds, or rock or paper, or it might keep track of all three.
-Since it's the software that decides what to remember
-from each round, this choice can be changed easily.
+The software controlling the device's choice of plays could
+then take more information into account and play a better game.
+That is, the operator \textsf{emily} could be upgraded.
 Such is the flexibility of software.
 
-The way we have described the operators \texttt{emily} and \texttt{score}
+The way we have described the operators \textsf{emily} and \textsf{score}
 illustrate an important point about our computational model.
 A program in our model consists of a collection of equations
 defining mathematical functions that start each computation from scratch,
@@ -354,24 +375,25 @@ This will come as a surprise to programmers accustomed
 to other computational models such as those on which
 programming languages like Java or C++ are based.
 In those models, programs use variables to record values
-and can use or update the recorded values later in the computation.
+and can update recorded values later in the computation.
 In our equation-based model,
 programs consist of collections of mathematical functions (operators)
 that base their results entirely on their operands.
 Operators do not make use of recorded values
-beyond the data supplied in operands.
+beyond the data supplied in operands
+and unchanging elements in the equations, as they stand.
 This makes it possible to
 understand equation-based programs in terms of classical
 logic and traditional algebraic formulas.
 
-After the first round of the game, the display component of the hardware
-for the rock-paper-scissors game
+To back to our discussion of the game,
+after the first round the display component of the device
 would show the first element $w_1$ of the pair $(w_1, u_1)$ delivered by the formula
-\texttt{score}(\texttt{emily}(none), $b_1$),
+\textsf{score}(\textsf{emily}(none), $b_1$),
 where $b_1$ stands for rock, paper, or scissors, depending on which button
 the human player pressed.
 For the next round the outcome would be
-$(w_2, u_2)$ $=$ \texttt{score}(\texttt{emily}($u_1$), $b_2$),
+$(w_2, u_2)$ $=$ \textsf{score}(\textsf{emily}($u_1$), $b_2$),
 where $b_2$ is the button pressed by the human player for the new round,
 and the display would show the value of $w_2$.
 A game of five rounds would correspond to a sequence of equations,
@@ -399,19 +421,19 @@ an operand supplied to \textit{play}.
 In such a scenario, there would need to be some way to supply an operand $n$
 to the operator \textit{play}, where $n$
 might be a fixed number, like five or ten, or
-might be a number selected with the help of another button on the hardware.
+might be a number selected by having the human
+player press the buttons in a special sequence.
 The point is that the hardware provides a fixed set of
-components such as displays and buttons and that the software
-specifies a way to use those components.
+components such as displays and buttons,
+and the software specifies a way to use those components.
 
 \section{Deep Blue and Inductive Definitions}
 
-The equation-based model of computation is small,
-but it has as much power to specify computations
+The equation-based model of computation has the same
+capabilities for specifying computations
 as any other known model. Knowing the great diversity of things that computers can do,
-it seems reasonable to expect them to be much more complicated than that.
-It is true that computers have many more components than, for example,
-rock-paper-scissors device, but in fundamental terms,
+it seems reasonable to expect them to be much more complicated than,
+say, the rock-paper-scissors device, but in fundamental terms,
 they have the same basic structure.
 Complex behavior from modest beginnings, a bargain if there ever was one.
 
@@ -479,8 +501,8 @@ We could, of course, have written a formula for the sum
 of the first ten reciprocals or a sum with any number of terms.
 Sums of this form comprise a mathematical entity known as
 the \index{harmonic series}harmonic \index{series, harmonic}series.
-They are known as the partial sums of the series,
-and we can define  an operator $h$ that computes such a sum
+Specifically, they are the partial sums of the series,
+and we can define an operator $h$ that computes such a sum
 with any specified number $n$ of terms.
 \begin{displaymath}
 h(n) = \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \dots  \frac{1}{n}
@@ -494,7 +516,7 @@ informal definition is that $h(n)$ stands for the sum of the first $n$ reciproca
 When $n$ is zero, there would be no terms in the sum,
 so the standard convention that the sum of an empty set of numbers
 is zero is consistent with the equation $h(0) = 0$.}
-Then, the following equations express that decision and
+Then, the following equations express the specification for $h(0)$ and
 the observation about the relationship between $h(n)$ and $h(n+1)$.
 \index{equation, by name!\{h0\}, \{h1\}}
 \label{reciprocalsdef}
@@ -520,18 +542,26 @@ In this case, we have used the names \{h1\} and \{h0\}.
 The equation \{h1\} is \seeonlyindex{circular definition}{definition}circular
 because both sides of the equation refer to a value delivered by the operator $h$.
 However, the operand $n$ in the circular reference
-(that is, the formula $h(n)$ on the right-hand side of the equation \{h1\})
+(that is, the formula $h(n)$ on the right-hand side of the \{h1\} equation)
 is closer to zero than the operand $(n+1)$ on the left-hand side of the equation.
 Furthermore, in equation \{h0\}, the operand on the left-hand side is zero and
 the equation is not circular.
+So, the operand on the right-hand side of the circular equation, \{h1\},
+is closer to the operand in the part of the definition
+that is not circular, \{h0\}, than it is to the operand on the
+left-hand side of the circular equation.
 
 It turns out, and we will study this is in great detail later,
-that these two characteristics of a collection of equations
+that a collection of circular equations with 
+these two characteristics
 (a reduced operand on the right-hand side in circular equations
 and a specific operand on the left-hand side in non-circular equations)
-turns circular equations into a useful definition of an operator.
+provides a useful definition of an operator.
 Therefore, we can say that equations \{h1\} and \{h0\}
-define the operator $h$. The definition is mathematically rigorous
+define the operator $h$. 
+The equations comprise an inductive definition.
+
+The definition is mathematically rigorous
 and is also computational.
 To see how this works, observe that, according to equation \{h1\},
 $h(5) = h(4)+\frac{1}{5}$.
@@ -564,15 +594,28 @@ In this way the equations \{h1\} and \{h0\} provide not just
 a definition of the operator $h$, but also a scheme for computing $h(n)$
 for any natural number $n$.
 Furthermore, other properties of the operator $h$,
-such as the fact that the formula $h(n)$
-must in all cases stand for a strictly positive number
+such as the fact that when $n$ is a natural number, 
+the formula $h(n+1)$ must in all cases stand for a strictly positive number,
 and that its value must be a ratio of whole numbers,
 can be derived from \{h1\} and \{h0\}.
+The fact that for any number $x$, no matter how large,
+there is a natural number $n$ such that $h(n) > x$
+is another property of the harmonic series that can be
+derived from equations \{h0\} and \{h1\}.
+And the fact that $h(n)$ grows larger at about
+the same rate as $log(n)$. That, too, is a consequence
+of \{h1\} and \{h0\}. All the properties of the
+harmonic series are a consequence of those two equations.
+Simple beginnings. Big results.
+
 It turns out that every computable function has a definition consisting
-of some equations specifying properties of the function,
-and this approach provides the basis for much of the reasoning
+of some equations specifying properties of the function
+and that all the properties of the function derive
+from those equations.
+This notion provides the basis for most of the reasoning
 discussed in this text.
-The implications of inductive equations are broader than they seem at first glance.
+The implications of inductive equations 
+are broader than at first they seem.
 
 To get back to the chess-playing computer, the problem with our
 na\"ive approach is that there are too many moves to consider.
@@ -587,20 +630,29 @@ before the computer could decide on its first move.
 did play in more-or-less this way, but it didn't look at board positions
 all the way to the end of the game. Most of the time, it looked
 six to eight moves ahead. Even that is a very big computation,
-but it was a feasible one for Deep Blue because it had
+but feasible for Deep Blue because it had
 thousands of processing units and could consider many moves at the same time.
 That gave it the ability to analyze about 200 million board positions per second.
 The combination of massive computational power and limited look-ahead
 made it possible for Deep Blue to outplay
 the most accomplished human chess player of the time.
+Now, two decades after the big match,
+chess-playing software on laptops
+gives accomplished players a run for their money.
+They use chess-playing software as part of their
+practice regimen. They learn things from the way
+the computer plays. Simple beginnings.
+Astonishing outcomes.
 
 Deep Blue is a combination of a complicated computer
 and a computer program with a long, complex definition.
 The Deep Blue software conformed to a conventional computation model,
 not the equation-based model we used to describe it,
-but in principle the program could have been designed
+but the program could have been designed
 using equations in a manner similar to the
-way equations provided a definition of the operator $h$.
+way equations provided a definition of the operator $h$,
+but a lot more of them, of course.
+Not so simple, but founded on a few, simple principles.
 
 \begin{ExerciseList}
 \Exercise Can you use equations \{h0\} and \{h1\}
