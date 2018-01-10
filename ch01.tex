@@ -48,9 +48,9 @@ However, software designers rarely put together programs using
 the \index{instruction set}instruction set of the computer chip
 that performs the computation.
 Instead, they use a programming language in which
-the program tends to be shorter and 
+the program tends to be shorter and
 in some ways easier to understand than it would
-be if it were a list of chip instructions. 
+be if it were a list of chip instructions.
 Another piece of software
 translates the program into instructions that the
 chip is wired to carry out.
@@ -68,7 +68,7 @@ However, software as a list of instructions is
 not the only alternative.
 Another alternative uses drawings of
 system configurations to build software.
-For example, scientists use a programming language called 
+For example, scientists use a programming language called
 \index{LabView}LabView
 to design software to control laboratory equipment.
 Engineers use it to design digital systems,
@@ -102,7 +102,7 @@ that the software should pass, the software itself
 can emerge from specifications of the tests.
 
 Instruction lists, visual programming languages, and equation-based
-software are fundamentally different ways to describe computer programs, 
+software are fundamentally different ways to describe computer programs,
 but they are fully equivalent in terms of capabilities.
 Since the primary focus of this text is on logical reasoning
 about hardware and software components of computer systems,
@@ -183,7 +183,7 @@ Major elements of hardware designs look like software
 and can use the same language and notation.
 A major theme of this book
 is that both hardware and software are realizations of formal logic.
-In this sense, computer systems are 
+In this sense, computer systems are
 \index{logic!in action}logic in action.
 
 \section{Structure of a Program}
@@ -212,7 +212,7 @@ the requirements of a project can guide the choice of models.
 Generally, a programming language based on any model of computation
 has intrinsic arithmetic and logic operators
 (adders, multipliers, inverters, etc)
-and provides the ability to combine 
+and provides the ability to combine
 intrinsic operators and operators
 defined elsewhere in the software to
 define new operators.
@@ -226,7 +226,7 @@ So, when we say \index{function}function we mean \index{operator}operator and vi
 What we're talking about when we use either term
 is a transformation that delivers results when supplied with input.
 We refer to the results delivered by an operator as its \emph{value},
-and we refer to the input supplied 
+and we refer to the input supplied
 to the operator as its \index{operand}\emph{operands}.
 Sometimes we use the term \index{argument}``argument''
 or \index{parameter}``parameter'' instead of ``operand,''
@@ -299,16 +299,16 @@ always delivers the same value, and that would make for a very boring game.
 Any player will have seen the choices of the other player for
 previous rounds, so it seems fair to use some of that information in
 making a choice for the next round.
-The player for the device, which is the operator \textsf{emily}, 
+The player for the device, which is the operator \textsf{emily},
 will receive as its operand the choice that the human player selected
 in the immediately previous round.
-The operator \textsf{emily} 
+The operator \textsf{emily}
 (and this is heart of the device's ``prowess''
-at the game, if prowess is the right term, and it probably isn't) 
+at the game, if prowess is the right term, and it probably isn't)
 will, in turn, choose a play according to the following scheme.
 The operand $u$ is the human player's choice for the previous round.
 \begin{displaymath}
-emily(u) =
+\textsf{emily}(u) =
    \left\{
         \begin{array}{ll}
         \mbox{\textsf{rock}}     & \mbox{if } u = \mbox{\textsf{scissors}} \\
@@ -333,7 +333,7 @@ The second component, $u$, indicates the human player's choice for the round
 (\textsf{rock}, \textsf{paper}, or \textsf{scissors}).
 The \textsf{score} operator reports the human player's choice so that
 in the next round the software
-can tell the operator \textsf{emily} 
+can tell the operator \textsf{emily}
 the choice that the human player made in the previous round,
 and \textsf{emily} can use that information in deciding on a choice
 for the next round.
@@ -342,7 +342,7 @@ The following table specifies
 the two-component value, ($w$, $u$), that the \textsf{score} operator
 delivers, given the two operands indicating the player's choices, ($d$, $u$).
 \begin{displaymath}
-score(d,u) =
+\textsf{score}(d,u) =
    \left\{
         \begin{array}{ll}
         (\mbox{\textsf{none}}, u)   & \mbox{if } d = u \\
@@ -351,7 +351,7 @@ score(d,u) =
         (\mbox{\textsf{device}}, u) & \mbox{if } (d,u) = (\mbox{\textsf{paper}}, \mbox{\textsf{rock}}) \\
         (\mbox{\textsf{human}}, u)  & \mbox{if } (d,u) = (\mbox{\textsf{paper}}, \mbox{\textsf{scissors}}) \\
         (\mbox{\textsf{device}}, u) & \mbox{if } (d,u) = (\mbox{\textsf{scissors}}, \mbox{\textsf{paper}}) \\
-        (\mbox{\textsf{human}}, u)  & \mbox{if } (d,u) = (\mbox{\textsf{scissors}}, \mbox{\textsf{rock}}) \\ 
+        (\mbox{\textsf{human}}, u)  & \mbox{if } (d,u) = (\mbox{\textsf{scissors}}, \mbox{\textsf{rock}}) \\
         \end{array}
    \right.
 \end{displaymath}
@@ -389,7 +389,7 @@ logic and traditional algebraic formulas.
 To back to our discussion of the game,
 after the first round the display component of the device
 would show the first element $w_1$ of the pair $(w_1, u_1)$ delivered by the formula
-\textsf{score}(\textsf{emily}(none), $b_1$),
+\textsf{score}(\textsf{emily}(\textsf{none}), $b_1$),
 where $b_1$ stands for rock, paper, or scissors, depending on which button
 the human player pressed.
 For the next round the outcome would be
@@ -405,11 +405,11 @@ element of a pair, to the \textit{emily} operator for the next round.
 \begin{displaymath}
 %   \left\{
         \begin{array}{ll}
-        (w_1, u_1) = \mbox{score}(\mbox{emily}(\mbox{none}), b_1) \\
-        (w_2, u_2) = \mbox{score}(\mbox{emily}(u_1), b_2) \\
-        (w_3, u_3) = \mbox{score}(\mbox{emily}(u_2), b_3) \\
-        (w_4, u_4) = \mbox{score}(\mbox{emily}(u_3), b_4) \\
-        (w_5, u_5) = \mbox{score}(\mbox{emily}(u_4), b_5)
+        (w_1, u_1) = \mbox{\textsf{score}}(\mbox{\textsf{emily}}(\mbox{\textsf{none}}), b_1) \\
+        (w_2, u_2) = \mbox{\textsf{score}}(\mbox{\textsf{emily}}(u_1), b_2) \\
+        (w_3, u_3) = \mbox{\textsf{score}}(\mbox{\textsf{emily}}(u_2), b_3) \\
+        (w_4, u_4) = \mbox{\textsf{score}}(\mbox{\textsf{emily}}(u_3), b_4) \\
+        (w_5, u_5) = \mbox{\textsf{score}}(\mbox{\textsf{emily}}(u_4), b_5)
         \end{array}
 %   \right.
 \end{displaymath}
@@ -552,13 +552,13 @@ that is not circular, \{h0\}, than it is to the operand on the
 left-hand side of the circular equation.
 
 It turns out, and we will study this is in great detail later,
-that a collection of circular equations with 
+that a collection of circular equations with
 these two characteristics
 (a reduced operand on the right-hand side in circular equations
 and a specific operand on the left-hand side in non-circular equations)
 provides a useful definition of an operator.
 Therefore, we can say that equations \{h1\} and \{h0\}
-define the operator $h$. 
+define the operator $h$.
 The equations comprise an inductive definition.
 
 The definition is mathematically rigorous
@@ -594,7 +594,7 @@ In this way the equations \{h1\} and \{h0\} provide not just
 a definition of the operator $h$, but also a scheme for computing $h(n)$
 for any natural number $n$.
 Furthermore, other properties of the operator $h$,
-such as the fact that when $n$ is a natural number, 
+such as the fact that when $n$ is a natural number,
 the formula $h(n+1)$ must in all cases stand for a strictly positive number,
 and that its value must be a ratio of whole numbers,
 can be derived from \{h1\} and \{h0\}.
@@ -614,7 +614,7 @@ and that all the properties of the function derive
 from those equations.
 This notion provides the basis for most of the reasoning
 discussed in this text.
-The implications of inductive equations 
+The implications of inductive equations
 are broader than at first they seem.
 
 To get back to the chess-playing computer, the problem with our
@@ -656,41 +656,34 @@ Not so simple, but founded on a few, simple principles.
 
 \begin{ExerciseList}
 \Exercise Can you use equations \{h0\} and \{h1\}
-(page \pageref{reciprocalsdef})
-to compute $h(-1)$?  How about $h(\frac{1}{2})$? Why not?
+%(page \pageref{reciprocalsdef})
+to compute $h(-1)$?  Or $h(\frac{1}{2})$? Why not?
 
-\Exercise Define an operator to compute \emph{factor}$(k, n)$, which is true
-if $k$ is a factor of $n$ and false otherwise.
-Assume that the formula $mod(k,n)$ stands for the remainder
-in $k \div n$.
-For example, $mod(17,5)=2$, $mod(9,2)=1$, and $mod(12,4)=0$.
-Use the $mod$ function in your definition of \emph{factor}.\\
-\emph{Note}: For natural numbers $k$ and $n$, $k$ is a factor $n$
+\Exercise Define an operator \emph{factor}$(k, n)$: true
+if $k$ is a factor of $n$, false otherwise.\\
+\emph{Note}: Natural numbers only. And,
+$k$ is a factor $n$
 if there is a number $m$ such that $n = km$.\\
-\emph{Hint}: You will need only one equation.
+\emph{Note}: $mod(k,n) =$ remainder
+in $k \div n$: $mod(17,5)=2$, $mod(9,2)=1$, $mod(12,4)=0$.\\
+\emph{Hint}: One equation is enough. Use $mod$.
 
 \Exercise \label{largest-factor}
-        Define an operator to compute \emph{lf}$(n)$,
-        the largest factor of $n$ other than $n$ itself.
-        For example, \emph{lf}$(30)=15$ and
-        \emph{lf}$(15)=5$.
-        Assume that the formula
-        \emph{lft}$(n,k)$ stands for the largest factor of
-        $n$ that doesn't exceed $k$ (the largest factor up to $k$).
-        For example, \emph{lft}$(30,7)=6$.
-        In your definition, use a formula like \emph{lft}$(n,k)$,
-        with appropriate choices for $n$ and $k$.
-        You can use the notation $\lfloor n \div k\rfloor$
-        to denote the largest integer that does not exceed $n \div k$
-        (that is, $n \div k$ rounded down to an integer).
+        Define an operator \emph{lf}$(n) =$
+        largest factor of $n$ other than $n$:
+        \emph{lf}$(30)=15$, \emph{lf}$(15)=5$.\\
+        \emph{Note}: Use \emph{lft}$(n,k) =$ largest factor of
+        $n$ up to $k$:
+        \emph{lft}$(30,7)=6$, \emph{lft}$(120,10)=10$.\\
+        \emph{Note}: Use $\lfloor n \div k\rfloor = n \div k$ rounded down to an integer.
 
 \Exercise \label{prime-predicate}
         Define an operator to compute $p(n)$, which is true
         if $n$ is a prime number and false otherwise.
         Refer to the operator \emph{lf}
         from Exercise \ref{largest-factor} in your definition.\\
-        \emph{Note}: A prime number is a natural number greater than or equal to two
-        that has no factors other than one and itself.
+        \emph{Note}: A natural number $p \geq 2$ is a prime number if
+        it has no factors other than $p$ and $1$.
 
 \Exercise Define an operator to compute $rp(n)$,
 the sum of the reciprocals of all the prime numbers that are less than or equal to
