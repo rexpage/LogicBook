@@ -282,12 +282,12 @@ the sum of its two input numerals and the input carry bit.
 
 \begin{ExerciseList}
 \Exercise \label{bignum-add-hi-order-bit-thm}
-Do a pencil-and-paper proof by induction of the following
+Do a paper-and-pencil proof by induction of the following
 theorem, which says that if the high-order bit in both input numerals is a $1$,
 then the high-order bit of the numeral delivered
 by the bignum \textsf{add} operator is also a $1$.
 The theorem refers to the \textsf{fin} operator (page \pageref{fin-defun}).\\
-\hspace*{1cm}$(($\textsf{(fin $x$) $=$ $1)$ $\wedge$ $($(fin $y$)}$= 1)) 
+\hspace*{1cm}$(($\textsf{(fin $x$) $=$ $1)$ $\wedge$ $($(fin $y$)}$= 1))
 \rightarrow ($\textsf{(fin (add 0 $x$ $y$))} $=$ $1)$
 
 \Exercise State the theorem of Exercise~\ref{bignum-add-hi-order-bit-thm}
@@ -314,17 +314,17 @@ the digits lined up according to the left shifts that occurred at each stage.
 Grade-school students learn this procedure
 without knowing the algebra behind it.
 However, we want to specify a
-multiplication operator in the form of equations, 
+multiplication operator in the form of equations,
 so we need to work out the algebra.
 Figure~\ref{fig:grade-school-mult} (page \pageref{fig:grade-school-mult})
 presents the multiplication procedure,
 and provides an algebraic argument that justifies it.
 The algebra relies on the equation
-that grade-school students use to check the correctness of their long-division 
+that grade-school students use to check the correctness of their long-division
 problems.\footnote{We're not
 sure they do this is grade school anymore.
 With computers and calculators constantly at hand,
-it probably makes more sense to learn something else. 
+it probably makes more sense to learn something else.
 Nevertheless, we will need this
 division-check equation to justify the multiplication procedure.}
 
@@ -420,7 +420,7 @@ That is, an operator that delivers the binary numeral for the product of the num
 represented by its operands, which are also binary numerals.
 Let's call it \textsf{mul}, and let's call its operands, which are binary numerals,
 $x$ and $y$ (Section~\ref{sec:binary-numerals}, page \pageref{sec:binary-numerals}).
-If $y$ is nil, it stands for zero, 
+If $y$ is nil, it stands for zero,
 which makes the product zero (that is, \textsf{nil}).
 That analysis yields an equation and completes
 the computation when $y$ is \textsf{nil}
@@ -455,10 +455,10 @@ which will be necessary, regardless of what happens in step 1.
 
 In Figure~\ref{fig:grade-school-mult}, the variables $x$, $y$, $m$, $p$, and $s$
 stand for numbers, but in this discussion outside the figure,
-they stand for binary numerals. 
-We will sometimes want to refer, instead, to numbers 
+they stand for binary numerals.
+We will sometimes want to refer, instead, to numbers
 and will use underlines to make the distinction.
-For example, $x$ is a binary numeral, 
+For example, $x$ is a binary numeral,
 but $\underline{x}$ $=$ \textsf{(numb $x$)}
 is the number that $x$ stands for.
 Similarly, $x_0$ is a symbol for a bit,
@@ -470,7 +470,7 @@ The numeral for $\lfloor \underline{x} \div 2 \rfloor$ is just $x$ without its
 low-order bit. Since the low-order bit comes first
 in our representation of binary numerals,
 the numeral for $x$ without is low-order bit is \textsf{(rest $x$)}.
-Observing that the numeral \textsf{(rest $x$)} 
+Observing that the numeral \textsf{(rest $x$)}
 is shorter than the numeral $x$,
 we can invoke \textsf{mxy} and rely on induction.
 That gives us a way to compute $p$, which, don't forget,
@@ -517,7 +517,7 @@ so $\underline{s} = \lfloor \underline{m}\div 2\rfloor + \underline{p} = \lfloor
 Again, $y$ is a numeral, so the numeral for $\lfloor \underline{y}\div 2\rfloor$
 is just like $y$, but without the first bit: (rest $y$).
 That gives us another equation for \textsf{mxy}.
-We use the bignum add operator to compute the sum 
+We use the bignum add operator to compute the sum
 shown in in step 3 of Figure\ref{fig:bignum-mul-defun}.
 The first operand of the \textsf{add} operator is the input carry bit,
 which is zero because we only want to add $p$ and \textsf{(rest $y$)}.
@@ -548,7 +548,7 @@ are empty, they deliver the same result, namely the empty numeral.
 They are computational because in the inductive equations,
 \{m0xy\} and \{m1xy\}, the first operand in
 the invocation of the operator \textsf{mxy} on the right-hand side,
-is the numeral \textsf{(rest $x$)}. 
+is the numeral \textsf{(rest $x$)}.
 Since $x$ is non-empty in the inductive case,
 \textsf{(rest $x$)} has fewer bits than the $x$, which is the first operand
 on the left-hand side.

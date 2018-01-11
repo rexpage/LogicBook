@@ -163,7 +163,7 @@ We could use pure symbols, but we indulge in
 this sleight of hand to
 simplify parts of the discussion.
 In a similar vein, the list notation \textsf{[5 1 2 1]} is the symbol we use
-to describe the 
+to describe the
 \index{list!for numeral}\index{numeral!list for}\index{sequence!for numeral}\index{numeral!seqeuence for}list,
 but the list itself is a mathematical object.
 It's another figment of our imagination,
@@ -251,10 +251,10 @@ $r$ $=$ \textsf{(mod $n$ $d$)}   & \emph{remainder} \\
 $n = qd + r$            & \{\emph{check}$\div$\} \\
 \end{tabular}
 \end{center}
-\index{division!third grade}\index{division!long division}\index{division!floor, mod}
-\seeonlyindex{long division}{division}
-\index{modular arithmetic}
-\index{operator, by name!floor (divide, round down)}\seeonlyindex{mod}{operator}\index{operator, by name!mod (remainder)}
+\index{division!third grade}\index{division!long division}\index{division!floor (round down)}
+\seeonlyindex{long division}{division}\index{modular arithmetic}\index{operator, by name!floor (divide, round down)}
+\seeonlyindex{mod}{operator}\index{operator, by name!mod (remainder)}
+\index{arithmetic!clock}\index{clock arithmetic}\index{arithmetic!modular}\index{division!mod (remainder)}
 \caption{\textsf{mod} and \textsf{floor}: Think Third-Grade Division}
 \label{third-grade-division}
 \end{aside}
@@ -461,15 +461,15 @@ Let's assume that numerals are represented
 in the manner of the \textsf{dgts} operator:
 units digit first,
 then the tens digit, then hundreds, and so on.
-We want to define an operator, \textsf{nmb10}, 
+We want to define an operator, \textsf{nmb10},
 that converts decimal numerals in that form to numbers.
-We know that \textsf{(nmb10 nil)} must be zero 
-because \textsf{(dgts 0)} $=$ \textsf{nil}, 
+We know that \textsf{(nmb10 nil)} must be zero
+because \textsf{(dgts 0)} $=$ \textsf{nil},
 and we are trying to convert numerals produced by \textsf{dgts}
 back the numbers they came from.
 How about a one-digit numeral \textsf{[$x_0$]}?
 The equation in that case would be \textsf{(nmb10 [$x_0$])} $=$ $x_0$.
-If there are two or more digits, 
+If there are two or more digits,
 \textsf{[$x_0$ $x_1$ \dots $x_{n+1}$]},
 then the equation would take the following form.\\
 \hspace*{1cm}
@@ -546,7 +546,7 @@ delivers the same number as the formula
 $(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n} \times 10^{n})$.
 
 \begin{center}
-\label{horner10-thm}\index{theorem!Horner}\index{theorem, by name!\{Horner 10\}}Theorem 
+\label{horner10-thm}\index{theorem!Horner}\index{theorem, by name!\{Horner 10\}}Theorem
 \{\emph{Horner 10}\}:
 \textsf{(nmb10 [$x_0$ $x_1$ \dots $x_{n}$])} $=$
 $x_0 + x_1 \times 10^1 + x_2 \times 10^2 +$ $\dots$ $x_{n} \times 10^{n}$
@@ -554,8 +554,8 @@ $x_0 + x_1 \times 10^1 + x_2 \times 10^2 +$ $\dots$ $x_{n} \times 10^{n}$
 
 The theorem asserts that the operator \textsf{nmb10}
 computes a sum of multiples of successive powers of ten.
-The multipliers 
-(known as \index{coefficient, polynomial}polynomial coefficients) 
+The multipliers
+(known as \index{coefficient, polynomial}polynomial coefficients)
 of the powers of ten are the digits in a decimal numeral.
 We call it the theorem \emph{Horner 10} because
 the scheme that the operator \textsf{nmb10} uses to carry out the computation is

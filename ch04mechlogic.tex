@@ -231,7 +231,7 @@ click in the proof bar, and see what happens.
 \begin{ExerciseList}
 
 \Exercise Define the
-\index{append!associative}\index{theorem!append associative}\index{theorem, by name!\{append associative\}}\index{associative}associativity property 
+\index{append!associative}\index{theorem!append associative}\index{theorem, by name!\{append associative\}}\index{associative}associativity property
 of \textsf{append} (\{\emph{app-assoc}\}, page \pageref{app-assoc})
 in ACL2 notation,
 and use Proof Pad to run it through the ACL2 mechanized logic.
@@ -249,7 +249,7 @@ mechanized logic and one of the first theorems that such a system proved autonom
 \section{Theorems with Constraints}
 \label{sec:implies-constraints}
 
-Another of the pencil-and-paper proofs in Section~\ref{sec:append-prefix-suffix}
+Another of the paper-and-pencil proofs in Section~\ref{sec:append-prefix-suffix}
 was the append-prefix theorem
 (Figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation}),
 which referred to the prefix operator.
@@ -261,7 +261,7 @@ which referred to the prefix operator.
        nil))                                        ; {pfx0}
 \end{Verbatim}
 
-The append-prefix theorem, as stated for the pencil-and-paper proof,
+The append-prefix theorem, as stated for the paper-and-pencil proof,
 had the form $\forall n.$S$(n)$,
 where S($n$)
 was written in terms of a numbered list.
@@ -374,7 +374,7 @@ An implication formula imposes the necessary constraint.
 \end{figure}
 
 Now we have a theorem that we believe is true
-based on our pencil-and-paper proof.
+based on our paper-and-pencil proof.
 The mechanized logic of ACL2
 succeeds in proving this theorem, but, as was the case with
 the append-suffix theorem
@@ -421,7 +421,7 @@ Hardware and software with guaranteed properties is not easy to come by.
 and use Proof Pad to run it through the mechanized logic.
 (\emph{Hint}: Use \textsf{natp} to constrain the first operand of \textsf{rep}.)
 
-\Exercise An exercise in Section~\ref{sec:append-prefix-suffix} required a pencil-and-paper
+\Exercise An exercise in Section~\ref{sec:append-prefix-suffix} required a paper-and-pencil
 proof of the following proposition: $\forall xs.($\textsf{(nthcdr (len $xs$) $xs$)} $=$ \textsf{nil}$)$.
 Define this theorem in ACL2 and get the mechanized logic to prove it.
 
@@ -454,7 +454,7 @@ logic can cite in a proof of the more complex property.
 \index{ACL2!helping}Choosing simpler properties that ACL2 can prove
 and building, finally, to the more complex proof
 calls for insight and creativity.
-This is where your experience with pencil-and-paper proofs
+This is where your experience with paper-and-pencil proofs
 come in handy.
 You can plan a strategy by thinking of major steps
 in a proof, stating those steps as separate theorems,
@@ -1082,20 +1082,20 @@ Furthermore, to compute the value of the formula \textsf{(p $x$)},
 the \textsf{if} operator in the definition of \textsf{p}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun})
 selects one of two formulas:
-\textsf{0} or \textsf{(loop $x$)}. 
-If it selects the formula \textsf{0}, then (p $x$) terminates. 
+\textsf{0} or \textsf{(loop $x$)}.
+If it selects the formula \textsf{0}, then (p $x$) terminates.
 Therefore, from the definition of the predicate $H$ (page \pageref{def:predicate-H}),
-we conclude that $H($p, $x)=True$. 
+we conclude that $H($p, $x)=True$.
 That is, $($\textsf{(p $x$)}$=$\textsf{0}$)\rightarrow H($\textsf{p}, $x)$.
 Label this implication \{p0\}.
 
 On the other hand, if the \textsf{if} operator in the definition of \textsf{p}
-selects the formula \textsf{(loop $x$)}, then (p $x$) 
+selects the formula \textsf{(loop $x$)}, then (p $x$)
 does not terminate.\footnote{The formula \textsf{(loop $x$)} does not complete its
 computation in a finite amount of time
 (Exercise \ref{ex:loop-nonterminating}, page \pageref{ex:loop-nonterminating}).}
 Therefore, from the definition of the predicate $H$,
-we conclude that $H($p, $x)=False$. 
+we conclude that $H($p, $x)=False$.
 That is, $($\textsf{(p $x$)}$=$\textsf{(loop $x$)}$)\rightarrow(\neg H($\textsf{p}, $x))$.
 Label this implication \{p1\}.
 Theorems \{p0\} and \{p1\} restate these implications.
