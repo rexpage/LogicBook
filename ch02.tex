@@ -1325,7 +1325,7 @@ Boolean equivalence.\index{Boolean!equivalence ($\leftrightarrow$)}\index{equiva
 Logic formulas provide a mathematical notation for operations in symbolic logic.
 These same operations can be materialized as electronic devices.
 The basic operators of logic represented in the form of electronic devices
-are called ``logic gates.''
+are called \emph{logic gates}.
 There are logic
 \seeonlyindex{digital gate}{gate}\index{Boolean!gate}\index{gate!logic}\index{logic!gate}gates
 for the logical-and, the logical-or, negation, and
@@ -1358,7 +1358,7 @@ negation, or any other operators)
 that has the same meaning.
 Logical-or and logical-and are not functionally complete,
 but their negations,
-\index{nor!logic gate}\emph{nor} and \index{nand!logic gate}\emph{nand}, are.
+\index{nor!logic gate}nor and \index{nand!logic gate}nand, are.
 Figure~\ref{fig-02-nand-is-all-you-need} (page ~\pageref{fig-02-nand-is-all-you-need})
 shows how to write logic formulas using only nand gates.
 
@@ -1388,8 +1388,9 @@ logic gate with one input.
 
 Logic operands and values always stand for either $True$ or $False$.
 Similarly, an input line of a logic gate can distinguish between
-only two distinct signals
-and deliver only two distinct \index{signals, Boolean}\index{Boolean!signals}signals on an output line.
+only two distinct signals and deliver only two distinct 
+\index{ones \& zeros}\index{zeros \& ones}\index{logic!signal (0 \& 1)}\index{Boolean!signals}\index{signals, Boolean}\index{Boolean!signals}signals
+on an output line.
 Conventionally those signals are written as 1 (for $True$) and 0 (for $False$).
 Of course, logic gates are electronic devices,
 so 1 and 0 are just labels for the signals.
@@ -1482,7 +1483,7 @@ that delivers precisely the values in the truth table
 for any given formula.
 The \{implication\} axiom
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
-expresses implication in terms of logical-and, logical-or,
+expresses implication in terms of logical-or
 and negation, which means we lose no expressive power by
 discarding implication from the set of logic operations.
 
@@ -1523,7 +1524,7 @@ $(\neg a) = (\neg (a \wedge a))$  & \{$\neg$ as nand\}\label{neg-as-nand}
 \end{center}
 
 In this way a \index{gate!nand}\index{operator, logic!nand}\index{nand!logic gate}nand gate can serve in place of a
-negation gate (also known as an \index{inverter, gate}\index{gate!inverter}inverter).
+negation gate (also known as an \index{inverter, gate}\index{gate!inverter}\emph{inverter}).
 There is a one-step proof of the equation,
 citing the \{$\wedge$ idempotent\} theorem
 (page \pageref{and-idempotent}).
@@ -1588,7 +1589,8 @@ that has the same input/output behavior as the implication operator.\\
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})).
 One of the inputs will need to be a constant rather than a variable.
 
-\Exercise For each of the following logic formulas, draw an equivalent circuit diagram.
+\Exercise For each of the following logic formulas, 
+draw an equivalent circuit diagram.
 Since we don't have a symbol for an implication gate,
 you can either make up you own symbol or
 materialize logic gates where you need them
@@ -1667,7 +1669,7 @@ unknown.
 
 In the following discussion of proof by \index{deduction!proof by}deduction,
 theorems will be stated using the symbol ``$\vdash$'',
-which is called a \index{turnstile ($\vdash$)}turnstile,
+which is called a \index{turnstile ($\vdash$)}\emph{turnstile},
 to separate the \index{hypothesis!theorem}hypotheses
 from the \index{conclusion!theorem}conclusions.
 Hypotheses go on the left of the turnstile and the conclusion on the right.
@@ -1689,8 +1691,8 @@ by the mathematician, \index{Gentzen, Gerhard}Gerhard Gentzen, and refined in th
 by the logician, \index{Prawitz, Dag}Dag Prawitz.}
 \index{theorem}Theorems proved by natural deduction have zero or more
 logic formulas on the left of the turnstile and exactly one formula on the right.
-The formulas on the left are the \index{hypothesis}hypotheses of the theorem, and
-the one on the right is the \index{conclusion}conclusion.
+The formulas on the left are the \index{hypothesis}\emph{hypotheses} of the theorem, and
+the one on the right is the \index{conclusion}\emph{conclusion}.
 A \index{proof}proof begins with the formulas on the left,
 which are assumed to be true.
 At each step the proof cites either a rule of inference or a previously proven theorem
@@ -2054,17 +2056,17 @@ Figure \ref{fig:and-commutes-proof} (page \pageref{fig:and-commutes-proof})
 cites the \{$\wedge$ introduction\} inference rule,
 a rule that requires two proofs above the line.
 The first of those proofs, in this example, has the hypothesis
-of the theorem above the line, annotated as an assumption.
+of the theorem above the line, marked as an assumption.
 It then cites the \{$\wedge$ elimination 2\} rule,
-which requires the right-hand operand of the $\wedge$
+which requires the right-hand operand ($b$) of the $\wedge$
 above the line to go under the line as the conclusion.
 Then comes the dashed line separating
 the two proofs required by \{$\wedge$ introduction\}.
 The second of the proofs comes next.
 It has the same form as the first proof,
 except that it cites \{$\wedge$ elimination 1\} instead of \{$\wedge$ elimination 2\}.
-The \{$\wedge$ elimination 1\} rule brings the left-hand operand of the $\wedge$
-down below the line.($a \rightarrow False$)
+The \{$\wedge$ elimination 1\} rule brings the left-hand operand ($a$) of the $\wedge$
+down below the line.
 The \{$\wedge$ introduction\} rule requires the
 conclusion of the first proof above line to
 become the left-hand operand of the $\wedge$
@@ -2432,7 +2434,8 @@ displays a proof of the modus tollens theorem.\footnote{The
 inference rule \{modus ponens\} says that the conclusion of an implication
 can be derived from a proof of its hypothesis.
 The modus tollens theorem says that the hypothesis
-of an implication can be derived from the negation of its conclusion.}
+of an implication can be derived from 
+a proof of the negation of its conclusion.}
 The proof cites the implication chain rule theorem.
 Since that theorem has two hypotheses, there are two proofs above
 the line where the theorem is cited. Those proofs conclude in
@@ -2440,7 +2443,7 @@ the implication formulas that are the hypotheses of the implication chain rule.
 Finally, the a citation of the \{$\neg$ introduction\} rule completes the proof.
 
 The \{reductio ad absurdum\} rule supports
-``proof by contradiction''.
+``proof by contradiction.''
 It says that if you can prove that the formula
 $(\neg a) \rightarrow$ \emph{False} is true
 you can conclude that the formula $a$ is true.
@@ -2593,7 +2596,7 @@ Exercises~\ref{ex:dbl-mod-pon} and \ref{ex:dbl-mod-pon-eq}.
 Use natural deduction to prove the following theorem:
 $\vdash$ $(a \wedge b) \rightarrow a$
 
-\Exercise
+\Exercise\label{ex:nor-commutes}
 Use natural deduction to prove
 \index{theorem, by name!\{nor commutes\}}\index{nor!commutes}\index{commutative}Theorem
 \{nor commutes\}: $\neg (a \vee b)$ $\vdash$ $\neg (b \vee a)$\\
@@ -2608,7 +2611,7 @@ Use natural deduction to prove
  \{nand commutes\}: $\neg (a \wedge b)$ $\vdash$ $\neg (b \wedge a)$\\
 \emph{Note}: The \{$\wedge$ commutes\} theorem will not help in this proof
 for the same reason that \{$\vee$ commutes\} does not help
-in the previous exercise.
+in Exercise~\ref{ex:nor-commutes}.
 
 \Exercise
 Use natural deduction to prove
@@ -2739,9 +2742,10 @@ The  formula $(\forall x.P(x))$
 stands for the logical-and of all the propositions in the predicate
 \emph{P}.\footnote{The
 formula $(\forall x. P(x))$ reads ``for all $x$, $P(x)$ is \emph{True}.''}
-The value of the formula is $True$
-if there is no element $x$ from the universe of discourse
+The value of the formula is $False$
+if there is an element $x$ from the universe of discourse
 for which the proposition $P(x)$ is $False$.
+Otherwise, $(\forall x.P(x))$ is $True$.
 
 For example, suppose $n$ stands for a natural number
 and we take use
@@ -2752,7 +2756,7 @@ For each natural number $n$, there is a corresponding proposition $E(n)$,
 so \emph{E} is a predicate with the natural numbers
 as its universe of discourse.
 
-If we write a formula that connects some of these propositions with
+If we write a formula that connects some of these propositions with $\wedge$
 $(E(5) \wedge E(3) \wedge E(7) \wedge E(1))$,
 the formula has the value $True$
 because all four of those propositions are $True$.
@@ -2768,8 +2772,9 @@ is $True$.
 A
 \label{def:quantifier}
 \index{quantifier}quantifier converts a set of propositions (that is, a predicate)
-into a single, true/false value (that is, a proposition).
-A formula using a quantifier starts with a quantifier symbol followed by
+into a single value, true or false. That is, a quantifier converts
+a predicate to a proposition.
+Syntactically, a quantified formula starts with a quantifier symbol followed by
 a variable, then a period, and finally a logic formula
 representing a proposition. The variable,
 which is known as the
@@ -2821,11 +2826,10 @@ straight to understand how quantifiers work.
 An especially tricky case is the formula
 $(\forall x.P(x)) \vee x$.
 In this formula, $x$ is a bound variable in the
-operand on the left-hand side of the $\vee$ operator,
+operand on the left-hand side of the $\vee$,
 but is a free variable on the right-hand side.
 
-There are many quantifiers in logic, but the only other
-quantifier we will use the
+The only other quantifier we will use is the
 \label{def:existential-quantifier}\index{existential quantifier ($\exists$)}\index{quantifier!$\exists$, there exists}\index{quantifier!existential ($\exists$)}\index{there exists ($\exists$)}\emph{existential quantifier}.
 It forms the logical-or of all the propositions in a predicate
 and is represented by a symbol that looks like a backwards letter E.
@@ -2840,12 +2844,12 @@ Consider the equation $((n + 7) = 12)$.
 Any equation is a proposition because it is either
 $True$ or $False$. Let's call this proposition $Q(n)$.
 We can take the view that $Q$ is a predicate
-with the natural numbers as its domain of discourse
+with the natural numbers as its universe of discourse
 because for each natural number $n$,
 $Q(n)$ stands for a proposition.
 You know from algebra that there is a natural number
 $n$ for which equation $((n + 7) = 12)$ holds.
-That is, there is a value (namely, the number 5) in the domain
+That is, there is a value (namely, the number $n=5$) in the universe
 of discourse for which the proposition $Q(n)$ is $True$.
 Therefore, according to the definition of the
 existential quantifier,
@@ -2884,10 +2888,10 @@ defined as follows, has two indexes.
 \begin{center}
 $R(m, n) \equiv ((n + 7) = m)$
 \end{center}
-In this discussion the domain of discourse
+In this discussion the universe of discourse
 for both indexes will be the natural numbers.\footnote{A
 predicate with multiple indexes can
-have different domains for different indexes.
+have different universes of discourse for different indexes.
 One index could come from a set of numbers
 and the other from a set of words, for example,
 but both the first and second indexes
@@ -2899,7 +2903,7 @@ equation $((n + 7) = m)$, which is either $True$ or $False$).
 The formula $(\exists n.R(n,m))$ is a different
 proposition for each natural number $m$.
 That makes it a set of propositions indexed by the natural numbers,
-so it is a predicate with the natural numbers as its domain of discourse.
+so it is a predicate with the natural numbers as its universe of discourse.
 To keep things straight, let's give this predicate a name.
 \begin{center}
 $S(m) \equiv (\exists n.R(n,m))$
@@ -2992,24 +2996,24 @@ That will give us familiar symbols for particular indexes.
 $P(5,2)$, $P(0,6)$, and $P(3,7)$ would be specific propositions in the predicate $P$.
 $P(x,y)$ would also be a proposition in predicate $P$, but would not be a specific one
 unless we knew which natural numbers $x$ and $y$ stood for.
-Again, we chose natural numbers as the domain of discourse
+Again, we chose natural numbers as the universe of discourse
 only to make it easy to designate specific elements in the domain.
 The points we make in the discussion about reasoning with quantified predicates
-would be the same for other choices of domain.
+would be the same for other choices of the universe of discourse.
 
 Suppose we have already proved that the formula $(\forall x.(P(5, x)))$ is $True$.
 How can we use this predicate in another proof?
 One way is to observe that $(\forall x.(P(5, x)))$ means that all of the formulas
 $P(5, 0)$, $P(5, 1)$, $P(5, 2)$, \dots are $True$,
 so we can assert in a proof that, for example,
-$P(5, 0) = True$. We could also assert $P(5, 1)$ is $True$, and $P(5, 2)$, and so on.
+$P(5, 0) = True$. We could also assert that $P(5, 1)$ is $True$, and $P(5, 2)$, and so on.
 That is, once we have proved that a universally quantified formula has the value $True$,
 we can use that to justify a more specific theorem that
 eliminates the quantifier and replaces the bound variable by any specific value
 in the universe of discourse.
 
 Not only that, but we could replace the variable by any formula
-representing a value in the domain of discourse.
+representing a value in the universe of discourse.
 For example, we could assert that if $x$ and $y$ denote natural numbers,
 then $(\forall x.(P(5, 2x + y + 4)))$ is $True$.
 
@@ -3040,12 +3044,14 @@ to indicate that the symbols stand for constants, not variables.
 The important thing is (1)~to say in the commentary of the proof that the new
 symbol stands for a specific value from the universe of discourse and is not a variable
 and (2)~to make sure to use a new symbol for each new constant and to not use that
-symbol for any other purpose in the proof. In any case, what was a
-bound variable (page \pageref{def:bound-variable}) in an existential quantification
+symbol for any other purpose in the proof. 
+In any case, what was a bound variable 
+%(page \pageref{def:bound-variable}) 
+in an existential quantification
 becomes a free constant in the formula that represents a particular proposition in the
 predicate, and it is a proposition that has the value $True$.
 
-So what about proofs? How can we prove a statement that users quantifiers?
+So what about proofs? How can we prove a statement that uses quantifiers?
 One approach is to systematically
 remove the quantifiers, so as to produce a formula that has no quantifiers.
 In other words, we
@@ -3053,9 +3059,10 @@ are left with formula without variables, such as $P(5,3)$ or $P(5,x_0)$ where
 $x_0$ stands for a particular element in the universe of discourse whose value
 we don't know, but which in any case stands for just one value and cannot
 be replaced by another variable or formula.
-Since there are no variables, this is really just a Boolean formula,
-so it can be proved using the same methods we used to prove Boolean
-formulas.
+Since there are no variables, this is really just a Boolean formula
+for an ordinary proposition,
+so it can be proved using the same methods we used 
+with Boolean propositions.
 
 This approach to reasoning about quantified formulas is a four-step process.
 The last step is the already familiar area of reasoning
@@ -3082,12 +3089,13 @@ a quantifier from accidentally referring to a different bound variable
 that happens to have the same name.
 For example, consider the formula
 $(\forall x.Odd(x)) \vee (\forall x.Even(x))$,
-where the domain of discourse for both quantifiers is the integers.\footnote{$Odd(x) \equiv (\exists y.(x = 2y+1))$.
+where the universe of discourse for both quantifiers is the integers.\footnote{$Odd(x) \equiv (\exists y.(x = 2y+1))$.
 \label{even-number-predicate-Even}
 $Even(x) \equiv (\exists y.(x = 2y))$.
-The integers are the universe of discourse
-for the predicates $Odd$ and $Even$ (variable $x$)
-and the quantifications (bound variable $y$).}
+These formulas define the predicates $Odd$ and $Even$. 
+The integers are the universe of discourse,
+both for the predicates (variable $x$)
+and for the quantifications (bound variable $y$).}
 This formula has the value $False$ because there
 is an integer $x$ for which $Odd(x$) is false (the number $2$, for example).
 That makes $(\forall x.Odd(x))$ false.
@@ -3097,43 +3105,43 @@ are false, the formula is false (\{$\vee$ truth table\},
 Figure~\ref{or-truth-table}, pagee \pageref{or-truth-table}).
 There are two bound variables in the formula.
 These are different variables even though they both have
-the same name $x$.
+the same name, $x$.
 The formula $(\forall x.(Odd(x) \vee Even(x)))$, on the other hand,
-only has one bound variable.
-Furthermore, the formula can have the value $True$,
-depending on what number $x$ stands for,
-so we have to be careful to keep these formulas straight.
+has only one bound variable and is true.
+We have to be careful to keep these formulas straight.
 They look similar, but they have totally different meanings.
 
-However, the name of a bound variable does not affect the value
-of a quantified formula.
-The formula $(\forall x.Even(x))$ has the same meaning
-as the formula $(\forall y.Even(y))$.
+Another important aspect of quantified formulas is that
+the name of a bound variable has no affect on the value
+of the formula: 
+$(\forall x.Even(x))$ has the same meaning
+as $(\forall y.Even(y))$.
 So, to avoid conflating two different bound variables,
-we start by choosing names for the bound variables in a formula
-so that no two quantifications use the same name for the bound variable.
-In the case of the formula
+we start by choosing names for the bound variables
+so that each quantification uses a bound variable of a different name.
+For example, in the formula
 $(\forall x.Odd(x)) \vee (\forall x.Even(x))$,
-we could, for example, change the name of the bound variable
-in the quantification on the right-hand side of the logical-or ($\vee$):
+we could change the name of the bound variable
+in the second quantification:
 $(\forall x.Odd(x)) \vee (\forall y.Even(y))$.
 The meaning of the formula remains the same,
 but the change of name prevents confusion between two different bound variables.
 
-So suppose we have a formula that contains
-a quantifier $(\forall x.(P(\dots x \dots)))$.
-How do we rename the variable $x$ in this quantifier?
-First of all, we insist that when we rename $x$ we use a completely new variable name,
-that is, one that does
-not already appear in the formula.
-This is for the same reason as before, namely that we do not want to confuse the variable
+Suppose we have a quantified formula that contain
+many variables: $(\forall x.(P(\dots x \dots)))$.
+How do we rename the bound variable $x$ in this formula?
+First, we insist on using a completely new name,
+one that does not appear else in the formula.
+This is for the same reason as before: we do not want to confuse the variable
 $x$ with a different variable that happens to have the same name.
-Obviously, choosing a new name for $x$ that is the same as the name
+Choosing a new name for $x$ that is the same as the name
 of some other variable would defeat our purpose.
 
-Second, we must ensure that when we rename a bound variable $x$ as, say,
-$y$, that we replace all occurrences of that bound variable $x$ with $y$.
-However, we must be careful not to change any occurrence of a different bound variable
+Second, we must ensure that when we 
+change the name of the bound variable $x$ to, say,
+$y$, we replace all occurrences of that bound variable $x$ with $y$.
+However, we must be careful not to change 
+any occurrence of a different variable
 that happens also to have the name $x$.
 For example, recall that there are two different, but identically named,
 bound variables in the formula
@@ -3162,12 +3170,14 @@ Any name is okay, as long as it is not already present in the formula.
 We choose $v$ and get a new formula
 that, according to equation \{R$\exists$\}, has the same value as
 the formula we started with.
-\begin{center}
-\begin{tabular}{ll}
-$((\exists y. (\forall x. P(x, y))) \rightarrow (\forall x. (\exists y. P(x, y)))) =
- ((\exists v. (\forall x. P(x, v))) \rightarrow (\forall x. (\exists y. P(x, y))))$ & \{R$\exists$\} \\
-\end{tabular}
-\end{center}
+%\begin{center}
+%\begin{tabular}{ll}
+%$((\exists y. (\forall x. P(x, y))) \rightarrow (\forall x. (\exists y. P(x, y)))) =
+% ((\exists v. (\forall x. P(x, v))) \rightarrow (\forall x. (\exists y. P(x, y))))$ & \{R$\exists$\} \\
+%\end{tabular}
+%\end{center}
+$$((\exists y. (\forall x. P(x, y))) \rightarrow (\forall x. (\exists y. P(x, y)))) =
+ ((\exists v. (\forall x. P(x, v))) \rightarrow (\forall x. (\exists y. P(x, y)))) ~~ \{R\exists\}$$
 
 Next, we rename the bound variable \emph{x} in $\forall x$
 on the left of the implication.
@@ -3232,25 +3242,25 @@ $(\exists x.P(\dots x \dots)) = (\exists y.P(\dots y \dots))$                   
 \label{fig-02-quantifiers}
 \end{figure}
 
-Before continuing with the migration example, 
+Before continuing with the migration example,
 let's discuss the equations of Figure~\ref{fig-02-quantifiers},
 which show how quantifiers interact with certain logic operators.
 The figure lists some constraints on the names of variables.
-In the equations with binary operators ($\wedge$, $\vee$, $\rightarrow$), 
+In the equations with binary operators ($\wedge$, $\vee$, $\rightarrow$),
 one of the operands
 is a proposition $Q$.
-On the left-hand side of the equation, 
+On the left-hand side of the equation,
 $Q$ stands outside the quantification, but
 on the right-hand side it resides inside the quantification.
 The bound variable, $x$, in the quantification
 must not occur as a free variable in the formula for $Q$.
-If it did, the quantifier would 
-\index{capture, variable}\index{bound variable!capture}\index{variable!capture}\index{free variable!capture}\emph{capture} 
+If it did, the quantifier would
+\index{capture, variable}\index{bound variable!capture}\index{variable!capture}\index{free variable!capture}\emph{capture}
 the free variable on the right-hand side of the equation,
 where $Q$ moves inside the scope of the quantifier.
 That capture would change the free variable $x$ to a bound variable
 and change the meaning of the formula.
-That explains the note prohibiting the occurrence of $x$ as
+That explains the note in the figure prohibiting the occurrence of $x$ as
 a free variable in $Q$.
 
 A similar constraint applies to the renaming
@@ -3266,17 +3276,16 @@ the meaning of the formula.
 
 \label{why-neg-forall}\index{quantifier!negation}\index{universal quantifier ($\forall$)!negation}\index{quantifier!universal ($\forall$)}\index{forall ($\forall$)!negation}\index{existential quantifier ($\exists$)!negation}\index{there exists ($\exists$)!negation}The
 rules $\{\neg\forall\}$ and $\{\neg\exists\}$
-are the quantifier analogs of the DeMorgan equations, \{$\vee$ DeMorgan\} and \{$\wedge$ DeMorgan\}
+are the quantifier analogs of the DeMorgan equations
 (Figures~\ref{fig-02-boolean-axioms} and \ref{some-boolean-theorems}, page \pageref{some-boolean-theorems}).
-We will sketch a proof of the \{$\neg\forall$\} equation, 
+We will sketch a proof of the \{$\neg\forall$\} equation,
 but leave the details and proofs of equations
 (\{$\neg\exists$\}, \{$\forall\wedge$\},
 \{$\exists\wedge$\}, \{$\forall\vee$\}, and \{$\exists\vee$\}) as exercises.
 
-
 Suppose that $\neg(\forall x.P(\dots x \dots)) = True$.
 Then, by the \{double negation\} equation and the truth table of the negation operator
-(Figure~\ref{fig:neg-truth-table}, page \pageref{fig:neg-truth-table}), 
+(Figure~\ref{fig:neg-truth-table}, page \pageref{fig:neg-truth-table}),
 $(\forall x.P(\dots x \dots)) = False$.
 Therefore, according to the definition of universal quantification
 ($\forall$, page \pageref{def:universal-quantifier}),
@@ -3343,14 +3352,14 @@ $=$&  $\exists x.(P(\dots x \dots) \rightarrow Q)$& \{implication\}\\
 Let's continue the migration of quantifiers that
 we started earlier.
 We were working on a formula with quantifiers on both sides
-of an implication operator ($\rightarrow$), and 
+of an implication operator ($\rightarrow$), and
 we renamed some of the variables to avoid conflicts.
 $$((\exists y.(\forall x.P(x, y))) \rightarrow (\forall x.(\exists y.P(x, y)))) =
 ((\exists v.(\forall u.P(u, v))) \rightarrow (\forall x.(\exists y.P(x, y))))$$
 
 We are now working with the formula on the right-hand side of the equation,
 which has a different name for each bound variable.
-Presently, the implication resides 
+Presently, the implication resides
 outside of the scope of all four quantifiers.
 We want to migrate the quantifiers to the beginning of the formula
 and force the implication inside the scope of the quantifiers.
@@ -3499,14 +3508,14 @@ Now, there is a choice of migrating the $\forall u$ or $\forall x$.
 This time the choice matters.
 If we migrate $\forall x$ first (citing \{${\rightarrow}{\forall}$\}),
 we get $\forall x$ at the front,
-but if we migrate $\forall u$ (citing \{${\forall}{\rightarrow}$\}), 
+but if we migrate $\forall u$ (citing \{${\forall}{\rightarrow}$\}),
 we get $\exists u$ at the front.
 We prefer to have universal quantifiers at the beginning of the formula
-because eliminating an existential quantifier forces us to choose 
+because eliminating an existential quantifier forces us to choose
 a particular value from the universe of discourse for which the quantified
-formula is true. 
+formula is true.
 There might be only one such value, and we would be stuck with it.
-\index{Skolemization}We want to leave the choice open if we can 
+\index{Skolemization}We want to leave the choice open if we can
 because that could make it possible to choose a beneficial value at
 a later stage.
 Therefore, we're better off migrating $\forall x$ first
@@ -3539,7 +3548,7 @@ there is at least one value that works.
 So, there may be only one value available, and even if there were many,
 we could not pick one that would exceed all possible values of $x$.
 The upshot is that, whenever possible, we want to migrate quantifiers
-in such a way that universal quantifiers ($\forall$) 
+in such a way that universal quantifiers ($\forall$)
 precede existential quantifiers ($\exists$),
 to keep from getting trapped by early choices that don't work out in the end.
 
@@ -3578,7 +3587,7 @@ Explain why this is different from Exercise~\ref{ex:forall-exist}.
 
 A Boolean \index{variable}\index{variable!Boolean}\index{Boolean!variable}variable $x$
 stands for a proposition, such as ``Socrates is a man.''
-Within the domain of logic, this represents a true/false value,
+In the domain of logic, this represents a true/false value,
 and Boolean formulas and equations provide a way to carry out
 a consistent analysis of relationships between propositions.
 However, stating the proposition in the form ``Socrates is a man''
@@ -3895,7 +3904,9 @@ There are many variants of the game of Nim.
 In another variant, there are three piles of stones, and each player can remove
 one or more stones from any single pile.
 The player who removes the last stone loses the game.
-Describe this game using Boolean variables and formulas.
+Discuss some ways in which a Boolean model of this game
+using Boolean variables and formulas would
+differ from the Boolean model of Nim that was discussed in this section.
 
 \end{ExerciseList}
 
@@ -3980,9 +3991,9 @@ at all possible points in time, which is false because the size of the pile
 changes with every move.
 
 \begin{aside}
-Universal ($\forall$) and existential ($\exists$) quantifiers 
+Universal ($\forall$) and existential ($\exists$) quantifiers
 are not the only possibilities.
-A ``for most'' quantifier (${\sim}{\forall}$) might be perfectly sensible.
+A ``for most'' quantifier (${\approx}{\forall}$) might be perfectly sensible.
 In some branches of mathematics, it is common to use the
 quantifiers ``almost everywhere'' and ``almost nowhere.''
 They sound fuzzy, but they're not.
@@ -4026,7 +4037,7 @@ this same approach applies to open-ended games like chess.
 Using propositions, we could (in principle)
 completely describe the game of chess, but only if we limit chess games to, say, 200 moves.
 With predicates, there is no such limitation.
-We can refer to an arbitrary time at which black wins because the domain of discourse
+We can refer to an arbitrary time at which black wins because the universe of discourse
 can be infinite.
 
 The same is true for models of computer programs.
@@ -4036,7 +4047,7 @@ Then (in principle)
 a Boolean formula could be constructed that was $True$
 if and only if the program produced a given answer.
 With predicates, we can do away with the upper bound on computational steps.
-The computation can be open-ended because the domain of discourse for computational steps
+The computation can be open-ended because the universe of discourse for computational steps
 can have an infinite number of elements. It could be the set of natural numbers, for example.
 It is possible, in principle, to describe \emph{all} possible computer programs
 using formulas in predicate logic.
