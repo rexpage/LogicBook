@@ -21,14 +21,14 @@ and we will use it for that purpose starting in this chapter.
 
 We will begin to use \index{Proof Pad}Proof Pad in this chapter,
 so you should install it on your computer.
-Get it at the following URL. It's free.\\ 
+Get it at the following URL. It's free.\\
 \hspace*{38mm}\url{http://proofpad.org}
 
 \caption{Proof Pad and ACL2}
 \label{aside:proof-pad}
 \end{aside}
 
-To get the syntax straight, 
+To get the syntax straight,
 let's specify some direct tests that Proof Pad
 can carry out for the numeric addition operator.
 The following tests check some equations that we expect to be true:
@@ -47,10 +47,10 @@ $2 + 2 = 4$, $5 + 7 = 10 + 2$, etc.
 \end{Verbatim}
 
 This notation looks strange, with formulas like \textsf{(+ 2 2)} instead of $2 + 2$.
-ACL2 expresses formulas with a 
+ACL2 expresses formulas with a
 \index{prefix notation}\index{operator!prefix notation}prefix notation,
 rather than the customary \index{infix notation}\index{operator!infix notation}infix notation.
-In ACL2's prefix notation, a computational 
+In ACL2's prefix notation, a computational
 \index{formula!prefix notation}formula starts with a parenthesis,
 followed by the operator it invokes.
 The operator comes first (as a ``prefix''), then the operands follow.
@@ -72,7 +72,7 @@ We will use both, in different contexts, depending on whether
 we're doing paper-and-pencil reasoning or formal, mechanized logic.
 
 Another important element is the
-\seeonlyindex{include-book}{directive}\index{directive!include-book}\textsf{include-book} 
+\seeonlyindex{include-book}{directive}\index{directive!include-book}\textsf{include-book}
 directive.
 The facility for tests of this kind resides in an ACL2 book
 known as "\textsf{testing}", which in turn resides in a directory known
@@ -100,10 +100,10 @@ It was the test that was wrong.
 Direct, one-off, \textsf{check-expect} tests
 are a good way to get started, but
 we will want to test more general properties that we specify with logic formulas.
-Proof Pad facilitates that kind of \index{testing!doublecheck}testing 
+Proof Pad facilitates that kind of \index{testing!doublecheck}testing
 with a package called
 \index{DoubleCheck}\index{book!doublecheck}\index{teachpacks!doublecheck}DoubleCheck
-that generates 
+that generates
 \index{random data!generating}\index{random data!testing with}\index{testing!with random data}random data
 to run against a predicate
 (that is, a formula representing a true/false value).
@@ -132,7 +132,7 @@ An \textsf{include-book} directive is required to make it accessible for use.
 
 A \index{property!doublecheck}property definition with
 DoubleCheck begins with a parenthesis, then the keyword
-\index{testing!with random data}\index{random data!testing with}\index{defproperty}\textsf{defproperty} 
+\index{testing!with random data}\index{random data!testing with}\index{defproperty}\textsf{defproperty}
 and a name for the property to be tested,
 which is \textsf{+associative-test} in this example.\footnote{The
 rules for naming things in ACL2 are lax compared to many
@@ -141,7 +141,7 @@ but can also include some special characters,
 such as plus signs, hyphens, and colons (not semicolons or commas, though).}
 A sequence of data generator specifications follows the name of the property.
 The entire sequence is enclosed in parentheses,
-and each specification has three parts: a name, 
+and each specification has three parts: a name,
 the keyword \textsf{:value} (with the leading colon),
 and a generator, also enclosed in parentheses.
 In this example, the definition says to use random integers.
@@ -153,16 +153,17 @@ written of course in prefix notation.
 
 Let's look at another example.
 ACL2 can deal with a collection of data elements
-by keeping them in an ordered sequence called, 
-and this is a technical term, a \emph{list}.
-There is an operator, 
-\label{list-op-informal}\textsf{list}, 
+by keeping them in an ordered \index{sequence}sequence 
+called, and this is a technical term, a 
+\index{list}\emph{list}.
+There is an operator,
+\label{list-op-informal}\index{operator, by name!list}\index{list!operator (\emph{see also} operator)}\textsf{list},
 that creates a list of its operands
 (any number of operands).
 Another operator,
 \label{append-op-informal}\index{operator, by name!append}\index{append!operator}\textsf{append},
 \index{concatenate}concatenates two lists.
-A few \textsf{check-expect} tests may clarify 
+A few \textsf{check-expect} tests may clarify
 what the \textsf{append} and \textsf{list} operators do.
 Later, we will describe them formally.
 
@@ -175,7 +176,7 @@ Later, we will describe them formally.
 
 We would anticipate that the length of a concatenation of two lists
 would be the length of the first list plus the length of the second.
-Using the 
+Using the
 \label{len-op-informal}\index{operator, by name!len (length of list)}\seeonlyindex{len}{operator}\textsf{len}
 operator, which computes the length of a list,
 we can state this property in a DoubleCheck test.
@@ -193,8 +194,8 @@ and asking Proof Pad to check them against random data.
 \end{Verbatim}
 
 \begin{aside}
-A \index{natural number}\emph{natural number} is a whole number 
-(that is, an integer) that is zero or more.
+A \index{natural number}\emph{natural number} is
+an integer that is zero or more.
 Some treatments start the naturals with one,
 rather than zero, but in the computing domain,
 starting with zero simplifies some formulas.
@@ -203,7 +204,7 @@ starting with zero simplifies some formulas.
 \end{aside}
 
 When we discuss computer arithmetic, we will need to know something about
-arithmetic on finite sets of numbers,  and the 
+arithmetic on finite sets of numbers,  and the
 \index{operator, by name!mod (remainder)}\label{mod-function}mod
 operator will play a crucial role.
 The mod operator takes two operands and
@@ -235,39 +236,28 @@ Here are a few more sanity checks, this time with three as the divisor.
 \end{Verbatim}
 
 \begin{aside}
-\index{arithmetic!modular}\index{modular arithmetic}\index{division!floor, mod}\index{operator, by name!mod (remainder)}Modular 
-arithmetic
-(sometimes called \index{clock arithmetic}clock arithmetic)
-deals with integers in a fixed range, $0$ $\dots$ $(m - 1)$,
-where $m$ is an integer greater than zero known as
-the \emph{modulus}.
-If $x$ is an integer, the formula ($x$ mod $m$) stands for
-the remainder in the division of $x$ by $m$.
-
+\index{arithmetic!clock}\index{clock arithmetic}\index{arithmetic!modular}\index{modular arithmetic}\index{operator, by name!mod (remainder)}\index{division!third grade}\index{division!long division}\index{modular arithmetic}\index{operator, by name!mod (remainder)}\index{arithmetic!clock}\index{clock arithmetic}\index{arithmetic!modular}\index{division!mod (remainder)}Modular
+arithmetic (aka clock arithmetic)
+produces integers in a fixed range: $0$, $1$, $\dots$ $(m - 1)$,
+where $m > 0$ is a natural number known as the 
+\index{modulus (modular arithmetic)}\emph{modulus}.
+If $x$ is an integer, the formula ($x$ mod $m$) denotes
+the remainder in the division of $x$ by $m$ 
+($0 \leq (x$ mod $m) < m$).
 Modular addition, subtraction, and multiplication are
-are consistent with ordinary arithmetic.
-That is, the sum of two numbers, mod $m$,
-is the same as the sum, mod $m$, of the corresponding numbers
-in the ``mod $m$'' range.
-The same is true of subtraction and multiplication.
-
-\begin{quote}
-($(x + y)$ mod $m$) = ((($x$ mod $m$) $+$ ($y$ mod $m$)) mod $m$) \\
-($(x - y)$ mod $m$) = ((($x$ mod $m$) $-$ ($y$ mod $m$)) mod $m$) \\
-($(x \times y)$ mod $m$) = ((($x$ mod $m$) $\times$ ($y$ mod $m$)) mod $m$)
-\end{quote}
-
-The ACL2 operator \textsf{mod} converts numbers to the modular range
-for a given modulus. That is, (\textsf{mod} $x$ $m$) delivers the remainder
-in the division of $x$ by $m$.
-The divisor (second operand) must be non-zero.
-ACL2 does not restrict the operands to natural numbers,
-but the discussion here assumes that they are.
+are consistent with ordinary arithmetic.\\
+\hspace*{15mm}($(x + y)$ mod $m$) = ((($x$ mod $m$) $+$ ($y$ mod $m$)) mod $m$) \\
+\hspace*{15mm}($(x - y)$ mod $m$) = ((($x$ mod $m$) $-$ ($y$ mod $m$)) mod $m$) \\
+\hspace*{15mm}($(x \times y)$ mod $m$) = ((($x$ mod $m$) $\times$ ($y$ mod $m$)) mod $m$)\\
+The ACL2 operation  
+(\textsf{mod} $x$ $m$) delivers the remainder in $x \div m$.
+Our discussion restricts the operands to natural numbers,
+but ACL2 doesn't.
 \caption{Modular Arithmetic}
 \label{modular-arithmetic}
 \end{aside}
 
-We can put \textsf{mod}
+We can use Proof Pad to put \textsf{mod}
 through its paces on a large number of tests using DoubleCheck,
 but for that we will need to come up with relationships
 that express more general properties of division and remainders.
@@ -275,7 +265,7 @@ One such property is that the remainder doesn't change
 when the divisor is added to the dividend.
 
 \begin{Verbatim}
-(defproperty mod-test
+(defproperty mod-invariant
   (divisor-minus-1 :value (random-natural)
    dividend        :value (random-natural))
   (let* ((divisor (+ divisor-minus-1 1))) ; avoid zero divisor
@@ -283,66 +273,68 @@ when the divisor is added to the dividend.
        (mod (+ dividend divisor) divisor))))
 \end{Verbatim}
 
-Generating 
-\index{random data!generating}\index{testing!with random data}random data 
+Generating
+\index{random data!generating}\index{testing!with random data}random data
 is an art.
 In this example, we have made sure the divisor isn't zero
 by adding one to a natural number.
 Since negative numbers aren't natural numbers, adding one
 to a natural number ensures that the sum is non-zero.
 \label{let-example-brief-explain}
-The definition of the property uses a
-\index{let* names for values}\index{formula!let*}\index{variable!let*}\textsf{let$*$} formula,
-which provides a way to attach names to \index{value, let$*$ name for}values temporarily
+The definition of the \textsf{mod-invariant} property 
+uses a \textsf{let$*$} formula,
+which provides a way to attach names to values temporarily
 (Aside \ref{let*-def}, page \pageref{let*-def}).
 In this case, the \textsf{let$*$} says that
-the name \textsf{divisor} will be used to stand for
+the name \textsf{divisor} will stand for
 the value represented by the formula \textsf{(+ divisor-minus-1 1)}.
-To see the testing facility in action,
-define the mod-test property in a .lisp file,
-and use Proof Pad to run the tests.
 
 \begin{aside}
-A \textsf{let$*$ }formula attaches names to values
-to be used within the scope of the \textsf{let$*$} formula.
-The scope of the \textsf{let$*$} opens with a parenthesis followed
-by the keyword \textsf{let$*$}. It continues with
-a sequence of name-value bindings, and ends with
-a formula for the value to be delivered by the \textsf{let$*$}
-and a closing parenthesis matching the one before
-the \textsf{let$*$} keyword.
+A 
+\index{formula!let$*$}\index{variable!let$*$}\index{let$*$, local name}\index{value, let$*$ name for}\index{local names (let$*$)}\index{value, let$*$ name for}\index{name, local (let$*$)}\textsf{let$*$}
+formula attaches values to names.
+The \index{scope!let$*$ name}scope of the \textsf{let$*$} opens with a parenthesis,
+then the keyword \textsf{let$*$}. 
+The scope continues with
+a sequence of name/value bindings, 
+and ends with a formula for the value 
+to be delivered by the \textsf{let$*$}.
+A final parenthesis closes the scope.
 
-Each binding has two elements: first a name,
-then a formula specifying a value to be associated with the name.
+Each binding has the form ($h$ $v$),
+where $h$ is a name and $v$ is a
+formula specifying a value to be associated with that name
+($h$ does not denote an operator).
+The parentheses around each binding are required.
 Any of the names attached to values in the bindings
-can be used subsequently in the scope of the \textsf{let$*$ }to denote those values.
+denote those values at any
+subsequent point within the scope 
+of the \textsf{let$*$},
+but the name/value associations do not
+extend outside that scope.
 There can be any number of bindings.
 The most common use of \textsf{let$*$} is to give names
 to values needed more than once in a computation,
-but sometimes it's used just to give mnemonic names
-to significant elements in a formula.
+but sometimes \textsf{let$*$} is used to provide mnemonic names
+to make a formula more easily understood.
 
 The parentheses in a \textsf{let$*$} formula are tricky.
-Each individual name-value binding is enclosed in parentheses,
-and the whole sequence of bindings is closed in another set
+Each individual binding is enclosed in parentheses,
+and the whole sequence of bindings is enclosed in another set
 of parentheses. In addition, the entire \textsf{let$*$} formula
-is enclosed in its opening and closing parentheses.
-The \textsf{let$*$ }formula denotes the value specified
-in the formula that comes at the end of the 
-\index{formula!let$*$}\index{variable!let$*$}\index{let$*$ names for values}\index{value, let$*$ name for}\textsf{let$*$}, 
-after the name-value bindings.
-\caption{Naming Local Values with \textsf{let$*$}}
+is enclosed in parentheses.
+A \textsf{let$*$} formula delivers a value $v_{let*}$
+specified by a formula positioned after name/value bindings.
+%(and of course before the parenthesis that closes the \textsf{let$*$}).
+\begin{center}
+(let$*$ (($h_1$ $v_1$) ($h_2$ $v_1$) $\dots$ ($h_n$ $v_n$)) $v_{let*}$)
+\end{center}
+\caption{Local Names for Values: \textsf{let$*$}}
 \label{let*-def}
 \end{aside}
 
-Another property of the \textsf{mod} operator
-in the domain of natural numbers
-is that the remainder
-is always smaller than the divisor.
-That is, \textsf{(mod $dividend$ $divisor$)} < $divisor$.
-The following property definition uses
-the DoubleCheck testing facility
-to test whether the \textsf{mod} function delivers values in this range.
+Since (\textsf{mod} $x$ $m$) $<$ $m$ when $m > 0$, 
+the \textsf{mod} operator will pass the following test.
 
 \index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{less than ($<$)}{predicate}
 \begin{Verbatim}
@@ -358,16 +350,16 @@ but as an inequality
 specified with the less-than operator ($<$).
 As always, the formula puts the operator in the prefix position,
 in front of its operands.
-For practice, add this property to the .lisp file with the other tests and 
+For practice, add this property to the .lisp file with the other tests and
 use Proof Pad to run it.
 
-Another fact about remainders in division in the domain of natural numbers is that
-they are non-negative integers (that is, natural numbers).
+When one natural number is divided by another,
+the remainder is also a natural number.
 We can use the logical-and operator
 to combine the upper-limit test with the natural-number test
 in one property definition
 (``\textsf{and}'' is the ACL2 name for $\wedge$).
-\label{natp-op}The value of the formula 
+\label{natp-op}The value of the formula
 \textsf{(natp $x$)} is true
 if $x$ is a natural number and false if it isn't.
 
@@ -399,12 +391,12 @@ the enclosed value.
 Floor brackets (square brackets without the top part)
 go in the other direction, down to the next integer
 that is the same as or smaller than the enclosed value.
-\\
+\vspace{2mm}
 \begin{center}
 \index{operator, by name!ceiling (divide, round up)}\seeonlyindex{ceiling}{operator}\index{ceiling brackets}\index{brackets!ceiling}\index{operator, by name!floor (divide, round down)}\seeonlyindex{floor}{operator}\index{division!floor, mod}\index{floor brackets}\index{brackets!floor}
 \begin{tabular}{lll}
+\textsf{(floor $x$ $y$)}  & $= \lfloor x \div y \rfloor$ \emph{quotient rounded down} \vspace{1mm}\\
 \textsf{(ceiling $x$ $y$)}& $= \lceil x  \div y \rceil $ \emph{quotient rounded up}   \\
-\textsf{(floor $x$ $y$)}  & $= \lfloor x \div y \rfloor$ \emph{quotient rounded down} \\
 \end{tabular}
 \end{center}
 \caption{Floor and Ceiling Operators, Floor and Ceiling Brackets}
@@ -444,7 +436,7 @@ If this fails to reproduce the dividend,
 something has gone wrong in the division process.
 The following property tests this relationship
 between the \textsf{mod} and \textsf{floor} operators.
-It needs to use the multiplication operator, which is denoted by an asterisk.
+It needs to use the multiplication operator ($*$).
 
 \label{division-check-test}
 \begin{Verbatim}
@@ -458,7 +450,7 @@ It needs to use the multiplication operator, which is denoted by an asterisk.
 \end{Verbatim}
 
 We hope by now you are starting to get comfortable with prefix notation
-and the Proof Pad test facilities.
+and using Proof Pad to run tests.
 The exercises will give you a chance to practice.
 
 \begin{ExerciseList}
@@ -468,8 +460,8 @@ when its operands are natural numbers,
 and the divisor (second operand) is not zero.
 Use Proof Pad to run the test.
 
-\Exercise The 
-\index{operator, by name!max (of two operands)}\seeonlyindex{max}{operator}\textsf{max} 
+\Exercise The
+\index{operator, by name!max (of two operands)}\seeonlyindex{max}{operator}\textsf{max}
 operator chooses the larger of two numbers:
 \textsf{(max 2 7)} is \textsf{7}, \textsf{(max 9 3)} is \textsf{9}.
 Define a DoubleCheck property that tests to make sure
@@ -490,7 +482,7 @@ Aside~\ref{modular-arithmetic} (page \pageref{modular-arithmetic}).
 Use Proof Pad to run your tests.
 
 \Exercise
-The ACL2 operator 
+The ACL2 operator
 \index{operator, by name!reverse (elements in list)}\seeonlyindex{reverse}{operator}\textsf{reverse}
 delivers a list whose elements are in the reverse order of those in its operand.
 For example \textsf{(reverse (list 1 2 3))} is \textsf{(list 3 2 1)}.

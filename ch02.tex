@@ -1388,7 +1388,7 @@ logic gate with one input.
 
 Logic operands and values always stand for either $True$ or $False$.
 Similarly, an input line of a logic gate can distinguish between
-only two distinct signals and deliver only two distinct 
+only two distinct signals and deliver only two distinct
 \index{ones \& zeros}\index{zeros \& ones}\index{logic!signal (0 \& 1)}\index{Boolean!signals}\index{signals, Boolean}\index{Boolean!signals}signals
 on an output line.
 Conventionally those signals are written as 1 (for $True$) and 0 (for $False$).
@@ -1589,7 +1589,7 @@ that has the same input/output behavior as the implication operator.\\
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})).
 One of the inputs will need to be a constant rather than a variable.
 
-\Exercise For each of the following logic formulas, 
+\Exercise For each of the following logic formulas,
 draw an equivalent circuit diagram.
 Since we don't have a symbol for an implication gate,
 you can either make up you own symbol or
@@ -1906,7 +1906,7 @@ Each of the proofs that the rule requires above the line
 is, itself, a proof.
 That is, it is also a sequence of citations ending in a conclusion formula.
 
-The \index{scope, inference rule citation}\index{inference rule!scope of citation}\emph{scope} of a
+The \index{scope!inference rule citation}\index{inference rule!scope of citation}\emph{scope} of a
 \index{citation!inference rule}\index{inference rule!citation}citation
 of an inference rule
 extends upward to the beginning of the first of the proofs
@@ -2434,7 +2434,7 @@ displays a proof of the modus tollens theorem.\footnote{The
 inference rule \{modus ponens\} says that the conclusion of an implication
 can be derived from a proof of its hypothesis.
 The modus tollens theorem says that the hypothesis
-of an implication can be derived from 
+of an implication can be derived from
 a proof of the negation of its conclusion.}
 The proof cites the implication chain rule theorem.
 Since that theorem has two hypotheses, there are two proofs above
@@ -3044,9 +3044,9 @@ to indicate that the symbols stand for constants, not variables.
 The important thing is (1)~to say in the commentary of the proof that the new
 symbol stands for a specific value from the universe of discourse and is not a variable
 and (2)~to make sure to use a new symbol for each new constant and to not use that
-symbol for any other purpose in the proof. 
-In any case, what was a bound variable 
-%(page \pageref{def:bound-variable}) 
+symbol for any other purpose in the proof.
+In any case, what was a bound variable
+%(page \pageref{def:bound-variable})
 in an existential quantification
 becomes a free constant in the formula that represents a particular proposition in the
 predicate, and it is a proposition that has the value $True$.
@@ -3061,7 +3061,7 @@ we don't know, but which in any case stands for just one value and cannot
 be replaced by another variable or formula.
 Since there are no variables, this is really just a Boolean formula
 for an ordinary proposition,
-so it can be proved using the same methods we used 
+so it can be proved using the same methods we used
 with Boolean propositions.
 
 This approach to reasoning about quantified formulas is a four-step process.
@@ -3092,7 +3092,7 @@ $(\forall x.Odd(x)) \vee (\forall x.Even(x))$,
 where the universe of discourse for both quantifiers is the integers.\footnote{$Odd(x) \equiv (\exists y.(x = 2y+1))$.
 \label{even-number-predicate-Even}
 $Even(x) \equiv (\exists y.(x = 2y))$.
-These formulas define the predicates $Odd$ and $Even$. 
+These formulas define the predicates $Odd$ and $Even$.
 The integers are the universe of discourse,
 both for the predicates (variable $x$)
 and for the quantifications (bound variable $y$).}
@@ -3113,7 +3113,7 @@ They look similar, but they have totally different meanings.
 
 Another important aspect of quantified formulas is that
 the name of a bound variable has no affect on the value
-of the formula: 
+of the formula:
 $(\forall x.Even(x))$ has the same meaning
 as $(\forall y.Even(y))$.
 So, to avoid conflating two different bound variables,
@@ -3137,10 +3137,10 @@ $x$ with a different variable that happens to have the same name.
 Choosing a new name for $x$ that is the same as the name
 of some other variable would defeat our purpose.
 
-Second, we must ensure that when we 
+Second, we must ensure that when we
 change the name of the bound variable $x$ to, say,
 $y$, we replace all occurrences of that bound variable $x$ with $y$.
-However, we must be careful not to change 
+However, we must be careful not to change
 any occurrence of a different variable
 that happens also to have the name $x$.
 For example, recall that there are two different, but identically named,
