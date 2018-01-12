@@ -62,7 +62,7 @@ The system of decimal numerals calls on ten different symbols to represent digit
 The hexadecimal system requires sixteen different symbols, conventionally
 0, 1, 2, \dots 9, A, B, C, D, E, F.
 The digits stand for the customary numbers
-(0 for zero, 2 for two, and so on),
+(0 for zero, 1 for one, 2 for two, and so on),
 and the letters A through F
 stand for the numbers ten through fifteen.\footnote{There
 are no conventional squiggles for digits beyond fifteen,
@@ -382,14 +382,11 @@ a finite number of computation steps.
 Non-terminating operators complicate the reasoning process.
 Proving that \textsf{dgts} terminates
 requires applying some theorems of modular arithmetic.
-Fortunately, experts have put together a package of theorems on that topic,
+Fortunately, experts have put together some theorems on that topic,
 and the following \textsf{include-book} directive will import them
 to make it possible for the mechanized logic to prove termination
-and admit the \textsf{dgts} operator to the ACL2 logic.
-\vspace{2mm}
-\begin{center}
-\textsf{(include-book "arithmetic-3/floor-mod/floor-mod" :dir :system)}
-\end{center}
+and admit the \textsf{dgts} operator to the ACL2 logic.\\
+\hspace*{5mm}\textsf{(include-book "arithmetic-3/floor-mod/floor-mod" :dir :system)}
 \caption{Termination, ACL2 Admit, and floor/mod Equations}
 \label{admit-def}
 \label{floor-mod-book}
@@ -602,7 +599,7 @@ $=$ & \textsf{(+ (first (cons $x_0$ [$x_1$ $\dots$ $x_{n+1}$]))}  & \{\emph{n10.
     & \phantom{\textsf{(+ }}\textsf{($*$ 10 (nmb10 (rest (cons $x_0$ [$x_1$ $\dots$ $x_{n+1}$])))))} &&\\
 $=$ & \textsf{(+ $x_0$ ($*$ 10 (nmb10 (rest (cons $x_0$ [$x_1$ $\dots$ $x_{n+1}$])))))}      & \{\emph{first}\} &\\
 $=$ & \textsf{(+ $x_0$ ($*$ 10 (nmb10 [$x_1$ $\dots$ $x_{n+1}$])))}                          & \{\emph{rest}\}&\\
-$=$ & (+ $x_0$ ($*$ 10 $(x_1 + x_2 \times 10^1 + \dots$ $x_{n+1} \times 10^{n})))$  & \{$H(n)$\}&\\
+$=$ & \textsf{(+ $x_0$ ($*$ 10 $(x_1 + x_2 \times 10^1 + \dots$ $x_{n+1} \times 10^{n})))$}  & \{$H(n)$\}&\\
 $=$ & $x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots$ $x_{n+1} \times 10^{n+1}$   & \{\emph{algebra}\} &\\
 \end{tabular}
 \end{center}
@@ -620,7 +617,7 @@ Theorem \{\emph{dgts-ok}\}:
 $\forall n.($\textsf{(nmb10 (dgts $n$))} $=$ $n)$
 \end{center}
 
-For convenience, define $D(n) \equiv ($\textsf{(nmb10 (dgts $n$))} $=$ $n)$.
+Define $D(n) \equiv ($\textsf{(nmb10 (dgts $n$))} $=$ $n)$.
 We want to prove that $(\forall n.D(n))$ is true.
 The universe of discourse
 for the predicate $D$ is the natural numbers,
@@ -743,6 +740,7 @@ In other words, in strong induction there are really two proofs to do,
 one for $P(0)$ and one for $(\forall m<n.P(m))\rightarrow P(n)$
 when $n$ is not zero, which we usually state in the
 equivalent form $(\forall m<n+1.P(m))\rightarrow P(n+1)$.
+
 Looking at it this way makes a proof citing strong induction look like
 a proof citing ordinary mathematical induction except that
 in the proof of $P(n+1)$, the
@@ -769,7 +767,7 @@ to justify steps in the proof of $P(n+1)$, .
      Of course, all of the tests should succeed because
      we proved that the formula always delivers true.
      If a test fails, something is wrong with
-     with the definition of the property or operators it refers to.
+     with the definition of the property or the operators it refers to.
 \Exercise Define a DoubleCheck property to test
      \textsf{(equal (dgts (nmb10 $xs$)) $xs$)} for random
      decimal numerals $xs$.\\
@@ -809,8 +807,8 @@ Digital circuits, since they are a materialization of mathematical logic,
 have components that can represent two different values.
 We call them zero and one, and it happens that those names
 make it convenient to discuss circuits that deal with binary numerals,
-which use 0 and 1 to denote binary digits
-(that is, \index{bit (binary digit)}\emph{bits}).
+which use 0 and 1 to denote binary digits (that is, 
+\index{zeros & ones}\index{zeros & ones}\index{bit (binary digit)}\emph{bits}).
 Before delving into circuits, let's talk about binary numerals.
 
 Decimal numerals represent numbers as sums of multiples of powers of ten.
@@ -884,7 +882,8 @@ One is that it makes binary numerals entirely symbolic,
 with no ephemeral entities like mathematical numbers.
 Circuits represent bits symbolically by electronic signals,
 so the definition of \textsf{numb} is more closely
-related to a circuit than it would be with numbers for bits.
+related to a circuit than it would be if it treated
+bits as numbers.
 
 The other motivation is to reduce the number of constraints
 in theorems about ACL2 models of circuits.
