@@ -32,7 +32,7 @@ When it displays the list \textsf{[4 7 9]},
 it uses \index{parentheses}\index{brackets!round}round brackets: \textsf{(4 7 9)}.
 The square-bracket notation helps keep data a computational formulas
 straight in written discussion and also makes some
-formulas more compact in writing, but square-brackets 
+formulas more compact in writing, but square-brackets
 notation for lists is not ACL2 notation.
 
 \begin{aside}
@@ -206,7 +206,7 @@ $(\exists y.(\exists ys.P(xs, y, ys)))$.
 When $xs$ is a list for which this formula has the value true,
 then \textsf{(consp $xs$)} is true.
 That is, \textsf{consp} is the ACL2 predicate that means $(\exists y.(\exists ys.P(xs, y, ys)))$.
-The universe of discourse of the predicate \textsf{consp} 
+The universe of discourse of the predicate \textsf{consp}
 is the set of all objects that ACL2 can represent.
 That specification of \textsf{consp} is expressed in the \{\emph{consp}\} axiom
 (Figure~\ref{consp-axiom}, page \pageref{consp-axiom}).
@@ -440,7 +440,7 @@ to make them more compact.
 (check-expect (append '(1 2 3 4 5) nil) '(1 2 3 4 5))
 \end{Verbatim}
 
-The numbered-list notation 
+The numbered-list notation
 (Figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation}).
 provides a way to define the \textsf{append} operator informally.
 In this form, the definition implicitly reveals the number of elements in the lists
@@ -455,26 +455,31 @@ and the concatenated list has $m+n$ elements.
 \end{center}
 \end{samepage}
 
-We can use DoubleCheck to test some properties of \textsf{append}.
-If we concatenate the empty list (\textsf{nil}) and a list $ys$,
-we expect to get $ys$ as a result: \textsf{(append nil $ys$)} = $ys$.
-If we concatenate a non-empty list $xs$ with a list $ys$,
-we expect the first element of the result to be the same as
-the first element of $xs$.
-Furthermore, we expect the rest of the elements to be
-the elements of the list that is the concatenation of
-a list made up of all the elements of $xs$ beyond its first element
-(that is, \textsf{(rest $xs$)}) and $ys$. 
+Let's analyze the concatenation, \textsf{(append $xs$ $ys$)}.
+If $xs$ is the empty list, then we expect
+the concatenation to deliver the list $ys$.
+This is the  \{\emph{app0}\} case: \textsf{(append nil $ys$)} $=$ $ys$.
+If $xs$ is not empty, then we expect the concatenation
+to start with first element of $xs$,
+that is \textsf{(first $xs$)}, and to continue
+with the remaining elements of $xs$, that is \textsf{(rest $xs$)},
+and then the elements of $ys$ come after that.
+Put another way, when $xs$ is not empty, 
+the result is the concatenation of \textsf{(rest $xs$)} and $ys$,
+with \textsf{(first $xs$)} inserted at the front.
+This is the \{\emph{app1}\} case: \textsf{(append $xs$ $ys$)} $=$
+\textsf{(cons (first $xs$) (append (rest $xs$) $ys$)}.
 
-We would like to express this idea formally,
+We would like to express our expectations formally,
 and to do so it will be helpful to use a special ACL2 operator,
-called \textsf{if},
-that selects one of two formulas based on a true/false
-value specified in its first operand.
-Its selects its second operand if
-its first operand is true (that is, not \textsf{nil}).
-If its first operand is false (that is, \textsf{nil}),
-it selects its third operand.
+called \textsf{if}.
+The operator, \textsf{if}, has three operands.
+It delivers its second operand if
+its first operand is true (that is, not \textsf{nil})
+and selects its third operand
+if its first operand is false (that is, \textsf{nil}).
+So, the \textsf{if} operator provides a way to select between
+the two formulas supplied as its second and third operands.
 
 \begin{figure}
 \begin{center}
@@ -489,15 +494,16 @@ Axioms \{\emph{if}\} \\
 \label{fig:if-axioms}
 \end{figure}
 
-Consider the value of \textsf{(append $xs$ $ys$)}.
-If the first operand is not \textsf{nil} (that is, if \textsf{(consp $xs$)} is true),
-that value, according to our earlier discussion regarding a DoubleCheck test, is
-\textsf{(cons (first $xs$) (append (rest $xs$) $ys$)}.
-However, if $xs$ is nil, the value of \textsf{append}
-is simply its second operand.
-So, there are two formulas for append.
-A DoubleCheck test in Figure~\ref{fig:append-test} (page \pageref{fig:append-test})
-uses the \textsf{if} operator to select between them.
+With the \textsf{if} operator, we can use DoubleCheck 
+to test our expectations of \textsf{(append $xs$ $ys$)}
+by comparing \textsf{(append $xs$ $ys$)} to the \{\emph{app1}\} formula
+if $xs$ is non-empty and to the \{\emph{app0}\} formula if $xs$ is empty.
+Figure~\ref{fig:append-test} (page \pageref{fig:append-test})
+displays a property definition the formalizes this idea.
+It uses an operator called 
+\textsf{equal} (Aside~\ref{equal}, page \pageref{equal})
+to compare \textsf{(append $xs$ $ys$)} 
+to a formula selected by the \textsf{if} operator.
 
 \begin{figure}
 \begin{Verbatim}
@@ -515,19 +521,18 @@ uses the \textsf{if} operator to select between them.
 \end{figure}
 
 \begin{aside}
-Why does the property say \textsf{(equal (append $xs$ $ys$) $\dots$)}
-instead of \textsf{(= (append $xs$ $ys$) $\dots$)}?
+Why is it \textsf{(equal (append $xs$ $ys$) $\dots$)}?
+Why not \textsf{(= (append $xs$ $ys$) $\dots$)}?
 The ``\textsf{=}'' operator
 is restricted to numbers. The operator \textsf{equal} can check
-for equality between other kinds of objects.
-You can always use the operator \textsf{equal},
-but you can only use the operator ``\textsf{=}'' when both operands are numbers.
-Why bother with ``\textsf{=}'', when its use is so limited?
-We might say it makes the formula look more like an equation,
-but that's not really much of an excuse,
-since we have already had to conform to prefix notation
-instead of the more familiar infix notation.
-Feel free to use the \textsf{equal} operator all the time if you want to.
+for equality between any two values: numbers, lists, whatever.
+
+The $=$ symbol reminds people who are
+reading the formula that it compares numbers.
+It reminds the computer, too, and that could
+simplify mechanized reasoning or
+promote efficient comparison.
+Mostly, though, it's a matter of taste.
 %We will be using ``='' when we can and hope it doesn't put too much of an extra burden on you.
 \index{equal, vs =}\seeonlyindex{equal}{predicate}\index{operator, by name!equal (\emph{see} predicate)}\index{predicate, by name!equal}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{compare!ACL2 values (equal)}
 \caption{``\textsf{equal}'' vs ``\textsf{=}''}
@@ -897,7 +902,7 @@ circular (that is, inductive) definitions.
 \begin{enumerate}
 \item \emph{Non-Inductive Equation}: In at least one equation,
 the operator being defined appears only on left-hand side.
-\item \emph{Reduced Computation}: 
+\item \emph{Reduced Computation}:
 \index{three C's}\index{definition!inductive (circular)}On the right-hand side of an inductive equation,
 each invocation of the operator being defined has operands that
 are closer to the operands on the left-hand side of a non-inductive equation
