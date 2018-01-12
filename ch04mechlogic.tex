@@ -19,7 +19,7 @@ relieving people from an obligation to focus
 with monk-like devotion on grammatical details.
 
 \begin{aside}
-One of the aims of this book is to help students learn to
+One of the aims of this book is to help readers learn to
 verify, using rigorous logic, properties of software
 that is specified in the form of inductive equations.
 Another goal is to provide
@@ -30,7 +30,7 @@ If you follow the broad outlines of the examples
 and successfully work your way through some of the exercises,
 we think you will gain a basic understanding
 of what can be done with mechanized logic.
-Acquiring expertise with such tools
+Becoming an accomplished user of such tools
 would require substantially more study and experience.
 \caption{ACL2 Learning Objectives}
 \label{aside:acl2-learning-objectives}
@@ -61,7 +61,7 @@ The first proof by mathematical induction
 in Chapter~\ref{ch:mathematical-induction}
 verified the additive law of concatenation
 (page \pageref{additive-law-concatenation}).
-The statement of the theorem asserts that ($\forall$$n$.L($n$)) ia true,
+The statement of the theorem asserts that ($\forall$$n$.L($n$)) is true,
 where L($n$) stands for the following equation.
 \label{eq:Ln-additive-law}
 \begin{center}
@@ -126,7 +126,7 @@ cannot employ the informal notation of numbered lists
 Instead, the property uses the variable \textsf{xs} to designate the list.
 The ACL2 statement of the theorem corresponding to this property
 is the same as the property specification
-except for and the keyword \textsf{defproperty},
+except for the keyword \textsf{defproperty},
 which becomes \textsf{defthm}, and
 the random data generators (introduced
 by the \textsf{:value} keyword), which are not present in the theorem.
@@ -164,7 +164,7 @@ when the mechanized logic succeeds.
 \label{sec:using-books-of-proven-theorems}
 
 The append-suffix theorem, which states that
-if the first operand of the append operator is a list of length $n$,
+if the first operand of the \textsf{append} operator is a list of length $n$,
 then dropping $n$ elements from the front of the concatenation
 reproduces the second operand of \textsf{append}.
 In Section~\ref{sec:append-prefix-suffix} (page \pageref{append-suffix-thm-pencil-proof})
@@ -669,7 +669,7 @@ In ACL2 that theorem can be stated as follows.
 \end{center}
 \end{samepage}
 
-It fails quickly this time and reports that it was not able
+ACL2 fails quickly this time and reports that it was not able
 to find an induction scheme that worked.
 So, our attempt to help ACL2 along didn't work, exactly,
 but at least ACL2 could determine quickly that
@@ -790,7 +790,7 @@ in a finite amount of time, given a particular input.
 There are programs that can solve the halting problem for
 a limited set of programs,
 but no program can solve the halting problem for all programs.
-Proving that the halting problem is unsolvable is tricky,
+Proving that no computer program can solve the halting problem is tricky,
 but the basic ideas are not too difficult to follow, and
 they provide an example of reasoning that,
 in a perverse sense, fits into a discussion of mechanized logic,
@@ -814,7 +814,7 @@ We leave it at that.}
 Because the discussion the halting problem is clumsy in ACL2,
 we'll present the ideas in terms of a different
 language that has the same syntax
-and similar interpretation. That language is Lisp.
+and a similar interpretation. That language is Lisp.
 For the purposes of this discussion,
 you can think of Lisp as ACL2 with the added feature
 of allowing operators to act as operands.
@@ -862,8 +862,8 @@ it has a value whether or not the formula \textsf{($f$ $x$)} terminates.
 \index{predicate, by name!H (termination)}\index{termination predicate (H)}
 \label{def:predicate-H}
 \emph{Definition of predicate} $H$\\
-\hspace*{3mm}$H(f, x) = False$, if \textsf{($f$ $x$)} does not terminate\\
-\hspace*{3mm}$H(f, x) = True$, if \textsf{($f$ $x$)} terminates
+\hspace*{3mm}$H(f, x) = True$, if \textsf{($f$ $x$)} terminates\\
+\hspace*{3mm}$H(f, x) = False$, if \textsf{($f$ $x$)} does not terminate
 \end{quote}
 
 The theorem that Turing and Church proved is that
@@ -913,7 +913,7 @@ the logic formula of the theorem, both the same:
 Those formulas invoke an operator $h$, which is defined in Lisp because that is the universe
 of discourse for $h$, the bound variable in the $\exists$ quantification.
 The logic formula then compares the value that
-the formula \textsf{($h$ $f$ $x$)} represents to a natural number.
+the formula \textsf{($h$ $f$ $x$)} computes to a natural number.
 
 To make the proof more compact and, we hope, more readable,
 we will use $E$ as an abbreviation for the
@@ -980,13 +980,13 @@ Recall that $E$, the hypothesis of the \{paradox\} theorem,
 is a $\exists$ formula.
 Since $E$ is a hypothesis of the \{paradox\} theorem,
 we will assume at the beginning of the proof
-the \{paradox\} theorem that $E$ is true.
+of the \{paradox\} theorem that $E$ is true.
 $E$ asserts that there is at least one definition of
 an operator $h$ that provides a universal, computational solution
 to the halting problem.
 Since there is at least one such operator,
 let's assume someone has handed us a
-definition of the operator, and that the operator has the name h:
+definition of the operator, and that the operator has the name \textsf{h}:
 \textsf{(defun h (f x)}  $\dots$ \emph{Lisp formula} $\dots$ \textsf{)}.
 
 We don't know the definition of \textsf{h}, but the formula $E$
@@ -1014,7 +1014,8 @@ Or, rather,
 it does way too much by doing nothing over and over, forever.
 We are going to take it on faith that \textsf{(loop $x$)} does not terminate,
 regardless of the value of its operand $x$.
-We think you can probably convince yourself of that,
+We think you can probably convince yourself of that,\footnote{Some
+the exercises will help you reason why.}
 so we assert that $\forall x.(H($\textsf{loop}, $x)$ $=$ $False)$.
 
 \begin{figure}
@@ -1083,20 +1084,20 @@ the \textsf{if} operator in the definition of \textsf{p}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun})
 selects one of two formulas:
 \textsf{0} or \textsf{(loop $x$)}.
-If it selects the formula \textsf{0}, then (p $x$) terminates.
+If it selects the formula \textsf{0}, then \textsf{(p $x$)} terminates.
 Therefore, from the definition of the predicate $H$ (page \pageref{def:predicate-H}),
 we conclude that $H($p, $x)=True$.
 That is, $($\textsf{(p $x$)}$=$\textsf{0}$)\rightarrow H($\textsf{p}, $x)$.
 Label this implication \{p0\}.
 
 On the other hand, if the \textsf{if} operator in the definition of \textsf{p}
-selects the formula \textsf{(loop $x$)}, then (p $x$)
+selects the formula \textsf{(loop $x$)}, then \textsf{(p $x$)}
 does not terminate.\footnote{The formula \textsf{(loop $x$)} does not complete its
 computation in a finite amount of time
 (Exercise \ref{ex:loop-nonterminating}, page \pageref{ex:loop-nonterminating}).}
 Therefore, from the definition of the predicate $H$,
-we conclude that $H($p, $x)=False$.
-That is, $($\textsf{(p $x$)}$=$\textsf{(loop $x$)}$)\rightarrow(\neg H($\textsf{p}, $x))$.
+we conclude that $H($\textsf{p}, $x)=False$.
+That is, $($\textsf{(\textsf{p} $x$)}$=$\textsf{(loop $x$)}$)\rightarrow(\neg H($\textsf{p}, $x))$.
 Label this implication \{p1\}.
 Theorems \{p0\} and \{p1\} restate these implications.
 
@@ -1164,7 +1165,7 @@ Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($\textsf{p}, $x)$
 Now, at last, we're ready to take on
 the proof of Theorem \{paradox\}.
 It derives $False$ from the contradiction that is apparent
-in the \{H$+$\} and \{H$-$\} theorems.
+in theorems \{H$+$\} and \{H$-$\}.
 Figure~\ref{fig:proof-paradox-thm} (page \pageref{fig:proof-paradox-thm})
 displays this final step in our proof
 of the theorem of Turing and Church,
@@ -1197,7 +1198,7 @@ proof
 Prove Theorem \{H$+$\} (page \pageref{thm:HplusHminus}).
 
 \Exercise \label{ex:loop-loop}
-Suppose $x$ is a suitable operand for the operator \textsf{loop}
+Suppose $x$ is an operand for the operator \textsf{loop}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun}).
 Prove that the formula
 \index{loop}
@@ -1205,7 +1206,7 @@ Prove that the formula
 the same computation as the formula \textsf{(loop (loop $x$)}).
 
 \Exercise \label{ex:loop-n}
-Suppose $f$ is an ACL2 operator, $x$ is an ACL2 value,
+Suppose $f$ is an operator, $x$ is an operand,
 and $n$ is a natural number.
 The following equations define the notation \textsf{($f^n$ $x$)}.
 \index{iteration}
@@ -1226,14 +1227,14 @@ $\forall n.\forall x.($\textsf{(loop $x$)} $=$ \textsf{(loop$^{n+1}$ $x$)}$)$
 \end{quote}
 
 \Exercise \label{ex:f-n}
-Assume that $f$ is an operator and $x$ is an appropriate operand for $f$.
-Assuming that it takes at least one computational step to compute \textsf{($f$ $x$)}.
+Assume that if $f$ is an operator and $x$ is an operand,
+then it takes at least one computational step to compute \textsf{($f$ $x$)}.
 Prove by induction that it takes at least $n$ computational steps
 to compute \textsf{($f^n$ $x$)}, where \textsf{($f^n$ $x$)} satisfies the axioms
 \{iter0\} and \{iter1\} in Exercise~\ref{ex:loop-n}.
 
 \Exercise \label{ex:loop-nonterminating}
-Suppose $x$ is a suitable operand for the operator \textsf{loop}
+Suppose $x$ is an operand for the operator \textsf{loop}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun}).
 Let $T$ stand for the number of computation steps required to
 compute \textsf{(loop $x$)}.
