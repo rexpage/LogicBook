@@ -40,10 +40,10 @@ below the units-digit column.
 If the sum of the units digits is ten or more, a
 \index{carry, addition}\index{addition!carry}carry
 is marked above the tens-digit column.
-Then, the sum of that carry (if there was one) and
-the tens digits is computed.
-As before, the low-order digit of the sum
-goes into the numeral, this time in the
+Then, the that carry (if there was one) and
+the tens digits of the two numerals are added together.
+As before, the low-order digit
+goes into the numeral for the sum, this time in the
 tens-digit column, and the carry,
 if there was one, is marked
 above the hundreds digit column.
@@ -308,10 +308,10 @@ from the second full adder ($c_2$).
 With a carry-in of zero for the first full adder
 ($c_0 = 0$), the output signals form a two-bit
 numeral \textsf{[$s_0$ $s_1$]} and a carry bit $c_2$
-that represent the sum of the two input numerals.
+that, together, represent the sum of the two input numerals.
 More generally, the output signals
 represent the sum of the two input numerals and the
-carry-in bit.
+carry-in bit ($c_0 = 0$ or $c_0 = 1$).
 The following equation \{$\star$\} shows how to interpret the
 input and output signals as numbers.
 
@@ -352,19 +352,19 @@ Ignoring the carry bit amounts to doing modular arithmetic, mod $2^2$
 (theorem \{\emph{pfx-mod}\}, Exercise~\ref{pfx-mod}, page \pageref{pfx-mod}).
 
 A mechanized verification of the arithmetic properties of \textsf{adder2}
-could be constructed as a comprehensive sequence of check-expect tests,
+could be constructed as a comprehensive sequence of \textsf{check-expect} tests,
 as we did with the \textsf{full-adder} for one-bit addition
 (page \pageref{full-adder-model-check}).
 However, there would be 32 cases to check
 because there are five bits of input
 (a carry-in and two bits in each numeral, $2^5$ combinations in all).
-That makes it tedious to construct a comprehensive sequence of check-expect tests.
+That makes it tedious to construct a comprehensive sequence of \textsf{check-expect} tests.
 It would be easy to make a mistake.
 
 A better approach is to write equation \{$\star$\}
 formally in ACL2. The equation states our expectations of
-ACL2 model, \textsf{adder2}, of the
-two-bit adder circuit (Figure~\ref{fig:adder2})
+the ACL2 model of the
+two-bit adder circuit (\textsf{adder2}, Figure~\ref{fig:adder2})
 in the same way that the \{full-adder-ok\} theorem
 (Figure \ref{fig:full-adder-thm}, page \pageref{fig:full-adder-thm})
 verified the formal model of the full adder circuit.
@@ -421,7 +421,6 @@ becomes a circuit for adding three-bit numerals.
 A circuit diagram for adding numerals with any number of bits
 combines the appropriate number of
 full-adder components in this manner.
-
 Figure \ref{fig:adder} (page \pageref{fig:adder}) presents a schematic
 for a circuit that adds \emph{w}-bit numerals.
 The circuit is known as a \emph{ripple-carry adder} because
@@ -465,7 +464,9 @@ the \textsf{adder} operating on the other bits in the input numerals
 
 Because the model defines an operator in ACL2,
 you can run the operator to see that it works in specific cases.
-To add two binary numerals, supply lists of 0s and 1s
+To add two binary numerals, supply lists of
+\index{zeros \& ones}\index{ones \& zeros}
+0s and 1s
 representing those numerals in an invocation
 of the \textsf{adder} operator, and specify zero as the input carry-bit.
 The output will be binary numeral for the sum.
@@ -515,7 +516,7 @@ the model of the adder circuit
 rather than from the circuit diagram.
 Aside \ref{circuit-vs-model} (page \pageref{circuit-vs-model})
 discusses some of the ramifications of this approach,
-which we have used throughout the discussion of circuits.
+which has been our basis for reasoning about circuits.
 
 \begin{aside}
 We expect that you could, given a basket of
@@ -529,12 +530,11 @@ that we verify guarantee that the circuits also have those properties.
 
 In a complete formalization, we would
 need a way to convert models into instructions
-for fabricating circuits.
-The fabricated circuit would have the properties
+for fabricating circuits so that
+the fabricated circuit would have the properties
 of the model. Such a formalization
 would use the methods we have employed to formalize other operations.
-However, in this treatment of the subject
-we have left that step to the imagination.
+We leave that step to the imagination.
 \index{circuit!ACL2 model}\index{model!of circuit}
 \caption{Models and Circuit Fabrication}
 \label{circuit-vs-model}
@@ -764,7 +764,7 @@ circuits to perform arithmetic on twos-complement numbers will
 require exactly \emph{w} bits for each input numeral
 because there are $w$ input lines for each addend,
 and each input line must carry a signal.
-So, the non-negative numbers, $0$, $1$, \dots $(2^{w-1}-1)$
+The non-negative numbers, $0$, $1$, \dots $(2^{w-1}-1)$
 consume half of the $2^w$ bit-patterns available with
 \emph{w}-bit words.
 
@@ -796,7 +796,7 @@ the twos-complement system uses the ordinary binary numeral
 for the positive number ($2^{32}-n$) to represent the number ($-n$).
 Since ($-n$) is in the range
 $-2^{31} \leq -n < 0$, we can assert that
-$2^{31} \leq 2^{32}-n < 2^{32}$.
+$2^{31} = 2^{32}-2^{31} \leq 2^{32}-n < 2^{32}$.
 Therefore, the twos-complement, binary numeral
 for the negative number ($-n$)
 has exactly 32 bits (Theorem \{\emph{len-bits}\}, page \pageref{len-bits}).
@@ -810,7 +810,7 @@ For negative numbers ($-n$) in the range $-2^{31} \leq -n < 0$,
 the value of (($-n$) mod $2^{32}$) is ($2^{32}-n$).
 Therefore, since addition and subtraction
 in modular arithmetic is consistent with ordinary addition and subtraction
-(page \pageref{modular-arithmetic}), it follows that
+(Aside~\ref{modular-arithmetic}, page \pageref{modular-arithmetic}), it follows that
   ($(m+(-n))$ mod $2^{32}$
 = (($m$ mod $2^{32}$) $+$ ($(-n)$ mod $2^{32}$)) mod $2^{32}$
 = $((m$ mod $2^{32}$) $+$ $((2^{32} - n)$ mod $2^{32}))$ mod $2^{32}$.
@@ -832,7 +832,7 @@ the numerals according to the twos-complement scheme.
 Circuits for performing addition (and subtraction, which
 uses the same circuit in a twos-complement system)
 take advantage of the consistency between modular arithmetic
-and ordinary arithmetic (page \pageref{modular-arithmetic}).
+and ordinary arithmetic.
 
 In summary, the twos-complement representation for computers with
 word size $w$ deals with numbers $n$ in the range
@@ -866,10 +866,11 @@ for a number $n$ in the set $I(w)$.
 The \textsf{twos} operator uses the operator \textsf{bits} (page \pageref{bits-defun})
 to compute binary numerals.
 For negative numbers it adds $2^w$
-(that is, \textsf{(expt $2$ $w$)}, referring to the ACL2 intrinsic operator \textsf{expt})
+(that is, \textsf{(expt $2$ $w$)}, 
+using the ACL2 intrinsic operator \textsf{expt})
 before computing the numeral.
 For non-negative numbers, it computes the numeral,
-then uses the \textsf{pad} operator (page \pageref{pad-defun})
+then uses the \textsf{pad} operator (Exercise~\ref{ex:pad-defun}, page \pageref{ex:pad-defun})
 to insert leading zeros to match the word-size.
 There will always be some padding for numerals representing
 positive numbers because
@@ -879,8 +880,7 @@ $0 \le $(len (bits $n$)) $< w$
 
 Figure~\ref{fig:2s-comp-3bit} displays
 twos-complement numerals for the numbers in the set $I(3)$.
-Of course, this example is just to illustrate the idea.
-Three is a ridiculously small word size.
+This example is just to illustrate the idea.
 No computer would have three-bit words,
 but the example gets the point across with a table of manageable size.
 
@@ -912,7 +912,7 @@ then the sum-bits of the output numeral from the ripple-carry adder
 (Figure \ref{fig:adder}, page \pageref{fig:adder})
 form the twos-complement numeral for the sum of the input numerals.
 The carry output from the circuit can be used to determine
-whether or not the sum is in the set $I(w)$ of numbers representable
+whether or not the sum is in $I(w)$, the set of numbers representable
 by \emph{w}-bit, twos-complement numerals.\footnote{The
 output carry can be used to perform multi-word arithmetic
 or to detect overflow conditions. Adding two numbers, $m+n$,
@@ -928,10 +928,9 @@ Now, here is an interesting
 \index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!twos complement}\index{twos complement!numeral}\index{twos complement!negation}\index{twos complement!word}\index{word!twos complement}trick
 for computing the twos-complement numeral of a negative number without
 computing $2^w$ or doing subtraction.
-It works like this.
 Let \textsf{[$x_0$ $x_1$ \dots $x_{w-1}$]}
 be the $w$-bit, binary numeral for a number $n$ in the range $1$, $2$, \dots $2^{w-1}$,
-padded if necessary with leading zeros to fill out the $w$-bit word.
+padded with leading zeros to fill out the $w$-bit word.
 Then, the twos-complement numeral for $(-n)$ can be computed
 in a two-step procedure.
 First, invert the bits: change the zero-bits to one-bits,
