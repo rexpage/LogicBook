@@ -105,44 +105,6 @@ definition.
                       (mux (rest xs) (rest ys))))))) ; {mux11}
 \end{Verbatim}
 
-\begin{aside}
-The multiplexer operator can be defined with two equations instead of three
-by swapping the operands in the inductive equation.
-When the first operand is non-empty, \textsf{mux} satisfies the following equation.
-\begin{quote}
-\textsf{(mux (cons $x$ $xs$) $ys$) = (cons $x$ (mux $ys$ $xs$)))} ~~ \{mux1y\}
-\end{quote}
-
-The inductive invocation, \textsf{(mux $ys$ $xs$)},
-on the right-hand-side of \{mux1y\}
-delivers a list that starts with the first element of $ys$,
-then alternates between $xs$ and $ys$.
-Perfect shuffle.
-It's a two-equation definition.
-
-\label{mux-2eq-defun}
-\begin{Verbatim}
-(defun mux2 (xs ys) ; declare induction scheme
-   (declare (xargs :measure (+ (len xs) (len ys))))
-   (if (consp xs)
-       (cons (first xs) (mux2 ys (rest xs))) ; {mux1}
-       ys))                                  ; {mux0}
-\end{Verbatim}
-
-The equations define an operator \textsf{mux2} that produces
-the same results as \textsf{mux}.
-However, the new definition makes reasoning more complicated
-because the operands switch roles in the inductive invocation.
-A \textsf{declare} directive in the definition
-helps ACL2 cope with this wrinkle in its
-proof that \textsf{mux2} terminates,
-which the mechanized logic must complete before
-admitting the operator to the logic.
-\index{operator, by name!mux (multiplexer)}\index{axiom, by name!\{mux2-1y\}, \{mux2-0x0y\}}
-\caption{Multiplexer: a Two Equation Definition}
-\label{aside:mux-2eq}
-\end{aside}
-
 As always, the axioms that define an operator
 determine not only the properties they specify directly,
 but all other properties of the operator, too.
@@ -188,6 +150,36 @@ would cite the \{$\vee$ elimination\} inference rule
 took the form of natural deduction.
 The proof here is rigorous, but not formal.
 ACL2 carries out a formal proof.}
+
+\begin{aside}
+In Exercise \ref{ex:mul-val-thm} the mux-val theorem
+and the axioms of the \textsf{occurs-in} predicate
+have been stated in the form we use for paper-and-pencil proofs.
+These proofs are rigorous, but not formal
+in the sense of the mechanized proofs of ACL2.
+Below is an ACL2 formalization of these ideas,
+which the ACL2 system succeeds in admitting.
+\label{acl2:iff}
+The
+\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, logic!Boolean equivalence (iff)}\index{equivalence!Boolean (iff)}\index{iff (\emph{see also} operator)}\textsf{iff}
+operator is Boolean equivalence
+(Aside~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
+
+\label{defun:occurs-in}
+\begin{Verbatim}
+(defun occurs-in (x xs)
+  (if (consp xs)
+      (or (equal x (first xs))
+          (occurs-in x (rest xs)))
+      nil))
+(defthm mux-val-thm
+  (iff (occurs-in v (mux xs ys))
+       (or (occurs-in v xs)
+           (occurs-in v ys))))
+\end{Verbatim}
+\caption{Formal Version of Mux-Val Theorem}
+\label{aside:mux-val-thm}\label{defthm:mux-val}\index{theorem, by name!\{mux-val\}}\index{predicate, by name!occurs-in (list)}\index{operator, by name!occurs-in (\emph{see} predicate)}
+\end{aside}
 
 The proof of the inductive case when $ys$ is \textsf{nil}
 is like the proof when $xs$ is \textsf{nil},
@@ -285,33 +277,41 @@ Formalize the theorem of exercise~\ref{mux2-eq-mux} in ACL2.
 \end{ExerciseList}
 
 \begin{aside}
-In Exercise \ref{ex:mul-val-thm} the mux-val theorem
-and the axioms of the \textsf{occurs-in} predicate
-have been stated in the form we use for paper-and-pencil proofs.
-These proofs are rigorous, but not formal
-in the sense of the mechanized proofs of ACL2.
-Below is an ACL2 formalization of these ideas,
-which the ACL2 system succeeds in admitting.
-\label{acl2:iff}
-The
-\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, logic!Boolean equivalence (iff)}\index{equivalence!Boolean (iff)}\index{iff (\emph{see also} operator)}\textsf{iff}
-operator is Boolean equivalence
-(Aside~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
+The multiplexer operator can be defined with two equations instead of three
+by swapping the operands in the inductive equation.
+When the first operand is non-empty, \textsf{mux} satisfies the following equation.
+\begin{quote}
+\textsf{(mux (cons $x$ $xs$) $ys$) = (cons $x$ (mux $ys$ $xs$)))} ~~ \{mux1y\}
+\end{quote}
 
-\label{defun:occurs-in}
+The inductive invocation, \textsf{(mux $ys$ $xs$)},
+on the right-hand-side of \{mux1y\}
+delivers a list that starts with the first element of $ys$,
+then alternates between $xs$ and $ys$.
+Perfect shuffle.
+It's a two-equation definition.
+
+\label{mux-2eq-defun}
 \begin{Verbatim}
-(defun occurs-in (x xs)
-  (if (consp xs)
-      (or (equal x (first xs))
-          (occurs-in x (rest xs)))
-      nil))
-(defthm mux-val-thm
-  (iff (occurs-in v (mux xs ys))
-       (or (occurs-in v xs)
-           (occurs-in v ys))))
+(defun mux2 (xs ys) ; declare induction scheme
+   (declare (xargs :measure (+ (len xs) (len ys))))
+   (if (consp xs)
+       (cons (first xs) (mux2 ys (rest xs))) ; {mux1}
+       ys))                                  ; {mux0}
 \end{Verbatim}
-\caption{Formal Version of Mux-Val Theorem}
-\label{aside:mux-val-thm}\label{defthm:mux-val}\index{theorem, by name!\{mux-val\}}\index{predicate, by name!occurs-in (list)}\index{operator, by name!occurs-in (\emph{see} predicate)}
+
+The equations define an operator \textsf{mux2} that produces
+the same results as \textsf{mux}.
+However, the new definition makes reasoning more complicated
+because the operands switch roles in the inductive invocation.
+A \textsf{declare} directive in the definition
+helps ACL2 cope with this wrinkle in its
+proof that \textsf{mux2} terminates,
+which the mechanized logic must complete before
+admitting the operator to the logic.
+\index{operator, by name!mux (multiplexer)}\index{axiom, by name!\{mux2-1y\}, \{mux2-0x0y\}}
+\caption{Multiplexer: a Two Equation Definition}
+\label{aside:mux-2eq}
 \end{aside}
 
 \section{Demultiplexer}
@@ -496,4 +496,4 @@ Axioms for \textsf{dmx2} (maybe too clever by half)
 \index{axiom, by name!\{dmx2-1x\}, \{dmx2-2x\}}\index{operator, by name!dmx (demultiplexer)}
 \caption{Cleverness Sometimes Complicates Reasoning}
 \label{aside:dmx-defun-trick}
-\end{aside}
+\end{aside} 
