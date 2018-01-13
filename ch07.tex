@@ -65,7 +65,7 @@ binary numeral for $(n+1)$.
 The operator will have the following
 property with respect to the operators \textsf{bits} and \textsf{numb} from
 Section~\ref{sec:binary-numerals} (page \pageref{bits-defun}),
-which convert numbers to binary numerals and vice versa. 
+which convert numbers to binary numerals and vice versa.
 The property is stated in terms of numbers,
 but \textsf{add1} will work directly with numerals,
 bypassing entirely the intrinsic numbers of the computer system.
@@ -123,7 +123,7 @@ the input numeral. But, that is just a matter of incrementing
 the higher-order bits by one.
 The higher-order bits are, themselves, a numeral,
 and because of our usual assumption with inductive definitions that
-someone has already defined the operator, 
+someone has already defined the operator,
 \textsf{add-1}, for shorter operands,
 we can just use it to increment that numeral.
 That is, we can write an inductive equation that the \textsf{add-1} operator
@@ -200,14 +200,14 @@ This equation covers all addends whose numerals have at least one bit.
 So, all we need to do to make our equations comprehensive
 is to have equations for the cases when one or the other addend is \textsf{nil}.
 
-If either addend is \textsf{nil}, 
+If either addend is \textsf{nil},
 then that addend denotes the number zero.
 The sum, then, would be the other addend with the carry added to it.
 We already have an operator, \textsf{add-1} (page \pageref{add-1-defun}),
 that we can use to add the carry if it's a one-bit.
 When the carry is a zero-bit, we don't need to add the carry bit
 because adding zero doesn't change the number.
-We define an operator \textsf{add-c} 
+We define an operator \textsf{add-c}
 that uses \textsf{add-1} to add the carry bit
 when it is a one.
 
@@ -329,7 +329,7 @@ and provides an algebraic argument that justifies it.
 The algebra relies on the equation
 that grade-school students use to check the correctness of their long-division
 problems.\footnote{We're not
-sure they do this is grade school anymore.
+sure they teach long division in school anymore.
 With computers and calculators constantly at hand,
 it probably makes more sense to learn something else.
 Nevertheless, we will need this
