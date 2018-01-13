@@ -35,7 +35,7 @@ They have a fixed number of wires and gates.
 Software has no such constraint.
 A software component for adding binary numerals can accept
 numerals of any length, and the two numerals need not have the same length.
-The numeral representing the sum would then have as many bits as
+The numeral representing the sum would have as many bits as
 required to represent the sum of the numbers
 denoted by the input.
 
@@ -55,7 +55,7 @@ to the domain of negative integers.
 To begin, let's see what it takes to convert our ACL2 model for
 the ripple-carry adder to software that performs addition on
 binary numerals with an arbitrary number of bits,
-representing numbers of unlimited size.
+so that it can deal with numbers of unlimited size.
 The first step is to work out a way to increment a
 binary numeral by one.
 That is,
@@ -64,9 +64,9 @@ binary numeral $x$ for the natural number $n$, delivers the
 binary numeral for $(n+1)$.
 The operator will have the following
 property with respect to the operators \textsf{bits} and \textsf{numb} from
-Section~\ref{sec:binary-numerals} (page \pageref{bits-defun})
-for converting between numbers and our representation
-of binary numerals. The property is stated in terms of numbers,
+Section~\ref{sec:binary-numerals} (page \pageref{bits-defun}),
+which convert numbers to binary numerals and vice versa. 
+The property is stated in terms of numbers,
 but \textsf{add1} will work directly with numerals,
 bypassing entirely the intrinsic numbers of the computer system.
 \\
@@ -87,7 +87,7 @@ A particularly simple situation occurs when the numeral to be incremented
 has no bits in it. The interpretation we settled on
 in Chapter \ref{ch:binary-numerals} is that
 the empty numeral stands for the number zero
-(equation \{numb0\} in the definition of \textsf{numb} (page \pageref{nmb-defun}).
+(equation \{numb0\} in the definition of \textsf{numb}, page \pageref{nmb-defun}).
 So, incrementing the empty numeral should produce a numeral for the number $1$,
 which is the list \textsf{[$1$]}.
 \\
@@ -122,8 +122,9 @@ It will need to be added to the higher-order bits of
 the input numeral. But, that is just a matter of incrementing
 the higher-order bits by one.
 The higher-order bits are, themselves, a numeral,
-and because of our standard assumption with inductive definitions that
-someone has already defined the operator, \textsf{add-1} in this case,
+and because of our usual assumption with inductive definitions that
+someone has already defined the operator, 
+\textsf{add-1}, for shorter operands,
 we can just use it to increment that numeral.
 That is, we can write an inductive equation that the \textsf{add-1} operator
 would satisfy if it were defined.
@@ -158,7 +159,7 @@ also works for the right-hand-side of the \{add1nil\} equation
 because \textsf{(cons 1 (rest nil))} $=$ \textsf{(cons 1 nil)} $=$ \textsf{(list 1)}
 (\{\emph{rst0}\}, Figure~\ref{first-rest-cons}, page \pageref{first-rest-cons}).
 This observation reduces the definition from three equations to two,
-and completes the definition of the \textsf{add-1} operator.
+and completes the formal definition of the \textsf{add-1} operator.
 
 The ripple-carry adder propagated the carry from each bit position
 to the next higher-order bit position.
@@ -181,9 +182,9 @@ bit position and the carry bit, $c_{n+1}$, for the next bit position.
 \end{center}
 
 This analysis provides the basis for
-one of the equations for the bignum adder.
+one of the equations for the bignum \textsf{add} operator.
 The equation is inductive and applies
-when neither addend is the empty numeral,
+when neither addend is \textsf{nil},
 so that both have low-order bits.
 
 \begin{center}
@@ -197,15 +198,17 @@ where & \\
 
 This equation covers all addends whose numerals have at least one bit.
 So, all we need to do to make our equations comprehensive
-is to have equations for the cases when one or the other addend is an empty numeral.
+is to have equations for the cases when one or the other addend is \textsf{nil}.
 
-If either addend is an empty numeral, then that addend denotes the number zero.
+If either addend is \textsf{nil}, 
+then that addend denotes the number zero.
 The sum, then, would be the other addend with the carry added to it.
 We already have an operator, \textsf{add-1} (page \pageref{add-1-defun}),
 that we can use to add the carry if it's a one-bit.
 When the carry is a zero-bit, we don't need to add the carry bit
 because adding zero doesn't change the number.
-We define an operator \textsf{add-c} that uses \textsf{add-1} to add the carry bit
+We define an operator \textsf{add-c} 
+that uses \textsf{add-1} to add the carry bit
 when it is a one.
 
 \label{add-c-defun}\index{equation, by name!\{addc0\}, \{addc1\}} \index{add, add-1, add-c (\emph{see} bignum)}\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
@@ -216,7 +219,7 @@ when it is a one.
       x))        ; {addc0}
 \end{Verbatim}
 
-We also use \textsf{add-c }to complete the addition when either of the addends is empty.
+We use \textsf{add-c }to complete the addition when either of the addends is \textsf{nil}.
 \begin{center}
 \begin{tabular}{ll}
 \textsf{(add $c$ $x$ nil)} $=$ \textsf{(add-c $c$ $x$)}   & \{add10\} \\
@@ -249,21 +252,25 @@ translates the equations into ACL2.
 
 Let's look at some examples of adding numerals with bignum \textsf{add}.
 \begin{center}
-\begin{tabular}{llll|rcr}
-\textsf{(add $0$ [$0$ $1$]}             &\textsf{[$0$ $1$]}    &\textsf{)} $=$ &\textsf{[$0$ $0$ $1$]}         & ~~$2 + 2$  &$=$& $4$   \\
-\textsf{(add $0$ [$0$ $1$ $1$ $1$]}     &\textsf{[$1$ $0$ $1$]}&\textsf{)} $=$ &\textsf{[$1$ $1$ $0$ $0$ $1$]} & ~~$14 + 5$ &$=$& $19$ \\
-\textsf{(add $0$ [$1$ $0$ $0$ $1$ $1$]} &\textsf{[$0$ $1$ $1$]}&\textsf{)} $=$ &\textsf{[$1$ $1$ $1$ $1$ $1$]} & ~~$25 + 6$ &$=$& $31$ \\
+\addtolength{\tabcolsep}{-4pt}
+\begin{tabular}{llclr|l|rcr}
+\textsf{(add $0$ [$0$ $1$]}             &\textsf{[$0$ $1$])}     & $=$ &\textsf{[$0$ $0$ $1$]}         &&& ~~$2 + 2$  &$=$& $4$  \\
+\textsf{(add $0$ [$0$ $1$ $1$ $1$]}     &\textsf{[$1$ $0$ $1$])} & $=$ &\textsf{[$1$ $1$ $0$ $0$ $1$]} &&& ~~$14 + 5$ &$=$& $19$ \\
+\textsf{(add $0$ [$1$ $0$ $0$ $1$ $1$]} &\textsf{[$0$ $1$ $1$])} & $=$ &\textsf{[$1$ $1$ $1$ $1$ $1$]} &&& ~~$25 + 6$ &$=$& $31$ \\
 \end{tabular}
+\addtolength{\tabcolsep}{4pt}
 \end{center}
 
-The properties that the bignum \textsf{add} operator is designed to satisfy
-deliver a binary numeral for the sum of
+The bignum \textsf{add} operator
+delivers a binary numeral for the sum of
 the numbers represented by the input numerals and the input carry.
-The examples show that the property holds for three
+The following theorem, \textsf{bignum-add-ok},
+expresses that property formally,
+and we saw some examples showing
+that the property holds for three
 particular pairs of addends.
-Of course we would like to know that it
-holds for all input numerals, and
-the following theorem makes that assertion formally.
+We would like to know that it
+holds for all input numerals.
 
 \label{bignum-adder-thm}\index{theorem!bignum addition}\index{theorem, by name!\{bignum-add-ok\}}\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
 \begin{Verbatim}
@@ -329,12 +336,13 @@ Nevertheless, we will need this
 division-check equation to justify the multiplication procedure.}
 
 \hspace{2mm} $x = (\lfloor x \div d \rfloor \cdot d) + $($x$ mod $d)$ \hfill \{check$\div$\}\footnote{As
-usual $\lfloor x\rfloor$ stands for the greatest integer that is $x$ or less,
+usual $\lfloor x\rfloor$ stands for the greatest integer that is $x$ or less
+(that is, $x$ rounded down to an integer),
 and $(x$ mod $d)$ is the remainder when $x$ is divided by $d \neq 0$ (modular arithmetic,
 Aside~\ref{third-grade-division}, page \pageref{third-grade-division}).}
 \vspace{2mm}
 
-Since grade-school students use decimal numerals,  $d = 10$.
+For decimal numerals,  $d = 10$.
 The remainder ($x$ mod $10$) is the last digit in the numeral for the number $x$,
 and the other digits are those of the quotient $\lfloor x \div 10 \rfloor$.
 That goes for any number, and
@@ -422,7 +430,7 @@ Let's call it \textsf{mul}, and let's call its operands, which are binary numera
 $x$ and $y$ (Section~\ref{sec:binary-numerals}, page \pageref{sec:binary-numerals}).
 If $y$ is nil, it stands for zero,
 which makes the product zero (that is, \textsf{nil}).
-That analysis yields an equation and completes
+That analysis yields an equation that completes
 the computation when $y$ is \textsf{nil}
 
 \hspace*{2cm} \textsf{(mul $x$ nil)} $=$ \textsf{nil} \hspace{2cm} \hfill \{mulx0\}
@@ -431,25 +439,26 @@ the computation when $y$ is \textsf{nil}
 We can now focus on the case when $y$ is not \textsf{nil}.
 To complete the multiplication,
 we are going to invoke another operator, \textsf{mxy},
-which assumes that $y$ is not \textsf{nil}.
+that assumes that $y$ is not \textsf{nil}.
 That leads to another equation for \textsf{mul}.
 
 \hspace*{2cm} \textsf{(mul $x$ $y$)} $=$ \textsf{(mxy x y)}, if \textsf{(consp $y$)} \hfill \{mulxy\}
 \\
 
 Now, we turn our attention to defining \textsf{mxy}, which multiplies binary
-numerals $x$ and $y$ when $y$ is not the empty numeral.
-It may happen that $x$ is empty, which stands for zero, so that
-the product is also zero, and in that case (mxy $x$ $y$) is \textsf{nil},
+numerals $x$ and $y$ when $y$ is not \textsf{nil}.
+It may happen that $x$ is \textsf{nil}, which stands for zero, so that
+the product is also zero, and in that case \textsf{(mxy $x$ $y$)} is \textsf{nil},
 which gives us one of the equations for \textsf{mxy}.
 
 \hspace*{2cm} \textsf{(mxy nil $y$)} $=$ \textsf{nil}  \hfill \{mul0y\}
 \\
 
-That leaves the case when $x$ $=$ \textsf{[$x_0$ $x_1$ $x_2$ ...]} is not empty.
+That leaves the case when $x$ $=$ \textsf{[$x_0$ $x_1$ $x_2$ ...]} is not \textsf{nil}.
 Follow along, again, in Figure~\ref{fig:grade-school-mult},
-but this time, because we're in binary mode, think $2$ when you see $10$,
-and think bits where you see digits.
+but this time, because we're in binary mode, think two when you see ten,
+and think bits where you see digits. (Or, interpret the numeral 10
+in the figure as if it were a binary numeral.)
 We'll discuss step 1 shortly, but first look at step 2,
 which will be necessary, regardless of what happens in step 1.
 
@@ -464,7 +473,7 @@ is the number that $x$ stands for.
 Similarly, $x_0$ is a symbol for a bit,
 but $\underline{x_0}$ is the number it denotes (zero or one).
 
-Step 2 in Figure~\ref{fig:grade-school-mult}requires the computation of
+Step 2 in Figure~\ref{fig:grade-school-mult} requires the computation of
 $\underline{p} = \lfloor \underline{x} \div 2 \rfloor \cdot \underline{y}$.
 The numeral for $\lfloor \underline{x} \div 2 \rfloor$ is just $x$ without its
 low-order bit. Since the low-order bit comes first
@@ -517,8 +526,8 @@ so $\underline{s} = \lfloor \underline{m}\div 2\rfloor + \underline{p} = \lfloor
 Again, $y$ is a numeral, so the numeral for $\lfloor \underline{y}\div 2\rfloor$
 is just like $y$, but without the first bit: (rest $y$).
 That gives us another equation for \textsf{mxy}.
-We use the bignum add operator to compute the sum
-shown in in step 3 of Figure\ref{fig:bignum-mul-defun}.
+We use the bignum \textsf{add} operator to compute the sum
+shown in in step 3 of Figure~\ref{fig:bignum-mul-defun}.
 The first operand of the \textsf{add} operator is the input carry bit,
 which is zero because we only want to add $p$ and \textsf{(rest $y$)}.
 We bring down the low-order bit of $m$, but $m = y$
@@ -528,29 +537,29 @@ is also the low-order bit of $y$, namely \textsf{(first $y$)}.
 \hspace*{2cm} \textsf{(mxy [$1$ $x_1$ $x_2$ \dots] $y$)} $=$ \textsf{(cons (first $y$) (add 0 (rest $y$) $p$))} \hfill \{mul1xy\}
 \\
 
-These equations for \textsf{mul} are comprehensive because $y$ is either empty,
+These equations for \textsf{mul} are comprehensive because $y$ is either \textsf{nil},
 in which case equation \{mulx0\} applies,
-or $y$ is not empty, in which case \{mulxy\} applies, and
-the computation is left up to the operator \textsf{mxy},
-so we have to analyze the definition of \textsf{mxy}.
+or $y$ is not \textsf{nil}, in which case \{mulxy\} applies, and
+the computation is left up to the operator \textsf{mxy}.
+Now, we have to analyze the definition of \textsf{mxy}.
 
 The equations in the definition of \textsf{mxy} are comprehensive
-because either $x$ is empty, in which case
-equation \{m0y\} applies, or $x$ is not empty.
-If $x$ is not empty, its low-order bit is either zero,
-in which case equation \{m0xy\} applies, or it is one,
-in which case equation \{m1xy\} applies.
+because either $x$ is \textsf{nil}, in which case
+equation \{m0y\} applies, or $x$ is not \textsf{nil}.
+If $x$ is not \textsf{nil}, its low-order bit is either zero,
+in which case equation \{mul0xy\} applies, or it is one,
+in which case equation \{mul1xy\} applies.
 
-The equations are consistent because in the one case
+The equations are consistent. In the one case
 where they could overlap, namely when both $x$ and $y$
-are empty, they deliver the same result, namely the empty numeral.
+are \textsf{nil}, they deliver the same result, namely \textsf{nil}.
 
 They are computational because in the inductive equations,
 \{m0xy\} and \{m1xy\}, the first operand in
 the invocation of the operator \textsf{mxy} on the right-hand side,
 is the numeral \textsf{(rest $x$)}.
-Since $x$ is non-empty in the inductive case,
-\textsf{(rest $x$)} has fewer bits than the $x$, which is the first operand
+Since $x$ is not \textsf{nil} in the inductive case,
+\textsf{(rest $x$)} has fewer bits than $x$, which is the first operand
 on the left-hand side.
 So, the inductive invocation is closer to a non-inductive
 case than the formula on the left-hand side of the equation.
