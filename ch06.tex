@@ -651,32 +651,35 @@ for adding binary numerals delivers the expected results.
 Theorem \{adder ok\}\\
 $\forall n.($\textsf{(numb [$s_0$ $s_1$ \dots $s_{n}$ $c$])} $=$
 \textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$ $x_1$ \dots $x_{n}$])} $+$ \textsf{(numb [$y_0$ $y_1$ \dots $y_{n}$])}$)$\\
-\hphantom{(numb}where \textsf{[[$s_0$ $s_1$ \dots $s_{n}$] $c$]} $=$ \textsf{(adder $c_0$ [$x_0$ $x_1$ \dots $x_{n+1}$] [$y_0$ $y_1$ \dots $y_{n}$])}\\
+\hphantom{(numb}where \textsf{[[$s_0$ $s_1$ \dots $s_{n}$] $c$]} $=$ \textsf{(adder $c_0$ [$x_0$ $x_1$ \dots $x_{n+1}$] [$y_0$ $y_1$ \dots $y_{n}$])}
+~\\[1mm]
 \emph{Base Case}
 \begin{center}
 \begin{tabular}{l}
-\hline
+\hline\\[-1.0em]
 $R(0) \equiv$  $($\textsf{(numb [$s_0$ $c$])} $=$ \textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$])} $+$ \textsf{(numb [$y_0$])}$)$ \\
- ~~~~~~ where \textsf{[[$s_0$] $c$]} $=$ \textsf{(adder $c_0$ [$x_0$] [$y_0$])} \\
+ ~~~~~~ where \textsf{[[$s_0$] $c$]} $=$ \textsf{(adder $c_0$ [$x_0$] [$y_0$])}
+\\[2pt]
 \hline
 \end{tabular}
-\begin{tabular}{ll}
+\begin{tabular}{ll}~\\[-1.0em]
 \textsf{(adder $c_0$ [$x_0$] [$y_0$])} $=$ \textsf{[(cons $s_0$ nil) $c$]} $=$ \textsf{[[$s_0$] $c$]} & \{\emph{add1}\} (\{\emph{adder}\} \emph{Fig. \ref{fig:adder}, p.\pageref{fig:adder}}) \\
 ~~~~ where \textsf{[$s_0$ $c$]} $=$ \textsf{(full-adder $c_0$ $x_0$ $y_0$)}          & \emph{note:} (adder $c$ nil nil) = [nil $c$] \\
-\textsf{(numb [$s_0$ $c$])} = \textsf{(numb (full-adder $c_0$ $x_0$ $y_0$)}          &  \\
+\textsf{(numb [$s_0$ $c$])} = \textsf{(numb (full-adder $c_0$ $x_0$ $y_0$))}          &  \\
 ~~~~~~~~~~~ $=$ \textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$])} $+$ \textsf{(numb [$y_0$])}  & \{\emph{full-adder ok}\} \emph{(Fig. \ref{fig:full-adder-thm}, p.\pageref{fig:full-adder-thm})}\\
 \end{tabular}
 \end{center}
 \emph{Inductive Case}
 \begin{center}
 \begin{tabular}{l}
- \hline
+\hline\\[-1.0em]
 $R(n+1)$ $\equiv$ $($\textsf{(numb [$s_0$ $s_1$ \dots $s_{n+1}$ $c$])} $=$ \\
 \hphantom{$R(n+1)$ $\equiv$ $($}\textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$ $x_1$ \dots $x_{n+1}$])} $+$ \textsf{(numb [$y_0$ $y_1$ \dots $y_{n+1}$])}$)$ \\
- ~~~~~~ where \textsf{[[$s_0$ $s_1$ \dots $s_{n+1}$] $c$]} $=$ \textsf{(adder $c_0$ [$x_0$ $x_1$ \dots $x_{n+1}$] [$y_0$ $y_1$ \dots $y_{n+1}$])} \\
+ ~~~~~~ where \textsf{[[$s_0$ $s_1$ \dots $s_{n+1}$] $c$]} $=$ \textsf{(adder $c_0$ [$x_0$ $x_1$ \dots $x_{n+1}$] [$y_0$ $y_1$ \dots $y_{n+1}$])}
+ \\[2pt]
 \hline
 \end{tabular}
-\begin{tabular}{ll}
+\begin{tabular}{ll}~\\[-1.0em]
 \hspace*{3mm}\textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$ $x_1$ \dots $x_{n+1}$])} $+$ \textsf{(numb [$y_0$ $y_1$ \dots $y_{n+1}$])}& \\
 $=$ \textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$])} $+$ $2\times$\textsf{(numb [$x_1$ \dots $x_{n+1}$])}                         & \{\emph{nmb1}\} \emph{(p. \pageref{nmb1})} \\
 \hphantom{$=$ \textsf{(numb [$c_0$])} }$+$ \textsf{(numb [$y_0$])} $+$ $2\times$\textsf{(numb [$y_1$ \dots $y_{n+1}$])}                  & \{\emph{nmb1}\} \\
@@ -866,7 +869,7 @@ for a number $n$ in the set $I(w)$.
 The \textsf{twos} operator uses the operator \textsf{bits} (page \pageref{bits-defun})
 to compute binary numerals.
 For negative numbers it adds $2^w$
-(that is, \textsf{(expt $2$ $w$)}, 
+(that is, \textsf{(expt $2$ $w$)},
 using the ACL2 intrinsic operator \textsf{expt})
 before computing the numeral.
 For non-negative numbers, it computes the numeral,
