@@ -64,7 +64,7 @@ as a defining axiom. It applies whenever both lists are non-empty.
 If both lists are empty, there is nothing to multiplex,
 so \textsf{mux} would deliver the empty list in that case, but
 what should it deliver if one list is empty, but the other isn't?
-There are several reasonable choices, and each of them produces
+There is more than one reasonable choice, and each leads to
 a different operator. One choice is to incorporate the elements
 in the non-empty list, just as they are, into the
 multiplexed list that \textsf{mux}  delivers.
@@ -113,11 +113,11 @@ When the first operand is non-empty, \textsf{mux} satisfies the following equati
 \textsf{(mux (cons $x$ $xs$) $ys$) = (cons $x$ (mux $ys$ $xs$)))} ~~ \{mux1y\}
 \end{quote}
 
-The invocation \textsf{(mux $ys$ $xs$)}
+The inductive invocation, \textsf{(mux $ys$ $xs$)},
 on the right-hand-side of \{mux1y\}
 delivers a list that starts with the first element of $ys$,
-then alternates between $xs$ and $ys$
-for a perfect shuffle.
+then alternates between $xs$ and $ys$.
+Perfect shuffle.
 It's a two-equation definition.
 
 \label{mux-2eq-defun}
@@ -139,7 +139,7 @@ proof that \textsf{mux2} terminates,
 which the mechanized logic must complete before
 admitting the operator to the logic.
 \index{operator, by name!mux (multiplexer)}\index{axiom, by name!\{mux2-1y\}, \{mux2-0x0y\}}
-\caption{Defining a Multiplexer with Two Equations}
+\caption{Multiplexer: a Two Equation Definition}
 \label{aside:mux-2eq}
 \end{aside}
 
@@ -161,30 +161,21 @@ and ACL2 succeeds in finding a proof.
 
 For practice, let's construct a paper-and-pencil proof of the theorem.
 Our strategy will be an induction on the length of the first operand.
-We are trying to prove that the following equation holds for all natural numbers, $n$.
-\index{theorem, by name!\{mux-length\}}
+We are trying to prove that the following equation holds for all natural numbers, $n$.\\
+~\\
+\index{theorem, by name!\{mux-length\}}Theorem \{mux-length\}. $\forall n.$L($n$)\\
+where L($n$) $\equiv$ $($\textsf{(len(mux [$x_1$ $x_2$ $\dots$ $x_n$] $ys$)) $=$ $n +$ (len $ys$)}$)$\\[1mm]
+\emph{Base case} (first operand empty): L($0$) $\equiv$ $($\textsf{(len(mux nil $ys$)) = $0 +$ (len $ys$)}$)$
+~\\[-1.0em]
 \begin{quote}
-Theorem \{mux-length\}. $\forall n.$L($n$)\\
-where L($n$) $\equiv$ $($\textsf{(len(mux [$x_1$ $x_2$ $\dots$ $x_n$] $ys$)) $=$ $n +$ (len $ys$)}$)$
-\end{quote}
-
-\index{theorem, by name!\{mux-length\}}
-\begin{quote}
-Base case, first operand empty: L($0$) $\equiv$ $($\textsf{(len(mux nil $ys$)) = $0 +$ (len $ys$)}$)$
-\end{quote}
-\begin{center}
 \begin{tabular}{lll}
      & \textsf{(len(mux nil $ys$)})    &                   \\
  $=$ & \textsf{(len $ys$)}             & \{\emph{mux0x}\}  \\
  $=$ & \textsf{$0 +$ (len $ys$)}       & \{\emph{algebra}\}\\
 \end{tabular}
-\end{center}
-
-\begin{quote}
-\label{mux-length-thm-induc-case}
-Inductive case, first operand has $n+1$ elements:\\
-L($n+1$) $\equiv$ $($\textsf{(len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] $ys$)) $=$ $(n+1)$ + (len $ys$)}$)$
 \end{quote}
+\label{mux-length-thm-induc-case}\emph{Inductive case} (first operand has $n+1$ elements):\\
+L($n+1$) $\equiv$ $($\textsf{(len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] $ys$)) $=$ $(n+1)$ + (len $ys$)}$)$
 
 We split the inductive case, $L(n+1)$, into two parts.
 The second operand of \textsf{mux} is either \textsf{nil} or it's not.
@@ -211,8 +202,8 @@ theorem \{mux-length\}: $\forall n.$L($n$).
 \begin{figure}
 \begin{center}
 L($n+1$) $\equiv$ \textsf{(len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$))) $=$ $(n+1)$ $+$ (len (cons $y$ $ys$))}
-
 \begin{tabular}{lll}
+\hline\\[-1.0em]
     & \textsf{(len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$)))}        &   \\
 $=$ & \textsf{(len(mux (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$] (cons $y$ $ys$))))} & \{\emph{cons}\} \emph{(page \pageref{first-rest-cons})} \\
 $=$ & \textsf{(len(cons $x_1$ (cons $y$ (mux [$x_2$ $\dots$ $x_{n+1}$] $ys$))))} & \{\emph{mux11}\} \emph{(page \pageref{axioms:mux})}\\
@@ -294,8 +285,8 @@ Formalize the theorem of exercise~\ref{mux2-eq-mux} in ACL2.
 \end{ExerciseList}
 
 \begin{aside}
-In Exercise \ref{ex:mul-val-thm}, the mux-val theorem,
-and the axioms for the occurs-in predicate
+In Exercise \ref{ex:mul-val-thm} the mux-val theorem
+and the axioms of the \textsf{occurs-in} predicate
 have been stated in the form we use for paper-and-pencil proofs.
 These proofs are rigorous, but not formal
 in the sense of the mechanized proofs of ACL2.
@@ -319,9 +310,8 @@ operator is Boolean equivalence
        (or (occurs-in v xs)
            (occurs-in v ys))))
 \end{Verbatim}
-\label{defthm:mux-val}\index{theorem, by name!\{mux-val\}}\index{predicate, by name!occurs-in (list)}\index{operator, by name!occurs-in (\emph{see} predicate)}
 \caption{Formal Version of Mux-Val Theorem}
-\label{aside:mux-val-thm}
+\label{aside:mux-val-thm}\label{defthm:mux-val}\index{theorem, by name!\{mux-val\}}\index{predicate, by name!occurs-in (list)}\index{operator, by name!occurs-in (\emph{see} predicate)}
 \end{aside}
 
 \section{Demultiplexer}
@@ -335,7 +325,7 @@ with the $x$-values in one list and $y$-values in the other.
 [[$x_1$ $x_2$ $x_3$ $\dots$] [$y_1$ $y_2$ $y_3$ $\dots$]]}
 \hfill \{\emph{dmx}\}
 
-The following equations form an inductive definition of dmx.
+The following equations form an inductive definition of \textsf{dmx}.
 The inductive equation covers the case when
 the operand has at least two elements
 (that is, it starts with an $x$ and then a $y$),
@@ -416,26 +406,6 @@ The second component is also half the length of the operand, but rounded down if
 The mechanized logic of ACL2 succeeds in proving these theorems,
 but it needs the help of some theorems about arithmetic.
 
-\begin{aside}
-An alternate definition of a demultiplexer
-observes that if the operand alternates between $x$ and $y$ values,
-starting with an $x$,
-then the same list without is first element also alternates,
-but starting with a $y$. The definition is shorter,
-but complicates reasoning.\\
-\begin{center}
-Axioms for \textsf{dmx2} (maybe too clever by half)
-\begin{tabular}{ll}
-\textsf{(dmx2 (cons $x$ $yxs$)) $=$ [(cons $x$ $xs$) $ys$]}& \{\emph{dmx2-1x}\} \\
-~~~~~~where \textsf{[$ys$ $xs$] $=$ (dmx2 $yxs$)}          & \\
-\textsf{(dmx2 nil) $=$ [nil nil] }                         & \{\emph{dmx2-0x}\} \\
-\end{tabular}
-\end{center}
-\index{axiom, by name!\{dmx2-1x\}, \{dmx2-2x\}}\index{operator, by name!dmx (demultiplexer)}
-\caption{Cleverness Sometimes Complicates Reasoning}
-\label{aside:dmx-defun-trick}
-\end{aside}
-
 \label{thm:dmx-length-first-second}\seeonlyindex{mux theorems}{theorems}\seeonlyindex{dmx theorems}{theorems}\index{theorem, by name!\{dmx-len-first\}, \{dmx-len-second\}}\index{book!arithmetic-3/top}\index{directory (:dir)!:system}\index{directive!include-book}\index{system, :dir}\index{book!directory (:dir)}
 \begin{Verbatim}
 (include-book "arithmetic-3/top" :dir :system)
@@ -464,7 +434,7 @@ stated formally in ACL2 as follows.
 
 \Exercise
 Do paper and pencil proofs of the dmx-len-first and dmx-len-second
-theorems (\pageref{thm:dmx-length-first-second}).
+theorems (page \pageref{thm:dmx-length-first-second}).
 You may find the proofs easier if you split them into
 two cases, one when the operand has an even number of elements
 (that is, $2n$, for some natural number $n$),
@@ -507,3 +477,23 @@ Aside~\ref{aside:dmx-defun-trick}, page \pageref{aside:dmx-defun-trick},
 and \textsf{dmx} is defined on page \pageref{dmx-defun}.
 
 \end{ExerciseList}
+
+\begin{aside}
+An alternate definition of a demultiplexer
+observes that if the operand alternates between $x$ and $y$ values,
+starting with an $x$,
+then the same list without is first element also alternates,
+but starting with a $y$. The definition is shorter,
+but complicates reasoning.\\
+\begin{center}
+Axioms for \textsf{dmx2} (maybe too clever by half)
+\begin{tabular}{ll}
+\textsf{(dmx2 (cons $x$ $yxs$)) $=$ [(cons $x$ $xs$) $ys$]}& \{\emph{dmx2-1x}\} \\
+~~~~~~where \textsf{[$ys$ $xs$] $=$ (dmx2 $yxs$)}          & \\
+\textsf{(dmx2 nil) $=$ [nil nil] }                         & \{\emph{dmx2-0x}\} \\
+\end{tabular}
+\end{center}
+\index{axiom, by name!\{dmx2-1x\}, \{dmx2-2x\}}\index{operator, by name!dmx (demultiplexer)}
+\caption{Cleverness Sometimes Complicates Reasoning}
+\label{aside:dmx-defun-trick}
+\end{aside}
