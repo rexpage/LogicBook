@@ -75,7 +75,7 @@ you could arrange them in alphabetical order by title.
 When you get a new book, you just insert it in the right place,
 maybe sliding a few books around to accommodate it.
 If you lose one, you can just leave the slot empty,
-or slide the ones beyond it back to fill in the space.
+or slide the books around to fill in the space.
 
 To find a particular book, you would probably just guess about
 where it would be, look there, and adjust your next guess accordingly.
@@ -161,7 +161,7 @@ you have to move things around, one way or the other,
 to make space or fill in gaps to
 keep the numbers that select array elements
 in a contiguous sequence, 0, 1, 2, 3, \dots.
-So, keeping items in order in an array
+So, keeping items in order with indexes in sequence
 to facilitate using binary search
 works fine when the items don't change,
 but becomes infeasible when they do.
@@ -181,7 +181,7 @@ accommodate new items (the \emph{insertion problem})
 or get rid of old ones (the \emph{deletion problem}).
 This structure, known as the
 \index{AVL tree}\index{binary tree!AVL}\index{tree!AVL}AVL tree
-(``AVL'' for Adelson-Velskii and Landis)\label{AVL-tree},
+(``AV'' for Adelson-Velskii and ``L'' Landis)\label{AVL-tree},
 makes it possible to find an item or
 insert a new one
 in only about $log(n)$ steps, where $n$ is the number
@@ -194,7 +194,7 @@ when they figured out how to do this,
 but their solution isn't hard to explain,
 and that is the goal of this chapter.
 
-We will need some terminology to facilitate the discussion.
+We will need some terminology to discuss the idea.
 \label{empty-tree-def}\index{tree!definition}The term \emph{tree}
 will mean either an \emph{empty tree}
 or a \label{node-def}\emph{node} called the
@@ -202,8 +202,8 @@ or a \label{node-def}\emph{node} called the
 A node consists of a sequence of one or more subtrees, and each
 \label{subtree-def}\index{subtree, definition}\emph{subtree}
 is also a tree.
-That is, each subtree is either the empty tree,
-or it consists of a node, which is its root.\footnote{Yet
+That is, each subtree is either the empty tree
+or a node, which is its root.\footnote{Yet
 another usefully circular (inductive) definition.}
 
 \label{search-tree-def}A
@@ -260,12 +260,12 @@ so search trees are ordered trees.
 \label{binary-search-def}
 \index{binary search}\index{tree!searching for key}
 To find a key in a search tree,
-look first at the key in the root (unless the tree is empty,
+look first at the key at the root (unless the tree is empty,
 in which case
 you can conclude that the key does not occur in the tree).
-If the key you are looking for is the same as the key in the root,
+If the key you are looking for is the same as the key at the root,
 then you have found the key you're looking for.
-If it isn't the same as the key in the root,
+If it isn't the same as the key at the root,
 it must either precede or follow the root key in the ordering.
 If the key you are looking for precedes the root key,
 look for it in the left subtree.
@@ -314,7 +314,7 @@ maintains balance,
 which keeps the tree from getting too tall
 on one side or the other.
 This preserves a high ratio between number of keys
-the tree contains and the height of the tree.
+in the tree and the height of the tree.
 That is, the insertion process makes sure
 to keep the height of the tree small
 compared to the number of keys.
@@ -331,15 +331,15 @@ Therefore, the number of steps in a binary search
 of an AVL tree containing $n$ keys
 will  not exceed $\frac{3}{2}\cdot log_2(n)$ steps.
 To have an inkling of how ingenious the AVL solution is,
-try to find a way to insert keys into a search tree
+try to figure out how to insert keys into a search tree
 in a way that has the following properties.
 \begin{quote}
 \index{balance!AVL tree}\index{AVL tree!balance}\index{search tree!balance}
 \index{order!AVL tree}\index{AVL tree!order}\index{search tree!order}
 \begin{enumerate}
-\item The key in each node follows every key
+\item The key at each node follows every key
       that occurs in its left subtree.
-\item The key in each node precedes every key
+\item The key at each node precedes every key
       in the right subtree.
 \item Sibling subtrees differ in height by zero or one.
 \end{enumerate}
@@ -381,7 +381,7 @@ In our representation,
 ordered in the usual way.
 That is, one key, $k_1$, precedes another key, $k_2$,
 if $k_1 < k_2$ in the usual numeric ordering.
-That means that the key in a node of a search tree
+That means that the key at a node of a search tree
 is numerically greater than all the keys that occur in
 the left subtree of the node,
 and numerically less than
@@ -528,7 +528,7 @@ of two other numbers, which makes it at least one.
 Theorem \{\emph{ht-emp}\} states this fact more rigorously.
 
 \label{thm:ht-emp}
-Theorem \{\emph{ht-emp}\} (treep $s$) $\rightarrow$ (((height $s$) = 0) = (emptyp $s$))
+Theorem \{\emph{ht-emp}\} \textsf{(treep $s$)} $\rightarrow$ ((\textsf{(height $s$) = 0)} $=$ \textsf{(emptyp $s$)})
 \section{Ordered Search Trees}
 
 Since keys are natural numbers,
@@ -537,7 +537,7 @@ its key is greater than all of the keys that occur in the left subtree
 and less than all the keys that occur in the right subtree.
 A empty tree is ordered by default.
 The following equations define
-the predicate ordp so that
+the predicate \textsf{ordp} so that
 \textsf{(ordp $s$)} is true if $s$ is ordered and false otherwise.
 
 \begin{center}
@@ -561,7 +561,7 @@ the following observations.
 \index{duplicate key, none (AVL)}
 \index{key!duplicates, none}
 \begin{enumerate}
-\item A key in a node does not occur in either of its subtrees.
+\item A key at a node does not occur in either of its subtrees.
 \item Any key in one subtree of a node is not equal to the key of the node
       and does not occur in the other subtree.
 \end{enumerate}
@@ -622,7 +622,7 @@ is unbalanced at every level.
 A binary search on this tree would have no advantage over
 looking through a pile of socks, one by one.
 The unbalanced tree of height four in the figure is not much better.
-It has the name number of nodes in the left subtree as in the right subtree,
+It has the same number of nodes in the left subtree as in the right subtree,
 but all of the subtrees are maximally unbalanced, like a pile of socks.
 
 Balance is what prevents time-consuming searches, and the unbalanced
@@ -704,7 +704,7 @@ differ by one or less.
 
 It isn't difficult to maintain order.
 You can do this by moving left or right down the tree according
-to whether the new key is less than or greater than the key in the node
+to whether the new key is less than or greater than the key at the node
 under consideration.
 When you arrive at an empty tree,
 insert a node that has the new key
@@ -942,7 +942,7 @@ the \textsf{hook} operator, by itself, is adequate for
 inserting new keys.
 
 That leaves us with trees of height two or more.
-We want to define an insertion operator, ins,
+We want to define an insertion operator, \textsf{ins},
 so that
 if $s$ is an ordered, balanced search tree
 of height $n+2$ (where $n$ is a natural number),
@@ -988,7 +988,7 @@ for determining, in general, whether two operators
 denote the same operation,
 so it would be difficult to reason about whether or
 not key/data associations stay the same throughout the process.}
-Our inductive definition of ins will
+Our inductive definition of \textsf{ins} will
 assume that it has the desired properties
 when operating on trees of height less than $n+2$
 and prove that, with that assumption, it also
@@ -1086,8 +1086,8 @@ and two diagrams (\emph{RL} and \emph{RR}) expanding tree \emph{R}.
 
 Consider the problem of inserting a new key, $x$, into
 an ordered, balanced search tree of height $n+2$ with the key $k$
-in its root, the key $j$ in the root of its left subtree,
-and the key $k$ in the root of its right subtree.
+at its root, the key $j$ at the root of its left subtree,
+and the key $k$ at the root of its right subtree.
 The value of $x$ will fall into one of four intervals.\footnote{We
 can ignore the possibility that $x$ is the same as
 $k$, $j$, or $i$ because
@@ -1098,17 +1098,16 @@ Therefore, the tree will remain balanced and
 require no further attention.}\index{tree!balance}\index{searchtree!balance}\index{AVL tree!balance}\index{balance!AVL tree}\
 \label{cases:ht-n+2}\begin{quote}
 \begin{enumerate}
-\item case \emph{LL}: $x < j < k$ (refer to Figure \ref{fig:trees-of-ht-n+2-expanded})
-\item case \emph{LR}: $j < x < k$
-\item case \emph{RL}: $k < x < i$
+\item case \emph{LL}: $x < j < k$ 
+\item case \emph{LR}: $j < x < k$~~~~~~~~~~~\emph{refer to }
+\item case \emph{RL}: $k < x < i$~~~~~~~~~~~~~~\emph{Figure \ref{fig:trees-of-ht-n+2-expanded}}
 \item case \emph{RR}: $k < i < x$
 \end{enumerate}
 \end{quote}
 
 The names of the cases correspond
 to the tree diagram in
-Figure \ref{fig:trees-of-ht-n+2-expanded} (page \pageref{fig:trees-of-ht-n+2-expanded})
-that we use to analyze the case.
+Figure \ref{fig:trees-of-ht-n+2-expanded} (page \pageref{fig:trees-of-ht-n+2-expanded}).
 For example, if the new key $x$ is less than $k$,
 insertion cannot cause the tree to go out of
 balance unless the left subtree is taller
@@ -1121,6 +1120,8 @@ is smaller than the key $j$
 because that pushes the key into subtree \emph{jL},
 and the tree \emph{LL} will definitely go out of balance
 if insertion increases the height of \emph{jL}.
+The analysis of case \emph{LL} covers  
+subtrees \emph{jR} both of height $(n-1)$ and of height $n$.
 
 \begin{figure}
 \begin{center}
@@ -1144,10 +1145,12 @@ that increases its height will definitely
 produce a tree that is out of balance)
 to analyze the insertion of a
 key $x$ that lies between $j$ and $k$.
+The analysis of case \emph{LR} covers
+subtrees \emph{jL} both of height $(n-1)$ and of height $n$.
 
-Case \emph{RR} mirrors 
+Case \emph{RR} mirrors
 case \emph{LL} and deals with the situation when the new key $x$
-is greater than $i$ ($x > i > k$).
+is greater than $i$ ($k < i < x$).
 Case \emph{RL} mirrors case \emph{LR} and
 deals with the situation when the new key $x$
 is between $k$ and $i$ ($k < x < i$).
@@ -1203,15 +1206,15 @@ the result, tree \emph{rLLout} (Figure \ref{fig:zig-and-zag}),
 is balanced and has height $n+2$.
 Voila! Like magic.
 
-This clockwise rotation of the the tree \emph{LLout},
+This clockwise rotation of the tree \emph{LLout},
 as shown in the figure,
 is traditionally called \textsf{zig}.
 The mirror operation, \textsf{zag}, rotates counter-clockwise to fix
 the tree \emph{RRout}, which is too tall on the right.
 Formal definitions of these rotation operators reside in
 Figure \ref{defun:zig-and-zag} (page \pageref{defun:zig-and-zag}).
-These definitions emerge in a straightforward way from
-the diagrams in Figure \ref{fig:zig-and-zag}.
+The definitions emerge in a straightforward way from
+the diagrams in Figure~\ref{fig:zig-and-zag}.
 
 \begin{figure}
 \begin{center}
@@ -1278,15 +1281,14 @@ Cases \emph{LR} and \emph{RL}
 are ``ìnside cases'' because the problematic subtrees
 are on the inside portion of the tree diagram, away from the borders.
 Another way to look at it is that $x$ is outside of the interval
-between $j$ and $i$ in the outside cases, 
+between $j$ and $i$ in the outside cases,
 and inside the interval in the inside cases.
 
 \begin{center}
 \begin{tabular}{llll}
-\label{inside-lf} &Inside Left Case \emph{LR}:  &(ins $x$ $a$ \emph{LR}), when $j < x < k$ &
-                    (see Figure \ref{fig:trees-of-ht-n+2-expanded}, page \pageref{fig:trees-of-ht-n+2-expanded})                 \\
-\label{inside-rt} &Inside Right Case \emph{RL}: &(ins $x$ $a$ \emph{RL}), when $k < x < i$  &
-                    \\
+\label{inside-lf} &Inside Left Case \emph{LR}:  &\textsf{(ins $x$ $a$} \emph{LR}\textsf{)}, when $j < x < k$ &
+                    \emph{refer to} \\
+\label{inside-rt} &Inside Right Case \emph{RL}: &\textsf{(ins $x$ $a$} \emph{RL}\textsf{)}, when $k < x < i$  &~~~\emph{Figure \ref{fig:trees-of-ht-n+2-expanded}, page \pageref{fig:trees-of-ht-n+2-expanded}} \\
 \end{tabular}
 \end{center}
 %\end{comment}
@@ -1313,7 +1315,7 @@ could benefit from a clockwise rotation.
 However, that produces a tree with a left subtree of height $n$ or $n+1$
 and a right subtree of height $n+3$
 (see Figure \ref{fig:badzig}, page \pageref{fig:badzig}).
-That is, applying the rotation operator, zig, to \emph{LRin}
+That is, applying the rotation operator, \textsf{zig}, to \emph{LRin}
 leads to a tree that is at least as out of balance as \emph{LRin}.
 Clockwise rotation doesn't help.
 We need a new trick to rebalance \emph{LRin}.
@@ -1337,11 +1339,11 @@ Figure \ref{fig:dbl-rotation} (page \pageref{fig:dbl-rotation})
 shows \emph{jRx} expanded to reveal its key $y$,
 left subtree \emph{yL}, shown with height $n^-$,
 and right subtree \emph{yR}, shown with height $n$.
-The heights of those subtrees are either the same,
-or \emph{yL} is one unit shorter, but it could
+The heights of subtrees \emph{yL} and \emph{yR} are either the same,
+or \emph{yL} is one unit shorter. It could
 have been the other way around, with
-\emph{yL} having height $n$ and \emph{yR}, height $n^-$.
-The analysis is the same either way.
+\emph{yL} having height $n$ and \emph{yR}, height $n^-$,
+but the analysis is the same either way.
 We will pursue the alternative
 displayed in Figure~\ref{fig:dbl-rotation},
 and leave it to you to draw the diagram the other way
@@ -1359,26 +1361,28 @@ and make sure it works. The exercise will be good practice.
 \label{fig:dbl-rotation}
 \end{figure}
 
-The diagram in Figure~\ref{fig:dbl-rotation} 
+The diagram in Figure~\ref{fig:dbl-rotation}
 makes it clear that we can apply \textsf{zag}
 (counterclockwise rotation)
 to the left subtree of \emph{LRin}.
 It's a counterintuitive move, might not help, might even make things worse,
 but it's possible, nonetheless.\footnote{\label{no-zag}It would not be possible
 to do a \textsf{zag} rotation if \emph{jRx} were empty.}
-When we apply the \textsf{zag} operator to
-the left subtree of \emph{LRin},
-we get the following tree,
-with the algebraic formula [$y$ $p$ \emph{yL} \emph{yR}]
-for subtree \emph{jRx}.\footnote{The formula uses $p$ to denote
-the data associated with the key $y$.}
+The algebraic formula \textsf{[$y$ $p$} \emph{yL} \emph{yR}\textsf{]} in Figure~\ref{fig:dbl-rotation}
+is the expansion of subtree \emph{jRx} (Figure~\ref{fig:inside-cases}) to display
+its key ($y$) and its subtrees (\emph{yL} and \emph{yR}).
+The formula uses $p$ to denote the data associated with key $y$.
+
+After applying the \textsf{zag} operator to the left subtree of tree \emph{LRin}
+(Figure~\ref{fig:dbl-rotation}), we the new tree \emph{rLRin} displayed in
+the middle of the figure. The left subtree of the new tree \emph{rLRin} has the following algebraic formula.
 \begin{center}
 \textsf{(zag (lft} \emph{LRin}\textsf{))} =
 \textsf{(zag [$j$ $c$} \emph{jL} \textsf{[$y$ $p$} \emph{yL} \emph{yR}\textsf{]])} =
 \textsf{[$y$ $p$ [$j$ $c$} \emph{jL} \emph{yL}\textsf{]} \emph{yR}\textsf{]}
 \end{center}
 
-Starting from the unbalanced search tree \emph{LRin}
+To repeat, starting from the unbalanced search tree \emph{LRin}
 on the left side of Figure \ref{fig:dbl-rotation},
 the middle portion of the figure displays the tree \emph{rLRin},
 which is \emph{LRin} with \textsf{zag} applied to its left subtree.
@@ -1411,7 +1415,7 @@ double rotation, or no rotation
 (depending on subtree heights)
 and uses the \textsf{zig} and \textsf{zag} operators
 (Figure \ref{defun:zig-and-zag}, page \pageref{defun:zig-and-zag})
-to carry whatever rotations are necessary, if any.
+to carry the necessary rotations, if there are any.
 
 \begin{figure}
 \begin{center}
@@ -1587,8 +1591,8 @@ and recording the result with the key, data, and subtrees.
 We use the term ``extracting'' instead of ``computing''
 because the height of a subtree is right there with the key.
 Extracting the height is a non-inductive operation,
-just like extracting the key.\footnote{In fact,
-the situation is better than it seems because
+just like extracting the key.\footnote{The situation 
+is even better than it seems because
 it's not the height that the rotation operators need to know.
 It's the difference between the heights of the subtrees,
 which is known as the ``balance factor''.
@@ -1627,7 +1631,7 @@ must change.
 \end{quote}
 
 Figure \ref{defun:balance-factor} (page \pageref{defun:balance-factor})
-formalizes the new versions of 
+formalizes the new versions of
 \textsf{mktr}, \textsf{ht}, \textsf{treep}, and \textsf{rot}+.
 The other operators remain unchanged,
 and the only changes needed in \textsf{rot}+ and \textsf{rot-}
@@ -1685,11 +1689,11 @@ so it will do for our purposes.
 Incidentally, the height of the tree
 that \textsf{(time-chk $n$)} delivers should be
 less than
-$frac{3}{2}\cdot log_2(n+1)$.
+$\frac{3}{2}\cdot log_2(n+1)$.
 If it's not, something is wrong.
 An approximate way use ACL2 to check tree heights
-for plausibility is to invoke the predicate height-right?,
-defined as follows, whose value, should be true.\\
+for plausibility is to invoke the predicate \textsf{height-rightp},
+defined as follows, whose value, should be true.
 
 \begin{center}
 \index{AVL tree!ht (height, fast) test}\index{height!test ht operator}
@@ -1699,13 +1703,13 @@ defined as follows, whose value, should be true.\\
       (+ 1 (log2-ceiling(floor (+ n 1) 2)))
       0))
 
-(defun height-right? (n)
+(defun height-rightp (n)
   (let* ((h  (ht (build n))))
     (<  (/ (* 3 (log2-ceiling n)) 2))))
 \end{Verbatim}
 \end{center}
-
-\label{timing-tricks}
+\caption{Checking Heights of AVL Trees}
+\label{aside:AVL-heights}
 \end{aside}
 
 After you complete the timings with the slow version of \textsf{ins},
@@ -1730,6 +1734,14 @@ but all of them make fast insertion, deletion, and retrieval possible.
 \begin{ExerciseList}
 \Exercise Carry out the timing experiment described
 in this section and report the results.
+
+\Exercise Observe, experimentally, using operators defined
+in Aside~\ref{aside:AVL-heights} (page \pageref{aside:AVL-heights}),
+that the height of an AVL tree
+containing $n$ keys
+does not exceed $\frac{3}{2}\cdot log_2(n+1)$.
+Your experiment should include many observations.
+
 \end{ExerciseList}
 
 \begin{comment}
