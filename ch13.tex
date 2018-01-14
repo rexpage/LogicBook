@@ -32,7 +32,7 @@ accessible, quickly, online to billions of people.
 That's this year. Next year, it may well be trillions of items.
 
 Traditionally, this data would be stored in a \index{database}database
-using two tables, one for the status update\index{update, database}updates,
+using two tables, one for the status \index{update, database}updates,
 and one for the friends.  Figure~\ref{facebook-tables}
 shows what these tables could look like.
 Database software inserts, deletes, and modifies
@@ -54,24 +54,25 @@ This approach would work very well if Facebook had a small number of users,
 but it does not scale to billions users.
 The problem is that a traditional database cannot process
 this query quickly enough to keep up with a continuous
-and voluminous (to say the least) flood of online demand.
+flood of online demand.
 
 Facebook is not the only company that has this problem.
-For example, \index{Amazon}\index{store front}Amazon 
+For example, \index{Amazon}\index{store front}Amazon
 offers millions of items for sale.
 It encourages customers to write reviews for each item, and it keeps a history
 of purchases made by its customers so it can keep them informed about the status of orders,
-make suggestions other purchases, and provide many other services.
-The information could be stored in traditional database tables,
-but retrieving it would take too long.
+make suggestions other purchases, and provide other services.
+If the information were stored in traditional database tables,
+retrieving it would take too long.
 
-In fact, this is a problem faced by any organization that
-allows large numbers of users to produce content for its website.
-Organizations that allow users to produce content for their websites
-are known as \index{Web 2.0 company}Web 2.0 companies.
-Such content can be take the form of passages created directly by users,
+In fact, this is a problem faced by any  
+\index{Web 2.0 company}Web 2.0 organization.\footnote{A
+Web 2.0 organization is one that allows large numbers 
+of users to produce content for its website.}
+The web content that their users produce 
+can take the form of passages created directly by users,
 such as Facebook updates or Amazon reviews, or it can be content created
-indirectdly, such as Amazon purchase recommendations.
+indirectly, such as Amazon purchase recommendations.
 When a Web 2.0 company is successful,
 its users produce much more content than traditional databases can handle.
 
@@ -113,22 +114,24 @@ its users produce much more content than traditional databases can handle.
 \subsection{Caching}
 
 Web 2.0 companies cannot use traditional databases
-because, for example, it would take too long to retrieve information needed 
+because, for example, it would take too long to retrieve information needed
 to display a user's welcome screen.
 One way to address this problem is to limit the number of queries that the
 database needs to carry out.
-For example, if a user checks her home screen several times in a short time span,
-the computer can simply remember the previous results, instead of asking the database to
-retrieve them again and again, each time the user checks her screen.
+For example, if many users check their home screens
+several times in a span of a few minutes,
+the computer can remember the results previous inquiries,
+instead of asking the database to
+retrieve the home screen every time a user wants to check it.
 
 That's called \emph{caching} the data.
-A \index{cache}cache is a key/value store,
-in which data (values) are associated with a key
-that facilitates locating the data,
-like the search trees of Chapter \ref{ch:search-trees}
-or the hash tables of Chapter \ref{ch:hash-tables}.
+A \index{cache}cache is a key/value store
+in which data (values) are associated with keys
+that facilitate locating the data,
+like the search-tree keys of Chapter \ref{ch:search-trees}
+or the hash keys of Chapter \ref{ch:hash-tables}.
 When a query arrives, the database first checks
-the cache to see of the information is already there.
+the cache to see if the information is already there.
 If it is, it is simply reused.
 Otherwise, the database performs the query against its underlying store,
 and puts the results in the cache, so they can be reused later.
@@ -139,7 +142,7 @@ Caching is useful when three conditions are met.
 First, putting information in the cache and retrieving it
 must be faster than ordinary database operations.
 Much faster, so there is a significant gain
-when the results are in the cache and only a tiny delay when they're not.
+when the results are in the cache to make up for the delay when they're not.
 Second, interactions with the database must frequently repeat the same transactions,
 so that results stored in the cache are often reused.
 Otherwise, caching data is a waste of time because it will
@@ -164,7 +167,7 @@ Caching worked well for Amazon, at least before product reviews
 and recommendations became prevalent in their product pages.
 But caching cannot work well for Facebook.
 Users look at their welcome pages on an individual basis,
-and they make frequent postings, retrieval of information
+and they make frequent postings. Retrieval of information
 does not dominate the pattern of transactions,
 and it is not the case that many incoming requests
 are for retrieval of the same data, over and over,
@@ -191,8 +194,8 @@ individual queries across all of the many computers
 that may be involved in resolving the query.
 
 To see how this might work,
-suppose that the computer needs to generate John's welcome page.
-The first step is to find John's friends,
+suppose the computer needs to generate John's welcome page.
+The first step might be to find John's friends,
 which can be done by executing a query on machine J.
 \begin{verbatim}
 	SELECT   f.Friend
@@ -221,7 +224,7 @@ the combined list in reverse chronological order.
 
 Queries like this show one of the shortcomings of sharding.
 Each query retrieves results from only one table
-because the related \index{record, database}records 
+because the related \index{record, database}records
 are not necessarily stored in the same shard.
 In this particular example, the information needed to answer the query was
 distributed across shards J, S, and M.
@@ -254,7 +257,7 @@ From Dynamo, Cassandra borrows the idea of a replication ring,
 and from BigTable, a data model.
 Cassandra's data model groups records into into different tables.
 Each record in a table is identified with a key.
-The key must be unique in a given table, 
+The key must be unique in a given table,
 but the same key may be used in different tables.
 Each record consists of one or more key/value pairs, and
 different records in a Cassandra table may have different keys.
@@ -331,7 +334,7 @@ The hash function and mapping of hash values to shards is known to every shard,
 so a program can ask any of the machines to retrieve a given value.
 If the machine does not have the value,
 it can determine the shard containing the value
-forward the request to that shard.
+and forward the request to that shard.
 
 The ring makes it easier to rebalance the shards,
 in case one of them becomes too large.
