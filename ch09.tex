@@ -817,10 +817,10 @@ counting the number of steps in a computation is straightforward
 if the definitions of the operators it invokes refer only
 to the operators listed in the figure.
 For example analyzing the formula for constructing
-the list \textsf{[$1$ $2$ $3$ $4$]} reveals a four-step computation.
+the list \textsf{[1 2 3 4]} reveals a four-step computation.
 \begin{quote}
 \textsf{[1 2 3 4]} denotes \textsf{(cons 1 (cons 2 (cons 3 (cons 4 nil))))}\\
-Four Steps: \textsf{(cons $4$ nil)}, \textsf{(cons $3$ [$4$])}, \textsf{(cons $2$ [$3$ $4$])}, \textsf{(cons $1$ [$2$ $3$ $4$])}
+Four Steps: \textsf{(cons 4 nil)}, \textsf{(cons 3 [4])}, \textsf{(cons 2 [3 4])}, \textsf{(cons 1 [2 3 4])}
 \end{quote}
 
 \begin{figure}
@@ -828,10 +828,10 @@ Four Steps: \textsf{(cons $4$ nil)}, \textsf{(cons $3$ [$4$])}, \textsf{(cons $2
 \begin{tabular}{lcl}
 \hline
        \hspace*{5mm}\emph{formula}                            &\emph{steps}&~~~\emph{step 1, step 2, \dots}\\ \hline
-    \textsf{(cons 1 (cons 2 (cons 3 (cons 4 nil))))}                   &     4      &\textsf{(cons $4$ nil)}, \textsf{(cons $3$ \dots)}, \textsf{cons}, \textsf{cons}\\
-    \textsf{(second [$1$ $2$ $3$])}                                    &     2      &\textsf{(rest [$1$ $2$ $3$])}, \textsf{(first [$2$ $3$])}\\
-    \textsf{(if ($>$ $7$ $3$) ($+$ $3$ ($*$ $5$ $4$)) ($+$ $2$ $2$))}  &     4      &\textsf{($>$ $7$ $3$)}, \textsf{(if T $\Box$ $\Box$)}, \textsf{($*$ $5$ $4$)}, \textsf{($+$ $3$ $20$)}\\
-    \textsf{(if ($<$ $7$ $3$) ($+$ $3$ ($*$ $5$ $4$)) ($+$ $2$ $2$))}  &     3      &\textsf{($<$ $7$ $3$)}, \textsf{(if nil $\Box$ $\Box$)}, \textsf{($+$ $2$ $2$)}\\
+    \textsf{(cons 1 (cons 2 (cons 3 (cons 4 nil))))}                   &     4      &\textsf{(cons 4 nil)}, \textsf{(cons 3 \dots)}, \textsf{cons}, \textsf{cons}\\
+    \textsf{(second [1 2 3])}                                    &     2      &\textsf{(rest [1 2 3])}, \textsf{(first [2 3])}\\
+    \textsf{(if ($>$ 7 3) ($+$ 3 ($*$ 5 4)) ($+$ 2 2))}  &     4      &\textsf{($>$ 7 3)}, \textsf{(if T $\Box$ $\Box$)}, \textsf{($*$ 5 4)}, \textsf{($+$ 3 20)}\\
+    \textsf{(if ($<$ 7 3) ($+$ 3 ($*$ 5 4)) ($+$ 2 2))}  &     3      &\textsf{($<$ 7 3)}, \textsf{(if nil $\Box$ $\Box$)}, \textsf{($+$ 2 2)}\\
 \end{tabular}
 \end{center}
 \caption{Computation Steps in Formulas with Basic Operators}
@@ -910,12 +910,12 @@ If $xs$ has fewer than two elements, then \textsf{(swap2 $xs$)} takes three step
 Count the number of steps in \textsf{($-$ (F-from-C $100$) (F-from-C $0$))}.
 
 \Exercise\label{ex:swap2-count}
-Count the number of steps in \textsf{(swap2 (list $1$ $2$ $3$))}.\\
-\emph{Note}: \textsf{(list $1$ $2$ $3$)} is a shorthand nested \textsf{cons} operations
+Count the number of steps in \textsf{(swap2 (list 1 2 3))}.\\
+\emph{Note}: \textsf{(list 1 2 3)} is a shorthand nested \textsf{cons} operations
 (Figure~\ref{fig:list-nested-cons}, page \pageref{fig:list-nested-cons}).
 
 \Exercise
-Count the number of steps in \textsf{(swap2 (list $1$))}.
+Count the number of steps in \textsf{(swap2 (list 1))}.
 
 \Exercise
 Count the number of steps in
