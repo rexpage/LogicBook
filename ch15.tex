@@ -3,7 +3,7 @@
 
 This book has explored deep connections between logic
 and computing, including the use of equations and logic to
-write and analyze computer programs. In this chapter we're going
+design and analyze computer programs. In this chapter we're going
 to turn our attention to artistic creativity. Can logic and
 equations be useful in creating works of art?
 
@@ -22,13 +22,13 @@ in the grid.
 Each dot is called a \index{pixel}\emph{pixel}, a term in common use now
 that at one time was short for \index{picture}``picture element.''
 
-The computer we are using right now has
+A laptop computer might have
 a $1440\times900$ display: 900 rows and 1440 columns.
 Continuing to ignore color for the moment, each pixel can
 be either emitting light (turned on) or not emitting light
 (turned off), so a picture in a computer can be represented
-by specifying which pixels are ``on'' and which
-are ``off.'' A straightforward way to do this is to use a list of
+by specifying which pixels are turned on and which are turned off. 
+A straightforward way to do this is to use a list of
 numbers in which each number corresponds to a pixel. Even better,
 we can use a list of rows, each of which is list of $N$
 0/1 elements (one for each pixel in the row).
@@ -72,17 +72,10 @@ Using lists to represent \index{image}images is an important concept.
 The first chapter of the book talked about boundaries
 and interfaces between software and hardware, and these ideas are
 well illustrated in this representation of images.
-Lists are a well-studied notion and have played a central
-role throughout the book.
-You probably have a solid grasp of lists at this point.
-Now we are using them to represent pictures, which are
-physical entities in the real world.
 From the software perspective,
 generating an image amounts to generating a list of numbers.
 It is up to the hardware to interpret the list of numbers
 as an image and display it.
-We have used equations to generate lists in many contexts,
-and these ideas are directly applicable in this new context.
 
 This kind of \index{layering}layering is a common strategy for dealing
 with complex problems in computer science.
@@ -108,9 +101,10 @@ part of the retina. There are three types of cones, each one sensitive
 to a different range of colors. There is some overlap in the range
 of colors that each type of cone can detect, but it is mostly accurate
 to think in terms of cones that are sensitive to shades of red, green,
-and blue.
+and blue. The brain forms an image by interpreting 
+the measurements of colored-light intensities that the cones make.
 
-So, color images can be created by using three dots on a screen
+In an analogous way, color images can be created by using three dots on a screen
 for each \index{pixel!color}\index{color!pixel}pixel,
 one for red, one for green, and one for blue.
 If the red dot in a pixel is on, and the green and blue dots
@@ -152,22 +146,28 @@ That might be an improvement over black-and-white,
 but it's a crude representation of color
 compared to the colors the eye can perceive.
 
-Getting more colors requires a more subtle blending of
+Getting better color requires a more subtle blending of
 red, green, and blue. For example, a pixel with red and green
 on and blue off will appear to be yellow,
 but by using a range of \index{color!intensity}color intensities,
 not just on and off, a blend of red and green can produce other
-colors, such as orange. The human eye can detect more than 256 shades of
-each color, but 256 shades are enough to produce realistic color.
-So, it is common to represent color intensity as a number
-from 0 to 255. Using this scheme, the list \textsf{[255 140 0]} produces
+colors, such as orange. Most computer screens 
+can produce 256 different intensity levels for each colored dot.\footnote{The 
+human eye can detect more than 256 shades of
+each color, but 256 shades are enough to produce realistic color
+on computer screens.}
+Software represents a color intensity as a number
+in the range 0 to 255. 
+Using this scheme, the list \textsf{[255 140 0]} produces
 a dark shade of \index{orange}orange.
 
-In principle, a matrix of \index{red-green-blue}red-green-blue
-intensities is
-enough to create images, even colorful images.
-However, additional layers between the software and hardware
-layers can be helpful. Imagine, for example, an operator called \textsf{line}
+A matrix of \index{red-green-blue}red-green-blue
+intensities is an abstraction of an image with realistic color,
+and hardware converts this matrix to a display with colored dots
+whose intensities reflect the numbers in the abstraction.
+Additional layers between the image abstraction in the software and 
+physical image on the screen can be helpful. 
+Imagine, for example, an operator called \textsf{line}
 that paints a line on an image. This operator would figure out
 which pixels are on the line and build a matrix with
 the appropriate triple for the chosen color at each of those pixels.
@@ -214,15 +214,15 @@ makes use of some version of the Bresenham algorithm.
 \label{aside:Bresenham}
 \end{aside}
 
-We're sure you can think of many other useful operators in
+There are of course many other useful operators in
 the same vein as the operator \textsf{line}. Operators to draw
 triangles, squares, rectangles, polygons, circles,
 ellipses, and the like. The important thing to realize is that all of
 these operators work on an image represented as a matrix of
 color intensities.
 The operators add to the system a layer that understands
-basic geometric shapes on top of the layer that represents an image
-as a matrix of pixels.
+basic geometric shapes, and the geometry abstraction 
+interacts with the layer that represents an image as a matrix of pixels.
 
 Operators that create shapes are not the whole story.
 Operators of another kind blur \index{image!blur}images in useful ways.
@@ -232,7 +232,7 @@ sharp boundary between the line and the background, but it can be
 smoothed out by averaging the colors of neighboring pixels.
 The bright pixels on one side of the boundary become a little darker,
 and the dark pixels on the other side become a little lighter,
-resulting in a more subtle boundary. This is the basic idea behind
+resulting in a softer boundary. This is the basic idea behind
 operators that manipulate images at the level
 of individual pixels and their neighbors. Image-processing operators
 of this kind form a class of  known as \index{filter}\emph{image filters}.
@@ -331,9 +331,8 @@ One of the effects of the modulus is to keep the numbers
 within a certain range, which is the range $0$, $1$, \dots $8$ in
 the case of the operator $r$.
 
-It is common to define pseudo-random operators like $r$ in
-manner that, to compute a number in the pseudo-random sequence,
-requires the previous value in the sequence as the operand.
+Most operators that produce pseudo-random sequences
+compute the next number in the sequence from the previous one.
 This is different from the definition of $r$, where the
 operand is the index of the number in the sequence: $r(n)$ is the
 $n^\text{th}$ number in the sequence.
@@ -345,7 +344,7 @@ the operator $r$
 because the definition is no longer inductive,
 as shown in the following definition of the operator
 $rs$.\footnote{Again, you won't miss the point
-if you ignore the ACL2 version of the equations.}
+if you ignore the ACL2 version of the equation.}
 
 \begin{center}
 \begin{tabular}{ll}
@@ -454,7 +453,7 @@ the points on the grid that are closest to the
 line between $(x_1,y_1)$ and $(x_2,y_2)$.
 The effect is a ragged line that looks more organic
 than a simple, straight line.
-This is the idea behind the line
+This is the idea behind the line made of random segments in
 in Figure~\ref{fig:line-art} (page \pageref{fig:line-art}).
 
 In the inductive equation \{rg1\} in the definition of the operator \textsf{ragged},
@@ -475,7 +474,7 @@ draws at each stage.
 Random images can be nice to look at, but should they be called art?
 Can a computer program produce real works of art?
 That is a philosophical question with lots of answers.
-But, regardless of how you might answer the question,
+But, regardless of the answer,
 there are a handful of programs that, it has been reasonably argued,
 are artists. Let's look at one of them.
 
@@ -547,7 +546,7 @@ let AARON render an image from a world described by core figures. Essentially,
 these rules amount to expertise in drawing. For example, the core figures occupy
 a space in three dimensions, and the rules determine how AARON is to deal with
 geometric problems such as perspective and occlusion. That is, figures farther
-away must appear smaller in the final image, and a core figure near the front may
+away are smaller in the final image, and a core figure near the front may
 partially hide a figure that is farther away. AARON is truly becoming an expert
 painter, which is one aspect of being an artist.
 
