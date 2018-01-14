@@ -24,7 +24,11 @@ We use the symbol \textsf{nil} for the empty list
 \label{square-brackets}We use
 \index{square brackets}\index{brackets!square}\index{list!square bracket notation}square brackets
 rather than round ones in formulas
-specifying lists, to avoid confusion with formulas that invoke operators.
+specifying lists, to avoid confusion with formulas that 
+invoke operators.\footnote{To \index{invoke (invocation)}\emph{invoke}
+an operator is to apply it to its operands
+to make a computation.
+An \emph{invocation} is a formula that invokes an operator.}
 For example, \textsf{[4 7 9]} denotes a three-element \index{list}list,
 while \textsf{(+ 7 9)} is a numeric formula representing the value 16.
 However, ACL2 does not employ this square-bracket notation.
@@ -464,7 +468,7 @@ to start with first element of $xs$,
 that is \textsf{(first $xs$)}, and to continue
 with the remaining elements of $xs$, that is \textsf{(rest $xs$)},
 and then the elements of $ys$ come after that.
-Put another way, when $xs$ is not empty, 
+Put another way, when $xs$ is not empty,
 the result is the concatenation of \textsf{(rest $xs$)} and $ys$,
 with \textsf{(first $xs$)} inserted at the front.
 This is the \{\emph{app1}\} case: \textsf{(append $xs$ $ys$)} $=$
@@ -494,15 +498,15 @@ Axioms \{\emph{if}\} \\
 \label{fig:if-axioms}
 \end{figure}
 
-With the \textsf{if} operator, we can use DoubleCheck 
+With the \textsf{if} operator, we can use DoubleCheck
 to test our expectations of \textsf{(append $xs$ $ys$)}
 by comparing \textsf{(append $xs$ $ys$)} to the \{\emph{app1}\} formula
 if $xs$ is non-empty and to the \{\emph{app0}\} formula if $xs$ is empty.
 Figure~\ref{fig:append-test} (page \pageref{fig:append-test})
 displays a property definition the formalizes this idea.
-It uses an operator called 
+It uses an operator called
 \textsf{equal} (Aside~\ref{equal}, page \pageref{equal})
-to compare \textsf{(append $xs$ $ys$)} 
+to compare \textsf{(append $xs$ $ys$)}
 to a formula selected by the \textsf{if} operator.
 
 \begin{figure}
@@ -993,7 +997,7 @@ The \textsf{if} operator (Figure~\ref{fig:if-axioms}, page \pageref{fig:if-axiom
 selects the appropriate formula.
 
 \begin{aside}
-\index{why inductive?}\index{definition!why inductive?}\index{inductive, why?}Inductive 
+\index{why inductive?}\index{definition!why inductive?}\index{inductive, why?}Inductive
 definitions are one of many ways to specify software,
 and other methods are more common in practice.
 However, proving properties of software written using conventional methods
