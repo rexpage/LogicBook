@@ -283,7 +283,7 @@ because \textsf{(dgts 0)} is nil, so there is no first digit to check.
 Besides, we've already completed the testing of \textsf{(dgts 0)} in our sanity checks.
 We can avoid retesting zero by adding one to a random natural number.
 That produces a random, non-zero, positive integer.
-\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty dgts-last-digit-tst
   (n-1  :value (random-natural))
   (let* ((n (+ n-1 1))) ; avoid n=0
@@ -322,7 +322,7 @@ the division $(n \div 10)$.
 As with the test of the units digit,
 we can run a batch of tests based on our rest-of-the-digits
 observation by defining a DoubleCheck property.
-\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty dgts-other-digits-tst
   (n-1  :value (random-natural))
   (let* ((n (+ n-1 1)))          ; avoid n=0

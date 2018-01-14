@@ -104,7 +104,7 @@ Proof Pad facilitates that kind of \index{testing!doublecheck}testing
 with a package called
 \index{DoubleCheck}\index{book!doublecheck}\index{teachpacks!doublecheck}DoubleCheck
 that generates
-\index{random data!generating}\index{random data!testing with}\index{testing!with random data}random data
+\index{random data}\index{testing!with random data}random data
 to run against a predicate
 (that is, a formula representing a true/false value).
 To demonstrate the idea, consider testing the addition operator to see if
@@ -119,8 +119,7 @@ resides in the
 \index{teachpacks!:dir}\index{teachpacks!doublecheck}teachpacks directory.
 An \textsf{include-book} directive is required to make it accessible for use.
 
-\index{DoubleCheck}\index{testing!doublecheck}\index{book!doublecheck}\index{teachpacks!doublecheck}\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}\index{book!directory (:dir)}\index{testing!teachpack}\index{book!testing}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}
-\begin{Verbatim}
+\index{DoubleCheck}\index{testing!doublecheck}\index{book!doublecheck}\index{teachpacks!doublecheck}\index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}\index{book!directory (:dir)}\index{testing!teachpack}\index{book!testing}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{definition!property}\index{data, random test}\index{random data}\begin{Verbatim}
 (include-book "doublecheck" :dir :teachpacks)
 (defproperty +associative-test
   (x :value (random-integer)
@@ -132,7 +131,7 @@ An \textsf{include-book} directive is required to make it accessible for use.
 
 A \index{property!doublecheck}property definition with
 DoubleCheck begins with a parenthesis, then the keyword
-\index{testing!with random data}\index{random data!testing with}\index{defproperty}\textsf{defproperty}
+\index{testing!with random data}\index{random data}\index{defproperty}\index{property!defproperty}\index{data, random test}\textsf{defproperty}
 and a name for the property to be tested,
 which is \textsf{+associative-test} in this example.\footnote{The
 rules for naming things in ACL2 are lax compared to many
@@ -153,8 +152,8 @@ written of course in prefix notation.
 
 Let's look at another example.
 ACL2 can deal with a collection of data elements
-by keeping them in an ordered \index{sequence}sequence 
-called, and this is a technical term, a 
+by keeping them in an ordered \index{sequence}sequence
+called, and this is a technical term, a
 \index{list}\emph{list}.
 There is an operator,
 \label{list-op-informal}\index{operator, by name!list}\index{list!operator (\emph{see also} operator)}\textsf{list},
@@ -184,8 +183,7 @@ Later, we will prove this relationship between \textsf{append} and \textsf{len},
 but for the moment we confine ourselves to stating properties
 and asking Proof Pad to check them against random data.
 
-\label{additive-lengths-test}
-\begin{Verbatim}
+\label{additive-lengths-test}\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty additive-law-of-concatenation-test
   (xs :value (random-list-of (random-integer))
    ys :value (random-list-of (random-integer)))
@@ -239,17 +237,17 @@ Here are a few more sanity checks, this time with three as the divisor.
 \index{arithmetic!clock}\index{clock arithmetic}\index{arithmetic!modular}\index{modular arithmetic}\index{operator, by name!mod (remainder)}\index{division!third grade}\index{division!long division}\index{modular arithmetic}\index{operator, by name!mod (remainder)}\index{arithmetic!clock}\index{clock arithmetic}\index{arithmetic!modular}\index{division!mod (remainder)}Modular
 arithmetic (aka clock arithmetic)
 produces integers in a fixed range: $0$, $1$, $\dots$ $(m - 1)$,
-where $m > 0$ is a natural number known as the 
+where $m > 0$ is a natural number known as the
 \index{modulus (modular arithmetic)}\emph{modulus}.
 If $x$ is an integer, the formula ($x$ mod $m$) denotes
-the remainder in the division of $x$ by $m$ 
+the remainder in the division of $x$ by $m$
 ($0 \leq (x$ mod $m) < m$).
 Modular addition, subtraction, and multiplication are
 are consistent with ordinary arithmetic.\\
 \hspace*{15mm}($(x + y)$ mod $m$) = ((($x$ mod $m$) $+$ ($y$ mod $m$)) mod $m$) \\
 \hspace*{15mm}($(x - y)$ mod $m$) = ((($x$ mod $m$) $-$ ($y$ mod $m$)) mod $m$) \\
 \hspace*{15mm}($(x \times y)$ mod $m$) = ((($x$ mod $m$) $\times$ ($y$ mod $m$)) mod $m$)\\
-The ACL2 operation  
+The ACL2 operation
 (\textsf{mod} $x$ $m$) delivers the remainder in $x \div m$.
 Our discussion restricts the operands to natural numbers,
 but ACL2 doesn't.
@@ -264,7 +262,7 @@ that express more general properties of division and remainders.
 One such property is that the remainder doesn't change
 when the divisor is added to the dividend.
 
-\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty mod-invariant
   (divisor-minus-1 :value (random-natural)
    dividend        :value (random-natural))
@@ -274,14 +272,14 @@ when the divisor is added to the dividend.
 \end{Verbatim}
 
 Generating
-\index{random data!generating}\index{testing!with random data}random data
+\index{random data}\index{testing!with random data}random data
 is an art.
 In this example, we have made sure the divisor isn't zero
 by adding one to a natural number.
 Since negative numbers aren't natural numbers, adding one
 to a natural number ensures that the sum is non-zero.
 \label{let-example-brief-explain}
-The definition of the \textsf{mod-invariant} property 
+The definition of the \textsf{mod-invariant} property
 uses a \textsf{let$*$} formula,
 which provides a way to attach names to values temporarily
 (Aside \ref{let*-def}, page \pageref{let*-def}).
@@ -290,14 +288,14 @@ the name \textsf{divisor} will stand for
 the value represented by the formula \textsf{(+ divisor-minus-1 1)}.
 
 \begin{aside}
-A 
+A
 \index{formula!let$*$}\index{variable!let$*$}\index{let$*$, local name}\index{value, let$*$ name for}\index{local names (let$*$)}\index{value, let$*$ name for}\index{name, local (let$*$)}\textsf{let$*$}
 formula attaches values to names.
 The \index{scope!let$*$ name}scope of the \textsf{let$*$} opens with a parenthesis,
-then the keyword \textsf{let$*$}. 
+then the keyword \textsf{let$*$}.
 The scope continues with
-a sequence of name/value bindings, 
-and ends with a formula for the value 
+a sequence of name/value bindings,
+and ends with a formula for the value
 to be delivered by the \textsf{let$*$}.
 A final parenthesis closes the scope.
 
@@ -308,7 +306,7 @@ formula specifying a value to be associated with that name
 The parentheses around each binding are required.
 Any of the names attached to values in the bindings
 denote those values at any
-subsequent point within the scope 
+subsequent point within the scope
 of the \textsf{let$*$},
 but the name/value associations do not
 extend outside that scope.
@@ -333,11 +331,10 @@ specified by a formula positioned after name/value bindings.
 \label{let*-def}
 \end{aside}
 
-Since (\textsf{mod} $x$ $m$) $<$ $m$ when $m > 0$, 
+Since (\textsf{mod} $x$ $m$) $<$ $m$ when $m > 0$,
 the \textsf{mod} operator will pass the following test.
 
-\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{less than ($<$)}{predicate}
-\begin{Verbatim}
+\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{less than ($<$)}{predicate}\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty mod-upper-limit-test
   (divisor-minus-1 :value (random-natural)
    dividend        :value (random-natural))
@@ -370,7 +367,7 @@ Axiom \{\emph{natp}\} \\
 \emph{Note}: \textsf{(integerp $x$)} is true if $x$ a whole number and false otherwise.
 \end{center}
 
-\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty mod-range-test
   (divisor-minus-1 :value (random-natural)
    dividend        :value (random-natural))
@@ -419,8 +416,7 @@ makes sure the divisor exceeds one by adding two
 to a natural number.
 Similarly, we make sure the dividend isn't zero by adding one.
 
-\label{quotient-less-than-dividend-test}
-\begin{Verbatim}
+\label{quotient-less-than-dividend-test}\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty quotient-less-than-dividend-test
   (divisor-minus-2   :value (random-natural)
    dividend-minus-1  :value (random-natural))

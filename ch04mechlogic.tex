@@ -72,7 +72,7 @@ L($n$) $\equiv$ $($\textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} $=$
 In Chapter~\ref{ch:software-testing-prefix-notation} (page \pageref{additive-lengths-test})
 we defined a DoubleCheck test of this equation.
 
-\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty additive-law-of-concatenation-test
     (xs :value (random-list-of (random-natural))
      ys :value (random-list-of (random-natural)))
@@ -131,7 +131,7 @@ which becomes \textsf{defthm}, and
 the random data generators (introduced
 by the \textsf{:value} keyword), which are not present in the theorem.
 Theorem statements in ACL2 start with the
-\index{defthm}\index{definition!theorem, ACL2}\textsf{defthm} keyword.
+\index{defthm}\index{definition!theorem, ACL2}\index{theorem!defthm}\textsf{defthm} keyword.
 After that comes a name for the theorem and then the Boolean formula
 that states the theorem.
 
@@ -199,9 +199,9 @@ A book known as
 contains theorems from algebra
 \index{theorem!algebra, ACL2}that the mechanized logic can cite in
 a proof of the append-suffix theorem.
-An \textsf{include-book} directive tells ACL2
-to import these theorems.
-\index{directive!include-book}\index{directory (:dir)!:system}\index{system, :dir}\index{book!directory (:dir)}
+An \textsf{include-book} directive tells ACL2 to
+\index{directive!include-book}\index{directory (:dir)!:system}\index{system, :dir}\index{book!directory (:dir)}\seeonlyindex{import}{book}\index{theorem!import (\emph{see also} book)}import
+these theorems.
 \begin{center}
 \textsf{(include-book "arithmetic-3/top" :dir :system)}
 \end{center}

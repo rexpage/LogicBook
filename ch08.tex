@@ -291,8 +291,7 @@ then alternates between $xs$ and $ys$.
 Perfect shuffle.
 It's a two-equation definition.
 
-\label{mux-2eq-defun}
-\begin{Verbatim}
+\label{mux-2eq-defun}\index{defun!induction hint}\index{definition!defun hint}\index{directive!induction hint}\begin{Verbatim}
 (defun mux2 (xs ys) ; declare induction scheme
    (declare (xargs :measure (+ (len xs) (len ys))))
    (if (consp xs)

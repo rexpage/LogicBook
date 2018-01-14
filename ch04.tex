@@ -24,7 +24,7 @@ We use the symbol \textsf{nil} for the empty list
 \label{square-brackets}We use
 \index{square brackets}\index{brackets!square}\index{list!square bracket notation}square brackets
 rather than round ones in formulas
-specifying lists, to avoid confusion with formulas that 
+specifying lists, to avoid confusion with formulas that
 invoke operators.\footnote{To \index{invoke (invocation)}\emph{invoke}
 an operator is to apply it to its operands
 to make a computation.
@@ -311,7 +311,7 @@ in a list constructed by the \textsf{cons} operation is
 one more than the number of elements in its second operand.
 The following property tests this expectation.
 
-\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty len-cons-test
   (x  :value (random-natural)
    xs :value (random-list-of (random-natural)))
@@ -331,7 +331,7 @@ and we can use that operator to specify a test that
 constrains $xs$ to non-empty lists and thereby
 makes the length equation in the test true.
 
-\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty len-rest-test
   (xs :value (random-list-of (random-natural)))
   (implies (consp xs)
@@ -510,7 +510,7 @@ to compare \textsf{(append $xs$ $ys$)}
 to a formula selected by the \textsf{if} operator.
 
 \begin{figure}
-\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
 (defproperty append-test
   (xs :value (random-list-of (random-natural))
    ys :value (random-list-of (random-natural)))
@@ -971,7 +971,7 @@ Now, we are going to let you in on a little secret.
 The axioms we wrote for the \textsf{append} operator are very
 close to an ACL2 definition of \textsf{append}.
 Operators are defined in ACL2 with a \textsf{defun} command,
-which has four parts.\index{defun}\index{definition!defun}\index{definition!operator}
+which has four \index{defun}\index{definition!defun}\index{definition!operator}\index{operator!defun}parts.
 \begin{quote}
 \textsf{(defun $f$ ($x_1$ $x_2$ $\dots$ $x_n$)} \emph{$\dots$ACL2-formula$\dots$})
 \begin{enumerate}

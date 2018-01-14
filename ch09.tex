@@ -482,8 +482,7 @@ The \textsf{declare} directive in the following ACL2 definition suggests
 basing the proof by induction on this total,
 and that suggestion is enough to get the mechanized logic on the right track.
 
-\label{defun:mrg}\index{equation, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}\index{operator, by name!mrg (ordered merge)}\seeonlyindex{mrg (ordered merge)}{operator}\index{sorting!merge, ordered (mrg)}\index{merge, ordered}
-\begin{Verbatim}
+\label{defun:mrg}\index{equation, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}\index{operator, by name!mrg (ordered merge)}\seeonlyindex{mrg (ordered merge)}{operator}\index{sorting!merge, ordered (mrg)}\index{merge, ordered}\index{defun!induction hint}\index{definition!defun hint}\index{directive!induction hint}\begin{Verbatim}
 (defun mrg (xs ys)
   (declare (xargs :measure (+ (len xs) (len ys)))); induction scheme
   (if (and (consp xs) (consp ys))
@@ -605,9 +604,7 @@ but consolidates the equations for lists with one element or none in the
 manner of the ACL2 definition of \textsf{isort} (page \pageref{defun:isort}).
 
 \label{defun:msort}\label{eq:msrt1}\index{equation, by name!\{msrt0\}, \{msrt1\}, \{msrt2\}}
-\index{operator, by name!msort (merge sort)}
-\seeonlyindex{msort (merge sort)}{operator}\index{sorting!merge sort (msort)}
-\begin{Verbatim}
+\index{operator, by name!msort (merge sort)}\index{defun!lemma hint}\index{defun!induction hint}\index{directive!induction hint}\index{directive!lemma hint}\seeonlyindex{msort (merge sort)}{operator}\index{sorting!merge sort (msort)}\begin{Verbatim}
 (defun msort (xs)
   (declare (xargs
             :measure (len xs)
@@ -719,7 +716,7 @@ preserves the values in its operand
 
 \Exercise
 Do a paper-and-pencil proof that the \textsf{msort} operator
-delivers a permutation of its operand (see Exercise~\ref{ex:permp-isort}, page \pageref{ex:permp-isort}). 
+delivers a permutation of its operand (see Exercise~\ref{ex:permp-isort}, page \pageref{ex:permp-isort}).
 \emph{Caveat}: This is project, not an exercise.
 \end{ExerciseList}
 
@@ -822,7 +819,7 @@ to the operators listed in the figure.
 For example analyzing the formula for constructing
 the list \textsf{[$1$ $2$ $3$ $4$]} reveals a four-step computation.
 \begin{quote}
-\textsf{[$1$ $2$ $3$ $4$]} denotes \textsf{(cons 1 (cons 2 (cons 3 (cons 4 nil))))}\\
+\textsf{[1 2 3 4]} denotes \textsf{(cons 1 (cons 2 (cons 3 (cons 4 nil))))}\\
 Four Steps: \textsf{(cons $4$ nil)}, \textsf{(cons $3$ [$4$])}, \textsf{(cons $2$ [$3$ $4$])}, \textsf{(cons $1$ [$2$ $3$ $4$])}
 \end{quote}
 
@@ -938,9 +935,9 @@ What is \textsf{(F-from-C (C-from-F $x$))}?
 \Exercise
 Define a theorem about \textsf{(C-from-F (F-from-C $x$))},
 and get ACL2 to prove it. \\
-\emph{Note}: The complicated formula must be on the left-hand side of the 
+\emph{Note}: The complicated formula must be on the left-hand side of the
 equation.\footnote{Constraints on the order of operands
-in equations have to do with strategic considerations 
+in equations have to do with strategic considerations
 in the ACL2 theorem-proving engine that are
 beyond the scope of the treatment here. If you want to track
 down those ideas, read about rewrite rules in the ACL2 documentation.}\\
@@ -1021,7 +1018,7 @@ Sometimes it's possible to guess a closed-form formula
 for the numbers in a sequence defined by recurrence equations,
 and then prove by induction that the formula is
 correct.\footnote{A
-\label{footnote:closed-form}\index{formula!closed form}\index{closed-form formula}closed-form formula 
+\label{footnote:closed-form}\index{formula!closed form}\index{closed-form formula}closed-form formula
 for $D_n$ is a formula
 that doesn't refer to $D_m$ for any $m$.}
 For equations \{d1\} and \{d2\},

@@ -132,7 +132,7 @@ specifying the off/on status of the color dots in the corresponding pixel.
 The first element of the triple is for the red dot, the second
 for the green dot, the third for the blue dot.
 That is the conventional order:
-\index{red-green-blue }red-green-blue (\index{RGB}RGB).
+\index{red-green-blue}red-green-blue (\index{RGB}RGB).
 In this scheme, \textsf{[1 0 0]} represents pure red,
 so the list, as shown, represents a red dot in the second pixel of the row.
 
@@ -417,7 +417,7 @@ is ten more than $x$ coordinate of the starting point
 (that is, $x_1 + 10$).
 The $y$ coordinate of that endpoint is computed
 by moving in the general direction of the target
-$(x_2,y_2)$, but with the direction 
+$(x_2,y_2)$, but with the direction
 randomly adjusted by a small amount.
 The adjustment is made by adding a random number between
 $-1/2$ and $1/2$ to the \emph{slope},
@@ -434,14 +434,14 @@ Since grid-points have integer coordinates,
 the numbers computed using the slope
 are rounded to the nearest integer by
 an operator called \textsf{round}. That way,
-all of the coordinates supplied as 
+all of the coordinates supplied as
 operands to the \textsf{line} operator
 and the operator \textsf{ragged} are pairs of
 integers representing grid points.
 The \textsf{line} operator won't draw any lines
 that extend outside the boundaries of
-the image, so if any of the computed 
-coordinates are out of range, 
+the image, so if any of the computed
+coordinates are out of range,
 the line segments that are drawn will
 be truncated at the image boundary.
 
@@ -452,7 +452,7 @@ take all the integer values between $x_1$ and $x_2$.
 This makes the starting points close together along
 the points on the grid that are closest to the
 line between $(x_1,y_1)$ and $(x_2,y_2)$.
-The effect is a ragged line that looks more organic 
+The effect is a ragged line that looks more organic
 than a simple, straight line.
 This is the idea behind the line
 in Figure~\ref{fig:line-art} (page \pageref{fig:line-art}).
@@ -463,7 +463,7 @@ number generator $rs$, and that operator uses it to produce
 a number $s$ between 0 and 8. That number is supplied as the last
 operand in the invocation of \textsf{ragged} in the inductive equation \{rg1\}
 (so it can be used to generate the next random number),
-and it is also used to \index{jostle}jostle 
+and it is also used to \index{jostle}jostle
 the slope of the short line segment drawn by the operator \textsf{line}.
 The operator \textsf{line} produces a new image,
 which is the first operand in the invocation of \textsf{ragged} in equation \{rg1\}.
