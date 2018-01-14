@@ -75,7 +75,7 @@ For example, if the operand of the sorting
 operator were the list \textsf{[5 9 4 6 5 2]},
 the operator would deliver the list \textsf{[2 4 5 5 6 9]},
 which contains the same numbers, but arranged so
-that the smallest one comes first, and so on up the
+that the smallest one comes first, increasing up the
 line to the largest at the end.
 
 In practice, keys need not be numbers,
@@ -331,7 +331,7 @@ Do a paper-and-pencil proof that the \textsf{isort} operator
 delivers a list arranged in increasing order
 (\textsf{isort-ord-thm}, page \pageref{defthm:isort-ord-thm}).
 
-\Exercise
+\Exercise\label{ex:ct}
 Suppose \textsf{(ct $x$ $xs$)} delivers a count
 equal to the number of times
 the value $x$ occurs in the list $xs$.
@@ -368,7 +368,8 @@ if $x$ occurs in $xs$.
 \end{Verbatim}
 Define a theorem in ACL2 that
 expresses the number of occurrences of $x$ in \textsf{(del $x$ $xs$)}
-in terms of the number of occurrences of $x$ in $xs$.\\
+in terms of the number of occurrences of $x$ in $xs$.
+Refer to the operator \textsf{ct} (Exercise~\ref{ex:ct}).\\
 \emph{Hint}: Be careful to take into account the possibility that
 $x$ does not occur in $xs$.
 
@@ -403,8 +404,9 @@ to its logic before it can attempt to prove the theorem.
 
 The multiplex operator (\textsf{mux}, Section \ref{sec:mux})
 combines two lists into one in a perfect shuffle.
-The merge operator, which combines ordered lists
-in a way that preserves order, is another way to combine two lists.
+The merge operator is another way to combine lists.
+It combines ordered lists
+in a way that preserves order.
 If both lists contain numbers arranged in increasing order,
 the merge operator, \textsf{mrg},
 will combine the two lists
@@ -468,7 +470,7 @@ That covers the three C's
 (Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}),
 so we can take the equations as axioms that define the \textsf{mrg} operator.
 
-The following, formal definition in ACL2 is constructed from
+A formal definition in ACL2 can be constructed from
 the equations \{\emph{mg0}\}, \{\emph{mg1}\}, \{\emph{mgx}\}, and \{\emph{mgy}\}.
 However, ACL2 needs some help in finding an induction scheme
 to prove that the equations lead to a terminating computation.
@@ -529,11 +531,11 @@ so the property is stated as an implication.
 \end{Verbatim}
 
 ACL2 can verify this property without assistance.
-The induction scheme that it used
-to prove that the \textsf{mrg} operator terminates,
+The induction scheme for proving that
+the \textsf{mrg} operator terminates,
 namely induction on the total number of elements in the operands,
 also works in the proof of the merge order theorem.
-A paper-and-pencil proof could also use that strategy.
+A paper-and-pencil proof could follow the same strategy.
 
 \begin{ExerciseList}
 \Exercise
@@ -714,6 +716,11 @@ preserves the length of its operand
 Do a paper-and-pencil proof that the \textsf{msort} operator
 preserves the values in its operand
 (\textsf{msort-val-thm}, page \pageref{defthm:msort-val}).
+
+\Exercise
+Do a paper-and-pencil proof that the \textsf{msort} operator
+delivers a permutation of its operand (see Exercise~\ref{ex:permp-isort}, page \pageref{ex:permp-isort}). 
+\emph{Caveat}: This is project, not an exercise.
 \end{ExerciseList}
 
 \section{Analysis of Sorting Algorithms}
@@ -732,8 +739,9 @@ Then, we assert a formula for the number of computation steps required
 by \textsf{msort} and prove, by mathematical induction,
 that the formula is correct.
 \index{sorting!msort vs isort}
-It turns out that the number of steps for \textsf{(msort $xs$)}
-is proportional to $n~log(n)$, where $n$ $=$ \textsf{(len $xs$)}.
+It turns out that the number of steps in the computation
+\textsf{(msort [$x_1$, $x_2$, $\dots$ $x_n$])}
+is proportional to $n~log(n)$.
 
 We do the same for \textsf{isort}.
 The number of steps in the \textsf{isort} computation varies widely,
@@ -810,7 +818,7 @@ Each basic operator in a formula contributes one step
 to the computation, so
 counting the number of steps in a computation is straightforward
 if the definitions of the operators it invokes refer only
-to the basic operators listed in the figure.
+to the operators listed in the figure.
 For example analyzing the formula for constructing
 the list \textsf{[$1$ $2$ $3$ $4$]} reveals a four-step computation.
 \begin{quote}
@@ -896,7 +904,7 @@ then \textsf{(swap2 $xs$)} takes ten steps:
 \textsf{if}, \textsf{consp}, \textsf{rest}, \textsf{cons},
 two steps for \textsf{second},
 \textsf{cons} again, \textsf{first}, and \textsf{rest} again, twice.
-If $xs$ has less then two elements, then \textsf{(swap2 $xs$)} takes three steps:
+If $xs$ has fewer than two elements, then \textsf{(swap2 $xs$)} takes three steps:
 \textsf{if}, \textsf{consp}, and \textsf{rest}.
 
 \begin{ExerciseList}
@@ -928,7 +936,14 @@ What is \textsf{(C-from-F (F-from-C $x$))}?
 What is \textsf{(F-from-C (C-from-F $x$))}?
 
 \Exercise
-Define a theorem in ACL2 about the formula \textsf{(C-from-F (F-from-C $x$))}. \\
+Define a theorem about \textsf{(C-from-F (F-from-C $x$))},
+and get ACL2 to prove it. \\
+\emph{Note}: The complicated formula must be on the left-hand side of the 
+equation.\footnote{Constraints on the order of operands
+in equations have to do with strategic considerations 
+in the ACL2 theorem-proving engine that are
+beyond the scope of the treatment here. If you want to track
+down those ideas, read about rewrite rules in the ACL2 documentation.}\\
 \emph{Note}: The predicate \textsf{ACL2-numberp} is true
 if its operand is a number and false, otherwise.
 The theorem must constrain the domain to numbers
@@ -993,8 +1008,7 @@ Altogether, that comes to $D_n + 14$ steps.
 Putting the two cases together,
 we come up with the following recurrence equations.\footnote{Inductive
 equations in the numeric domain are called
-\label{def:recurrence-equations} \emph{recurrence equations}.}
-\index{recurrence equations!dmx}\index{computation steps!dmx operation}
+\label{def:recurrence-equations}\index{recurrence equations!dmx}\index{computation steps!dmx operation}\emph{recurrence equations}.}\\[-6mm]
 \begin{center}
 \begin{tabular}{ll}
   $D_0 = D_1 = 5$      & \{d1\} \\
@@ -1007,7 +1021,8 @@ Sometimes it's possible to guess a closed-form formula
 for the numbers in a sequence defined by recurrence equations,
 and then prove by induction that the formula is
 correct.\footnote{A
-\label{footnote:closed-form}closed-form formula for $D_n$ is a formula
+\label{footnote:closed-form}\index{formula!closed form}\index{closed-form formula}closed-form formula 
+for $D_n$ is a formula
 that doesn't refer to $D_m$ for any $m$.}
 For equations \{d1\} and \{d2\},
 $D_{n} = 14(\lfloor n/2\rfloor + 1) + 5$ is the right guess.\footnote{We
@@ -1025,7 +1040,6 @@ Theorem \{dmx computation steps\}. \\
 ~~~~ $D_n \equiv$ \emph{number of computation steps in} \textsf{(dmx [$x_1$ $x_2$ $\dots$ $x_n$])} $= 14\lfloor n/2\rfloor + 5$
 \end{quote}
 \begin{quote}
-\emph{Proof (using strong induction)} \\
 \emph{Base case} $(n=0$) \\
 \begin{tabular}{lll}
 $D_{0}$&$= 5$                        & \{d1\} \\
@@ -1142,7 +1156,7 @@ if its first operand is false.}
 Therefore, $A_0 \leq 7 < 10\cdot(0 + 1)$, which proves the base case.
 
 Now, consider the inductive case:
-prove that $\forall n.((A_n \leq 10(n+1)) \rightarrow (A_{n+1} \leq 10((n+1) + 1)))$.
+$\forall n.((A_n \leq 10(n+1)) \rightarrow (A_{n+1} \leq 10((n+1) + 1)))$.
 The induction hypothesis is $A_n \leq 10(n + 1)$.
 $A_{n+1}$ is a maximum of a set of numbers $M_{j,k}$, where $j + k = n+1$,
 and $M_{j,k}$ represents the maximum number of steps in the computation of
@@ -1215,11 +1229,11 @@ The double index of $M_{j,k}$ made the proof a little tricky.
 Another approach would have been to use the principle of double induction
 (Figure~\ref{double-induction-rule}),
 which reframes mathematical induction for double-index predicates.
-Suppose that $P$ is a predicate whose domain of discourse is pairs of natural numbers.
+Suppose that $P$ is a predicate whose universe of discourse is pairs of natural numbers.
 That is, for each pair of natural numbers $m$ and $n$,
 $P(m,n)$ selects a proposition in the predicate.
 Use the predicate $P$ to define another predicate $Q$
-that has the natural numbers as its domain of discourse and
+that has the natural numbers as its universe of discourse and
 that has the following properties.
 \begin{quote}
 \begin{enumerate}[label=\arabic*{. }]
@@ -1228,8 +1242,8 @@ that has the following properties.
 for double induction on $P$.
 \end{enumerate}
 \end{quote}
-\emph{Note}: This exercise is more difficult than it might seem at first glance.
-You can work on it if you like, but the main point here is that double
+\emph{Note}: This exercise is difficult and not particularly instructive.
+The point is that double
 induction can be reduced to ordinary, mathematical induction.
 
 \end{ExerciseList}
@@ -1337,7 +1351,7 @@ leads to inequality \{s2\}.
    \textsf{second} & 2 && Section \ref{subsec:counting-computation-steps}, page \pageref{steps-in-second-op} \\
    \textsf{mrg}    & $10(n+1)$ && \{mrg computation steps\}, $n$ elements, page \pageref{thm:mrg-computation-time}\\
    \textsf{msort}  & $S_{\lceil  n/2 \rceil}$  && \{dmx-len-first\}, page \pageref{thm:dmx-length-first-second} \\
-   \textsf{msort}  & $S_{\lfloor n/2 \rfloor}$ && \{dmx-len-second\}, page \pageref{thm:dmx-length-first-second} \vspace{1pt} \\
+   \textsf{msort}  & $S_{\lfloor n/2 \rfloor}$ && \{dmx-len-second\}, page \pageref{thm:dmx-length-first-second} \vspace{3pt} \\
    \hline
           & $total$ &$=$& $1+1+1+(14\lfloor n/2\rfloor+5)+1+2+10(n+1)+S_{\lceil n/2\rceil}+S_{\lfloor n/2\rfloor}$ \vspace{1pt} \\
    \hline
@@ -1379,7 +1393,7 @@ $\alpha = 42$.
 Figure~\ref{thm:msort-nlogn} (page \pageref{thm:msort-nlogn})
 proves that
 $\forall n.(S_{n+2} \leq 42(n+2)~log_2(n+2))$
-by induction.\footnote{A
+by strong induction.\footnote{A
 smaller multiplier can be found, but
 we're not too concerned with the size of the multiplier,
 especially since we don't have a scale for the amount of time
@@ -1470,7 +1484,7 @@ The difference can be dramatic
 (see footnote, page \pageref{bubble-vs-quicksort-example}).
 The \textsf{isort} operator almost always
 takes much more time than \textsf{msort}
-to arrange a list of numbers in increasing order,
+to arrange a list of numbers,
 and the difference grows rapidly with the number of elements in the list.
 
 However, the number of steps in the computation \textsf{(isort $xs$)}
@@ -1542,9 +1556,9 @@ requires understanding the nature of random
 data and probabilistic effects, so we are not going
 to pursue a proof, but will assume that it's true.
 With that assumption and $8(n+1)+4$
-computation steps for worst case
-\textsf{(insert $x$ [$x_1$ $x_2$ \dots $x_{n+1}$])},
-the average number of steps would be
+computation steps for worst case insertion,
+the average number of steps
+for \textsf{(insert $x$ [$x_1$ $x_2$ \dots $x_{n+1}$])} would be
 $G_{n+1} = (8(n+1)+4)/2 = 4(n+1)+2 = 4n+6$.
 
 What does this mean for \textsf{(isort $xs$)}?
@@ -1583,8 +1597,9 @@ of $(1 + 2 + 3 + \dots n)$ in one of the terms in the sum.
 This is the well-known
 triangular number:\footnote{The formula for the triangular number
 might win a contest for most popular example of proof by mathematical induction
-in a poll of discrete math textbooks.
-It is also Exercise~\ref{ex:triangular-number} (page \pageref{ex:triangular-number}).}
+in a poll of discrete math textbooks. It's either that or the
+geometric progression (Exercise~\ref{ex:geometric-progression}, page \pageref{ex:geometric-progression}).
+Proving the triangular number formula is Exercise~\ref{ex:triangular-number} (page \pageref{ex:triangular-number}).}
 $(1 + 2 + 3 + \dots n) = n(n+1)/2$.
 In the end, with a little more algebraic reoganization,
 we find that \textsf{(isort [$x_1$ $x_2$ \dots $x_{n+2}$]} requires,
@@ -1698,14 +1713,14 @@ prove that the number of steps in the computation of
 is $8(n+1)+4$ if $x_1 \leq x_2 \leq \dots x_{n+1} < x$.
 
 \Exercise
-\label{ex:triangular-number}
-Use mathematical induction to prove the formula for the triangular number:
-$(1 + 2 + 3 + \dots n) = n(n+1)/2$. (You may be the billionth person to have done so.)
-
-\Exercise
 The multiplier $42$ in our bound on $S_n$ gets sloppier as $n$ increases.
 Find  $\beta < 42$ that works for lists with
 over a hundred elements:
-$S_{n} \leq \beta\cdot n~log_2(n+2)$ if $n > 100$.
+$S_{n} \leq \beta\cdot n~log_2(n)$ if $n > 100$.
 
+\Exercise
+\label{ex:triangular-number}
+Use induction to prove the formula for the triangular number.\\
+\hspace*{4cm}$(1 + 2 + 3 + \dots n) = n(n+1)/2$\\
+\hspace*{17mm}You may be the billionth person to prove it. Knock yourself out.
 \end{ExerciseList} 
