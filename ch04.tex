@@ -1620,7 +1620,7 @@ Prove theorem \{app-nil\}: $\forall n.$(\textsf{[$x_1$ $x_2$ $\dots$ $x_{n}$]} $
 
 \Exercise Prove: $\forall n.($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ $\dots$ $x_n$]  nil))} $=$ \textsf{nil}$)$
 
-\Exercise\label{member-equal-equations}\index{axiom!member-equal}\index{equation!member-equal}\seeonlyindex{member-equal}{predicate}\index{operator, by name!member-equal (\emph{see} predicate)}\index{predicate, by name!member-equal (element of list)}\index{axiom, by name!\{mem0\}, \{mem1\}}\index{equation, by name!\{mem0\}, \{mem1\}}
+\Exercise\label{member-equal-equations}\index{axiom!member-equal}\index{equation, by name!\{member-equal\}}\seeonlyindex{member-equal}{predicate}\index{operator, by name!member-equal (\emph{see} predicate)}\index{predicate, by name!member-equal (element of list)}\index{axiom, by name!\{mem0\}, \{mem1\}}\index{equation, by name!\{mem0\}, \{mem1\}}
 Prove the following implication.\\
 \hspace*{16mm}$\forall n.($\textsf{(member-equal $y$ (rep $n$ $x$))} $\rightarrow$ \textsf{(member-equal y (cons $x$ nil))}$)$~~~\{\emph{rep-mem}\}\\
 The operator \textsf{rep} is defined in Exercise \ref{rep-len}, and
