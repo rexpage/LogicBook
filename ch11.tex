@@ -1098,7 +1098,7 @@ Therefore, the tree will remain balanced and
 require no further attention.}\index{tree!balance}\index{searchtree!balance}\index{AVL tree!balance}\index{balance!AVL tree}\
 \label{cases:ht-n+2}\begin{quote}
 \begin{enumerate}
-\item case \emph{LL}: $x < j < k$ 
+\item case \emph{LL}: $x < j < k$
 \item case \emph{LR}: $j < x < k$~~~~~~~~~~~\emph{refer to }
 \item case \emph{RL}: $k < x < i$~~~~~~~~~~~~~~\emph{Figure \ref{fig:trees-of-ht-n+2-expanded}}
 \item case \emph{RR}: $k < i < x$
@@ -1120,7 +1120,7 @@ is smaller than the key $j$
 because that pushes the key into subtree \emph{jL},
 and the tree \emph{LL} will definitely go out of balance
 if insertion increases the height of \emph{jL}.
-The analysis of case \emph{LL} covers  
+The analysis of case \emph{LL} covers
 subtrees \emph{jR} both of height $(n-1)$ and of height $n$.
 
 \begin{figure}
@@ -1591,11 +1591,11 @@ and recording the result with the key, data, and subtrees.
 We use the term ``extracting'' instead of ``computing''
 because the height of a subtree is right there with the key.
 Extracting the height is a non-inductive operation,
-just like extracting the key.\footnote{The situation 
+just like extracting the key.\footnote{The situation
 is even better than it seems because
 it's not the height that the rotation operators need to know.
 It's the difference between the heights of the subtrees,
-which is known as the ``balance factor''.
+which is known as the \index{AVL tree!balance factor}\index{balance factor (AVL)}\emph{balance factor}.
 Because AVL trees are balanced,
 the balance factor will always be
 -1, zero, or +1.
