@@ -8,13 +8,13 @@ example, a personal computer is more than powerful enough
 to balance your checkbook, but not for a financial
 application that tracks credit card usage in real time to
 detect instances of fraud.  The sheer number of credit card
-transactions make this application far too time-consuming for a
+transactions make this application far too intense for a
 personal computer.
 
-There are various ways to cope 
-with problems of scale  in large applications.  
+There are various ways to cope
+with problems of scale  in large applications.
 The traditional approach is
-\index{scaling!vertical}\index{vertical scaling}\emph{vertical scaling}, 
+\index{scaling!vertical}\index{vertical scaling}\emph{vertical scaling},
 which means running the
 application on a more powerful computer.
 This is the easiest solution in terms of software
@@ -38,7 +38,7 @@ This makes it economically feasible to scale the
 hardware platform as the computation requirements increase.
 Horizontal scaling has become the de facto
 solution for dealing with web services that have to deal
-with rapid growth, such as those provided by 
+with rapid growth, such as those provided by
 Facebook, Google, eBay, Amazon, Netflix, and many others.
 
 The problem with horizontal scaling, however, is that it is
@@ -47,18 +47,17 @@ chunks.  In fact, this is particularly hard when the program
 is written using conventional programming languages, such as
 C++ or Java. In conventional languages, the program specifies
 a sequence of updates to records stored mostly in fast memory.
-That makes it difficult to manage multiple computers 
+That makes it difficult to manage multiple computers
 working on the computation at the same time because the
 cooperating computers need to coordinate their updates.
 The coordination problem can sink the effort to make
 the computation go faster.
-Getting the appropriate data and the right software 
+Getting the appropriate data and the right software
 components to the right computer
 at the right time presents a host of problems.
 
-One advantage of the equation-based software model
-that has been a focus in this book is that the
-different parts of the software are more decoupled
+One advantage of an equation-based software model
+is that the different parts of the software are more decoupled
 than they are with the conventional approach.
 Everything is defined in terms of operators
 that, given operands with appropriate data,
@@ -82,7 +81,7 @@ with a programming model called \index{MapReduce}MapReduce
 that has a lot in common equation-based software models.
 Since Google's introduction of MapReduce,
 it has been adopted in many other settings.  For
-instance, the \index{Apache Foundation}Apache Foundation 
+instance, the \index{Apache Foundation}Apache Foundation
 implemented \index{Hadoop}Hadoop, an
 open-source implementation of MapReduce that you can
 download for free to your computer.
@@ -95,13 +94,13 @@ focusing on just two operations: Map and \index{reduce, map}Reduce.
 
 \section{The MapReduce Strategy}
 
-The \index{reduce, map}\index{MapReduce}\textsf{MapReduce} paradigm 
+The \index{reduce, map}\index{MapReduce}\textsf{MapReduce} paradigm
 is applicable to problems that process
-data that can be represented as a sequence of 
+data that can be represented as a sequence of
 \index{key/value pair}key/value pairs.
 Not all problems lend themselves to this representation,
 but Google engineers recognized that many practical
-problems do fit in this category.  
+problems do fit in this category.
 The following are a few examples.
 
 \begin{quote}
@@ -119,9 +118,9 @@ the word in the document.
 
 \item \emph{Finding Words that Link to a Webpage.}  The
 purpose of this operation is to find the words that are
-most commonly used to link to a particular \index{URL}URL. 
-For example, your name may be the most  
-common phrase used to link into your Facebook page. 
+most commonly used to link to a particular \index{URL}URL.
+For example, your name may be the most
+common phrase used to link into your Facebook page.
 Google uses this kind of information to select which
 pages to display for a particular search.
 The MapReduce approach applies to this problem.
@@ -140,9 +139,9 @@ with the word that is used most often to link to that URL.
 
 \item \emph{Finding Extreme Values.}  Consider
 an application that finds the record high or low temperature
-for each of the fifty states.  
+for each of the fifty states of the U.S.
 The initial data consists of a list of
-city/temperature data.  There would be one record for each
+city/temperature pairs.  There would be one record for each
 recorded temperature in a city. It might be one per day,
 one per hour, one per minute, or a varying combination,
 depending on the city, and the records would extend over
@@ -183,7 +182,7 @@ The computation could proceed in three stages.
         \end{itemize}
         \end{quote}
         The first column is the key for each record (for example, KLAR),
-        and the remaining columns comprise the`value. Many
+        and the remaining columns comprise the value. Many
         records may have the same key in the input data because the
         sensor makes many measurements over time.
         The goal is to reduce that to records
@@ -211,7 +210,7 @@ The computation could proceed in three stages.
         data points for any given input data record, although in this case
         precisely one intermediate record is generated for each input record.
     \item \textbf{Output Data}, the final result of the MapReduce computation,
-        is delivered by the Reduce operation. 
+        is delivered by the Reduce operation.
         In the high-temperature example, this
         corresponds to the maximum temperature recorded for each state, so the
         there would be exactly one record for each state that appeared in the input data.
@@ -248,8 +247,8 @@ intermediate keys are the URLs. The MapReduce framework leaves
 this choice up to the software designer, which is
 one of the reasons that MapReduce is widely applicable.
 
-The second step is the \index{reduce, map}\textsf{reduce} 
-operation, which combines all the entries 
+The second step is the \index{reduce, map}\textsf{reduce}
+operation, which combines all the entries
 for the intermediate keys and
 produces zero or more output key/value pairs.  As before, the
 output key/value pairs may use the same keys as the
@@ -312,10 +311,10 @@ the map operation will be called with the input key/value pair \textsf{(nation~.
 four times, and each time it will return a list with
 the single intermediate key/value pair \textsf{[(nation~.~1)]}. The MapReduce
 system collects all the values for each intermediate key, and starts the reduce
-operation on those values. 
+operation on those values.
 At some point it will collect all of the four intermediate
 values for ``nation'' and invoke the reduce operation with the operands
-\textsf{nation} and \textsf{[1 1 1 1]}. 
+\textsf{nation} and \textsf{[1 1 1 1]}.
 The reduce operation will then
 return a list with the final key/value pair \textsf{[(nation~.~4)]}.
 
@@ -336,14 +335,14 @@ return a list with the final key/value pair \textsf{[(nation~.~4)]}.
 %      Or something.}
 
 Much of the value of MapReduce is that the programmer only needs to
-define the map and reduce operations and 
+define the map and reduce operations and
 does not need to deal with the details of carrying out the map and reduce
 operations in a collection of computers sharing the data across a
 network.  It is the MapReduce
 framework that takes care of running the program in a single
 computer, or in a cluster of hundreds or even hundreds of thousands
-of computers, depending on the size of the problem. 
-It also takes care of things like 
+of computers, depending on the size of the problem.
+It also takes care of things like
 sending the intermediate key/value pairs
 from the computers processing the map operation to the computers
 processing the reduce operation.
@@ -377,7 +376,7 @@ operation on that intermediate key.  The result is a list of
 output key/value pairs. MapReduce collects all these
 results and returns them as the final result of the computation.
 
-MapReduce does the work of distributing 
+MapReduce does the work of distributing
 the program across multiple machines.
 That is one way it provides value.
 An engineer can develop a MapReduce program on
@@ -390,7 +389,7 @@ automatically, once the program has been developed.
 
 \section{Data Mining with MapReduce}
 
-\index{data mining}\index{mining, data}Now 
+\index{data mining}\index{mining, data}Now
 that we have seen the basics of MapReduce, we can look at
 a larger example that illustrates how MapReduce is
 used in practice.  The application we will discuss is a recommendation engine,
@@ -404,12 +403,12 @@ builds a customized web page full of recommendations.
 How does Amazon do this?
 
 Let's break the problem down into
-two components.  First, \index{Amazon}Amazon 
-needs to find \emph{customers like you}.  
+two components.  First, \index{Amazon}Amazon
+needs to find \emph{customers like you}.
 In the case of a single product, this means other customers who
-have bought this product.  In the more general sense, 
+have bought the product.  In the more general sense,
 it means other customers who have bought many
-of the same items that you have purchased in the past. 
+of the same items that you have purchased in the past.
 Once the group of
 customers like you is identified, the purchases
 that people in the group have made can be examined
@@ -420,9 +419,9 @@ counting words in a document.
 Amazon keeps a history of all the purchases that each
 customer has made.  To process this list with MapReduce, think of it as
 consisting of entries of the form customer/item, meaning that at some time the specified
-customer bought that particular item.  
+customer bought that particular item.
 The map operation produces intermediate entries of the type item/1, meaning
-the given item was bought (once), 
+the given item was bought (once),
 which is similar to what the word-count program did.
 Such an entry should be generated for
 each purchase made by a customer in the reference group.  That is,
@@ -446,8 +445,8 @@ you have rated all the purchases you have made, giving each item a grade between
 sells only two items.  Then your ratings for these items can be expressed as
 a pair of numbers, say (2, 0).  Now suppose that other customers have also
 rated the items.  The customers who are most like you are the ones
-whose ratings are close to your score.  
-One way to measure how close other ratings are to the pair (2, 0) 
+whose ratings are close to yours.
+One way to measure how close other ratings are to the pair (2, 0)
 is to view the pair
 as the coordinates of a point in a two-dimensional plane.
 Using this notion of closeness, the customers who
@@ -463,11 +462,12 @@ in fashioning methods for finding clusters in data.}
 Of course, Amazon sells many more than two items, and neither you nor any
 of Amazon's other customers are likely to have rated even a fraction of them.
 But the principle stays the same.  Instead of using pairs to represent
-ratings, many more coordinates would be needed, as many coordinates 
+ratings, many more coordinates would be needed, as many coordinates
 as the number of different products Amazon sells.
-The coordinates would still specify a point in space, 
+The coordinates would still specify a point in space,
 but it would be a space with many dimensions.
-The customers most like you will still be represented by points close to yours.
+The customers most like you will still be represented by points close to yours
+in that multidimensional space.
 
 A remaining complication is that customers do not always explicitly rate the
 items they like, but this can be resolved by using implicit ratings.
@@ -480,9 +480,9 @@ are near your own. Or, viewed another way, the problem is to find groups of
 points that are clustered together. One cluster, for example, may consist of
 avid gardeners, while another is made up of fans of vampiric fiction.
 
-In general, finding \index{clusters, finding}clusters 
+In general, finding \index{clusters, finding}clusters
 in a large data set is a difficult problem
-that has been studied extensively 
+that has been studied extensively
 by scientists and mathematicians for a long time.
 There are many useful approaches.  One that, on the surface at least,
 is straightforward to describe starts with guessing some cluster locations,
@@ -508,12 +508,12 @@ point of each cluster.  The distances between data points
 and estimated cluster centers determines which cluster the data point belongs to,
 and the cluster determines the products of interest to particular customers.
 
-The map and reduce operations defined by the programmer 
-must conform to the expectations of the MapReduce framework. 
+The map and reduce operations defined by the programmer
+must conform to the expectations of the MapReduce framework.
 The framework requires the map operation to be based on
 key/value pairs.  In this application, the job of map is
-to figure out, for each customer, which cluster center 
-is closest to that customer's purchase history. 
+to figure out, for each customer, which cluster center
+is closest to that customer's purchase history.
 This must be done for all customers, but the MapReduce
 framework will take care of distributing the operation across all customers.
 We just have to say what the map operation does for an individual customer.
@@ -597,11 +597,11 @@ in the equations that define the reduce operation
 because they are not, in all cases, what might be expected.
 The \emph{points} variable refers to a list of points,
 and each point is a pair of numbers representing product ratings
-by a customer.
+by a customer. 
 The operand $(0,0)$ in the equation that defines $average$ is
 also a pair of numbers, both zeros in this case.
 These zeros serve as a starting point for adding
-up the product ratings to make it possible to compute 
+up the product ratings to make it possible to compute
 averages.\footnote{There are only two product ratings
 to simplify the example. In practice there would be
 many product ratings, so the data item representing
@@ -637,15 +637,17 @@ The work of computing the average is done by the $avg$ operator.
 The definition of $avg$ is inductive and
 employs a common trick known as tail recursion
 that makes computations like averaging much faster.
-We think it is worth complicating the presentation
+We think it is worth complicating the discussion
 with this technique because the main point
 of MapReduce is to be able to compute things quickly.
-The \index{tail recursion}\index{recursive}tail recursion 
-trick avoids supplying, an operand to another operator,
+The \index{tail recursion}\index{recursive}tail recursion
+trick avoids supplying, as an operand to another operator,
 the value that $avg$ delivers.
 This makes the computation
-faster because the computer is able to avoid a lot of bookkeeping that nested
-invocations require.\footnote{Section \ref{sec:lemmas} discusses an
+faster because the computer is able to avoid a lot of bookkeeping 
+that is required when an inductive
+invocation is nested in an invocation of another 
+operator.\footnote{Section \ref{sec:lemmas} discusses an
 example illustrating the effectiveness of tail recursion.}
 
 The result of the reduce operation is a new list of center points
@@ -653,8 +655,8 @@ in the same format as the initial guess.
 That makes the output of the
 reduce operation suitable as
 the initial guess for additional map computation steps,
-which makes it possible for the computer to perform as many 
-map/reduce cycles as necessary to find clusters. 
+which makes it possible for the computer to perform as many
+map/reduce cycles as necessary to find clusters.
 Figure~\ref{iterative-map-reduce} diagrams the MapReduce
 process that we applied to implement the four-part clustering procedure
 discussed earlier (page \pageref{cluster-process}).
@@ -670,24 +672,24 @@ discussed earlier (page \pageref{cluster-process}).
 
 \section{Summary}
 
-Some problems are too large to solve on a single, conventional machine.  
+Some problems are too large to solve on a single, conventional machine.
 That leaves two options.
 Get a large machine (a supercomputer, for example),
-or break the problem down into many tasks and 
+or break the problem down into many tasks and
 perform each task on a separate computer.
-The first approach, 
-\index{scaling!vertical}\index{vertical scaling}vertical scaling, 
-is limited by the size and speed of the most powerful computer we can afford.  
+The first approach,
+\index{scaling!vertical}\index{vertical scaling}vertical scaling,
+is limited by the size and speed of the most powerful computer available.
 In addition it is difficult to use in practice because as the problem grows,
-several scaling steps may be necessary, 
+several scaling steps may be necessary,
 and each step requires an expensive migration to a more capable computer.
-If we were trying to use vertical scaling to deal with the massive, 
-rapid increases in the volume of traffic on websites 
+If we were trying to use vertical scaling to deal with the massive,
+rapid increases in the volume of traffic on websites
 like those of Google and Amazon,
-we might need an upgrade every few days, 
+we might need an upgrade every few days,
 which would be impossible with vertical scaling.
 
-An alternate approach, 
+An alternate approach,
 \index{scaling!horizontal}\index{horizontal scaling}horizontal scaling,
 offers the promise of virtually unlimited
 scalability and incremental increase
@@ -701,7 +703,7 @@ Such problems usually involve a lot of data,
 and the data needs to be in clumps
 that can be processed independently.
 
-\index{reduce, map}\index{MapReduce}MapReduce 
+\index{reduce, map}\index{MapReduce}MapReduce
 is a framework related
 to the equation-based software model that facilitates writing
 programs that can be distributed across a large number of computers.
