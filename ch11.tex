@@ -878,7 +878,7 @@ prove the following theorem.
 \begin{center}
 \index{theorem, by name!\{i-ht\}, AVL height after insert}
 \index{balance!after AVL insert}
-\index{searchtree!balance}\index{tree!balance}
+\index{search tree!balance}\index{tree!balance}
 \index{height!maximum change in}
 \label{thm:i-ht}
 Theorem \{\emph{i-ht}\}: $($\textsf{(height $s$)} $=$ $n)$ $\rightarrow$ \textsf{(height (hook $x$ $a$ $s$)) } $\leq n+1$
@@ -998,7 +998,7 @@ has those properties on trees of height $n+2$.
 \begin{center}
 \includegraphics[scale=0.5]{images/ht2-or-more.png}
 \end{center}
-\index{tree!balance}\index{searchtree!balance}
+\index{tree!balance}\index{search tree!balance}
 \index{AVL tree!balance}\index{balance!AVL tree}
 \caption{Balanced Trees of Height $n+2$}
 \label{fig:trees-of-ht-n+2}
@@ -1041,7 +1041,7 @@ Tree \emph{L} and tree \emph{R} represent the cases we need to look into.
 \begin{center}
 \includegraphics[scale=0.29]{images/ht2-or-more-ex.png}
 \end{center}
-\index{tree!balance}\index{searchtree!balance}
+\index{tree!balance}\index{search tree!balance}
 \index{AVL tree!balance}\index{balance!AVL tree}
 \caption{Balanced Trees of Height $n+2$, Subtrees Expanded}
 \label{fig:trees-of-ht-n+2-expanded}
@@ -1095,7 +1095,7 @@ inserting a key that is the same as one already in the
 tree does not change the tree,
 except to replace the data associated with the key.
 Therefore, the tree will remain balanced and
-require no further attention.}\index{tree!balance}\index{searchtree!balance}\index{AVL tree!balance}\index{balance!AVL tree}\
+require no further attention.}\index{tree!balance}\index{search tree!balance}\index{AVL tree!balance}\index{balance!AVL tree}\
 \label{cases:ht-n+2}\begin{quote}
 \begin{enumerate}
 \item case \emph{LL}: $x < j < k$
@@ -1127,7 +1127,7 @@ subtrees \emph{jR} both of height $(n-1)$ and of height $n$.
 \begin{center}
 \includegraphics[scale=0.36]{images/zig-and-zag.png}
 \end{center}
-\index{tree!rebalance}\index{searchtree!rebalance}
+\index{tree!rebalance}\index{search tree!rebalance}
 \index{AVL tree!rebalance}\index{balance!AVL rebalance}
 \caption{Insertion, Unbalanced Outcome, and Rebalancing}
 \label{fig:zig-and-zag}
@@ -1233,7 +1233,7 @@ the diagrams in Figure~\ref{fig:zig-and-zag}.
     (mktr i b (mktr k d kL iL) iR)))
 \end{Verbatim}
 \end{center}
-\index{tree!rebalance}\index{searchtree!rebalance}
+\index{tree!rebalance}\index{search tree!rebalance}
 \index{AVL tree!rebalance}\index{balance!AVL rebalance}
 \index{operator, by name!zig, zag (AVL rotate)}
 \index{AVL tree!zig, zag operators}
@@ -1275,10 +1275,13 @@ are the only two remaining cases that we need to cover to arrive
 at a complete solution of the insertion problem.
 The cases we already solved
 (cases \emph{LL} and \emph{RR})
-are known as the ``outside cases'' because the subtrees that
+are known as the 
+\index{rotate AVL!outside cases}\index{outside cases!AVL rotate}``outside cases'' 
+because the subtrees that
 get the new keys and become too tall are on the outside borders of the diagram.
 Cases \emph{LR} and \emph{RL}
-are ``ìnside cases'' because the problematic subtrees
+are \index{rotate AVL!inside cases}\index{inside cases!AVL rotate}``ìnside cases'' 
+because the problematic subtrees
 are on the inside portion of the tree diagram, away from the borders.
 Another way to look at it is that $x$ is outside of the interval
 between $j$ and $i$ in the outside cases,
@@ -1301,7 +1304,7 @@ can make an inside subtree too tall.
 \begin{center}
 \includegraphics[scale=0.35]{images/inside-cases.png}
 \end{center}
-\index{tree!rebalance}\index{searchtree!rebalance}
+\index{tree!rebalance}\index{search tree!rebalance}
 \index{AVL tree!rebalance}\index{balance!AVL rebalance}
 \index{rotate AVL!inside cases}\index{inside cases!AVL rotate}
 \caption{Inside Cases}
@@ -1324,7 +1327,7 @@ We need a new trick to rebalance \emph{LRin}.
 \begin{center}
 \includegraphics[scale=0.5]{images/badzig.png}
 \end{center}
-\index{tree!rebalance}\index{searchtree!rebalance}
+\index{tree!rebalance}\index{search tree!rebalance}
 \index{AVL tree!rebalance}\index{balance!AVL rebalance}
 \index{rotate AVL!unbalance}
 \caption{Using the Wrong Rotation Can Make It Worse}
@@ -1353,7 +1356,7 @@ and make sure it works. The exercise will be good practice.
 \begin{center}
 \includegraphics[scale=0.26]{images/dbl-rotation.png}
 \end{center}
-\index{tree!rebalance}\index{searchtree!rebalance}
+\index{tree!rebalance}\index{search tree!rebalance}
 \index{AVL tree!rebalance}\index{balance!AVL rebalance}
 \index{rotate AVL!inside, double}\index{inside cases!double rotate}
 \index{double rotation, AVL}\index{AVL tree!rotate, double}
@@ -1430,7 +1433,7 @@ to carry the necessary rotations, if there are any.
         s)))                                        ; no rotate
 \end{Verbatim}
 \end{center}
-\index{tree!rebalance}\index{searchtree!rebalance}
+\index{tree!rebalance}\index{search tree!rebalance}
 \index{AVL tree!rebalance}\index{balance!AVL rebalance}
 \index{rotate AVL!formal}\index{AVL tree!rotate}
 \index{double rotation, AVL}
