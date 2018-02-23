@@ -1,6 +1,4 @@
-\chapter{Preface}
-\label{ch:Preface}
-
+\begin{preface}
 Computers are logic in action. Literally.
 Computer components are realizations of formulas in logic,
 and when activated by Boolean signals, those components
@@ -149,13 +147,54 @@ reliable measure.
 We hope readers will take some pleasure in working their way through
 the book, and that they will find what they learn
 edifying as they go on to other projects.
-\\
-\\
-\emph{Santa Cruz, California}   \hfill Rex Page     \\
-\emph{Laramie, Wyoming}         \hfill Ruben Gamboa \\
-\emph{January 2018}
 
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "book"
-%%% End:
+\vspace{0.5cm}
+{\parindent0pt
+\textbf{Prerequisite Knowledge and Chapter Dependencies}.
+\label{ch:roadmap}
+Equations provide a foundation
+for rigorous, formal methods throughout the presentation.
+Readers will need to understand equations at a level
+typically acquired in high-school algebra, but they will need
+no other prerequisite knowledge.
+Instructors, on the other hand, will find
+a solid footing in equation-based programming advantageous.
+Chapters on the practice of computation are more descriptive than rigorous.
+These topics can be woven into the sequence at any point
+and can usefully slow the pace of introduction
+of challenging concepts in equations and reasoning.
+The following diagram elucidates some possible
+paths through the material.}
+\\ %%\vspace{5mm}\\
+
+\label{diagram:roadmap}
+\begin{center}
+\includegraphics[scale=1]{images-cmyk/roadmap-cmyk.jpg} %% was: scale=0.23
+\end{center}
+
+\clearpage
+{\parindent0pt
+\textbf{Acknowledgments}.
+\label{ch:Acknowledgements}
+The authors would like to thank Caleb Eggensperger for developing
+the Proof Pad environment that has eased many students
+through early experiences with mechanized logic.
+Carl Eastland, Dale Vaillancourt, and Matthias Felleisen
+built an ACL2 environment that one of the authors relied on
+for many course offerings and which
+included DoubleCheck, the predicate-based, automated testing facility
+based on ideas in QuickCheck, the grandaddy
+of such tools invented by John Hughes and Koen Claessen,
+that was later incorporated into Proof Pad.
+We thank them for their pioneering work.
+Qi Cheng used prototype versions of the text
+in applied logic courses and
+suggested improvements that made it a better book.
+The authors also want to credit the students,
+numbering more than a thousand,
+who applied themselves to early versions of the
+text and provided their feedback. Thank you, every one.}
+
+\author{Rex Page and Ruben Gamboa}
+\date{January, 2018}
+\end{preface}

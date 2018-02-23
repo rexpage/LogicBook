@@ -23,39 +23,6 @@ computers to check that our reasoning follows all the rules,
 without exception. This justifies more confidence
 in conclusions than would otherwise be possible.
 
-\begin{aside}
-Mathematical formulas communicate
-information using a formal grammar imbued with specific meanings.
-The grammar determines which phrases are well formed
-and which are not.
-For example, ``$x+3\times(y + z)$'' conforms to a grammar
-of numeric formulas.
-It is grammatically correct, and it stands for a
-particular and carefully prescribed calculation.
-The non-formula ``$x+3\times(y + ) \times z$''
-does not conform to that grammar and, therefore,
-carries no meaning.
-Reasoning about computer hardware and software
-calls for a high degree of \index{formalism}formality to ensure
-a level of consistency that is essential to  its usefulness.
-
-Rigorous formality takes many readers by surprise.
-It takes some getting used to.
-Things may seem overly simple in the beginning.
-Then, suddenly, you may find yourself thrashing around in deep water.
-Take a deep breath, and slowly work  through the material.
-It provides a basis for everything to follow.
-The ideas and methods call for careful study and frequent review.
-When things start to go off track,
-slow down, back up a little, and try
-again.\index{panic, don't}\index{disheartened?}\index{frustrated?}\index{baffled?}\index{worried?}\index{scared?}\index{funk, in a?}
-Gradually, the pieces will fall into place,
-but you can expect to run into some bumps.
-\emph{Hold on to your seat.}
-\caption{Hold on to Your Seat}
-\label{aside-hold-on-to-seat}\index{seat, hold on}\index{hold onto your seat}
-\end{aside}
-
 We will be doing all of this in the domain of symbolic logic, which
 includes operations like ``logical or'' and ``logical negation'',
 rather than arithmetic operations, such as addition and
@@ -100,8 +67,42 @@ equation, then everywhere else $x$ occurs in the equation,
 it stands for that same formula, $3\times(y + 1)$.
 This is the usual custom in algebra.
 
+\begin{aside}{aside-hold-on-to-seat}{Hold on to Your Seat}
+Mathematical formulas communicate
+information using a formal grammar imbued with specific meanings.
+The grammar determines which phrases are well formed
+and which are not.
+For example, ``$x+3\times(y + z)$'' conforms to a grammar
+of numeric formulas.
+It is grammatically correct, and it stands for a
+particular and carefully prescribed calculation.
+The non-formula ``$x+3\times(y + ) \times z$''
+does not conform to that grammar and, therefore,
+carries no meaning.
+Reasoning about computer hardware and software
+calls for a high degree of \index{formalism}formality to ensure
+a level of consistency that is essential to  its usefulness.
+
+Rigorous formality takes many readers by surprise.
+It takes some getting used to.
+Things may seem overly simple in the beginning.
+Then, suddenly, you may find yourself thrashing around in deep water.
+Take a deep breath, and slowly work  through the material.
+It provides a basis for everything to follow.
+The ideas and methods call for careful study and frequent review.
+When things start to go off track,
+slow down, back up a little, and try
+again.\index{panic, don't}\index{disheartened?}\index{frustrated?}\index{baffled?}\index{worried?}\index{scared?}\index{funk, in a?}
+Gradually, the pieces will fall into place,
+but you can expect to run into some bumps.
+\emph{Hold on to your seat.}
+%\caption{Hold on to Your Seat}
+%\label{aside-hold-on-to-seat}\index{seat, hold on}\index{hold onto your seat}
+\end{aside}
+
 \begin{figure}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 $x+0 = x$                 & \{$+$ identity\} \\
 $(-x)+ x = 0$             & \{$+$ complement\} \\
@@ -113,17 +114,8 @@ $x+(y+z) = (x+y)+z$       & \{$+$ associative\} \\
 $x \times (y \times z) = (x \times y) \times z$ & \{$\times$ associative\} \\
 $x\times(y+z) = (x \times y)+(x \times z)$      & \{distributive law\} \\
 \end{tabular}
-\end{center}
-\index{equation, by name!\{$+$ identity\}}
-\index{equation, by name!\{$+$ complement\}}
-\index{equation, by name!\{$\times$ identity\}}
-\index{equation, by name!\{$\times$ null\}}
-\index{equation, by name!\{$+$ commutative\}}
-\index{equation, by name!\{$\times$ commutative\}}
-\index{equation, by name!\{$+$ associative\}}
-\index{equation!numeric algebra}
-\index{axiom!numeric algebra}
-\index{reasoning!with equations}
+\end{spacing}
+\end{center}\index{equation, by name!\{$+$ identity\}}\index{equation, by name!\{$+$ complement\}}\index{equation, by name!\{$\times$ identity\}}\index{equation, by name!\{$\times$ null\}}\index{equation, by name!\{$+$ commutative\}}\index{equation, by name!\{$\times$ commutative\}}\index{equation, by name!\{$+$ associative\}}\index{equation!numeric algebra}\index{axiom!numeric algebra}\index{reasoning!with equations}
 \caption{Equations of Numeric Algebra}
 \label{fig-02-01}
 \end{figure}
@@ -199,6 +191,7 @@ and those are the last two steps in the proof.
 
 \begin{figure}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{lll}
     & $(-1)\times(-1)$                            & \\
 $=$ & $((-1)\times(-1)) + 0$                      & \{$+$ identity\} \\
@@ -211,12 +204,8 @@ $=$ & $0 + 1$                                     & \{$\times$ null\} \\
 $=$ & $1 + 0$                                     & \{$+$ commutative\} \\
 $=$ & $1$                                         & \{$+$ identity\} \\
 \end{tabular}
-\end{center}
-\index{negative $\times$ negative}
-\index{equation!proof by}
-\index{proof!with equations}
-\index{commutative}\index{distributive}
-\index{reasoning!with equations}\index{equation!citation}\index{citation!equation}
+\end{spacing}
+\end{center}\index{negative $\times$ negative}\index{equation!proof by}\index{proof!with equations}\index{commutative}\index{distributive}\index{reasoning!with equations}\index{equation!citation}\index{citation!equation}
 \caption{Why $(-1)\times(-1)=1$}
 \label{fig-02-02}
 \end{figure}
@@ -257,27 +246,23 @@ Our certainty stems from the mechanistic
 \index{formalism}formalism that we insist on from the beginning,
 which can be checked to the last detail with automated computation.
 
-\begin{ExerciseList}
+\begin{exercises}
 \label{ex:ch02-intro}
-\Exercise
-Use the equations of Figure~\ref{fig-02-01} (page \pageref{fig-02-01}),
-together with the additional equation (1+1)=2, to derive the equation $(x + x) = (2 \times x)$.
+\exer {Use the equations of Figure~\ref{fig-02-01} (page \pageref{fig-02-01}),
+together with the additional equation (1+1)=2, to derive the equation $(x + x) = (2 \times x)$.}
 
-\Exercise\label{ex:times-negation}
+\exer {\label{ex:times-negation}%
 Derive the following equation
 using using the equations of Figure~\ref{fig-02-01}.
 \begin{center}
-\begin{tabular}{ll}
-$((-1) \times x) + x = 0$    & \{$\times$ negation\}
-\end{tabular}
-\end{center}
+$((-1) \times x) + x = 0$ ~~~~~ \{$\times$ negation\}
+\end{center}}
 
-\Exercise
-Derive the equation $((x + (((-1) \times (x + y)) + z)) + y) = z$
+\exer {Derive the equation $((x + (((-1) \times (x + y)) + z)) + y) = z$
 using using the equations of Figure~\ref{fig-02-01} and,
 if you like,
-the \{$\times$ negation\} equation from Exercise \ref{ex:times-negation}.
-\end{ExerciseList}
+the \{$\times$ negation\} equation from Exercise \ref{ex:times-negation}.}
+\end{exercises}
 
 \section{Boolean equations}
 \label{sec:boolean-equations}
@@ -301,6 +286,7 @@ Furthermore, Boolean formulas stand for logic values
 
 \begin{figure}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 $x \vee False = x$                                   & \{$\vee$ identity\} \\
 $x \vee True = True$                                 & \{$\vee$ null\} \\
@@ -313,51 +299,8 @@ $x \vee x = x$                                       & \{$\vee$ idempotent\} \\
 $x \rightarrow x = True$                             & \{self-implication\} \\
 $\neg(\neg x)  = x$                                  & \{double negation\} \\
 \end{tabular}
-\end{center}
-\index{Boolean!algebra}\index{commutative}\index{distributive}
-\seeonlyindex{algebra, Boolean}{Boolean, algebra}
-\index{reasoning!with equations}
-\index{axiom!commutative}
-\index{axiom!associative}
-\index{axiom!parentheses}
-\index{axiom!Boolean algebra}
-\index{axiom, by name!\{$\vee$ identity\}}
-\index{axiom, by name!\{$\vee$ null\}}
-\index{axiom, by name!\{$\vee$ commutative\}}
-\index{axiom, by name!\{$\vee$ associative\}}
-\index{axiom, by name!\{$\vee$ distributive\}}
-\index{axiom, by name!\{implication\}}
-\index{axiom, by name!\{$\vee$ DeMorgan\}}
-\index{axiom!DeMorgan}
-\index{axiom, by name!\{$\vee$ idempotent\}}
-\index{axiom!idempotent}
-\index{axiom, by name!\{self-implication\}}
-\index{axiom, by name!\{double negation\}}
-\index{axiom, by name!\{atomic release\}}
-\index{equation!grammar}
-\index{equation!distributive}
-\index{equation!Boolean algebra}
-\index{equation!commutative}
-\index{equation!associative}
-\index{equation!parentheses}
-\index{equation!Boolean algebra}
-\index{equation, by name!\{$\vee$ identity\}}
-\index{equation, by name!\{$\vee$ null\}}
-\index{equation, by name!\{$\vee$ commutative\}}
-\index{equation, by name!\{$\vee$ associative\}}
-\index{equation, by name!\{$\vee$ distributive\}}
-\index{equation, by name!\{implication\}}
-\index{equation, by name!\{$\vee$ DeMorgan\}}
-\index{equation!DeMorgan}
-\index{equation, by name!\{$\vee$ idempotent\}}
-\index{equation, by name!\{idempotent\}}
-\index{equation, by name!\{self-implication\}}
-\index{equation, by name!\{double negation\}}
-\index{operator, logic!and ($\wedge$)}
-\index{operator, logic!or ($\vee$)}
-\index{operator, logic!not ($\neg$)}
-\index{operator, logic!implication ($\rightarrow$)}
-\seeonlyindex{logic operator}{operator, logic}
+\end{spacing}
+\end{center}\index{Boolean!algebra}\index{commutative}\index{distributive}\seeonlyindex{algebra, Boolean}{Boolean, algebra}\index{reasoning!with equations}\index{axiom!commutative}\index{axiom!associative}\index{axiom!parentheses}\index{axiom!Boolean algebra}\index{axiom, by name!\{$\vee$ identity\}}\index{axiom, by name!\{$\vee$ null\}}\index{axiom, by name!\{$\vee$ commutative\}}\index{axiom, by name!\{$\vee$ associative\}}\index{axiom, by name!\{$\vee$ distributive\}}\index{axiom, by name!\{implication\}}\index{axiom, by name!\{$\vee$ DeMorgan\}}\index{axiom!DeMorgan}\index{axiom, by name!\{$\vee$ idempotent\}}\index{axiom!idempotent}\index{axiom, by name!\{self-implication\}}\index{axiom, by name!\{double negation\}}\index{axiom, by name!\{atomic release\}}\index{equation!grammar}\index{equation!distributive}\index{equation!Boolean algebra}\index{equation!commutative}\index{equation!associative}\index{equation!parentheses}\index{equation!Boolean algebra}\index{equation, by name!\{$\vee$ identity\}}\index{equation, by name!\{$\vee$ null\}}\index{equation, by name!\{$\vee$ commutative\}}\index{equation, by name!\{$\vee$ associative\}}\index{equation, by name!\{$\vee$ distributive\}}\index{equation, by name!\{implication\}}\index{equation, by name!\{$\vee$ DeMorgan\}}\index{equation!DeMorgan}\index{equation, by name!\{$\vee$ idempotent\}}\index{equation, by name!\{idempotent\}}\index{equation, by name!\{self-implication\}}\index{equation, by name!\{double negation\}}\index{operator, logic!and ($\wedge$)}\index{operator, logic!or ($\vee$)}\index{operator, logic!not ($\neg$)}\index{operator, logic!implication ($\rightarrow$)}\seeonlyindex{logic operator}{operator, logic}
 \caption{Boolean Axioms (basic equations)}
 \label{fig-02-03}
 \end{figure}
@@ -385,12 +328,12 @@ We call such a derivation of a new equation a
 
 \begin{proof}
 \mbox{}\\
-\begin{tabular}{lll}
+\begin{tabular}{llll}
     &$False \vee False$    & \\
-$=$ & $False$              & \{$\vee$ identity\}  ~~~---replace $x$ in the axiom with \emph{False}\\
+$=$ & $False$              & \{$\vee$ identity\}  &---replace $x$ in the axiom with \emph{False}\\
     &  ~                   & \\
     & $False \vee True$    & \\
-$=$ & $True$               & \{$\vee$ null\}  ~~~---replace $x$ in the axiom with \emph{False}\\
+$=$ & $True$               & \{$\vee$ null\}      &---replace $x$ in the axiom with \emph{False}\\
 %    &                      & \dots for practice, prove the other two equations yourself \dots \\
 \end{tabular}
 \begin{quote}
@@ -425,7 +368,7 @@ Finished now? Good for you. You cited the \{$\vee$ identity\} axiom in your
 proof of the third equation in the theorem and the \{$\vee$ null\}
 axiom in your proof of the fourth equation, right? We knew you could do it.
 
-\begin{aside}
+\begin{aside}{truth-tables}{Truth Tables}
 A \emph{truth table} for a formula is a list of equations
 stating the values that the formula represents.
 There is one equation in the truth table for each possible
@@ -448,8 +391,8 @@ that has variables in place of the operands.
 For example, the truth table for the logical-or operator ($\vee$)
 is the truth table for the formula $(x \vee y)$.
 That formula has two variables, so the truth table has four equations.
-\caption{Truth Tables}
-\label{truth-tables}
+%\caption{Truth Tables}
+%\label{truth-tables}
 \end{aside}
 
 Derivations are usually more than one step, of course.
@@ -507,12 +450,12 @@ construct your own proof of the second equation in the theorem.
 \end{theorem}
 \begin{proof}
 \mbox{} \\
-\begin{tabular}{llp{3.15in}}
+\begin{tabular}{llll}
     & $\neg True$                      & \\
 $=$ & $\neg (False \rightarrow False)$ & \{self-implication\} \\
-$=$ & $\neg ((\neg False) \vee False)$ & \{implication\}     ---replace $x$ and $y$ in axiom with $False$ \\
-$=$ & $\neg (\neg False)$              & \{$\vee$ identity\} ~~---replace $x$ in the axiom with $\neg False$ \\
-$=$ & $False$                          & \{double negation\} ~~---replace $x$ in axiom with $False$ \\
+$=$ & $\neg ((\neg False) \vee False)$ & \{implication\}     &---replace $x$ and $y$ in axiom with $False$ \\
+$=$ & $\neg (\neg False)$              & \{$\vee$ identity\} &---replace $x$ in the axiom with $\neg False$ \\
+$=$ & $False$                          & \{double negation\} &---replace $x$ in axiom with $False$ \\
 \end{tabular}
 
 \bigskip
@@ -546,7 +489,7 @@ We know that the derived formula stands for the same value
 as the original formula because the axiom asserts this equivalence,
 and we assume the axioms are right.
 
-\begin{aside}
+\begin{aside}{feasibility}{Truth Tables and Feasibility}
 Reasoning from equations is one way to prove that two formulas stand
 for the same value.
 Another way is to build truth tables for both formulas.
@@ -588,10 +531,9 @@ because the formulas can be split into parts small enough
 to manage, and those parts can be reintegrated, based on
 their grammatical relationships, to produce a full analysis.
 Feasible doesn't mean easy, though.
-It takes a lot of effort, but it can pay off.
-\caption{Truth Tables and Feasibility}
-\index{truth table}\index{feasibility}\index{infeasibility}
-\label{feasibility}
+It takes a lot of effort, but it can pay off.\index{truth table}\index{feasibility}\index{infeasibility}
+%\caption{Truth Tables and Feasibility}
+%\label{feasibility}
 \end{aside}
 
 Let's prove another truth-table theorem, partly to practice
@@ -612,7 +554,7 @@ This is the way mathematics goes. Once we have derived
 a new equation from the axioms, we can cite
 the new equation to derive still more equations.
 
-\begin{aside}
+\begin{aside}{abstraction}{Abstraction}
 Citing proven theorems to prove new ones
 is similar to an idea known as
 \index{abstraction}abstraction
@@ -654,9 +596,8 @@ or maybe ten or a hundred places, depending on how many engineers
 copied the original component to make a change.
 Abstraction is an important engineering method.
 Citing old theorems to prove new ones has similar advantages.
-\caption{Abstraction}
-\label{abstraction}
-\index{abstraction}
+%\caption{Abstraction}
+%\label{abstraction}
 \end{aside}
 
 \begin{figure}
@@ -672,9 +613,9 @@ Citing old theorems to prove new ones has similar advantages.
 
 \begin{proof}
 \mbox{} \\
-\begin{tabular}{llp{3.15in}}
+\begin{tabular}{llll}
     & $False \rightarrow False$        & \\
-$=$ & $(\neg False) \vee False$        & \{implication\} ~~---\emph{put} $False$ \emph{for} $x$ \emph{and for} $y$ \emph{in axiom}\\
+$=$ & $(\neg False) \vee False$        & \{implication\} &---\emph{put} $False$ \emph{for} $x$ \emph{and for} $y$ \emph{in axiom}\\
 $=$ & $\neg False$                     & \{$\vee$ identity\}\\
 $=$ & $True$                           & \{$\neg$ truth table\}\\
 \end{tabular}
@@ -742,11 +683,11 @@ $x \wedge False = False$
 
 \begin{proof}
 \mbox{} \\
-\begin{tabular}{llp{3.15in}}
+\begin{tabular}{llll}
     & $x \wedge False$                       & \\
 $=$ & $x \wedge (\neg True)$                 & \{$\neg$ truth table\} \\
 $=$ & $(\neg (\neg x)) \wedge (\neg True)$   & \{double negation\} \\
-$=$ & $\neg ((\neg x) \vee True)$            & \{$\vee$ DeMorgan\} ~~---\emph{put} $(\neg x)$ \emph{for} $x$\emph{,} $True$ \emph{for} $y$ \emph{in axiom}\\
+$=$ & $\neg ((\neg x) \vee True)$            & \{$\vee$ DeMorgan\} &---\emph{put} $(\neg x)$ \emph{for} $x$\emph{,} $True$ \emph{for} $y$ \emph{in axiom}\\
 $=$ & $\neg True$                            & \{$\vee$ null\} \\
 $=$ & $False$                                & \{$\neg$ truth table\} \\
 \end{tabular}
@@ -831,31 +772,29 @@ A computer system that does this is known as a ``mechanized logic.''
 After you have enough practice to gain a good understanding of the process,
 we will begin to use a mechanized logic to make sure our reasoning is correct.
 
-\begin{ExerciseList}
-\Exercise
-Use the Boolean axioms (Figure~\ref{fig-02-03}, page \pageref{fig-02-03}) and the
+\begin{exercises}
+\exer {Use the Boolean axioms (Figure~\ref{fig-02-03}, page \pageref{fig-02-03}) and the
 \index{absorption}\index{equation!absorption}\index{equation, by name!\{$\wedge$ absorption\}}\{$\wedge$-absorption\}
 theorem
 (Figure~\ref{and-absorption-thm}, page \pageref{and-absorption-thm}),
-to derive the \{$\vee$-absorption\} equation: $(x \wedge y) \vee y = y$.
+to derive the \{$\vee$-absorption\} equation: $(x \wedge y) \vee y = y$.}
 
-\Exercise\label{ex:xor}
+\exer {\label{ex:xor}%
 Derive the equation
 $((x \vee y) \wedge (\neg(x \wedge y))) = (((\neg x) \wedge y) \vee (x \wedge (\neg y)))$
 from the Boolean axioms.\\
 \emph{Note}: These formulas define the
-\index{exclusive or}\index{or, exclusive}exclusive-or operator.
+\index{exclusive or}\index{or, exclusive}exclusive-or operator.}
 
-\Exercise
-Use the Boolean axioms
+\exer {Use the Boolean axioms
 and the theorems of this section to
 derive the truth-table for the following formula $(x \vee ((\neg y) \wedge (\neg z)))$.\\
 \emph{Note}: Since there are three variables in the formula, the truth table
 will have eight entries, and you will need to prove eight equations.
 Each equation will have on the left-hand side
 a different combination of values ($True$ or $False$) for the variables $x$, $y$, and $z$,
-and on the right-hand side will have the value ($True$ or $False$) of the formula for that combination.
-\end{ExerciseList}
+and on the right-hand side will have the value ($True$ or $False$) of the formula for that combination.}
+\end{exercises}
 
 \section{Boolean formulas}
 \label{sec:boolean-formuas}
@@ -960,6 +899,7 @@ if $a$ is.
 
 \begin{figure}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{llll}
 $v$             & \{atomic\}    &~~~~& \\
 $(a \circ b)$   & \{bin-op\}    &~~~~& \emph{all grammatically correct formulas} \\
@@ -979,18 +919,15 @@ $\bullet$ ~~ $a$ and $b$ are grammatically correct Boolean formulas \\
 $\bullet$ ~~ $\circ$ is a binary operator \\
 \hline
 \end{tabular}
-\end{center}
-\index{Boolean!grammar}
-\index{equation!parentheses}
-\index{parentheses}
-\index{formula!grammar}
-\index{Boolean!formula}
+\end{spacing}
+\end{center}\index{Boolean!grammar}\index{equation!parentheses}\index{parentheses}\index{formula!grammar}\index{Boolean!formula}
 \caption{Rules of Grammar for Boolean Formulas}
 \label{fig-02-grammar}
 \end{figure}
 
 \begin{figure}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 $(x \vee False) = x$                                     & \{$\vee$ identity\} \\
 $(x \vee True) = True$                                   & \{$\vee$ null\} \\
@@ -1017,6 +954,7 @@ $\bullet$ ~~ $v$ is a variable or $True$ or $False$ \\
 ~~~~~(a variable is a letter or a letter with a subscript) \\
 \hline
 \end{tabular}
+\end{spacing}
 \end{center}
 \index{Boolean!algebra}\index{formula!grammar}
 \index{distributive}\index{associative}\index{commutative}
@@ -1090,6 +1028,7 @@ so they require no further analysis when checking for grammatical correctness.
 
 \begin{figure}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 $(x \rightarrow False) = (\neg x)$                                   & \{$\neg$ as $\rightarrow$\}\label{neg-as-imp} \\
 $(\neg(x \wedge y)) = ((\neg x) \vee (\neg y))$                      & \{$\wedge$ DeMorgan\}      \label{and-DeMorgan} \\
@@ -1110,6 +1049,7 @@ $((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & 
 $((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
 $(x \rightarrow (\neg x)) = (\neg x)$                                & \{contradiction\}          \label{boolean-contradiction} \\
 \end{tabular}
+\end{spacing}
 \end{center}
 \index{equation, by name!\{$\neg$ as $\rightarrow$\}}
 \index{equation, by name!\{$\wedge$ DeMorgan\}}
@@ -1153,6 +1093,7 @@ with elements of the formula in the following way.
 \vspace{2mm}
 \begin{minipage}{\textwidth}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{cc}
 \hline
 \emph{symbol from \{bin-op\} rule}      & \emph{matching element in} $((x \vee (\neg y)) \wedge (x \rightarrow z))$ \\
@@ -1161,9 +1102,9 @@ $a$                                     & $(x \vee (\neg y))$ \\
 $\circ$                                 & $\wedge$ \\
 $b$                                     & $(x \rightarrow z)$ \\
 \end{tabular}
+\end{spacing}
 \end{center}
 \end{minipage}
-\vspace{1mm}
 
 The only other symbols in the rule are the top-level parentheses, and these match identically with the outer parentheses in the target formula. Therefore, the target formula is grammatically correct if the formulas $(x \vee (\neg y))$ and $(x \rightarrow z)$  are grammatically correct. We use the same approach to verify the grammatical correctness of those formulas.
 
@@ -1173,9 +1114,8 @@ and the following table shows how the analysis continues in this case.
 
 \vspace{2mm}
 \begin{minipage}{\textwidth}
-\begin{center}
-\index{matching!equation}\index{formula!matching}\index{equation!matching}
-\index{equation!grammar}\index{formula!grammar}
+\begin{center}\index{matching!equation}\index{formula!matching}\index{equation!matching}\index{equation!grammar}\index{formula!grammar}
+\begin{spacing}{0.9}
 \begin{tabular}{cc}
 \hline
 \emph{symbol from \{bin-op\} rule}      & \emph{matching element in}  $(x \vee (\neg y))$ \\
@@ -1184,9 +1124,9 @@ $a$                                     & $x$ \\
 $\circ$                                 & $\vee$ \\
 $b$                                     & $(\neg y)$ \\
 \end{tabular}
+\end{spacing}
 \end{center}
 \end{minipage}
-\vspace{1mm}
 
 This reduces the verification of the grammatical correctness of $(x \vee (\neg y))$
 to the verification of the two formulas $x$ and $(\neg y)$.
@@ -1251,9 +1191,9 @@ has the same meaning as the formula $True$ or the formula $False$,
 but also to verify whether or not any two given,
 grammatically correct, formulas have the same meaning.
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise Determine which of the following are Boolean formulas
+\exer {Determine which of the following are Boolean formulas
 by the rules of grammar (Figure~\ref{fig-02-grammar}, page \pageref{fig-02-grammar}).
 \begin{center}
 \begin{tabular}{l}
@@ -1261,47 +1201,45 @@ $((x \wedge y) \vee y )$ \\
 $((x \rightarrow y) \wedge (x \rightarrow (\neg y)))$ \\
 $((False \rightarrow (\neg y)) \neg (x \vee True))$ \\
 \end{tabular}
-\end{center}
+\end{center}}
 
-\Exercise Derive the truth tables (see page \pageref{truth-tables})
-of the formulas from the previous exercise.
+\exer {Derive the truth tables (see page \pageref{truth-tables})
+of the formulas from the previous exercise.}
 
-\Exercise Use the axioms of Boolean algebra
+\exer {Use the axioms of Boolean algebra
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})
 to prove the equations in
 Figure~\ref{some-boolean-theorems} (page \pageref{some-boolean-theorems}).\\
-\emph{Note}: After proving an equation, you may cite it in subsequent proofs.
+\emph{Note}: After proving an equation, you may cite it in subsequent proofs.}
 
-\Exercise\label{ex:boolean-equiv1}
+\exer {\label{ex:boolean-equiv1}%
 Prove the following equation.\\
-\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = ((x \rightarrow y) \wedge ((\neg x) \rightarrow (\neg y)))$
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = ((x \rightarrow y) \wedge ((\neg x) \rightarrow (\neg y)))$}
 
-\Exercise\label{ex:boolean-equiv2}
+\exer {\label{ex:boolean-equiv2}%
 Prove the following equation.\\
-\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (((\neg x) \vee y) \wedge (x \vee (\neg y)))$
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (((\neg x) \vee y) \wedge (x \vee (\neg y)))$}
 
-\Exercise\label{ex:boolean-equiv-notxor2}
+\exer {\label{ex:boolean-equiv-notxor2}%
 Prove the following equation.\\
-\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (\neg((x \wedge (\neg y)) \vee ((\neg x) \wedge y)))$
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (\neg((x \wedge (\neg y)) \vee ((\neg x) \wedge y)))$}
 
-\Exercise\label{ex:boolean-equiv-notxor}
+\exer {\label{ex:boolean-equiv-notxor}%
 Prove the following equation.\\
-\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (\neg((x \vee y) \wedge (\neg(x \wedge y))))$
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = (\neg((x \vee y) \wedge (\neg(x \wedge y))))$}
 
-\Exercise\label{ex:boolean-equiv4}
+\exer {\label{ex:boolean-equiv4}%
 Prove the following equation.\\
-\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = ((x \wedge y) \vee ((\neg x) \wedge (\neg y)))$
+\hspace*{1cm} $((x \rightarrow y) \wedge (y \rightarrow x)) = ((x \wedge y) \vee ((\neg x) \wedge (\neg y)))$}
 
-\end{ExerciseList}
+\end{exercises}
 
-\begin{aside}
+\begin{aside}{aside:boolean-equivlance}{Boolean Equivalence ($\leftrightarrow$)}
 The following equation defines the
 \index{operator, logic!Boolean equivalence ($\leftrightarrow$)}Boolean equivalence operator ($\leftrightarrow$).
-\vspace{1mm}
 \begin{center}
 $(x \leftrightarrow y) = ((x \rightarrow y) \wedge (y \rightarrow x))$\hspace{5mm}\{equivalence\}
 \end{center}
-\vspace{1mm}
 \noindent When an implication goes both ways $(x \leftrightarrow y)$,
 both operands have the same value ($x = y$).
 This is the negation of the
@@ -1315,8 +1253,8 @@ Exercises~\ref{ex:boolean-equiv1}--\ref{ex:boolean-equiv4}
 show six formulas that deliver the value of the Boolean equivalence operator.
 In other words, the exercises provide six formulas that are all equivalent to
 Boolean equivalence.\index{Boolean!equivalence ($\leftrightarrow$)}\index{equivalence!Boolean ($\leftrightarrow$)}
-\caption{Boolean Equivalence ($\leftrightarrow$)}
-\label{aside:boolean-equivlance}\label{def:equivalence-op}
+%\caption{Boolean Equivalence ($\leftrightarrow$)}
+%\label{aside:boolean-equivlance}\label{def:equivalence-op}
 \end{aside}
 
 \section{Digital Circuits}
@@ -1331,7 +1269,7 @@ There are logic
 for the logical-and, the logical-or, negation, and
 several other operators not yet discussed.
 
-\begin{aside}
+\begin{aside}{no-implication-gate}{Implication Gate Is Universal}
 One of the operators discussed at length, implication
 ($\rightarrow$), is not among the operators commonly fabricated
 as a logic gate. This does not restrict the kinds of
@@ -1369,14 +1307,13 @@ most gates.
 If that pans out, it could be possible to build
 faster circuits with more components in a smaller space.
 R. Stanley Williams discusses this
-idea in an interesting video on memristor chips.
-\begin{center}
-\url{https://www.youtube.com/watch?v=bKGhvKyjgLY}
-\end{center}
-\caption{Implication Gate Is Universal}
-\label{no-implication-gate}
-\index{universal gate}\index{memristor}
-\index{gate!universal}
+idea in an interesting YouTube video on memristor chips.
+You can look it up.\index{memristor}\index{gate!universal}
+%\begin{center}
+%\url{https://www.youtube.com/watch?v=bKGhvKyjgLY}
+%\end{center}
+%\caption{Implication Gate Is Universal}
+%\label{no-implication-gate}\index{universal gate}
 \end{aside}
 
 A logic \index{Boolean!gate}\index{gate!logic}gate takes input signals that correspond
@@ -1427,8 +1364,8 @@ of the signals $a$ and $b$.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.25]{images/LogicGates.png}
-\todo{I did not have Visio with me. Improvised with PowerPoint. Figure will need to be redrawn.}
+\includegraphics[scale=1]{images-cmyk/LogicGates}
+%\todo{I did not have Visio with me. Improvised with PowerPoint. Figure will need to be redrawn.}
 \end{center}
 \index{gate!logic}\index{Boolean!gate}
 \index{circuit!diagram}\index{diagram!circuit}
@@ -1568,8 +1505,8 @@ in terms of nand operations.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.27]{images/NandIsAllYouNeed.png}
-\todo{I did not have Visio with me. Improvised with PowerPoint. Figure will should be redrawn.}
+\includegraphics[scale=1]{images-cmyk/NandIsAllYouNeed}
+%\todo{I did not have Visio with me. Improvised with PowerPoint. Figure will should be redrawn.}
 %% redrew diagram ... still used PowerPoint, but improved the diagram a little 8Aug2017
 \end{center}
 \index{universal gate}
@@ -1580,16 +1517,16 @@ in terms of nand operations.
 \label{fig-02-nand-is-all-you-need}
 \end{figure}
 
-\begin{ExerciseList}
-\Exercise\label{ex:implication-gate}
+\begin{exercises}
+\exer {\label{ex:implication-gate}%
 Using a negation-gate and an or-gate,
 draw a circuit diagram for an ``implication circuit''
 that has the same input/output behavior as the implication operator.\\
 \emph{Hint}: Follow the example of the \{implication\} axiom
 (Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})).
-One of the inputs will need to be a constant rather than a variable.
+One of the inputs will need to be a constant rather than a variable.}
 
-\Exercise For each of the following logic formulas,
+\exer {For each of the following logic formulas,
 draw an equivalent circuit diagram.
 Since we don't have a symbol for an implication gate,
 you can either make up you own symbol or
@@ -1602,24 +1539,24 @@ $(((\neg a) \wedge (\neg b)) \wedge (b \wedge (\neg c)))$ \\
 $(a \rightarrow (b \rightarrow c))$ \\
 $((a \wedge b) \rightarrow c)$ \\
 \end{tabular}
-\end{center}
+\end{center}}
 
-\Exercise Rewrite each of the formulas in the previous exercise
+\exer {Rewrite each of the formulas in the previous exercise
 in the algebraic notation used by electrical engineers:
 juxtaposition for $\wedge$, + for $\vee$, and $\overline{a}$ for $(\neg a)$.
 Use the \{implication\} axiom to represent
-implications using negation and logical-or.
+implications using negation and logical-or.}
 
-\Exercise Draw circuit diagrams with behavior
+\exer {Draw circuit diagrams with behavior
 of the and-gate, the or-gate, and the negation-gate
-using implication operators only.
-\end{ExerciseList}
+using implication operators only.}
+\end{exercises}
 
-\todo{ do we still want to add half-adder and/or full-adder
-circuits as examples? problem: they have two outputs, so need to talk about
-tapping outputs from subformulas to show correspondence to algebraic form}
+%\todo{ do we still want to add half-adder and/or full-adder
+%circuits as examples? problem: they have two outputs, so need to talk about
+%tapping outputs from subformulas to show correspondence to algebraic form}
 
-\begin{aside}
+\begin{aside}{aside:struggling}{Struggling? Join the Club}
 Reasoning with Boolean equations requires a lot of intellectual effort.
 Almost everyone struggles when trying to master the concepts
 and apply them to solve problems.
@@ -1649,10 +1586,9 @@ and almost all of them have succeeded.
 To do so, they invested a great deal of energy in solving problems,
 reading, again and again, the examples, and applying the ideas.
 Sometimes it takes many hours, just to solve one problem.
-Don't give up.
-
-\caption{Struggling? Join the Club}
-\label{aside:struggling}\index{panic, don't}\index{disheartened?}\index{frustrated?}\index{baffled?}\index{worried?}\index{scared?}\index{funk, in a?}
+Don't give up.\index{panic, don't}\index{disheartened?}\index{frustrated?}\index{baffled?}\index{worried?}\index{scared?}\index{funk, in a?}
+%\caption{Struggling? Join the Club}
+%\label{aside:struggling}
 \end{aside}
 
 \section{Deduction}
@@ -1683,7 +1619,7 @@ can be stated as follows.
 Theorem \{$\wedge$ commutes\}: $a \wedge b \vdash b \wedge a$
 \end{center}
 
-Later, we will prove this theorem using a formal apparatus
+Later, we will prove the \{$\wedge$ commutes\} theorem using a formal apparatus
 for deductive reasoning known as
 \index{natural deduction}\index{deduction!natural}\emph{natural deduction}.\footnote{Natural
 deduction is a \index{formalism}formal system of logic pioneered in the 1930s
@@ -1707,6 +1643,7 @@ $h \vdash c$ ~~ensures that~~ $(h \rightarrow c) = True$
 \end{center}
 
 \begin{figure}
+\begin{spacing}{0.9}
 \begin{center}
 \begin{tabular}{ll}
 Prove $a$                                               & Prove $a \vee b$                                  \\
@@ -1754,6 +1691,7 @@ Infer $a \rightarrow b$                         & ~~~~\emph{and concludes with r
 Discharge $a$                                   & \emph{excludes formula} ``$a$'' \emph{from hypotheses of theorem}     \\
 \end{tabular}
 \end{center}
+\end{spacing}
 \index{hypothesis!Assume (natural deduction)}
 \index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}
 \index{inference rule, by name!\{$\wedge$ introduction\}}
@@ -1802,11 +1740,12 @@ It only says that the conclusion will be true
 whenever all of the hypotheses are true.
 
 \begin{figure}
-\begin{quote}
+%\begin{quote}
 Theorem \{Socrates was mortal\}: $man$, $man \rightarrow mortal$ $\vdash$ $mortal$ \\
-proof
-\end{quote}
+\emph{proof}
+%\end{quote}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{l}
 Assume $man$                    \\
  - - - - - - - - - - - - - - - - - -\\
@@ -1814,10 +1753,8 @@ Assume $man \rightarrow mortal$ \\
 --------------------------------\{modus ponens\} \\
 ~~~~~~ $mortal$                 \\
 \end{tabular}
-\end{center}
-\index{inference rule, by name!\{modus ponens\}}\index{modus ponens}
-\index{Socrates syllogism}\index{syllogism!Socrates}\index{theorem!Socrates}
-\index{Assume (natural deduction)}
+\end{spacing}
+\end{center}\index{inference rule, by name!\{modus ponens\}}\index{modus ponens}\index{Socrates syllogism}\index{syllogism!Socrates}\index{theorem!Socrates}\index{Assume (natural deduction)}
 \caption{Theorem \{Socrates Was Mortal\}: Citing Modus Ponens}
 \label{fig:socrates-proof}
 \end{figure}
@@ -1855,13 +1792,13 @@ A citation of an inference rule derives a \index{conclusion}new formula
 from hypotheses (assumed true) or formulas derived through prior reasoning in the proof.
 Each \index{citation!inference rule}\index{inference rule!citation}rule citation
 has three parts:
-\begin{quote}
+%\begin{quote}
 \begin{enumerate}
 \item a proof above the line (or multiple proofs, depending on the rule),
 \item a line annotated with the name of the cited inference rule, and
 \item exactly one logic formula below the line.
 \end{enumerate}
-\end{quote}
+%\end{quote}
 
 \label{def-deductive-proof}
 A \emph{deductive proof} is a sequence of citations of inference rules
@@ -2026,27 +1963,22 @@ example to get started with natural deduction.
 
 \begin{figure}
 Theorem \{$\wedge$ commutes\}: $a \wedge b$ $\vdash$ $b \wedge a$ \\
-proof
+\emph{proof}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 Assume $a \wedge b$                             &\emph{hypothesis of theorem}\\
 -------------------\{$\wedge$ elimination 2\}   &\\
-~~~~~~~~~~$b$                                   &\\
- - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs required for }\{$\wedge$ introduction\} \emph{citation}\\
+~~~~~~~~~~$b$                                   &\emph{concludes 1$^{\text{st}}$ proof for} \{$\wedge$ introduction\}\\
+ - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates proofs for} \{$\wedge$ introduction\}\\
 Assume $a \wedge b$                             &\emph{hypothesis of theorem (reused)}\\
 -------------------\{$\wedge$ elimination 1\}   &\\
-~~~~~~~~~~$a$                                   &\\
--------------------\{$\wedge$ introduction\}    &\emph{proved} $b$, \emph{proved} $a$, \emph{conclude} $(b \wedge a)$\emph{; scope extends to top}\\
-~~~~~~~~$b \wedge a$                            &\emph{conclusion of theorem}\\
+~~~~~~~~~~$a$                                   &\emph{concludes 2$^{\text{nd}}$ proof for} \{$\wedge$ introduction\}\\
+-------------------\{$\wedge$ introduction\}    &\emph{scope extends to top}\\
+~~~~~~~~$b \wedge a$                            &\emph{proved} $b$, \emph{proved} $a$, \emph{conclude} $(b \wedge a)$\\
 \end{tabular}
-\end{center}
-\index{hypothesis!Assume (natural deduction)}
-\index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}
-\index{inference rule, by name!\{$\wedge$ elimination 2\}}
-\index{inference rule, by name!\{$\wedge$ elimination 1\}}
-\index{inference rule, by name!\{$\wedge$ introduction\}}
-\index{proof!deductive}\index{theorem, by name!\{$\wedge$ commutes\}}
-\index{commutative}
+\end{spacing}
+\end{center}\index{hypothesis!Assume (natural deduction)}\index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}\index{inference rule, by name!\{$\wedge$ elimination 2\}}\index{inference rule, by name!\{$\wedge$ elimination 1\}}\index{inference rule, by name!\{$\wedge$ introduction\}}\index{proof!deductive}\index{theorem, by name!\{$\wedge$ commutes\}}\index{commutative}
 \caption{\{$\wedge$ commutes\}: Citing Three Inference Rules Involving $\wedge$}
 \label{fig:and-commutes-proof}
 \end{figure}
@@ -2086,7 +2018,7 @@ Each of the three proofs in this example consisted of exactly one rule citation.
 Sometimes there are several rule citations in a proof, sometimes only one,
 and, when the proof is an assumption, none.
 
-\begin{aside}
+\begin{aside}{variable-stand-for-formulas}{Variables Stand for Formulas}
 As in Boolean algebra, variables in deductive reasoning
 stand for arbitrary formulas.
 Any grammatically correct formula
@@ -2107,15 +2039,12 @@ theorem that uses the formula $b$ in place of $a$ and the formula $a$ in place o
 \begin{center}
 $b \wedge a$ $\vdash$ $a \wedge b$
 \end{center}
-This is not new to you.
-Variables are used in this manner throughout the book.
-We bring it up again because it is an important
-concept to keep in mind when citing inference rules
-or theorems.
-\caption{Variables Stand for Formulas}
-\index{variable}
-\index{formula!variables}
-\label{variable-stand-for-formulas}
+Variables are used in this manner throughout the book. Nothing new here.
+We bring it up again because it is important
+to keep in mind when citing inference rules
+or theorems.\index{variable}\index{formula!variables}
+%\caption{Variables Stand for Formulas}
+%\label{variable-stand-for-formulas}
 \end{aside}
 
 Two formulas are annotated as assumptions in the
@@ -2137,22 +2066,17 @@ which we will discuss shortly.
 Theorem \{self-implication\}: $\vdash$ $a \rightarrow a$ ~~~~\emph{Note: This theorem has no hypotheses.}\\
 proof
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 Assume $a$                  &\emph{assumption discharged later}\\
 ---------------\{identity\} &\\
 ~~~~~$a$                    &\\
----------------\{$\rightarrow$ introduction\} &\emph{assumed} $a$\emph{, proved} $a$\emph{, conclude} $a \rightarrow a$\\
-~~$a \rightarrow a$         &\emph{conclusion of theorem}\\
+---------------\{$\rightarrow$ introduction\} &\\
+~~$a \rightarrow a$         &\emph{assumed} $a$\emph{, proved} $a$\emph{, conclude} $a \rightarrow a$\\
 ~~Discharge $a$             &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation}, \emph{as promised}\\
 \end{tabular}
-\end{center}
-\index{hypothesis!Assume (natural deduction)}
-\index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}
-\index{inference rule, by name!\{identity\}}
-\index{inference rule, by name!\{$\rightarrow$ introduction\}}
-\index{hypothesis!discharge}\index{discharge assumption}\index{Assume (natural deduction)!discharge}
-\index{inference rule!discharge assumption}
-\index{theorem, by name!\{self-implication\}}
+\end{spacing}
+\end{center}\index{hypothesis!Assume (natural deduction)}\index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}\index{inference rule, by name!\{identity\}}\index{inference rule, by name!\{$\rightarrow$ introduction\}}\index{hypothesis!discharge}\index{discharge assumption}\index{Assume (natural deduction)!discharge}\index{inference rule!discharge assumption}\index{theorem, by name!\{self-implication\}}
 \caption{$\vdash$ $a \rightarrow a$: Citing  \{identity\} and \{$\rightarrow$\ introduction\} Inference Rules}
 \label{fig:or-self-imp-proof}
 \end{figure}
@@ -2247,28 +2171,29 @@ what formula $a$ stands for.
 
 \begin{figure}
 Theorem \{$\vee$ commutes\}: $a \vee b$ $\vdash$ $b \vee a$ \\
-proof
+\emph{proof}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 Assume ($a \vee b$)          &\emph{hypothesis of theorem}\\
- - - - - - - - - - - - - - - - - - - - - - -&\emph{dashes separate 1\textsuperscript{st} proof from 2\textsuperscript{nd} req'd by} \{$\vee$ elimination\} \\
+ - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 1\textsuperscript{st} and 2\textsuperscript{nd} proofs for} \{$\vee$ elimination\} \\
 Assume $a$          &\emph{this assumption will be discharged}\\
 --------------\{$\vee$ introduction 2\} &\emph{allows arbitrary left-hand operand in conclusion}\\
 ~~$(b \vee a)$        &\\
 -----------------\{$\rightarrow$ introduction\} &\emph{assumed} $a$\emph{, proved} $(b \vee a)$\emph{, conclude} $a \rightarrow (b \vee a)$ \\
-~$a \rightarrow (b \vee a)$ &\{$\vee$ elimination\} \emph{, in this case, requires this conclusion here}\\
+~$a \rightarrow (b \vee a)$ &\{$\vee$ elimination\} \emph{requires this conclusion here}\\
 Discharge $a$              &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation, as promised}\\
- - - - - - - - - - - - - - - - - - - - - - -&\emph{dashes separate 2\textsuperscript{nd} proof from 3\textsuperscript{rd} req'd by} \{$\vee$ elimination\}\\
+ - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2\textsuperscript{nd} and 3\textsuperscript{rd} proofs for} \{$\vee$ elimination\}\\
 Assume $b$          &\emph{this assumption will be discharged}\\
 --------------\{$\vee$ introduction 1\} &\emph{allows arbitrary right-hand operand in conclusion}\\
 ~~$(b \vee a)$        &\\
 -----------------\{$\rightarrow$ introduction\} &\emph{assumed} $b$\emph{, proved} $(b \vee a)$\emph{, conclude} $b \rightarrow (b \vee a)$\\
-~$b \rightarrow (b \vee a)$ &\{$\vee$ elimination\}\emph{, in this case, requires this conclusion here}\\
-Discharge $b$              &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation, as promised}\\
----------------\{$\vee$ elimination\}       &\emph{3 proofs req'd above line; scope extends up to} Assume $(a \vee b)$\\
-~~~~$(b \vee a)$        &\emph{assumed} $(a \vee b)$\emph{, proved} $a \rightarrow (b \vee a)$\emph{, proved} $b \rightarrow (b \vee a)$ \emph{,}\\
-       &~~~~\emph{conclude} $(b \vee a)$\emph{, the conclusion of the theorem}\\
+~$b \rightarrow (b \vee a)$ &\{$\vee$ elimination\} \emph{requires this conclusion here}\\
+Discharge $b$               &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation, as promised}\\
+---------------\{$\vee$ elimination\}       &\emph{scope extends up to} Assume $(a \vee b)$\\
+~~~~$(b \vee a)$        &\emph{3 req'd proofs above, conclude} $(b \vee a)$\\
 \end{tabular}
+\end{spacing}
 \end{center}
 \index{hypothesis!Assume (natural deduction)}\index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}\index{inference rule, by name!\{$\vee$ elimination\}}\index{inference rule, by name!\{$\vee$ introduction 2\}}\index{inference rule, by name!\{$\rightarrow$ introduction\}}\index{inference rule, by name!\{$\vee$ introduction 1\}}\index{inference rule!discharge assumption}\index{discharge assumption}\index{Assume (natural deduction)!discharge}\index{hypothesis!discharge}\index{theorem, by name!\{$\vee$ commutes\}}\index{commutative}
 \caption{\{$\vee$ commutes\}: Citing \{$\vee$ elimination\}}
@@ -2349,22 +2274,24 @@ assumption that is introduced at the top of the proof.
 \begin{figure}
 Theorem \{$\rightarrow$ chain\}
 $(a \rightarrow b)$, $(b \rightarrow c)$ $\vdash$ $a \rightarrow c$ \\
-proof
+\emph{proof}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 Assume $a$                                             &\emph{assumption discharged later}\\
- - - - - - - - - - - - - - - - - - - - - - - - -       &\emph{separates 2 proofs required by} \{modus ponens\} \emph{citation}\\
+ - - - - - - - - - - - - - - - - - - - - - - - -       &\emph{separates proofs required by} \{modus ponens\}\\
 Assume $a \rightarrow b$                               &\emph{hypothesis of theorem}\\
 -----------------------\{modus ponens\}                &\{modus ponens\} \emph{citation} $\dots$\\
-~~~~~~~~~~~~$b$                                        &~~~~\emph{scope of citation goes up to} ``Assume $a$''\\
- - - - - - - - - - - - - - - - - - - - - - - - -       &\emph{separates 2 proofs another} \{modus ponens\} \emph{citation reqs}\\
+~~~~~~~~~~~~$b$                                        &~~~~~\emph{scope of citation extends up to} Assume $a$\\
+ - - - - - - - - - - - - - - - - - - - - - - - -       &\emph{separates proofs for second} \{modus ponens\} \\
 Assume $b \rightarrow c$                               &\emph{hypothesis of theorem}\\
-------------------------\{modus ponens\}               &\emph{another citation of} \{modus ponens\} $\dots$\\
-~~~~~~~~~~~~$c$                                        &~~~~\emph{scope of extends to top, overlapping other scope}\\
-------------------------\{$\rightarrow$ introduction\} &\emph{assumed} $a$\emph{, proved} $c$\emph{, conclude} $(a \rightarrow c)$\\
-~~~~~($a \rightarrow c$)                               &\emph{conclusion of theorem} \\
-~~~~~Discharge $a$                                     &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation}\emph{, as promised}\\
+------------------------\{modus ponens\}               &\emph{second citation of} \{modus ponens\} $\dots$\\
+~~~~~~~~~~~~$c$                                        &~~~~~\emph{scope overlaps first citation} \\
+------------------------\{$\rightarrow$ introduction\} &\\
+~~~~~($a \rightarrow c$)                               &\emph{assumed} $a$\emph{, proved} $c$\emph{, conclude} $(a \rightarrow c)$ \\
+~~~~~Discharge $a$                                     &\emph{discharged by citation of} \{$\rightarrow$ introduction\}\\
 \end{tabular}
+\end{spacing}
 \end{center}
 \index{hypothesis!Assume (natural deduction)}
 \index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}
@@ -2398,19 +2325,21 @@ and easier to comprehend incrementally, one short proof at a time.
 
 \begin{figure}
 Theorem \{modus tollens\}: $a \rightarrow b$, $\neg b$ $\vdash$ $\neg a$\\
-proof
+\emph{proof}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 Assume $a \rightarrow b$                      &\emph{hypothesis of theorem}\\
  - - - - - - - - - - - - - - - - - - - -      &\emph{separates proofs of hypotheses of} \{$\rightarrow$ chain\} \emph{theorem}\\
 Assume $\neg b$                               &\emph{hypothesis of theorem}\\
 ---------------\{$\neg$ elimination\}         &\\
 $b \rightarrow False$                         &\\
----------------\{$\rightarrow$ chain\}        & \emph{citing theorem with 2 hypotheses; scope extends to top of proof}\\
-$a \rightarrow False$                         &\emph{assumed} $a \rightarrow b$, \emph{proved} $b \rightarrow False$, \emph{conclude} $a \rightarrow False$\\
+---------------\{$\rightarrow$ chain\}        & \emph{citing theorem with 2 hypotheses} $\dots$\\
+$a \rightarrow False$                         &~~~~~~~~\emph{scope extends to top of proof}\\
 ---------------\{$\neg$ introduction\}        &\\
 ~~~~$\neg a$                                  &\\
 \end{tabular}
+\end{spacing}
 \end{center}
 \index{hypothesis!Assume (natural deduction)}
 \index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}
@@ -2454,8 +2383,9 @@ ad absurdum rule to prove a theorem about double negation.
 
 \begin{figure}
 Theorem \{$\neg \neg$ forward\}: $(\neg(\neg a))$ $\vdash$ $a$\\
-proof
+\emph{proof}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 Assume $(\neg(\neg a))$                       &\emph{hypothesis of theorem}\\
 ----------------------\{$\neg$ elimination\}  &\\
@@ -2463,6 +2393,7 @@ Assume $(\neg(\neg a))$                       &\emph{hypothesis of theorem}\\
 ----------------------\{reductio ad absurdum\}&\emph{proved} $(\neg a) \rightarrow False$, \emph{conclude} $a$\\
 ~~~~~~~~~~~~$a$                               &\\
 \end{tabular}
+\end{spacing}
 \end{center}
 \index{hypothesis!Assume (natural deduction)}
 \index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}
@@ -2522,33 +2453,35 @@ finding the insights needed to create a proof.
 
 \begin{figure}
 Theorem \{disjunctive syllogism\}: $a \vee b$, $\neg a$ $\vdash$ $b$ \\
-proof
+\emph{proof}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 Assume $(a \vee b)$          &\emph{hypothesis of theorem}\\
- - - - - - - - - - - - - - - - - - - - - - -&\emph{dashes separate 1\textsuperscript{st} proof from 2\textsuperscript{nd} req'd by} \{$\vee$ elimination\}\\
+ - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 1\textsuperscript{st} and 2\textsuperscript{nd} proofs for} \{$\vee$ elimination\}\\
 Assume $a$          & \emph{this assumption will be discharged}\\
- - - - - - - - - - - - - - - - - - - - - - -& \emph{separates 1\textsuperscript{st} and 2\textsuperscript{nd} proofs required by} \{modus ponens\} \\
+ - - - - - - - - - - - - - - - - - - - - - -& \emph{separates 1\textsuperscript{st} and 2\textsuperscript{nd} proofs for} \{modus ponens\} \\
 Assume $(\neg a)$        & \emph{hypothesis of theorem}\\
 -------------------\{$\neg$ elimination\} \\
 ~~$a \rightarrow False$ &\\
------------------\{modus ponens\} &\emph{2 proofs required above line; scope goes up to} Assume $a$\\
-~~~~$False$            &\emph{conclusion} $False$ \emph{required to cite} \{contradiction\} \emph{rule}\\
------------------\{contradiction\} &<<<< \textbf{\textsc{citing} \{contradiction\} \textsc{rule}}\emph{, justifies any conclusion}\\
-~~~~~~~~$b$              &\emph{now we have derived $b$ from assumption $a$}\\
+-----------------\{modus ponens\} &\emph{scope extends up to} Assume $a$\\
+~~~~$False$            &\{contradiction\} \emph{rule requires} $False$ \emph{just above the line}\\
+-----------------\{contradiction\} &\emph{citing this rule justifies any conclusion}\\
+~~~~~~~~$b$              &\emph{now we have derived $b$ from} Assume $a$\\
 -----------------\{$\rightarrow$ introduction\} & \emph{assumed $a$, proved $b$, conclude $(a \rightarrow b)$}\\
 ~~~~$a \rightarrow b$ &\emph{conclusion required by citation of} \{$\vee$ elimination\} \\
-Discharge $a$    &\emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation, as promised}\\
- - - - - - - - - - - - - - - - - - - - - - -&\emph{dashes separate 2\textsuperscript{nd} proof from 3\textsuperscript{rd} req'd by} \{$\vee$ elimination\}\\
+Discharge $a$    &\emph{discharged by citing} \{$\rightarrow$ introduction\}\emph{, as promised}\\
+ - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2\textsuperscript{nd} and 3\textsuperscript{rd} proofs for} \{$\vee$ elimination\}\\
 Assume $b$          &\emph{this assumption will be discharged}\\
 --------------\{identity\} &\\
 ~~~~~~~~$b$          &\\
 -----------------\{$\rightarrow$ introduction\} &\emph{assumed $b$, proved $b$, conclude $(b \rightarrow b)$}\\
 ~~~~$b \rightarrow b$ &\emph{conclusion required by citation of} \{$\vee$ elimination\}\\
-Discharge $b$              & \emph{discharged by} \{$\rightarrow$ introduction\} \emph{citation, as promised}\\
----------------\{$\vee$ elimination\}       &\emph{3 proofs req'd above line; scope extends to} Assume $(a \vee b)$\\
-~~~~~~~~$b$        &\emph{assumed} $(a \vee b)$\emph{, proved} $(a \rightarrow b)$\emph{, proved} $(b \rightarrow b)$\emph{, conclude }$b$\\
+Discharge $b$              & \emph{discharged by citing} \{$\rightarrow$ introduction\}\emph{, as promised}\\
+---------------\{$\vee$ elimination\}       &\emph{requires three proofs the above, scope goes to top}\\
+~~~~~~~~$b$        &\emph{proved} $(a \vee b)$\emph{,} $(a \rightarrow b)$\emph{, and} $(b \rightarrow b)$\emph{, conclude} $b$\\
 \end{tabular}
+\end{spacing}
 \end{center}
 \index{hypothesis!Assume (natural deduction)}
 \index{Assume (natural deduction)}\index{proof!Assume (natural deduction)}
@@ -2568,93 +2501,82 @@ Discharge $b$              & \emph{discharged by} \{$\rightarrow$ introduction\}
 \label{fig:disjunctive-syllogism-nd}
 \end{figure}
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise
-\label{thm:and-complement}
+\exer {\label{thm:and-complement}%
 Use natural deduction to prove
 \index{theorem, by name!\{$\wedge$ complement\}}Theorem
-\{$\wedge$ complement\}: $a$, $\neg a$ $\vdash$ $False$
+\{$\wedge$ complement\}: $a$, $\neg a$ $\vdash$ $False$}
 
-\Exercise
-\label{ex:dbl-mod-pon}
+\exer {\label{ex:dbl-mod-pon}%
 Use natural deduction to prove the following theorem:
-$a$, $a \rightarrow b$, $b \rightarrow c$ $\vdash$ $c$
+$a$, $a \rightarrow b$, $b \rightarrow c$ $\vdash$ $c$}
 
-\Exercise
-\label{ex:dbl-mod-pon-eq}
+\exer {\label{ex:dbl-mod-pon-eq}%
 Derive the equation
 $((a \wedge ((a \rightarrow b) \wedge (b \rightarrow c))) \rightarrow c)$ = $True$
 using the axioms of Boolean algebra
-(Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms}).
+(Figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms}).}
 
-\Exercise
-Explain the connection between
-Exercises~\ref{ex:dbl-mod-pon} and \ref{ex:dbl-mod-pon-eq}.
+\exer {Explain the connection between
+Exercises~\ref{ex:dbl-mod-pon} and \ref{ex:dbl-mod-pon-eq}.}
 
-\Exercise
+\exer {
 Use natural deduction to prove the following theorem:
-$\vdash$ $(a \wedge b) \rightarrow a$
+$\vdash$ $(a \wedge b) \rightarrow a$}
 
-\Exercise\label{ex:nor-commutes}
+\exer {\label{ex:nor-commutes}%
 Use natural deduction to prove
 \index{theorem, by name!\{nor commutes\}}\index{nor!commutes}\index{commutative}Theorem
 \{nor commutes\}: $\neg (a \vee b)$ $\vdash$ $\neg (b \vee a)$\\
 \emph{Note}: The \{$\vee$ commutes\} theorem will not help because
 $\neg (a \vee b)$ is a negation formula, not a logical-or formula.
 It has a logical-or as a subformula, but natural deduction
-requires matching the whole formula, not a subformula.
+requires matching the whole formula, not a subformula.}
 
-\Exercise
-Use natural deduction to prove
+\exer {Use natural deduction to prove
 \index{theorem, by name!\{nand commutes\}}\index{nand!commutes}\index{commutative}Theorem
  \{nand commutes\}: $\neg (a \wedge b)$ $\vdash$ $\neg (b \wedge a)$\\
 \emph{Note}: The \{$\wedge$ commutes\} theorem will not help in this proof
 for the same reason that \{$\vee$ commutes\} does not help
-in Exercise~\ref{ex:nor-commutes}.
+in Exercise~\ref{ex:nor-commutes}.}
 
-\Exercise
-Use natural deduction to prove
+\exer {Use natural deduction to prove
 \index{theorem, by name!\{nor elimination 1\}}\index{nor!elimination}Theorem
-\{nor elimination 1\}: $\neg (a \vee b)$ $\vdash$ $\neg a$
+\{nor elimination 1\}: $\neg (a \vee b)$ $\vdash$ $\neg a$}
 
-\Exercise
-\label{ex:DeMfwd}
+\exer {\label{ex:DeMfwd}%
 Use natural deduction to prove
 \index{DeMorgan}\index{theorem!DeMorgan}\index{theorem, by name!\{DeMorgan $\vee$ forward\}}\{DeMorgan $\vee$ forward\}:
-$\neg (a \vee b)$ $\vdash$ $(\neg a) \wedge (\neg b)$
+$\neg (a \vee b)$ $\vdash$ $(\neg a) \wedge (\neg b)$}
 
-\Exercise
-\label{ex:DeMbkw}
+\exer {\label{ex:DeMbkw}%
 Use natural deduction to prove
 \index{DeMorgan}\index{theorem!DeMorgan}\index{theorem, by name!\{DeMorgan $\vee$ backward\}}\{DeMorgan $\vee$ backward\}:
-$(\neg a) \wedge (\neg b)$ $\vdash$ $\neg (a \vee b)$
+$(\neg a) \wedge (\neg b)$ $\vdash$ $\neg (a \vee b)$}
 
-\Exercise
-Explain the connection between Exercises~\ref{ex:DeMfwd} and \ref{ex:DeMbkw}.\\
-\emph{Hint}: Review Aside~\ref{aside:boolean-equivlance} (page \pageref{aside:boolean-equivlance}).
+\exer {Explain the connection between Exercises~\ref{ex:DeMfwd} and \ref{ex:DeMbkw}.\\
+\emph{Hint}: Review Box~\ref{aside:boolean-equivlance} (page \pageref{aside:boolean-equivlance}).}
 
 
-\Exercise
-Use natural deduction to prove\index{theorem, by name!\{$\vee$ complement\}}
+\exer {Use natural deduction to prove\index{theorem, by name!\{$\vee$ complement\}}
 Theorem \{$\vee$ complement\}: $\vdash$ $a \vee (\neg a)$ \\
 \emph{Hint}: Use the \{reductio ad absurdum\} inference rule,
 cite the \{nor elimination 1\} and \{$\wedge$ complement\}
 theorems from earlier exercises,
 and remember that you can assume the hypothesis
-of the theorem as many times in the proof as you like.
+of the theorem as many times in the proof as you like.}
 
-\Exercise
-The proof of the \{disjunctive syllogism\} theorem in Figure~\ref{fig:disjunctive-syllogism-nd}
+\exer {The proof of the \{disjunctive syllogism\} theorem in Figure~\ref{fig:disjunctive-syllogism-nd}
 (page \pageref{fig:disjunctive-syllogism-nd})
 would be shorter if it cited the \{self-implication\} theorem
 (Figure~\ref{fig:or-self-imp-proof}, page \pageref{fig:or-self-imp-proof})
 to derive the formula $(b \rightarrow b)$ instead of using the
 \{identity\} and \{$\rightarrow$ introduction\} inference rules
 to derive that formula.
-Change the proof to make it shorter in this way.
+Change the proof to make it shorter in this way.}
 
-\end{ExerciseList}
+\end{exercises}
 
 %index tags to this point, 2nd pass, 26Nov2017
 
@@ -2787,7 +2709,7 @@ The universe of discourse is not specified directly
 in the formula, but the formula has no meaning unless
 the universe of discourse is known.
 
-\begin{aside}
+\begin{aside}{empty-forall}{Quantifier with Empty Universe}
 Let $P$ be a predicate.
 The formula
 $\forall x.P(x)$
@@ -2806,14 +2728,9 @@ $\exists$ quantification
 is false when the universe of discourse is empty
 because it can only be true if there is
 at least one element, $x$, in the universe of discourse
-for which $P(x)$ is true.
-\caption{Quantifier with Empty Universe}
-\index{universal quantifier ($\forall$)!empty universe}
-\index{forall ($\forall$)!empty universe}
-\index{existential quantifier ($\exists$)!empty universe}
-\index{there exists ($\exists$)!empty universe}
-\index{quantifier!empty universe}
-\label{empty-forall}
+for which $P(x)$ is true.\index{universal quantifier ($\forall$)!empty universe}\index{forall ($\forall$)!empty universe}\index{existential quantifier ($\exists$)!empty universe}\index{there exists ($\exists$)!empty universe}\index{quantifier!empty universe}
+%\caption{Quantifier with Empty Universe}
+%\label{empty-forall}
 \end{aside}
 
 Any variable that is not bound is
@@ -2867,7 +2784,7 @@ is $False$ if there is even one element of the
 universe of discourse for which the proposition
 $Q(n)$ is $False$.
 
-\begin{aside}
+\begin{aside}{aside:ch02-three-line-equal}{Equal by Definition: $\equiv$}
 The three-line variation of the equals sign
 indicates that the term on the left stands
 for the formula on the right, \emph{by definition}.
@@ -2878,8 +2795,8 @@ $term \equiv \dots \emph{some formula} \dots$ & ~~~~~ \emph{definition of term} 
 $Q(n) \equiv ((n + 7) = 12)$                  & ~~~~~ $Q(n)$ \emph{stands for} $((n + 7) = 12)$ \\
 \end{tabular}
 \end{center}
-\caption{Equal by Definition: $\equiv$}
-\label{aside:ch02-three-line-equal}
+%\caption{Equal by Definition: $\equiv$}
+%\label{aside:ch02-three-line-equal}
 \end{aside}
 
 Predicates can have more than one index.
@@ -2944,34 +2861,28 @@ $(\forall m.(\forall n.R(n,m)))$
 Nested quantifications like this are common
 when a predicate has multiple indexes.
 
-\begin{ExerciseList}
-\Exercise Work out the values of the following formulas,
+\begin{exercises}
+\exer {Work out the values of the following formulas,
 where $R(m, n) \equiv ((n + 7) = m)$.
-\begin{quote}
-\begin{enumerate}[label=\alph*]
-\item. $(\exists m.(\forall n.R(n,m)))$
-\item. $(\exists m.(\exists n.R(n,m)))$
-\item. $(\forall m.(\forall n.R(n,m)))$
-\end{enumerate}
-\end{quote}
+\subexer {$(\exists m.(\forall n.R(n,m)))$}
+\subexer {$(\exists m.(\exists n.R(n,m)))$}
+\subexer {$(\forall m.(\forall n.R(n,m)))$}
 
-\Exercise
-Mark the
+}
+
+\exer {Mark the
 \index{free variable}\index{bound variable}\index{variable!free}\index{variable!bound}free
 variables in the following formulas and say how many bound variables
 each formula has.
-\begin{quote}
-\begin{enumerate}[label=\alph*]
-\item. $(x \vee (y \rightarrow z))$
-\item. $(\forall x.(P(x) \wedge (\forall y.Q(y))))$
-\item. $(x \rightarrow (\exists y.Q(y)))$
-\item. $(\exists x.(P(x) \wedge (\forall y.Q(y))))$
-\item. $((\forall x.(P(x) \rightarrow Q(y))) \vee (\forall x.W(x)))$
-\item. $(\forall x. (\forall z.R(x, y, z)))$
-\end{enumerate}
-\end{quote}
+\subexer {$(x \vee (y \rightarrow z))$}
+\subexer {$(\forall x.(P(x) \wedge (\forall y.Q(y))))$}
+\subexer {$(x \rightarrow (\exists y.Q(y)))$}
+\subexer {$(\exists x.(P(x) \wedge (\forall y.Q(y))))$}
+\subexer {$((\forall x.(P(x) \rightarrow Q(y))) \vee (\forall x.W(x)))$}
+\subexer {$(\forall x. (\forall z.R(x, y, z)))$}
+}
 
-\end{ExerciseList}
+\end{exercises}
 
 \section{Reasoning with Quantified Predicates}
 \label{sec:quantifier-equations}
@@ -3064,27 +2975,30 @@ for an ordinary proposition,
 so it can be proved using the same methods we used
 with Boolean propositions.
 
-This approach to reasoning about quantified formulas is a four-step process.
+This approach to reasoning about quantified formulas is a four-step process
+(Figure~\ref{fig:four-step-quantifier-reasoning}, page \pageref{fig:four-step-quantifier-reasoning}).
 The last step is the already familiar area of reasoning
 with Boolean formulas that represent propositions,
 but the first three steps involve new ideas.
 
+\begin{figure}
 \begin{center}
-\emph{Reasoning with Quantifiers: a Four-Step Strategy}\\
 \begin{tabular} {ll}
-\hline
-~&1. Rename bound variables \\
-~&2. Migrate quantifiers \\
-~&3. Eliminate quantifiers (leaving a proposition) \\
-~&4. Prove theorem about the proposition \\
+~&Step 1. Rename bound variables \\
+~&Step 2. Migrate quantifiers \\
+~&Step 3. Eliminate quantifiers (leaving a proposition) \\
+~&Step 4. Prove theorem about the proposition \\
 \end{tabular}
 \label{four-step-strategy-quantifiers}
 \index{Skolemization}
 \index{quantifier!reasoning with}
 \index{reasoning!with quantifiers}
 \end{center}
+\caption{A Four-Step Strategy for Reasoning with Quantifiers}
+\label{fig:four-step-quantifier-reasoning}
+\end{figure}
 
-Renaming bound variables is sometimes necessary to prevent
+Renaming bound variables, which is the first step, is sometimes necessary to prevent
 a quantifier from accidentally referring to a different bound variable
 that happens to have the same name.
 For example, consider the formula
@@ -3564,23 +3478,29 @@ extend the equations for propositions of
 Figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
 into the realm of predicates and quantification.
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise
-\label{ex:forall-exist}
-Prove $(\forall x.P(x)) \rightarrow (\exists x.P(x)) = True$ if the universe of discourse is not empty.
-\Exercise What is the value of $(\forall x.P(x)) \rightarrow (\exists x.P(x))$ if the universe of discourse is empty?
-\Exercise What goes wrong in trying to prove $(\exists x.P(x)) \rightarrow (\forall x.P(x)) = True$?
-Explain why this is different from Exercise~\ref{ex:forall-exist}.
-\Exercise Prove $((\forall x.(P(x){\rightarrow}Q(x))) \wedge (\forall x.(Q(x){\rightarrow}R(x)))) \rightarrow (\forall x.(P(x) {\rightarrow}R(x)))=True$.
-\Exercise Prove equation \{$\neg\exists$\}. \emph{Hint}: Cite equations \{$\neg\forall$\} and \{double negation\}.
-\Exercise Prove equation \{$\exists\wedge$\}. Hint: Emulate the proof of \{$\forall\wedge$\}.
-\Exercise Derive the equations \{$\forall\vee$\} and \{$\exists\vee$\} from axioms and proven equations.\\
-\emph{Hint}: Cite \{$\exists\wedge$\} and the DeMorgan equations.
-\Exercise Prove equations \{${\exists}{\rightarrow}$\}, \{${\rightarrow}{\forall}$\}, and
-\{${\rightarrow}{\exists}$\}. \emph{Hint}: Emulate the proof of \{${\forall}{\rightarrow}$\}.
+\exer {\label{ex:forall-exist}%
+Prove $(\forall x.P(x)) \rightarrow (\exists x.P(x)) = True$ if the universe of discourse is not empty.}
 
-\end{ExerciseList}
+\exer {What is the value of $(\forall x.P(x)) \rightarrow (\exists x.P(x))$ if the universe of discourse is empty?}
+
+\exer {What goes wrong in trying to prove $(\exists x.P(x)) \rightarrow (\forall x.P(x)) = True$?
+Explain why this is different from Exercise~\ref{ex:forall-exist}.}
+
+\exer {Prove $((\forall x.(P(x){\rightarrow}Q(x))) \wedge (\forall x.(Q(x){\rightarrow}R(x)))) \rightarrow (\forall x.(P(x) {\rightarrow}R(x)))=True$.}
+
+\exer {Prove equation \{$\neg\exists$\}. \emph{Hint}: Cite equations \{$\neg\forall$\} and \{double negation\}.}
+
+\exer {Prove equation \{$\exists\wedge$\}. Hint: Emulate the proof of \{$\forall\wedge$\}.}
+
+\exer {Derive the equations \{$\forall\vee$\} and \{$\exists\vee$\} from axioms and proven equations.\\
+\emph{Hint}: Cite \{$\exists\wedge$\} and the DeMorgan equations.}
+
+\exer {Prove equations \{${\exists}{\rightarrow}$\}, \{${\rightarrow}{\forall}$\}, and
+\{${\rightarrow}{\exists}$\}. \emph{Hint}: Emulate the proof of \{${\forall}{\rightarrow}$\}.}
+
+\end{exercises}
 
 \section{Boolean Models}
 \label{sec:boolean-models}
@@ -3852,15 +3772,15 @@ similar to the \index{model!Boolean}model we discussed for the game of Nim,
 but only if we have an \emph{upper bound on the number of
 steps in the computation the program represents}.
 To do this on the scale of a computer program,
-a formula is required that combines
-\begin{quote}
+the formula would need to combine the following specifications:
+%\begin{quote}
 \begin{enumerate}
-\item the initial configuration of the computer, AND
-\item the possible legal configurations of the computer at all times, AND
-\item the legal transitions of the computer from one step to the next, AND
-\item the formula that ``the program is finished.''
+\item the initial configuration of the computer, AND\\
+\item the possible legal configurations of the computer at all times, AND\\
+\item the legal transitions of the computer from one step to the next, AND\\
+\item a formula that indicates the completion of the computation.
 \end{enumerate}
-\end{quote}
+%\end{quote}
 
 Since digital computers store everything as a sequence of ones and zeros,
 the initial configuration is simply the initial values of those bits.
@@ -3889,26 +3809,25 @@ to analyze larger systems. The key is modularity: keeping the
 components small and manageable and combining them in
 ways that limit a sudden explosion of complexity.
 
-\begin{ExerciseList}
-\Exercise
-Did you notice the mistake in the way we described the game of Nim?
+\begin{exercises}
+
+\exer {Did you notice the mistake in the way we described the game of Nim?
 Suppose that Alice wins in step 5, so that $x_{0}^{6}$ is true.
 According to our rules, that means that $x_{0}^{7}$ must also be true,
 but then from the description of ``Bob wins,''
 you would conclude that both Alice and Bob won.
 That is not at all what we meant! Modify the formula that says ``Alice wins''
-to take care of this complication.
+to take care of this complication.}
 
-\Exercise
-There are many variants of the game of Nim.
+\exer {There are many variants of the game of Nim.
 In another variant, there are three piles of stones, and each player can remove
 one or more stones from any single pile.
 The player who removes the last stone loses the game.
 Discuss some ways in which a Boolean model of this game
 using Boolean variables and formulas would
-differ from the Boolean model of Nim that was discussed in this section.
+differ from the Boolean model of Nim that was discussed in this section.}
 
-\end{ExerciseList}
+\end{exercises}
 
 \section{More General Models with Predicates and Quantifiers}
 \label{sec:predicates}
@@ -3990,7 +3909,7 @@ the statement would indicate that the pile has some fixed number of stones
 at all possible points in time, which is false because the size of the pile
 changes with every move.
 
-\begin{aside}
+\begin{aside}{aside:other-quantifiers}{Other Quantifiers}
 Universal ($\forall$) and existential ($\exists$) quantifiers
 are not the only possibilities.
 A ``for most'' quantifier (${\approx}{\forall}$) might be perfectly sensible.
@@ -3998,24 +3917,23 @@ In some branches of mathematics, it is common to use the
 quantifiers ``almost everywhere'' and ``almost nowhere.''
 They sound fuzzy, but they're not.
 They have precise mathematical definitions.
-\caption{Other Quantifiers}
-\label{aside:other-quantifiers}
+%\caption{Other Quantifiers}
+%\label{aside:other-quantifiers}
 \end{aside}
 
 Quantifiers are the device that makes formulas using predicates more compact than
 formulas that stay in the domain of propositions.
 We saw in the previous section that it
 is possible to characterize the game of Nim using just Boolean variables,
-with a formula that has the following characteristics.
-
-\begin{quote}
+with a formula that specifies the following conditions:
+%\begin{quote}
 \begin{enumerate}
 \item the initial pile containing ten stones, AND
 \item the possible legal descriptions of piles at all times, AND
 \item the legal ways in which a pile transform from one step to the next, AND
-\item the formula that ``Alice wins''
+\item the formula that ``Alice wins.''
 \end{enumerate}
-\end{quote}
+%\end{quote}
 
 The formulas in this section specify the same model, but in a more understandable
 way and in less space.
@@ -4055,47 +3973,47 @@ Our primary use of predicate logic will be in the analysis of
 computer programs and digital circuits,
 which will involve describing models of programs and circuits.
 
-\todo{DONE Sep2017 Not sure whether we need a section on one-directional reasoning or not ...
-seems like we do, but a full-fledged Gentzen-style treatment gets tedious ...
-how do we keep it lively, but still provide the necessary apparatus? ...
-Maybe better to introduce inference rules when we introduce induction? ...
-how many rules do we need? Would modus ponens and or-elim (plus induction) be enough? How about reductio-ad-absurdum?
-law of excluded middle?
-Just the rules we will be using in doing inductive proofs about software and circuits}
+%\todo{DONE Sep2017 Not sure whether we need a section on one-directional reasoning or not ...
+%seems like we do, but a full-fledged Gentzen-style treatment gets tedious ...
+%how do we keep it lively, but still provide the necessary apparatus? ...
+%Maybe better to introduce inference rules when we introduce induction? ...
+%how many rules do we need? Would modus ponens and or-elim (plus induction) be enough? How about reductio-ad-absurdum?
+%law of excluded middle?
+%Just the rules we will be using in doing inductive proofs about software and circuits}
 
-\todo{DONE Sep2017
-after writing this, I'm not sure it does any good.
-I'm especially not sure the proof notation I've used is clearly explained.
-I went through all the lectures, homeworks, and exams in the existing applied logic course, and did not find any theorems proved by deductive reasoning that were not more easily handled by stating them as implications and proving them as equations of the form $(a \rightarrow b) = True$.
-I guess we could leave this stuff in, but give it short shrift, and refer back to it if necessary.
-We will use deduction when we come to induction, which is a deductive inference rule, but
-I'm not sure we need to make a big deal out of it
- IN THE END, ALL INFERENCE RULES WERE COVERED
- NAT DED FORMAT USED IS COMPACT, BUT SORT OF READABLE.
- INTRODUCED NEGATION-INTRO and NEGATION-ELIM TO AVOID CONFUSION ABOUT A -> FALSE,
- AND THIS TURNED OUT TO HAVE THE BENEFIT OF LIMITING DISCHARGES TO IMPLICATION-INTRO RULE
- SO, NATURAL DEDUCTION IS WELL COVERED,
- BUT IN THE CHART SHOWING PATHS THROUGH THE BOOK, WE MIGHT BE ABLE
- TO SUGGEST THAT THIS SECTION ON NATURAL DEDUCTION COULD BE SKIPPED
- BECAUSE WE DON'T MAKE MUCH USE OF DEDUCTION EXCEPT IN KIND OF A SUPERFICIAL WAY
- IN THE EXPLANATION OF INDUCTION AS AN INFERENCE RULE}
+%\todo{DONE Sep2017
+%after writing this, I'm not sure it does any good.
+%I'm especially not sure the proof notation I've used is clearly explained.
+%I went through all the lectures, homeworks, and exams in the existing applied logic course, and did not find any theorems proved by deductive reasoning that were not more easily handled by stating them as implications and proving them as equations of the form $(a \rightarrow b) = True$.
+%I guess we could leave this stuff in, but give it short shrift, and refer back to it if necessary.
+%We will use deduction when we come to induction, which is a deductive inference rule, but
+%I'm not sure we need to make a big deal out of it
+% IN THE END, ALL INFERENCE RULES WERE COVERED
+% NAT DED FORMAT USED IS COMPACT, BUT SORT OF READABLE.
+% INTRODUCED NEGATION-INTRO and NEGATION-ELIM TO AVOID CONFUSION ABOUT A -> FALSE,
+% AND THIS TURNED OUT TO HAVE THE BENEFIT OF LIMITING DISCHARGES TO IMPLICATION-INTRO RULE
+% SO, NATURAL DEDUCTION IS WELL COVERED,
+% BUT IN THE CHART SHOWING PATHS THROUGH THE BOOK, WE MIGHT BE ABLE
+% TO SUGGEST THAT THIS SECTION ON NATURAL DEDUCTION COULD BE SKIPPED
+% BECAUSE WE DON'T MAKE MUCH USE OF DEDUCTION EXCEPT IN KIND OF A SUPERFICIAL WAY
+% IN THE EXPLANATION OF INDUCTION AS AN INFERENCE RULE}
 
-\todo{
-Maybe change \theorem definition to remove theorem numbers and parens around theorem names.
-Could not use the \theorem command with natural deduction because
-I could not get it to work with the tabular format I needed to use in those proofs.
-Also, I used theorem names in all the references in Ch 2 anyway, instead of theorem numbers.
-This would change the look of theorems:
-   Theorem 4 ({--> truth table}). blah blah...    OLD FORMAT
-   Theorem {--> truth table}: blah blah...        NEW FORMAT, if we make the change proposed here
-}
+%\todo{
+%Maybe change \theorem definition to remove theorem numbers and parens around theorem names.
+%Could not use the \theorem command with natural deduction because
+%I could not get it to work with the tabular format I needed to use in those proofs.
+%Also, I used theorem names in all the references in Ch 2 anyway, instead of theorem numbers.
+%This would change the look of theorems:
+%   Theorem 4 ({--> truth table}). blah blah...    OLD FORMAT
+%   Theorem {--> truth table}: blah blah...        NEW FORMAT, if we make the change proposed here
+%}
 
-\todo{DONE Sep2017
-Check to make sure predicates and quantifiers are covered somewhere.
-Show how to convert between universal and existential quantifiers.
-put halting problem where forall is introduced;
-   cite (x -> not x) = (not x) {contradiction} \label{boolean-contradiction}
-}
+%\todo{DONE Sep2017
+%Check to make sure predicates and quantifiers are covered somewhere.
+%Show how to convert between universal and existential quantifiers.
+%put halting problem where forall is introduced;
+%   cite (x -> not x) = (not x) {contradiction} \label{boolean-contradiction}
+%}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "book"

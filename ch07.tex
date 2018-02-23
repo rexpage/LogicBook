@@ -144,12 +144,14 @@ Therefore, the equations define the \textsf{add-1} operator.
 All we need to do now is to combine them into an ACL2 definition.
 
 \label{add-1-defun}\index{equation, by name!\{add10\}, \{add11\}}\index{operator, by name!add, add-1, add-c (\emph{see} bignum)}\index{add, add-1, add-c (\emph{see} bignum)}\index{bignum!addition (add, add-1, add-c)}\index{arithmetic!bignum addition}\index{addition!bignum}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun add-1 (x)
   (if (and (consp x) (= (first x) 1))
       (cons 0 (add-1 (rest x)))      ; {add11}
       (cons 1 (rest x))))            ; {add10}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 It turns out that the \{add1nil\} equation
 and the \{add10\} equation can be expressed as one equation because
@@ -212,12 +214,14 @@ that uses \textsf{add-1} to add the carry bit
 when it is a one.
 
 \label{add-c-defun}\index{equation, by name!\{addc0\}, \{addc1\}} \index{add, add-1, add-c (\emph{see} bignum)}\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun add-c (c x)
   (if (= c 1)
       (add-1 x)  ; {addc1}
       x))        ; {addc0}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 We use \textsf{add-c }to complete the addition when either of the addends is \textsf{nil}.
 \begin{center}
@@ -232,7 +236,8 @@ Figure~\ref{fig:bignum-add-defun} (page \pageref{fig:bignum-add-defun})
 translates the equations into ACL2.
 
 \begin{figure}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun add (c0 x y)
   (if (not (consp x))
       (add-c c0 y)                                   ; {add0y}
@@ -244,7 +249,8 @@ translates the equations into ACL2.
                  (s0 (first a))
                  (c1 (second a)))
             (cons s0 (add c1 (rest x) (rest y))))))) ; {addxy}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \index{equation, by name!\{add0y\}, \{addx0\}, \{addxy\}}\index{add, add-1, add-c (\emph{see} bignum)}\index{addition!carry}\index{numeral!bignum addition}\index{addition!bignum}\index{arithmetic!bignum addition}\index{bignum!addition (add, add-1, add-c)}
 \caption{Bignum Operator for Adding Binary Numerals}
 \label{fig:bignum-add-defun}
@@ -273,11 +279,13 @@ We would like to know that it
 holds for all input numerals.
 
 \label{bignum-adder-thm}\index{theorem!bignum addition}\index{theorem, by name!\{bignum-add-ok\}}\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm bignum-add-ok
   (= (numb(add c x y))
      (+ (numb (list c)) (numb x) (numb y))))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 The ACL2 system succeeds in proving this theorem,
 and we could do a paper-and-pencil proof following a strategy
@@ -287,20 +295,20 @@ In any case, we know now, to a mathematical certainty,
 that the bignum \textsf{add} operator delivers
 the sum of its two input numerals and the input carry bit.
 
-\begin{ExerciseList}
-\Exercise \label{bignum-add-hi-order-bit-thm}
+\begin{exercises}
+\exer {\label{bignum-add-hi-order-bit-thm}%
 Do a paper-and-pencil proof by induction of the following
 theorem, which says that if the high-order bit in both input numerals is a $1$,
 then the high-order bit of the numeral delivered
 by the bignum \textsf{add} operator is also a $1$.
 The theorem refers to the \textsf{fin} operator (page \pageref{fin-defun}).\\
 \hspace*{1cm}$(($\textsf{(fin $x$) $=$ $1)$ $\wedge$ $($(fin $y$)}$= 1))
-\rightarrow ($\textsf{(fin (add 0 $x$ $y$))} $=$ $1)$
+\rightarrow ($\textsf{(fin (add 0 $x$ $y$))} $=$ $1)$}
 
-\Exercise State the theorem of Exercise~\ref{bignum-add-hi-order-bit-thm}
+\exer {State the theorem of Exercise~\ref{bignum-add-hi-order-bit-thm}
 in ACL2 and submit it to the mechanized logic.
-ACL2 will succeed in proving a proper statement of the theorem.
-\end{ExerciseList}
+ACL2 will succeed in proving a proper statement of the theorem.}
+\end{exercises}
 
 \section{Shift-and-Add Multiplier}
 \label{sec:bignum-mult}
@@ -339,7 +347,7 @@ division-check equation to justify the multiplication procedure.}
 usual $\lfloor x\rfloor$ stands for the greatest integer that is $x$ or less
 (that is, $x$ rounded down to an integer),
 and $(x$ mod $d)$ is the remainder when $x$ is divided by $d \neq 0$ (modular arithmetic,
-Aside~\ref{third-grade-division}, page \pageref{third-grade-division}).}
+Box~\ref{third-grade-division}, page \pageref{third-grade-division}).}
 \vspace{2mm}
 
 For decimal numerals,  $d = 10$.
@@ -398,21 +406,21 @@ and whose other digits are those of the numeral for $s$.
 \end{enumerate}
 \end{quote}
 
-\emph{Justification}
-\begin{center}
-\begin{tabular}{cll}
-    & $x y$ & \\
-$=$ & $(\lfloor x \div 10\rfloor \cdot 10 + (x$ mod $10)) y$  & \{\emph{check}$\div$\} (page \pageref{third-grade-division})\\
-$=$ & $(\lfloor x \div 10\rfloor \cdot 10 + x_0) y$           & \{$x_0=x$ mod $10$\}\\
-$=$ & $(\lfloor x \div 10\rfloor \cdot y) \cdot 10 + x_0 y$   & \{\emph{algebra}\} \\
-$=$ & $(\lfloor x \div 10\rfloor \cdot y) \cdot 10 + m$       & \{$m=x_0\cdot y$\} \\
-$=$ & $p \cdot 10 + m$                                        & \{$p=\lfloor x \div 10\rfloor \cdot y$\} \\
-$=$ & $p \cdot 10 + (\lfloor m \div 10 \rfloor \cdot 10 + (m$ mod $10))$& \{\emph{check}$\div$\} \\
-$=$ & $(p + \lfloor m \div 10 \rfloor) \cdot 10 + (m$ mod $10)$       & \{\emph{algebra}\} \\
-$=$ & $s \cdot 10 + (m$ mod $10)$                             & \{$s=p + \lfloor m \div 10 \rfloor$\} \\
-$=$ & $s \cdot 10 + m_0$                                      & \{$m_0=m$ mod $10$\} \\
+%\begin{center}
+\begin{tabular}{lllcll}
+\multicolumn{6}{l}{\emph{Justification}}\\
+%&~&    & $x y$ & \\
+&~&$xy$&$=$ & $(\lfloor x \div 10\rfloor \cdot 10 + (x$ mod $10)) y$  & \{\emph{check}$\div$\} (page \pageref{third-grade-division})\\
+&~&    &$=$ & $(\lfloor x \div 10\rfloor \cdot 10 + x_0) y$           & \{$x_0=x$ mod $10$\}\\
+&~&    &$=$ & $(\lfloor x \div 10\rfloor \cdot y) \cdot 10 + x_0 y$   & \{\emph{algebra}\} \\
+&~&    &$=$ & $(\lfloor x \div 10\rfloor \cdot y) \cdot 10 + m$       & \{$m=x_0\cdot y$\} \\
+&~&    &$=$ & $p \cdot 10 + m$                                        & \{$p=\lfloor x \div 10\rfloor \cdot y$\} \\
+&~&    &$=$ & $p \cdot 10 + (\lfloor m \div 10 \rfloor \cdot 10 + (m$ mod $10))$& \{\emph{check}$\div$\} \\
+&~&    &$=$ & $(p + \lfloor m \div 10 \rfloor) \cdot 10 + (m$ mod $10)$       & \{\emph{algebra}\} \\
+&~&    &$=$ & $s \cdot 10 + (m$ mod $10)$                             & \{$s=p + \lfloor m \div 10 \rfloor$\} \\
+&~&    &$=$ & $s \cdot 10 + m_0$                                      & \{$m_0=m$ mod $10$\} \\
 \end{tabular}
-\end{center}
+%\end{center}
 \label{multiplication!grade school}
 \caption{Grade-School Multiplication: Digit by Digit}
 \label{fig:grade-school-mult}
@@ -433,8 +441,7 @@ which makes the product zero (that is, \textsf{nil}).
 That analysis yields an equation that completes
 the computation when $y$ is \textsf{nil}
 
-\hspace*{2cm} \textsf{(mul $x$ nil)} $=$ \textsf{nil} \hspace{2cm} \hfill \{mulx0\}
-\\
+\vspace{2mm}\hspace*{2cm} \textsf{(mul $x$ nil)} $=$ \textsf{nil} \hspace{2cm} \hfill \{mulx0\}\\
 
 We can now focus on the case when $y$ is not \textsf{nil}.
 To complete the multiplication,
@@ -442,8 +449,7 @@ we are going to invoke another operator, \textsf{mxy},
 that assumes that $y$ is not \textsf{nil}.
 That leads to another equation for \textsf{mul}.
 
-\hspace*{2cm} \textsf{(mul $x$ $y$)} $=$ \textsf{(mxy x y)}, if \textsf{(consp $y$)} \hfill \{mulxy\}
-\\
+\vspace{2mm}\hspace*{2cm} \textsf{(mul $x$ $y$)} $=$ \textsf{(mxy x y)}, if \textsf{(consp $y$)} \hfill \{mulxy\}\\
 
 Now, we turn our attention to defining \textsf{mxy}, which multiplies binary
 numerals $x$ and $y$ when $y$ is not \textsf{nil}.
@@ -451,8 +457,7 @@ It may happen that $x$ is \textsf{nil}, which stands for zero, so that
 the product is also zero, and in that case \textsf{(mxy $x$ $y$)} is \textsf{nil},
 which gives us one of the equations for \textsf{mxy}.
 
-\hspace*{2cm} \textsf{(mxy nil $y$)} $=$ \textsf{nil}  \hfill \{mul0y\}
-\\
+\vspace{2mm}\hspace*{2cm} \textsf{(mxy nil $y$)} $=$ \textsf{nil}  \hfill \{mul0y\}\\
 
 That leaves the case when $x$ $=$ \textsf{[$x_0$ $x_1$ $x_2$ ...]} is not \textsf{nil}.
 Follow along, again, in Figure~\ref{fig:grade-school-mult},
@@ -485,8 +490,7 @@ we can invoke \textsf{mxy} and rely on induction.
 That gives us a way to compute $p$, which, don't forget,
 is a numeral at this point, not a number.
 
-\hspace*{2cm} $p$ $=$ \textsf{(mxy (rest $x$) $y$))} \hfill \{mul.p\}
-\\
+\vspace{2mm}\hspace*{2cm} $p$ $=$ \textsf{(mxy (rest $x$) $y$))} \hfill \{mul.p\}\\
 
 Binary numerals make step 1 in Figure~\ref{fig:grade-school-mult}
 ($\underline{m} = \underline{x_0} \cdot \underline{y}$)
@@ -500,7 +504,8 @@ of inserting a zero at the beginning.
 So, when $x_0 = 0$, we get the following equation for \textsf{mxy}.
 
 \begin{figure}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun mxy (x y) ; assumption: y is not nil
   (if (consp x)
       (let* ((p  (mxy (rest x) y)))             ; {mul.p}
@@ -512,14 +517,14 @@ So, when $x_0 = 0$, we get the following equation for \textsf{mxy}.
   (if (consp y)
       (mxy x y) ; {mulxy}
       nil))     ; {mulx0}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \label{bignum-mul-defun}\index{arithmetic!bignum multiplication}\index{multiplication!bignum}\index{bignum!multiplication (mul, mxy)}\index{numeral!binary multiplication}\index{multiplication!binary numerals}\index{binary numeral!multiplication}\index{operator, by name!mul, mxy (\emph{see} bignum)}\index{mul, mxy (\emph{see} bignum)}\index{equation, by name!\{mul0y\}, \{mul0xy\}, \{mul1xy\}}\index{equation, by name!\{mulx0\}, \{mulxy\}}
 \caption{Bignum Multiplication Operator}
 \label{fig:bignum-mul-defun}
 \end{figure}
 
-\hspace*{2cm} \textsf{(mxy [$0$ $x_1$ $x_2$ \dots] $y$)} $=$ \textsf{(cons $0$ $p$)} \hfill \{mul0xy\}
-\\
+\vspace{2mm}\hspace*{2cm} \textsf{(mxy [$0$ $x_1$ $x_2$ \dots] $y$)} $=$ \textsf{(cons $0$ $p$)} \hfill \{mul0xy\}\\
 
 If $x_0 = 1$, then $m = y$,
 so $\underline{s} = \lfloor \underline{m}\div 2\rfloor + \underline{p} = \lfloor \underline{y}\div 2\rfloor + \underline{p}$.
@@ -534,8 +539,7 @@ We bring down the low-order bit of $m$, but $m = y$
 ($x_0 = 1$, you remember), so the low-order bit of $m$
 is also the low-order bit of $y$, namely \textsf{(first $y$)}.
 
-\hspace*{2cm} \textsf{(mxy [$1$ $x_1$ $x_2$ \dots] $y$)} $=$ \textsf{(cons (first $y$) (add 0 (rest $y$) $p$))} \hfill \{mul1xy\}
-\\
+\vspace{2mm}\hspace*{2cm} \textsf{(mxy [$1$ $x_1$ $x_2$ \dots] $y$)} $=$ \textsf{(cons (first $y$) (add 0 (rest $y$) $p$))} \hfill \{mul1xy\}\\
 
 These equations for \textsf{mul} are comprehensive because $y$ is either \textsf{nil},
 in which case equation \{mulx0\} applies,
@@ -574,16 +578,17 @@ which confirms that \textsf{(mul $x$ $y$)} is the binary numeral
 for the product of the numbers that the numerals $x$ and $y$ represent.
 
 \label{bignum-mul-thm}\index{theorem!bignum multiplication}\index{theorem, by name!\{bignum-mul-ok\}}\index{arithmetic!bignum multiplication}\index{bignum!multiplication (mul, mxy)}\index{multiplication!bignum}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm bignum-mul-ok
   (= (numb (mul x y)) (* (numb x) (numb y))))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
-\begin{ExerciseList}
-\Exercise
-Do a paper-and-pencil proof of
-the bignum multiplier theorem, \textsf{bignum-mul-ok}.
-\end{ExerciseList}
+\begin{exercises}
+\exer {Do a paper-and-pencil proof of
+the bignum multiplier theorem, \textsf{bignum-mul-ok}.}
+\end{exercises}
 
 
 %%% Local Variables:

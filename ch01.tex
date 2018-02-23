@@ -1,4 +1,6 @@
-\chapter[Computer Systems: Simple Principles Lead to Complex Behavior][Computer Systems]{Computer Systems: Simple Principles, Complex Behavior}
+\chapter[Computer Systems: Simple Principles Lead to Complex Behavior]{Computer Systems: Simple Principles, Complex Behavior}
+
+\chaptermark{Computer Systems}
 
 \section{Hardware and Software}
 
@@ -110,7 +112,18 @@ we will use the equation-based approach,
 but specification of the hardware and software artifacts that we study
 is not limited to that approach.
 
-\begin{aside}
+It is software that gives a computer system its power and flexibility.
+An iPhone, for example, has a screen that
+can display millions of pixels,
+but it is the software that determines whether the
+iPhone displays an album cover or a weather update.
+Software makes hardware useful by extending its range of behavior.
+Whereas iPhone audio hardware may be able to produce
+only a single tone at a time, the software controlling it
+can direct it to produce a sequence of tones
+that sound like Beethoven's Ninth.
+
+\begin{aside}{aside-model-of-computation}{Models of Computation}
 Logicians and mathematicians have been studying
 \index{computation models}\index{model!of computation}models of computation
 since before computers were invented. This was done, in part, to
@@ -155,21 +168,9 @@ to prove all mathematical truths.
 The theorems of Turing and G\"odel
 prove that it is not possible to build a machine that can verify all mathematical
 truths, not even in principle.
-
-\caption{Models of Computation}
-\label{aside-model-of-computation}
+%\caption{Models of Computation}
+%\label{aside-model-of-computation}
 \end{aside}
-
-It is software that gives a computer system its power and flexibility.
-An iPhone, for example, has a screen that
-can display millions of pixels,
-but it is the software that determines whether the
-iPhone displays an album cover or a weather update.
-Software makes hardware useful by extending its range of behavior.
-Whereas iPhone audio hardware may be able to produce
-only a single tone at a time, the software controlling it
-can direct it to produce a sequence of tones
-that sound like Beethoven's Ninth.
 
 You can think of the hardware as
 the parts of a computer that you can see,
@@ -190,7 +191,7 @@ In this sense, computer systems are
 
 The distinction between hardware and software
 leaves many questions to the imagination.
-\begin{quote}
+%\begin{quote}
 \begin{enumerate}
 \item How can software control hardware?\\
       Example: Instruct an audio device to emit a sound.
@@ -199,9 +200,9 @@ leaves many questions to the imagination.
 \item What kinds of instructions can software give to hardware?\\
       Examples: Add numbers. Replace one formula by another. Select a formula.
 \end{enumerate}
-\end{quote}
+%\end{quote}
 
-A model of computation (Aside~\ref{aside-model-of-computation})
+A model of computation (Box~\ref{aside-model-of-computation})
 a way for software to control hardware,
 so there are as many answers to the first of these questions
 as there are models of computation, and
@@ -217,7 +218,7 @@ intrinsic operators and operators
 defined elsewhere in the software to
 define new operators.
 
-\begin{aside}
+\begin{aside}{operations-and-functions}{Operators, Operands, Functions, Parameters, Arguments}
 We will use the terms ``operator'' and ``function'' interchangeably.
 Some treatments use these terms to mean different things,
 but we find it more convenient in this presentation
@@ -242,9 +243,8 @@ produces a value, usually denoted algebraically as $f(x,y)$.
 If $f$ were the arithmetic addition operator ($+$),
 then $f(x,y)$ would stand for the value $x+y$, $f(2,2)$ would denote 4,
 $f(3,7)$ would stand for 10, and $f(2x,5)$ would mean $2x+5$.
-
-\caption{Operators, Operands, Functions, Parameters, Arguments}
-\label{operations-and-functions}
+%\caption{Operators, Operands, Functions, Parameters, Arguments}
+%\label{operations-and-functions}
 \end{aside}
 
 Once we take the familiar operators
@@ -522,24 +522,13 @@ When $n$ is zero, there would be no terms in the sum,
 so the standard convention that the sum of an empty set of numbers
 is zero is consistent with the equation $h(0) = 0$.}
 Then, the following equations express the specification for $h(0)$ and
-the observation about the relationship between $h(n)$ and $h(n+1)$.
-\index{equation, by name!\{h0\}, \{h1\}}
-\label{reciprocalsdef}
-%\begin{displaymath}
-%h(n) =
-%\left\{
-%        \begin{array}{ll}
-%                0                    & \mbox{if } n = 0 \\
-%                h(n-1) + \frac{1}{n} & \mbox{otherwise}
-%        \end{array}
-%\right.
-%\end{displaymath}
+the observation about the relationship between $h(n)$ and $h(n+1)$.\index{equation, by name!\{h0\}, \{h1\}}
 \begin{center}
 \begin{tabular}{ll}
 $h(n+1)$ $=$ $h(n) + \frac{1}{n+1}$ & \{h1\}\\
 $h(0)$   $=$ $0$                    & \{h0\}\\
 \end{tabular}
-\end{center}
+\end{center}\label{reciprocalsdef}
 
 It will be a common practice in this text to
 attach names to equations to make it easy to discuss them.
@@ -659,38 +648,38 @@ way equations provided a definition of the operator $h$,
 but a lot more of them, of course.
 Not so simple, but founded on a few, simple principles.
 
-\begin{ExerciseList}
-\Exercise Can you use equations \{h0\} and \{h1\}
+\begin{exercises}
+\exer {Can you use equations \{h0\} and \{h1\}
 %(page \pageref{reciprocalsdef})
-to compute $h(-1)$?  Or $h(\frac{1}{2})$? Why not?
+to compute $h(-1)$?  Or $h(\frac{1}{2})$? Why not?}
 
-\Exercise Define an operator \emph{factor}$(k, n)$: true
+\exer{Define an operator \emph{factor}$(k, n)$: true
 if $k$ is a factor of $n$, false otherwise.\\
 \emph{Note}: Natural numbers only. And,
 $k$ is a factor $n$
 if there is a number $m$ such that $n = km$.\\
 \emph{Note}: $mod(k,n) =$ remainder
 in $k \div n$: $mod(17,5)=2$, $mod(9,2)=1$, $mod(12,4)=0$.\\
-\emph{Hint}: One equation is enough. Use $mod$.
+\emph{Hint}: One equation is enough. Use $mod$.}
 
-\Exercise \label{largest-factor}
-        Define an operator \emph{lf}$(n) =$
+\exer {\label{largest-factor}%
+Define an operator \emph{lf}$(n) =$
         largest factor of $n$ other than $n$:
         \emph{lf}$(30)=15$, \emph{lf}$(15)=5$.\\
         \emph{Note}: Use \emph{lft}$(n,k) =$ largest factor of
         $n$ up to $k$:
         \emph{lft}$(30,7)=6$, \emph{lft}$(120,10)=10$.\\
-        \emph{Note}: Use $\lfloor n \div k\rfloor = n \div k$ rounded down to an integer.
+        \emph{Note}: Use $\lfloor n \div k\rfloor = n \div k$ rounded down to an integer.}
 
-\Exercise \label{prime-predicate}
-        Define an operator to compute $p(n)$, which is true
+\exer {\label{prime-predicate}%
+Define an operator to compute $p(n)$, which is true
         if $n$ is a prime number and false otherwise.
         Refer to the operator \emph{lf}
         from Exercise \ref{largest-factor} in your definition.\\
         \emph{Note}: A natural number $p \geq 2$ is a prime number if
-        it has no factors other than $p$ and $1$.
+        it has no factors other than $p$ and $1$.}
 
-\Exercise Define an operator to compute $rp(n)$,
+\exer {Define an operator to compute $rp(n)$,
 the sum of the reciprocals of all the prime numbers that are less than or equal to
 the natural number $n$.
 Use the equations that define the operator
@@ -720,8 +709,8 @@ numeric operands of infinite precision.}\\
 \emph{Hint}: Use three equations, one for numbers $n$ that are prime numbers,
 another for non-zero numbers that are not prime,
 and a third for the case when $n = 0$.
-It will be helpful to refer to the operator $p$ from Exercise \ref{prime-predicate}.
-\end{ExerciseList}
+It will be helpful to refer to the operator $p$ from Exercise \ref{prime-predicate}.}
+\end{exercises}
 
 
 %%% Local Variables:

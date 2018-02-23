@@ -20,7 +20,7 @@ and the low-order digit of that sum is written
 below the units-digit column.
 
 \begin{figure}
-\begin{center}
+%\begin{center}
 \begin{minipage}[b]{0.4\textwidth}
 \begin{verbatim}
    11 1    carries
@@ -31,7 +31,7 @@ below the units-digit column.
    10180   sum
 \end{verbatim}
 \end{minipage}
-\end{center}
+%\end{center}
 \index{numeral!addition}\index{addition!decimal numeral}\index{arithmetic!decimal numeral}
 \caption{Adding Decimal Numerals}
 \label{fig:adding-decimal-numerals}
@@ -107,11 +107,11 @@ for completeness.}
 \label{fig:adding-binary-numerals}
 \end{figure}
 
-\begin{ExerciseList}
-\Exercise Describe by example the process of multiplying a pair of decimal numerals.
+\begin{exercises}
+\exer {Describe by example the process of multiplying a pair of decimal numerals.}
 
-\Exercise Describe by example the process of multiplying a pair of binary numerals.
-\end{ExerciseList}
+\exer {Describe by example the process of multiplying a pair of binary numerals.}
+\end{exercises}
 
 \section{Circuits for Adding One-Bit Binary Numerals}
 \label{sec:adding-1-bit-numerals}
@@ -148,14 +148,16 @@ half adder (Figure \ref{fig:half-adder}, page \pageref{fig:half-adder}).
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.23]{Images/half-adder.png}
-\todo{Improvised with PowerPoint. Redraw using Visio.}
-\begin{Verbatim}
+\includegraphics[scale=1]{images-cmyk/half-adder}
+%\todo{Improvised with PowerPoint. Redraw using Visio.}
+\begin{code}
+\begin{verbatim}
 (defun and-gate (x y) (if (and (= x 1) (= y 1)) 1 0))
 (defun or-gate (x y) (or (= x 1) (= y 1)))
 (defun xor-gate (x y) (if (and (= x 1) (= y 1)) 0 (or-gate x y)))
 (defun half-adder (x y) (list (xor-gate x y) (and-gate x y)))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
 \index{addition!carry}
 \index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}
@@ -206,9 +208,10 @@ as shown in the full-adder table.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.25]{Images/full-adder.png}
-\todo{Improvised with PowerPoint. Redraw using Visio.}
-\begin{Verbatim}
+\includegraphics[scale=1]{images-cmyk/full-adder}
+%\todo{Improvised with PowerPoint. Redraw using Visio.}
+\begin{code}
+\begin{verbatim}
 (defun full-adder (c-in x y)
   (let* ((h1 (half-adder x y))
          (s1 (first h1)) (c1 (second h1))
@@ -216,15 +219,9 @@ as shown in the full-adder table.
          (s  (first h2)) (c2 (second h2))
          (c  (or-gate c1 c2)))
     (list s c)))
-\end{Verbatim}
-\end{center}
-\index{addition!carry}
-\index{arithmetic!binary numeral}
-\index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}
-\index{diagram!full-adder circuit}
-\index{addition!circuit}\index{circuit!addition}
-\index{circuit!full adder}\seeonlyindex{full adder}{circuit}
-\index{ACL2!circuit model}\index{circuit!ACL2 model}
+\end{verbatim}
+\end{code}
+\end{center}\index{addition!carry}\index{arithmetic!binary numeral}\index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}\index{diagram!full-adder circuit}\index{addition!circuit}\index{circuit!addition}\index{circuit!full adder}\seeonlyindex{full adder}{circuit}\index{ACL2!circuit model}\index{circuit!ACL2 model}
 \caption{Full-Adder Circuit and ACL2 Model}
 \label{fig:full-adder}
 \end{figure}
@@ -236,7 +233,8 @@ comprise a comprehensive, mechanized verification of
 the model.
 
 \label{full-adder-model-check}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (check-expect (full-adder 0 0 0) (list 0 0))
 (check-expect (full-adder 0 0 1) (list 1 0))
 (check-expect (full-adder 0 1 0) (list 1 0))
@@ -245,7 +243,8 @@ the model.
 (check-expect (full-adder 1 0 1) (list 0 1))
 (check-expect (full-adder 1 1 0) (list 0 1))
 (check-expect (full-adder 1 1 1) (list 1 1))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 The \textsf{full-adder} operands
 are symbols for bits, but we can use the \textsf{numb} operator
@@ -277,11 +276,13 @@ because the low-order bit would no longer come first.}
 Theorem \{\emph{full-adder ok}\} & \textsf{(numb [$s$ $c$])} $=$ \textsf{(numb [$x$])} $+$ \textsf{(numb [$y$])} $+$ \textsf{(numb [$c_{in}$])} \\
                                  & where \textsf{[$s$ $c$]} $=$ \textsf{(full-adder $c_{in}$ $x$ $y$)} \\
 \end{tabular}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm full-adder-ok
   (= (numb (full-adder c-in x y))
      (+ (numb (list c-in)) (numb (list x)) (numb (list y)))))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
 \index{theorem!full adder}\seeonlyindex{full-adder theorem}{theorem}\index{theorem, by name!\{full adder-ok\}}\index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}
 \caption{Full-Adder Theorem}
@@ -321,10 +322,11 @@ input and output signals as numbers.
 \end{center}
 
 \begin{figure}
-\begin{center}
-\includegraphics[scale=0.25]{Images/adder2.png}
-\todo{Improvised with PowerPoint. Redraw using Visio.}
-\begin{Verbatim}
+%\begin{center}
+\includegraphics[scale=1]{images-cmyk/adder2}
+%\todo{Improvised with PowerPoint. Redraw using Visio.}
+\begin{code}
+\begin{verbatim}
 (defun adder2 (c0 x y)
   (let* ((x0 (first x)) (x1 (second x))
          (y0 (first y)) (y1 (second y))
@@ -333,15 +335,9 @@ input and output signals as numbers.
          (f1 (full-adder c1 x1 y1))
          (s1 (first f1)) (c2 (second f1)))
     (list (list s0 s1) c2)))
-\end{Verbatim}
-\end{center}
-\index{addition!carry}
-\index{arithmetic!binary numeral}
-\index{numeral!binary addition}\index{addition!binary numeral}
-\index{binary numeral!addition}
-\index{diagram!two-bit adder circuit}
-\index{addition!circuit}\index{circuit!addition}\index{circuit!two-bit adder}\seeonlyindex{two-bit adder}{circuit}
-\index{ACL2!circuit model}\index{circuit!ACL2 model}
+\end{verbatim}
+\end{code}\index{addition!carry}\index{arithmetic!binary numeral}\index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}\index{diagram!two-bit adder circuit}\index{addition!circuit}\index{circuit!addition}\index{circuit!two-bit adder}\seeonlyindex{two-bit adder}{circuit}\index{ACL2!circuit model}\index{circuit!ACL2 model}
+%\end{center}
 \caption{Two-Bit Adder and ACL2 Model}
 \label{fig:adder2}
 \end{figure}
@@ -381,7 +377,8 @@ uses the \textsf{numb} operator (page \pageref{nmb-defun})
 to interpret binary numerals as numbers.
 
 \label{adder2-ok}\index{theorem, by name!\{adder2-ok\}}\seeonlyindex{adder2 theorem}{theorem}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm adder2-ok
   (let* ((a (adder2 c0 (list x0 x1) (list y0 y1)))
          (s (first a)) (c (second a)))
@@ -389,23 +386,25 @@ to interpret binary numerals as numbers.
        (+ (numb (list c0))
           (numb (list x0 x1))
           (numb (list y0 y1))))))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
-\begin{ExerciseList}
-\Exercise Define a DoubleCheck property that checks the
+\begin{exercises}
+\exer {Define a DoubleCheck property that checks the
 output of the two-bit adder model
 (Figure \ref{fig:adder2}, page \pageref{fig:adder2})
 against expectations.
 Run the test using Proof Pad.\\
 \emph{Note}: The data generator (random-between 0 1) delivers
-a 0 or a 1 at random.
+a 0 or a 1 at random.}
 
-\Exercise By default, Proof Pad repeats the test fifty times
+\exer {By default, Proof Pad repeats the test fifty times
 with random data
 when it runs a DoubleCheck test.
 How many random tests do you think would be needed to be reasonably
-confident that all 32 different cases for the two-bit adder have been tested?
-\end{ExerciseList}
+confident that all 32 different cases for the two-bit adder have been tested?}
+
+\end{exercises}
 
 \section{Adding w-Bit Binary Numerals}
 \label{sec:adding-w-bit-numerals}
@@ -429,9 +428,10 @@ of full-adder components.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.25]{Images/adder.png}
-\todo{Improvised with PowerPoint. Redraw using Visio.}
-\begin{Verbatim}
+\includegraphics[scale=1]{images-cmyk/adder}
+%\todo{Improvised with PowerPoint. Redraw using Visio.}
+\begin{code}
+\begin{verbatim}
 (defun adder (c0 x y)
   (if (consp x)
       (let* ((x0 (first x)) (xs (rest x))
@@ -442,9 +442,9 @@ of full-adder components.
              (ss (first a)) (c (second a)))   ; {add.bits}
         (list (cons s0 ss) c))                ; {add1}
       (list nil c0)))                         ; {add0}
-\end{Verbatim}
-\end{center}
-\index{equation, by name!\{addo\}, \{add1\}}\index{addition!carry}\index{arithmetic!binary numeral}\index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}\index{diagram!ripple-carry circuit}\index{addition!circuit}\index{circuit!addition}\index{circuit!ripple-carry adder}\seeonlyindex{ripple-carry circuit}{circuit}\index{ACL2!circuit model}\index{circuit!ACL2 model}
+\end{verbatim}
+\end{code}
+\end{center}\index{equation, by name!\{addo\}, \{add1\}}\index{addition!carry}\index{arithmetic!binary numeral}\index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}\index{diagram!ripple-carry circuit}\index{addition!circuit}\index{circuit!addition}\index{circuit!ripple-carry adder}\seeonlyindex{ripple-carry circuit}{circuit}\index{ACL2!circuit model}\index{circuit!ACL2 model}
 \caption{Ripple-Carry Adder and ACL2 Model}
 \label{fig:adder}
 \end{figure}
@@ -487,18 +487,19 @@ because the lengths of the numerals were explicit in the ACL2 model.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.3]{Images/adder-thm.png}
-\todo{Improvised with PowerPoint. Redraw using Visio.}
-\begin{Verbatim}
+\includegraphics[scale=1]{images-cmyk/adder-thm}
+%\todo{Improvised with PowerPoint. Redraw using Visio.}
+\begin{code}
+\begin{verbatim}
 (defthm adder-ok
   (implies (= (len x) (len y))
            (let* ((a (adder c0 x y))
                   (s (first a)) (c (second a)))
              (= (numb (append s (list c)))
                 (+ (numb (list c0)) (numb x) (numb y))))))
-\end{Verbatim}
-\end{center}
-\seeonlyindex{ripple-carry theorem}{theorem}\index{theorem, by name!\{adder-ok\}}\index{theorem!ripple-carry adder}\index{ACL2!adder-ok}\index{arithmetic!binary numeral}\index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}
+\end{verbatim}
+\end{code}
+\end{center}\seeonlyindex{ripple-carry theorem}{theorem}\index{theorem, by name!\{adder-ok\}}\index{theorem!ripple-carry adder}\index{ACL2!adder-ok}\index{arithmetic!binary numeral}\index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}
 \caption{Adding \emph{w}-Bit Binary Numerals}
 \label{fig:adder-thm}
 \end{figure}
@@ -514,31 +515,9 @@ Our proof will, of course, work from
 the model of the adder circuit
 (Figure \ref{fig:adder}, page \pageref{fig:adder}),
 rather than from the circuit diagram.
-Aside \ref{circuit-vs-model} (page \pageref{circuit-vs-model})
+Box \ref{circuit-vs-model} (page \pageref{circuit-vs-model})
 discusses some of the ramifications of this approach,
 which has been our basis for reasoning about circuits.
-
-\begin{aside}
-We expect that you could, given a basket of
-logic gates, wires, and enough time,
-use the diagram of the adder circuit to
-build one for any specified word size,
-and we think you can convince yourself that the model
-matches the diagram.
-If it does, then properties of the model
-that we verify guarantee that the circuits also have those properties.
-
-In a complete formalization, we would
-need a way to convert models into instructions
-for fabricating circuits so that
-the fabricated circuit would have the properties
-of the model. Such a formalization
-would use the methods we have employed to formalize other operations.
-We leave that step to the imagination.
-\index{circuit!ACL2 model}\index{model!of circuit}
-\caption{Models and Circuit Fabrication}
-\label{circuit-vs-model}
-\end{aside}
 %\begin{samepage}
 %\label{adder-thm}\index{theorem, by name!\{adder-ok\}}\index{theorem!ripple-carry adder}\seeonlyindex{ripple-carry theorem}{theorem}\index{numeral!binary addition}\index{addition!binary numeral}\index{binary numeral!addition}
 %\begin{center}
@@ -576,7 +555,7 @@ by working through the definition of the \textsf{adder} operator
 (Figure \ref{fig:adder}, page \pageref{fig:adder}).
 With those operands, the \textsf{if} operator in
 the definition of \textsf{adder} selects the \{add1\} equation.
-\begin{quote}
+\begin{center}
 \begin{tabular}{rll}
        & \textsf{(adder $c_0$ [$x_0$] [$y_0$])}              & \\
 \vspace{1mm}
@@ -587,7 +566,7 @@ $=$    & \textsf{(adder $c_1$ (rest [$x_0$]) (rest [$y_0$]))}& \{add.bits\} (pag
 $=$    & \textsf{(adder $c_1$ nil nil)}                      & \{\emph{rst1}\} (page \pageref {rst1}) \\
 $=$    & \textsf{[nil  $c_1$]}                               & \{add0\} (page \pageref {fig:adder}) \\
 \end{tabular}
-\end{quote}
+\end{center}
 \addtolength{\tabcolsep}{-1mm}
 \begin{tabular}{rll}
 Therefore, & $ss$ $=$ \textsf{nil}                                       & \\
@@ -616,6 +595,27 @@ $=$ & (\textsf{numb [$s_0$ $c_1$])}                             & \{$\dagger$\} 
 $=$ & \textsf{(numb (full-adder $c_0$ $x_0$ $y_0$))}            & \{add.bit0\}      \\
 $=$ & \textsf{(numb [$c_0$])} + \textsf{(numb [$x_0$])} $+$ \textsf{(numb [$y_0$])} & \{full-adder-ok\} \\
 \end{tabular}\\
+
+\begin{aside}{circuit-vs-model}{Models and Circuit Fabrication}
+We expect that you could, given a basket of
+logic gates, wires, and enough time,
+use the diagram of the adder circuit to
+build one for any specified word size,
+and we think you can convince yourself that the model
+matches the diagram.
+If it does, then properties of the model
+that we verify guarantee that the circuits also have those properties.
+
+In a complete formalization, we would
+need a way to convert models into instructions
+for fabricating circuits so that
+the fabricated circuit would have the properties
+of the model. Such a formalization
+would use the methods we have employed to formalize other operations.
+We leave that step to the imagination.\index{circuit!ACL2 model}\index{model!of circuit}
+%\caption{Models and Circuit Fabrication}
+%\label{circuit-vs-model}
+\end{aside}
 
 So much for the base case.
 Figure~\ref{fig:adder-thm-prf} also presents
@@ -681,13 +681,15 @@ $R(n+1)$ $\equiv$ $($\textsf{(numb [$s_0$ $s_1$ \dots $s_{n+1}$ $c$])} $=$ \\
 \end{tabular}
 \begin{tabular}{ll}~\\[-1.0em]
 \hspace*{3mm}\textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$ $x_1$ \dots $x_{n+1}$])} $+$ \textsf{(numb [$y_0$ $y_1$ \dots $y_{n+1}$])}& \\
-$=$ \textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$])} $+$ $2\times$\textsf{(numb [$x_1$ \dots $x_{n+1}$])}                         & \{\emph{nmb1}\} \emph{(p. \pageref{nmb1})} \\
+$=$ \textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$])} $+$ $2\times$\textsf{(numb [$x_1$ \dots $x_{n+1}$])}                         & \{\emph{nmb1}\} \\
+    & \emph{(p. \pageref{nmb1})} \\
 \hphantom{$=$ \textsf{(numb [$c_0$])} }$+$ \textsf{(numb [$y_0$])} $+$ $2\times$\textsf{(numb [$y_1$ \dots $y_{n+1}$])}                  & \{\emph{nmb1}\} \\
 $=$ \textsf{(numb [$c_0$])} $+$ \textsf{(numb [$x_0$])} $+$ \textsf{(numb [$y_0$])} $+$                                                & \\
  ~~~~~~ $2\times($\textsf{(numb [$x_1$ \dots $x_{n+1}$])} $+$ \textsf{(numb [$y_1$ \dots $y_{n+1}$])}$)$                    & \{\emph{algebra}\} \\
 $=$ \textsf{(numb (full-adder $c_0$ $x_0$ $y_0$))} $+$                                                             & \{\emph{full-adder ok}\} \\
  ~~~~~~ $2\times($\textsf{(numb [$x_1$ \dots $x_{n+1}$])} $+$ \textsf{(numb [$y_1$ \dots $y_{n+1}$])}$)$                    & \\
-$=$ \textsf{(numb [$s_0$ $c_1$])} $+$ $2\times($\textsf{(numb [$x_1$ \dots $x_{n+1}$])} $+$ \textsf{(numb [$y_1$ \dots $y_{n+1}$])}$)$ & \{\emph{add.bit0}\} \emph{(p.\pageref{fig:full-adder-thm})} \\
+$=$ \textsf{(numb [$s_0$ $c_1$])} $+$ $2\times($\textsf{(numb [$x_1$ \dots $x_{n+1}$])} $+$ \textsf{(numb [$y_1$ \dots $y_{n+1}$])}$)$ & \{\emph{add.bit0}\} \\
+    & \emph{(p.\pageref{fig:full-adder-thm})} \\
 $=$ \textsf{(numb [$s_0$])} $+$ $2\times$\textsf{(numb [$c_1$])} $+$                                                          & \{\emph{nmb1}\} \\
 \hphantom{$=$ \textsf{(numb [$s_0$])} $+$ }$2\times($\textsf{(numb [$x_1$ \dots $x_{n+1}$])} $+$ \textsf{(numb [$y_1$ \dots $y_{n+1}$])}$)$  & \\
 $=$ \textsf{(numb [$s_0$])} $+$                                                                                    & \{\emph{algebra}\} \\
@@ -701,7 +703,24 @@ $=$ \textsf{(numb [$s_0$ $s_1$ \dots $s_{n+1}$ $c$])}                           
 \label{fig:adder-thm-prf}
 \end{figure}
 
-\begin{aside}
+\begin{exercises}
+\exer {\label{ex:add-bin}%
+Define in ACL2 a operator \textsf{add-bin}
+that adds any two binary numerals,
+even if the numerals contain a different number of bits.
+That is, the value \textsf{(add-bin $c$ $x$ $y$)} should be a binary numeral
+for the number \textsf{(numb [$c$])} $+$ \textsf{(numb $x$)} $+$ \textsf{(numb $y$)},
+as long as $x$ and $y$ are binary numerals and $c$ is 0 or 1,
+regardless of \textsf{(len $x$)} or \textsf{(len $y$)}.
+Design and run some sanity checks on your operator.}
+
+\exer {Define in ACL2 a theorem about the operator \textsf{add-bin} (Excercise \ref{ex:add-bin})
+that is analogous to theorem \{adder-ok\}
+(Figure \ref{fig:adder-thm}, page \pageref{fig:adder-thm}).}
+
+\end{exercises}
+
+\begin{aside}{adder-circuit-and-numerals-of-different-lengths}{Adder Circuit and Numerals of Different Lengths}
 A \emph{word} in a computer is a collection of bits
 that the computer treats as a whole in certain operations,
 such as arithmetic operations.
@@ -715,28 +734,11 @@ We could change the design of the circuit for the adder
 to accommodate input numerals of differing lengths.
 However, since we are modeling a circuit
 in which the input numerals have the same length,
-the model does not need to account for that possibility.
-\index{word!computer}\index{computer word}
-\caption{Adder Circuit and Numerals of Different Lengths}
-\label{adder-circuit-and-numerals-of-different-lengths}
+the model does not need to account for that 
+possibility.\index{word!computer}\index{computer word}
+%\caption{Adder Circuit and Numerals of Different Lengths}
+%\label{adder-circuit-and-numerals-of-different-lengths}
 \end{aside}
-
-\begin{ExerciseList}
-\Exercise \label{ex:add-bin}
-Define in ACL2 a operator \textsf{add-bin}
-that adds any two binary numerals,
-even if the numerals contain a different number of bits.
-That is, the value \textsf{(add-bin $c$ $x$ $y$)} should be a binary numeral
-for the number \textsf{(numb [$c$])} $+$ \textsf{(numb $x$)} $+$ \textsf{(numb $y$)},
-as long as $x$ and $y$ are binary numerals and $c$ is 0 or 1,
-regardless of \textsf{(len $x$)} or \textsf{(len $y$)}.
-Design and run some sanity checks on your operator.
-
-\Exercise Define in ACL2 a theorem about the operator \textsf{add-bin} (Excercise \ref{ex:add-bin})
-that is analogous to theorem \{adder-ok\}
-(Figure \ref{fig:adder-thm}, page \pageref{fig:adder-thm}).
-
-\end{ExerciseList}
 
 \section{Numerals for Negative Numbers}
 \label{sec:negative-numerals}
@@ -744,26 +746,26 @@ that is analogous to theorem \{adder-ok\}
 So far, all the numerals we've seen have denoted positive numbers.
 Arithmetic circuits also need to deal with negative numbers,
 and there is more than one way to do that.
-The most common scheme is known as the \emph{twos complement} system.
+The most common scheme is known as the \emph{two's complement} system.
 
-\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!twos complement}\index{twos complement!numeral}Twos-complement
+\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's complement}\index{two's complement!numeral}Two's-complement
 numerals are a special interpretation of
 ordinary binary numerals.
 For the numbers $0$, $1$, $\dots$ $(2^{w-1}-1)$,
 where \emph{w} is the \emph{word size}
 of the circuits for arithmetic operations,
-twos-complement numerals are ordinary binary numerals.
+two's-complement numerals are ordinary binary numerals.
 All of the numerals for this set of numbers
 have $(w-1)$ or fewer bits,
 not counting leading zeros
 (Theorem \{\emph{len-bits}$\le$\}, page \pageref{len-bitsLE}).
 To make the numerals match the word size,
-the twos-complement system pads them with leading zeros
+the two's-complement system pads them with leading zeros
 to make them have exactly \emph{w} bits.
 Leading zeros don't change the number that a numeral denotes
 (Theorem \{\emph{leading-0s}\}, page \pageref{leading-0s}), but,
 as with the ripple-carry adder (Figure \ref{fig:adder}, page \pageref{fig:adder}),
-circuits to perform arithmetic on twos-complement numbers will
+circuits to perform arithmetic on two's-complement numbers will
 require exactly \emph{w} bits for each input numeral
 because there are $w$ input lines for each addend,
 and each input line must carry a signal.
@@ -772,12 +774,12 @@ consume half of the $2^w$ bit-patterns available with
 \emph{w}-bit words.
 
 For negative numbers,
-the twos-complement system uses the other half of the bit-patterns.
+the two's-complement system uses the other half of the bit-patterns.
 These are the numerals that would normally denote the numbers
 $2^{w-1}$, $(2^{w-1}+1)$, \dots $(2^{w}-1)$.
 If $(-n)$ is a negative number in the range $-2^{w-1} \leq (-n) < 0$,
 \label{2s-def}
-then the twos-complement numeral for $(-n)$
+then the two's-complement numeral for $(-n)$
 is the ordinary binary numeral for $(2^w - n)$.
 Since $2^{w-1} = (2^{w}-2^{w-1}) \leq (2^w - n) < 2^w$,
 this numeral has exactly \emph{w} bits
@@ -787,7 +789,7 @@ We also know that its high-order bit is a one-bit
 so there is an easy way to recognize numerals that denote negative numbers.
 
 For example, a computer with
-\index{twos complement!word}\index{word!twos complement}
+\index{two's complement!word}\index{word!two's complement}
 \index{word!computer}\index{computer word}32-bit words that uses
 two-complement numerals has arithmetic circuits that
 deal with numbers $n$ in the range $-2^{w-1} \leq n < 2^{w-1}$.
@@ -795,76 +797,73 @@ In the positive part of the range, it represents numbers as
 ordinary binary numerals, but with enough leading zeros
 to fill the 32-bit word.
 For a number ($-n$) in the negative part of the range,
-the twos-complement system uses the ordinary binary numeral
+the two's-complement system uses the ordinary binary numeral
 for the positive number ($2^{32}-n$) to represent the number ($-n$).
 Since ($-n$) is in the range
 $-2^{31} \leq -n < 0$, we can assert that
 $2^{31} = 2^{32}-2^{31} \leq 2^{32}-n < 2^{32}$.
-Therefore, the twos-complement, binary numeral
+Therefore, the two's-complement, binary numeral
 for the negative number ($-n$)
 has exactly 32 bits (Theorem \{\emph{len-bits}\}, page \pageref{len-bits}).
 
-\index{negative numeral}\index{numeral!negative}\index{number!negative}
-\index{numeral!twos complement}\index{twos complement!numeral}
-Modular arithmetic makes twos-complement numerals
+Modular arithmetic makes twos-complement 
+numerals\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's complement}\index{two's complement!numeral}
 for negative numbers act like the negative numbers they stand for
 when they are added to other numerals.
 For negative numbers ($-n$) in the range $-2^{31} \leq -n < 0$,
 the value of (($-n$) mod $2^{32}$) is ($2^{32}-n$).
 Therefore, since addition and subtraction
 in modular arithmetic is consistent with ordinary addition and subtraction
-(Aside~\ref{modular-arithmetic}, page \pageref{modular-arithmetic}), it follows that
+(Box~\ref{modular-arithmetic}, page \pageref{modular-arithmetic}), it follows that
   ($(m+(-n))$ mod $2^{32}$
 = (($m$ mod $2^{32}$) $+$ ($(-n)$ mod $2^{32}$)) mod $2^{32}$
 = $((m$ mod $2^{32}$) $+$ $((2^{32} - n)$ mod $2^{32}))$ mod $2^{32}$.
 
-That is, adding the numbers represented by twos-complement
+That is, adding the numbers represented by two's-complement
 numerals, including numbers in the negative range,
 is just like adding ordinary numbers in modular arithmetic.
 Subtraction is handled by negating a number
-(that is, computing the twos-complement representation
+(that is, computing the two's-complement representation
 of its negative), then performing addition modulo $2^{32}$.
 
 This method works for any word size.
-With word size $w$, the twos complement system
+With word size $w$, the two's-complement system
 handles addition and subtraction for numbers $n$
 in the range $-2^{w-1} \leq n < 2^{w-1}$
 by performing ordinary addition of numerals,
 as with the ripple-carry adder, but interpreting
-the numerals according to the twos-complement scheme.
+the numerals according to the two's-complement scheme.
 Circuits for performing addition (and subtraction, which
-uses the same circuit in a twos-complement system)
+uses the same circuit in a two's-complement system)
 take advantage of the consistency between modular arithmetic
 and ordinary arithmetic.
 
-In summary, the twos-complement representation for computers with
+In summary, the two's-complement representation for computers with
 word size $w$ deals with numbers $n$ in the range
 $-2^{w-1} \leq n < 2^{w-1}$.
-We will refer to this set of integers as $I(w)$.
-\label{def-Iw}
+We will refer to this set of integers as $I(w)$.\label{def-Iw}
 \begin{center}
 $I(w) = \{-2^{w-1}, \dots -1, 0, 1, 2, \dots 2^{w-1}-1\}$
 \end{center}
 
-\index{negative numeral}\index{numeral!negative}\index{number!negative}
-\index{numeral!twos complement}\index{twos complement!numeral}
-\index{twos complement!word}
-Twos-complement numerals for numbers in the negative part of the range
+Two's-complement numerals\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's complement}\index{two's complement!numeral}\index{two's complement!word}
+for numbers in the negative part of the range
 have exactly $w$ bits, with a one-bit in the high-order slot.
-Twos-complement numerals for numbers in the positive part of $I(w)$
+Two's-complement numerals for numbers in the positive part of $I(w)$
 take the form of ordinary binary numerals, except that
 they are padded with enough leading zeros
 to fill out a $w$-bit word, where $w$ is the word size of the computer.
-The \textsf{twos} operator, defined as follows, delivers the twos-complement numeral
+The \textsf{twos} operator, defined as follows, delivers the two's-complement numeral
 for a number $n$ in the set $I(w)$.
-
-\label{twos-defun}\index{twos complement!operator}\index{operator, by name!twos (twos complment)}\index{operator!twos complement}\index{equation, by name!\{2s$+$\}, \{2s$-$\}}\index{arithmetic!negative numeral}
-\begin{Verbatim}
+\label{twos-defun}
+\begin{code}
+\begin{verbatim}
 (defun twos (w n)             ; w = word size
   (if (< n 0)                 ; -2^(w-1) <= n < 2^(w-1)
       (bits (+ (expt 2 w) n)) ; {2s-}
       (pad w 0 (bits n))))    ; {2s+}
-\end{Verbatim}
+\end{verbatim}
+\end{code}\index{two's complement!operator}\index{operator, by name!twos (two's complment)}\index{operator!twos complement}\index{equation, by name!\{2s$+$\}, \{2s$-$\}}\index{arithmetic!negative numeral}
 
 The \textsf{twos} operator uses the operator \textsf{bits} (page \pageref{bits-defun})
 to compute binary numerals.
@@ -882,13 +881,13 @@ $0 \le $(len (bits $n$)) $< w$
 (Theorem \{\emph{len-bits}$\le$\}, page \pageref{len-bitsLE}).
 
 Figure~\ref{fig:2s-comp-3bit} displays
-twos-complement numerals for the numbers in the set $I(3)$.
+two's-complement numerals for the numbers in the set $I(3)$.
 This example is just to illustrate the idea.
 No computer would have three-bit words,
 but the example gets the point across with a table of manageable size.
 
 \begin{figure}
-\begin{center}
+%\begin{center}
 \begin{tabular}{cccc}
  $n \in I(3)$ & $2^3+n$  & \textsf{(twos $3$ $n$)}   & \emph{binary numeral} \\
  $-4$         & $4$      & \textsf{[0 0 1]}          & 100                   \\
@@ -901,54 +900,53 @@ but the example gets the point across with a table of manageable size.
  $~~3$        &          & \textsf{[1 1 0]}          & 011                   \\
 \end{tabular}
 \\ $I(w) = I(3) = \{-2^{3-1}=-4, -3, -2, -1, 0, 1, 2, 3=2^{3-1}-1\}$
-\\ \emph{word size} $w = 3$
-\end{center}
-\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!twos complement}\index{twos complement!numeral}\index{twos complement!word}\index{word!twos complement}\index{arithmetic!negative numeral}
-\caption{Twos-Complement Numerals for 3-bit Words}
+\\ \emph{word size} $w = 3$\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's complement}\index{two's complement!numeral}\index{two's complement!word}\index{word!two's complement}\index{arithmetic!negative numeral}
+%\end{center}
+\caption{Two's-Complement Numerals for 3-bit Words}
 \label{fig:2s-comp-3bit}
 \end{figure}
 
 If the input carry is zero and
 the input numerals are interpreted
-as twos-complement numerals for numbers in the set $I(w)$,
+as two's-complement numerals for numbers in the set $I(w)$,
 then the sum-bits of the output numeral from the ripple-carry adder
 (Figure \ref{fig:adder}, page \pageref{fig:adder})
-form the twos-complement numeral for the sum of the input numerals.
+form the two's-complement numeral for the sum of the input numerals.
 The carry output from the circuit can be used to determine
 whether or not the sum is in $I(w)$, the set of numbers representable
-by \emph{w}-bit, twos-complement numerals.\footnote{The
+by \emph{w}-bit, two's-complement numerals.\footnote{The
 output carry can be used to perform multi-word arithmetic
 or to detect overflow conditions. Adding two numbers, $m+n$,
 that are both in the top half of the positive range
 ($2^{w-2} \leq m, n < 2^{w-1}$) produces a number that is
-outside the set $I(w)$, so the sum has no \emph{w}-bit, twos-complement numeral.
+outside the set $I(w)$, so the sum has no \emph{w}-bit, two's-complement numeral.
 This outcome is known as an overflow.
 Similarly, adding two numbers in the bottom half of the
 negative range ($-2^{w-1} \leq m,n < -2^{w-2}$)
-produces a number outside the twos-complement range, an overflow in the negative direction.}
+produces a number outside the two's-complement range, an overflow in the negative direction.}
 
 Now, here is an interesting
-\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!twos complement}\index{twos complement!numeral}\index{twos complement!negation}\index{twos complement!word}\index{word!twos complement}trick
-for computing the twos-complement numeral of a negative number without
+\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's complement}\index{two's complement!numeral}\index{two's complement!negation}\index{two's complement!word}\index{word!two's complement}trick
+for computing the two's-complement numeral of a negative number without
 computing $2^w$ or doing subtraction.
 Let \textsf{[$x_0$ $x_1$ \dots $x_{w-1}$]}
 be the $w$-bit, binary numeral for a number $n$ in the range $1$, $2$, \dots $2^{w-1}$,
 padded with leading zeros to fill out the $w$-bit word.
-Then, the twos-complement numeral for $(-n)$ can be computed
+Then, the two's-complement numeral for $(-n)$ can be computed
 in a two-step procedure.
 First, invert the bits: change the zero-bits to one-bits,
 and change the one-bits to zero-bits.
 Then, use the ripple-carry adder to add the numeral for the number $1$
 to the numeral with the inverted bits.
-The result will be the twos-complement numeral for $(-n)$.
-The same trick works to negate the twos-complement numeral
+The result will be the two's-complement numeral for $(-n)$.
+The same trick works to negate the two's-complement numeral
 of a number $(-n)$ from the range $-2^{w-1} < -n \leq 0$.
 
 The trick does not work for the number $-2^{w-1}$
 because the negative of that number (namely, $2^{w-1}$)
 is outside of the set $I(w)$,
-so it doesn't have a \emph{w}-bit, twos-complement numeral.
-The trick does work for negating the twos-complement numeral for zero.
+so it doesn't have a \emph{w}-bit, two's-complement numeral.
+The trick does work for negating the two's-complement numeral for zero.
 In that case the procedure delivers an output numeral identical
 to the input (namely, a numeral consisting of \emph{w} zero-bits).
 It produces a one-bit for the carry-out, but that bit is not part of the numeral.
@@ -963,133 +961,140 @@ cites the geometric progression
 (Exercise~\ref{ex:geometric-progression}, page \pageref{ex:geometric-progression})}.
 
 \begin{figure}
-\emph{Some facts, notation, and equations:}
-\begin{center}
+%\begin{center}
 \begin{tabular} {ll}
-$1 \le n \le 2^{31}$                                   & \emph{range of numbers to negate} \\
+\multicolumn{2}{l}{\emph{Some facts, notation, and equations}}\\
+\hline
+$1 \le n \le 2^{31}$                                            & \emph{range of numbers to negate} \\
 \textsf{(len (bits $n$))} $\le w$                               & \{\emph{len-bits}$\le$\} \emph{(page \pageref{len-bitsLE})} \\
-$xs$ = {\textsf{[$x_0$ $x_1$ \dots  $x_{w-1}$]}}                & $xs$ = (pad $w$ 0 (bits $n$))\emph{, padded binary numeral} \\
+$xs$ = {\textsf{[$x_0$ $x_1$ \dots  $x_{w-1}$]}}                & $xs$ = (pad $w$ 0 (bits $n$))\emph{, padded numeral} \\
 \textsf{(numb $xs$)} = $n$                                      & \{\emph{leading-0s}\} \emph{(page \pageref{leading-0s})} \\
-$ys$ = \textsf{[$y_0$ $y_1$ \dots $y_{w-1}$]}                   & \emph{inverted bits} $y_i = 1 - x_i$ \emph{(0s for 1s, 1s for 0s)} \\
+$ys$ = \textsf{[$y_0$ $y_1$ \dots $y_{w-1}$]}                   & \emph{inverted bits} $y_i = 1 - x_i$ \emph{(0 for 1, 1 for 0)} \\
 $1$ $+$ \textsf{(numb $ys$)} $=$ $2^w - n$                      & \{$ys$ \emph{increment}\} \emph{equation (see proof below)} \\
 \textsf{(bits (+ 1 (numb $ys$)))} $=$ \textsf{(twos $w$ $(- n)$)}        & \{\emph{2s trick}\} \emph{equation (see proof below)} \\
 \end{tabular}
-\end{center}
-\emph{Proof of} \{$ys$ \emph{increment}\} \emph{equation:} $1$ $+$ \textsf{(numb $ys$)} $=$ $2^w - n$
-\begin{center}
+%\end{center}
+\vspace{3mm}\\
+%\begin{center}
+\addtolength{\tabcolsep}{-4pt}
 \begin{tabular} {rlcll}
-  & $1$   &$+$ &\textsf{(numb $ys$)}                                          &  \\
-$=$ & $1$   &$+$ &$y_02^0 + y_12^1 + \dots + y_{w-1}2^{w-1}$                    & \{\emph{Horner 2}\}  \\
+\multicolumn{5}{l}{\emph{Proof of} \{$ys$ \emph{increment}\} \emph{equation:} $1$ $+$ \textsf{(numb $ys$)} $=$ $2^w - n$}\\
+\hline
+  & $1$   &$+$ &\textsf{(numb $ys$)}                                            & \\
+$=$ & $1$   &$+$ &$y_02^0 + y_12^1 + \dots + y_{w-1}2^{w-1}$                    & \{\emph{Horner 2}\} \\
 $=$ & $1$   &$+$ &$(1 - x_0)2^0 + (1 - x_1)2^1 + \dots ++ (1 - x_{w-1})2^{w-1}$ & $\forall i.(y_i = 1-x_i)$ \\
-$=$ & $1$   &$+$ &$(2^0 + 2^1 + \dots + 2^{w-1})$                               & \{\emph{algebra}\}   \\
-  &       &$-$ &$(x_02^0 + x_12^1 + \dots + x_{w-1}2^{w-1})$                  &                      \\
+$=$ & $1$   &$+$ &$(2^0 + 2^1 + \dots + 2^{w-1})$                               & \{\emph{algebra}\} \\
+  &       &$-$ &$(x_02^0 + x_12^1 + \dots + x_{w-1}2^{w-1})$                    & \\
 $=$ & $1$   &$+$ &$(2^w - 1) - (x_02^0 + x_12^1 + \dots + x_{w-1}2^{w-1})$      & \{\emph{geometric progression}\}\\
 $=$ & $2^w$ &$-$ &$(x_02^0 + x_12^1 + \dots x_{w-1}2^{w-1})$                    & \{\emph{algebra}\} \\
-$=$ & $2^w$ &$-$ &\textsf{(numb $xs$)}                                          & \{\emph{Horner 2}\}   \\
-$=$ & $2^w$ &$-$ &$n$                                                           & \textsf{(numb $xs$)} $=$ $n$     \\
+$=$ & $2^w$ &$-$ &\textsf{(numb $xs$)}                                          & \{\emph{Horner 2}\} \\
+$=$ & $2^w$ &$-$ &$n$                                                           & \textsf{(numb $xs$)} $=$ $n$ \\
 \end{tabular}
-\end{center}
-\emph{Proof of} \{\emph{2s trick}\} \emph{equation:} \textsf{(bits (+ 1 (numb $ys$)))} $=$ \textsf{(twos $w$ $(- n)$)}
-\begin{center}
+\addtolength{\tabcolsep}{4pt}
+%\end{center}
+\vspace{3mm}\\
+%\begin{center}
 \begin{tabular} {lll}
+\multicolumn{3}{l}{\emph{Proof of} \{\emph{2s trick}\} \emph{equation:} \textsf{(bits (+ 1 (numb $ys$)))} $=$ \textsf{(twos $w$ $(- n)$)}}\\
+\hline
     & \textsf{(bits (+ 1 (numb $ys$)))}        & \\
 $=$ & \textsf{(bits $(2^w - n)$)}              & \{$ys$ \emph{increment}\} \emph{equation} \\
 $=$ & \textsf{(bits $(2^w + (- n))$)}          & \{\emph{algebra}\}                        \\
 $=$ & \textsf{(bits (+ (expt 2 $w$) $(- n)$)}) & \emph{ACL2 notation for} $(2^w + (- n))$\\
 $=$ & \textsf{(twos $w$ $(- n)$)}              & \{$2s-$\} \emph{(}\{\emph{twos}\}\emph{, page \pageref{twos-defun})} \\
 \end{tabular}
-\end{center}
-\index{arithmetic!negative numeral}\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!twos complement}\index{twos complement!numeral}\index{twos complement!negation}\index{twos complement!word}\index{word!twos complement}
-\caption{Twos-Complement Negation Trick}
+%\end{center}
+\index{arithmetic!negative numeral}\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's complement}\index{two's complement!numeral}\index{two's complement!negation}\index{two's complement!word}\index{word!two's complement}
+\caption{Two's Complement Negation Trick}
 \label{fig:2s-comp-negation}
 \end{figure}
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise \label{len-2s}\index{twos complement!length}
+\exer {\label{len-2s}\index{two's complement!length}%
 Prove \{\emph{len-2s}\}:
-$\forall w.((n \in I(w)) \rightarrow ($\textsf{(len (twos $w$ $n$))} $= w))$
+$\forall w.((n \in I(w)) \rightarrow ($\textsf{(len (twos $w$ $n$))} $= w))$}
 
-\Exercise \label{minus-sign}\index{twos complement!sign}
+\exer {\label{minus-sign}\index{two's complement!sign}%
 Prove \{\emph{minus-sign}\}:
 $\forall w.(((n \in I(w)) \wedge (n < 0)) \rightarrow ($\textsf{(fin(twos $w$ $n$))} $=$ $1))$\\
-The operator \textsf{fin} is defined on page \pageref{fin-defun}.
+The operator \textsf{fin} is defined on page \pageref{fin-defun}.}
 
-\Exercise \label{plus-sign}\index{twos complement!sign}
+\exer {\label{plus-sign}\index{two's complement!sign}%
 Prove \{\emph{plus-sign}\}:
-$\forall w.(((n \in I(w)) \wedge (n \geq 0)) \rightarrow ($\textsf{(fin(twos $w$ $n$))} $=$ $0))$
+$\forall w.(((n \in I(w)) \wedge (n \geq 0)) \rightarrow ($\textsf{(fin(twos $w$ $n$))} $=$ $0))$}
 
-\Exercise \label{2s-negation-circuit}\index{twos complement!negation circuit}
-\index{circuit!twos complement negation}
+\exer {\label{2s-negation-circuit}\index{two's complement!negation circuit}%
+\index{circuit!two's complement negation}
 Diagram a negation circuit whose input signals represent a
-twos-complement numeral for a number $n$ in the range
+two's-complement numeral for a number $n$ in the range
 $-2^{w-1} < n < 2^{w-1}$
 and whose output signals represent
-the twos-complement numeral for $(-n)$.
-In your diagram, rely on the twos-complement negation trick
+the two's-complement numeral for $(-n)$.
+In your diagram, rely on the two's-complement negation trick
 (Figure~\ref{fig:2s-comp-negation}),
 and use the gate-like symbol in
 Figure \ref{fig:adder-thm} (page \pageref{fig:adder-thm})
 to depict the ripple-carry adder circuit.\\
-\emph{Note}: Your circuit will also produce the twos-complement
+\emph{Note}: Your circuit will also produce the two's-complement
 numeral for $-2^{w-1}$, given the binary numeral for $2^{w-1}$
-as input.
+as input.}
 
-\Exercise \label{2s-negation-circuit-model}
+\exer {\label{2s-negation-circuit-model}%
 Define an ACL2 model for the negation circuit
 of Exercise~\ref{2s-negation-circuit}.
 Your model may refer to the ACL2 model
 of the ripple carry adder in
-Figure \ref{fig:adder} (page \pageref{fig:adder}).
+Figure \ref{fig:adder} (page \pageref{fig:adder}).}
 
-\Exercise Define and run a DoubleCheck property that
+\exer {Define and run a DoubleCheck property that
 tests the ACL2 model of the negation circuit of
-Excercise~\ref{2s-negation-circuit-model}.
+Excercise~\ref{2s-negation-circuit-model}.}
 
-\Exercise \label{2s-subtraction-circuit}
+\exer {\label{2s-subtraction-circuit}%
 \index{numeral!subtraction}\index{subtraction, binary numeral}\index{circuit!subtraction}
-Diagram a circuit that subtracts twos-complement numerals.
+Diagram a circuit that subtracts two's-complement numerals.
 In your diagram, use the gate-like symbol in
 Figure \ref{fig:adder-thm} (page \pageref{fig:adder-thm})
 to depict the ripple-carry adder circuit,
 and use a similar, gate-like symbol for the negation circuit
-of Exercise~\ref{2s-negation-circuit}.
+of Exercise~\ref{2s-negation-circuit}.}
 
-\Exercise \label{2s-subtraction-circuit-model}
-Define an ACL2 model of the twos-complement
-subtraction circuit of Exercise~\ref{2s-subtraction-circuit}.
+\exer {\label{2s-subtraction-circuit-model}%
+Define an ACL2 model of the two's-complement
+subtraction circuit of Exercise~\ref{2s-subtraction-circuit}.}
 
-\Exercise Define and run a DoubleCheck property that
+\exer {Define and run a DoubleCheck property that
 tests the ACL2 model of the subtraction circuit
-in Exercise~\ref{2s-subtraction-circuit-model}.
+in Exercise~\ref{2s-subtraction-circuit-model}.}
 
-\Exercise \label{2s-comparison-circuit}
+\exer {\label{2s-comparison-circuit}%
 \index{circuit!numeric order}\index{number!comparison circuit}\index{compare!circuit, numeric}
 Diagram a comparison circuit that takes a pair of
-twos-complement numerals as inputs and delivers a one-bit
+two's-complement numerals as inputs and delivers a one-bit
 if the first number is less than the second
 and a zero-bit otherwise.
 In your diagram, use a gate-like symbol
 for the subtraction circuit of Exercise~\ref{2s-subtraction-circuit}.
 \emph{Hint}: Apply theorems \{\emph{minus-sign}\} and \{\emph{plus-sign}\}
-from Exercises~\ref{minus-sign} and \ref{plus-sign}.
+from Exercises~\ref{minus-sign} and \ref{plus-sign}.}
 
-\Exercise \label{2s-comparison-circuit-model}
+\exer {\label{2s-comparison-circuit-model}%
 Define an ACL2 model of the comparison circuit
 of Exercise~\ref{2s-comparison-circuit}.
 Your model may refer to the subtraction circuit model
-of Exercise~\ref{2s-subtraction-circuit-model}.
+of Exercise~\ref{2s-subtraction-circuit-model}.}
 
-\Exercise Define and run a DoubleCheck property
+\exer {Define and run a DoubleCheck property
 that tests the comparison circuit model
-of Exercise~\ref{2s-comparison-circuit-model}.
+of Exercise~\ref{2s-comparison-circuit-model}.}
 
-\Exercise \label{ex:geometric-progression}
+\exer {\label{ex:geometric-progression}%
 Use induction prove the following equation. You may assume $r > 0$ and $r \neq 1$.\\
-\hspace*{18mm}$(r - 1)(r^0 + r^1 + r^2 + \dots r^n) = r^{n+1} - 1$~~~~~~\{\emph{geometric progression}\}
+\hspace*{18mm}$(r - 1)(r^0 + r^1 + r^2 + \dots r^n) = r^{n+1} - 1$~~~~~~\{\emph{geometric progression}\}}
 
 
-\end{ExerciseList}
+\end{exercises}
 
 %%% Local Variables:
 %%% mode: latex

@@ -27,7 +27,7 @@ a $1440\times900$ display: 900 rows and 1440 columns.
 Continuing to ignore color for the moment, each pixel can
 be either emitting light (turned on) or not emitting light
 (turned off), so a picture in a computer can be represented
-by specifying which pixels are turned on and which are turned off. 
+by specifying which pixels are turned on and which are turned off.
 A straightforward way to do this is to use a list of
 numbers in which each number corresponds to a pixel. Even better,
 we can use a list of rows, each of which is list of $N$
@@ -49,12 +49,14 @@ When the entry is a 0, the pixel is ``off'' (indicate by white square).
 \begin{figure}
 \begin{center}
 \begin{minipage}{3cm}
+\begin{code}
 \begin{verbatim}
  [[0 1 0 0]
   [0 0 1 0]
   [1 1 1 0]
   [0 0 0 0]]
 \end{verbatim}
+\end{code}
 \end{minipage}%
 \begin{minipage}{3cm}
 \begin{tikzpicture}[thick, scale=0.5]
@@ -101,7 +103,7 @@ part of the retina. There are three types of cones, each one sensitive
 to a different range of colors. There is some overlap in the range
 of colors that each type of cone can detect, but it is mostly accurate
 to think in terms of cones that are sensitive to shades of red, green,
-and blue. The brain forms an image by interpreting 
+and blue. The brain forms an image by interpreting
 the measurements of colored-light intensities that the cones make.
 
 In an analogous way, color images can be created by using three dots on a screen
@@ -151,13 +153,13 @@ red, green, and blue. For example, a pixel with red and green
 on and blue off will appear to be yellow,
 but by using a range of \index{color!intensity}color intensities,
 not just on and off, a blend of red and green can produce other
-colors, such as orange. Most computer screens 
-can produce 256 different intensity levels for each colored dot.\footnote{The 
+colors, such as orange. Most computer screens
+can produce 256 different intensity levels for each colored dot.\footnote{The
 human eye can detect more than 256 shades of
 each color, but 256 shades are enough to produce realistic color
 on computer screens.}
 Software represents a color intensity as a number
-in the range 0 to 255. 
+in the range 0 to 255.
 Using this scheme, the list \textsf{[255 140 0]} produces
 a dark shade of \index{orange}orange.
 
@@ -165,8 +167,8 @@ A matrix of \index{red-green-blue}red-green-blue
 intensities is an abstraction of an image with realistic color,
 and hardware converts this matrix to a display with colored dots
 whose intensities reflect the numbers in the abstraction.
-Additional layers between the image abstraction in the software and 
-physical image on the screen can be helpful. 
+Additional layers between the image abstraction in the software and
+physical image on the screen can be helpful.
 Imagine, for example, an operator called \textsf{line}
 that paints a line on an image. This operator would figure out
 which pixels are on the line and build a matrix with
@@ -182,7 +184,33 @@ The operator delivers a new matrix of color intensities
 like the $image$ operand, but with the specified color
 at each pixel on the line.
 
-\begin{aside}
+There are of course many other useful operators in
+the same vein as the operator \textsf{line}. Operators to draw
+triangles, squares, rectangles, polygons, circles,
+ellipses, and the like. The important thing to realize is that all of
+these operators work on an image represented as a matrix of
+color intensities.
+The operators add to the system a layer that understands
+basic geometric shapes, and the geometry abstraction
+interacts with the layer that represents an image as a matrix of pixels.
+
+Operators that create shapes are not the whole story.
+Operators of another kind blur \index{image!blur}images in useful ways.
+For example, suppose that an image has a
+very dark line on a bright background. This creates a
+sharp boundary between the line and the background, but it can be
+smoothed out by averaging the colors of neighboring pixels.
+The bright pixels on one side of the boundary become a little darker,
+and the dark pixels on the other side become a little lighter,
+resulting in a softer boundary. This is the basic idea behind
+operators that manipulate images at the level
+of individual pixels and their neighbors. Image-processing operators
+of this kind form a class of  known as \index{filter}\emph{image filters}.
+There are a lot of filters in image
+processing software, and they provide another abstraction layer
+that facilitates creating representations of images with software.
+
+\begin{aside}{aside:Bresenham}{Bresenham Line-Drawing Algorithm}
 Drawing a \index{line!draw}line from one point to another on a grid of points is tricky.
 There are many subtle cases to consider, and
 if you don't make good choices, the result does not look
@@ -210,35 +238,9 @@ a fast way to compute the list of grid points closest to the line
 between any two given endpoints.
 Most of the line-drawing in digital images, still today,
 makes use of some version of the Bresenham algorithm.
-\caption{Bresenham Line-Drawing Algorithm}
-\label{aside:Bresenham}
+%\caption{Bresenham Line-Drawing Algorithm}
+%\label{aside:Bresenham}
 \end{aside}
-
-There are of course many other useful operators in
-the same vein as the operator \textsf{line}. Operators to draw
-triangles, squares, rectangles, polygons, circles,
-ellipses, and the like. The important thing to realize is that all of
-these operators work on an image represented as a matrix of
-color intensities.
-The operators add to the system a layer that understands
-basic geometric shapes, and the geometry abstraction 
-interacts with the layer that represents an image as a matrix of pixels.
-
-Operators that create shapes are not the whole story.
-Operators of another kind blur \index{image!blur}images in useful ways.
-For example, suppose that an image has a
-very dark line on a bright background. This creates a
-sharp boundary between the line and the background, but it can be
-smoothed out by averaging the colors of neighboring pixels.
-The bright pixels on one side of the boundary become a little darker,
-and the dark pixels on the other side become a little lighter,
-resulting in a softer boundary. This is the basic idea behind
-operators that manipulate images at the level
-of individual pixels and their neighbors. Image-processing operators
-of this kind form a class of  known as \index{filter}\emph{image filters}.
-There are a lot of filters in image
-processing software, and they provide another abstraction layer
-that facilitates creating representations of images with software.
 
 \section{Generating Images Randomly}
 
@@ -261,8 +263,8 @@ mostly, but not exactly, round.
 \begin{figure}
 \begin{center}
 \begin{tabular}{ll}
-\includegraphics[scale=0.3]{images/straight-line.png} &
-\includegraphics[scale=0.3]{images/random-line-art.png} \\
+\includegraphics[scale=1]{images-cmyk/straight-line} &
+\includegraphics[scale=1]{images-cmyk/random-line-art} \\
 \end{tabular}
 \end{center}
 \caption{Straight Line vs.~a Line Made Up of Random Segments}
@@ -283,27 +285,28 @@ and in ACL2 notation.\footnote{You can ignore the ACL2
 if you have not yet studied the chapters that introduce it.
 The ACL2 versions of the equations don't add any information
 necessary to understanding the concepts presented in this chapter.}
-
 \begin{center}
 \begin{tabular}{ll}
+\multicolumn{2}{c}{Axioms for $r$}\\
+\hline
 $r(n+1) = (4\cdot r(n) + 1)$ $mod$ $9$ & \{r1\}\\
 $r(0) = 0$                        & \{r0\}\\
 \end{tabular}
 \end{center}
-
-\begin{Verbatim}
+\begin{code}	
+\begin{verbatim}
 (defun r (n)
  (if (zp n)
      0                                 ; {r0}
      (mod (+ (* 4 (r (- n 1))) 1) 9))) ; {r1}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 As you can easily check if you
 recall that ($x$ $mod$ $d$) is the remainder in
 the division $x \div d$
-(Aside~\ref{third-grade-division}, page \pageref{third-grade-division}),
-$r(0) = 0$, $r(1) = 1$, $r(2
-) = 5$, $r(3) = 3$,
+(Box~\ref{third-grade-division}, page \pageref{third-grade-division}),
+$r(0) = 0$, $r(1) = 1$, $r(2) = 5$, $r(3) = 3$,
 and so on.
 So, $r$ is an operator that appears to produce random
 numbers, but the process is completely deterministic.
@@ -331,31 +334,31 @@ One of the effects of the modulus is to keep the numbers
 within a certain range, which is the range $0$, $1$, \dots $8$ in
 the case of the operator $r$.
 
-Most operators that produce pseudo-random sequences
-compute the next number in the sequence from the previous one.
-This is different from the definition of $r$, where the
-operand is the index of the number in the sequence: $r(n)$ is the
+As we have defined the operator $r$, $r(n)$ is the
 $n^\text{th}$ number in the sequence.
-It turns out that more common method,
-in which each invocation
+The is not the usual way to produce pseudo-random sequences.
+The usual method computes each new number in the sequence from the previous one.
+That is, the invocation of the operator
 supplies the value delivered by the previous invocation as
-the operand, is much faster than
-the operator $r$
-because the definition is no longer inductive,
-as shown in the following definition of the operator
-$rs$.\footnote{Again, you won't miss the point
+the operand. This procedure is much faster than
+because the definition is no longer inductive.
+The following definition of $rs$
+employs this non-inductive strategy.\footnote{Again, you won't miss the point
 if you ignore the ACL2 version of the equation.}
 
 \begin{center}
 \begin{tabular}{ll}
+\multicolumn{2}{c}{Axiom for $rs$}\\
+\hline
 $rs(s) = (4s + 1)$ $mod$ $9$ & \{rs\}\\
 \end{tabular}
 \end{center}
-
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun rs (s)
   (mod (+ (* 4 s) 1) 9))  ; {rs}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 Because the modulus is 9 in the definitions of the operators
 $r$ and $rs$, they always deliver a natural number between 0 and 8.
@@ -370,7 +373,10 @@ by the modulus.}
 
 \begin{figure}
 \begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{lll}
+\multicolumn{3}{c}{Axioms for $ragged$}\\
+\hline
 $ragged(image, x_1, y_1, x_2, y_2, seed) =$  &&\{rg1\}\\
 \hspace*{8mm}$ragged(line(image, x_1, y_1, rx, ry, black), x, y, x_2, y_2, s)$ & if $x_1 < x_2$ &\\
 \hspace*{4mm}where &&\\
@@ -384,8 +390,9 @@ $ragged(image, x_1, y_1, x_2, y_2, seed) =$  &&\{rg1\}\\
 \hspace*{4mm}$b =$ \textsf{[0 0 0]} &&\\
 $ragged(image, x_1, x_2, y_1, y_2, seed) = image$ & if $x_1 \geq x_2$ &\{rg0\}\\
 \end{tabular}
-
-\begin{Verbatim}
+\end{spacing}
+\begin{code}
+\begin{verbatim}
 (defun ragged (image x1 y1 x2 y2 seed)
  (if (< x1 x2)
      (let* ((s (rs seed))
@@ -398,7 +405,8 @@ $ragged(image, x_1, x_2, y_1, y_2, seed) = image$ & if $x_1 \geq x_2$ &\{rg0\}\\
             (black (list 0 0 0)))
        (ragged (line image x1 y1 rx ry black) x y x2 y2 s) ; {rg1}
      image))                                               ; {rg0}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
 \caption{Operator to Draw a Ragged Line Using Random Numbers}
 \label{fig:ragged-defun}

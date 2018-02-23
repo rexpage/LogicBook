@@ -1,9 +1,9 @@
-\chapter{Parallel Execution with MapReduce}
+\chapter{Parallel Computation with MapReduce}
 
 \section{Vertical and Horizontal Scaling}
 
 Some important computer applications are so large that they would take
-unacceptably long to execute on typical computers.  For
+unacceptably long to run on conventional computers.  For
 example, a personal computer is more than powerful enough
 to balance your checkbook, but not for a financial
 application that tracks credit card usage in real time to
@@ -178,8 +178,8 @@ The computation could proceed in three stages.
             \item \textsf{KLAR, Laramie, WY, 2009-05-14, 47}
             \item \textsf{KOUN, Norman,  OK, 2009-05-13, 76}
             \item \textsf{KOUN, Norman,  OK, 2009-05-14, 70}
-            \item \dots
         \end{itemize}
+        \hspace*{1cm}$\vdots$
         \end{quote}
         The first column is the key for each record (for example, KLAR),
         and the remaining columns comprise the value. Many
@@ -203,8 +203,8 @@ The computation could proceed in three stages.
             \item \textsf{WY, 47}
             \item \textsf{OK, 76}
             \item \textsf{OK, 70}
-            \item \dots
         \end{itemize}
+        \hspace*{1cm}$\vdots$
         \end{quote}
         In general, the Map operation may produce any number of intermediate
         data points for any given input data record, although in this case
@@ -218,8 +218,8 @@ The computation could proceed in three stages.
         \begin{itemize}
             \item \textsf{WY, 115}
             \item \textsf{OK, 120}
-            \item \dots
         \end{itemize}
+        \hspace*{1cm}$\vdots$
         \end{quote}
 \end{enumerate}
 \end{quote}
@@ -269,8 +269,7 @@ to denote a pair.
 \item \textsf{( score~.~1 )}
 \item \textsf{( and~.~1 )}
 \item \textsf{( seven~.~1 )}
-\item \textsf{( years~.~1 )}
-\item \dots
+\item \textsf{( years~.~1 )}\\~~~~$\vdots$
 \item \textsf{( from~.~1 )}
 \item \textsf{( the~.~1 )}
 \item \textsf{( earth~.~1 )}
@@ -571,6 +570,7 @@ The MapReduce framework requires the reduce operation to deliver
 a list of key/value pairs, so we package its result as a list consisting
 of exactly one key/value pair, namely the cluster identifier (the key) and the
 new center (the value).
+\begin{spacing}{0.9}
 \begin{eqnarray*}
     \begin{array}{l@{}l}
         reduce(&cluster, \\
@@ -591,13 +591,14 @@ average(points) &=& avg(points, (0,0), 0) \\
         \end{array}
     \right.
 \end{eqnarray*}
+\end{spacing}
 
 We need to explain some of the operators and terms
 in the equations that define the reduce operation
 because they are not, in all cases, what might be expected.
 The \emph{points} variable refers to a list of points,
 and each point is a pair of numbers representing product ratings
-by a customer. 
+by a customer.
 The operand $(0,0)$ in the equation that defines $average$ is
 also a pair of numbers, both zeros in this case.
 These zeros serve as a starting point for adding
@@ -644,9 +645,9 @@ The \index{tail recursion}\index{recursive}tail recursion
 trick avoids supplying, as an operand to another operator,
 the value that $avg$ delivers.
 This makes the computation
-faster because the computer is able to avoid a lot of bookkeeping 
+faster because the computer is able to avoid a lot of bookkeeping
 that is required when an inductive
-invocation is nested in an invocation of another 
+invocation is nested in an invocation of another
 operator.\footnote{Section \ref{sec:lemmas} discusses an
 example illustrating the effectiveness of tail recursion.}
 
@@ -664,7 +665,7 @@ discussed earlier (page \pageref{cluster-process}).
 \begin{figure}
     \begin{center}
 %        \includegraphics[scale=0.7]{images/iterative-map-reduce}
-        \includegraphics[scale=0.2]{images/iterative-map-reduce-rev}
+        \includegraphics[scale=1]{images-cmyk/iterative-map-reduce-rev}
     \end{center}
     \caption{Iterative Map Reduce Operation}
     \label{iterative-map-reduce}

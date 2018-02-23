@@ -20,12 +20,13 @@ Facebook users can post frequent updates of their doings,
 and they can view the postings of their friends through online connections
 accessible from ubiquitous devices such as laptops, tablets, and telephones.
 Making this interaction possible requires two pieces of information for each user:
-\begin{quote}
+%\begin{quote}
 \begin{enumerate}
 	\item a list of each user's friends, and
 	\item a list of each user's status updates.
 \end{enumerate}
-\end{quote}
+%\end{quote}
+
 It's not unusual for these lists to have hundreds of items,
 so Facebook has to make hundreds of billions of items
 accessible, quickly, online to billions of people.
@@ -41,7 +42,7 @@ and supports sophisticated \index{query}queries that can
 retrieve information from the tables.
 For example, Facebook could use the following query to determine
 what status updates to display when a specific user logs in.
-
+\begin{code}
 \begin{verbatim}
 	SELECT   s.User, s.Time, s.Status
 	FROM     Friends f, Statuses s
@@ -49,6 +50,7 @@ what status updates to display when a specific user logs in.
 	  AND    f.Friend = s.User
 	ORDER BY s.Time DESC
 \end{verbatim}
+\end{code}
 
 This approach would work very well if Facebook had a small number of users,
 but it does not scale to billions users.
@@ -65,11 +67,11 @@ make suggestions other purchases, and provide other services.
 If the information were stored in traditional database tables,
 retrieving it would take too long.
 
-In fact, this is a problem faced by any  
+In fact, this is a problem faced by any
 \index{Web 2.0 company}Web 2.0 organization.\footnote{A
-Web 2.0 organization is one that allows large numbers 
+Web 2.0 organization is one that allows large numbers
 of users to produce content for its website.}
-The web content that their users produce 
+The web content that their users produce
 can take the form of passages created directly by users,
 such as Facebook updates or Amazon reviews, or it can be content created
 indirectly, such as Amazon purchase recommendations.
@@ -91,16 +93,16 @@ its users produce much more content than traditional databases can handle.
 			\hline
 		\end{tabular}
 		\hspace{.5in}
-		\begin{tabular}[t]{ll>{\raggedright}p{1in}}
+		\begin{tabular}[t]{llp{1in}}
 			\hline
 			\multicolumn{3}{c}{\textsc{Statuses}} \\
 			\hline
 			\multicolumn{1}{c}{\textbf{User}} & \multicolumn{1}{c}{\textbf{Time}} & \multicolumn{1}{c}{\textbf{Status}} \\
 			\hline
-			John  & Apr 21, 2011, 10:27 am & Checked into Starbucks in Norman. \tabularnewline
-			Sally & Apr 21, 2011, 10:29 am & Saw \emph{Battle: Los Angeles} last night.  What a waste! \tabularnewline
-			Mary  & Apr 21, 2011, 10:32 am & Is anybody going to the carnival this weekend? \tabularnewline
-			Sally & Apr 21, 2011, 10:33 am & Looks like the fires are getting closer to our house.  Thinking about evacuating. \tabularnewline
+			John  & Apr 21, 2011, 10:27 am & \raggedright Checked into Starbucks in Norman. \tabularnewline
+			Sally & Apr 21, 2011, 10:29 am & \raggedright Saw \emph{Battle: Los Angeles} last night.  What a waste! \tabularnewline
+			Mary  & Apr 21, 2011, 10:32 am & \raggedright Is anybody going to the carnival this weekend? \tabularnewline
+			Sally & Apr 21, 2011, 10:33 am & \raggedright Looks like the fires are getting closer to our house.  Thinking about evacuating. \tabularnewline
 			\hline
 		\end{tabular}
 	\end{center}
@@ -197,14 +199,18 @@ To see how this might work,
 suppose the computer needs to generate John's welcome page.
 The first step might be to find John's friends,
 which can be done by executing a query on machine J.
+\begin{code}
 \begin{verbatim}
 	SELECT   f.Friend
 	FROM     Friends f
 	WHERE    f.user='John'
 \end{verbatim}
+\end{code}
+
 The query returns John's friends, Sally and Mary.
 The next step is to find Sally's and Mary's status updates.
 That leads to the the following queries:
+\begin{code}
 \begin{verbatim}
 	SELECT   s.Time, s.Status
 	FROM     Statuses s
@@ -216,6 +222,8 @@ That leads to the the following queries:
 	WHERE    s.User='Mary'
 	ORDER BY s.Time DESC
 \end{verbatim}
+\end{code}
+
 The first query should run on machine S,
 while the second query should run on machine M.
 The final step is to combine the results from the two queries
@@ -297,16 +305,16 @@ the values can be spread across multiple records, with IDs such as John1, John2,
 
 \begin{figure}
 	\begin{center}
-		\begin{tabular}[t]{lp{.8in}p{.8in}>{\raggedright}p{1in}>{\raggedright}p{1in}}
+		\begin{tabular}[t]{lp{.8in}p{.8in}p{1in}p{1in}}
 			\hline
 			\multicolumn{5}{c}{\textsc{Statuses}} \\
 			\hline
 			\multicolumn{1}{c}{\textbf{Record ID}} & \multicolumn{1}{c}{\textbf{Time1}} & \multicolumn{1}{c}{\textbf{Time2}}
 				& \multicolumn{1}{c}{\textbf{Status1}} & \multicolumn{1}{c}{\textbf{Status2}} \\
 			\hline
-			Sally & Apr 21, 2011,\hfill\break10:29 am & Apr 21, 2011,\hfill\break10:33 am &
-				Saw \emph{Battle: Los Angeles} last night.  What a waste! &
-				Looks like the fires are getting closer to our house.  Thinking about evacuating. \tabularnewline
+			Sally & \raggedright Apr 21, 2011,\hfill\break10:29 am & \raggedright Apr 21, 2011,\hfill\break10:33 am &
+				\raggedright Saw \emph{Battle: Los Angeles} last night.  What a waste! &
+				\raggedright Looks like the fires are getting closer to our house.  Thinking about evacuating. \tabularnewline
 			\hline
 		\end{tabular}
 	\end{center}
@@ -341,18 +349,18 @@ in case one of them becomes too large.
 Suppose, for example, shard B gets too large.
 To balance it, a new shard, say BM, is created and inserted between B and C.
 During the insertion process, B sends all of its records between BM and C to shard BM.
-\todo{Question (11/22/17):
-      Earlier it said that all hash values between B and C mapped to C.
-      Now, it says that records between BM and C are sent to shard BM.
-      It's not clear to me what that means. If "record between BM and C"
-      means hash values between BM and C, then it seems that the record
-      should be sent to shard C, based on the earlier specification.
-      If "record between BM and C" means something other than hash value,
-      then something needs to be said about what it means.
-      Also, it's not clear whether shard and machine mean the same thing
-      or if they are different things. From what is said, they its seems
-      that machine and shard mean the same thing.
-      This needs clarification.}
+%\todo{Question (11/22/17):
+%      Earlier it said that all hash values between B and C mapped to C.
+%      Now, it says that records between BM and C are sent to shard BM.
+%      It's not clear to me what that means. If "record between BM and C"
+%      means hash values between BM and C, then it seems that the record
+%      should be sent to shard C, based on the earlier specification.
+%      If "record between BM and C" means something other than hash value,
+%      then something needs to be said about what it means.
+%      Also, it's not clear whether shard and machine mean the same thing
+%      or if they are different things. From what is said, they its seems
+%      that machine and shard mean the same thing.
+%      This needs clarification.}
 When this process completes, all shards are notified of the new
 shard's existence, and shard BM joins the ring.
 This can happen without the knowledge of any programs

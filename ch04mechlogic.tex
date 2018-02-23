@@ -1,6 +1,5 @@
 \chapter{Mechanized Logic}
 \label{ch:mechanized-logic}
-%%\begin{comment}
 
 Proofs of algebraic equations
 like those in Chapter~\ref{ch:mathematical-induction}
@@ -18,7 +17,7 @@ but computers can carry it out flawlessly,
 relieving people from an obligation to focus
 with monk-like devotion on grammatical details.
 
-\begin{aside}
+\begin{aside}{aside:acl2-learning-objectives}{ACL2 Learning Objectives}
 One of the aims of this book is to help readers learn to
 verify, using rigorous logic, properties of software
 that is specified in the form of inductive equations.
@@ -32,8 +31,8 @@ we think you will gain a basic understanding
 of what can be done with mechanized logic.
 Becoming an accomplished user of such tools
 would require substantially more study and experience.
-\caption{ACL2 Learning Objectives}
-\label{aside:acl2-learning-objectives}
+%\caption{ACL2 Learning Objectives}
+%\label{aside:acl2-learning-objectives}
 \end{aside}
 
 ACL2 is one of several systems of
@@ -72,15 +71,18 @@ L($n$) $\equiv$ $($\textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} $=$
 In Chapter~\ref{ch:software-testing-prefix-notation} (page \pageref{additive-lengths-test})
 we defined a DoubleCheck test of this equation.
 
-\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}
+\begin{code}
+\begin{verbatim}
 (defproperty additive-law-of-concatenation-test
     (xs :value (random-list-of (random-natural))
      ys :value (random-list-of (random-natural)))
   (= (len (append xs ys))
      (+ (len xs) (len ys))))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
-\begin{aside}
+\begin{aside}{axiom:lst}{An Informality: \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]} versus $xs$}
 \begin{center}
 %\addtolength{\tabcolsep}{-6pt}
 \begin{tabular}{ll}
@@ -116,7 +118,7 @@ elements from specifiable domains.
   Axiom \{\emph{lst}\}: $(\forall xs.(\exists n.(\exists$\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}$.(xs =
   $\textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}$))))$
 \end{center}
-\caption{An Informality: \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]} versus $xs$}
+%\caption{An Informality: \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]} versus $xs$}
 \label{axiom:lst}
 \end{aside}
 
@@ -135,15 +137,17 @@ Theorem statements in ACL2 start with the
 After that comes a name for the theorem and then the Boolean formula
 that states the theorem.
 
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm additive-law-of-concatenation-thm
   (= (len (append xs ys))
      (+ (len xs) (len ys))))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.55]{images/additive-law-of-concatenation-thm-acl2-prf-bw.png}
+\includegraphics[scale=1]{images-cmyk/additive-law-of-concatenation-thm-acl2-prf-bw}
 \end{center}
 \index{Proof Pad!proof bar}\index{proof bar}
 \caption{Proof Pad Session with Proof Bar}
@@ -181,11 +185,13 @@ $=$ $ys)$
 In ACL2 notation, a definition of this theorem takes the following form.
 
 \index{append!suffix theorem}\index{theorem!append-suffix}\index{theorem, by name!\{append-suffix\}}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm append-suffix-thm
   (equal (nthcdr (len xs) (append xs ys))
          ys))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 The mechanized logic can prove this theorem, but
 the proof depends on some equations from numeric algebra.
@@ -202,9 +208,11 @@ a proof of the append-suffix theorem.
 An \textsf{include-book} directive tells ACL2 to
 \index{directive!include-book}\index{directory (:dir)!:system}\index{system, :dir}\index{book!directory (:dir)}\seeonlyindex{import}{book}\index{theorem!import (\emph{see also} book)}import
 these theorems.
-\begin{center}
-\textsf{(include-book "arithmetic-3/top" :dir :system)}
-\end{center}
+\begin{code}
+\begin{verbatim}
+           (include-book "arithmetic-3/top" :dir :system)
+\end{verbatim}
+\end{code}
 
 To make the theorems in the book available
 for ACL2 to cite in a proof,
@@ -221,16 +229,16 @@ click in the proof bar, and see what happens.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{images/append-suffix-thm-acl2-prf-bw.png}
+\includegraphics[scale=1]{images-cmyk/append-suffix-thm-acl2-prf-bw}
 \end{center}
 \index{theorem!append-suffix}\index{theorem, by name!\{append-suffix\}}\index{append!suffix theorem}
 \caption{Append-Suffix: Importing Theorems to Cite in Proof}
 \label{fig:append-suffix-acl2-prf}
 \end{figure}
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise Define the
+\exer {Define the
 \index{append!associative}\index{theorem!append associative}\index{theorem, by name!\{append associative\}}\index{associative}associativity property
 of \textsf{append} (\{\emph{app-assoc}\}, page \pageref{app-assoc})
 in ACL2 notation,
@@ -239,12 +247,12 @@ If you state the theorem correctly, ACL2 will succeed in proving it.\footnote{Ac
 to \index{Moore, J Strother}J Strother Moore, a pioneer
 in mechanized logic and a principal developer of ACL2,
 the associativity of \textsf{append} was one of the driving examples in early work in
-mechanized logic and one of the first theorems that such a system proved autonomously.}
+mechanized logic and one of the first theorems that such a system proved autonomously.}}
 
-\Exercise Define the following theorem in ACL2 and get the mechanized logic to prove it.\\
-\hspace*{16mm}$\forall xs.($\textsf{(len (nthcdr (len xs) xs))} $=$ $0)$
+\exer {Define the following theorem in ACL2 and get the mechanized logic to prove it.\\
+\hspace*{16mm}$\forall xs.($\textsf{(len (nthcdr (len xs) xs))} $=$ $0)$}
 
-\end{ExerciseList}
+\end{exercises}
 
 \section{Theorems with Constraints}
 \label{sec:implies-constraints}
@@ -254,29 +262,33 @@ was the append-prefix theorem
 (Figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation}),
 which referred to the prefix operator.
 
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun prefix (n xs)
    (if (and (posp n) (consp xs))
        (cons (first xs) (prefix (- n 1) (rest xs))) ; {pfx1}
        nil))                                        ; {pfx0}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 The append-prefix theorem, as stated for the paper-and-pencil proof,
 had the form $\forall n.$S$(n)$,
 where S($n$)
 was written in terms of a numbered list.
 The same theorem in ACL2 terminology uses a variable to designate the list.
-\begin{samepage}
-\begin{quote}
-Theorem \{append-prefix\} $\forall n.$S$(n)$ \\
+~\\
+
+Theorem \{append-prefix\} $\forall n.$S$(n)$
+
 where S($n$) $\equiv$ $($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} $=$ $ys)$
-\begin{Verbatim}
+
+\begin{code}
+\begin{verbatim}
 (defthm append-prefix-thm-NOT-QUITE-RIGHT
   (equal (prefix (len xs) (append xs ys))
          xs))
-\end{Verbatim}
-\end{quote}
-\end{samepage}
+\end{verbatim}
+\end{code}
 
 However, the theorem as stated
 is not quite correct,
@@ -325,7 +337,7 @@ Since a theorem cannot have exceptions,
 the theorem append-prefix-thm-NOT-QUITE-RIGHT
 isn't true.
 
-\begin{aside}
+\begin{aside}{thm-with-implies}{Using Implication to Constrain the Domain of a Theorem}
 A theorem that takes the form of an implication, $x \rightarrow y$,
 says that the conclusion, $y$, will be true when the hypothesis, $x$,
 is true, but says nothing about the status of the conclusion when
@@ -334,14 +346,15 @@ is \textsf{(implies $x$ $y$)}.
 For example, one can conclude that $u - 1 < v - 1$
 if one knows that $u < v$.
 In ACL2 this fact would be stated as an implication.
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm simple-theorem-about-numbers
   (implies (< u v)
            (< (- u 1) (- v 1))))
-\end{Verbatim}
-\index{theorem!constraints}\index{theorem!implication, constraint}
-\caption{Using Implication to Constrain the Domain of a Theorem}
-\label{thm-with-implies}
+\end{verbatim}
+\end{code}\index{theorem!constraints}\index{theorem!implication, constraint}
+%\caption{Using Implication to Constrain the Domain of a Theorem}
+%\label{thm-with-implies}
 \end{aside}
 
 The theorem is true, however, when the variable $xs$ is
@@ -356,16 +369,18 @@ ACL2 does not permit the use of the numbered list syntax,
 so the true-list constraint must be explicit.
 An implication formula imposes the necessary constraint.
 
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm append-prefix-thm
    (implies (true-listp xs)
             (equal (prefix (len xs) (append xs ys))
                    xs)))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.43]{images/append-prefix-thm-acl2-prf-bw.png}
+\includegraphics[scale=1]{images-cmyk/append-prefix-thm-acl2-prf-bw}
 \end{center}
 \index{append!prefix theorem}\index{theorem!append-prefix}
 \index{theorem, by name!\{append-prefix\}}
@@ -389,10 +404,10 @@ the prefix operator when it encounters its definition.
 This means that ACL2 allows the definition to join
 the universe of entities that can participate in
 the mechanized reasoning process.
-Aside~\ref{reason-for-acl2-admit} (page \pageref{reason-for-acl2-admit})
+Box~\ref{reason-for-acl2-admit} (page \pageref{reason-for-acl2-admit})
 explains what this entails.
 
-\begin{aside}
+\begin{aside}{reason-for-acl2-admit}{ACL2 Must Prove That Operators Terminate}
 In Figure~\ref{fig:append-prefix-acl2-prf}
 there is a step that has the label ``admit operator.''
 That is the terminology ACL2 uses for the process of accepting
@@ -409,27 +424,27 @@ Sometimes, coming up with an operator definition that makes
 it possible for ACL2 prove termination is, by itself,
 a major project, including importing theorems or coming up with new
 theorems to facilitate the reasoning process.
-Hardware and software with guaranteed properties is not easy to come by.
-\index{admit, ACL2}\index{ACL2!admit}
-\caption{ACL2 Must Prove That Operators Terminate}
-\label{reason-for-acl2-admit}
+Hardware and software with guaranteed properties is not easy to come
+by.\index{admit, ACL2}\index{ACL2!admit}
+%\caption{ACL2 Must Prove That Operators Terminate}
+%\label{reason-for-acl2-admit}
 \end{aside}
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise Define the \{\emph{rep-len}\} theorem (page \pageref{rep-len}) in ACL2,
+\exer {Define the \{\emph{rep-len}\} theorem (page \pageref{rep-len}) in ACL2,
 and use Proof Pad to run it through the mechanized logic.
-(\emph{Hint}: Use \textsf{natp} to constrain the first operand of \textsf{rep}.)
+(\emph{Hint}: Use \textsf{natp} to constrain the first operand of \textsf{rep}.)}
 
-\Exercise An exercise in Section~\ref{sec:append-prefix-suffix} required a paper-and-pencil
+\exer {An exercise in Section~\ref{sec:append-prefix-suffix} required a paper-and-pencil
 proof of the following proposition: $\forall xs.($\textsf{(nthcdr (len $xs$) $xs$)} $=$ \textsf{nil}$)$.
-Define this theorem in ACL2 and get the mechanized logic to prove it.
+Define this theorem in ACL2 and get the mechanized logic to prove it.}
 
-\Exercise The formula \textsf{(equal (prefix (len $xs$) $xs$) $xs$)} is true with a certain
+\exer {The formula \textsf{(equal (prefix (len $xs$) $xs$) $xs$)} is true with a certain
 constraint on $xs$. Define an ACL2 theorem with this equation as its conclusion
-and get the mechanized logic to prove it.
+and get the mechanized logic to prove it.}
 
-\end{ExerciseList}
+\end{exercises}
 
 \section{Helping Mechanized Logic Find Its Way}
 \label{sec:lemmas}
@@ -474,18 +489,21 @@ with the Fibonacci equations
 
 \begin{figure}
 \begin{center}
-\emph{Axioms \{Fibonacci\}}
+Axioms \{\emph{Fibonacci}\}
 \begin{tabular}{ll}
 $f_0$ $=$ $0$                   & \{\emph{f0}\} \\
 $f_1$ $=$ $1$                   & \{\emph{f1}\} \\
 $f_{n+2}$ $=$ $f_{n+1} + f_{n}$ & \{\emph{f2}\} \\
 \end{tabular}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun fib(n) ; n-th Fibonacci number
   (if (posp (- n 1))                      ; n > 1
       (+ (fib(- n 1)) (fib(- n 2)))       ; {fib2}
       n))                                 ; {fib1}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
+
 \begin{tabular}{llllllllll}
 \dots & (fib 2) & (fib 3) & (fib 4) & (fib 5) & \dots & (fib 10) & (fib 11) & (fib 12) & \dots \\
 \dots & ~~~~~1  &  ~~~~2  &  ~~~~3  &  ~~~~5  & \dots &  ~~~~~55 &  ~~~~~89 & ~~~144   & \dots \\
@@ -598,7 +616,8 @@ but sometimes, as with Fibonacci numbers, they do.
 
 \begin{figure}
 \begin{center}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun gib (n b a)  ; b = (fib(n-1)), a=(fib(n-2))
    (if (posp (- n 1))
        (gib (- n 1) (+ b a) b)            ; {gib2}
@@ -607,7 +626,8 @@ but sometimes, as with Fibonacci numbers, they do.
            a)))                           ; {gib0}
 (defun fib-fast (n) ; (fib-fast n)=(fib n)
    (gib n 1 0))     ; (fib 1)=1, (fib 0)=0
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
 \seeonlyindex{fib, fib-fast}{operator}\index{Fibonacci!fast}\index{Fibonacci!operator}\index{operator, by name!fib, fib-fast (Fibonacci)}\index{operator, by name!gib (iterative Fibonacci)}\index{equation, by name!\{gib0\}, \{gib1\}, \{gib2\}}\index{gib (\emph{see also} operator)}
 \caption{Fibonacci Numbers: Quick Delivery}
@@ -631,16 +651,16 @@ Some reasoning is required.
 Maybe ACL2 can take it on successfully.
 We would like to know that $\forall n.($\textsf{(fib-fast $n$)} $=$ \textsf{(fib $n$)}$)$.
 The theorem in ACL2 terms can be stated as follows.
-\begin{samepage}
 \index{theorem, by name!\{fib=fib-fast\}}\index{Fibonacci!fast}\index{theorem!Fibonacci fast}
 \begin{center}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm fib=fib-fast ; (fib-fast n) = (fib n)
     (implies (natp n)
              (= (fib n) (fib-fast n))))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
-\end{samepage}
 
 When ACL2 tries to prove this theorem it fails,
 or at least it takes such a long time floundering that we interrupted it
@@ -656,37 +676,36 @@ the \textsf{gib} operator satisfies the basic Fibonacci axioms.
 This is, to prove that the $n^\textnormal{th}$ value of \textsf{gib} is
 the sum of the previous two values (as in axiom \{\emph{f2}\}).
 In ACL2 that theorem can be stated as follows.
-\begin{samepage}
 \index{gib (\emph{see also} operator)}\index{theorem!gib lemmas (base, inductive)}\index{gib (\emph{see also} operator)!lemmas (base, inductive)}
 \begin{center}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm gib-inductive-equation ; a la {fib2}
     (implies (posp (- n 1))              ; n > 1
              (= (gib n b a)              ; n-th
                 (+ (gib (- n 1) b a)     ; (n-1)th
                    (gib (- n 2) b a))))) ; (n-2)th
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
-\end{samepage}
 
 ACL2 fails quickly this time and reports that it was not able
 to find an induction scheme that worked.
-So, our attempt to help ACL2 along didn't work, exactly,
+So, our attempt to help ACL2 along didn't work, exactly, %'
 but at least ACL2 could determine quickly that
 things were not going well.
 Next, we guessed that ACL2 might need help with the
 base case as well as the inductive case, so we
 stated a base case for the \textsf{gib} operator as an ACL2 theorem.
-
-\begin{samepage}
 \index{theorem!gib lemmas (base, inductive)}\index{gib (\emph{see also} operator)!lemmas (base, inductive)}
 \begin{center}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defthm gib-base-equation ; a la {fib1}
     (= (gib 1 b a) b))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
-\end{samepage}
 
 This idea worked. ACL2 was able to prove the gib-base-equation
 and the gib-inductive-equation, and then, finally,
@@ -701,24 +720,24 @@ instantaneously, even for large values of $n$.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.47]{images/fib-gib-thm-acl2-prf.png}
+\includegraphics[scale=1]{images-cmyk/fib-gib-thm-acl2-prf}
 \end{center}
 \caption{Fast Fibonacci Delivers Fibonacci Numbers}
 \label{fig:fib-gib-thm}
 \end{figure}
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise Assume that $c_1 = 1$ and $c_{n+2} = 2c_n$.
+\exer {Assume that $c_1 = 1$ and $c_{n+2} = 2c_n$.
 Prove that $\forall n.(c_{2n+1} = 2^n)$.\\
 \emph{Hint}: Define $x_n = c_{2n+1}$.
 First, verify that $x_{n+1} = 2x_n$.
 Then, use mathematical induction to prove that $x_n = 2^n$,
 and translate this formula for $x_n$
 to a formula for $c_{2n+1}$.\\
-\index{exponents, law of}\emph{Note}: $2^0 = 1$, $\forall n.(2^{n+1} = 2 \times 2^n)$ \{\emph{Law of Exponents}\}
+\index{exponents, law of}\emph{Note}: $2^0 = 1$, $\forall n.(2^{n+1} = 2 \times 2^n)$ \{\emph{Law of Exponents}\}}
 
-\end{ExerciseList}
+\end{exercises}
 
 \section{Proof Automation and Things That Can't Be Done}
 \label{sec:halting-problem}
@@ -752,11 +771,11 @@ Now, mechanized logics play a role in
 the verification of important properties of digital circuits and
 software, not only in research labs,
 but also in engineering projects with deadlines and product cycles.
-It's not just ACL2. Many systems of mechanized logic
+It's not just ACL2. Many systems of mechanized logic %'
 have been developed over the past half-century or so,
 by distinguished researchers in the USA, the UK, France, Sweden, and elsewhere.
 
-\begin{aside}
+\begin{aside}{mechanized-logic-history}{Mechanized Logics: Fifty Years of R\&D, Mostly R}
 \begin{itemize}
 \item ACL2 (and precursor nqthm): J Moore, Robert Boyer, and Matt Kaufmann, Univ of Texas, with a long history starting at the Univ of Edinburgh and continuing at Xerox PARC and SRI
 \item LCF, HOL, Isabelle: Robin Milner, Mike Gordon, Lawrence Paulson, Stanford Univ, Cambridge Univ, Univ of Edinburgh
@@ -765,10 +784,9 @@ by distinguished researchers in the USA, the UK, France, Sweden, and elsewhere.
 \item Agda: Ulf Norell, Chalmers Univ
 \item LF: Robert Harper, Furio Honsell, Gordon Plotkin, Carnegie Mellon Univ, Univ of Udine, Univ of Edinburgh
 \item Twelf: Frank Pfenning, Carsten Sch\"urmann, Carnegie Mellon Univ, Univ of Copenhagen
-\end{itemize}
-\index{logic!mechanized}\index{Twelf}\index{Pfenning!Frank}\index{Sch\"urmann, Carsten}\index{LF}\index{Harper, Robert}\index{Honsell, Furio}\index{Plotkin, Gordon}\index{Agda}\index{Norell, Ulf}\index{PVS}\index{Owre, sam}\index{Natarajan, Shankar}\index{Rushby, John}\index{Coq}\index{Coquand, Thierry}\index{Huet, G\'erard}\index{LCF}\index{HOL}\index{Isabelle}\index{Milner, Robert}\index{Gordon, Mike}\index{Paulson, Lawrence}\index{ACL2}\index{Moore, J Strother}\index{Boyer, Robert}\index{Kaufmann, Matt}
-\caption{Mechanized Logics: Fifty Years of R\&D, Mostly R}
-\label{mechanized-logic-history}
+\end{itemize}\index{logic!mechanized}\index{Twelf}\index{Pfenning!Frank}\index{Sch\"urmann, Carsten}\index{LF}\index{Harper, Robert}\index{Honsell, Furio}\index{Plotkin, Gordon}\index{Agda}\index{Norell, Ulf}\index{PVS}\index{Owre, sam}\index{Natarajan, Shankar}\index{Rushby, John}\index{Coq}\index{Coquand, Thierry}\index{Huet, G\'erard}\index{LCF}\index{HOL}\index{Isabelle}\index{Milner, Robert}\index{Gordon, Mike}\index{Paulson, Lawrence}\index{ACL2}\index{Moore, J Strother}\index{Boyer, Robert}\index{Kaufmann, Matt}
+%\caption{Mechanized Logics: Fifty Years of R\&D, Mostly R}
+%\label{mechanized-logic-history}
 \end{aside}
 
 Proofs are not only hard.
@@ -805,9 +823,9 @@ halting problem cannot be solved
 for any ``general purpose'' \index{programming language}programming language,
 by which we mean a \index{Turing complete}Turing complete language,
 which itself calls for a long explanation even
-before arriving at a discussion of how Turing completeness
+before discussing how Turing completeness
 interacts with the halting problem.
-You can track that down, if you're interested.
+You can track that down if you're interested.
 All widely-used programming languages,
 including \index{ACL2}ACL2, \index{Java}Java, and \index{C++}C++ for example, are \index{Turing complete}Turing complete.
 We leave it at that.}
@@ -858,13 +876,14 @@ formula \textsf{($f$ $x$)} to designate a computation that may
 or may not be completed in a finite amount of time.
 Since $H$ is a logic predicate, not a computation,
 it has a value whether or not the formula \textsf{($f$ $x$)} terminates.
-\begin{quote}
+
+%\begin{quote}
 \index{predicate, by name!H (termination)}\index{termination predicate (H)}
 \label{def:predicate-H}
-\emph{Definition of predicate} $H$\\
-\hspace*{3mm}$H(f, x) = True$, if \textsf{($f$ $x$)} terminates\\
-\hspace*{3mm}$H(f, x) = False$, if \textsf{($f$ $x$)} does not terminate
-\end{quote}
+\hspace*{5mm}\emph{Definition of predicate} $H$\\
+\hspace*{10mm}$H(f, x) = True$, if \textsf{($f$ $x$)} terminates\\
+\hspace*{10mm}$H(f, x) = False$, if \textsf{($f$ $x$)} does not terminate
+%\end{quote}
 
 The theorem that Turing and Church proved is that
 no operator $h$ can be defined in Lisp
@@ -877,7 +896,6 @@ This means not just that it would be hard to define the operator $h$.
 It means that nobody can define $h$ with any amount of effort or cleverness.
 There is no such definition.
 There are some things that cannot be done, and this is one of them.
-
 
 \label{church-turing-hypothesis}\index{Church-Turing hypothesis}\index{Turing-Church hypothesis}\index{hypothesis!Church-Turing}A
 conjecture of Church and Turing
@@ -900,12 +918,14 @@ We express the \index{halting problem}halting problem
 theorem as a logic formula that we will prove
 using natural deduction (Section \ref{sec:deduction}).
 The theorem has no hypotheses.
-\begin{quote}
+\vspace{2mm}\\
+%\begin{quote}
 \index{theorem!halting problem}\index{theorem, by name!\{halting problem\}}
-Theorem \{halting problem\}:\\
-$\vdash$ $\neg(\exists h. \forall f. \forall x.
+\hspace*{5mm}Theorem \{halting problem\}:\\
+\hspace*{1cm}$\vdash$ $\neg(\exists h. \forall f. \forall x.
 ((H(f, x) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $1)) \wedge ((\neg H(f, x)) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $0))))$
-\end{quote}
+\vspace{2mm}
+%\end{quote}
 
 There are two Lisp formulas embedded in
 the logic formula of the theorem, both the same:
@@ -918,10 +938,12 @@ the formula \textsf{($h$ $f$ $x$)} computes to a natural number.
 To make the proof more compact and, we hope, more readable,
 we will use $E$ as an abbreviation for the
 long $\exists$ formula whose negation is the conclusion of the theorem.
-\begin{quote}
-$E$ $\equiv$ $\exists h. \forall f. \forall x.
+\vspace{2mm}\\
+%\begin{quote}
+\hspace*{5mm}$E$ $\equiv$ $\exists h. \forall f. \forall x.
 ((H(f, x) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $1)) \wedge ((\neg H(f, x)) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $0)))$
-\end{quote}
+\vspace{2mm}
+%\end{quote}
 
 With the abbreviation, the \{halting problem\} theorem is: $\vdash$ $\neg E$.
 Figure~\ref{fig:halting-proof-strategy} (page \pageref{fig:halting-proof-strategy})
@@ -932,11 +954,12 @@ after showing how our goal, the \{halting problem\} theorem,
 can be derived from it.
 To clarify the derivation, we need to state the \{paradox\} theorem,
 which we will prove later.
-\begin{quote}
-\index{theorem!paradox}\index{theorem, by name!\{paradox\}}
-\index{paradox, halting problem}\index{halting problem}
-Theorem \{paradox\}: $E$ $\vdash$ $False$
-\end{quote}
+\vspace{2mm}\\
+%\begin{quote}
+\index{theorem!paradox}\index{theorem, by name!\{paradox\}}\index{paradox, halting problem}\index{halting problem}
+\hspace*{5mm}Theorem \{paradox\}: $E$ $\vdash$ $False$
+\vspace{2mm}
+%\end{quote}
 
 In addition to citing the \{paradox\} theorem,
 the proof of the \{halting problem\} theorem
@@ -948,23 +971,28 @@ The assumption, as always, stands in lieu of a proof.
 As it happens, the assumption is discharged later in the proof,
 leaving the \{halting problem\} theorem with no hypotheses,
 as it is stated.
+The conclusion of the theorem is the negation of a long there-exists formula.
+What it means is that there is no program that, given an arbitrary program \emph{p},
+determine, in a finite number of computation steps,
+whether the program \emph{p} will terminate.
 
 \begin{figure}
 Theorem \{halting problem\}: $\vdash$ $\neg E$ ~~~~~~~~\emph{Note: This theorem has no hypotheses.}\\
-proof~~~~(\emph{Note}: $E$ $\equiv$ $\exists h. \forall f. \forall x.
-((H(f, x) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $1)) \wedge ((\neg H(f, x)) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $0)))$)
+\hspace*{5mm}where $E$ $\equiv$ $\exists h. \forall f. \forall x.
+((H(f, x) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $1)) \wedge ((\neg H(f, x)) \rightarrow ($\textsf{($h$ $f$ $x$)} $=$ $0)))$)\\
+proof
 \begin{center}
 \begin{tabular}{ll}
-Assume $(\neg(\neg E))$                       &\emph{discharged later; E abbreviates long $\exists$ formula}\\
+Assume $(\neg(\neg E))$                       &\emph{this assumption will discharged}\\
 ------------------------\{$\neg \neg$ forward\} &\emph{proved in Figure~\ref{fig:dbl-neg-fwd} (page \pageref{fig:dbl-neg-fwd})}\\
 ~~~~~~~~~~~~$E$                               &\\
 ------------------------\{paradox\}           &\emph{proved in Figure~\ref{fig:proof-paradox-thm} (page \pageref{fig:proof-paradox-thm})}\\
 ~~~~~~~~$False$                               &\\
 ------------------------\{$\rightarrow$ introduction\} &\emph{assumed} $(\neg(\neg E))$\emph{, proved} $False$\emph{,}\\
 ~~$(\neg(\neg E)) \rightarrow False$          &~~~~\emph{conclude} $(\neg(\neg E)) \rightarrow False$\\
-Discharge $(\neg(\neg E))$                    &\emph{eliminates} $(\neg(\neg E))$\emph{, leaving no hypotheses}\\
+Discharge $(\neg(\neg E))$                    &\emph{this discharge leaves no hypotheses}\\
 ------------------------\{reductio ad absurdum\}&\emph{Figure~\ref{fig-02-deduction-rules} (page \pageref{fig-02-deduction-rules})}\\
-~~~~~~~~~~~$\neg E$                           &\emph{no program solves halting prob for all programs}\\
+~~~~~~~~~~~$\neg E$                           &\\
 \end{tabular}
 \end{center}
 \index{halting problem}\index{theorem!halting problem}\index{theorem, by name!\{halting problem\}}
@@ -995,11 +1023,13 @@ In particular, $E$ says that for any operator $f$ and any value $x$,
 the formula \textsf{(h $f$ $x$)} $=$ \textsf{0} if $H(f, x)$ is $False$ and
 \textsf{(h $f$ $x$)} $=$ \textsf{1} if $H(f,x)$ is $True$.
 We specify those properties in the following two theorems.
-\begin{quote}
 \index{theorem, by name!\{hF\}}\index{theorem, by name!\{hT\}}
-Theorem \{hF\}: $E$ $\vdash$ $\forall f.\forall x.(\neg H(f, x))$ $\rightarrow ($\textsf{(h $f$ $x$)} $=$ \textsf{0}$)$\\
-Theorem \{hT\}: $E$ $\vdash$ $\forall f.\forall x.H(f, x)$      $\rightarrow ($\textsf{(h $f$ $x$)} $=$ \textsf{1}$)$
-\end{quote}
+\vspace{2mm}\\
+%\begin{quote}
+\hspace*{5mm}Theorem \{hF\}: $E$ $\vdash$ $\forall f.\forall x.(\neg H(f, x))$ $\rightarrow ($\textsf{(h $f$ $x$)} $=$ \textsf{0}$)$\\
+\hspace*{5mm}Theorem \{hT\}: $E$ $\vdash$ $\forall f.\forall x.H(f, x)$      $\rightarrow ($\textsf{(h $f$ $x$)} $=$ \textsf{1}$)$
+\vspace{2mm}
+%\end{quote}
 
 Since \textsf{h} is a Lisp operator, we can refer to it in the definition of
 another Lisp operator.
@@ -1009,7 +1039,7 @@ It invokes \textsf{h} to decide whether to deliver the value \textsf{0} or
 the computation represented by an invocation of an operator called \textsf{loop},
 which is also defined in
 Figure~\ref{fig:paradox-op-defun}.
-The \textsf{loop} operator doesn't do anything.
+The \textsf{loop} operator doesn't do anything. %'
 Or, rather,
 it does way too much by doing nothing over and over, forever.
 We are going to take it on faith that \textsf{(loop $x$)} does not terminate,
@@ -1020,19 +1050,22 @@ so we assert that $\forall x.(H($\textsf{loop}, $x)$ $=$ $False)$.
 
 \begin{figure}
 \begin{center}
-Axioms of p\\
 \begin{tabular}{lll}
+\multicolumn{2}{c}{Axioms \textsf{p}}\\
+\hline
 \textsf{(p $x$)} $=$ \textsf{0}          & if \textsf{(h p $x$)} $=$ \textsf{0}    &\{p0\}\\
 \textsf{(p $x$)} $=$ \textsf{(loop $x$)} & if \textsf{(h p $x$)} $\neq$ \textsf{0} &\{p1\}\\
 \end{tabular}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun loop (x)  ; a non-terminating computation
   (loop x))
 (defun p (x)     ; definition derived from axioms of p
   (if (equal (h p x) 0)
       0
       (loop x)))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
 \index{loop}
 \caption{Definitions of Operators \textsf{p} and \textsf{loop}}
@@ -1046,11 +1079,13 @@ It has to be one or the other because $H$ is a predicate.
 Since \textsf{p} is an operator, $x$ is a value, and \textsf{1} is not \textsf{0},
 the following theorems are special cases of
 Theorem \{hF\} and Theorem \{hT\}.
-\begin{quote}
 \index{theorem, by name!\{pF\}}\index{theorem, by name!\{pT\}}
-Theorem \{pF\}: $E$ $\vdash$ $(\neg H($\textsf{p}, $x))$ $\rightarrow$ $($\textsf{(h p $x$)} $=$ \textsf{0}$)$ \\
-Theorem \{pT\}: $E$ $\vdash$ $H($\textsf{p}, $x)$ $\rightarrow$ $(\neg($\textsf{(h p $x$)} $=$ \textsf{0}$))$
-\end{quote}
+\vspace{2mm}\\
+%\begin{quote}
+\hspace*{5mm}Theorem \{pF\}: $E$ $\vdash$ $(\neg H($\textsf{p}, $x))$ $\rightarrow$ $($\textsf{(h p $x$)} $=$ \textsf{0}$)$ \\
+\hspace*{5mm}Theorem \{pT\}: $E$ $\vdash$ $H($\textsf{p}, $x)$ $\rightarrow$ $(\neg($\textsf{(h p $x$)} $=$ \textsf{0}$))$
+\vspace{2mm}
+%\end{quote}
 
 Now, let's reason from the definition of
 \textsf{p} (Figure~\ref{fig:paradox-op-defun}).
@@ -1074,10 +1109,12 @@ but not a value.
 The \textsf{loop} operator at every stage delivers a new formula,
 but never manages to produce a value.}
 This reasoning verifies two more theorems.
-\begin{quote}
-Theorem \{h0\}: $\vdash$  \textsf{(h p $x$)} $=$ \textsf{0}  $\rightarrow$ \textsf{(p $x$)} $=$ \textsf{0}    \\
-Theorem \{h1\}: $\vdash$  $\neg($\textsf{(h p $x$)} $=$ \textsf{0}$)$ $\rightarrow$ \textsf{(p $x$)} $=$ \textsf{(loop $x$)}
-\end{quote}
+\vspace{2mm}\\
+%\begin{quote}
+\hspace*{5mm}Theorem \{h0\}: $\vdash$  \textsf{(h p $x$)} $=$ \textsf{0}  $\rightarrow$ \textsf{(p $x$)} $=$ \textsf{0}    \\
+\hspace*{5mm}Theorem \{h1\}: $\vdash$  $\neg($\textsf{(h p $x$)} $=$ \textsf{0}$)$ $\rightarrow$ \textsf{(p $x$)} $=$ \textsf{(loop $x$)}
+\vspace{2mm}
+%\end{quote}
 
 Furthermore, to compute the value of the formula \textsf{(p $x$)},
 the \textsf{if} operator in the definition of \textsf{p}
@@ -1100,11 +1137,12 @@ we conclude that $H($\textsf{p}, $x)=False$.
 That is, $($\textsf{(\textsf{p} $x$)}$=$\textsf{(loop $x$)}$)\rightarrow(\neg H($\textsf{p}, $x))$.
 Label this implication \{p1\}.
 Theorems \{p0\} and \{p1\} restate these implications.
-
-\begin{quote}
-Theorem \{p0\}: $\vdash$  $($\textsf{(p $x$)} $=$ \textsf{0}$)$ $\rightarrow$ $H($\textsf{p}, $x)$ \\
-Theorem \{p1\}: $\vdash$  $($\textsf{(p $x$)} $=$ \textsf{(loop $x$)}$)$ $\rightarrow$ $(\neg H($\textsf{p}, $x))$
-\end{quote}
+\vspace{2mm}\\
+%\begin{quote}
+\hspace*{5mm}Theorem \{p0\}: $\vdash$  $($\textsf{(p $x$)} $=$ \textsf{0}$)$ $\rightarrow$ $H($\textsf{p}, $x)$ \\
+\hspace*{5mm}Theorem \{p1\}: $\vdash$  $($\textsf{(p $x$)} $=$ \textsf{(loop $x$)}$)$ $\rightarrow$ $(\neg H($\textsf{p}, $x))$
+\vspace{2mm}
+%\end{quote}
 
 From the three theorems, \{pF\}, \{h0\}, and \{p0\},
 we can derive Theorem \{H$+$\}, and
@@ -1115,11 +1153,12 @@ Figure~\ref{fig:hminus-thm-proof} (page \pageref{fig:hminus-thm-proof}) displays
 a proof of Theorem \{H$-$\}.
 The proof of Theorem \{H$+$\} is similar, and working through it would be
 good practice (Exercise \ref{ex:Hplus}, page \pageref{ex:Hplus}).
-
-\begin{quote}
-Theorem \{H$+$\}: $E$ $\vdash$ $(\neg H($\textsf{p}, $x)) \rightarrow H($\textsf{p}, $x)$ \\
-Theorem \{H$-$\}: $E$ $\vdash$ $H($\textsf{p}, $x) \rightarrow (\neg H($\textsf{p}, $x))$
-\end{quote}
+\vspace{2mm}\\
+%\begin{quote}
+\hspace*{5mm}Theorem \{H$+$\}: $E$ $\vdash$ $(\neg H($\textsf{p}, $x)) \rightarrow H($\textsf{p}, $x)$ \\
+\hspace*{5mm}Theorem \{H$-$\}: $E$ $\vdash$ $H($\textsf{p}, $x) \rightarrow (\neg H($\textsf{p}, $x))$
+\vspace{2mm}
+%\end{quote}
 
 \begin{figure}
 Theorem \{H$-$\}: $E$ $\vdash$ $H($p, $x) \rightarrow(\neg H($p, $x))$~\\
@@ -1129,17 +1168,17 @@ proof
 ~~~~~~~~~~Assume $E$                                &\emph{hypothesis of theorem}\\
 -------------------------------------------\{pT\}   &\\
 $H($\textsf{p}, $x)$ $\rightarrow$ $(\neg($\textsf{(h p $x$)} $=$ 0$))$   &\\
- - - - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs req'd to cite} \{$\rightarrow$ chain\} \emph{thm}\\
-                                                    &\emph{no hypotheses required}\\
--------------------------------------------\{h1\}   &~~~~~~\emph{for Theorem} \{h1\}\\
+ - - - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates proofs of} \{$\rightarrow$ chain\} \emph{hyps}\\
+                                                    &\emph{no proofs above the line for} \{h1\}\\
+-------------------------------------------\{h1\}   &~~~~\emph{because thm} \{h1\} \emph{has no hypotheses}\\
 $\neg($\textsf{(h p $x$)} $=$ \textsf{0}$) \rightarrow$ \textsf{(p $x$)} $=$ \textsf{(loop $x$)}&\\
 -------------------------------------------\{$\rightarrow$ chain\} &\{$\rightarrow$ chain\} \emph{thm (Figure~\ref{fig:impchain-proof}, page \pageref{fig:impchain-proof})}\\
 ~~~$H($\textsf{p}, $x) \rightarrow$ \textsf{(p $x$)} $=$ \textsf{(loop $x$)} &\\
- - - - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs req'd to cite} \{$\rightarrow$ chain\} \emph{thm}\\
-                                                    &\emph{no hypotheses required}\\
--------------------------------------------\{p1\}   &~~~~~~\emph{for Theorem} \{p1\}\\
+ - - - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates proofs of} \{$\rightarrow$ chain\} \emph{hyps}\\
+                                                    &\emph{no proofs above the line for} \{p1\}\\
+-------------------------------------------\{p1\}   &~~~~\emph{because thm} \{p1\} \emph{has no hypotheses}\\
 ~~\textsf{(p $x$)} $=$ \textsf{(loop $x$)} $\rightarrow$ $(\neg H($\textsf{p}, $x))$ &\\
--------------------------------------------\{$\rightarrow$ chain\} &\emph{another citation of} \{$\rightarrow$ chain\} \emph{thm}\\
+-------------------------------------------\{$\rightarrow$ chain\} &\emph{another citation of} \{$\rightarrow$ chain\} \emph{theorem}\\
 ~~~~~~$H($\textsf{p}, $x) \rightarrow$ $(\neg H($\textsf{p}, $x))$  &\\
 \end{tabular}
 \end{center}
@@ -1156,11 +1195,13 @@ $((\neg H($\textsf{p}, $x) \rightarrow H($\textsf{p}, $x))$ $=$ $H($\textsf{p}, 
 and
 $(H($\textsf{p}, $x) \rightarrow (\neg H($\textsf{p}, $x)))$ $=$ $(\neg H($\textsf{p}, $x))$.
 So, we can rewrite the \{H$+$\} and \{H$-$\} theorems as follows.
-\begin{quote}
+\vspace{2mm}
+%\begin{quote}
 \label{thm:HplusHminus}\index{theorem, by name!\{H$-$\}}\index{theorem, by name!\{H$+$\}}
-Theorem \{H$+$ version 2\}: $E$ $\vdash$ $H($\textsf{p}, $x)$ \\
-Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($\textsf{p}, $x)$
-\end{quote}
+\hspace*{5mm}Theorem \{H$+$ version 2\}: $E$ $\vdash$ $H($\textsf{p}, $x)$ \\
+\hspace*{5mm}Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($\textsf{p}, $x)$
+\vspace{2mm}
+%\end{quote}
 
 Now, at last, we're ready to take on
 the proof of Theorem \{paradox\}.
@@ -1179,7 +1220,7 @@ proof
 ~~~~~Assume $E$                                 &\emph{hypothesis of theorem}\\
 ------------------------\{H$+$ version 2\}      &\emph{proof of} \{H$+$\} \emph{left as exercise}\\
 ~~~~~~~~~~$H($\textsf{p}, $x)$                  &\\
- - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates 2 proofs req'd to cite} \{$\wedge$ complement\} \emph{thm}\\
+ - - - - - - - - - - - - - - - - - - - - - - - -&\emph{separates proofs for} \{$\wedge$ complement\} \emph{theorem}\\
 ~~~~~Assume $E$                                 &\emph{hypothesis of theorem}\\
 ------------------------\{H$-$ version 2\}      &\emph{\{H$-$\} proved in Figure~\ref{fig:hminus-thm-proof} (page \pageref{fig:hminus-thm-proof})}\\
 ~~~~~~~~$\neg H($\textsf{p}, $x)$               &\\
@@ -1192,20 +1233,20 @@ proof
 \label{fig:proof-paradox-thm}
 \end{figure}
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise\label{ex:Hplus}
-Prove Theorem \{H$+$\} (page \pageref{thm:HplusHminus}).
+\exer {\label{ex:Hplus}%
+Prove Theorem \{H$+$\} (page \pageref{thm:HplusHminus}).}
 
-\Exercise \label{ex:loop-loop}
+\exer {\label{ex:loop-loop}%
 Suppose $x$ is an operand for the operator \textsf{loop}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun}).
 Prove that the formula
 \index{loop}
 \textsf{(loop $x$}) represents
-the same computation as the formula \textsf{(loop (loop $x$)}).
+the same computation as the formula \textsf{(loop (loop $x$)}).}
 
-\Exercise \label{ex:loop-n}
+\exer {\label{ex:loop-n}%
 Suppose $f$ is an operator, $x$ is an operand,
 and $n$ is a natural number.
 The following equations define the notation \textsf{($f^n$ $x$)}.
@@ -1225,53 +1266,54 @@ use mathematical induction to verify the following formula.
 \begin{quote}
 $\forall n.\forall x.($\textsf{(loop $x$)} $=$ \textsf{(loop$^{n+1}$ $x$)}$)$
 \end{quote}
+}
 
-\Exercise \label{ex:f-n}
+\exer {\label{ex:f-n}%
 Assume that if $f$ is an operator and $x$ is an operand,
 then it takes at least one computational step to compute \textsf{($f$ $x$)}.
 Prove by induction that it takes at least $n$ computational steps
 to compute \textsf{($f^n$ $x$)}, where \textsf{($f^n$ $x$)} satisfies the axioms
-\{iter0\} and \{iter1\} in Exercise~\ref{ex:loop-n}.
+\{iter0\} and \{iter1\} in Exercise~\ref{ex:loop-n}.}
 
-\Exercise \label{ex:loop-nonterminating}
+\exer {\label{ex:loop-nonterminating}%
 Suppose $x$ is an operand for the operator \textsf{loop}
 (Figure~\ref{fig:paradox-op-defun}, page \pageref{fig:paradox-op-defun}).
 Let $T$ stand for the number of computation steps required to
 compute \textsf{(loop $x$)}.
 Using the definitions and theorems of Exercise~\ref{ex:loop-loop},
 Exercise~\ref{ex:loop-n}, and Exercise~\ref{ex:f-n},
-prove $(\forall n.(T > n))$.
+prove $(\forall n.(T > n))$.}
 
-\end{ExerciseList}
+\end{exercises}
 
-\todo{
-DONE 21Sep2017
-Put labels on sections, at least in Ch2.tex
-label for nat deduc section: \section{Deduction} \label{sec:deduction}
-
-DONE 21Sep2017
-Add label to first exercise, nat deduc section:
-\Exercise
-\label{thm:and-complement}
-Use natural deduction to prove
-Theorem \{$\wedge$ complement\}: $a$, $\neg a$ $\vdash$ $False$
-
-DONE before 21Sep2017
-Add label to natp explanation in ch3.tex:
-\label{natp-op}
-The value of the formula ``(natp $x$)'' is true
-
-DONE 21Sep2017
-Insert absurd-1 and absurd-2 equations just before absurdity equation in table in ch2.tex
-$((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
-$(x \rightarrow (\neg x)) = (\neg x)$                                & \{absurd 1\}               \label{absurd-1} \\
-$((\neg x) \rightarrow x) = (\neg x)$                                & \{absurd 2\}               \label{absurd-2} \\
-%% YIKES! {absurd 2} is false, and {absurd 1} is identical to the {contradiction} equation
-%% PULLED BOTH, FIXED "Some Boolean Theorems" figure and other reference
-%% THE ONLY OTHER CITATION WAS IN THE HALTING PROBLEM PROOF, AND THAT CITATION WAS WRONG
-%% SO ALL THAT WAS NEEDED WAS TO PULL IT THERE, TOO
-$((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
-}
+%\todo{
+%DONE 21Sep2017
+%Put labels on sections, at least in Ch2.tex
+%label for nat deduc section: \section{Deduction} \label{sec:deduction}
+%
+%DONE 21Sep2017
+%Add label to first exercise, nat deduc section:
+%\Exercise
+%\label{thm:and-complement}
+%Use natural deduction to prove
+%Theorem \{$\wedge$ complement\}: $a$, $\neg a$ $\vdash$ $False$
+%
+%DONE before 21Sep2017
+%Add label to natp explanation in ch3.tex:
+%\label{natp-op}
+%The value of the formula ``(natp $x$)'' is true
+%
+%DONE 21Sep2017
+%Insert absurd-1 and absurd-2 equations just before absurdity equation in table in ch2.tex
+%$((x \rightarrow y) \wedge (x \rightarrow z)) = (x \rightarrow (y \wedge z))$ & \{$\wedge$ implication\} \label{and-implication} \\
+%$(x \rightarrow (\neg x)) = (\neg x)$                                & \{absurd 1\}               \label{absurd-1} \\
+%$((\neg x) \rightarrow x) = (\neg x)$                                & \{absurd 2\}               \label{absurd-2} \\
+%%% YIKES! {absurd 2} is false, and {absurd 1} is identical to the {contradiction} equation
+%%% PULLED BOTH, FIXED "Some Boolean Theorems" figure and other reference
+%%% THE ONLY OTHER CITATION WAS IN THE HALTING PROBLEM PROOF, AND THAT CITATION WAS WRONG
+%%% SO ALL THAT WAS NEEDED WAS TO PULL IT THERE, TOO
+%$((x \rightarrow y) \wedge (x \rightarrow (\neg y))) = (\neg x)$     & \{absurdity\}              \label{absurdity} \\
+%}
 %%\end{comment}
 %% All references to Dracula taken out (30Aug2017 - rlp)
 %% I think we should use Proof Pad for all doublecheck and other interface-to-ACL2 issues.

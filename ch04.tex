@@ -39,23 +39,6 @@ straight in written discussion and also makes some
 formulas more compact in writing, but square-brackets
 notation for lists is not ACL2 notation.
 
-\begin{aside}
-Most of the time, we will use square bracket
-\index{list!square bracket notation}notation for lists
-to distinguish them from computational formulas.
-However, ACL2 does not display lists with square brackets.
-It uses round parentheses both for lists and for computational formulas.
-\begin{center}
-\vspace{1mm}
-\begin{tabular}{cc}
- \emph{paper-and-pencil only} & \emph{formal ACL2 notation}\\
- \textsf{[1 2 1 5]}           & \textsf{(list 1 2 1 5)}\\
-\end{tabular}
-\end{center}
-\caption{Square Bracket Notation for Lists: Paper-and-Pencil Only}
-\label{square-bracket-notation}
-\end{aside}
-
 One of the basic operators in the algebra of lists is the
 \index{list!cons (\emph{see also} operator)}construction operator
 \index{operator, by name!cons (insert at front)}\textsf{cons},
@@ -70,9 +53,24 @@ If $x$ stands for the number 9,
 and $xs$ stands for the list \textsf{[8 3 7]},
 then \textsf{(cons $x$ $xs$)} constructs the list \textsf{[9 8 3 7]}.
 
+\begin{aside}{square-bracket-notation}{Square Bracket Notation for Lists: Paper-and-Pencil Only}
+Most of the time, we will use square bracket
+\index{list!square bracket notation}notation for lists
+to distinguish them from computational formulas.
+However, ACL2 does not display lists with square brackets.
+It uses round parentheses both for lists and for computational formulas.
+\begin{center}
+\begin{tabular}{cc}
+ \emph{paper-and-pencil only} & \emph{formal ACL2 notation}\\
+ \textsf{[1 2 1 5]}           & \textsf{(list 1 2 1 5)}\\
+\end{tabular}
+\end{center}
+%\caption{Square Bracket Notation for Lists: Paper-and-Pencil Only}
+%\label{square-bracket-notation}
+\end{aside}
+
 \begin{figure}
 \begin{center}
-\vspace{1mm}
 \textsf{[$x_1$ $x_2$ \dots $x_n$]} $=$
 \textsf{(list $x_1$ $x_2$ $\dots$ $x_n$)} $=$ \textsf{(cons $x_1$ (cons $x_2$ $\dots$ (cons $x_n$ nil) $\dots$))}\\
 \addtolength{\tabcolsep}{-4pt}
@@ -99,7 +97,7 @@ ACL2 also has a shorthand, briefly introduced earlier
 for nested \textsf{cons} operations: \textsf{(list 8 3 7)} is another way to write the formula
 \textsf{(cons 8 (cons 3 (cons 7 nil)))}.
 
-\begin{aside}
+\begin{aside}{three-line-equal}{Equal by Definition: $\equiv$}
 The
 \index{equation!defining ($\equiv$)}\index{definition!equation ($\equiv$)}\index{equivalence!by definition ($\equiv$)}\index{three-line equal ($\equiv$)}\index{equal, three-line ($\equiv$)}three-line
 variation of the equals sign
@@ -113,8 +111,8 @@ $P(xs, y, ys)$ $\equiv$ $(xs$ $=$ \textsf{(cons $y$ $ys$)}$)$ &$P(xs, y, ys)$ \e
 \end{tabular}
 \addtolength{\tabcolsep}{2pt}
 \end{center}
-\caption{Equal by Definition: $\equiv$}
-\label{three-line-equal}
+%\caption{Equal by Definition: $\equiv$}
+%\label{three-line-equal}
 %%note: this aside mostly repeats an aside in ch02 predicates section, on purpose in case they skip that section
 \end{aside}
 
@@ -169,10 +167,13 @@ So, the formula $(\exists ys.P($\textsf{[1 2 3]}, \textsf{2}, $ys))$
 is false.
 
 \begin{figure}
-\begin{center}
+%\begin{center}
+\begin{tabular}{c}
 Axiom \{\emph{consp}\} \\
+\hline
 \textsf{(consp $xs$)} $=$  $(\exists y.(\exists ys.(xs$ $=$ \textsf{(cons $y$ $ys$)}$)))$
-\end{center}
+\end{tabular}
+%\end{center}
 \index{axiom, by name!\{consp\}}\index{operator, by name!consp (\emph{see} predicate)}\seeonlyindex{consp}{predicate}\index{predicate, by name!consp}
 \caption{Non-Empty List Predicate: consp}
 \label{consp-axiom}
@@ -191,12 +192,14 @@ we can view $(\exists ys.P(xs, y, ys))$ as a predicate indexed
 by the set of ACL2 objects $y$.
 
 \begin{figure}
-\begin{center}
-Axiom \{\emph{nlst}\}
-
+%\begin{center}
+\begin{tabular}{c}
+Axiom \{\emph{nlst}\}\\
+\hline
 \textsf{[$x_{m}$  $x_{m+1}$ \dots $x_{n}$]}  \emph{denotes a list with $n - m + 1$ elements} \{\emph{nlst}\} \\
-\emph{Note: Denotes} \textsf{nil}\emph{, the empty list, if $m > n$}
-\end{center}
+\emph{Note: Denotes} \textsf{nil}\emph{, the empty list, if $m > n$}\\
+\end{tabular}
+%\end{center}
 \index{numbered list notation}\index{list!numbered}\index{list!ellipsis}\index{axiom, by name!\{nlst\}}
 \caption{Numbered List Notation}
 \label{numbered-list-interpretation}
@@ -244,16 +247,17 @@ the construction operator in the form of equations,
 (Figure~\ref{first-rest-cons}, page \pageref{first-rest-cons}).
 
 \begin{figure}
-\begin{center}
- Axioms \{\emph{cons}\}, \{\emph{first}\}, and \{\emph{rest}\} \\
+%\begin{center}
 \begin{tabular}{ll}
+ \multicolumn{2}{c}{Axioms \{\emph{cons}\}, \{\emph{first}\}, and \{\emph{rest}\}} \\
  \textsf{[$x_1$ $x_2$ \dots $x_{n+1}$]} $=$ \textsf{(cons $x_1$ [$x_2$ \dots $x_{n+1}$])} & \{\emph{cons}\} \\
+ \hline
  \textsf{(first (cons $x$ $xs$))} $=$ $x$                                        & \{\emph{fst}\}\\
  \textsf{(rest (cons $x$ $xs$))}  $=$ $xs$                                       & \{\emph{rst}\} \\
  \textsf{(first nil)} $=$ \textsf{nil}                                           & \{\emph{fst0}\}\\
  \textsf{(rest nil)} $=$ \textsf{nil}                                            & \{\emph{rst0}\}\\
 \end{tabular}
-\end{center}
+%\end{center}
 \index{operator, by name!first (extract first element)}\index{operator, by name!rest (drop first element)}\index{operator, by name!cons (insert at front)}\seeonlyindex{first}{operator}\seeonlyindex{rest}{operator}\seeonlyindex{cons}{operator}\index{list!cons (\emph{see also} operator)}\index{list!first (\emph{see also} operator)}\index{list!rest (\emph{see also} operator)}\index{axiom!axiom, by name\{fst0\}, \{fst\}}\index{axiom, by name!\{rst0\}, \{rst\}}\index{axiom, by name!\{cons\}}\index{equation, by name!\{fst0\}, \{fst\}}\index{equation, by name!\{rst0\}, \{rst\}}\index{equation, by name!\{cons\}}
 \caption{List Constructor and Deconstructors: \textsf{cons}, \textsf{first}, \textsf{rest}}
 \label{first-rest-cons}
@@ -300,10 +304,13 @@ The operator \textsf{len} (page \pageref{len-op-informal})
 delivers the number of elements in a list.
 We can use \textsf{check-expect} to test \textsf{len} in some specific cases.
 
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (check-expect (len (cons 8 (cons 3 (cons 7 nil)))) 3)
 (check-expect (len nil) 0)
-\end{Verbatim}
+\end{verbatim}
+\end{code}
+
 
 We can use the DoubleCheck facility for more general tests.
 For example, we expect that the number of elements
@@ -311,13 +318,16 @@ in a list constructed by the \textsf{cons} operation is
 one more than the number of elements in its second operand.
 The following property tests this expectation.
 
-\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}
+\begin{code}
+\begin{verbatim}
 (defproperty len-cons-test
   (x  :value (random-natural)
    xs :value (random-list-of (random-natural)))
   (= (len (cons x xs))
      (+ 1 (len xs))))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 By the same token, we expect that a list always
 has one more element than it would have if
@@ -331,13 +341,16 @@ and we can use that operator to specify a test that
 constrains $xs$ to non-empty lists and thereby
 makes the length equation in the test true.
 
-\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}
+\begin{code}
+\begin{verbatim}
 (defproperty len-rest-test
   (xs :value (random-list-of (random-natural)))
   (implies (consp xs)
            (= (len xs)
               (+ 1 (len (rest xs))))))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
 The equation in the len-rest-test can serve
 as an axiom for the \textsf{len} operator in the case
@@ -355,15 +368,16 @@ So, \textsf{(len nil)} $=$ $0$, but \textsf{(len $3$)} $=$ $0$, too, since
 $3$ is not a list. Later, we will say more about this kind of axiom.}
 
 \begin{figure}
-\begin{center}
-Axioms \{\emph{len}\} \\
+%\begin{center}
 \begin{tabular}{ll}
+\multicolumn{2}{c}{Axioms \{\emph{len}\}} \\
+\hline
 \textsf{(len (cons $x$ $xs$))} $=$ \textsf{(+ 1 (len $xs$))} & \{\emph{len1}\} \\
 \textsf{(len $e$)} $=$ 0                            & \{\emph{len0}\} \\
-~~~~\emph{Note: Cite \{\emph{len0}\} only if \{\emph{len1}\} doesn't match.}&\\
+\multicolumn{2}{c}{\emph{Note: Cite \{\emph{len0}\} only if \{\emph{len1}\} doesn't match.}}\\
 \end{tabular}
-\end{center}
-\caption{Length of List: len}
+%\end{center}
+\caption{Length of List: \textsf{len}}
 \label{len-equations}\label{fig:len-axioms}
 \end{figure}
 
@@ -398,12 +412,12 @@ Theorem \{\emph{consp} $= (len > 0)$\} $\forall xs.($\textsf{(consp $xs$)} $=$ \
 \end{center}
 \end{samepage}
 
-\begin{aside}
-If we want to specify the list \textsf{[1 2 3 4]} in an ACL2 formula,
+\begin{aside}{acl2-single-quote}{Suppressing Computation with Single-quote}
+To specify the list \textsf{[1 2 3 4]} in an ACL2 formula,
 rather than in a paper-and-pencil formula,
-we can, of course, use the \textsf{cons} operator to construct it,
-\textsf{(cons 1 (cons 2 (cons 3 (cons 4 nil))))},
-or we can use the \textsf{list} operator (page \pageref{list-op-informal}) to write it more compactly,
+we can, of course, use the \textsf{cons} operator to construct it:
+\textsf{(cons 1 (cons 2 (cons 3 (cons 4 nil))))}.
+Or, we can use the \textsf{list} operator (page \pageref{list-op-informal}) to write it more compactly:
 \textsf{(list 1 2 3 4)}.
 
 However, the single-quote trick provides a less bulky ACL2 formula for lists
@@ -415,18 +429,20 @@ as the name of an operator.
 However, the single-quote mark suppresses that interpretation and
 delivers a list made up of the elements in the parentheses.
 Without the single-quote mark,
-the formula would make no sense because 1 is not the name of an operator.
-\index{single-quote mark}\index{quote mark, single}\index{square brackets}\index{brackets!square}\index{list!square bracket notation}
-\caption{Suppressing Computation with Single-quote}
-\label{acl2-single-quote}
+the formula would make no sense because 1 is not the name of an
+operator.\index{single-quote mark}\index{quote mark, single}\index{square brackets}\index{brackets!square}\index{list!square bracket notation}
+%\caption{Suppressing Computation with Single-quote}
+%\label{acl2-single-quote}
 \end{aside}
 
-\begin{ExerciseList}
-\Exercise \label{rst1}
+\begin{exercises}
+
+\exer {\label{rst1}%
 Prove \{\emph{rst1}\}: \textsf{(rest (list $x$))} $=$ \textsf{nil}.\\
 \emph{Hint}: Cite some equations from Figure~\ref{first-rest-cons} (page \pageref{first-rest-cons})
-and Figure~\ref{fig:list-nested-cons} (page \pageref{fig:list-nested-cons})
-\end{ExerciseList}
+and Figure~\ref{fig:list-nested-cons} (page \pageref{fig:list-nested-cons})}
+
+\end{exercises}
 
 \section{Mathematical Induction}
 \label{sec:induction}
@@ -436,13 +452,16 @@ but there are lots of other operators for lists.
 The operator \textsf{append}, previously discussed in terms of some \textsf{check-expect} tests
 (page \pageref{append-op-informal}), concatenates two lists, as illustrated
 in the following \textsf{check-expect} tests,
-which use the single-quote notation (Aside~\ref{acl2-single-quote}, page \pageref{acl2-single-quote})
+which use the single-quote notation (Box~\ref{acl2-single-quote}, page \pageref{acl2-single-quote})
 to make them more compact.
 
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (check-expect (append '(1 2 3 4) '(5 6 7)) '(1 2 3 4 5 6 7))
 (check-expect (append '(1 2 3 4 5) nil) '(1 2 3 4 5))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
+%'
 
 The numbered-list notation
 (Figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation}).
@@ -459,7 +478,7 @@ and the concatenated list has $m+n$ elements.
 \end{center}
 \end{samepage}
 
-Let's analyze the concatenation, \textsf{(append $xs$ $ys$)}.
+Let's analyze the concatenation, \textsf{(append $xs$ $ys$)}. %'
 If $xs$ is the empty list, then we expect
 the concatenation to deliver the list $ys$.
 This is the  \{\emph{app0}\} case: \textsf{(append nil $ys$)} $=$ $ys$.
@@ -486,13 +505,14 @@ So, the \textsf{if} operator provides a way to select between
 the two formulas supplied as its second and third operands.
 
 \begin{figure}
-\begin{center}
-Axioms \{\emph{if}\} \\
+%\begin{center}
 \begin{tabular}{ll}
+\multicolumn{2}{c}{Axioms \{\emph{if}\}} \\
+\hline
 \textsf{(if $p$ $x$ $y$}) $=$ $x$, \emph{if} $p$ $\neq$ \textsf{nil}  & \{\emph{if-true}\}  \\
 \textsf{(if $p$ $x$ $y$)} $=$ $y$, \emph{if} $p$ $=$ \textsf{nil}     & \{\emph{if-false}\} \\
 \end{tabular}
-\end{center}
+%\end{center}
 \index{axiom!\{if-true\}, \{if-false\}}\index{equation, by name!\{if-true\}, \{if-false\}}\index{operator, by name!if (select formula)}\seeonlyindex{if}{operator}
 \caption{Formula Selector: \textsf{if}}
 \label{fig:if-axioms}
@@ -505,12 +525,14 @@ if $xs$ is non-empty and to the \{\emph{app0}\} formula if $xs$ is empty.
 Figure~\ref{fig:append-test} (page \pageref{fig:append-test})
 displays a property definition the formalizes this idea.
 It uses an operator called
-\textsf{equal} (Aside~\ref{equal}, page \pageref{equal})
+\textsf{equal} (Box~\ref{equal}, page \pageref{equal})
 to compare \textsf{(append $xs$ $ys$)}
 to a formula selected by the \textsf{if} operator.
 
 \begin{figure}
-\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}\begin{Verbatim}
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}
+\begin{code}
+\begin{verbatim}
 (defproperty append-test
   (xs :value (random-list-of (random-natural))
    ys :value (random-list-of (random-natural)))
@@ -519,12 +541,13 @@ to a formula selected by the \textsf{if} operator.
              (cons (first xs)
                    (append (rest xs) ys))
              ys)))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \caption{DoubleCheck Test of Append}
 \label{fig:append-test}
 \end{figure}
 
-\begin{aside}
+\begin{aside}{equal}{``\textsf{equal}'' vs ``\textsf{=}''}
 Why is it \textsf{(equal (append $xs$ $ys$) $\dots$)}?
 Why not \textsf{(= (append $xs$ $ys$) $\dots$)}?
 The ``\textsf{=}'' operator
@@ -536,11 +559,11 @@ reading the formula that it compares numbers.
 It reminds the computer, too, and that could
 simplify mechanized reasoning or
 promote efficient comparison.
-Mostly, though, it's a matter of taste.
+Mostly, though, it's a matter of
+taste.\index{equal, vs =}\seeonlyindex{equal}{predicate}\index{operator, by name!equal (\emph{see} predicate)}\index{predicate, by name!equal}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{compare!ACL2 values (equal)}
 %We will be using ``='' when we can and hope it doesn't put too much of an extra burden on you.
-\index{equal, vs =}\seeonlyindex{equal}{predicate}\index{operator, by name!equal (\emph{see} predicate)}\index{predicate, by name!equal}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{compare!ACL2 values (equal)}
-\caption{``\textsf{equal}'' vs ``\textsf{=}''}
-\label{equal}
+%\caption{``\textsf{equal}'' vs ``\textsf{=}''}
+%\label{equal}
 \end{aside}
 
 The append-test property might not be the first test you would think of,
@@ -555,31 +578,32 @@ One of them specifies the meaning when the first operand is a non-empty list,
 the other when specifies the meaning under all other circumstances.
 
 \begin{figure}
-\begin{center}
-Axioms: \{\emph{append}\} \\
+%\begin{center}
 \begin{tabular}{ll}
+\multicolumn{2}{c}{Axioms \{\emph{append}\}} \\
+\hline
 \textsf{(append (cons $x$ $xs$) $ys$)} $=$ \textsf{(cons $x$ (append $xs$ $ys$))} & \{\emph{app1}\} \\
 \textsf{(append nil $ys$)} $=$  $ys$                                     & \{\emph{app0}\} \\
 \end{tabular}
-\end{center}
+%\end{center}
 \index{axiom!append}\index{equation!append}\index{operator, by name!append}\index{append!operator}\index{concatenate}\index{equation, by name!\{app0\}, \{app1\}}\index{axiom, by name!\{app0\}, \{app1\}}
 \caption{List Concatenation: \textsf{append}}
 \label{append-equations}
 \end{figure}
-\todo{Note 12/10/17, see also fig: Defining Concatenation
-      Not sure what to do here. Had the following for app0 axiom, with note:
-(append ~$e$~ $ys$) =  $ys$                                   & \{\emph{app0}\} \\
-~~~~\emph{Note: Cite \{\emph{app0}\} only if \{\emph{app1}\} doesn't match.}&\\
-      However, the ACL2 documentation requires first operand of append to be a truelist,
-      even though ACL2 with guards off allows it to violate that constraint.
-      For now (and it's late in the game), going back to the constraint.
-      Before reverting, the following comment stood here:
-      These axioms allow non-true-lists as first operand. However, when guards are in effect,
-      ACL2 chokes if first operand isn't a true list.
-      When guards are disabled (append 1 (list 2 3)) = (list 2 3)
-      I don't want to say anything about guards, but students may see error messages
-      that talk about guards. Not sure how to handle this.
-      }
+%\todo{Note 12/10/17, see also fig: Defining Concatenation
+%      Not sure what to do here. Had the following for app0 axiom, with note:
+%(append ~$e$~ $ys$) =  $ys$                                   & \{\emph{app0}\} \\
+%~~~~\emph{Note: Cite \{\emph{app0}\} only if \{\emph{app1}\} doesn't match.}&\\
+%      However, the ACL2 documentation requires first operand of append to be a truelist,
+%      even though ACL2 with guards off allows it to violate that constraint.
+%      For now (and it's late in the game), going back to the constraint.
+%      Before reverting, the following comment stood here:
+%      These axioms allow non-true-lists as first operand. However, when guards are in effect,
+%      ACL2 chokes if first operand isn't a true list.
+%      When guards are disabled (append 1 (list 2 3)) = (list 2 3)
+%      I don't want to say anything about guards, but students may see error messages
+%      that talk about guards. Not sure how to handle this.
+%      }
 
 These equations about the append operation are simple enough,
 but it turns out that lots of other properties of the
@@ -597,7 +621,6 @@ We will use L($n$) as shorthand for the proposition that
 is the sum of \textsf{(len [$x_1$ $x_2$ $\dots$ $x_n$])} and \textsf{(len $ys$)}.
 That makes L a predicate whose universe of discourse is
 the natural numbers.
-
 \label{additive-concat-law-predicate}
 \begin{center}
 % old prefix notation: \begin{tabbing}
@@ -608,41 +631,38 @@ L($n$) $\equiv$ \textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} $=$
 \textsf{(+ (len [$x_1$ $x_2$ $\dots$ $x_n$]) (len $ys$))}
 \end{center}
 
-For the first few values of $n$, L($n$) would stand for the following equations.
-\begin{quote}
-L(0) $\equiv$ \textsf{(len (append nil $ys$))} $=$ \textsf{(+ (len nil) (len $ys$))} \\
-L(1) $\equiv$ \textsf{(len (append [$x_1$] $ys$))} $=$ \textsf{(+ (len [$x_1$]) (len $ys$))} \\
-L(2) $\equiv$ \textsf{(len (append [$x_1$ $x_2$] $ys$))} $=$ \textsf{(+ (len [$x_1$ $x_2$]) (len $ys$))} \\
-L(3) $\equiv$ \textsf{(len (append [$x_1$ $x_2$ $x_3$] $ys$))} $=$ \textsf{(+ (len [$x_1$ $x_2$ $x_3$]) (len $ys$))} \\
-L(4) $\equiv$ \textsf{(len (append [$x_1$ $x_2$ $x_3$ $x_4$] $ys$))} $=$ \textsf{(+ (len [$x_1$ $x_2$ $x_3$ $x_4$]) (len $ys$))}
-\end{quote}
+For the first few values of $n$, L($n$) would stand for the following equations.\\
+\hspace*{1cm}L(0) $\equiv$ \textsf{(len (append nil $ys$))} $=$ \textsf{(+ (len nil) (len $ys$))} \\
+\hspace*{1cm}L(1) $\equiv$ \textsf{(len (append [$x_1$] $ys$))} $=$ \textsf{(+ (len [$x_1$]) (len $ys$))} \\
+\hspace*{1cm}L(2) $\equiv$ \textsf{(len (append [$x_1$ $x_2$] $ys$))} $=$ \textsf{(+ (len [$x_1$ $x_2$]) (len $ys$))} \\
+\hspace*{1cm}L(3) $\equiv$ \textsf{(len (append [$x_1$ $x_2$ $x_3$] $ys$))} $=$ \textsf{(+ (len [$x_1$ $x_2$ $x_3$]) (len $ys$))} \\
+%\hspace*{1cm}L(4) $\equiv$ \textsf{(len (append [$x_1$ $x_2$ $x_3$ $x_4$] $ys$))} $=$ \textsf{(+ (len [$x_1$ $x_2$ $x_3$ $x_4$]) (len $ys$))}\\
 
-\todo{COMMENT ONLY, NO TODO
-in case we want to go back to the prefix =
-\begin{center}
-\begin{tabular}{llll}
-L(0) & $\equiv$ & \textsf{(=} &\textsf{(len (append nil $ys$))} \\
-     &          &    &\textsf{(+ (len nil) (len $ys$)))} \\
-L(1) & $\equiv$ & \textsf{(=} &\textsf{(len (append [$x_1$] $ys$))} \\
-     &          &    &\textsf{(+ (len [$x_1$]) (len $ys$))}) \\
-L(2) & $\equiv$ & \textsf{(=} &\textsf{(len (append [$x_1$ $x_2$] $ys$))}\\
-	 &          &    &\textsf{(+ (len [$x_1$ $x_2$]) (len $ys$)))} \\
-L(3) & $\equiv$ & \textsf{(=} &\textsf{(len (append [$x_1$ $x_2$ $x_3$] $ys$))} \\
-     &          &    &\textsf{(+ (len [$x_1$ $x_2$ $x_3$]) (len $ys$)))} \\
-L(4) & $\equiv$ & \textsf{(=} &\textsf{(len (append [$x_1$ $x_2$ $x_3$ $x_4$] $ys$))} \\
-     &          &    &\textsf{(+ (len [$x_1$ $x_2$ $x_3$ $x_4$]) (len $ys$)))}
-\end{tabular}
-\end{center}
-END OF TODO COMMENT}
+%\todo{COMMENT ONLY, NO TODO
+%in case we want to go back to the prefix =
+%\begin{center}
+%\begin{tabular}{llll}
+%L(0) & $\equiv$ & \textsf{(=} &\textsf{(len (append nil $ys$))} \\
+%     &          &    &\textsf{(+ (len nil) (len $ys$)))} \\
+%L(1) & $\equiv$ & \textsf{(=} &\textsf{(len (append [$x_1$] $ys$))} \\
+%     &          &    &\textsf{(+ (len [$x_1$]) (len $ys$))}) \\
+%L(2) & $\equiv$ & \textsf{(=} &\textsf{(len (append [$x_1$ $x_2$] $ys$))}\\
+%	 &          &    &\textsf{(+ (len [$x_1$ $x_2$]) (len $ys$)))} \\
+%L(3) & $\equiv$ & \textsf{(=} &\textsf{(len (append [$x_1$ $x_2$ $x_3$] $ys$))} \\
+%     &          &    &\textsf{(+ (len [$x_1$ $x_2$ $x_3$]) (len $ys$)))} \\
+%L(4) & $\equiv$ & \textsf{(=} &\textsf{(len (append [$x_1$ $x_2$ $x_3$ $x_4$] $ys$))} \\
+%     &          &    &\textsf{(+ (len [$x_1$ $x_2$ $x_3$ $x_4$]) (len $ys$)))}
+%\end{tabular}
+%\end{center}
+%END OF TODO COMMENT}
 
 We can derive L(0) from the \{\emph{append}\} and \{\emph{len}\} axioms as follows.
 We start from the left-hand side of the equation that L(0) stands for,
 cite some axioms about \textsf{append}, \textsf{len}, and numeric algebra,
 one by one. We end up with the right-hand side of the equation L(0).
-
 \begin{center}
-\emph{Proof of L(0), citing axioms} \\
 \begin{tabular}{lll}
+&\emph{Proof of L(0), citing axioms}&\\
 \hline
     & \textsf{(len (append nil $ys$))}  &                                                \\
 $=$ & \textsf{(len $ys$)}               & \{\emph{app0}\}     (page \pageref{append-equations})\\
@@ -653,10 +673,9 @@ $=$ & \textsf{(+ (len nil) (len $ys$))} & \{\emph{len0}\}     (page \pageref{len
 \end{center}
 
 That takes care of L(0). How about L(1)?
-
 \begin{center}
-\emph{Proof of L(1), citing axioms and proven equations} \\
 \begin{tabular}{lll}
+&\emph{Proof of L(1), citing axioms and proven equations}&\\
 \hline
     & \textsf{(len (append [$x_1$] $ys$))}           &                     \\
 $=$ & \textsf{(len (append (cons $x_1$ nil) $ys$)}   & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
@@ -668,12 +687,10 @@ $=$ & \textsf{(+ (len (cons $x_1$ nil)) (len $ys$))} & \{\emph{len1}\}     \\
 $=$ & \textsf{(+ (len [$x_1$] (len $ys$))}           & \{\emph{cons}\}     \\
 \end{tabular}
 \end{center}
-
 That was a little harder. Will proving L(2) be still harder? Let's try it.
-
 \begin{center}
-\emph{Proof of L(2), citing axioms and proven equations}\\
 \begin{tabular}{lll}
+&\emph{Proof of L(2), citing axioms and proven equations}&\\
 \hline\\[-1.0em]
     & \textsf{(len (append [$x_1$ $x_2$] $ys$))}         &                     \\
 $=$ & \textsf{(len (append (cons $x_1$ [$x_2$]) $ys$))}  & \{\emph{cons}\}     \\
@@ -685,17 +702,15 @@ $=$ & \textsf{(+ (len (cons $x_1$ [$x_2$])) (len $ys$))} & \{\emph{len1}\}     \
 $=$ & \textsf{(+ (len [$x_1$ $x_2$]) (len $ys$))}        & \{\emph{cons}\}     \\
 \end{tabular}
 \end{center}
-
-Fortunately, proving L(2) was no harder than proving L(1).
+Proving L(2) was no harder than proving L(1).
 In fact the two proofs cite exactly the same equations all the way through,
 except in one place.
 Where the proof of L(1) cited the equation L(0),
 the proof of L(2) cited the equation L(1).
 Maybe the proof of L(3) will work the same way.
-
 \begin{center}
-\emph{Proof of L(3), citing axioms and proven equations}\\
 \begin{tabular}{lll}
+&\emph{Proof of L(3), citing axioms and proven equations}&\\
 \hline\\[-1.0em]
     & \textsf{(len (append [$x_1$ $x_2$ $x_3$] $ys$))}         &                     \\
 $=$ & \textsf{(len (append (cons $x_1$ [$x_2$ $x_3$]) $ys$))}  & \{\emph{cons}\}     \\
@@ -746,7 +761,6 @@ The rule goes as follows. Infer the truth of ($\forall$$n$.P($n$)),
 citing \{induction\} as a rule of inference,
 from proofs of two propositions:
 P(0) and $(\forall n.($P($n$) $\rightarrow$ P($n+1$)$))$.
-
 \begin{center}
 $(($P($0$) $\wedge$ $(\forall n.($P($n$) $\rightarrow$ P($n+1$)$)))$ $\rightarrow$ $(\forall n.$P($n$)$))$ $=$ $True$
 ~~~\{\emph{induction}\}
@@ -797,7 +811,8 @@ natural deduction, Figure~\ref{induction-rule} puts proof by
 induction in that context.
 
 \begin{figure}
-\begin{center}
+%\begin{center}
+\begin{spacing}{0.9}
 \begin{tabular}{ll}
 Prove P(0)                                         &\emph{base case}\\
  - - - - - - - - - - - - - - - - - - - - -         &\\
@@ -805,7 +820,8 @@ Prove ($\forall$$n$.(P($n$)$\rightarrow$P($n+1$))) &\emph{inductive case}\\
 -------------------------------------\{induction\} &\\
 Infer ($\forall$$n$.P($n$))                        &\\
 \end{tabular}
-\end{center}
+\end{spacing}
+%\end{center}
 \index{induction!proof by}\index{proof!by induction}\index{inference rule, by name!\{induction\}}
 \caption{Mathematical Induction: a Rule of Inference}
 \label{fig-04-01}\label{induction-rule}
@@ -824,10 +840,9 @@ That is, we have to derive L($n+1$) from L($n$) for an arbitrary natural number 
 Fortunately, we know how to do this. Just copy the derivation of,
 say L(3) from L(2), but start with an append formula in which the first operand
 is a list with $n+1$ elements, and cite L($n$) where we would have cited L(2).
-
 \begin{center}
-\emph{Proof of L(n+1), citing axioms, proven equations, and L(n): L(n) $\rightarrow$ L(n+1)}\\
 \begin{tabular}{llll}
+&\emph{Proof of L(n+1), citing axioms, proven equations, and L(n): L(n) $\rightarrow$ L(n+1)}&&\\
 \hline\\[-1.0em]
     & \textsf{(len (append [$x_1$ $x_2$ \dots $x_{n+1}$] $ys$))}         &                     &~\\
 $=$ & \textsf{(len (append (cons $x_1$ [$x_2$ \dots $x_{n+1}$]) $ys$))}  & \{\emph{cons}\}     &~\\
@@ -839,17 +854,18 @@ $=$ & \textsf{(+ (len (cons $x_1$ [$x_2$ \dots $x_{n+1}$])) (len $ys$))} & \{\em
 $=$ & \textsf{(+ (len [$x_1$ $x_2$ \dots $x_{n+1}$]) (len $ys$))}        & \{\emph{cons}\}     &~\\
 \end{tabular}
 \end{center}
-
 This completes the mathematical induction proving the
 additive law of concatenation.
-\begin{samepage}
+
 \begin{center}
 \index{append!additive law}\index{theorem, by name!\{additive law of concatenation\}}\index{additive law of concatenation}\index{concatenate!additive law}\label{additive-law-concatenation}
+\begin{tabular}{c}
 Theorem \{\emph{additive law of concatenation}\} \\
+\hline
 $\forall n.($\textsf{(len (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))}
-$=$ \textsf{(+ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$))}$)$
+$=$ \textsf{(+ (len [$x_1$ $x_2$ \dots $x_n$]) (len $ys$))}$)$\\
+\end{tabular}
 \end{center}
-\end{samepage}
 
 An important point to notice in this proof is that
 we could not cite the \{\emph{cons}\} equation to replace \textsf{[$x_2$ $\dots$ $x_{n+1}$]}
@@ -930,39 +946,38 @@ That makes it possible to use mathematical induction as
 a fundamental tool in verifying, to a logical certainty,
 properties of that software.
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise Prove $\forall xs.$\textsf{(natp (len $xs$))}.
-You may cite
-\index{equation, by name!\{natp0\}, \{natp1\}}\index{axiom, by name!\{natp0\}, \{natp1\}}\{natp0\} and \{natp1\},
+\exer {Prove $\forall xs.$\textsf{(natp (len $xs$))}.
+You may 
+cite\index{equation, by name!\{natp0\}, \{natp1\}}\index{axiom, by name!\{natp0\}, \{natp1\}}
+\{natp0\} and \{natp1\},
 defined as follows. (\emph{Note}: This definition will be adequate for this exercise but is not the full definition of \textsf{natp}.)
 \begin{center}
 \begin{tabular}{ll}
 \textsf{(natp 0)}                                            & \{natp0\}\\
 $\forall x.($\textsf{(natp $x$)} $\rightarrow$ \textsf{(natp (+ $x$ 1))}$)$ & \{natp1\}\\
 \hline
-\end{tabular}\\
-$\forall x$ \emph{universe of discourse: numbers}
-\end{center}
+\multicolumn{2}{c}{$\forall x$ \emph{universe of discourse: numbers}}\\
+\end{tabular}
+\end{center}}
 
-\Exercise
-Prove: $\forall n.(\forall x.($\textsf{(expt $x$ $n$)} $=$ $x^n))$~~~\{\emph{expt}\}\\
-\hspace*{16mm}$\forall n$ universe of discourse: natural numbers;
+\exer {Prove: $\forall n.(\forall x.($\textsf{(expt $x$ $n$)} $=$ $x^n))$~~~\{\emph{expt}\}\\
+$\forall n$ universe of discourse: natural numbers;
 $\forall x$ universe of discourse: numbers\\
-\hspace*{16mm}Assume the following equations \{\emph{expt0}\} and \{\emph{expt1}\} are true.
-\begin{samepage}
+Assume the following equations \{\emph{expt0}\} and \{\emph{expt1}\} are true.
 \label{expt-equations}\label{expt-thm}\index{theorem, by name!\{expt\}}\index{axiom!exponent}\index{operator, by name!expt ($x^n$)}\seeonlyindex{expt}{operator}\index{axiom, by name!\{expt0\}, \{expt1\}}\index{equation, by name!\{expt0\}, \{expt1\}}
 \begin{center}
 \begin{tabular}{ll}
-\textsf{(expt $x$ 0)} $=$ 1                                & \{\emph{expt0}\} \\
+\textsf{(expt $x$ 0)} $=$ 1                                         & \{\emph{expt0}\} \\
 \textsf{(expt $x$ (+ $n$ 1))} $=$ \textsf{($*$ $x$ (expt $x$ $n$))} & \{\emph{expt1}\} \\
 \hline
-\end{tabular}\\
-\textsf{($*$ $x$ $y$)} $=$ $x \times y$
+\multicolumn{2}{c}{{\textsf{($*$ $x$ $y$)} $=$ $x \times y$}}\\
+\end{tabular}
 \end{center}
-\end{samepage}
+}
 
-\end{ExerciseList}
+\end{exercises}
 
 \section{Defun: Defining Operators in ACL2}
 \label{sec:defun}
@@ -972,15 +987,17 @@ The axioms we wrote for the \textsf{append} operator are very
 close to an ACL2 definition of \textsf{append}.
 Operators are defined in ACL2 with a \textsf{defun} command,
 which has four \index{defun}\index{definition!defun}\index{definition!operator}\index{operator!defun}parts.
-\begin{quote}
-\textsf{(defun $f$ ($x_1$ $x_2$ $\dots$ $x_n$)} \emph{$\dots$ACL2-formula$\dots$})
-\begin{enumerate}
-\item keyword: \textsf{defun}
-\item a name for the operator being defined: $f$
-\item names designating operands: \textsf{($x_1$ $x_2$ $\dots$ $x_n$)} --- parentheses required
-\item ACL2 formula specifying the value the operator will deliver
-\end{enumerate}
-\end{quote}
+\vspace{2mm}
+
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textsf{(defun $f$ ($x_1$ $x_2$ $\dots$ $x_n$) ~ $formula$ ~ )}}\\
+\hline
+\textsf{defun}                       & keyword\\
+$f$                                  & name for the operator being defined\\
+\textsf{($x_1$ $x_2$ $\dots$ $x_n$)} & names designating operands, surrounded by parentheses\\
+$formula$                            & ACL2 formula specifying the value the operator will deliver\\
+\end{tabular}
+\\
 
 Most of the time, the formula for the value the operator delivers
 will have subformulas specifying alternative values for different cases.
@@ -996,7 +1013,7 @@ one for each case.
 The \textsf{if} operator (Figure~\ref{fig:if-axioms}, page \pageref{fig:if-axioms})
 selects the appropriate formula.
 
-\begin{aside}
+\begin{aside}{aside:why-inductive}{Why Inductive Definitions?}
 \index{why inductive?}\index{definition!why inductive?}\index{inductive, why?}Inductive
 definitions are one of many ways to specify software,
 and other methods are more common in practice.
@@ -1007,8 +1024,8 @@ inductive definitions provide solid footing.
 Since reasoning is a central theme in this presentation,
 it focusses on software written
 in the form of inductive equations.
-\caption{Why Inductive Definitions?}
-\label{aside:why-inductive}
+%\caption{Why Inductive Definitions?}
+%\label{aside:why-inductive}
 \end{aside}
 
 Figure~\ref{fig:append-defun} (page \pageref{fig:append-defun})
@@ -1027,30 +1044,33 @@ a starting point to get on the right track.
 
 \begin{figure}
 \begin{center}
-Axioms: \{\emph{append}\} \\
 \begin{tabular}{ll}
+\multicolumn{2}{c}{Axioms \{\emph{append}\}} \\
+\hline
 \textsf{(append (cons $x$ $xs$) $ys$)} $=$ \textsf{(cons $x$ (append $xs$ $ys$))} & \{\emph{app1}\} \\
 \textsf{(append nil $ys$)} $=$  $ys$                                     & \{\emph{app0}\} \\
 \end{tabular}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun append (xs ys)    ; intrinsic operator, so defun is redundant
   (if (consp xs)                              ; select formula
       (cons (first xs) (append (rest xs) ys)) ; {app1}, xs not empty
       ys))                                    ; {app0}, xs is empty
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
-%Reverting to 2nd axiom requiring first arg to be truelist, as req'd in acl2 docuemtation.
+%Reverting to 2nd axiom requiring first arg to be truelist, as req'd in acl2 docuemtation.%'
 %Was as follows:
 %(append $a$ $ys$) =  $ys$                                     & \{\emph{app0}\} \\
-%~~~~\emph{Note: Cite \{\emph{app0}\} only if \{\emph{app1}\} doesn't match.}&\\
+%~~~~\emph{Note: Cite \{\emph{app0}\} only if \{\emph{app1}\} doesn't match.}&\\%'
 \index{axiom!append}\index{append!operator}\index{operator, by name!append}\index{axiom, by name!\{app0\}, \{app1\}}\index{equation, by name!\{app0\}, \{app1\}}
 \caption{Defining Concatenation: append}
 \label{fig:append-defun}
 \end{figure}
 
-So, now you know. We've been writing
-\index{software!as axioms}\index{programs, as axioms}\index{axiom!software}\index{equation!software}programs
-on the sly, passing them off as axioms.
+So, now you 
+\index{software!as axioms}\index{programs, as axioms}\index{axiom!software}\index{equation!software}know.
+We've been writing programs on the sly, passing them off as axioms.
 Why? Because that's how we want you to think of them.
 A program is a collection of axioms, expressed as equations
 that specify properties that you want operators to have.
@@ -1066,18 +1086,18 @@ computations, and you will have some confidence in the results
 of those computations.
 
 Since definitions must use the \index{equation!ACL2}\index{ACL2!equation}ACL2 syntax,
-they don't look much like equations,
+they don't look much like equations, %'
 but if they are complete, consistent, and computational
 (Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}),
 the values they deliver will have the properties you derive
 from the equations.
 They may not have all the properties you expected.
 They may have bugs.
-But, you'll have a good chance of fixing them with
+But, you'll have a good chance of fixing them with %'
 automated testing (\textsf{defproperty})
 and the reasoning assistance of the ACL2 mechanized logic.
 
-Going forward, we will define operators that aren't
+Going forward, we will define operators that aren't %'
 intrinsic in ACL2 (and, therefore, need definitions)
 both in the form of an ACL2 \textsf{defun}
 and in the form of equations for paper-and-pencil reasoning.
@@ -1123,7 +1143,7 @@ Combining these two observations, we find that
 $xs$ would be the appropriate value for \textsf{(nthcdr $n$ $xs$)}
 if either $n$ is zero or $xs$ has no elements.
 
-\begin{aside}
+\begin{aside}{zp-def}{Natural Number Predicates: Zero (\textsf{zp}) and Non-Zero (\textsf{posp})}
 The predicate \textsf{posp} is used to test for non-zero values
 in the domain of natural numbers.
 In the ACL2 logic, the formula \textsf{(posp $n$)} has the value true if $n$ is
@@ -1133,18 +1153,17 @@ or if $n$ is zero.
 That makes \textsf{posp} especially useful
 in definitions that are inductive on the natural numbers.
 You might think that \textsf{(> $n$ 0)} would
-work the same way, but it doesn't because that formula
+work the same way, but it doesn't because that formula %'
 does not constrain $n$ to the natural numbers,
 and many inductive definitions rely on that constraint.
 
 The predicate \textsf{zp} imposes the same constraint,
 but is true when its operand is zero and false otherwise.
 Both \textsf{zp} and \textsf{posp} are useful for inductive definitions that
-rely on the domain of natural numbers to ensure that the
-defined operator terminates.
-\index{operator, by name!posp (\emph{see} predicate)}\index{predicate, by name!posp (positive integer)}\seeonlyindex{posp}{predicate}\index{operator, by name!zp (\emph{see} predicate)}\index{predicate, by name!zp (natural number zero)}\seeonlyindex{zp}{predicate}
-\caption{Natural Number Predicates: Zero (\textsf{zp}) and Non-Zero (\textsf{posp})}
-\label{zp-def}
+rely on the domain of natural numbers to ensure that the defined operator
+terminates.\index{operator, by name!posp (\emph{see} predicate)}\index{predicate, by name!posp (positive integer)}\seeonlyindex{posp}{predicate}\index{operator, by name!zp (\emph{see} predicate)}\index{predicate, by name!zp (natural number zero)}\seeonlyindex{zp}{predicate}
+%\caption{Natural Number Predicates: Zero (\textsf{zp}) and Non-Zero (\textsf{posp})}
+%\label{zp-def}
 \end{aside}
 
 The other possibility is that $n$ is not zero and $xs$ has some elements.
@@ -1177,19 +1196,22 @@ if either $a$ or $b$ is false and true otherwise.
 
 \begin{figure}
 \begin{center}
-Axioms \{\emph{nthcdr}\} \\
 \begin{tabular}{ll}
+\multicolumn{2}{c}{Axioms \{\emph{nthcdr}\}} \\
+\hline
 \textsf{(nthcdr $(n+1)$ (cons $x$ $xs$))} $=$ \textsf{(nthcdr $n$ $xs$)} & \{\emph{sfx1}\} \\
 \textsf{(nthcdr $n$ $xs$)} $=$ $xs$                            & \{\emph{sfx0}\}   \\
-~~~~\emph{Note 1: Cite \{\emph{sfx0}\} only if \{\emph{sfx1}\} doesn't match.}&\\
+~~~~\emph{Note 1: Cite \{\emph{sfx0}\} only if \{\emph{sfx1}\} doesn't match.}&\\ %'
 ~~~~\emph{Note 2: $n$ is a natural number.}
 \end{tabular}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun nthcdr (n xs)    ; intrinsic operator, so defun is redundant
   (if (and (posp n) (consp xs))   ; select formula
       (nthcdr (- n 1) (rest xs))  ; {sfx1}
       xs))                        ; {sf0}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
 \seeonlyindex{nthcdr}{operator}\index{operator, by name!nthcdr (suffix of list)}\index{equation, by name!\{sfx0\}, \{sfx1\}}
 \caption{Defining List Suffix Extractor: nthcdr}
@@ -1215,7 +1237,7 @@ So the definition is complete, having covered all the cases.
 The cases do not overlap, so we don't need to worry about
 consistency between the axioms.
 
-\begin{aside}
+\begin{aside}{fig:fall-through-axioms}{Fall-Through Axioms}
 There is a subtlety in the axioms for \textsf{nthcdr} (Figure~\ref{fig:nthcdr-defun})
 that needs to be discussed.
 The operand prototypes in the
@@ -1239,8 +1261,8 @@ Since \{\emph{sfx0}\} only applies if the operand prototypes in
 \{\emph{sfx0}\} don't match the operands in a formula that refers to \textsf{nthcdr},
 the two axioms do not share any combination of operands, so they cannot
 cause an inconsistency in the specified results.
-\caption{Fall-Through Axioms}
-\label{fig:fall-through-axioms}
+%\caption{Fall-Through Axioms}
+%\label{fig:fall-through-axioms}
 \end{aside}
 
 That covers two of the three C's guidelines for inductive definitions of operators
@@ -1269,24 +1291,19 @@ and then \textsf{(len $xs$)} elements are dropped from the beginning of the
 concatenation, the result will be the list $ys$.
 We will use S($n$) as a shorthand for this property
 when $xs$ has $n$ elements.
-
-\begin{samepage}
 \begin{center}
 \label{append-prefix-thm-predicate}
 S($n$) $\equiv$ $($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))} $=$ $ys)$
 \end{center}
-\end{samepage}
-
-
 %%error above
-\todo{COMMENT ONLY, NO TODO
-Just in case we decide to go back to ACL2 syntax for the def'n of S
-S($n$) $\equiv$ (equal & (nthcdr & (len [$x_1$ $x_2$ \dots $x_n$])          \\
-                       &         & (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) \\
-                       & $ys$)   &                                          \\
-}
-
-\label{append-suffix-thm-pencil-proof} \todo{COMMENT ONLY, NO TODO label added 16Sep2017}
+%\todo{COMMENT ONLY, NO TODO
+%Just in case we decide to go back to ACL2 syntax for the def'n of S
+%S($n$) $\equiv$ (equal & (nthcdr & (len [$x_1$ $x_2$ \dots $x_n$])          \\
+%                       &         & (append [$x_1$ $x_2$ \dots $x_n$] $ys$)) \\
+%                       & $ys$)   &                                          \\
+%}
+\label{append-suffix-thm-pencil-proof}
+%\todo{COMMENT ONLY, NO TODO label added 16Sep2017}
 S is a predicate indexed by the natural numbers,
 so the formula $\forall n.$S$(n)$ is a candidate for proof by induction.
 A proof of this formula by mathematical induction
@@ -1302,30 +1319,24 @@ When $n$ is zero, the list \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]} is empty:
 \textsf{[$x_1$ $x_2$ $\dots$ $x_0$]} $=$ \textsf{nil}, according to the \{nlst\} axiom
 (Figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation}).
 So, S(0) stands for the following equation.
-
-\begin{samepage}
 \begin{center}
 S(0) $\equiv$ $($\textsf{(nthcdr (len nil) (append nil $ys$))} $=$ $ys)$
 \end{center}
-\end{samepage}
-
-\todo{COMMENT ONLY, NO TODO
-Just in case we decide to go back to ACL2 syntax for the def'n of S
-\begin{samepage}
-\begin{center}
-\begin{tabular}{ll}
-S(0) $\equiv$ (equal & (nthcdr (len nil) (append nil $ys$)) \\
-                     & $ys$)                                \\
-\end{tabular}
-\end{center}
-\end{samepage}
-END OF COMMENT ONLY, NO TODO}
-
+%\todo{COMMENT ONLY, NO TODO
+%Just in case we decide to go back to ACL2 syntax for the def'n of S
+%\begin{samepage}
+%\begin{center}
+%\begin{tabular}{ll}
+%S(0) $\equiv$ (equal & (nthcdr (len nil) (append nil $ys$)) \\
+%                     & $ys$)                                \\
+%\end{tabular}
+%\end{center}
+%\end{samepage}
+%END OF COMMENT ONLY, NO TODO}
 As usual in a proof of an equation,
 we start with the formula on one side of the equation
 and use known equations to gradually transform that formula
 into the one on the other side.
-
 \begin{center}
 \begin{tabular}{lll}
     & \textsf{(nthcdr (len nil) (append nil $ys$))}  &                                                  \\
@@ -1337,15 +1348,12 @@ $=$ & $ys$                                  & \{\emph{sfx0}\} (page \pageref{fig
 
 That takes care of S(0). Next, we prove S($n+1$), assuming that
 the induction hypothesis S($n$) is true.
-
-\begin{samepage}
 \index{theorem, by name!\{append-suffix\}}\index{append!suffix theorem}
 \begin{center}
 %\begin{tabular}{lll}
 S($n+1$) $\equiv$ $($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_{n+1}$]) (append [$x_1$ $x_2$ $\dots$ $x_{n+1}$] $ys$))} $=$ $ys)$
 %\end{tabular}
 \end{center}
-\end{samepage}
 
 \begin{center}
 \begin{tabular}{llll}
@@ -1401,13 +1409,10 @@ from those equations and the axioms of the \textsf{append} operator
 (Figure~\ref{fig:append-defun}, page \pageref{fig:append-defun}).
 We will prove $\forall n.$P($n$) by induction,
 where the predicate P is defined as follows.
-
-\begin{samepage}
 \begin{center}
 P($n$) $\equiv$ $($\textsf{(prefix (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))}
                 $=$ \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]}$)$
 \end{center}
-\end{samepage}
 
 As required in proofs by induction, we will prove that P(0) is true
 and also that P($n+1$) is true whenever P($n$) is true.
@@ -1418,34 +1423,33 @@ $\forall n.$P($n$) is true, citing \{induction\}.
 \begin{center}
 Axioms \{\emph{prefix}\}                                           \\
 \begin{tabular}{ll}
+\hline
 \textsf{(prefix $(n + 1)$ (cons $x$ $xs$))} $=$ \textsf{(cons $x$ (prefix $n$ $x$s))} & \{\emph{pfx1}\} \\
 \textsf{(prefix $n$ $xs$)} $=$  \textsf{nil}                                          & \{\emph{pfx0}\} \\
 ~~~~\emph{Note 1: Cite \{\emph{pfx0}\} only if \{\emph{pfx1}\} doesn't match.}&\\
 ~~~~\emph{Note 2: $n$ is a natural number.}
 \end{tabular}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun prefix (n xs)
   (if (and (posp n) (consp xs))
       (cons (first xs) (prefix (- n 1) (rest xs)))  ; {pfx1}
       xs))                                          ; {pfx0}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \end{center}
 \seeonlyindex{prefix, of list}{operator}\index{operator, by name!prefix (of list)}\index{equation, by name!\{pfx0\}, \{pfx1\}}
 \caption{Defining List Prefix Extractor: \textsf{prefix}}
 \label{prefix-equations}
 \end{figure}
 
-\begin{center}
-P($0$) $\equiv$ $($\textsf{(prefix (len nil) (append nil $ys$))} $=$ \textsf{nil}$)$
-\end{center}
-
 As in the proof of the append suffix theorem, we start
 with the formula on one side of the P(0) equation
 and use known equations to gradually transform
 that formula into the one on the other side of the equation.
-
 \begin{center}
 \begin{tabular}{lll}
+\multicolumn{3}{c}{P($0$) $\equiv$ $($\textsf{(prefix (len nil) (append nil $ys$))} $=$ \textsf{nil}$)$}\\
     & \textsf{(prefix (len nil) (append nil $ys$))}  &                                                  \\
 $=$ & \textsf{(prefix 0 (append nil $ys$))}          & \{\emph{len0}\} (page \pageref{len-equations})   \\
 $=$ & \textsf{nil}                                   & \{\emph{pfx0}\}                                  \\
@@ -1454,11 +1458,15 @@ $=$ & \textsf{nil}                                   & \{\emph{pfx0}\}          
 
 That takes care of P(0). Figure~\ref{pfx-induc}
 (page \pageref{pfx-induc}) displays a proof of P($n$) $\rightarrow$ P($n+1$).
+At this point we know three important facts about the \textsf{append} operator.\\
+\hspace*{1cm}\emph{Additive-length theorem}: \textsf{(len (append $xs$ $ys$))} $=$ \textsf{(+ (len $xs$) (len $ys$))}\index{theorem, by name!\{append-suffix\}}\index{theorem, by name!\{append-prefix\}}\index{append!prefix theorem}\label{app-pfx-thm}\\
+\hspace*{1cm}\emph{Append-prefix theorem}: \textsf{(prefix (len $xs$) (append $xs$ $ys$))} $=$ $xs$\\
+\hspace*{1cm}\emph{Append-suffix theorem}: \textsf{(nthcdr (len $xs$) (append $xs$ $ys$))} $=$ $ys$
 
 \begin{figure}
 \begin{center}
+\begin{spacing}{0.9}
 \addtolength{\tabcolsep}{-5pt}
-%\setlength{\tabcolsep}{1pt}
 \begin{tabular}{llll}
 ~~~~\textsf{(prefix} &\textsf{(len}    &\textsf{[$x_1$ $x_2$ $\dots$ $x_{n+1}$])}    &\\
             &\textsf{(append} &\textsf{[$x_1$ $x_2$ $\dots$ $x_{n+1}$] $ys$))}       &\\
@@ -1477,75 +1485,14 @@ $=$ \textsf{(cons}   &$x_1$   &                                          &\\
 $=$ \textsf{[$x_1$ $x_2$} & \textsf{$\dots$ $x_{n+1}$]}                  &&\{\emph{cons}\} (page \pageref{first-rest-cons}) \\
 \end{tabular}
 \addtolength{\tabcolsep}{5pt}
-~~\\
-\vspace{2mm}
+\end{spacing}
+~~\vspace{1mm}\\
 P($n+1$)$\equiv($\textsf{(prefix (len[$x_1$ $x_2$ $\dots$ $x_{n+1}$]) (append [$x_1$ $x_2$ $\dots$ $x_{n+1}$] $ys$))} $=$
  \textsf{[$x_1$ $x_2$ $\dots$ $x_{n+1}$]}$)$
 \end{center}
 \caption{Proof: $\forall n.$ P($n$) $\rightarrow$ P($n+1$)}
 \label{pfx-induc}
 \end{figure}
-
-%  COMMENT 12-10-17 trying to fix it to look like the others
-%  Rex: This following indentation isn't perfect, but it's close.  I haven't figured out how to remove the vertical space before the tabbing, though I can probably hack it....
-%      COMMENT BY REX: Looks too strung out in print, better to put citations on same line as new formula, I think.
-%                      but I'm afraid to tamper with it.
-%OLD WAY FOLLOWS
-%\begin{center}
-%	\setlength{\topsep}{0pt}
-%	\setlength{\partopsep}{0pt}
-%\begin{tabular} {lp{3in}p{1.5in}}
-%    & \begin{tabbing}
-%			(prefix \=(len [$x_1$ $x_2$ \dots $x_{n+1}$]) \\
-%         	        \>(append [$x_1$ $x_2$ \dots $x_{n+1}$] $ys$))
-%		\end{tabbing}
-%	& \\
-%$=$ & \begin{tabbing}
-%		(prefix \=(len (cons $x_1$ [$x_2$ \dots $x_{n+1}$])) \\
-%                \>(append (cons $x_1$ [$x_2$ \dots $x_{n+1}$]) $ys$))
-%		\end{tabbing}
-%	& \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
-%$=$ & \begin{tabbing}
-%			(prefix \=(+ 1 (len [$x_2$ \dots $x_{n+1}$])) \\
-%                    \>(cons $x_1$ (append [$x_2$ \dots $x_{n+1}$] $ys$)))
-%		\end{tabbing}
-%    & \{\emph{len1}\} (page \pageref{len-equations}) \hfill\break
-%      \{\emph{app1}\} (page \pageref{append-equations})    \\
-%
-%$=$ & \begin{tabbing}
-%		(cons \=(first (cons $x_1$ [$x_2$ \dots $x_{n+1}$])) \\
-%			  \>(prefix \=(- (+ 1 (len [$x_2$ \dots $x_{n+1}$])) 1) \\
-%			  \>        \>(rest (cons $x_1$ (append [$x_2$ \dots $x_{n+1}$] $ys$)))))
-%		\end{tabbing}
-%	& \{\emph{pfx1}\} \\
-%$=$ & \begin{tabbing}
-%		(cons \=$x_1$ \\
-%			  \>(prefix \=(len [$x_2$ \dots $x_{n+1}$]) \\
-%			  \>        \>(append [$x_2$ \dots $x_{n+1}$] $ys$)))
-%		\end{tabbing}
-%	& \{\emph{fst}\} (page \pageref{first-rest-cons}) \hfill\break
-%	  \{\emph{arithmetic}\} \hfill\break
-%	  \{\emph{rst}\} (page \pageref{first-rest-cons}) \\
-%$=$ & \begin{tabbing}
-%		(cons \=$x_1$ \\
-%			  \>[$x_2$ \dots $x_{n+1}$] )
-%		\end{tabbing}
-%	& \{P($n$)\} \\
-%$=$ & [$x_1$ $x_2$ \dots $x_{n+1}$] & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
-%\end{tabular}
-%\end{center}
-%\caption{Proof: $\forall n.$ P($n$) $\rightarrow$ P($n+1$)}
-%\label{pfx-induc}
-%\end{figure}
-
-At this point we know three important facts about the \textsf{append} operator:
-\begin{quote}
-\begin{itemize}
-\item additive length theorem: \textsf{(len (append $xs$ $ys$))} $=$ \textsf{(+ (len $xs$) (len $ys$))}\index{theorem, by name!\{append-suffix\}}\index{theorem, by name!\{append-prefix\}}\index{append!prefix theorem}\label{app-pfx-thm}
-\item append-prefix theorem: \textsf{(prefix (len $xs$) (append $xs$ $ys$))} $=$ $xs$
-\item append-suffix theorem: \textsf{(nthcdr (len $xs$) (append $xs$ $ys$))} $=$ $ys$
-\end{itemize}
-\end{quote}
 
 Together, these theorems provide some assurance that \textsf{append} does what we
 would expect for a concatenation operator.
@@ -1561,7 +1508,6 @@ like addition and multiplication in numeric algebra
 That is, if there are three lists to be concatenated,
 you could concatenate the first list with the concatenation of the last two.
 Or, you could concatenate the first two, then append the third list at the end.
-
 \begin{samepage}
 \index{theorem, by name!\{app-assoc\}}
 \label{app-assoc}
@@ -1575,18 +1521,17 @@ starting from the following predicate with the natural numbers as its
 universe of discourse.
 The goal would be to prove that the formula $(\forall n.$A($n$)$)$ is true.
 We leave the proof as an exercise.
-
 \begin{samepage}
 \begin{center}
 A($n$) $\equiv$ \textsf{(append [$x_1$ $x_2$ $\dots$ $x_n$] (append $ys$ $zs$))} $=$ \textsf{(append (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$) $zs$)}
 \end{center}
 \end{samepage}
 
-\begin{ExerciseList}
+\begin{exercises}
 
-\Exercise Prove the \{\emph{app-assoc}\} theorem (page \pageref{app-assoc}).
+\exer {Prove the \{\emph{app-assoc}\} theorem (page \pageref{app-assoc}).}
 
-\Exercise Prove $\forall n.($\textsf{(rest [$x_1$ $x_2$ $\dots$ $x_n$])} $=$ \textsf{(nthcdr 1 [$x_1$ $x_2$ $\dots$ $x_n$])}$)$.
+\exer {Prove $\forall n.($\textsf{(rest [$x_1$ $x_2$ $\dots$ $x_n$])} $=$ \textsf{(nthcdr 1 [$x_1$ $x_2$ $\dots$ $x_n$])}$)$.}
 
 %\todo{COMMENT ONLY, NO TODO
 %Reviewer 2 points out that Ch4 talks about ACL2 programs and even about
@@ -1604,23 +1549,25 @@ A($n$) $\equiv$ \textsf{(append [$x_1$ $x_2$ $\dots$ $x_n$] (append $ys$ $zs$))}
 %Plan to move and expand mechanized logic section and halting problem to chapter after ch04 (ch04a.tex, I guess)
 %UPDATE 12/10/17: Halting problem is last section of ch04mechlogic.
 %}
-\Exercise\label{rep-len}\index{theorem, by name!\{rep-len\}}
+\exer {\label{rep-len}\index{theorem, by name!\{rep-len\}}%
 Prove: $\forall n.($\textsf{(len (rep $n$ $x$))} $=$ $n)$~~~\{\emph{rep-len}\}\\
 The operator \textsf{rep} is defined as follows.
-\index{operator, by name!rep (list of duplicates)}\seeonlyindex{rep}{operator}\index{equation, by name!\{rep0\}, \{rep1\}}\label{rep-equations}
-\begin{Verbatim}
+\index{operator, by name!rep (list of duplicates)}\seeonlyindex{rep}{operator}\index{equation, by name!\{rep0\}, \{rep1\}}\label{rep-equations}}
+\begin{code}
+\begin{verbatim}
 (defun rep (n x)
   (if (posp n)
       (cons x (rep (- n 1) x))   ; {rep1}
       nil))                      ; {rep0}
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 
-\Exercise \index{theorem, by name!\{app-nil\}}
-Prove theorem \{app-nil\}: $\forall n.$(\textsf{[$x_1$ $x_2$ $\dots$ $x_{n}$]} $=$ \textsf{(append [$x_1$ $x_2$ $\dots$ $x_{n}$] nil)})
+\exer {\index{theorem, by name!\{app-nil\}}%
+Prove theorem \{app-nil\}: $\forall n.$(\textsf{[$x_1$ $x_2$ $\dots$ $x_{n}$]} $=$ \textsf{(append [$x_1$ $x_2$ $\dots$ $x_{n}$] nil)})}
 
-\Exercise Prove: $\forall n.($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ $\dots$ $x_n$]  nil))} $=$ \textsf{nil}$)$
+\exer {Prove: $\forall n.($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ $\dots$ $x_n$]  nil))} $=$ \textsf{nil}$)$}
 
-\Exercise\label{member-equal-equations}\index{axiom!member-equal}\index{equation, by name!\{member-equal\}}\seeonlyindex{member-equal}{predicate}\index{operator, by name!member-equal (\emph{see} predicate)}\index{predicate, by name!member-equal (element of list)}\index{axiom, by name!\{mem0\}, \{mem1\}}\index{equation, by name!\{mem0\}, \{mem1\}}
+\exer {\label{member-equal-equations}\index{axiom!member-equal}\index{equation, by name!\{member-equal\}}\seeonlyindex{member-equal}{predicate}\index{operator, by name!member-equal (\emph{see} predicate)}\index{predicate, by name!member-equal (element of list)}\index{axiom, by name!\{mem0\}, \{mem1\}}\index{equation, by name!\{mem0\}, \{mem1\}}%
 Prove the following implication.\\
 \hspace*{16mm}$\forall n.($\textsf{(member-equal $y$ (rep $n$ $x$))} $\rightarrow$ \textsf{(member-equal y (cons $x$ nil))}$)$~~~\{\emph{rep-mem}\}\\
 The operator \textsf{rep} is defined in Exercise \ref{rep-len}, and
@@ -1631,12 +1578,13 @@ the following equations, \{\emph{mem0}\} and \{\emph{mem1}\}, define the predica
 \textsf{(member-equal $y$ nil)} $=$ \textsf{nil}                                                         & \{\emph{mem0}\}
 \end{tabular}
 \end{center}
+}
 
-\end{ExerciseList}
+\end{exercises}
 
-\todo{COMMENT ONLY, NO TODO
-next section will introduce defthm and proofs using the ACL2 mechanized logic
-by replaying all of the theorems of this section in ACL2 notation}
+%\todo{COMMENT ONLY, NO TODO
+%next section will introduce defthm and proofs using the ACL2 mechanized logic
+%by replaying all of the theorems of this section in ACL2 notation}
 
 %% All references to Dracula taken out (30Aug2017 - rlp)
 %% I think we should use Proof Pad for all doublecheck and other interface-to-ACL2 issues.

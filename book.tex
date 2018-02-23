@@ -1,81 +1,95 @@
-%\documentclass[letterpaper,10pt,extrafontsizesmtwoside,onecolumn,openright,draft,fleqn]{memoir}
-\documentclass[letterpaper,10pt,extrafontsizesmtwoside,onecolumn,openright,fleqn]{memoir}
+\documentclass[7x9,hyper]{newmath}
 
-\usepackage{memsty}
-
-\headstyles{memman}
-
-\setsecnumdepth{subsection}
-
-% This fixes the problem with "ACL2!>" showing up as "ACL2!?"
-%\usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
-
-% package "nth" allows \nth{2} to be 2nd with superscipt, without the italics of math mode
-%WinEdt couldn't find it, or something
-%\usepackage[super]{nth}
-
-% fancyvrb and fvset are for Verbatim directive
-\usepackage{fancyvrb}
-\fvset{frame=single,numbers=left}
-
-%\usepackage{amsmath}
-\usepackage{amsthm}
-\newtheorem*{theorem}{Theorem}
-\renewcommand{\qedsymbol}{\textsc{q.e.d.}}
-
-% art chapter
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{tikz}
+\usepackage{setspace} %\begin{spacing}{0.9} ... \end{spacing} fixes line-spacing problem in figures
 
-\newcommand{\todo}[1]{}%{\par\framebox{\parbox{.75\textwidth}{\emph{TODO: #1}}}\par}
+%%THIS DID NOT WORK -TRYING TO DOUBLES-SPACE FOOTNOTES
+%%\usepackage{footmisc}
+%%    \renewcommand{\footnotelayout}{\doublespacing} % set spacing in footnotes
+%%    \newlength{\myfootnotesep}
+%%    \setlength{\myfootnotesep}{\baselineskip}
+%%    \addtolength{\myfootnotesep}{-\footnotesep}
+%%    \setlength{\footnotesep}{\myfootnotesep} % set spacing between footnotes
 
-\definecolor{MyGray}{rgb}{0.8,0.8,0.8}
-\makeatletter\newenvironment{graybox}{%
-   \begin{lrbox}{\@tempboxa}\begin{minipage}{.8\columnwidth}\setlength{\parindent}{.25in}}{\end{minipage}\end{lrbox}%
-   \colorbox{MyGray}{\usebox{\@tempboxa}}
-}\makeatother
+%%THIS DID NOT WORK -TRYING TO DOUBLES-SPACE FOOTNOTES
+%%\usepackage{footmisc}
+%%\setlength{\footnotesep}{\baselineskip}
+%%\makeatother
+%%\renewcommand{\footnotelayout}{\doublespacing}
 
-\newcommand{\asidename}{Aside}
-\newcommand{\listasidename}{List of Asides}
-\newlistof{listofasides}{loa}{\listasidename}
-\newfloat[chapter]{asidefloat}{loa}{\asidename}
-\newlistentry{asidefloat}{loa}{0}
+%\doublespacing %comment out for single-spacing  DID NOT WORK
 
-\newenvironment{aside}%
-{\begin{asidefloat}\begin{center}\begin{graybox}\noindent\ignorespaces}%
-{\end{graybox}\end{center}\end{asidefloat}}
+%\linespread{2} % comment out for single-spacing DOES NOT DOUBLE-SPACE FOOTNOTES
 
-\usepackage{exercise}
+%%% HACK: This is a copy of "boxedtext", but it pays attention
+%%% to hyperref
 
-%\usepackage{url}
+\makeatletter
 
-%\usepackage[final]{graphicx}
+\def\aside#1#2{%
+\vskip12pt
+\def\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                    {-1sp}%
+                                    {-1em}%
+                               {\reset@font\small\bfseries}}
+\c@section=0
+\c@subsection=0
+\c@subsubsection=0
 
-\usepackage[final]{listings}
-\lstset{language=Lisp,
-		alsodigit={-},
-        morekeywords={defproperty,defthmd,if,check-expect,include-book,len},
-        frame=single, numbers=left, numberstyle=\footnotesize, escapeinside={//*@}{@*//}}
+%%
+\def\thesection{\arabic{section}}
+\def\thesubsection{\thesection.\arabic{subsection}}
+\def\thesubsubsection{\thesubsection.\arabic{subsubsection}}
+\let\section\bsection
+\let\subsection\bsubsection
+\let\subsubsection\bsubsubsection
+%%
+\def\section##1{\def\one{##1}\ifx\one\xstar\let\go\csection\else\def\go{\bsection{##1}}\fi\go}
+\def\subsection##1{\def\one{##1}\ifx\one\xstar\let\go\csubsection\else\def\go{\bsubsection{##1}}\fi\go}
+\def\subsubsection##1{\def\one{##1}\ifx\one\xstar\let\go\csubsubsection\else\def\go{\bsubsubsection{##1}}\fi\go}
+%%
+\def\extract{\leftskip=12pt \rightskip\leftskip}
+\def\endextract{\vskip6pt}
 
-\mathchardef\hyphenmathcode=\mathcode`\-
-\let\origlstlisting=\lstlisting
-\let\endoriglstlisting=\endlstlisting
-\renewenvironment{lstlisting}
-    {\mathcode`\-=\hyphenmathcode
-     \everymath{}\mathsurround=0pt\origlstlisting}
-    {\endoriglstlisting}
+\global\advance\c@boxtextnum by 1
+\fboxsep=1pc \fboxrule=.5pt \framed\small
+\parskip=6pt \parindent=0pt
+\ifx\hypertarget\undefined
+{\bf Box \arabic{chapter}.\arabic{boxtextnum}}
+\else
+\hypertarget{aside.\thechapter.\theboxtextnum}{\bf Box \arabic{chapter}.\arabic{boxtextnum}}
+\fi\\
+\rm #2
+\vskip6pt
+%\newlabel{let-star-def}{{2.9}{76}{More General Models with Predicates and Quantifiers}{Item.14}{}}
+\ifx\hypertarget\undefined
+\protected@write\@auxout{}%
+         {\string\newlabel{#1}{{\arabic{chapter}.\arabic{boxtextnum}}{\thepage}}}%
+\else
+\protected@write\@auxout{}%
+         {\string\newlabel{#1}{{\arabic{chapter}.\arabic{boxtextnum}}{\thepage}{#2}{aside.\thechapter.\theboxtextnum}{}}}%
+\fi
+}
 
-\usepackage{enumitem}
-\setlist{nolistsep,leftmargin=*}
+\def\endaside{\endframed}
 
-% This should give links in PDF, but it doesn't work with memoir for me
-%\usepackage{hyperref}
-%\hypersetup{pdftex=true, letterpaper=true, bookmarks=true, colorlinks=true, urlcolor=black}
-%
-%\usepackage{memhfixc}
+\makeatother
 
-\usepackage{makeidx}
-\makeindex
+%%% END HACK: boxedtext / hyperref
+
+% Cropmarks are used by default. If you  want to turn cropmarks off, type
+% \nocropmarks (before \begin{document})
+
+%%%%%%%%%%%%%%%%%
+% Author definitions go before \begin{document}
+
+%\usepackage{amsthm}
+%\newtheorem*{theorem}{Theorem}
+%\renewcommand{\qedsymbol}{\textsc{q.e.d.}}
+
+\newenvironment{proof}{\par \emph{Proof.} \par}{\begin{flushright}\textsc{q.e.d.}\end{flushright}}
 
 %% def'n copied from: https://tex.stackexchange.com/questions/318472/change-index-see-also-and-see-format
 \newcommand\gobbleone[1]{}
@@ -85,263 +99,650 @@
 \newcommand{\seeonlyindex}[2]{\index{#1@#1\protect\gobbleone|seeonly{#2}}}
 %% end of copy new command from tex.stackexchange.com
 
-\makeatletter
-\let\Old@ExerciseList\ExerciseList
-\renewcommand\ExerciseList{\section*{Exercises}\addcontentsline{toc}{section}{\protect\numberline {}Exercises}
-\Old@ExerciseList}
-\makeatother
+% ie, \def\taupav{\tau_{\mathrm{Pav}}}
 
-%%\title{How Computers Really Work: Logic in Action}
-%%\title{How Computers Work: Logic in Action}
-\title{Logic, Equations, and Computer Science}
-\author{Rex Page \and Ruben Gamboa}
-\date{January 2018}
-
-
-%%% was trying to quote Euclid in Greek, gave up, probably bad idea anyway
-%\usepackage{cmap} %When using pdfLaTeX
-%\usepackage{ucs}
-%\usepackage[utf8x]{inputenc}
-
-%\usepackage[utf8]{inputenc}
-%\usepackage[polutonikogreek,english]{babel}
-%\usepackage{substitutefont}
-%\substitutefont{LGR}{\rmdefault}{bodoni}
-%%% end of failed attempt to quote Euclid
+% \includeonly{frontmatter,ch01}
 
 \begin{document}
 
-%\begin{comment}
-\frontmatter
-
-%\maketitle
-
-\pagestyle{empty}
-
-
-% half-title page
-\vspace*{\fill}
-\begin{adjustwidth}{1in}{2cm}
-\begin{flushleft}
-%%\HUGE\sffamily How Computers Work:
-\HUGE\sffamily Logic\\
-\hspace{1cm}\HUGE\sffamily Equations\\
-\hspace{3cm}\Huge\sffamily and\\
-\hspace{2.6cm}\HUGE\sffamily Computer Science\\
-\end{flushleft}
-%%\begin{center}
-%%\HUGE\sffamily  Really Work:
-%%\HUGE\sffamily  Work:
-%%\end{center}
-%%\begin{flushright}
-%%\HUGE\sffamily  Logic in Action
-%%\end{flushright}
-%%\begin{center}
-%%\sffamily (Draft Edition 7)
-%%\end{center}
-\end{adjustwidth}
-\vspace*{\fill}
-\cleardoublepage
-
-% title page
-\vspace*{\fill}
-\begin{center}
-%%\HUGE\textsf{How Computers Really Work:}\par
-%%\HUGE\textsf{How Computers Work:}\par
-\Huge\textsf{Logic, Equations, and Computer Science}\par
-\end{center}
-%%\begin{center}
-%%\HUGE\textsf{Logic in Action}\par
-%%\end{center}
-
-\vspace{1cm}
-
-\begin{center}
-\LARGE\textsf{Rex Page}\par
-\Large\textsf{The University of Oklahoma}\par
-\end{center}
-
-\begin{center}
-\LARGE\textsf{Ruben Gamboa}\par
-\Large\textsf{University of Wyoming}\par
-\end{center}
-\vspace*{\fill}
-%%\begin{center}
-%%University of Oklahoma
-%%\end{center}
-\clearpage
-
-% copyright page
-\begingroup
-\footnotesize
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{\baselineskip}
-%%\ttfamily
-\textcopyright{} 2018 Rex Page and Ruben Gamboa \\
-All rights reserved
-
-Santa Cruz, California\\
-Laramie, Wyoming
-
-Printed in the United States
-
-% The paper used in this publication may meet the minimum requirements
-% of the American National Standard for Information
-% Sciences --- Permanence of Paper for Printed Library Materials,
-% ANSI Z39.48--1984.
-
-\begin{center}
-01\hspace{2em}10 09 08 07 06 05 04 03 02
-\end{center}
-\begin{center}
-\begin{tabular}{ll}
-First edition:                        & January 2018 \\
-%First edition:                        & 19 January 2011 \\
-% Second impression, with corrections:    & 2 July 2001 \\
-% Second edition:                       & 14 July 2001 \\
-% Second impression, with corrections:    & 3 August 2001 \\
-% Third impression, with minor additions: & 31 August 2001 \\
-% Third edition:                        & 17 November 2001 \\
-% Fourth edition:                       & 16 March 2002 \\
-% Fifth edition:                        & 10 August 2002 \\
-% Sixth edition:                        & 31 January 2004 \\
-% %%Draft Seventh edition:                & 31 January 2008 \\
-% Seventh edition:                       & 10 May 2008 \\
-% Eighth impression, with very minor corrections: & 12 July 2008 \\
-% Ninth impression, with additions and corrections: & 8 July 2009 \\
-% Eighth edition:                        & August 2009 \\
-\end{tabular}
-\end{center}
-
-\endgroup
-
-\clearpage
-
-% dedication page
-\vspace*{\fill}
-
-%\hspace*{15mm}\normalsize\textsf{\emph{To Warren R Page, who would have enjoyed knowing some of this stuff}}\par
-%\vspace{2mm}
-\hspace*{15mm}\normalsize\textsf{\emph{To Lucy Saarni, artist and philosopher}}\par
-\vspace{2mm}
-\hspace*{4cm}\normalsize\textsf{\emph{and}}\par
-\vspace{2mm}
-\hspace*{15mm}\normalsize\textsf{\emph{To Mona Gamboa and the kids,}}\par
-\hspace*{46mm}\normalsize\textsf{\emph{who enrich life and laugh, sometimes, at logic jokes}}\par
-
-\vspace*{\fill}
-
-\cleardoublepage
-
-\pagestyle{headings}
-
-%short ToC
-\setupshorttoc
-\tableofcontents
-\clearpage
-
-% long ToC
-\setupparasubsecs
-\setupmaintoc
-\tableofcontents
-
-%chapter/section dependencies
-\include{roadmap}
-
-% list of figures
-\clearpage
-\listoffigures
-
-%list of asides
-\clearpage
-\listofasides
-
-%preface
-\clearpage
+\include{frontmatter}
 \include{preface}
-
-%acknowledgements
-\include{acknowledgements}
-
-\mainmatter
-
-\raggedbottom
 
 \part{Logic and Equations}
 
 \include{ch01}
-
 \include{ch02}
-
 \include{ch03}
-
 \include{ch04}
-
 \include{ch04mechlogic}
 
 \part{Computer Arithmetic}
 
 \include{ch05}
-
 \include{ch06}
-
 \include{ch07}
 
-%% Decided to make this chapter about algorithms needed to deal with large data sets
-%% Or, in the case of hash tables, fast access, I guess,
-%% but I'm not sure how we'll deal with not having arrays
-%% Do we make it hashing to a key for looking something up in a search tree?
-%% The algorithms angle fits with the big data theme in the Computation in Practice part
 \part{Algorithms}
 
 \include{ch08}
-
 \include{ch09}
-
-%% decided against chapter on trees
-%% \include{ch10}
-
 \include{ch11}
-
 \include{ch12}
 
 \part{Computation in Practice}
 
 \include{ch13}
-
 \include{ch14}
-
 \include{ch15}
 
-\backmatter
+\endmatter
 
-%clear, phantom, addcontents puts Index in ToC at level of Part I, II, ...
-\cleardoublepage
-\phantomsection
-\addcontentsline{toc}{part}{Index}
 \printindex
 
-\cleardoublepage
-\pagestyle{empty}
-\null\vfil
 
-\begin{adjustwidth}{1in}{1in}
-\begin{center}
-{\Large\textsf{Colophon}}
-\end{center}
-\begin{center}
-This manual was typeset using the \LaTeX\ typesetting system
-created by Leslie Lamport and the memoir class.
-The body text is set 10/12pt on a
-33pc measure with Palatino designed by Hermann Zapf, which includes
-italics and small caps. Other fonts include
-Sans, Slanted and Typewriter from Donald Knuth's
-Computer Modern family.
+\end{document}
 
-\end{center}
 
-\end{adjustwidth}
 
-\vfil
 
-\end{document} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Part, partintro
+%%
+% \part[<optional short version of title for TOC>]
+% {<part title>}
+
+%% optional part introduction
+%\begin{partintro}
+% \partintrotitle{<text>}
+%<text. Section heads will not be numbered>
+%\end{partintro}
+
+%%%%%%
+%% ie
+% \part[Environmental Policy Analysis]
+% {Environmental Policy Analysis: Various Models for Material
+% Flows in the Economy}
+% \begin{partintro}
+% \partintrotitle{This is an introduction to the part}
+% Policy analysis may be divided into a number of subspecialities\ldots
+%
+% \end{partintro}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter Head
+
+%% note: if you want to break a line in the title in the TOC,
+%% add \string\\ where you want the line break
+
+% \chapter[<optional short version for TOC>]
+% {<chapter title>} %% may use \\ to break lines in chapter title
+                  %% but remember to use [<short title>] without the \\
+
+%% to send another version of chapter title to running head:
+% \chaptermark{<another version of chapter title>}
+
+%% If edited book:
+% \chapterauthor{<author name>}
+
+%% Optional one or more Epigraphs
+%% The first quotation mark will be supplied, so don't type it in:
+% \epigraph{<quote>''}
+% {<author>}
+% \epigraph{<quote>''}
+% {<author>}
+
+%% Optional abstract
+% \begin{abstract}
+% <text>
+% \end{abstract}
+
+%%%%%%
+%% ie
+% \chapter[Environmental Policy Analysis with STREAM:\protect\\
+% Equilibrium Model for Material Flows in the Economy]
+% {Environmental Policy Analysis with STREAM: A Partial
+% Equilibrium Model for Material Flows in the Economy}
+%
+% \chaptermark{Environmental Policy Analysis with STREAM}
+%
+% \chapterauthor{Hein Mannaerts}
+%
+% \epigraph{What star falls unseen?''}{William Faulkner}
+% \epigraph{All seats provide equal viewing of the universe.''}{Museum
+% guide, Hayden Planetarium}
+%
+% \begin{abstract}
+% Commercial robots are shown to be an effective manufacturing tool, but
+% some shortcomings are noted, particularly their lack of mobility.
+% \end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Section heads
+
+% \section{<text>}
+% \subsection{<text>}
+% \subsubsection{<text>}
+% \paragraph{<text>}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Notation, show symbols or terms and then define them
+
+% \begin{notation}
+% <term>&<definition>\\
+% <term>&<definition>\\
+% <term>&<definition>\\
+% ...
+% \end{notation}
+
+%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Note
+%% The \note{} text will appear in the Notes section
+%% at the end of the chapter and/or the end of the book.
+%% Remember to use the note at the end of a paragraph,
+%% not on its own line.
+
+
+% \note{<text here>}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Extract
+
+% \begin{extract}
+% <text>
+% (<author of extract, where published, optional url>)
+% \end{extract}
+
+%%%
+% ie
+
+% \begin{extract}
+% The distance $ds$ between two neighboring events, one with coordinates...
+% (Kostas D. Kokkotas, Article for the Encyclopedia of Physical Science
+% and Technology, 3rd Edition, Volume 7, Academic Press, (2002)
+% \url{http://www.tat.physik.uni-tuebingen.de/~kokkotas/Teaching/NS.BH.GW_files/GW_Physics.pdf})
+% \end{extract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Boxed Text
+% Will continue over pages; may contain section heads, extracts, equations, theorems,
+% programming code, algorithms, etc.
+% within the box. May use empty argument if you don't want title: \begin{boxedtext}{}...\end{boxedtext}
+
+%\begin{boxedtext}{<title>}
+% <text>
+% optional attribution:
+%(author, where published, \url{})
+%\end{boxedtext}
+
+%%%%
+% ie
+
+%\begin{boxedtext}{Frank Wilczek on Einstein and Gravitation}
+%...
+% (Frank Wilczek, Physics Today, April 2016,
+% \url{scitation.aip.org/content/aip/magazine/physicstoday/article/69/4/10.1063/PT.3.3137})
+% \end{boxedtext}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming Code;
+% either \begin{code}\begin{verbatim}...\end{verbatim}\end{code} or
+% \begin{algorithm}\caption{<text>}
+% \begin{algorithmic}...\end{algorithmic}
+% \end{algorithm}
+
+% \begin{code}
+% \begin{verbatim}
+% <code here>
+% \end{verbatim}
+% \end{code}
+
+%% or \begin{algorithm}...\end{algorithm}
+%% See https://en.wikibooks.org/wiki/LaTeX/Algorithms for examples
+%% http://tug.ctan.org/macros/latex/contrib/algorithms/algorithms.pdf
+
+%%%%%
+%% ie
+
+%% (\begin{algorithm} takes option [p][b][t][h],  or some combination, like \begin{figure})
+% \begin{algorithm}[h]
+% \caption{A sample in an algorithm environment.}
+% \begin{algorithmic}
+% \If {$i\geq maxval$}
+%     \State $i\gets 0$
+% \Else
+%     \If {$i+k\leq maxval$}
+%         \State $i\gets i+k$
+%     \EndIf
+% \EndIf
+% \end{algorithmic}
+% \end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Outline, see NewMathSample for an example.
+%% Use \begin{outline}...\end{outline};
+%% Use enumerate for each level, use \item[<symbol>] for each item:
+
+% \begin{outline}
+
+% \begin{enumerate}
+% \item[I.]
+% <text>
+%
+% \item[II.]
+% <text>
+%
+% \begin{enumerate}
+% \item[A.]
+% <text>
+%
+% \begin{enumerate}
+% \item[1.]
+% <text>
+%
+% \item[2.]
+% <text>
+% \end{enumerate}
+%
+% \item[B.]
+% <text>
+%
+% \item[III.]
+% <text>
+%
+% \end{enumerate}
+
+% \end{outline}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Dialogue
+
+% \begin{dialogue}
+% \speaker{<name>}
+% <Text>
+% \speaker{<name>}
+% <Text>
+% \speaker{<name>}
+% <Text>
+% \end{dialogue}
+
+%%%%%
+%% ie
+% \begin{dialogue}
+% \speaker{France C\'ordova}
+% It’s been decades, through a lot of different technological innovations...
+%
+% \speaker{Janna Levin}I was freaking out!
+%
+% \speaker{Robert Garisto} [the editor of Physical Review Letters]
+% I got goose bumps while reading the LIGO paper.
+% \end{dialogue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figure: illustration above, caption below, cross referencing \label{}
+% within or after caption, not before it.
+
+% \begin{figure}[t]
+% <illustration here>
+% \caption[<optional text to go to List of Figures>]
+% {<text of caption>}
+% \end{figure}
+
+%%%%%%%%%%%%%%%%%%%
+%% Landscape Figure
+
+% \begin{figure}[p]
+% \rotatebox{90}{\hskip<dimen> %to position figure vertically
+% \vbox {\includegraphics[width=\textheight]{<file name>}
+% \caption{<caption text}
+% }%% <== end \vbox
+% }%% <== end \rotatebox
+% \end{figure}
+
+% For instance,
+% \begin{figure}[p]
+% \rotatebox{90}{\hskip-3in\vbox {\includegraphics[width=\textheight]{gravwaves}
+% \caption{(landscape figure)
+% Graphic showing two black holes generating gravity waves.}}}
+% \end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table: caption above, table below. Cross-referencing \label{}
+% within or after caption, not before it.
+
+% \begin{table}
+% \caption[<optional text to go to List of Tables>]
+% {<text of caption>}
+
+% Optional centering, often used:
+% \centering
+% \begin{tabular}{lc}
+% \hline
+% Column Heads  \\
+%\hline
+% (table lines)(optional table note marker)$^a$\\
+%\hline
+% Optional table note in last line of table:
+%\multicolumn{2}{l}{$^{a}$Table note text here.}
+%\end{tabular}
+%\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Using tabular in text: put in \blankline before
+%% and after tabular. This will keep the table flush
+%% left and keep the text following the table from indenting.
+
+%%%%%
+%% ie
+
+% text...
+% \blankline
+% \begin{tabular}{rlcc}
+% \hline
+% &&\multicolumn2c{$Y$= Decrease in Surface Tension}\\
+% \multicolumn2c{$x$ = Weight \% sulfur}
+% &\multicolumn2c{(dynes/cm), two Replicates}\\
+% \hline
+% 0.&034&301&316\\
+% 0.&093&430&422\\
+% 0.&30&593&586\\
+% \hline
+% \end{tabular}
+% \blankline
+% text...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Landscape table
+
+% \begin{table}[p]
+% \rotatebox{90}{\vbox{
+% \caption{<text>}
+% \begin{tabular}{@{}crrrrrrrrrrr}
+% ...
+% \end{tabular}
+% } <-- end vbox
+% } <-- end rotate
+% \end{table}
+
+% For example,
+% \begin{table}[p]
+% \rotatebox{90}{\vbox{
+% \caption{More relevant tabular information.\label{tbl-2}}
+% \begin{tabular}{@{}crrrrrrrrrrr}
+% \hline
+% Star & Height & $d_{x}$ & $d_{y}$ & $n$ & $\chi^2$ & $R_{maj}$ & $R_{min}$ &
+% \multicolumn{1}{c}{$P^a$} & $P R_{maj}$ & $P R_{min}$ &
+% \multicolumn{1}{c}{$\Theta^b$} \\
+% \hline
+% 1 &33472.5 &-0.1 &0.4  &53 &27.4 &2.065  &1.940 &3.900 &68.3 &116.2 &-27.639\\
+% 2 &27802.4 &-0.3 &-0.2 &60 &3.7  &1.628  &1.510 &2.156 &6.8  &7.5 &-26.764\\
+% ...
+% \hline\\
+% \multicolumn{12}{l}{$^a$
+% Sample footnote for table~\ref{tbl-2} that was
+% generated with the \LaTeX\ table environment}\\
+% \multicolumn{12}{l}{$^b$ Yet another sample footnote for table
+% \ref{tbl-2}}\\
+% \multicolumn{12}{l}{$^c$ Another sample footnote for
+% table~\ref{tbl-2}}\\
+% \end{tabular}}}
+% \end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Lining up decimal numbers on the decimal point:
+%% For each decimal number, use two table columns; the
+%% first pushing the text to the right, the second to the left.
+%% to get rid of the space between the two columns, supply
+%% @{}, as you see in the example below. See example in newmathsample.tex/.pdf
+%% in exercise section.
+
+% \begin{tabular}{r@{}lcc}
+% \hline
+% &&\multicolumn2c{$Y$= Decrease in Surface Tension}\\
+% \multicolumn2c{$x$ = Weight \% sulfur}
+% &\multicolumn2c{(dynes/cm), two Replicates}\\
+% \hline
+% 0.&034&301&316\\
+% 0.&093&430&422\\
+% 011.&30&593&586\\
+% \hline
+% \end{tabular}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Continued Caption, \continuedcaption
+%% Will work with tables And figures
+%%
+%% It will give you ``Table <table number> (Continued)''
+%% or ``Figure <table number> (Continued)''
+%% The Table or Figure number will stay the same as the
+%% previous table or figure.
+
+% \begin{table}
+% \caption{}
+% \begin{tabular}{rlc}
+% ...
+% \end{tabular}
+% \end{table}
+%
+% \clearpage
+%
+% \begin{table}
+% \continuedcaption
+% \begin{tabular}{rlc}
+% ...
+% \end{tabular}
+% \end{table}
+%
+%%  Or, for figures;
+%
+% \begin{figure}
+% <illustration>
+% \caption{}
+% \end{figure}
+%
+% \clearpage
+%
+% \begin{figure}
+% <illustration>
+% \continuedcaption
+% \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Longtable: Table that will continue over pages
+
+% Long table needs these parts for the set up:
+
+% 1) begin long table, give tabular preamble:
+% \begin{longtable}{ccc@{}}
+
+% 2) Supply caption and top of table with text preceding
+% \endfirsthead
+
+% \caption{ApJ costs from 1991 to 2013
+% \label{tab:table}} \\[2pt]
+% \hline
+% \bf Year & \bf Subscription & \bf Publication \\
+%  & \bf cost &\bf charges\\
+%  & \bf(\$) & \bf (\$/page)\\
+% \hline
+% \endfirsthead
+
+% 3) Supply continuation of table and column heads
+% before the \endhead command:
+
+% \multicolumn3c{\longtablecontinued}\\[7pt]
+% \hline
+% \bf Year & \bf Subscription & \bf Publication \\
+%  & \bf cost &\bf charges\\
+%  & \bf(\$) & \bf (\$/page)\\
+% \hline
+% \endhead
+
+% 4) Supply extra space before footer at bottom of each page;
+% ending with \endfoot.
+
+% \\[12pt]
+% \endfoot
+
+% 5) Supply final ending to table with \hline and extra vertical space preceding
+% \endlastfoot
+
+% \hline
+% \\[24pt]
+% \endlastfoot
+
+% 6) Type in table
+
+% 7) End with this command:
+% \end{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Citations done with NatBib
+
+% Citations in the New Math book style are made using the Natbib
+% commands. See table showing commands and results in NewMathSample
+% or NewMathDocs.
+
+% See \url{http://merkel.zoneo.net/Latex/natbib.php}
+% for a reference sheet of natbib commands.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% End of Chapter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Exercises
+
+% \begin{exercises}
+% \exer{}
+% \subexer{}
+% \sidebysidesubsubexer{}{}
+% \end{exercises}
+
+%%%%%
+%  ie
+
+% \begin{exercises}
+% \exer{For Hooker's data, Exercise 1.2, use the Box and Cox and Atkinson procedures to determine a appropriate transformation of PRES
+% in the regression of PRES on TEMP. find $\hat\lambda$, $\tilde\lambda$,
+% the score test, and the added variable plot for the score.
+% Summarize the results.}
+
+% \subexer{The following data were collected in a study of the effect of dissolved sulfur
+% on the surface tension of liquid copper (Baes and Killogg, 1953).}
+
+% \sidebysidesubsubexer{In the case of $\Delta_1$?}{In the case of $\Delta_2$?}
+
+% \sidebysidesubexer{In the case of $\Gamma_1$?}{In the case of $\Gamma_2$?}
+% \end{exercises}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter Appendix
+
+% \begin{chapappendix}{<title>}
+% <text>
+% \end{chapappendix}
+
+%%%%%
+%  ie
+% \begin{chapappendix}{Dark Matter is not composed of Black Holes}
+
+% \section{The Canada France Hawaii Lensing Survey}
+% ...
+% \end{chapappendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Chapter Notes: \chapternotes will make any \note{<text>} that
+%% you entered in the chapter print, at the end of the chapter.
+
+% \chapternotes
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% End of the Book
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Appendix \appendix will make \chapter and \section use
+%% letters rather than numbers. Also changes equation numbers
+%% and figure and table numbers.
+
+% \appendix
+% \chapter{<title>}
+% \section{<section head>}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% IMPORTANT:
+% After Appendices, please enter
+% \endmatter
+
+% This command will give a little extra space in the Table of Contents
+% before the Glossary and/or Bibliography, Index, other end of book
+% commands are printed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Glossary
+
+% \begin{glossary}
+% \term{<term>}{<definition>}
+% ...
+% \end{glossary}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% End Book Exercises / \exer{}, \subexer{}, \sidebysidesubexer{}{}
+%% \sidebysidesubsubexer{}{} are the same as with exercises, only
+%% \begin{endbookexercises}... \end{endbookexercises} is different
+%%  at the end of the book.
+
+% \begin{endbookexercises}
+% \exer{}
+% \subexer{}
+% \sidebysidesubsubexer{}{}
+% \end{endbookexercises}
+
+%%%%%
+%  ie
+
+% \begin{endbookexercises}
+% \exer{For Hooker's data, Exercise 1.2, use the Box and Cox and Atkinson procedures to determine a appropriate transformation of PRES
+% in the regression of PRES on TEMP. find $\hat\lambda$, $\tilde\lambda$,
+% the score test, and the added variable plot for the score.
+% Summarize the results.}
+
+% \subexer{The following data were collected in a study of the effect of dissolved sulfur
+% on the surface tension of liquid copper (Baes and Killogg, 1953).}
+
+% \sidebysidesubsubexer{In the case of $\Delta_1$?}{In the case of $\Delta_2$?}
+
+% \sidebysidesubexer{In the case of $\Gamma_1$?}{In the case of $\Gamma_2$?}
+% \end{endbookexercises}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Endnotes: \endnotes will make every \note{<text>} that was entered
+%% earlier in the book print here, with automatic sections for the
+%% particular chapter built in. See NewMathSample.tex/pdf for example.
+
+%\endnotes
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bibliography style should be mit-chicago, unless author
+%% has strong preference for another style.
+
+%%%%%
+%  ie
+
+% \bibliographystyle{mit-chicago}
+% \bibliography{bibsamp}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Print Index
+
+\printindex
+
+%\end{document}

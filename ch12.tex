@@ -26,7 +26,7 @@ Suppose we have a list of states and their
 \textsf{[} &\textsf{["Alabama"}  &\textsf{"Montgomery"]}\\
   &\textsf{["Alaska"}   &\textsf{"Juneau"]}\\
   &\textsf{["Arizona"}  &\textsf{"Phoenix"]}\\
-  &~~~...      &\\
+  &~~~$\vdots$     &\\
   &\textsf{["Wyoming"}  &\textsf{"Cheyenne"] ]}\\
 \end{tabular}
 \end{center}
@@ -34,19 +34,24 @@ Suppose we have a list of states and their
 \begin{figure}
 \begin{center}
 Axioms for Finding State Capitals
+\begin{spacing}{0.9}
 \begin{tabular}{lll}
+\hline
 (capital $s$ nil) = nil                               &             & \{\emph{cap0}\} \\
 (capital $s$ (cons [$state$ $city$] $caps$)) = $city$ &if $s=state$ & \{\emph{cap1}\} \\
 (capital $s$ (cons [$state$ $city$] $caps$)) = (capital $s$ $caps$) & if $s \neq state$ & \{\emph{cap2}\} \\
 \end{tabular}
-\begin{Verbatim}
+\end{spacing}
+\begin{code}
+\begin{verbatim}
 (defun capital (s caps)
  (if (consp caps)
      (if (equal (first (car caps)) s)
          (car (rest (first caps)))
          (capital s (rest caps)))
      nil))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \caption{Operator to Find State Capitals}
 \label{fig:state-capital-operator}\index{operator, by name!capital}\index{search!array}\index{array!search}
 \end{center}
@@ -56,7 +61,7 @@ Figure~\ref{fig:state-capital-operator}
 defines an operator to find the
 capital of any given state, given such a list.
 The operator works, but it's slow.
-It takes only a handful of steps to find the capital of Alabama, 
+It takes only a handful of steps to find the capital of Alabama,
 but it takes fifty steps to find the capital of Wyoming.
 Some states are near the front of the list,
 others far down the list.
@@ -88,11 +93,11 @@ The states and capitals would need to be stored
 in a special way, not an ordinary list,
 but the number of steps required to find a capital
 would drop from an average of twenty-five to a maximum of six.
-That's four times faster, but there is a method known as hashing
+That's four times faster, but there is a method known as hashing %'
 that cuts the search to something close to one step, or at least
 to a small number of steps, regardless of how
 many search keys are in the data.
-Hashing works well for data sets that don't change often,
+Hashing works well for data sets that don't change often, %'
 such as state capitals. It works less well for large
 data sets that change frequently, such as tweets.
 You have to choose a solution that fits the problem.
@@ -102,7 +107,7 @@ Part of the problem with using ACL2 lists
 for data is that it is easy and fast to retrieve the
 first element of a list, but slower to retrieve the
 $n$\textsuperscript{th} element of a list.
-However, that's not the whole problem.
+However, that's not the whole problem. %'
 It also takes time to compare search keys
 (state names, in the problem at hand).
 Hashing addresses that problem by converting the search key
@@ -153,7 +158,7 @@ Suppose the operator \textsf{nth} could be implemented
 in such a way that it would not take any longer to
 deliver the element with index $1,000,000$ than it would take
 to deliver the element with index $0$.
-Let's not worry about how that could be done, but
+Let's not worry about how that could be done, but %'
 just assume for the moment that ACL2 could do it.
 If \textsf{nth} were such an operator,
 how much faster would the operator \textsf{capital} be?
@@ -165,7 +170,7 @@ We still need to find the right state.
 That is, it still takes many steps to find Wyoming.
 Hashing solves the problem of finding any search key fast.
 
-\begin{aside}
+\begin{aside}{aside:arrays-and-acl2}{Arrays and ACL2}
 Lists are one way to maintain collections of data in ACL2,
 but not the only way. A data structure
 known as an array is another. It comes with an operator
@@ -177,7 +182,7 @@ is a complicated, technical procedure.
 Acquiring the required ACL2 expertise to use arrays
 would take us too far afield, so we will rely on a
 descriptive approach that omits the details.
-\caption{Arrays and ACL2}
+%\caption{Arrays and ACL2}
 \end{aside}
 
 \section{Hash Operators}
@@ -227,20 +232,22 @@ be typically about two states in the box.
 
 \begin{figure}
 \begin{center}
-Letterbox Array: \textsf{7}
+Letterbox Array: \textsf{fcaps}
 \begin{tabular}{c|l}
 \emph{Index} &\emph{State Capitals} \\
 \hline
-0 & \textsf{[ ["Alabama"  "Montgomery"] ["Alaska"   "Juneau"] \dots ["Arkansas"  "Little Rock"] ]}  \\ %[arizona  phoenix]
+0 & \textsf{[ ["Alabama"  "Montgomery"] ["Alaska"   "Juneau"] \dots } \\
+  & \textsf{~~\dots ["Arkansas"  "Little Rock"] ]}  \\ %[arizona  phoenix]
 1 & \textsf{[ ]}\\
-2 & \textsf{[ ["California"  "Sacramento"] ["Colorado"  "Denver"] ["Connecticut"  "Hartford"] }]\\
+2 & \textsf{[ ["California"  "Sacramento"] ["Colorado"  "Denver"] \dots } \\
+  & \textsf{~~\dots ["Connecticut"  "Hartford"] }]\\
 3 & \textsf{[ ["Delaware"  "Dover"] ]}\\
 %\multicolumn{2}{c}{\vdots} \\
 \vdots & \hspace*{15mm}\vdots\\
 \end{tabular}
-\vspace{2mm}\\
-Axioms for Capital Search Operator: \textsf{fcapital}\\
 \begin{tabular}{lll}
+\multicolumn{3}{c}{Axioms for Capital Search Operator: \textsf{fcapital}}\\
+\hline
 \textsf{(fcapital} $s$ \textsf{fcaps)} $=$ \textsf{(lookup} $s$ \textsf{(nth (state-idx} $s$) \textsf{fcaps))} && \{\emph{fcap}\} \\
 \textsf{(lookup} $s$ \textsf{nil)} $=$ \textsf{nil}  && \{\emph{look0}\}     \\
 \textsf{(lookup} $s$ \textsf{(cons (cons} $state$ $city$\textsf{)} $caps$\textsf{))} $=$ $city$ &if $s = state$ & \{\emph{look1}\} \\
@@ -248,7 +255,7 @@ Axioms for Capital Search Operator: \textsf{fcapital}\\
 \end{tabular}
 \end{center}
 \index{letterbox array}\index{state capitals}\index{capitals of states}\index{operator, by name!fcapital}\index{operator, by name!lookup}\index{operator, by name!state-idx}\index{search!array}\index{array!search}
-\caption{Letterbox Array (\textsf{fcaps}) and Capital Search Operator (\textsf{fcapital})}
+\caption{Letterbox Array and Capital Search Operator}
 \label{fig:fcaps-array}
 \end{figure}
 
@@ -274,7 +281,7 @@ We could have stuck with the previous operator,
 but \textsf{lookup} searches short lists,
 typically one to three elements,
 whereas \textsf{capital} had to deal with all fifty states.
-We won't any more about this, but in a working system,
+In a working system,
 a better definition of \textsf{lookup}
 would take advantage of the special nature of the data set.
 
@@ -339,7 +346,7 @@ state/capital pair.
 
 Choosing a way to distribute the states among the boxes
 and defining a special version of \textsf{state-idx}
-to compute the index of the right box is 
+to compute the index of the right box is
 more art than science. This kind of problem comes up in
 many kinds of table-lookup problems. We are using
 state capitals as an example to discuss the issues,
@@ -450,7 +457,7 @@ with index 72.
 There's nothing special about 100.
 If we wanted a fifty-bucket solution,
 we could compute the index from the hash key by taking the
-remainder in the division\footnote{Aside~\ref{third-grade-division},
+remainder in the division\footnote{Box~\ref{third-grade-division},
 page \pageref{third-grade-division} discusses
 division, remainders, and the $mod$ operator.}
 by  $50$: ($160,772$ $mod$ $50$) = $22$.
@@ -485,7 +492,7 @@ This works, but is too slow to scale up.
 On the average, if search keys all have about the same likelihood of
 being the target of a search,
 the search will have to look at roughly half
-of the key/value pairs before it finds the one it's looking for.
+of the key/value pairs before it finds the one it's looking for. %'
 For many, real-world problems, that is too long.
 A hash table alleviates this problem
 by splitting the list of key/value pairs into many smaller lists.
@@ -515,7 +522,7 @@ This overall process is illustrated in Figure \ref{fig:hash-table-process}.
 \begin{table}
 \begin{center}
 \begin{tabular}{c|p{4in}}
-\emph{Bucket} & \emph{[Key Value] Pairs} \\
+\emph{Bucket} & \textsf{[}\emph{key value}\textsf{]} \emph{Pairs} \\
 \hline
 0 & \textsf{["Washington" "Olympia"]  ["Utah"  "Salt Lake City"]}  \hfill\break
 \textsf{["Rhode Island"  "Providence"]  ["New Hampshire"  "Concord"]}  \hfill\break
@@ -586,7 +593,7 @@ You might find it interesting to look into the topic in more depth.}
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{images/hash-table-process.pdf}
+\includegraphics[scale=1]{images-cmyk/hash-table-process}
 \end{center}
 \caption{Hash Table Storage and Retrieval}
 \label{fig:hash-table-process}
@@ -594,7 +601,8 @@ You might find it interesting to look into the topic in more depth.}
 
 \begin{figure}
 \begin{center}
-\begin{Verbatim}
+\begin{code}
+\begin{verbatim}
 (defun hash-op (hash-base chars)
    (if (consp chars)
        (+ (char-code (first chars))
@@ -625,16 +633,17 @@ You might find it interesting to look into the topic in more depth.}
       (list "the" "be" "to" "of" "and" "a" "in" "that" "have" "I"
             "it" "for" "not" "with" "he" "as" "you" "do" "at" "this"
             "but" "his" "by" "from" "they")))
-\end{Verbatim}
+\end{verbatim}
+\end{code}
 \caption{Prototype Hashing Operators (slow: using lists, not arrays)}
 \label{fig:hash-defuns}
 \end{center}
 \end{figure}
 
-\begin{ExerciseList}
-\Exercise Consider the words ``age'', ``cage'', and ``cape''.
+\begin{exercises}
+\exer {Consider the words ``age'', ``cage'', and ``cape''.
 Using the hash operator from this chapter, compute the hash key of each word
-and the bucket the word maps to, assuming there are ten buckets.
+and the bucket the word maps to, assuming there are ten buckets.}
 
 % NOTE: I took this exercise out because it's a very big project
 %       and it calls for a lot of knowledge of ACL2 that we haven't
@@ -650,22 +659,19 @@ and the bucket the word maps to, assuming there are ten buckets.
 %'B' is 2, and so on. Any number will do, so just use the one that
 %\textsf{char-code} delivers.
 
-\Exercise There are many websites in the Internet that contain lists of words:
+\exer {There are many websites in the Internet that contain lists of words:
 most popular baby names, most popular English words, etc.\\
-\hspace*{1cm}\url{https://www.babycenter.com/top-baby-names-2017.htm} \\
-\hspace*{1cm}\url{https://www.englishclub.com/vocabulary/common-words-100.htm}\\
+\hspace*{5mm}\url{https://www.babycenter.com/top-baby-names-2017.htm} \\
+\hspace*{5mm}\url{https://www.englishclub.com/vocabulary/common-words-100.htm}\\
 Pick a list of words and explore how the hash operator of this chapter works.
 Use 31 for the hash base and try different sizes for the hash table.
-In your project, try to answer the following questions.
+In your project, try to answer the following questions.}
+\subexer {How many search keys are there in the biggest bucket?}
+\subexer {What is the average number of search keys in a bucket?}
+\subexer {How many empty buckets are there?}
+\subexer {What is the average length of a non-empty bucket?}
+\subexer {Which one of these measures best estimates how well this hash works?}
 \begin{quote}
-\begin{enumerate}
-\item ~~How many search keys are there in the biggest bucket?
-\item ~~What is the average number of search keys in a bucket?
-\item ~~How many empty buckets are there?
-\item ~~What is the average length of a non-empty bucket?
-\item ~~Which one of these measures best estimates how well this hash works?
-\end{enumerate}
-\end{quote}
 You can use the operators defined in
 Figure~\ref{fig:hash-defuns} (page \pageref{fig:hash-defuns})
 to get started on the project.
@@ -681,7 +687,8 @@ Different characters are associated with different numbers,
 which is the important thing. If you are interested,
 you can find more information about these intrinsic
 operators in the ACL2 online documentation.
-\end{ExerciseList}
+\end{quote}
+\end{exercises}
 
 \section{Some Applications}
 
