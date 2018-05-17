@@ -807,7 +807,7 @@ for the negative number ($-n$)
 has exactly 32 bits (theorem \{\emph{len-bits}\}, page \pageref{len-bits}).
 
 Modular arithmetic makes two's-complement
-numerals\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's- complement}\index{two's-complement!numeral}
+numerals\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's-complement}\index{two's-complement!numeral}
 for negative numbers act like the negative numbers they stand for
 when they are added to other numerals.
 For negative numbers ($-n$) in the range $-2^{31} \leq -n < 0$,
@@ -846,7 +846,7 @@ We will refer to this set of integers as $I(w)$.\label{def-Iw}
 $I(w) = \{-2^{w-1}, \dots -1, 0, 1, 2, \dots 2^{w-1}-1\}$
 \end{center}
 
-Two's-complement numerals\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's- complement}\index{two's-complement!numeral}\index{two's-complement!word}
+Two's-complement numerals\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's-complement}\index{two's-complement!numeral}\index{two's-complement!word}
 for numbers in the negative part of the range
 have exactly $w$ bits, with a one-bit in the high-order slot.
 Two's-complement numerals for numbers in the positive part of $I(w)$
@@ -863,7 +863,7 @@ for a number $n$ in the set $I(w)$:
       (bits (+ (expt 2 w) n)) ; {2s-}
       (pad w 0 (bits n))))    ; {2s+}
 \end{verbatim}
-\end{code}\index{two's-complement!operator}\index{operator, by name!twos (two's- complment)}\index{operator!twos complement}\index{equation, by name!\{2s$+$\}, \{2s$-$\}}\index{arithmetic!negative numeral}
+\end{code}\index{two's-complement!operator}\index{operator, by name!twos (two's-complment)}\index{operator!twos (complement)}\index{equation, by name!\{2s$+$\}, \{2s$-$\}}\index{arithmetic!negative numeral}
 
 The \textsf{twos} operator uses the operator \textsf{bits} (page \pageref{bits-defun})
 to compute binary numerals.
@@ -900,7 +900,7 @@ but the example gets the point across with a table of manageable size.
  $~~3$        &          & \textsf{[1 1 0]}          & 011                   \\
 \end{tabular}
 \\ $I(w) = I(3) = \{-2^{3-1}=-4, -3, -2, -1, 0, 1, 2, 3=2^{3-1}-1\}$
-\\ \emph{word size} $w = 3$\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's- complement}\index{two's-complement!numeral}\index{two's- complement!word}\index{word!two's-complement}\index{arithmetic!negative numeral}
+\\ \emph{word size} $w = 3$\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's-complement}\index{two's-complement!numeral}\index{two's-complement!word}\index{word!two's-complement}\index{arithmetic!negative numeral}
 %\end{center}
 \caption{Two's-complement numerals for three-bit words.}
 \label{fig:2s-comp-3bit}
@@ -926,7 +926,7 @@ negative range ($-2^{w-1} \leq m,n < -2^{w-2}$)
 produces a number outside the two's-complement range, an overflow in the negative direction.}
 
 Now, here is an interesting
-\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's- complement}\index{two's-complement!numeral}\index{two's- complement!negation}\index{two's-complement!word}\index{word!two's-complement}trick
+\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's-complement}\index{two's-complement!numeral}\index{two's-complement!negation}\index{two's-complement!word}\index{word!two's-complement}trick
 for computing the two's-complement numeral of a negative number without
 computing $2^w$ or doing subtraction.
 Let \textsf{[$x_0$ $x_1$ \dots $x_{w-1}$]}
@@ -1004,7 +1004,7 @@ $=$ & \textsf{(bits (+ (expt 2 $w$) $(- n)$)}) & \emph{ACL2 notation for} $(2^w 
 $=$ & \textsf{(twos $w$ $(- n)$)}              & \{$2s-$\} \emph{(}\{\emph{twos}\}\emph{, page \pageref{twos-defun})} \\
 \end{tabular}
 %\end{center}
-\index{arithmetic!negative numeral}\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's complement}\index{two's-complement!numeral}\index{two's-complement!negation}\index{two's-complement!word}\index{word!two's-complement}
+\index{arithmetic!negative numeral}\index{negative numeral}\index{numeral!negative}\index{number!negative}\index{numeral!two's-complement}\index{two's-complement!numeral}\index{two's-complement!negation}\index{two's-complement!word}\index{word!two's-complement}
 \caption{Two's-complement negation trick.}
 \label{fig:2s-comp-negation}
 \end{figure}
