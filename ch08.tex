@@ -18,24 +18,24 @@ When there are more signals than channels to send them on,
 one way to share a channel between two signals is to
 send a small part of one signal, then part of the other,
 then part of the first one again, and so on.
-There could be any number signals sharing the channel,
+There could be any number of signals sharing the channel,
 and the same kind of round-robin approach would work.
-Multiplexing. We call the shuffle operator
+We call the shuffle operator
 \seeonlyindex{mux (multiplexer)}{operator}\index{operator, by name!mux (multiplexer)}\textsf{mux}.
-It follows the pattern of the following equation.
+It follows the pattern of the following equation:
 
 \hspace{1cm} \textsf{(mux [$x_1$ $x_2$ $x_3$ $\dots$] [$y_1$ $y_2$ $y_3$ $\dots$]) =
      [$x_1$ $y_1$ $x_2$ $y_2$ $x_3$ $y_3$ $\dots$]} \hfill \{\emph{mux}\}
 
-As usual we want to define the \textsf{mux} operator in terms of
+As usual, we want to define the \textsf{mux} operator in terms of
 a collection of comprehensive, consistent, and computational equations
 that it would have to satisfy if it worked properly
-(Figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}).
-If both lists are non-empty,
+(figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}).
+If both lists are nonempty,
 then the first element of the multiplexed list is the first element of the first list,
 and the second element of the multiplexed list is the first element of the other list.
 So, the following formula would
-get the first two elements into the right places in the multiplexed list.
+get the first two elements into the right places in the multiplexed list:
 
 \hspace{1cm} \textsf{(mux (cons $x$ $xs$) (cons $y$ $ys$))} $=$
 (cons $x$ (cons $y$ ~~~$\dots$} \emph{rest of formula} $\dots$\textsf{))}
@@ -49,26 +49,26 @@ would satisfy if it worked properly.
 \hspace{1cm} \textsf{(mux (cons $x$ $xs$) (cons $y$ $ys$)) $=$ (cons $x$ (cons $y$ (mux $xs$ $ys$)))}
 \hfill \{\emph{mux11}\}
 
-The \{\emph{mux11}\} equation covers the case when both lists are non-empty.
+The \{\emph{mux11}\} equation covers the case when both lists are nonempty.
 Since it's an inductive equation, we need to be careful to make sure
 that operands of \textsf{mux} on the right-hand-side of the equation
-are closer to those in a non-inductive equation than they are
+are closer to those in a noninductive equation than they are
 to the operands on the left-hand side.
 If not, the equation will fail to be computational and
 will not define the \textsf{mux} operator.
 We observe that the operands on the right
 are one element shorter than the operands on the left.
 Therefore, the equation \{\emph{mux11}\} can be used
-as a defining axiom. It applies whenever both lists are non-empty.
+as a defining axiom. It applies whenever both lists are nonempty.
 
 If both lists are empty, there is nothing to multiplex,
 so \textsf{mux} would deliver the empty list in that case, but
-what should it deliver if one list is empty, but the other isn't?
+what should it deliver if one list is empty but the other isn't?
 There is more than one reasonable choice, and each leads to
 a different operator. One choice is to incorporate the elements
-in the non-empty list, just as they are, into the
+in the nonempty list, just as they are, into the
 multiplexed list that \textsf{mux}  delivers.
-That would make \textsf{mux} satisfy the following equations.
+That would make \textsf{mux} satisfy the following equations:
 
 \index{operator, by name!mux (multiplexer)}\index{axiom, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\},\{mux11\}}
 \begin{center}
@@ -82,7 +82,7 @@ That would make \textsf{mux} satisfy the following equations.
 \end{center}
 
 \label{def:mux}The three equations, \{\emph{mux0x}\}, \{\emph{mux0y}\}, and \{\emph{mux11}\},
-are comprehensive (either both operands are non-empty
+are comprehensive (either both operands are nonempty
 or at least one of them is empty) and computational (as discussed).
 They are consistent because the only overlapping case
 occurs when both lists are empty, and in that case,
@@ -92,7 +92,7 @@ the overlapping equations
 We can, therefore, take the equations as axioms
 defining the \textsf{mux} operator.
 Converting the axioms to ACL2 notation leads to the following
-definition.
+definition:
 
 \label{mux-defun}\index{operator, by name!mux (multiplexer)}\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}
 \begin{code}
@@ -109,13 +109,13 @@ definition.
 \end{code}
 
 As always, the axioms that define an operator
-determine not only the properties they specify directly,
+determine not only the properties they specify directly
 but all other properties of the operator, too.
 What properties would we expect the \textsf{mux} operator to have?
-Surely, the number of elements in the multiplexed list
-would be the sum of the lengths of it operands.
+Surely the number of elements in the multiplexed list
+would be the sum of the lengths of its operands.
 The following theorem states this property formally,
-and ACL2 succeeds in finding a proof.
+and ACL2 succeeds in finding a proof:
 
 \label{mux-length-thm}\index{theorem, by name!\{mux-length\}}
 \begin{code}
@@ -128,7 +128,7 @@ and ACL2 succeeds in finding a proof.
 
 For practice, let's construct a paper-and-pencil proof of the theorem. %'
 Our strategy will be an induction on the length of the first operand.
-We are trying to prove that the following equation holds for all natural numbers, $n$.\\
+We are trying to prove that the following equation holds for all natural numbers, $n$:\\
 ~\\
 \index{theorem, by name!\{mux-length\}}Theorem \{mux-length\}. $\forall n.$L($n$)\\
 where L($n$) $\equiv$ $($\textsf{(len(mux [$x_1$ $x_2$ $\dots$ $x_n$] $ys$)) $=$ $n +$ (len $ys$)}$)$\\
@@ -150,18 +150,18 @@ The second operand of \textsf{mux} is either \textsf{nil} or it's not. %'
 We derive the conclusion from both possibilities,
 and that completes the proof because we can infer
 that the conclusion holds in all
-circumstances.\footnote{Case by case proofs of this kind
+circumstances.\footnote{Case-by-case proofs of this kind
 would cite the \{$\vee$ elimination\} inference rule
 (page \pageref{fig-02-deduction-rules}) if they
 took the form of natural deduction.
-The proof here is rigorous, but not formal.
+The proof here is rigorous but not formal.
 ACL2 carries out a formal proof.}
 
 \begin{aside}{aside:mux-val-thm}{Formal Version of Mux-Val Theorem}
-In Exercise \ref{ex:mul-val-thm} the mux-val theorem
+In exercise \ref{ex:mul-val-thm} the mux-val theorem
 and the axioms of the \textsf{occurs-in} predicate
 have been stated in the form we use for paper-and-pencil proofs.
-These proofs are rigorous, but not formal
+These proofs are rigorous but not formal
 in the sense of the mechanized proofs of ACL2.
 Below is an ACL2 formalization of these ideas,
 which the ACL2 system succeeds in admitting.
@@ -169,7 +169,7 @@ which the ACL2 system succeeds in admitting.
 The
 \index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, logic!Boolean equivalence (iff)}\index{equivalence!Boolean (iff)}\index{iff (\emph{see also} operator)}\textsf{iff}
 operator is Boolean equivalence
-(Box~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
+(box~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
 
 \label{defun:occurs-in}
 \begin{code}
@@ -193,10 +193,10 @@ The proof of the inductive case when $ys$ is \textsf{nil}
 is like the proof when $xs$ is \textsf{nil},
 except that it cites \{\emph{mux0y}\} instead of \{\emph{mux0x}\}.
 Figure~\ref{fig:prf-mux-len-induc} (page \pageref{fig:prf-mux-len-induc})
-presents a proof  of the inductive case when both operands are non-empty.
+presents a proof  of the inductive case when both operands are nonempty.
 That is, when the second operand has the form \textsf{(cons $y$ $ys$)}
 and the first operand has $n+1$ elements.
-This completes the proof, by mathematical induction, of
+This completes the proof by mathematical induction of
 theorem \{mux-length\}: $\forall n.$L($n$).
 
 \begin{figure}
@@ -213,19 +213,19 @@ $=$ & $(n + 1) + (1$ $+$ \textsf{(len $ys$)}$)$                                 
 $=$ & $(n + 1)$ $+$ \textsf{(len(cons $y$ $ys$))}                                & \{\emph{len1}\} \\
 \end{tabular}
 \end{center}\index{theorem, by name!\{mux-length\}}
-\caption{Theorem \{mux-length\}: Inductive Case When Both Operands Non-Empty}
+\caption{Theorem \{mux-length\}: inductive case when both operands nonempty.}
 \label{fig:prf-mux-len-induc}
 \end{figure}
 
 The next section discusses an operator that goes in the other direction.
 It ``demultiplexes'' a list into two lists, reversing the perfect shuffle.
-We will prove that \textsf{dmx} undoes the effect of \textsf{mux}, and vice versa.
+We will prove that \textsf{dmx} undoes the effect of \textsf{mux} and vice versa.
 That is, the two operators invert each other.
 
-\begin{aside}{aside:mux-2eq}{Multiplexer: a Two Equation Definition}
+\begin{aside}{aside:mux-2eq}{Multiplexer: a Two-Equation Definition}
 The multiplexer operator can be defined with two equations instead of three
 by swapping the operands in the inductive equation.
-When the first operand is non-empty, \textsf{mux} satisfies the following equation.\\
+When the first operand is nonempty, \textsf{mux} satisfies the following equation.\\
 \hspace*{1cm}\textsf{(mux (cons $x$ $xs$) $ys$) = (cons $x$ (mux $ys$ $xs$)))} ~~ \{mux1y\}
 
 The inductive invocation, \textsf{(mux $ys$ $xs$)},
@@ -265,7 +265,7 @@ admitting the operator to the logic.
 Our proof of the inductive case, L($n+1$), of the mux-length theorem
 (page \pageref{mux-length-thm-induc-case})
 glossed over the part when the second operand is empty.
-Complete that part of the proof. That is, prove the following equation.\\
+Complete that part of the proof. That is, prove the following equation:\\
 \hspace*{1cm} \textsf{(len(mux [$x_1$ $x_2$ $\dots$ $x_{n+1}$] nil)) $=$ $(n+1)$ $+$ (len nil)}}
 
 \exer {\label{ex:mul-val-thm}%
@@ -275,13 +275,13 @@ and, vice versa, a value that occurs in \textsf{(mux $xs$ $ys$)} also occurs in 
 \index{theorem, by name!\{mux-val\}}\label{thm:mux-val}Theorem \{mux-val\}.
 $\forall v.(($\textsf{(occurs-in $v$ $xs$)} $\vee$ \textsf{(occurs-in $v$ $ys$)}$) \leftrightarrow$ \textsf{(occurs-in $v$ (mux $xs$ $ys$))}$)$ \\
 \emph{Note}: The ``$\leftrightarrow$'' operator
-is Boolean equivalence (Box~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).\\
+is Boolean equivalence (box~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).\\
 \emph{Note}: The occurs-in predicate is defined as
-follows.\index{predicate, by name!occurs-in (list)}\index{operator, by name!occurs-in (\emph{see} predicate)}\seeonlyindex{occurs-in list}{predicate}\\
+follows:\index{predicate, by name!occurs-in (list)}\index{operator, by name!occurs-in (\emph{see} predicate)}\seeonlyindex{occurs-in list}{predicate}\\
 \label{def:occurs-in}
 \hspace*{5mm}\textsf{(occurs-in $v$ $xs$)} $=$ \textsf{(consp $xs$)} $\wedge$ $((v$ $=$ \textsf{(first $xs$)}$)$ $\vee$ \textsf{(occurs-in $v$ (rest $xs$))}$)$ ~ \{\emph{occurs-in}\}\\
 \emph{Hint:} For the inductive case of your proof
-(that is, the case when $xs$ is non-empty),
+(that is, the case when $xs$ is nonempty),
 split the proof into two parts,
 as in the proof of the mux-length theorem (page \pageref{mux-length-thm}).
 In one part, the value $v$ will be equal to
@@ -291,11 +291,11 @@ In the other part, $v$ will occur in \textsf{(rest $xs$)}.
 That is, \textsf{(occurs-in $v$ (rest $xs$))} will be true.
 Prove each part separately.
 Since the two parts cover all the possibilities,
-you can infer that inductive case is true.}
+you can infer that the inductive case is true.}
 
 \exer {\label{mux-val-len-not-enough}%
 Give an example of lists \textsf{[$x$]}, \textsf{[$y$]}, and \textsf{[$u$ $w$]} for which
-\textsf{[$u$ $w$]} $\neq$ \textsf{(mux [$x$] [$y$])}, but the following formula is true.\\
+\textsf{[$u$ $w$]} $\neq$ \textsf{(mux [$x$] [$y$])} but the following formula is true:\\
 \hspace*{1cm}$\forall v.(($\textsf{(occurs-in $v$ [$x$])} $\vee$ \textsf{(occurs-in $v$ [$y$])}$)
 \leftrightarrow$ \textsf{(occurs-in $v$ [$u$ $w$])}$)$}
 
@@ -303,7 +303,7 @@ Give an example of lists \textsf{[$x$]}, \textsf{[$y$]}, and \textsf{[$u$ $w$]} 
 Do a paper-and-pencil proof that
 \textsf{(mux2 $xs$ $ys$)} is the same as \textsf{(mux $xs$ $ys$)}.\\
 \emph{Note}: \textsf{mux2} is defined in
-Box~\ref{aside:mux-2eq}, page \pageref{aside:mux-2eq}),
+box~\ref{aside:mux-2eq} (page \pageref{aside:mux-2eq}),
 and \textsf{mux} is defined on page \pageref{mux-defun}.}
 
 \exer {Formalize the theorem of exercise~\ref{mux2-eq-mux} in ACL2.}
@@ -324,7 +324,7 @@ The following equations form an inductive definition of \textsf{dmx}.
 The inductive equation covers the case when
 the operand has at least two elements
 (that is, it starts with an $x$ and then a $y$),
-and the non-inductive equations cover the cases
+and the noninductive equations cover the cases
 when the operand has just one element or none.
 
 \index{axiom, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}\index{equation, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}
@@ -341,7 +341,7 @@ when the operand has just one element or none.
 
 The informal axioms for \textsf{dmx} provide a basis for a formal definition.
 The formal version takes advantage of the fact that if the operand
-has less than two elements, then it is the first component of the result,
+has less than two elements, then it is the first component of the result
 and the second component is the empty list.
 
 \label{dmx-defun}\index{equation, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}\index{operator, by name!dmx (demultiplexer)}\seeonlyindex{dmx (demultiplexer)}{operator}
@@ -369,9 +369,9 @@ theorems for the multiplexer.
 The two operators also satisfy some \index{property!round-trip}\index{round-trip property}round-trip properties
 that bolster our confidence that they do what we expect them to do.
 Demultiplexing a list of $x$-$y$ values into the list of
-$x$-values and the list of $y$-values, then multiplexing
-those two lists, reproduces the original list of $x$-$y$ values.
-It works the other way around, too, if the operands of
+$x$-values and the list of $y$-values and then multiplexing
+those two lists reproduces the original list of $x$-$y$ values.
+It works the other way around too if the operands of
 the \textsf{mux} operator are lists of the same length.\footnote{Both
 of the round-trip properties require the operands to be
 true lists because the multiplexer can lose information
@@ -399,10 +399,10 @@ one component of a list and the remaining elements in the other component.
 That means that each component of the result is half as long as the operand.
 If the operand has an odd number of elements, the extra one goes into the first component.
 These length properties can be specified in terms of the \textsf{floor} and \textsf{ceiling}
-operators (Box~\ref{floor-ceiling-ops-brackets}, page \pageref{floor-ceiling-ops-brackets}).
+operators (box~\ref{floor-ceiling-ops-brackets}, page \pageref{floor-ceiling-ops-brackets}).
 The length of the first component is the length of the operand divided by two
 and rounded up to the next integer if the operand has an odd number of elements.
-The second component is also half the length of the operand, but rounded down if necessary.
+The second component is also half the length of the operand but rounded down if necessary.
 The mechanized logic of ACL2 succeeds in proving these theorems,
 but it needs the help of some theorems about arithmetic.
 
@@ -423,9 +423,9 @@ but it needs the help of some theorems about arithmetic.
 An alternate definition of a demultiplexer
 observes that if the operand alternates between $x$ and $y$ values,
 starting with an $x$,
-then the same list without is first element also alternates,
+then the same list without its first element also alternates
 but starting with a $y$. The definition is shorter,
-but complicates reasoning.
+but it complicates reasoning.
 \begin{center}
 Axioms for \textsf{dmx2} (maybe too clever by half)
 \begin{tabular}{ll}
@@ -441,7 +441,7 @@ Axioms for \textsf{dmx2} (maybe too clever by half)
 \begin{exercises}
 \exer {Prove that the \textsf{dmx} operator preserves total length.
 That is, prove the theorem
-stated formally in ACL2 as follows.}
+stated formally in ACL2 as follows:}
 
 \index{theorem, by name!\{dmx-length\}}
 \label{thm:dmx-length}
@@ -454,29 +454,29 @@ stated formally in ACL2 as follows.}
 \end{verbatim}
 \end{quote}
 
-\exer {Do paper and pencil proofs of the dmx-len-first and dmx-len-second
+\exer {Do paper-and-pencil proofs of the dmx-len-first and dmx-len-second
 theorems (page \pageref{thm:dmx-length-first-second}).
 You may find the proofs easier if you split them into
 two cases, one when the operand has an even number of elements
-(that is, $2n$, for some natural number $n$),
+(that is, $2n$ for some natural number $n$),
 the other when it has an odd number of elements $(2n+1)$.}
 
 \exer {\label{dmx-val-len-not-enough}%
 Give an example of lists
 \textsf{[$x$ $y$]}, \textsf{[$u$]}, and \textsf{[$w$]} for which
-\textsf{[[$u$] [$w$]]} $\neq$ \textsf{(dmx [$x$ $y$])}, but the following formula is true.\\
+\textsf{[[$u$] [$w$]]} $\neq$ \textsf{(dmx [$x$ $y$])}, but the following formula is true:\\
 \hspace*{1cm}$\forall v.(($\textsf{(occurs-in $v$ [$u$])} $\vee$ \textsf{(occurs-in $v$ [$w$])}$)
 \leftrightarrow$ \textsf{(occurs-in $v$ [$x$ $y$])}$)$\\
 \emph{Note}: Such an example demonstrates that length and value
 preservation are not enough to guarantee that \textsf{dmx} delivers the right value.
-They aren't enough for the \textsf{mux} operator, either %'
-(Exercise~\ref{mux-val-len-not-enough}, page \pageref{mux-val-len-not-enough}).}
+They aren't enough for the \textsf{mux} operator either %'
+(exercise~\ref{mux-val-len-not-enough}, page \pageref{mux-val-len-not-enough}).}
 
 \exer {\label{ex:dmx-val-thm}%
 State formally, in ACL2, the dmx-val theorem
 analogous to the mux-val theorem (page \pageref{aside:mux-val-thm}).}
 
-\exer {The dmx-val theorem (Exercise \ref{ex:dmx-val-thm})
+\exer {The dmx-val theorem (exercise \ref{ex:dmx-val-thm})
 says that \textsf{dmx} neither adds nor drops values from its operand.
 Do a paper-and-pencil proof of the dmx-val theorem.}
 
@@ -491,7 +491,7 @@ Do a paper-and-pencil proof of the mux-inverts-dmx theorem
 Do a paper-and-pencil proof that
 \textsf{(dmx2 $xs$)} $=$ \textsf{(dmx $xs$)}.\\
 \emph{Note}: \textsf{dmx2} is defined in
-Box~\ref{aside:dmx-defun-trick}, page \pageref{aside:dmx-defun-trick},
+box~\ref{aside:dmx-defun-trick}, page \pageref{aside:dmx-defun-trick},
 and \textsf{dmx} is defined on page \pageref{dmx-defun}.}
 
 \end{exercises}

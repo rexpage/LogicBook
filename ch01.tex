@@ -21,7 +21,7 @@ Hardware also includes components inside the computer enclosure,
 such as chips, cables, hard drives, and circuit boards.
 The properties of hardware devices are largely fixed when the system is
 constructed. For example, the capacity of a hard drive is
-determined when it is manufactured. A three terabyte drive
+determined when it is manufactured. A three-terabyte drive
 stores three terabytes of data, not more.
 A particular cable may constructed to carry twenty-five different signals
 simultaneously. Need to send twenty-six signals at the same time?
@@ -34,7 +34,7 @@ consumer electronic devices cannot do.
 It can respond to the software component of the computer system
 to exhibit an unlimited range of behaviors.
 The \index{software}software component is a collection of computer programs,
-and programs can be added to the collection, or removed from it,
+and programs can be added to the collection or removed from it
 at any time.
 So, a computer system is a multipurpose device in the extreme,
 capable of doing things that its designers never thought about.
@@ -59,7 +59,7 @@ chip is wired to carry out.
 
 There are hundreds of programming languages
 that software designers can choose from.
-In most cases software expressed in these languages consists
+In most cases, software expressed in these languages consists
 of a list of instructions to be performed, one by one,
 in the manner of chip instructions,
 but each instruction in the programming language gives
@@ -90,14 +90,14 @@ A related alternative is to specify software as
 a collection of equations in which
 the left-hand side of the equation names a computation to be carried out
 and the right-hand side reduces the computation to
-more basic computations producing parts of the result
-and combines them to deliver the whole.
+more basic components, each of which produces part of the result.
+The partial results are then combined them to deliver the whole.
 An advantage of the equation-based approach
 is that a form of reasoning similar to that used
-in ordinary, high-school algebra can be used to derive
+in ordinary, high school algebra can be used to derive
 guarantees that the software produces results consistent
 with design requirements.
-Another advantage is that the equations, themselves,
+Another advantage is that the equations themselves
 are often inspired directly by design requirements,
 so that if the software designer can think of tests
 that the software should pass, the software itself
@@ -126,7 +126,7 @@ that sound like Beethoven's Ninth.
 \begin{aside}{aside-model-of-computation}{Models of Computation}
 Logicians and mathematicians have been studying
 \index{computation models}\index{model!of computation}models of computation
-since before computers were invented. This was done, in part, to
+since before computers were invented. This was done in part to
 answer a deep mathematical question: What parts of mathematics can,
 in principle, be fully automated?  Is it possible to
 build a machine that can prove all mathematical truths?
@@ -146,7 +146,7 @@ It is truly remarkable that all of these models of
 computation are equivalent.  That is,
 any computation that can be described in one of the models can
 also be described in any of the others.
-A conjecture known as the Church-Turing thesis
+A conjecture known as the Church--Turing thesis
 is based on this equivalence.
 It says that all realizable computations can
 be carried out by a Turing machine or by
@@ -167,18 +167,18 @@ are \index{incompleteness}incomplete. No formal system can be used
 to prove all mathematical truths.
 The theorems of Turing and G\"odel
 prove that it is not possible to build a machine that can verify all mathematical
-truths, not even in principle.
+truths, even in principle.
 %\caption{Models of Computation}
 %\label{aside-model-of-computation}
 \end{aside}
 
 You can think of the hardware as
-the parts of a computer that you can see,
+the parts of a computer that you can see
 and the \index{software}software as information that tells the computer what to do.
 However, the distinction between hardware and software is not as
 clear cut as this suggests. Many hardware components
-encode software directly and control other pieces of the system.
-And, many techniques used in the design of
+encode software directly and control other pieces of the system,
+and many techniques used in the design of
 hardware were originated to build software.
 Major elements of hardware designs look like software
 and can use the same language and notation.
@@ -190,7 +190,7 @@ In this sense, computer systems are
 \section{Structure of a Program}
 
 The distinction between hardware and software
-leaves many questions to the imagination.
+leaves many questions to the imagination:
 %\begin{quote}
 \begin{enumerate}
 \item How can software control hardware?\\
@@ -202,7 +202,7 @@ leaves many questions to the imagination.
 \end{enumerate}
 %\end{quote}
 
-A model of computation (Box~\ref{aside-model-of-computation})
+A model of computation (box~\ref{aside-model-of-computation}) is
 a way for software to control hardware,
 so there are as many answers to the first of these questions
 as there are models of computation, and
@@ -212,7 +212,7 @@ Since there are many equivalent models,
 the requirements of a project can guide the choice of models.
 Generally, a programming language based on any model of computation
 has intrinsic arithmetic and logic operators
-(adders, multipliers, inverters, etc)
+(adders, multipliers, inverters, and so on)
 and provides the ability to combine
 intrinsic operators and operators
 defined elsewhere in the software to
@@ -340,7 +340,7 @@ for the next round.
 
 The following table specifies
 the two-component value, ($w$, $u$), that the \textsf{score} operator
-delivers, given the two operands indicating the player's choices, ($d$, $u$).
+delivers, given the two operands indicating the player's choices, ($d$, $u$):
 \begin{displaymath}
 \textsf{score}(d,u) =
    \left\{
@@ -359,8 +359,9 @@ delivers, given the two operands indicating the player's choices, ($d$, $u$).
 More sophisticated software could make the device play a better game of
 rock-paper-scissors.
 For example, the \textsf{score} operator might
-keep track of the number of times that the human player has selected scissors
-in previous rounds, or rock or paper, or it might keep track of all three.
+keep track of the number of times that the human player
+has selected scissors or rock or paper
+in previous rounds or it might keep track of all three.
 The software controlling the device's choice of plays could
 then take more information into account and play a better game.
 That is, the operator \textsf{emily} could be upgraded.
@@ -369,7 +370,7 @@ Such is the flexibility of software.
 The way we have described the operators \textsf{emily} and \textsf{score}
 illustrate an important point about our computational model.
 A program in our model consists of a collection of equations
-defining mathematical functions that start each computation from scratch,
+defining mathematical functions that start each computation from scratch
 based only on their input. They cannot ``remember'' anything from previous computations.
 This will come as a surprise to programmers accustomed
 to other computational models such as those on which
@@ -381,7 +382,7 @@ programs consist of collections of mathematical functions (operators)
 that base their results entirely on their operands.
 Operators do not make use of recorded values
 beyond the data supplied in operands
-and unchanging elements in the equations, as they stand.
+and unchanging elements in the equations as they stand.
 This makes it possible to
 understand equation-based programs in terms of classical
 logic and traditional algebraic formulas.
@@ -392,7 +393,7 @@ would show the first element $w_1$ of the pair $(w_1, u_1)$ delivered by the for
 \textsf{score}(\textsf{emily}(\textsf{none}), $b_1$),
 where $b_1$ stands for rock, paper, or scissors, depending on which button
 the human player pressed.
-For the next round the outcome would be
+For the next round, the outcome would be
 $(w_2, u_2)$ $=$ \textsf{score}(\textsf{emily}($u_1$), $b_2$),
 where $b_2$ is the button pressed by the human player for the new round,
 and the display would show the value of $w_2$.
@@ -400,8 +401,8 @@ A game of five rounds would correspond to a sequence of equations,
 each showing the outcome of a particular round.
 The display hardware would show the winner of each round,
 and the software would supply the button press of the previous round, which
-is delivered by the \textit{score} operator as the second
-element of a pair, to the \textit{emily} operator for the next round.
+is delivered by the \textsf{score} operator as the second
+element of a pair to the \textsf{emily} operator for the next round.
 \begin{displaymath}
 %   \left\{
         \begin{array}{ll}
@@ -421,7 +422,7 @@ an operand supplied to \textit{play}.
 In such a scenario, there would need to be some way to supply an operand $n$
 to the operator \textit{play}, where $n$
 might be a fixed number, like five or ten, or
-might be a number selected by having the human
+it might be a number selected by having the human
 player press the buttons in a special sequence.
 The point is that the hardware provides a fixed set of
 components such as displays and buttons,
@@ -442,7 +443,7 @@ computer that beat world champion Gary Kasparov in a chess match on May 11,
 1997. It was the first time a computer had performed so well in a
 game that challenges the mental capacities of human players.
 The Deep Blue chess-playing software can be specified as an operator whose input is
-an 8x8 matrix showing the positions of the pieces
+an $8 \times 8$ matrix showing the positions of the pieces
 on the board after a move by the human player (Kasparov, in the 1997 game).
 The operator would deliver a result showing
 either the positions on the board after its move or a special
@@ -455,11 +456,11 @@ the operator determines all possible legal moves.  If there
 are no legal moves, the operator delivers the white flag,
 signaling that the Deep Blue has resigned.
 If there is a legal move that results
-in checkmate, the operator delivers the 8x8 matrix specifying the
+in checkmate, the operator delivers the $8 \times 8$ matrix specifying the
 new board position after that move.  Otherwise, for each legal move,
 the operator considers
 each of the possible moves in response by the human opponent.
-Each one of those moves leads to in a new board that can be
+Each one of those moves leads to a new board that can be
 examined by the chess-playing operator
 to choose a move based on a calculation that estimates the value of
 board positions.
@@ -484,23 +485,23 @@ talking about if they mention it.}
 The trick that makes inductive definitions useful in mathematics
 is that at the point of circularity,
 the invocation of the operator being defined
-has operands that are closer to those in a non-circular part of the
+has operands that are closer to those in a noncircular part of the
 definition than to the original operands.
 
 Inductive definitions
 will play a central role throughout the book
 and will be discussed in great detail, but we want to provide an
-introduction of sorts at this point, to get the ball rolling.
+introduction of sorts at this point to get the ball rolling.
 A natural number is a whole number that is not negative: $0, 1, 2, 3, \dots$.
 The sum of the five \index{reciprocal}reciprocals of the
 natural numbers $1$ through $5$
-can be written as an algebraic formula, as in the following equation.
+can be written as an algebraic formula, as in the following equation:
 \begin{displaymath}
 h5 = \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{5}
 \end{displaymath}
-This is non-inductive definition of $h5$,
+This is noninductive definition of $h5$,
 and $h5$ has no operands, so it simply stands for a number,
-namely $\frac{137}{60}$, which is about $2.3$.
+namely, $\frac{137}{60}$, which is about $2.3$.
 
 We could, of course, have written a formula for the sum
 of the first ten reciprocals or a sum with any number of terms.
@@ -515,14 +516,14 @@ h(n) = \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \dots  \frac{1}{n}
 
 As a step in that direction, observe that for any natural number $n$,
 the sum $h(n+1)$ of the first $n+1$ reciprocals
-is the same as the sum of the first $n$ reciprocals, that is $h(n)$, plus $\frac{1}{n+1}$.
+is the same as the sum of the first $n$ reciprocals, that is, $h(n)$, plus $\frac{1}{n+1}$.
 Suppose we specify that $h(0)$ stands for zero.\footnote{Our
 informal definition is that $h(n)$ stands for the sum of the first $n$ reciprocals.
 When $n$ is zero, there would be no terms in the sum,
 so the standard convention that the sum of an empty set of numbers
 is zero is consistent with the equation $h(0) = 0$.}
 Then, the following equations express the specification for $h(0)$ and
-the observation about the relationship between $h(n)$ and $h(n+1)$.\index{equation, by name!\{h0\}, \{h1\}}
+the observation about the relationship between $h(n)$ and $h(n+1)$:\index{equation, by name!\{h0\}, \{h1\}}
 \begin{center}
 \begin{tabular}{ll}
 $h(n+1)$ $=$ $h(n) + \frac{1}{n+1}$ & \{h1\}\\
@@ -549,21 +550,21 @@ It turns out, and we will study this is in great detail later,
 that a collection of circular equations with
 these two characteristics
 (a reduced operand on the right-hand side in circular equations
-and a specific operand on the left-hand side in non-circular equations)
+and a specific operand on the left-hand side in noncircular equations)
 provides a useful definition of an operator.
 Therefore, we can say that equations \{h1\} and \{h0\}
 define the operator $h$.
 The equations comprise an inductive definition.
 
 The definition is mathematically rigorous
-and is also computational.
+and also computational.
 To see how this works, observe that, according to equation \{h1\},
 $h(5) = h(4)+\frac{1}{5}$.
 Furthermore, \{h1\} also says that $h(4) = h(3)+\frac{1}{4}$.
 Combining these equations algebraically leads to the equation
 $h(5) = h(3)+\frac{1}{4}+\frac{1}{5}$.
 Continuing the analysis in this way, using equation \{h1\} at each step,
-produces the following sequence of equations.
+produces the following sequence of equations:
 \begin{center}
 \begin{tabular}{l}
 $h(5) = h(4) + \frac{1}{5}$ \\
@@ -575,7 +576,7 @@ $h(5) = h(0) + \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{
 \end{center}
 
 Equation \{h0\} says $h(0) = 0$,
-so the last equation is equivalent to the following one.
+so the last equation is equivalent to the following one:
 \begin{center}
 \begin{tabular}{l}
 $h(5) = 0 + \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{5}$\\
@@ -584,20 +585,20 @@ $h(5) = 0 + \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{5}$
 
 This equation needs no analysis, just a little arithmetic
 to compute $h(5) = \frac{137}{60}$.
-In this way the equations \{h1\} and \{h0\} provide not just
-a definition of the operator $h$, but also a scheme for computing $h(n)$
+In this way, the equations \{h1\} and \{h0\} provide not just
+a definition of the operator $h$ but also a scheme for computing $h(n)$
 for any natural number $n$.
 Furthermore, other properties of the operator $h$,
 such as the fact that when $n$ is a natural number,
-the formula $h(n+1)$ must in all cases stand for a strictly positive number,
+the formula $h(n+1)$ must in all cases stand for a strictly positive number
 and that its value must be a ratio of whole numbers,
 can be derived from \{h1\} and \{h0\}.
 The fact that for any number $x$, no matter how large,
 there is a natural number $n$ such that $h(n) > x$
 is another property of the harmonic series that can be
 derived from equations \{h0\} and \{h1\}.
-And the fact that $h(n)$ grows larger at about
-the same rate as $log(n)$. That, too, is a consequence
+The fact that $h(n)$ grows larger at about
+the same rate as $log(n)$ is also consequence
 of \{h1\} and \{h0\}. All the properties of the
 harmonic series are a consequence of those two equations.
 Simple beginnings. Big results.
@@ -613,7 +614,7 @@ are broader than at first they seem.
 
 To get back to the chess-playing computer, the problem with our
 na\"ive approach is that there are too many moves to consider.
-While the function can, \emph{in principle},
+Although the function can, \emph{in principle},
 select the best move given a particular arrangement of pieces on the chess board,
 \emph{in practice} the computation
 would take too much time.
@@ -621,9 +622,9 @@ The sun in our solar system would be long dead
 before the computer could decide on its first move.
 
 \index{Deep Blue}\index{chess}Deep Blue
-did play in more-or-less this way, but it didn't look at board positions
+did play in more or less this way, but it didn't look at board positions
 all the way to the end of the game. Most of the time, it looked
-six to eight moves ahead. Even that is a very big computation,
+six to eight moves ahead. Even that is a very big computation
 but feasible for Deep Blue because it had
 thousands of processing units and could consider many moves at the same time.
 That gave it the ability to analyze about 200 million board positions per second.
@@ -644,9 +645,9 @@ The Deep Blue software conformed to a conventional computation model,
 not the equation-based model we used to describe it,
 but the program could have been designed
 using equations in a manner similar to the
-way equations provided a definition of the operator $h$,
+way equations provided a definition of the operator $h$
 but a lot more of them, of course.
-Not so simple, but founded on a few, simple principles.
+Not so simple, but founded on a few simple principles.
 
 \begin{exercises}
 \exer {Can you use equations \{h0\} and \{h1\}
@@ -655,7 +656,7 @@ to compute $h(-1)$?  Or $h(\frac{1}{2})$? Why not?}
 
 \exer{Define an operator \emph{factor}$(k, n)$: true
 if $k$ is a factor of $n$, false otherwise.\\
-\emph{Note}: Natural numbers only. And,
+\emph{Note}: Natural numbers only. And
 $k$ is a factor $n$
 if there is a number $m$ such that $n = km$.\\
 \emph{Note}: $mod(k,n) =$ remainder
@@ -675,7 +676,7 @@ Define an operator \emph{lf}$(n) =$
 Define an operator to compute $p(n)$, which is true
         if $n$ is a prime number and false otherwise.
         Refer to the operator \emph{lf}
-        from Exercise \ref{largest-factor} in your definition.\\
+        from exercise \ref{largest-factor} in your definition.\\
         \emph{Note}: A natural number $p \geq 2$ is a prime number if
         it has no factors other than $p$ and $1$.}
 
@@ -686,10 +687,10 @@ Use the equations that define the operator
 $h$ (page~\pageref{reciprocalsdef})
 as a model for your definition of $rp(n)$.\footnote{The
 \index{harmonic series}harmonic \index{series, harmonic}series, $h(n)$,
-grows without bound as $n$ becomes large,
+grows without bound as $n$ becomes large
 but very slowly, at about the same rate of growth as $log(n)$.
 The number $rp(n)$ grows even more slowly, of course,
-but it, too, grows without bound.
+but it too grows without bound.
 However, the sum of the squares of the reciprocals is bounded
 by $\pi^2/6$, which is about $1.64$.
 Leonhard Euler proved these facts over 200 years ago, during
@@ -703,13 +704,13 @@ but it wasn't until the 1960s that Abraham \index{Robinson, Abraham}Robinson inv
 for reasoning about infinitesimal numbers.
 The proof engine \index{ACL2r}ACL2r, which is an extension of ACL2,
 the mechanized logic used extensively in this book,
-employs Robinson's \index{non-standard analysis}non-standard analysis
+employs Robinson's \index{nonstandard analysis}nonstandard analysis
 to support partially automated, formal reasoning about functions with
 numeric operands of infinite precision.}\\
 \emph{Hint}: Use three equations, one for numbers $n$ that are prime numbers,
-another for non-zero numbers that are not prime,
+another for nonzero numbers that are not prime,
 and a third for the case when $n = 0$.
-It will be helpful to refer to the operator $p$ from Exercise \ref{prime-predicate}.}
+It will be helpful to refer to the operator $p$ from exercise \ref{prime-predicate}.}
 \end{exercises}
 
 

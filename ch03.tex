@@ -49,13 +49,13 @@ $2 + 2 = 4$, $5 + 7 = 10 + 2$, etc.
 
 This notation looks strange, with formulas like \textsf{(+ 2 2)} instead of $2 + 2$.
 ACL2 expresses formulas with a
-\index{prefix notation}\index{operator!prefix notation}prefix notation,
+\index{prefix notation}\index{operator!prefix notation}prefix notation
 rather than the customary \index{infix notation}\index{operator!infix notation}infix notation.
 In ACL2's prefix notation, a computational
 \index{formula!prefix notation}formula starts with a parenthesis,
 followed by the operator it invokes.
 The operator comes first (as a ``prefix''), then the operands follow.
-Infix notation places the operator between the operands,
+Infix notation places the operator between the operands
 but prefix notation puts it before the operands.
 
 That seems simple enough, but it gets gradually more unfamiliar
@@ -63,7 +63,7 @@ as the formulas get more complicated.
 For example, a formula for the sum of $x$ and three times $y$, $(x + 3*y)$,
 comes out as \textsf{(+ $x$ ($*$ 3 $y$))} in prefix form.
 This will take a little getting used to,
-but is a lot easier to get good at than
+but it is a lot easier to get good at than
 most of the stuff you have been studying.
 We hope you will be willing to accept it as just another way of writing formulas.
 One advantage is that the formulas are, by default, fully parenthesized,
@@ -76,7 +76,7 @@ Another important element is the
 \seeonlyindex{include-book}{directive}\index{directive!include-book}\textsf{include-book}
 directive.
 The facility for tests of this kind resides in an ACL2 book
-known as "\textsf{testing}", which in turn resides in a directory known
+known as \textsf{testing}, which in turn resides in a directory known
 \index{teachpacks!:dir}\index{directory (:dir)!:teachpacks}\index{book!directory (:dir)}\index{teachpacks!testing}\index{testing!teachpack}\index{book!testing}as
 \textsf{:teachpacks} (with a leading colon).
 The \textsf{include-book} directive tells the system
@@ -110,7 +110,7 @@ to run against a predicate
 (that is, a formula representing a true/false value).
 To demonstrate the idea, consider testing the addition operator to see if
 it conforms to the associative law for addition: $(x + (y + z)) = ((x + y) + z)$
-(\{+ associative\}, Figure~\ref{fig-02-01}, page \pageref{fig-02-01}).
+(\{+ associative\}, figure~\ref{fig-02-01}, page \pageref{fig-02-01}).
 To do that, we define a property as an equation
 and direct Proof Pad to generate some random numbers and
 report whether or not the equation holds for all of the random data.
@@ -140,7 +140,7 @@ and a name for the property to be tested,
 which is \textsf{+associative-test} in this example.\footnote{The
 rules for naming things in ACL2 are lax compared to many
 programming languages. Names can be made up of letters and digits, of course,
-but can also include some special characters,
+but they can also include some special characters,
 such as plus signs, hyphens, and colons (not semicolons or commas, though).}
 A sequence of data generator specifications follows the name of the property.
 The entire sequence is enclosed in parentheses,
@@ -203,7 +203,7 @@ and asking Proof Pad to check them against random data.
 \begin{aside}{natural-number-def}{Natural Numbers}
 A \index{natural number}\emph{natural number} is
 an integer that is zero or more.
-Some treatments start the naturals with one,
+Some treatments start the naturals with one
 rather than zero, but in the computing domain,
 starting with zero simplifies some formulas.
 %\caption{Natural Numbers}
@@ -212,9 +212,9 @@ starting with zero simplifies some formulas.
 
 When we discuss computer arithmetic, we will need to know something about
 arithmetic on finite sets of numbers,  and the
-\index{operator, by name!mod (remainder)}\label{mod-function}mod
+\index{operator, by name!mod (remainder)}\label{mod-function}\textsf{mod}
 operator will play a crucial role.
-The mod operator takes two operands and
+The \textsf{mod} operator takes two operands and
 delivers the remainder in the division of the first operand by the second.
 ACL2 does not restrict the operands to the set of natural numbers,
 but in this discussion, we are going to stick with that domain.
@@ -236,7 +236,7 @@ which will produce zero for even numbers and one for odd numbers.
 \end{verbatim}
 \end{code}
 
-Here are a few more sanity checks, this time with three as the divisor.
+Here are a few more sanity checks, this time with three as the divisor:
 
 \begin{code}
 \begin{verbatim}
@@ -255,14 +255,14 @@ where $m > 0$ is a natural number known as the
 If $x$ is an integer, the formula ($x$ mod $m$) denotes
 the remainder in the division of $x$ by $m$
 ($0 \leq (x$ mod $m) < m$).
-Modular addition, subtraction, and multiplication are
+Modular addition, subtraction, and multiplication
 are consistent with ordinary arithmetic.\\
 \hspace*{15mm}($(x + y)$ mod $m$) = ((($x$ mod $m$) $+$ ($y$ mod $m$)) mod $m$) \\
 \hspace*{15mm}($(x - y)$ mod $m$) = ((($x$ mod $m$) $-$ ($y$ mod $m$)) mod $m$) \\
 \hspace*{15mm}($(x \times y)$ mod $m$) = ((($x$ mod $m$) $\times$ ($y$ mod $m$)) mod $m$)\\
 The ACL2 operation
 (\textsf{mod} $x$ $m$) delivers the remainder in $x \div m$.
-Our discussion restricts the operands to natural numbers,
+Our discussion restricts the operands to natural numbers
 but ACL2 doesn't.
 %\caption{Modular Arithmetic}
 %\label{modular-arithmetic}
@@ -293,12 +293,12 @@ is an art.
 In this example, we have made sure the divisor isn't zero
 by adding one to a natural number.
 Since negative numbers aren't natural numbers, adding one
-to a natural number ensures that the sum is non-zero.
+to a natural number ensures that the sum is nonzero.
 \label{let-example-brief-explain}
 The definition of the \textsf{mod-invariant} property
 uses a \textsf{let$*$} formula,
 which provides a way to attach names to values temporarily
-(Aside \ref{let-star-def}, page \pageref{let-star-def}).
+(box \ref{let-star-def}, page \pageref{let-star-def}).
 In this case, the \textsf{let$*$} says that
 the name \textsf{divisor} will stand for
 the value represented by the formula \textsf{(+ divisor-minus-1 1)}.
@@ -310,7 +310,7 @@ formula attaches values to names.
 The \index{scope!let$*$ name}scope of the \textsf{let$*$} opens with a parenthesis,
 then the keyword \textsf{let$*$}.
 The scope continues with
-a sequence of name/value bindings,
+a sequence of name/value bindings
 and ends with a formula for the value
 to be delivered by the \textsf{let$*$}.
 A final parenthesis closes the scope.
@@ -348,7 +348,7 @@ specified by a formula positioned after name/value bindings.
 \end{aside}
 
 Since (\textsf{mod} $x$ $m$) $<$ $m$ when $m > 0$,
-the \textsf{mod} operator will pass the following test.
+the \textsf{mod} operator will pass the following test:
 
 \index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{less than ($<$)}{predicate}\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}
 \begin{code}
@@ -361,7 +361,7 @@ the \textsf{mod} operator will pass the following test.
 \end{verbatim}
 \end{code}
 
-In this test, the property is not expressed as an equation,
+In this test, the property is not expressed as an equation
 but as an inequality
 specified with the less-than operator ($<$).
 As always, the formula puts the operator in the prefix position,
@@ -401,40 +401,14 @@ Axiom \{\emph{natp}\} \\
 \end{verbatim}
 \end{code}
 
-\begin{aside}{floor-ceiling-ops-brackets}{Floor and Ceiling Operators, Floor and Ceiling Brackets}
-ACL2 provides two operators,
-\textsf{ceiling} and \textsf{floor}, that divide one number by another,
-then round up or down to an integer value.
-In algebraic formulas, special brackets known as
-floor and ceiling brackets indicate the direction of rounding.
-Ceiling brackets (like square brackets with the bottom chopped off)
-indicate the next integer that is the same as or larger than
-the enclosed value.
-Floor brackets (square brackets without the top part)
-go in the other direction, down to the next integer
-that is the same as or smaller than the enclosed value.
-\vspace{2mm}
-\begin{center}
-\index{operator, by name!ceiling (divide, round up)}\seeonlyindex{ceiling}{operator}\index{ceiling brackets}\index{brackets!ceiling}\index{operator, by name!floor (divide, round down)}\seeonlyindex{floor}{operator}\index{division!floor, mod}\index{floor brackets}\index{brackets!floor}
-\begin{tabular}{lll}
-\textsf{(floor $x$ $y$)}  & $= \lfloor x \div y \rfloor$ \emph{quotient rounded down} \vspace{1mm}\\
-\textsf{(ceiling $x$ $y$)}& $= \lceil x  \div y \rceil $ \emph{quotient rounded up}   \\
-\end{tabular}
-\end{center}
-%\caption{Floor and Ceiling Operators, Floor and Ceiling Brackets}
-%\label{floor-def}
-%\label{ceiling-def}
-%\label{floor-ceiling-ops-brackets}
-\end{aside}
-
 There are two parts to the result
 of dividing one number by another: the quotient and the remainder.
-The \textsf{mod} operator delivers the remainder,
-and an operator called \textsf{floor} (Aside~\ref{floor-ceiling-ops-brackets})
+The \textsf{mod} operator delivers the remainder
+and an operator called \textsf{floor} (box~\ref{floor-ceiling-ops-brackets})
 delivers the quotient.
 The quotient is always strictly smaller
 than the dividend when the divisor is bigger than one
-and the dividend is a non-zero, natural number.
+and the dividend is a nonzero, natural number.
 The following test checks for that property.
 The random-value generator for the divisor
 makes sure the divisor exceeds one by adding two
@@ -483,7 +457,7 @@ The exercises will give you a chance to practice.
 	
 \exer {Define a test of the \textsf{floor} operator
 that checks to make sure its value is a natural number
-when its operands are natural numbers,
+when its operands are natural numbers
 and the divisor (second operand) is not zero.
 Use Proof Pad to run the test.}
 
@@ -498,12 +472,12 @@ than or equal to (\textsf{>=}) both $x$ and $y$.
 Use Proof Pad to run tests of the property.}
 
 \exer {Define a DoubleCheck property to test the distributive law
-of arithmetic (\{distributive law\}, Figure~\ref{fig-02-01}, page \pageref{fig-02-01}).
+of arithmetic (\{distributive law\}, figure~\ref{fig-02-01}, page \pageref{fig-02-01}).
 Use Proof Pad to run your test.}
 
 \exer {Define DoubleCheck properties to test consistency between clock
 arithmetic and ordinary arithmetic as described in
-Aside~\ref{modular-arithmetic} (page \pageref{modular-arithmetic}).
+box~\ref{modular-arithmetic} (page \pageref{modular-arithmetic}).
 Use Proof Pad to run your tests.}
 
 \exer {The ACL2 operator
@@ -516,6 +490,32 @@ Define a property based on your equation and
 use Proof Pad to test it.}
 
 \end{exercises}
+
+\begin{aside}{floor-ceiling-ops-brackets}{Floor and Ceiling Operators, Floor and Ceiling Brackets}
+ACL2 provides two operators,
+\textsf{ceiling} and \textsf{floor}, that divide one number by another,
+then round the result up or down to an integer value.
+In algebraic formulas, special brackets known as
+floor and ceiling brackets indicate the direction of rounding.
+Ceiling brackets (like square brackets with the bottom chopped off)
+indicate the next integer that is the same as or larger than
+the enclosed value.
+Floor brackets (square brackets without the top part)
+go in the other direction, down to the next integer
+that is the same as or smaller than the enclosed value.
+\vspace{2mm}
+\begin{center}
+\index{operator, by name!ceiling (divide, round up)}\seeonlyindex{ceiling}{operator}\index{ceiling brackets}\index{brackets!ceiling}\index{operator, by name!floor (divide, round down)}\seeonlyindex{floor}{operator}\index{division!floor, mod}\index{floor brackets}\index{brackets!floor}
+\begin{tabular}{lll}
+\textsf{(floor $x$ $y$)}  & $= \lfloor x \div y \rfloor$ \emph{quotient rounded down} \vspace{1mm}\\
+\textsf{(ceiling $x$ $y$)}& $= \lceil x  \div y \rceil $ \emph{quotient rounded up}   \\
+\end{tabular}
+\end{center}
+%\caption{Floor and Ceiling Operators, Floor and Ceiling Brackets}
+%\label{floor-def}
+%\label{ceiling-def}
+%\label{floor-ceiling-ops-brackets}
+\end{aside}
 
 
 %%% Local Variables:
