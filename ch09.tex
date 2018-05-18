@@ -1000,7 +1000,7 @@ The computation takes five steps: one step each for selection (\textsf{if}),
 \textsf{consp}, and \textsf{rest},
 plus two steps for \textsf{(list $xys$ nil)}
 because it is shorthand for \textsf{(cons $xys$ (cons nil nil))}
-(see exercise~\ref{ex:swap2-count}).
+(see exercise~\ref{ex:swap2-count}, page \pageref{ex:swap2-count}).
 Therefore, $D_0 = D_1 = 5$.
 
 If $xs$ has two or more elements (that is, $n+2$ elements
@@ -1237,7 +1237,7 @@ $($\textsf{(len $xs$)}$+$\textsf{(len $ys$)} $= n$) $\rightarrow$ $($\emph{steps
 
 \begin{exercises}
 
-\exer{The double index 
+\exer{The double index
 of $M_{j,k}$ made the proof a little tricky.
 Another approach would have been to use the principle of double induction
 (figure~\ref{double-induction-rule}),
@@ -1247,14 +1247,10 @@ That is, for each pair of natural numbers $m$ and $n$,
 $P(m,n)$ selects a proposition in the predicate.
 Use the predicate $P$ to define another predicate $Q$
 that has the natural numbers as its universe of discourse and
-that has the following properties:
-\begin{quote}
-\begin{enumerate}
-\item[a.] $Q(0)$ is the base case for double induction on $P$.
-\item[b.] $(\forall n.(Q(n) \rightarrow Q(n+1)))$ is the inductive case
-for double induction on $P$.
-\end{enumerate}
-\end{quote}
+that has the following properties:\\
+\hspace*{3mm}a. $Q(0)$ is the base case for double induction on $P$.\\
+\hspace*{3mm}b. $(\forall n.(Q(n) \rightarrow Q(n+1)))$ is the inductive case.
+for double induction on $P$.\\
 \emph{Note}: This exercise is difficult and not particularly instructive.
 The point is that double
 induction can be reduced to ordinary mathematical induction.}
@@ -1558,7 +1554,7 @@ $x_1 \leq x_2 \leq \dots x_{n+1}$.
 In the worst case, $x > x_{n+1}$ and the \textsf{insert} computation
 will deliver the list [$x_1$ $x_2$ \dots $x_{n+1}$ $x$].
 A careful analysis shows that this worst case insertion takes
-$8(n+1)+4$ steps (exercise~\ref{ex:insert-steps}).
+$8(n+1)+4$ steps (exercise~\ref{ex:insert-steps}, page \pageref{ex:insert-steps}).
 
 It seems reasonable to expect that, on average,
 for random data, $x$ will get inserted about
