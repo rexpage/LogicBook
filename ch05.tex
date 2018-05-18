@@ -78,7 +78,7 @@ They are symbols standing for numbers.
 
 It's even worse with the hexadecimal numeral $4BF_{16}$
 and the formula $4 \times 16^2 + 11 \times 16^1 + 15 \times 16^0$.
-In the formula, we have rewritten the symbol B 
+In the formula, we have rewritten the symbol B
 as the hexadecimal numeral for 11
 and the symbol F as the hexadecimal numeral for 15.
 And, we've had the temerity to pretend that symbols
@@ -570,7 +570,7 @@ Figures \ref{fig:horner10-base} (base case) and \ref{fig:horner10-induc}
 (inductive case) provide a proof by induction of theorem \{\emph{Horner 10}\}.
 As usual, the inductive case, $\forall n. (H(n) \rightarrow H(n+1))$,
 derives $H(n+1)$ from the induction hypothesis $H(n)$ and other known
-equations. 
+equations.
 We conclude that $\forall n.H(n)$ is true,
 citing mathematical induction
 (figure~\ref{induction-rule}, page \pageref{induction-rule}).
@@ -616,8 +616,8 @@ $=$ & $x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots$ $x_{n+1} \times 10^{n+1}
 
 Theorem \{\emph{Horner 10}\} confirms that \textsf{nmb10} delivers the
 number that its operand, which is a base 10 numeral, denotes.
-We also expect the inverse to be true. 
-That is, we expect the formula \textsf{(dgts $n$)} 
+We also expect the inverse to be true.
+That is, we expect the formula \textsf{(dgts $n$)}
 to deliver the base 10 numeral for the natural number $n$
 as stated in the following theorem:
 \label{dgts-ok}\index{theorem, by name!\{dgts-ok\}}\index{number!from digits}
@@ -674,7 +674,7 @@ we can cite $D(n)$ to justify any step in a proof of $D(n+1)$,
 but figure~\ref{fig:horner10-inverse} cites a different
 proposition, $D$\textsf{(floor $(n+1)$ $10$)},
 in its proof of $D(n+1)$.
-However, \textsf{(floor $(n+1)$ 10)} 
+However, \textsf{(floor $(n+1)$ 10)}
 is strictly smaller than $(n+1)$, and
 the proof relies on an inference rule
 known as \emph{strong induction}.
@@ -869,7 +869,7 @@ just as it did for the definition of \textsf{dgts}.
   (if (zp n)
       nil                                   ; {bits0}
       (cons (mod n 2) (bits (floor n 2))))) ; {bits1}
-      
+
 (defun numb (xs)
   (if (consp xs)
       (if (= (first xs) 1)
@@ -1019,7 +1019,7 @@ of exercise \ref{hi-1} in ACL2
 and run it through the mechanized logic.
 ACL2 will succeed if you use
 \textsf{implies} and \textsf{posp} (box~\ref{zp-def} , page \pageref{zp-def})
-to constrain the theorem  to non-zero, natural numbers.
+to constrain the theorem  to nonzero, natural numbers.
 Of course, the definition of the operator \textsf{bits} (page \pageref{bits-defun})
 will need to be admitted to the ACL2 logic  (box~\ref{admit-def}, page \pageref{admit-def})
 before it can attempt the proof of this theorem.}

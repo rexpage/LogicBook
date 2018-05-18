@@ -972,7 +972,7 @@ As it happens, the assumption is discharged later in the proof,
 leaving the \{halting problem\} theorem with no hypotheses,
 as it is stated.
 The conclusion of the theorem is the negation of a long there-exists formula.
-What this means is that there is no program that, 
+What this means is that there is no program that,
 given an arbitrary program \emph{p}, can
 determine in a finite number of computation steps
 whether the program \emph{p} will terminate.
@@ -1059,7 +1059,7 @@ so we assert that $\forall x.(H($\textsf{loop}, $x)$ $=$ $False)$.
 \end{tabular}
 \begin{code}
 \begin{verbatim}
-(defun loop (x)  ; a non-terminating computation
+(defun loop (x)  ; a nonterminating computation
   (loop x))
 (defun p (x)     ; definition derived from axioms of p
   (if (equal (h p x) 0)

@@ -3,7 +3,7 @@
 
 This book has explored deep connections between logic
 and computing, including the use of equations and logic to
-design and analyze computer programs. In this chapter we're going
+design and analyze computer programs. In this chapter, we're going
 to turn our attention to artistic creativity. Can logic and
 equations be useful in creating works of art?
 
@@ -66,7 +66,7 @@ When the entry is a 0, the pixel is ``off'' (indicate by white square).
 \end{tikzpicture}
 \end{minipage}
 \end{center}
-\caption{A Picture Encoded as a Matrix of Pixels}
+\caption{A picture encoded as a matrix of pixels.}
 \label{fig:glider-in-images}
 \end{figure}
 
@@ -86,19 +86,20 @@ to the layers next to it. In this example,
 the software layer generates lists of zeros and ones
 for the hardware layer, and
 the hardware layer turns lists of zeros and ones into physical images.
-Both layers represent images, but in different forms.
+Both layers represent images but in different forms.
 The software generates an abstraction of an image
 in the form of zeros and ones,
 and the hardware layer turns that abstraction into an
 image on a screen. That is, the hardware builds a
 concrete version of the abstraction specified by software.
-So far in this example there are only two layers,
+So far in this example, there are only two layers,
 but in complex systems, there can be dozens of layers.
 
-So far, so good, with \index{black-and-white}\index{image!black-and-white}black-and-white images,
+So far so good with \index{black-and-white}\index{image!black-and-white}black-and-white images,
 but what about \index{color}color \index{image!color}images?
 The \index{eye, human}human eye perceives
-color using specialized cells, called \emph{cones}, in the central
+color using specialized cells called \emph{cones}, 
+which are located in the central
 part of the retina. There are three types of cones, each one sensitive
 to a different range of colors. There is some overlap in the range
 of colors that each type of cone can detect, but it is mostly accurate
@@ -109,12 +110,12 @@ the measurements of colored-light intensities that the cones make.
 In an analogous way, color images can be created by using three dots on a screen
 for each \index{pixel!color}\index{color!pixel}pixel,
 one for red, one for green, and one for blue.
-If the red dot in a pixel is on, and the green and blue dots
+If the red dot in a pixel is on and the green and blue dots
 are off, the pixel looks red. Other colors come from combinations
 of red, green, and blue dots.
 The following list represents the first row of pixels
 in the black-and-white image shown in
-Figure \ref{fig:glider-in-images}.
+figure \ref{fig:glider-in-images}:
 \begin{quote}
     \textsf{[0 1 0 0]}
 \end{quote}
@@ -181,11 +182,12 @@ representing an image, the $x$ and $y$ values
 specify the row/column coordinates of the endpoints of the line,
 and $color$ is a triple of red-green-blue color intensities.
 The operator delivers a new matrix of color intensities
-like the $image$ operand, but with the specified color
+like the $image$ operand but with the specified color
 at each pixel on the line.
 
-There are of course many other useful operators in
-the same vein as the operator \textsf{line}. Operators to draw
+There are, of course, many other useful operators in
+the same vein as the operator \textsf{line} 
+that can be used to draw
 triangles, squares, rectangles, polygons, circles,
 ellipses, and the like. The important thing to realize is that all of
 these operators work on an image represented as a matrix of
@@ -200,14 +202,15 @@ For example, suppose that an image has a
 very dark line on a bright background. This creates a
 sharp boundary between the line and the background, but it can be
 smoothed out by averaging the colors of neighboring pixels.
-The bright pixels on one side of the boundary become a little darker,
+The bright pixels on one side of the boundary become a little darker
 and the dark pixels on the other side become a little lighter,
 resulting in a softer boundary. This is the basic idea behind
 operators that manipulate images at the level
 of individual pixels and their neighbors. Image-processing operators
-of this kind form a class of  known as \index{filter}\emph{image filters}.
-There are a lot of filters in image
-processing software, and they provide another abstraction layer
+of this kind form a class  known as 
+\index{image filter}\index{filter, image}\emph{image filters}.
+There are a lot of filters in image-processing software, 
+and they provide another abstraction layer
 that facilitates creating representations of images with software.
 
 \begin{aside}{aside:Bresenham}{Bresenham Line-Drawing Algorithm}
@@ -236,7 +239,7 @@ In the 1960s, the computer scientist
 \index{Bresenham, Jack}Jack Bresenham invented
 a fast way to compute the list of grid points closest to the line
 between any two given endpoints.
-Most of the line-drawing in digital images, still today,
+Most of the line-drawing in digital images still today
 makes use of some version of the Bresenham algorithm.
 %\caption{Bresenham Line-Drawing Algorithm}
 %\label{aside:Bresenham}
@@ -252,13 +255,13 @@ will create a complex pattern that is more than just a line.
 Figure~\ref{fig:line-art} shows a pair of images.
 One is a straight line
 and the other shows how adding a lot of nearby, short lines in
-more-or-less random orientations
-creates an image similar to a line, but with more texture,
+more or less random orientations
+creates an image similar to a line but with more texture,
 like a brush stroke, perhaps.
 Similar operations can produce
 other geometric shapes with a degree of randomness,
 such as in noisy rectangles or circles that are
-mostly, but not exactly, round.
+mostly but not exactly round.
 
 \begin{figure}
 \begin{center}
@@ -267,7 +270,7 @@ mostly, but not exactly, round.
 \includegraphics[scale=1]{images-cmyk/random-line-art} \\
 \end{tabular}
 \end{center}
-\caption{Straight Line vs.~a Line Made Up of Random Segments}
+\caption{Straight line vs.~a line made up of random segments.}
 \label{fig:line-art}
 \end{figure}
 
@@ -276,12 +279,12 @@ None of the digital circuits
 that we have studied exhibit random behavior.
 Instead, they conform to precise equations and deliver the same
 results every time they are supplied with the same data.
-The following sequence of numbers appears to be random.
+The following sequence of numbers appears to be random:
 $$0, 1, 5, 3, 4, 8, 6, 7, 2, 0$$
 However, it is not random. It is produced by an
 operator $r$ defined by the following equations,
 which are presented in both traditional, algebraic form
-and in ACL2 notation.\footnote{You can ignore the ACL2
+and in ACL2 notation:\footnote{You can ignore the ACL2
 if you have not yet studied the chapters that introduce it.
 The ACL2 versions of the equations don't add any information
 necessary to understanding the concepts presented in this chapter.}
@@ -305,7 +308,7 @@ $r(0) = 0$                        & \{r0\}\\
 As you can easily check if you
 recall that ($x$ $mod$ $d$) is the remainder in
 the division $x \div d$
-(Box~\ref{third-grade-division}, page \pageref{third-grade-division}),
+(box~\ref{third-grade-division}, page \pageref{third-grade-division}),
 $r(0) = 0$, $r(1) = 1$, $r(2) = 5$, $r(3) = 3$,
 and so on.
 So, $r$ is an operator that appears to produce random
@@ -336,14 +339,14 @@ the case of the operator $r$.
 
 As we have defined the operator $r$, $r(n)$ is the
 $n^\text{th}$ number in the sequence.
-The is not the usual way to produce pseudo-random sequences.
+This is not the usual way to produce pseudo-random sequences.
 The usual method computes each new number in the sequence from the previous one.
 That is, the invocation of the operator
 supplies the value delivered by the previous invocation as
-the operand. This procedure is much faster than
+the operand. This procedure is much faster
 because the definition is no longer inductive.
 The following definition of $rs$
-employs this non-inductive strategy.\footnote{Again, you won't miss the point
+employs this noninductive strategy:\footnote{Again, you won't miss the point
 if you ignore the ACL2 version of the equation.}
 
 \begin{center}
@@ -408,23 +411,23 @@ $ragged(image, x_1, x_2, y_1, y_2, seed) = image$ & if $x_1 \geq x_2$ &\{rg0\}\\
 \end{verbatim}
 \end{code}
 \end{center}
-\caption{Operator to Draw a Ragged Line Using Random Numbers}
+\caption{Operator to draw a ragged line using random numbers.}
 \label{fig:ragged-defun}
 \end{figure}
 
 The operator defined by the equations in
-Figure~\ref{fig:ragged-defun} (page \pageref{fig:ragged-defun})
+figure~\ref{fig:ragged-defun} (page \pageref{fig:ragged-defun})
 draws a \index{ragged line}ragged \index{line!ragged}line
 by drawing short line segments at randomized angles
 from starting points along the line from $(x_1,y_1)$ to $(x_2,y_2)$.
 The starting points of the short line segments are
 spaced one unit apart in the $x$ direction.
 The $x$ coordinate of the endpoint of a short segment
-is ten more than $x$ coordinate of the starting point
+is ten more than the $x$ coordinate of the starting point
 (that is, $x_1 + 10$).
 The $y$ coordinate of that endpoint is computed
 by moving in the general direction of the target
-$(x_2,y_2)$, but with the direction
+$(x_2,y_2)$ but with the direction
 randomly adjusted by a small amount.
 The adjustment is made by adding a random number between
 $-1/2$ and $1/2$ to the \emph{slope},
@@ -436,7 +439,7 @@ in the usual manner of computing coordinates
 along a straight line, algebraically).
 
 The slope used in the computation is a ratio of
-two integers, but (usually) is not an integer.
+two integers but it is (usually) not an integer.
 Since grid-points have integer coordinates,
 the numbers computed using the slope
 are rounded to the nearest integer by
@@ -461,8 +464,8 @@ the points on the grid that are closest to the
 line between $(x_1,y_1)$ and $(x_2,y_2)$.
 The effect is a ragged line that looks more organic
 than a simple, straight line.
-This is the idea behind the line made of random segments in
-in Figure~\ref{fig:line-art} (page \pageref{fig:line-art}).
+This is the idea behind the line made of random segments
+in figure~\ref{fig:line-art} (page \pageref{fig:line-art}).
 
 In the inductive equation \{rg1\} in the definition of the operator \textsf{ragged},
 the \emph{seed} operand is supplied to the pseudo-random
@@ -517,8 +520,8 @@ Cohen did was to enhance the program so that it could ``scribble'' around
 scribble on paper, and in particular the key moment when the children
 seemed to realize that a figure they scribbled actually represented a
 realistic object in some sense. From AARON's perspective, the main improvement
-was a two-step strategy where \index{core figures}core figures
-were placed in a virtual world,
+was a two-step strategy, where \index{core figures}core figures
+were placed in a virtual world
 and then the picture was allowed to evolve by tracing a kind of path
 around the core figures.
 This strategy resulted in paintings with much more complexity
@@ -536,13 +539,13 @@ in space and orientation.
 For example, a plant could be represented by
 a trunk, some branches, and some leaves. Each of those may be a core figure,
 and the figures would be related to each other geometrically, which is to say
-that the branches are connected to the trunk, and the leaves to the branches.
+that the branches are connected to the trunk and the leaves to the branches.
 This basic strategy worked to model even complex objects, such as a basic human
 form and a recognizable image of the Statue of Liberty.
 
 The second improvement was a series of algorithms that could create reasonable
 objects made up of core figures. It is not feasible to model all possible
-objects using core figures. So, Cohen wrote some algorithms that allowed AARON to
+objects using core figures, and so Cohen wrote some algorithms that allowed AARON to
 imagine \index{quasi-plants}\index{plants, quasi}plants,
 or as he called them \emph{quasi-plants}. It probably won't surprise
 you to learn that these algorithms made extensive use of pseudo-random numbers.
@@ -570,7 +573,7 @@ more detailed model of the real world in AARON's data structures.
 So, Cohen embarked on a new modeling phase with more detailed and fully
 three-dimensional models of the objects that AARON would draw, such as the human
 body. These models were made of groups of three-dimensional points that were
-related to other similar groups, in a way that is clearly derived from the earlier
+related to other similar groups in a way that is clearly derived from the earlier
 core figures. In a tradition dating back to da Vinci and Michelangelo, the models
 for the human body were taken directly from anatomical studies. This shift
 created many complications because AARON's model was now three-dimensional,

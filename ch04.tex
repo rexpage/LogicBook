@@ -89,7 +89,7 @@ It uses round parentheses both for lists and for computational formulas.
 Any list can be constructed by starting from an \index{empty list (nil)}empty list
 and using the construction operator to insert the elements of the list, one by one.
 The empty list, \index{nil}\textsf{nil}, which is intrinsic in ACL2, needs no construction.
-Nonempty \index{list!non-empty}lists are constructed using the \textsf{cons} operator.
+Nonempty \index{list!nonempty}lists are constructed using the \textsf{cons} operator.
 The formula \textsf{[8 3 7]} is paper-and-pencil shorthand
 for \textsf{(cons 8 (cons 3 (cons 7 nil)))}.
 ACL2 also has a shorthand, briefly introduced earlier
@@ -140,7 +140,7 @@ Taken all together, those equations comprise a predicate
 whose universe of discourse is ACL2 lists.
 
 The operator \index{operator, by name!consp (predicate)}\seeonlyindex{consp}{predicate}
-\index{predicate, by name!consp (non-empty list)}\textsf{consp}
+\index{predicate, by name!consp (nonempty list)}\textsf{consp}
 checks for nonempty lists.
 That is, the formula \textsf{(consp $xs$)} delivers true
 if $xs$ is a nonempty list and false otherwise.
@@ -1267,7 +1267,7 @@ That covers two of the three C's guidelines for inductive definitions of operato
 (figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}).
 The equations are complete and consistent.
 The third guideline (computational) has two parts, one of which is
-a requirement that at least one axiom must be non-inductive.
+a requirement that at least one axiom must be noninductive.
 The \{\emph{sfx0}\} equation is not inductive because the \textsf{nthcdr} operator
 is not invoked on the right-hand side of the equation.
 In that case, \textsf{nthcdr} just delivers its second operand as is.

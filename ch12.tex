@@ -37,9 +37,9 @@ Axioms for Finding State Capitals
 \begin{spacing}{0.9}
 \begin{tabular}{lll}
 \hline
-(capital $s$ nil) = nil                               &             & \{\emph{cap0}\} \\
-(capital $s$ (cons [$state$ $city$] $caps$)) = $city$ &if $s=state$ & \{\emph{cap1}\} \\
-(capital $s$ (cons [$state$ $city$] $caps$)) = (capital $s$ $caps$) & if $s \neq state$ & \{\emph{cap2}\} \\
+(\textsf{capital} $s$ nil) = nil                               &             & \{\emph{cap0}\} \\
+(\textsf{capital} $s$ (\textsf{cons} [$state$ $city$] $caps$)) = $city$ &if $s=state$ & \{\emph{cap1}\} \\
+(\textsf{capital} $s$ (\textsf{cons} [$state$ $city$] $caps$)) = (\textsf{capital} $s$ $caps$) & if $s \neq state$ & \{\emph{cap2}\} \\
 \end{tabular}
 \end{spacing}
 \begin{code}
@@ -52,20 +52,20 @@ Axioms for Finding State Capitals
      nil))
 \end{verbatim}
 \end{code}
-\caption{Operator to Find State Capitals}
+\caption{Operator to find state capitals.}
 \label{fig:state-capital-operator}\index{operator, by name!capital}\index{search!array}\index{array!search}
 \end{center}
 \end{figure}
 
 Figure~\ref{fig:state-capital-operator}
 defines an operator to find the
-capital of any given state, given such a list.
+capital of any given state given such a list.
 The operator works, but it's slow.
 It takes only a handful of steps to find the capital of Alabama,
 but it takes fifty steps to find the capital of Wyoming.
 Some states are near the front of the list,
 others far down the list.
-If a queries are as likely to ask about
+If a query as likely to ask about
 one state as another,
 then on the average it will take twenty-five steps to find
 the state capital requested by a query.
@@ -88,9 +88,9 @@ that can be used to solve the problem of searching
 for data associated with keys.}
 Binary trees would make it possible to find
 state capitals faster
-than the operator of Figure~\ref{fig:state-capital-operator}.
+than the operator of figure~\ref{fig:state-capital-operator}.
 The states and capitals would need to be stored
-in a special way, not an ordinary list,
+in a special way, not in an ordinary list,
 but the number of steps required to find a capital
 would drop from an average of twenty-five to a maximum of six.
 That's four times faster, but there is a method known as hashing %'
@@ -105,7 +105,7 @@ Hashing provides one alternative.
 
 Part of the problem with using ACL2 lists
 for data is that it is easy and fast to retrieve the
-first element of a list, but slower to retrieve the
+first element of a list but slower to retrieve the
 $n$\textsuperscript{th} element of a list.
 However, that's not the whole problem. %'
 It also takes time to compare search keys
@@ -134,7 +134,7 @@ but that's the way the operator
 If we let \textsf{states} stand for the list of states and capitals
 (page \pageref{states-capitals-list}), then
 \textsf{(nth 1 states)} is \textsf{["Alaska" "Juneau"]},
-while \textsf{(nth 0 states)} is \textsf{["Alabama" "Montgomery"]}.
+whereas \textsf{(nth 0 states)} is \textsf{["Alabama" "Montgomery"]}.
 
 \begin{center}
 Axioms for \textsf{nth} operator
@@ -163,7 +163,7 @@ just assume for the moment that ACL2 could do it.
 If \textsf{nth} were such an operator,
 how much faster would the operator \textsf{capital} be?
 
-A fast implementation of \textsf{nth} is part of the answer,
+A fast implementation of \textsf{nth} is part of the answer
 but not a complete solution to finding state capitals
 with a one-step operation.
 We still need to find the right state.
@@ -175,10 +175,10 @@ Lists are one way to maintain collections of data in ACL2,
 but not the only way. A data structure
 known as an array is another. It comes with an operator
 called \textsf{aref1} that retrieves values from array elements.
-It is similar to the hypothetical, ``fast \textsf{nth}'' operator
+It is similar to the hypothetical ``fast \textsf{nth}'' operator
 discussed in this section. However, using ACL2 arrays in a way that
 ensures that \textsf{aref1} retrieves elements fast
-is a complicated, technical procedure.
+is a complicated technical procedure.
 Acquiring the required ACL2 expertise to use arrays
 would take us too far afield, so we will rely on a
 descriptive approach that omits the details.
@@ -188,7 +188,7 @@ descriptive approach that omits the details.
 \section{Hash Operators}
 
 We are looking for a definition of the operator
-\textsf{capital} that, given a state, finds right entry
+\textsf{capital} that, given a state, finds the right entry
 in the list of state/capital pairs.
 We will assume that the formula \textsf{(nth} $n$ $xs$\textsf{)}
 completes its retrieval of element $n$ from the list $xs$
@@ -202,13 +202,13 @@ we think of $xs$ as an array and assume that
 
 Our first solution to the search problem is alphabetical.
 It's not a complete solution, but will help us move in that direction.
-We will use array of 26 elements
+We will use an array of 26 elements
 and put all states that start with the letter A in
 the element with index zero,
 the ones with that start with B in the element with index one, and so on.
 Since there are 50 states and only
 26 elements in the array, some elements will have more than one state,
-so searching as before will still be necessary, but shorter.
+so searching as before will still be necessary but shorter.
 Finding Kansas, for example, will be
 a matter of retrieving the array element associated with
 the letter K, then sorting through the states in that entry.
@@ -218,7 +218,7 @@ the array element for K.  Let's assume that's about
 average.\footnote{If the first letters in state names
 were evenly distributed across the alphabet, there would be
 two entries in most elements of the array, so the number of steps
-for Kansas would be more-or-less typical.
+for Kansas would be more or less typical.
 Of course, some letters are associated with more states than
 others, so it's not always going to be a matter of finding
 the letter and picking between two states. There are eight
@@ -255,7 +255,7 @@ Letterbox Array: \textsf{fcaps}
 \end{tabular}
 \end{center}
 \index{letterbox array}\index{state capitals}\index{capitals of states}\index{operator, by name!fcapital}\index{operator, by name!lookup}\index{operator, by name!state-idx}\index{search!array}\index{array!search}
-\caption{Letterbox Array and Capital Search Operator}
+\caption{Letterbox array and capital search operator.}
 \label{fig:fcaps-array}
 \end{figure}
 
@@ -268,14 +268,14 @@ We call the new operator for finding the capital of a state
 \textsf{fcapital} (``f'' for fast).
 It delivers the same results
 as the previous operator, \textsf{capital},
-but does so in fewer steps because the information in its array operand,
-\textsf{fcaps}, is arranged to shortens the search.
+but it does so in fewer steps because the information in its array operand,
+\textsf{fcaps}, is arranged to shorten the search.
 Figure~\ref{fig:fcaps-array} suggests the contents of a few
 of the letterboxes in \textsf{fcaps} and presents some
 equations defining \textsf{fcapital}.
 
 The \textsf{fcapital} equations refer to an operator
-called \textsf{lookup} that, like the operator, \textsf{capital},
+called \textsf{lookup} that, like the operator \textsf{capital},
 returns the matching element from a list of state/capital pairs.
 We could have stuck with the previous operator,
 but \textsf{lookup} searches short lists,
@@ -291,7 +291,7 @@ The operator \textsf{fcapital} invokes \textsf{lookup}
 on the letterbox corresponding to the first letter
 in the name of the state.
 The operator \textsf{state-idx} computes the index
-of the letterbox, given the name of a state:
+of the letterbox given the name of a state:
 0 for Alabama or Arkansas, 2 for California,
 3 for Delaware, \dots 22 for  Wyoming.
 We will leave the concrete
@@ -323,23 +323,23 @@ in the alphabet works.
 There 50 states and 26 letters, but the letters occur
 with different frequencies in state names.
 There are four states that start with A and
-eight that start with M,
+eight that start with M
 but none that start with B or E.
 It would be better to put the same number of states in each
-array element. We could, for example have 25 boxes and put
-two states in each box. Or, we could have 50 boxes, and put
+array element. We could, for example, have 25 boxes and put
+two states in each box. Or, we could have 50 boxes and put
 one state in each box.
-We could even have a hundred boxes and put one state in 50
+We could even have 100 boxes and put one state in 50
 of the boxes and no states in the other 50.
-Sounds stupid, but it's not, depending on how
+Sounds stupid but it's not, depending on how
 the \textsf{state-idx} operator is defined,
 and we will talk about that shortly.
 
-In any case the \textsf{lookup} operation could be faster
+In any case, the \textsf{lookup} operation could be faster
 if the states were distributed more evenly among the boxes.
 To make that work, the definition
 \textsf{state-idx} would need to be more sophisticated
-the just going by the first letter in the name of the state.
+than just going by the first letter in the name of the state.
 It would need to use more letters in the name
 to compute the index of the box containing the corresponding
 state/capital pair.
@@ -352,7 +352,7 @@ many kinds of table-lookup problems. We are using
 state capitals as an example to discuss the issues,
 but the problem of looking up information associated
 with URLs is the same, only bigger and more complicated.
-For example the first ten characters in the URL
+For example, the first ten characters in the URL
 http://www.apple.com/ are the same as the first ten
 characters in http://www.cnn.com/. The last five
 characters are the same in both URLs, too.
@@ -361,11 +361,11 @@ defining an operator, say \textsf{URL-idx}, to compute the
 index of the box containing a given URL,
 then the operator \textsf{URL-idx} should take
 all of the characters in the URL into consideration.
-We have the same problem with state names, but on a
+We have the same problem with state names but on a
 smaller scale, so let's get back to that discussion.
 
 There are many ways to set up the letterboxes.
-They are not ``letterboxes'' anymore, but boxes set up to hold
+They are not ``letterboxes'' anymore but rather boxes set up to hold
 state/capital pairs distributed into those boxes using
 more than just the first letter in the name of the state.
 We will refer to them as the
@@ -393,10 +393,10 @@ which we refer to as the search key, is converted
 into a list of numbers by mapping each character to a number. For
 example, we could convert A to 1, B to 2, C to 3,
 and so on.\footnote{This is not the usual scheme,
-and we're conflating upper- and
-lower-case letters, but other number/letter conversions  will also work.}
+and we're conflating uppercase and
+lowercase letters, but other number/letter conversions  will also work.}
 Using the A 1, B 2, C 3 scheme, the word ``life'' becomes the list
-\textsf{[12 9 6 5]},
+\textsf{[12 9 6 5]}
 and the word ``file'' becomes \textsf{[6 9 12 5]}.
 
 The second step is to take the list of numbers corresponding
@@ -422,10 +422,10 @@ $12 + 9\times31 + 6\times31^2 + 5\times31^3 = 155,012$.
 The numbers 12, 9, 6, and 5 are used as coefficients to powers of
 the hash base.\footnote{This treats the
 list of numbers as a base-31 numeral, as
-discussed in Chapter~\ref{ch:binary-numerals}.
+discussed in chapter~\ref{ch:binary-numerals}.
 It may happen that some of the digits in the numeral
 fall outside the usual range for base 31 digits,
-but the method in Chapter~\ref{ch:binary-numerals}
+but the method in chapter~\ref{ch:binary-numerals}
 for computing numbers from numerals works
 for the hash-key computation, too. Not in the other direction, though.
 The hash coefficients can't be computed from the hash key.}
@@ -446,8 +446,8 @@ state/capital pairs, in which
 A hash table with 160,772 elements is overkill for
 a problem with fifty search keys.
 We had a hash table with 26 elements when we used the first letter of the state.
-Suppose we look for a solution with a hash table of a hundred elements.
-Then, we would need to compute hash index between zero and ninety-nine
+Suppose we look for a solution with a hash table of one hundred elements.
+Then, we would need to compute a hash index between zero and ninety-nine
 from the hash key. One way to do that would be to
 consider only the last two digits of the hash key.
 Then, the hash index for the hash key 160,772 would be 72.
@@ -459,7 +459,7 @@ If we wanted a fifty-bucket solution,
 we could compute the index from the hash key by taking the
 remainder in the division\footnote{Box~\ref{third-grade-division},
 page \pageref{third-grade-division} discusses
-division, remainders, and the $mod$ operator.}
+division, remainders, and the \textsf{mod} operator.}
 by  $50$: ($160,772$ $mod$ $50$) = $22$.
 The method works for a hash table with any number of buckets.
 
@@ -487,17 +487,17 @@ but they are all similar ideas.
 
 The first solution we discussed was
 to keep all the key/value pairs in a single list
-and search for keys by going through the list, one by one.
-This works, but is too slow to scale up.
-On the average, if search keys all have about the same likelihood of
+and search for keys by going through the list one by one.
+This works, but it is too slow to scale up.
+On average, if search keys all have about the same likelihood of
 being the target of a search,
 the search will have to look at roughly half
 of the key/value pairs before it finds the one it's looking for. %'
-For many, real-world problems, that is too long.
+For many real-world problems, that is too long.
 A hash table alleviates this problem
 by splitting the list of key/value pairs into many smaller lists.
 Each of these lists goes into one of the buckets of the hash table.
-With this approach the time required to locate a key
+With this approach, the time required to locate a key
 will be, at worst, proportional
 to the number of search keys in the biggest bucket,
 which is much smaller than the total number of search keys.
@@ -517,7 +517,7 @@ strings is to treat each character as a number, to use these numbers as the
 coefficients for a sum of powers of 31, and then to trim that number to
 a hash index by computing the remainder in the division by
 the number of buckets in the hash table.
-This overall process is illustrated in Figure \ref{fig:hash-table-process}.
+This overall process is illustrated in figure \ref{fig:hash-table-process}.
 
 \begin{table}
 \begin{center}
@@ -561,16 +561,16 @@ This overall process is illustrated in Figure \ref{fig:hash-table-process}.
 \textsf{["Delaware"  "Dover"]} \\
 \end{tabular}
 \end{center}
-\caption{Ten-Bucket Hash Table for State Capitals}
+\caption{Ten-bucket hash table for state capitals.}
 \label{table:hash-table-state-capitals}
 \end{table}
 
-In our state/capital example the search keys were state names and the
+In our state/capital example, the search keys were state names and the
 associated values were capital cities.
 Using a hash table with ten buckets and the hash operator
 we discussed, the key/value pairs would be associated with the
 buckets as seen in
-Table \ref{table:hash-table-state-capitals}
+table \ref{table:hash-table-state-capitals}
 (page \pageref{table:hash-table-state-capitals}).
 As the table shows, the states are not distributed evenly in the
 buckets. Bucket 7 has
@@ -584,18 +584,18 @@ to be.\footnote{For small problems like the state/capital problem,
 there are mechanized ways to design hash operators and
 hash arrays that lead to \index{perfect hash}\index{hash!perfect}\emph{perfect hashes} with no
 more than one key in each bucket. Sometimes there are
-empty buckets, but that doesn't affect the search time,
-just takes up more space. Some of the methods of
+empty buckets, but that doesn't affect the search time.
+It just takes up more space. Some of the methods of
 finding perfect hashes also provide ways to economize
 on the number of buckets.
-Hashing is an important and well studied search method.
+Hashing is an important and well-studied search method.
 You might find it interesting to look into the topic in more depth.}
 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=1]{images-cmyk/hash-table-process}
 \end{center}
-\caption{Hash Table Storage and Retrieval}
+\caption{Hash table storage and retrieval.}
 \label{fig:hash-table-process}
 \end{figure}
 
@@ -635,13 +635,13 @@ You might find it interesting to look into the topic in more depth.}
             "but" "his" "by" "from" "they")))
 \end{verbatim}
 \end{code}
-\caption{Prototype Hashing Operators (slow: using lists, not arrays)}
+\caption{Prototype hashing operators (slow: using lists, not arrays).}
 \label{fig:hash-defuns}
 \end{center}
 \end{figure}
 
 \begin{exercises}
-\exer {Consider the words ``age'', ``cage'', and ``cape''.
+\exer {Consider the words ``age,'' ``cage,'' and ``cape.''
 Using the hash operator from this chapter, compute the hash key of each word
 and the bucket the word maps to, assuming there are ten buckets.}
 
@@ -659,21 +659,21 @@ and the bucket the word maps to, assuming there are ten buckets.}
 %'B' is 2, and so on. Any number will do, so just use the one that
 %\textsf{char-code} delivers.
 
-\exer {There are many websites in the Internet that contain lists of words:
-most popular baby names, most popular English words, etc.\\
+\exer {There are many websites on the Internet that contain lists of words:
+most popular baby names, most popular English words, and so on.\\
 \hspace*{5mm}\url{https://www.babycenter.com/top-baby-names-2017.htm} \\
 \hspace*{5mm}\url{https://www.englishclub.com/vocabulary/common-words-100.htm}\\
 Pick a list of words and explore how the hash operator of this chapter works.
 Use 31 for the hash base and try different sizes for the hash table.
-In your project, try to answer the following questions.}
+In your project, try to answer the following questions:}
 \subexer {How many search keys are there in the biggest bucket?}
 \subexer {What is the average number of search keys in a bucket?}
 \subexer {How many empty buckets are there?}
-\subexer {What is the average length of a non-empty bucket?}
+\subexer {What is the average length of a nonempty bucket?}
 \subexer {Which one of these measures best estimates how well this hash works?}
 \begin{quote}
 You can use the operators defined in
-Figure~\ref{fig:hash-defuns} (page \pageref{fig:hash-defuns})
+figure~\ref{fig:hash-defuns} (page \pageref{fig:hash-defuns})
 to get started on the project.
 The operators use lists instead of arrays, so they are only  prototypes
 for experimentation, not for practical use.
@@ -695,7 +695,7 @@ operators in the ACL2 online documentation.
 Hash tables provide an effective solution to the search problem,
 so it is no surprise that they are all around us.
 Hash tables are used behind the scenes in all sorts of applications.
-They are ubiquitous computation.
+They are ubiquitous.
 Let's discuss some examples.
 
 Hashing facilitates finding the definitions of operators
@@ -713,7 +713,7 @@ definitions in a hash table where the key is the name of the operator
 and the value is the definition. This is almost certainly the solution
 that your computer system uses when it runs your ACL2 programs.
 Another viable alternative is to use a binary search tree
-(Chapter \ref{ch:search-trees}), but hash tables work better
+(chapter \ref{ch:search-trees}), but hash tables work better
 in this situation because there are a moderate number of search keys
 (operator names), and they don't change very often.
 With a binary search approach and, say, a few hundred keys,
@@ -727,8 +727,8 @@ number of keys, but it does grow slowly as the number of keys increases.
 The amount of time it takes to perform a search using a hash table
 is proportional to the number of keys in the biggest bucket.
 Of course, the computation of the hash key and bucket index
-also has to be factored in, but whether the number of search keys
-is a hundred or several thousand, the time takes to find a search
+also has to be factored in, but whether there are hundreds of search keys
+or thousands, the time takes to find a search
 key stays about the same.
 
 Database systems, the original killer app of
@@ -744,7 +744,7 @@ thousands of records related for each person involved in the system,
 which can easily amount to billions
 of records for an organization as a whole.
 
-But, what is a database system? At its core, a database system
+But what is a database system? At its core, a database system
 manages one or more tables, and each table is made up of one or more
 records consisting of several attributes.
 Think of a database table as a
@@ -780,7 +780,7 @@ it identifies.
 Hash-based and tree-based indexes
 in databases are,
 in essence, hash tables similar to those in this chapter
-and trees similar to those of Chapter~\ref{ch:search-trees}.
+and trees similar to those in chapter~\ref{ch:search-trees}.
 The only substantial difference
 is that our trees and hash tables are ACL2 objects that
 to reside in the fast-access memory of a computer,
@@ -800,7 +800,7 @@ data scientists find valuable.
 
 Combining separate tables in a database can be expensive.
 One way to proceed is to consider all possible pairs.
-In the zipcode example, you could look at each course,
+In the zipcode example, you could look at each course
 one at a time, and for each course consider
 all the students who could be enrolled in it.
 At a mid-sized university with 13,000 students
@@ -861,9 +861,9 @@ Variations of this idea are behind digital signatures and
 also behind procedures for
 keeping multiple copies of a file synchronized with one another.
 
-Hash operators and hash tables are central to practical, large scale computing.
+Hash operators and hash tables are central to practical, large-scale computing.
 We'll consider more aspects of large-scale, practical computing
-in Part IV of this book.
+in part IV of this book.
 
 %%% Local Variables:
 %%% mode: latex
