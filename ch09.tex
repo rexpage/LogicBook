@@ -55,7 +55,7 @@ software as the amount of data increases.
 Engineering requires not only producing the expected
 results but also dealing with scale in effective ways.
 
-\section{Insertion Sort}
+\section{Insertion-Sort}
 \label{sec:insertion-sort}
 
 To focus our attention on the essentials of
@@ -161,7 +161,7 @@ on the left-hand side
 \end{code}
 
 Now suppose someone has defined a sorting operator called \textsf{isort}
-(insertion sort).
+(insertion-sort).
 Empty lists and one-element lists already have their
 elements in order, by default.
 Therefore, the formula \textsf{(isort nil}) would deliver \textsf{nil}
@@ -219,7 +219,7 @@ are both the same equation: \textsf{(isort $xs$)} $=$ $xs$,
 where $xs$ is \textsf{nil} in equation \{\emph{isrt0}\}
 and \textsf{(cons $x$ nil)} in equation \{\emph{isrt1}\}.
 
-\label{defun:isort}\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{operator, by name!isort (insertion sort)}\seeonlyindex{isort}{operator}\index{sorting!insertion sort (isort)}
+\label{defun:isort}\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{operator, by name!isort (insertion-sort)}\seeonlyindex{isort}{operator}\index{insertion-sort}\index{sorting!insertion-sort (isort)}
 \begin{code}
 \begin{verbatim}
 (defun isort (xs)
@@ -314,7 +314,7 @@ The proof can induct on the length
 of the list supplied as the operand of \textsf{isort}.
 
 \label{defthm:isort-ord-thm}
-\index{sorting!insertion sort (isort)}\index{theorem!insertion sort (isort)}
+\index{sorting!insertion-sort (isort)}\index{theorem!insertion-sort (isort)}
 \index{theorem, by name!\{isort-ord\}}
 \begin{code}
 \begin{verbatim}
@@ -573,12 +573,12 @@ as a model, make a formal ACL2 statement of the mrg-val theorem.}
 \exer {Do a paper-and-pencil proof the mrg-ord theorem (page \pageref{defthm:mrg-ord}).}
 \end{exercises}
 
-\section{Merge Sort}
+\section{Merge-Sort}
 \label{sec:msort}
 
 We can use the \textsf{mrg} operator (page \pageref{defun:mrg}),
 together with the demultiplexer (\textsf{dmx}, page \pageref{dmx-defun}),
-to define a sorting operator, \textsf{msort} (merge sort), that is fast for long lists.
+to define a sorting operator \textsf{msort} (merge-sort) that is fast for long lists.
 The \textsf{msort} operator uses \textsf{dmx} to split the list into two parts,
 sorts each part inductively into increasing order, and finally
 uses the \textsf{mrg} operator to combine the sorted parts into one list.
@@ -619,7 +619,7 @@ but consolidates the equations for lists with one element or none in the
 manner of the ACL2 definition of \textsf{isort} (page \pageref{defun:isort}):
 
 \label{defun:msort}\label{eq:msrt1}\index{equation, by name!\{msrt0\}, \{msrt1\}, \{msrt2\}}
-\index{operator, by name!msort (merge sort)}\index{defun!lemma hint}\index{defun!induction hint}\index{directive!induction hint}\index{directive!lemma hint}\seeonlyindex{msort (merge sort)}{operator}\index{sorting!merge sort (msort)}
+\index{operator, by name!msort (merge-sort)}\index{defun!lemma hint}\index{defun!induction hint}\index{directive!induction hint}\index{directive!lemma hint}\seeonlyindex{msort (merge-sort)}{operator}\index{merge-sort}\index{sorting!merge-sort (msort)}
 \begin{code}
 \begin{verbatim}
 (defun msort (xs)
@@ -709,8 +709,8 @@ states the \textsf{msort} theorems and lemmas in ACL2.
        (occurs-in e (msort xs))))
 \end{verbatim}
 \end{code}
-\label{defthm:msort-len}\label{defthm:msort-val}\index{sorting!msort theorems}\index{theorem!merge sort (msort)}\index{theorem, by name!\{msort-ord\}}\index{theorem, by name!\{msort-len\}}\index{theorem, by name!\{msort-val\}}
-\caption{Theorems and lemmas about merge sort.}
+\label{defthm:msort-len}\label{defthm:msort-val}\index{sorting!msort theorems}\index{theorem!merge-sort (msort)}\index{theorem, by name!\{msort-ord\}}\index{theorem, by name!\{msort-len\}}\index{theorem, by name!\{msort-val\}}
+\caption{Theorems and lemmas about merge-sort.}
 \label{fig:msort-thms}
 \label{defthm:msort-ord}
 \end{figure}
@@ -773,8 +773,8 @@ the two operators, \textsf{msort} and \textsf{isort}, and find that
 
 A definition of an operator in ACL2
 is a collection of equations that
-reduces invocation of the operator
-to a computation of the result.
+reduces invocations of the operator
+to computations of the result.
 Predicates determine
 which equations to select from the definition.
 Both the formula that computes the result and
@@ -1283,7 +1283,7 @@ with the definition of \textsf{mrg}, we repeat the definition of \textsf{msort}
 to facilitate counting steps, but we omit the hints
 provided in the previous definition to help ACL2 prove termination.}
 
-\index{sorting!merge sort (msort)}
+\index{sorting!merge-sort (msort)}
 \begin{code}
 \begin{verbatim}
 (defun msort (xs)
@@ -1332,7 +1332,7 @@ one step each for \textsf{if}, \textsf{consp}, \textsf{rest}, and \textsf{first}
 plus two steps for \textsf{second}.
 Adding all this up
 (two \textsf{msorts}, \textsf{dmx}, \textsf{mrg}, and the six basic steps),
-we find \index{recurrence equations!merge sort (msort)}that
+we find \index{recurrence equations!merge-sort (msort)}that
 $S_n \leq S_{\lceil  n/2\rceil} + S_{\lfloor  n/2\rfloor} +
           (14\lfloor n/2\rfloor + 5) + 10(n+1) + 6$.
 
@@ -1376,7 +1376,7 @@ leads to inequality \{s2\}.
    $S_{n} \leq S_{\lceil n/2 \rceil} + S_{\lfloor n/2 \rfloor} + 17n + 21$, if $n \geq 2$ & \{s2\}\\
 \end{tabular}
 \end{center}
-\index{recurrence equations!merge sort (msort)}
+\index{recurrence equations!merge-sort (msort)}
 \caption{Recurrence inequalities for merge-sort computation steps.}
 \label{msort-recurrences}
 \end{figure}
@@ -1460,7 +1460,7 @@ $S_{n+2}$ & $=$    & $S_m$                                                      
           & $=$    & $42m~log_2(m)$                                                  & \{\emph{algebra}\} \\
           & $=$    & $42(n+2)~log_2(n+2)$                                            & \{\emph{definition} $m \equiv n+2$\} \\
 \end{tabular}
-\index{computation steps!merge sort (msort)}
+\index{computation steps!merge-sort (msort)}
 \caption{Bound on steps in merge-sort computation.}
 \label{thm:msort-nlogn}
 \end{figure}
@@ -1486,12 +1486,12 @@ for each natural number $n$ between $1$ and $18$. Explain any anomalies.
 
 \end{exercises}
 
-\subsection{Computation Steps in Insertion Sort}
+\subsection{Computation Steps in Insertion-Sort}
 \label{subsec:isort-steps}
 
 We want to compare the performance of
-the \textsf{msort} operator (merge sort)
-with that of the \textsf{isort} operator (insertion sort).
+the \textsf{msort} operator (merge-sort)
+with that of the \textsf{isort} operator (insertion-sort).
 The difference can be dramatic
 (see footnote, page \pageref{bubble-vs-quicksort-example}).
 The \textsf{isort} operator almost always
@@ -1505,8 +1505,8 @@ For a few arrangements,
 \textsf{(isort $xs$)} is faster than \textsf{(msort $xs$)},
 and when $xs$ is a short list, \textsf{isort} can be faster for any list.
 In fact, high-speed, general purpose software for sorting
-usually combines a method similar to insertion sort
-with a method comparable to merge sort.
+usually combines a method similar to insertion-sort
+with a method comparable to merge-sort.
 This hybrid strategy treats
 the list to be sorted as a collection of short lists
 (usually up to about eight elements),
@@ -1515,12 +1515,12 @@ and then combines them
 using an \textsf{msort}-like operator.
 
 The number of computation steps required by the
-\index{isort}\textsf{isort} operator
+\index{insertion-sort}\textsf{isort} operator
 varies widely, but
 an estimate of the average number of computation steps that
-\index{isort}\textsf{isort} requires for randomly arranged lists
+\textsf{isort} requires for randomly arranged lists
 is useful for comparison purposes.
-We repeat the definition of \index{isort}\textsf{isort}
+We repeat the definition of \textsf{isort}
 (figure~\ref{defun:insert-isort}, page \pageref{defun:insert-isort})
 for convenience in the analysis.
 
@@ -1537,7 +1537,7 @@ for convenience in the analysis.
       xs))              ; (len xs) <= 1     ; {isrt1}
 \end{verbatim}
 \end{code}
-\index{operator, by name!insert (in order)}\index{equation, by name!\{ins0\}, \{ins1\}, \{ins2\}}\index{operator, by name!isort (insertion sort)}\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{greater than ($>$)}{predicate}
+\index{operator, by name!insert (in order)}\index{equation, by name!\{ins0\}, \{ins1\}, \{ins2\}}\index{operator, by name!isort (insertion-sort)}\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{greater than ($>$)}{predicate}
 \caption{Formal definition of \textsf{isort}.}
 \label{defun:insert-isort}\label{defun:isort-copy}
 \end{figure}
@@ -1656,22 +1656,22 @@ $=$ & $(2n+11)(n+1) + 3$                                                        
 \end{spacing}
 \end{center}
 \caption{$I_n$ = average number of steps to compute \textsf{(isort $x$ [$x_1$ $x_2$ \dots $x_{n}$])}.}
-\label{fig:isort-steps}\index{computation steps!insertion sort (isort)}\index{recurrence equations!isort (insertion sort)}
+\label{fig:isort-steps}\index{computation steps!insertion-sort (isort)}\index{recurrence equations!isort (insertion-sort)}
 \end{figure}
 
 Theorem \{msort $n~log(n)$\}
 (figure~\ref{thm:msort-nlogn}, page \pageref{thm:msort-nlogn}) provides
 an upper bound\footnote{It
 turns out that this upper bound is close to the average
-for merge sort on randomized lists.}
+for merge-sort on randomized lists.}
 on the number of steps $S_n$ in the computation
 \textsf{(msort [$x_1$ $x_2$ \dots $x_{n+2}$])}:
 $S_{n} \leq 42n~log_2(n)$ when $n =$ (len $xs$) $\geq 2$.
 To compare the time is takes to sort a
 list of numbers using \textsf{isort} versus \textsf{msort},
 we can compute a lower bound on the ratio between
-the number of computation steps that insertion sort requires
-versus merge sort:
+the number of computation steps that insertion-sort requires
+versus merge-sort:
 $I_n/S_n \geq ((2n+7)(n-1)/(42n~log_2(n))$ when $n \geq 2$.
 (We dropped $+3$ from the numerator, but the ratio is a lower bound anyway,
 so it's still a lower bound.)
@@ -1696,8 +1696,8 @@ in the definitions of \textsf{isort} and  \textsf{msort}.
 Serious software for sorting is loaded with performance tweaks,
 and that can make the ratios more extreme in practice.
 
-Beyond a comparison of the performance of merge sort
-versus insertion sort, the main thing to take away from this discussion
+Beyond a comparison of the performance of merge-sort
+versus insertion-sort, the main thing to take away from this discussion
 is that inductive definitions provide a straightforward way to
 \index{recurrence equations!deriving}
 derive recurrence equations for the number of steps that the defined operator

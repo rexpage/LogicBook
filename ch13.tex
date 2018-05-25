@@ -22,9 +22,9 @@ accessible from ubiquitous devices such as laptops, tablets, and cell phones.
 Making this possible requires two lists of information for each user:
 %\begin{quote}
 %\begin{enumerate}
-	%\item 
+	%\item
 (1)~a list of the user's friends and
-	%\item 
+	%\item
 (2)~a list of the user's status updates.
 %\end{enumerate}
 %\end{quote}
@@ -137,7 +137,7 @@ or the hash keys of chapter \ref{ch:hash-tables}.
 When a query arrives, the database first checks
 the cache to see if the information is already there.
 If it is, it is simply reused.
-Otherwise, the database performs the query against its underlying store,
+Otherwise, the database performs the query against its underlying store
 and puts the results in the cache so they can be reused later.
 A cache is much smaller than the underlying store
 so data in the cache is frequently flushed and replaced with other active data.
@@ -285,7 +285,7 @@ Cassandra tables are designed to support thousands of fields.
 This will be enough for most users, but not for the heaviest users of Facebook.
 To deal with the heaviest users, Facebook can reuse the same idea with column names.
 To support an arbitrary number of friends or status updates,
-the values can be spread across multiple records, 
+the values can be spread across multiple records,
 with IDs such as John1, John2, and so on.
 
 \begin{figure}

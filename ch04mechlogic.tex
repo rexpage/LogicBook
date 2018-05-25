@@ -149,7 +149,7 @@ that states the theorem.
 \begin{center}
 \includegraphics[scale=1]{images-cmyk/additive-law-of-concatenation-thm-acl2-prf-bw}
 \end{center}
-\index{Proof Pad!proof bar}\index{proof bar}
+\index{proof bar (Proof Pad)}
 \caption{Proof Pad session with proof bar.}
 \label{fig:proof-bar-with-chk}
 \end{figure}
@@ -173,7 +173,7 @@ then dropping $n$ elements from the front of the concatenation
 reproduces the second operand of \textsf{append}.
 In section~\ref{sec:append-prefix-suffix} (page \pageref{append-suffix-thm-pencil-proof}),
 we stated this theorem in the form ($\forall$$n$.S($n$)),
-where S($n$) was a shorthand for the following equation:
+where S($n$) was shorthand for the following equation:
 
 \begin{samepage}
 \begin{center}
@@ -232,7 +232,7 @@ click in the proof bar, and see what happens.
 \includegraphics[scale=1]{images-cmyk/append-suffix-thm-acl2-prf-bw}
 \end{center}
 \index{theorem!append-suffix}\index{theorem, by name!\{append-suffix\}}\index{append!suffix theorem}
-\caption{Append-Suffix: Importing theorems to cite in proof.}
+\caption{Importing theorems to facilitate proof: append-suffix theorem.}
 \label{fig:append-suffix-acl2-prf}
 \end{figure}
 
@@ -384,7 +384,7 @@ An implication formula imposes the necessary constraint.
 \end{center}
 \index{append!prefix theorem}\index{theorem!append-prefix}
 \index{theorem, by name!\{append-prefix\}}
-\caption{Append-Prefix theorem: an implication.}
+\caption{Theorem with constraint: append-prefix.}
 \label{fig:append-prefix-acl2-prf}
 \end{figure}
 
@@ -451,7 +451,7 @@ and get the mechanized logic to prove it.}
 
 The mechanized logic of ACL2 was able to carry out proofs of
 the theorems of section~\ref{sec:theorems-and-acl2-proofs} without assistance.
-To prove the theorems in Section~\ref{sec:using-books-of-proven-theorems},
+To prove the theorems in section~\ref{sec:using-books-of-proven-theorems},
 ACL2 needed to cite some proven theorems packaged in books
 developed by experts.
 These were carefully chosen examples to get started with
@@ -708,7 +708,7 @@ stated a base case for the \textsf{gib} operator as an ACL2 theorem.
 \end{center}
 
 This idea worked. ACL2 was able to prove the gib base equation
-and the gib inductive equation, and then finally
+and the gib inductive equation, and then finally it
 used them to prove that $\forall n.($\textsf{(fib-fast $n$)} $=$ \textsf{(fib $n$)}$)$,
 in the form defined in the \textsf{fib=fib-fast} theorem.
 Figure~\ref{fig:fib-gib-thm} (page \pageref{fig:fib-gib-thm})
@@ -751,7 +751,7 @@ How does ACL2 prove theorems?
 
 First of all, it doesn't, most of the time.
 Our examples have been carefully constructed in a way that
-led to success by ACL2.
+led to successful proofs by ACL2.
 If you try on your own to propose theorems
 and present them to ACL2 for proof, you will find that it can be
 extremely difficult to get ACL2 to succeed, even with a lot of help.
@@ -784,7 +784,7 @@ by distinguished researchers in the USA, the UK, France, Sweden, and elsewhere.
 \item Agda: Ulf Norell, Chalmers University
 \item LF: Robert Harper, Furio Honsell, Gordon Plotkin, Carnegie Mellon University, University of Udine, University of Edinburgh
 \item Twelf: Frank Pfenning, Carsten Sch\"urmann, Carnegie Mellon University, University of Copenhagen
-\end{itemize}\index{logic!mechanized}\index{Twelf}\index{Pfenning!Frank}\index{Sch\"urmann, Carsten}\index{LF}\index{Harper, Robert}\index{Honsell, Furio}\index{Plotkin, Gordon}\index{Agda}\index{Norell, Ulf}\index{PVS}\index{Owre, sam}\index{Natarajan, Shankar}\index{Rushby, John}\index{Coq}\index{Coquand, Thierry}\index{Huet, G\'erard}\index{LCF}\index{HOL}\index{Isabelle}\index{Milner, Robert}\index{Gordon, Mike}\index{Paulson, Lawrence}\index{ACL2}\index{Moore, J Strother}\index{Boyer, Robert}\index{Kaufmann, Matt}
+\end{itemize}\index{logic!mechanized}\index{Twelf}\index{Pfenning, Frank}\index{Sch\"urmann, Carsten}\index{LF}\index{Harper, Robert}\index{Honsell, Furio}\index{Plotkin, Gordon}\index{Agda}\index{Norell, Ulf}\index{PVS}\index{Owre, Sam}\index{Natarajan, Shankar}\index{Rushby, John}\index{Coq}\index{Coquand, Thierry}\index{Huet, G\'erard}\index{LCF}\index{HOL}\index{Isabelle}\index{Milner, Robert}\index{Gordon, Mike}\index{Paulson, Lawrence}\index{ACL2}\index{Moore, J Strother}\index{Boyer, Robert}\index{Kaufmann, Matt}
 %\caption{Mechanized Logics: Fifty Years of R\&D, Mostly R}
 %\label{mechanized-logic-history}
 \end{aside}

@@ -214,7 +214,7 @@ $=$ & $(n + 1) + (1$ $+$ \textsf{(len $ys$)}$)$                                 
 $=$ & $(n + 1)$ $+$ \textsf{(len(cons $y$ $ys$))}                                & \{\emph{len1}\} \\
 \end{tabular}
 \end{center}\index{theorem, by name!\{mux-length\}}
-\caption{Theorem \{mux-length\}: inductive case when both operands nonempty.}
+\caption{Theorem \{mux-length\}: inductive case when both operands arexxx nonempty.}
 \label{fig:prf-mux-len-induc}
 \end{figure}
 
@@ -304,7 +304,7 @@ Give an example of lists \textsf{[$x$]}, \textsf{[$y$]}, and \textsf{[$u$ $w$]} 
 Do a paper-and-pencil proof that
 \textsf{(mux2 $xs$ $ys$)} is the same as \textsf{(mux $xs$ $ys$)}.\\
 \emph{Note}: \textsf{mux2} is defined in
-box~\ref{aside:mux-2eq} (page \pageref{aside:mux-2eq}),
+box~\ref{aside:mux-2eq}, page \pageref{aside:mux-2eq},
 and \textsf{mux} is defined on page \pageref{mux-defun}.}
 
 \exer {Formalize the theorem of exercise~\ref{mux2-eq-mux} in ACL2.}
@@ -465,7 +465,7 @@ the other when it has an odd number of elements $(2n+1)$.}
 \exer {\label{dmx-val-len-not-enough}%
 Give an example of lists
 \textsf{[$x$ $y$]}, \textsf{[$u$]}, and \textsf{[$w$]} for which
-\textsf{[[$u$] [$w$]]} $\neq$ \textsf{(dmx [$x$ $y$])}, but the following formula is true:\\
+\textsf{[[$u$] [$w$]]} $\neq$ \textsf{(dmx [$x$ $y$])} but the following formula is true:\\
 \hspace*{1cm}$\forall v.(($\textsf{(occurs-in $v$ [$u$])} $\vee$ \textsf{(occurs-in $v$ [$w$])}$)
 \leftrightarrow$ \textsf{(occurs-in $v$ [$x$ $y$])}$)$\\
 \emph{Note}: Such an example demonstrates that length and value

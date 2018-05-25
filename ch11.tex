@@ -132,7 +132,7 @@ out to be a very big number when there are a lot of items.
 binary search is, on average,
 $(1,000/2)/\lceil log_2(1,000) \rceil$ times faster than the pile-of-socks method.
 That's about 50 times faster.
-For 10,000 items, it's 350 times faster.
+For 10,000 items, it's about 350 times faster.
 The speed-up factor rises to over 3,000 for 100,000 items,
 and for 1,000,000 items, binary search is, on average,
 over 25,000 times faster than the pile-of-socks method.
@@ -749,7 +749,7 @@ but this is a viable one for our purposes.}
 \seeonlyindex{hook (AVL insertion)}{operator}
 \index{AVL tree!hook (insert key)}
 \index{equation, by name!\{hook$<$\}, \{hook$>$\}, \{hook$=$\}}
-\caption{Insert new key, preserving order, but not balance.}
+\caption{Insert new key, preserving order but not balance.}
 \label{fig:hook-defun}
 \end{figure}
 
@@ -911,7 +911,7 @@ Any tree of height one will consist of a single node,
 \textsf{[$k$ $d$ nil nil]}, which is balanced because both subtrees
 have the same height (namely, zero).
 The formula for a tree of height two must match one of the following templates:
-\textsf{[$k$ $d$ [$j$ $c$ nil nil] nil]}, \textsf{[$k$ $d$ nil [$i$ $b$ nil nil]]}
+\textsf{[$k$ $d$ [$j$ $c$ nil nil] nil]}, \textsf{[$k$ $d$ nil [$i$ $b$ nil nil]]},
 or \textsf{[$k$ $d$ [$j$ $c$ nil nil] [$i$ $b$ nil nil]]}.
 Applying the predicate \textsf{balp}
 confirms that all of these trees are balanced,
@@ -977,7 +977,7 @@ constraints on the domain of the data.
 The data could even come from a domain
 that doesn't support reasoning about equality.
 This would be the case, for example, if the data items
-were themselves operators, and the search tree
+were themselves operators and the search tree
 were being used to provide organized access to those
 operators. There is no algorithm
 for determining, in general, whether two operators
@@ -1133,7 +1133,7 @@ If the new key $x$ were between $j$ and $k$ ($j < x < k$),
 it would go into subtree \emph{jR}.
 That might not cause tree \emph{LL} to go out of balance,
 even if it increases the height of
-subtree \emph{jR}, because in tree \emph{LL}
+subtree \emph{jR}, because in tree \emph{LL},
 subtree \emph{jR} may be shorter than its sibling.
 So, we use the diagram of tree \emph{LR}
 (where an insertion into subtree \emph{jR}
@@ -1401,7 +1401,7 @@ to get it back in balance.
 $=$ \emph{rrLRin}
 \end{center}
 This second rotation leads to
-the tree \emph{rrLRin},
+tree \emph{rrLRin},
 diagrammed on the right-hand side of
 figure \ref{fig:dbl-rotation},
 which is balanced and has height $n+2$.
@@ -1509,7 +1509,7 @@ it is rebalanced by \textsf{rot}+ or \textsf{rot-}.
 To make search trees really useful, we need to be able to delete items
 as well as insert them.
 Deletion is a little more complicated than
-insertion but uses the same basic rotation operators.
+insertion, but it uses the same basic rotation operators.
 You know enough now to explore the AVL deletion operator on your own.
 You can check it out online or in a textbook on algorithms.
 

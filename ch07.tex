@@ -121,7 +121,7 @@ But what about the carry-bit? What do we do with that?
 It will need to be added to the higher-order bits of
 the input numeral. But that is just a matter of incrementing
 the higher-order bits by one.
-The higher-order bits, themselves, comprise a numeral,
+The higher-order bits themselves form a numeral,
 and because of our usual assumption with inductive definitions that
 someone has already defined the operator
 \textsf{add-1} for shorter operands,
@@ -569,7 +569,7 @@ case than the formula on the left-hand side of the equation.
 
 Putting this all together leads to the ACL2 definition
 of the bignum multiplication operator \textsf{mul} in
-figure~\ref{fig:bignum-mul-defun} (page \pageref{fig:bignum-mul-defun}.
+figure~\ref{fig:bignum-mul-defun} (page \pageref{fig:bignum-mul-defun}).
 Most of the work is done by the operator \textsf{mxy}.
 From these definitions, ACL2 successfully finds an
 inductive proof of the following theorem,
