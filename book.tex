@@ -1,4 +1,5 @@
-\documentclass[7x9,hyper]{newmath}
+%\documentclass[7x9,hyper]{newmath}
+\documentclass[7x9]{newmath}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -21,12 +22,20 @@
 
 %\doublespacing %comment out for single-spacing  DID NOT WORK
 
-%\linespread{2} % comment out for single-spacing DOES NOT DOUBLE-SPACE FOOTNOTES
+%\linespread{2} % comment out for single-spacing   WORKS, but does not doublespace footnotee
 
 %%% HACK: This is a copy of "boxedtext", but it pays attention
 %%% to hyperref
 
 \makeatletter
+
+\long\def\exer#1{\vskip3pt\global\advance\c@exercise by 1
+\addtocounter{exercise}{-1}\refstepcounter{exercise}
+\global\c@subexercise=0
+{\leftskip=1pc
+\noindent\hskip-1pc\hbox to 1pc{\bf \arabic{exercise}.\hfill}\ignorespaces#1
+\vskip1sp}
+}
 
 \def\aside#1#2{%
 \vskip12pt

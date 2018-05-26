@@ -259,7 +259,7 @@ mechanized logic and one of the first theorems that such a system proved autonom
 
 Another of the paper-and-pencil proofs in section~\ref{sec:append-prefix-suffix}
 was the append-prefix theorem
-(figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation}),
+(page \pageref{app-pfx-thm}),
 which referred to the prefix operator.
 
 \begin{code}
@@ -360,7 +360,7 @@ In ACL2, this fact would be stated as an implication.
 The theorem is true, however, when the variable $xs$ is
 constrained to the domain of true lists.
 In the statement of the append-prefix theorem in
-section~\ref{sec:append-prefix-suffix} (page \pageref{append-prefix-thm-predicate}),
+section~\ref{sec:append-prefix-suffix} (page \pageref{app-pfx-thm-paper-and-pencil}),
 the role of $xs$ was played by the numbered list
 \textsf{[$x_1$ $x_2$ $\dots$ $x_n$]},
 which is a true list by definition
@@ -436,8 +436,10 @@ by.\index{admit, ACL2}\index{ACL2!admit}
 and use Proof Pad to run it through the mechanized logic.
 (\emph{Hint}: Use \textsf{natp} to constrain the first operand of \textsf{rep}.)}
 
-\exer {An exercise in section~\ref{sec:append-prefix-suffix} required a paper-and-pencil
-proof of the following proposition: $\forall xs.($\textsf{(nthcdr (len $xs$) $xs$)} $=$ \textsf{nil}$)$.
+\exer {Exercise~\ref{ex:nthcdrtonil} (page \pageref{ex:nthcdrtonil}) 
+required a paper-and-pencil
+proof of the following proposition: 
+$\forall xs.($\textsf{(nthcdr (len $xs$) $xs$)} $=$ \textsf{nil}$)$.
 Define this theorem in ACL2 and get the mechanized logic to prove it.}
 
 \exer {The formula \textsf{(equal (prefix (len $xs$) $xs$) $xs$)} is true with a certain
