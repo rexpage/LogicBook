@@ -253,13 +253,13 @@ together with the additional equation $(1 + 1) = 2$, to derive the equation $(x 
 
 \exer {\label{ex:times-negation}%
 Derive the following equation
-using the equations of figure~\ref{fig-02-01}:
+using the equations of figure~\ref{fig-02-01} (page \pageref{fig-02-01}):
 \begin{center}
 $((-1) \times x) + x = 0$ ~~~~~ \{$\times$ negation\}
 \end{center}}
 
 \exer {Derive the equation $((x + (((-1) \times (x + y)) + z)) + y) = z$
-using the equations of figure~\ref{fig-02-01} and,
+using the equations of figure~\ref{fig-02-01} (page \pageref{fig-02-01}) and,
 if you like,
 the \{$\times$ negation\} equation from exercise \ref{ex:times-negation}.}
 \end{exercises}
@@ -267,12 +267,12 @@ the \{$\times$ negation\} equation from exercise \ref{ex:times-negation}.}
 \section{Boolean equations}
 \label{sec:boolean-equations}
 Let's start with the Boolean equations in
-figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
+figure~\ref{fig-02-03}.
 These equations, which we will call the
 \index{Boolean!axiom}Boolean \index{axiom!Boolean algebra}axioms,
 are the starting point for our system of reasoning.
 They form the basis from which we will derive
-a host of other equations.
+many other equations.
 If these axiomatic \index{equation!as axiom}equations
 are new to you and seem strange,
 try to view them as ordinary
@@ -1180,7 +1180,8 @@ in that same way, down to \emph{True} or \emph{False} if the formula
 doesn't have any variables in it.
 
 However, to deal with parentheses in a completely mechanized way,
-we need to add two equations to those of figure~\ref{fig-02-03}.
+we need to add two equations 
+to those of figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
 The axioms of figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
 provide all of the information needed to determine
 the value of any grammatically correct formula.
@@ -1942,7 +1943,7 @@ the \index{Assume (natural deduction)}assumption need not be at the beginning of
 proof, but it could, instead, be at the beginning of
 a proof separated from another proof by a dashed line.
 The \{Socrates was mortal\} theorem
-(figure \ref{fig:socrates-proof})
+(figure \ref{fig:socrates-proof}, page \pageref{fig:socrates-proof})
 has two hypotheses.
 One is marked as an assumption standing in lieu of the first proof
 required by a citation of \{modus ponens\}
@@ -1951,7 +1952,7 @@ standing in lieu of the second proof
 required by \{modus ponens\}.
 
 Three of the inference rules of natural deduction
-(figure \ref{fig-02-deduction-rules})
+(figure \ref{fig-02-deduction-rules}, page \pageref{fig-02-deduction-rules})
 involve the $\wedge$ operator:
 \{$\wedge$ introduction\},
 \{$\wedge$ elimination 1\}, and
@@ -3174,7 +3175,7 @@ the free variable on the right-hand side of the equation,
 where $Q$ moves inside the scope of the quantifier.
 That capture would change the free variable $x$ to a bound variable
 and change the meaning of the formula.
-That explains the note in the figure prohibiting the occurrence of $x$ as
+That explains the note in figure~\ref{fig-02-quantifiers} prohibiting the occurrence of $x$ as
 a free variable in $Q$.
 
 A similar constraint applies to the renaming
@@ -3210,7 +3211,8 @@ From the definition of existential quantification
 ($\exists$, page \pageref{def:existential-quantifier})
 we conclude that $(\exists x.(\neg P(\dots x \dots))) = True$.
 
-Four of the equations in figure~\ref{fig-02-quantifiers}
+Four of the equations 
+in figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
 show how quantifiers interact with implication:
 \{${\forall}{\rightarrow}$\},
 \{${\exists}{\rightarrow}$\},
@@ -3281,7 +3283,8 @@ We will migrate all four quantifiers, and we need to start somewhere.
 Later we will say something about how to choose a starting point,
 but for the moment we'll just pick one.
 Let's migrate the $\forall x$ quantification.
-Applying the \{${\rightarrow}{\forall}$\} equation (figure~\ref{fig-02-quantifiers})
+Applying the \{${\rightarrow}{\forall}$\} equation 
+(figure~\ref{fig-02-quantifiers}, page \pageref{fig-02-quantifiers})
 leads to the following formula:
 
 \begin{center}
@@ -3324,10 +3327,11 @@ $(\dots ((\dots) \rightarrow (\exists y.(\dots))) \dots) =
 
 That completes the migration of quantifiers, which is the second step in our four-step strategy
 for reasoning about quantified formulas.
-Figure~\ref{fig:rename-migrate-example} (page \pageref{fig:rename-migrate-example})
+Figure~\ref{fig:rename-migrate-example}
 puts the renaming and quantifier migration steps all in one place
 to make it convenient for you to check each step to be sure
-you see how they make use of the equations in figure~\ref{fig-02-quantifiers}.
+you see how they make use of the equations 
+in figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers}).
 
 \begin{figure}
 \begin{center}

@@ -251,9 +251,9 @@ same length and the same values
 but \textsf{(isort [1 1 2]) $\neq$ [1 2 2]}.
 The sorted list must be a permutation of the original list.
 The permutation property is not much harder
-to prove than the combination of length and value preservation,
+to prove than length and value preservation,
 but it does require a definition of permutation
-(see exercise~\ref{ex:permp-isort}).}
+(exercise~\ref{ex:permp-isort}, page~\pageref{ex:permp-isort}).}
 
 \label{defthm:isort-len}
 \label{defthm:isort-val}
@@ -522,12 +522,12 @@ the mux-length theorem (page \pageref{mux-length-thm}) and the
 mux-val theorem (page \pageref{thm:mux-val}).\footnote{As
 with the theorems about
 \textsf{mux}, \textsf{dmx}, and \textsf{isort}, length and value preservation
-do not guarantee that \textsf{mrg} delivers a correct result
-(exercise~\ref{dmx-val-len-not-enough}, page \pageref{dmx-val-len-not-enough}).
+do not guarantee that \textsf{mrg} delivers a correct result.
 The result must be a permutation
 of the elements of the lists to be merged,
 which is a more restrictive property than
-preservation of length and values.}
+preservation of length and values
+(see exercise~\ref{ex:permp-isort}, page~\pageref{ex:permp-isort}).}
 
 The \textsf{mrg} operator also preserves order.
 If the numbers in both operands are in increasing order,
@@ -679,14 +679,15 @@ theorem statements employ the ACL2 operator \textsf{iff}, which is
 \index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, by name!iff (Boolean equivalence)}\index{operator, logic!Boolean equivalence (iff)}\index{iff (\emph{see also} operator)}\index{equivalence!Boolean (iff)}Boolean equivalence
 (box~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).}
 Like \textsf{isort}, \textsf{(msort $xs$)} delivers a permutation of $xs$
-(exercise~\ref{ex:permp-isort}), but the proof is trickier for \textsf{msort}.
+(exercise~\ref{ex:permp-isort}, page \pageref{ex:permp-isort}),
+but the proof is trickier for \textsf{msort}.
 It might make a good project for ambitious readers.
 ACL2 verifies the \textsf{msort} ordering property without help,
 but it needs some lemmas stating the base case and the inductive case for
 the proof of the length property.
 ACL2 fails on the value property, so
 we will settle for a paper-and-pencil proof of that one
-(exercise \ref{msort-val-thm-pencil}).
+(exercise \ref{msort-val-thm-pencil}, page \pageref{msort-val-thm-pencil}).
 Figure~\ref{fig:msort-thms} (page \pageref{fig:msort-thms})
 states the \textsf{msort} theorems and lemmas in ACL2.
 
@@ -999,8 +1000,7 @@ operator as the result.
 The computation takes five steps: one step each for selection (\textsf{if}),
 \textsf{consp}, and \textsf{rest},
 plus two steps for \textsf{(list $xys$ nil)}
-because it is shorthand for \textsf{(cons $xys$ (cons nil nil))}
-(see exercise~\ref{ex:swap2-count}, page \pageref{ex:swap2-count}).
+because it is shorthand for \textsf{(cons $xys$ (cons nil nil))}.
 Therefore, $D_0 = D_1 = 5$.
 
 If $xs$ has two or more elements (that is, $n+2$ elements
@@ -1240,7 +1240,7 @@ $($\textsf{(len $xs$)}$+$\textsf{(len $ys$)} $= n$) $\rightarrow$ $($\emph{steps
 \exer{The double index
 of $M_{j,k}$ made the proof a little tricky.
 Another approach would have been to use the principle of double induction
-(figure~\ref{double-induction-rule}),
+(figure~\ref{double-induction-rule}, page \pageref{double-induction-rule}),
 which reframes mathematical induction for double-index predicates.
 Suppose that $P$ is a predicate whose universe of discourse is pairs of natural numbers.
 That is, for each pair of natural numbers $m$ and $n$,
@@ -1360,7 +1360,7 @@ leads to inequality \{s2\}.
    \textsf{rest}   & 1 & figure \ref{fig:basic-one-step-ops} \\
    \textsf{dmx}    & $14\lfloor n/2\rfloor + 5$ & \{dmx computation steps\}, $n$ elements, page \pageref{fig:dmx-computation-time}\\
    \textsf{first}  & 1 & figure \ref{fig:basic-one-step-ops} \\
-   \textsf{second} & 2 & section \ref{subsec:counting-computation-steps}, page \pageref{steps-in-second-op} \\
+   \textsf{second} & 2 & figure \ref{fig:basic-op-formulas} (page \pageref{fig:basic-op-formulas}) \\
    \textsf{mrg}    & $10(n+1)$ & \{mrg computation steps\}, $n$ elements, page \pageref{thm:mrg-computation-time}\\
    \textsf{msort}  & $S_{\lceil  n/2 \rceil}$  & \{dmx-len-first\}, page \pageref{thm:dmx-length-first-second} \\
    \textsf{msort}  & $S_{\lfloor n/2 \rfloor}$ & \{dmx-len-second\}, page \pageref{thm:dmx-length-first-second} \vspace{5pt} \\

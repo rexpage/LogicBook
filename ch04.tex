@@ -92,9 +92,10 @@ The empty list, \index{nil}\textsf{nil}, which is intrinsic in ACL2, needs no co
 Nonempty \index{list!nonempty}lists are constructed using the \textsf{cons} operator.
 The formula \textsf{[8 3 7]} is paper-and-pencil shorthand
 for \textsf{(cons 8 (cons 3 (cons 7 nil)))}.
-ACL2 also has shorthand, briefly introduced earlier
-(chapter~\ref{ch:software-testing-prefix-notation}, page \pageref{list-op-informal}),
-for nested \textsf{cons} operations: \textsf{(list 8 3 7)} is another way to write the formula
+ACL2 also has shorthand
+for nested \textsf{cons} operations
+(figure \ref{fig:list-nested-cons}, page \pageref{fig:list-nested-cons}): 
+\textsf{(list 8 3 7)} is another way to write the formula
 \textsf{(cons 8 (cons 3 (cons 7 nil)))}.
 
 \begin{aside}{three-line-equal}{Equal by Definition: $\equiv$}
@@ -1410,9 +1411,9 @@ equations that define the \textsf{prefix} operator.
 We can derive the prefix property of the \textsf{append} operator
 from those equations and the axioms of the \textsf{append} operator
 (figure~\ref{fig:append-defun}, page \pageref{fig:append-defun}).
-We will 
+We will
 \label{app-pfx-thm-paper-and-pencil}prove $\forall n.$P($n$) by induction,
-where the predicate 
+where the predicate
 \label{append-prefix-thm-predicate}P is defined as follows:
 \begin{center}
 P($n$) $\equiv$ $($\textsf{(prefix (len [$x_1$ $x_2$ $\dots$ $x_n$]) (append [$x_1$ $x_2$ $\dots$ $x_n$] $ys$))}

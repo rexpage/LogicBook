@@ -270,7 +270,8 @@ It delivers the same results
 as the previous operator, \textsf{capital},
 but it does so in fewer steps because the information in its array operand,
 \textsf{fcaps}, is arranged to shorten the search.
-Figure~\ref{fig:fcaps-array} suggests the contents of a few
+Figure~\ref{fig:fcaps-array} (page \pageref{fig:fcaps-array})
+suggests the contents of a few
 of the letterboxes in \textsf{fcaps} and presents some
 equations defining \textsf{fcapital}.
 
@@ -420,9 +421,10 @@ If we choose the prime number $31$
 as the hash base, the list \textsf{[12 9 6 5]} maps to the hash key
 $12 + 9\times31 + 6\times31^2 + 5\times31^3 = 155,012$.
 The numbers 12, 9, 6, and 5 are used as coefficients to powers of
-the hash base.\footnote{This treats the
-list of numbers as a base-31 numeral, as
-discussed in chapter~\ref{ch:binary-numerals}.
+the hash base.\footnote{This formula is similar to the
+ones discussed in
+chapter~\ref{ch:binary-numerals}
+for converting base 10 and base 2 numerals to numbers.
 It may happen that some of the digits in the numeral
 fall outside the usual range for base 31 digits,
 but the method in chapter~\ref{ch:binary-numerals}
@@ -517,7 +519,8 @@ strings is to treat each character as a number, to use these numbers as the
 coefficients for a sum of powers of 31, and then to trim that number to
 a hash index by computing the remainder in the division by
 the number of buckets in the hash table.
-This overall process is illustrated in figure \ref{fig:hash-table-process}.
+This overall process is illustrated
+in figure \ref{fig:hash-table-process} (page \pageref{fig:hash-table-process}).
 
 \begin{table}
 \begin{center}

@@ -408,7 +408,7 @@ Box~\ref{reason-for-acl2-admit} (page \pageref{reason-for-acl2-admit})
 explains what this entails.
 
 \begin{aside}{reason-for-acl2-admit}{ACL2 Must Prove That Operators Terminate}
-In figure~\ref{fig:append-prefix-acl2-prf},
+In figure~\ref{fig:append-prefix-acl2-prf} (page \pageref{fig:append-prefix-acl2-prf}),
 there is a step that has the label ``admit operator.''
 That is the terminology ACL2 uses for the process of accepting
 an operator into its mechanized logic.
@@ -436,9 +436,9 @@ by.\index{admit, ACL2}\index{ACL2!admit}
 and use Proof Pad to run it through the mechanized logic.
 (\emph{Hint}: Use \textsf{natp} to constrain the first operand of \textsf{rep}.)}
 
-\exer {Exercise~\ref{ex:nthcdrtonil} (page \pageref{ex:nthcdrtonil}) 
+\exer {Exercise~\ref{ex:nthcdrtonil} (page \pageref{ex:nthcdrtonil})
 required a paper-and-pencil
-proof of the following proposition: 
+proof of the following proposition:
 $\forall xs.($\textsf{(nthcdr (len $xs$) $xs$)} $=$ \textsf{nil}$)$.
 Define this theorem in ACL2 and get the mechanized logic to prove it.}
 
@@ -1190,19 +1190,20 @@ $\neg($\textsf{(h p $x$)} $=$ \textsf{0}$) \rightarrow$ \textsf{(p $x$)} $=$ \te
 \label{fig:hminus-thm-proof}
 \end{figure}
 
-The \{contradiction\} equation (page \pageref{boolean-contradiction}),
+The \{contradiction\} equation 
+(figure \ref{some-boolean-theorems}, page \pageref{some-boolean-theorems}),
 together with the \{double negation\} equation
-(figure~\ref{fig-02-grammar}, page \pageref{fig-02-grammar}),
+(figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms}),
 prove that
 $((\neg H($\textsf{p}, $x) \rightarrow H($\textsf{p}, $x))$ $=$ $H($\textsf{p}, $x)$
 and
 $(H($\textsf{p}, $x) \rightarrow (\neg H($\textsf{p}, $x)))$ $=$ $(\neg H($\textsf{p}, $x))$.
 So, we can rewrite the \{H$+$\} and \{H$-$\} theorems as follows:
-\vspace{2mm}
+
 %\begin{quote}
-\label{thm:HplusHminus}\index{theorem, by name!\{H$-$\}}\index{theorem, by name!\{H$+$\}}
-\hspace*{5mm}Theorem \{H$+$ version 2\}: $E$ $\vdash$ $H($\textsf{p}, $x)$ \\
-\hspace*{5mm}Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($\textsf{p}, $x)$
+\label{thm:HplusHminus}\index{theorem, by name!\{H$-$\}}\index{theorem, by name!\{H$+$\}}\hspace*{2mm}Theorem \{H$+$ version 2\}: $E$ $\vdash$ $H($\textsf{p}, $x)$
+
+\hspace*{2mm}Theorem \{H$-$ version 2\}: $E$ $\vdash$ $\neg H($\textsf{p}, $x)$
 \vspace{2mm}
 %\end{quote}
 
@@ -1227,7 +1228,7 @@ proof
 ~~~~~Assume $E$                                 &\emph{hypothesis of theorem}\\
 ------------------------\{H$-$ version 2\}      &\emph{\{H$-$\} proved in figure~\ref{fig:hminus-thm-proof} (page \pageref{fig:hminus-thm-proof})}\\
 ~~~~~~~~$\neg H($\textsf{p}, $x)$               &\\
-------------------------\{$\wedge$ complement\} &\emph{see figure~\ref{thm:and-complement}, page \pageref{thm:and-complement}}\\
+------------------------\{$\wedge$ complement\} &\emph{exercise~\ref{thm:and-complement}, page \pageref{thm:and-complement}}\\
 ~~~~~~~~~~~$False$                              &\\
 \end{tabular}
 \end{center}

@@ -189,7 +189,8 @@ the first element being the sum-bit and the second, the carry-bit.
 
 In the end, we would like to have a circuit
 that adds binary numerals,
-and we saw in an example (figure \ref{fig:adding-binary-numerals})
+and we saw in an example 
+(figure \ref{fig:adding-binary-numerals}, page \pageref{fig:adding-binary-numerals})
 that this would require us to deal with three input bits
 in each column:
 the corresponding bits in the two addends
@@ -258,7 +259,7 @@ The same theorem asserts that if $s$ and $c$ are bits,
 then \textsf{(numb [$s$ $c$])} is
 the number that the numeral \textsf{[$s$ $c$]} denotes.
 Combining these observations with the full-adder table
-(figure \ref{fig:full-adder})
+(figure \ref{fig:full-adder}, page \pageref{fig:full-adder})
 verifies the theorem \{full-adder ok\} shown in
 figure \ref{fig:full-adder-thm} (page \pageref{fig:full-adder-thm}).\footnote{The
 \textsf{full-adder} operator delivers a list \textsf{[$s$ $c$]} whose first
@@ -575,7 +576,8 @@ and        & \textsf{(cons $s_0$ $ss$}) $=$ \textsf{(cons $s_0$ nil)} $=$ \texts
            &                                                    & \\
 \end{tabular}\\
 \addtolength{\tabcolsep}{1mm}
-The equation $R(0)$ (figure~\ref{fig:adder-thm-prf}) makes the following requirement:
+The equation $R(0)$ (figure~\ref{fig:adder-thm-prf}, page \pageref{fig:adder-thm-prf}) 
+makes the following requirement:
 \vspace{1mm}\\
 \hspace*{1.5cm}\textsf{[[$s_0$] $c$]} $=$ \textsf{(adder $c_0$ [$x_0$] [$y_0$])}
 ~~\vspace{2mm}\\
@@ -618,7 +620,7 @@ We leave that step to the imagination.\index{circuit!ACL2 model}\index{model!of 
 \end{aside}
 
 So much for the base case.
-Figure~\ref{fig:adder-thm-prf} also presents
+Figure~\ref{fig:adder-thm-prf} (page \pageref{fig:adder-thm-prf}) also presents
 a proof of the inductive case: $\forall n.(R(n) \rightarrow R(n+1))$.
 When that proof arrives at the sum
 \textsf{(numb [$c_1$])} $+$ \textsf{(numb [$x_1$ \dots $x_{n+1}$])} $+$ \textsf{(numb [$y_1$ \dots $y_{n+1}$])},
@@ -1044,7 +1046,7 @@ as input.}
 Define an ACL2 model for the negation circuit
 of exercise~\ref{2s-negation-circuit}.
 Your model may refer to the ACL2 model
-of the ripple carry adder in
+of the ripple-carry adder in
 figure \ref{fig:adder} (page \pageref{fig:adder}).}
 
 \exer {Define and run a DoubleCheck property that
