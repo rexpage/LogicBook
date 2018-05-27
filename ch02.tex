@@ -222,7 +222,7 @@ Things which are equal to the same thing are also equal to one another.
 %Failed attempt to quote Euclid in Greek ... probably bad idea anyway
 %(Or, ``\textgreek{Ηἰτήσθω ἀπὸ παντὸς σημείου ἐπὶ πᾶν σημεῖον εὐθεῖαν γραμμὴν ἀγαγεῖν}'',
 %as Euclid may have put it.)
-People have been reasoning by substitution for a long time.}
+People have used equations in logical reasoning for a long time.}
 you must, as a rational consequence, accept the equation
 $(-1)\times(-1) = 1$.
 
@@ -489,6 +489,24 @@ We know that the derived formula stands for the same value
 as the original formula because the axiom asserts this equivalence,
 and we assume the axioms are right.
 
+Let's prove another truth-table theorem, partly to practice
+reasoning with equations but also to discuss a common
+point of confusion about logic. The implication operator
+($\rightarrow$) is a cornerstone of logic in real-world problems,
+but it is common to get tripped up when it comes to
+reasoning with implication.
+
+The \{$\rightarrow$ truth table\} theorem
+(figure~\ref{implication-truth-table}, page \pageref{implication-truth-table})
+provides the truth table
+for the implication operator.
+An important aspect of the proof is that it cites
+not only axioms from figure~\ref{fig-02-03} (page \pageref{fig-02-03})
+but also equations from the \{$\neg$ truth table\} theorem.
+This is the way mathematics goes. Once we have derived
+a new equation from the axioms, we can cite
+the new equation to derive still more equations.
+
 \begin{aside}{feasibility}{Truth Tables and Feasibility}
 Reasoning from equations is one way to prove that two formulas stand
 for the same value.
@@ -534,70 +552,6 @@ Feasible doesn't mean easy, though.
 It takes a lot of effort, but it can pay off.\index{truth table}\index{feasibility}\index{infeasibility}
 %\caption{Truth Tables and Feasibility}
 %\label{feasibility}
-\end{aside}
-
-Let's prove another truth-table theorem, partly to practice
-reasoning with equations but also to discuss a common
-point of confusion about logic. The implication operator
-($\rightarrow$) is a cornerstone of logic in real-world problems,
-but it is common to get tripped up when it comes to
-reasoning with implication.
-
-The \{$\rightarrow$ truth table\} theorem
-(figure~\ref{implication-truth-table}, page \pageref{implication-truth-table})
-provides the truth table
-for the implication operator.
-An important aspect of the proof is that it cites
-not only axioms from figure~\ref{fig-02-03} (page \pageref{fig-02-03})
-but also equations from the \{$\neg$ truth table\} theorem.
-This is the way mathematics goes. Once we have derived
-a new equation from the axioms, we can cite
-the new equation to derive still more equations.
-
-\begin{aside}{abstraction}{Abstraction}
-Citing proven theorems to prove new ones
-is similar to an idea known as
-\index{abstraction}abstraction
-in engineering design.
-Instead of citing an old theorem to prove a new one,
-we could copy the proof of the old theorem into the new proof.
-However, that would make the proof longer, harder to understand,
-and more likely to contain errors.
-
-Computer programs are built from components that are themselves
-also computer programs. As components become available,
-they are used to build more complex components.
-Sometimes, a component has almost the right form
-to be used in a new program but not quite.
-Maybe the existing component doubles a number,
-but the new usage needs to triple it.
-It is tempting to copy the
-old component, change $2 \times x$ to $3 \times x$,
-and paste the revised component into the program.
-
-In our experience, \index{copy-and-paste programming}copy-and-paste
-programming is a common source of errors in software,
-especially in programs maintained
-over time. When a maintainer finds an error in
-a component that was copied from elsewhere,
-there is nothing to direct the maintainer to fix
-the same error in the original component.
-A better choice, most of the time,
-is to make a new component with
-a variable, say $m$, in place of the $2$.
-This is known as creating an abstraction of the component
-(``abstract'' as opposed to ``specific'' or ``concrete'').
-
-The new component can be used for both doubling and tripling
-simply by specifying $2$ for $m$ in one case and $3$ for $m$ in the other.
-If later in the project an error is discovered in the component,
-the error only needs to be fixed in one place, not two,
-or maybe ten or a hundred places, depending on how many engineers
-copied the original component to make a change.
-Abstraction is an important engineering method.
-Citing old theorems to prove new ones has similar advantages.
-%\caption{Abstraction}
-%\label{abstraction}
 \end{aside}
 
 \begin{figure}
@@ -725,6 +679,52 @@ A particularly interesting and important asymmetric equation
 is the \index{absorption}absorption law
 (figure~\ref{and-absorption-thm}, page \pageref{and-absorption-thm}).
 It has two variables and two operations on one side, but only one variable and no operations on the other.
+
+\begin{aside}{abstraction}{Abstraction}
+Citing proven theorems to prove new ones
+is similar to an idea known as
+\index{abstraction}abstraction
+in engineering design.
+Instead of citing an old theorem to prove a new one,
+we could copy the proof of the old theorem into the new proof.
+However, that would make the proof longer, harder to understand,
+and more likely to contain errors.
+
+Computer programs are built from components that are themselves
+also computer programs. As components become available,
+they are used to build more complex components.
+Sometimes, a component has almost the right form
+to be used in a new program but not quite.
+Maybe the existing component doubles a number,
+but the new usage needs to triple it.
+It is tempting to copy the
+old component, change $2 \times x$ to $3 \times x$,
+and paste the revised component into the program.
+
+In our experience, \index{copy-and-paste programming}copy-and-paste
+programming is a common source of errors in software,
+especially in programs maintained
+over time. When a maintainer finds an error in
+a component that was copied from elsewhere,
+there is nothing to direct the maintainer to fix
+the same error in the original component.
+A better choice, most of the time,
+is to make a new component with
+a variable, say $m$, in place of the $2$.
+This is known as creating an abstraction of the component
+(``abstract'' as opposed to ``specific'' or ``concrete'').
+
+The new component can be used for both doubling and tripling
+simply by specifying $2$ for $m$ in one case and $3$ for $m$ in the other.
+If later in the project an error is discovered in the component,
+the error only needs to be fixed in one place, not two,
+or maybe ten or a hundred places, depending on how many engineers
+copied the original component to make a change.
+Abstraction is an important engineering method.
+Citing old theorems to prove new ones has similar advantages.
+%\caption{Abstraction}
+%\label{abstraction}
+\end{aside}
 
 \begin{figure}
 \begin{theorem}[\{$\wedge$ absorption\}]
@@ -1180,7 +1180,7 @@ in that same way, down to \emph{True} or \emph{False} if the formula
 doesn't have any variables in it.
 
 However, to deal with parentheses in a completely mechanized way,
-we need to add two equations 
+we need to add two equations
 to those of figure~\ref{fig-02-03} (page \pageref{fig-02-03}).
 The axioms of figure~\ref{fig-02-boolean-axioms} (page \pageref{fig-02-boolean-axioms})
 provide all of the information needed to determine
@@ -2065,7 +2065,7 @@ which we will discuss shortly.
 
 \begin{figure}
 Theorem \{self-implication\}: $\vdash$ $a \rightarrow a$ ~~~~\emph{Note: This theorem has no hypotheses.}\\
-proof
+\emph{proof}
 \begin{center}
 \begin{spacing}{0.9}
 \begin{tabular}{ll}
@@ -3211,7 +3211,7 @@ From the definition of existential quantification
 ($\exists$, page \pageref{def:existential-quantifier})
 we conclude that $(\exists x.(\neg P(\dots x \dots))) = True$.
 
-Four of the equations 
+Four of the equations
 in figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
 show how quantifiers interact with implication:
 \{${\forall}{\rightarrow}$\},
@@ -3283,7 +3283,7 @@ We will migrate all four quantifiers, and we need to start somewhere.
 Later we will say something about how to choose a starting point,
 but for the moment we'll just pick one.
 Let's migrate the $\forall x$ quantification.
-Applying the \{${\rightarrow}{\forall}$\} equation 
+Applying the \{${\rightarrow}{\forall}$\} equation
 (figure~\ref{fig-02-quantifiers}, page \pageref{fig-02-quantifiers})
 leads to the following formula:
 
@@ -3330,7 +3330,7 @@ for reasoning about quantified formulas.
 Figure~\ref{fig:rename-migrate-example}
 puts the renaming and quantifier migration steps all in one place
 to make it convenient for you to check each step to be sure
-you see how they make use of the equations 
+you see how they make use of the equations
 in figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers}).
 
 \begin{figure}

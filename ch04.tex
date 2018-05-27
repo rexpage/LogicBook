@@ -94,7 +94,7 @@ The formula \textsf{[8 3 7]} is paper-and-pencil shorthand
 for \textsf{(cons 8 (cons 3 (cons 7 nil)))}.
 ACL2 also has shorthand
 for nested \textsf{cons} operations
-(figure \ref{fig:list-nested-cons}, page \pageref{fig:list-nested-cons}): 
+(figure \ref{fig:list-nested-cons}, page \pageref{fig:list-nested-cons}):
 \textsf{(list 8 3 7)} is another way to write the formula
 \textsf{(cons 8 (cons 3 (cons 7 nil)))}.
 
@@ -1268,7 +1268,7 @@ That covers two of the three C's guidelines for inductive definitions of operato
 (figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}).
 The equations are complete and consistent.
 The third guideline (computational) has two parts, one of which is
-a requirement that at least one axiom must be nonxxxinductive.
+a requirement that at least one axiom must be noninductive.
 The \{\emph{sfx0}\} equation is not inductive because the \textsf{nthcdr} operator
 is not invoked on the right-hand side of the equation.
 In that case, \textsf{nthcdr} just delivers its second operand as is.
