@@ -339,12 +339,6 @@ when the operand has just one element or none.
 \textsf{(dmx nil) $=$ [nil nil] }                                                                 &\{\emph{dmx0}\} \\
 \end{tabular}
 \end{center}
-
-The informal axioms for \textsf{dmx} provide a basis for a formal definition.
-The formal version takes advantage of the fact that if the operand
-has less than two elements, then it is the first component of the result
-and the second component is the empty list.
-
 \label{dmx-defun}\index{equation, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}\index{operator, by name!dmx (demultiplexer)}\seeonlyindex{dmx (demultiplexer)}{operator}
 \begin{code}
 \begin{verbatim}
@@ -360,6 +354,10 @@ and the second component is the empty list.
 \end{verbatim}
 \end{code}
 
+The informal axioms for \textsf{dmx} provide a basis for a formal definition.
+The formal version takes advantage of the fact that if the operand
+has less than two elements, then it is the first component of the result
+and the second component is the empty list.
 Like the multiplexer,
 the demultiplexer preserves the total length
 and preserves the values in its operand.
