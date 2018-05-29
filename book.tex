@@ -22,13 +22,24 @@
 
 %\doublespacing %comment out for single-spacing  DID NOT WORK
 
-%\linespread{2} % comment out for single-spacing   WORKS, but does not doublespace footnotee
+%%% SINGLESPACE or DOUBLESPACE
+%%% Comment out the following line to get single-spaced PDF
+%%% note: does not doublespace footnotes or figures
+%\linespread{2} % comment out for single-spacing
 
 %%% HACK: This is a copy of "boxedtext", but it pays attention
 %%% to hyperref
 
 \makeatletter
 
+%%% HACK: This overrides the NewMath.cls definition of \exer
+%%%         to make the reference property of exercise labels
+%%%         work with hyperreferences (\ref{exercise-label})
+%%%  NOT SUITABLE FOR GENERAL USAGE
+%%%  PROBABLY DOES NOT WORK IF EXERCISES OCCUR IN THE MIDST OF SECTIONS
+%%%  RATHER THAN AT THE END
+%%%  Warning: must occur between \makeletter and \makeother commands
+%%%           that bracket the definition of \aside for boxedtext
 \long\def\exer#1{\vskip3pt\global\advance\c@exercise by 1
 \addtocounter{exercise}{-1}\refstepcounter{exercise}
 \global\c@subexercise=0
