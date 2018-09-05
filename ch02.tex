@@ -24,7 +24,7 @@ without exception. This justifies more confidence
 in conclusions than would otherwise be possible.
 
 We will be doing all of this in the domain of symbolic logic, which
-includes operations like ``logical or'' and ``logical negation,''
+includes operations like ``logical-or'' and ``logical negation,''
 rather than arithmetic operations, such as addition and
 multiplication.
 We will be doing Boolean algebra rather than numeric algebra,
@@ -53,9 +53,11 @@ express some standard rules of numeric computation.
 In those equations, the letters stand in
 place of numbers. They can also stand in place of other
 formulas.
-So, the variable $x$ stands for a grammatically correct formula,
+So, the \label{defnvariable}\index{variable}variable $x$ stands for a grammatically correct formula,
 which could be something simple, such as $2$, or
 it could be a more complicated formula, such as $3 \times (y + 1)$.
+(Some treatments call $x$ a
+\index{variable!metavariable}\index{metavariable}metavariable in this context.)
 
 We refer to letters used in this way as
 \index{variable}variables, even though within a particular equation they
@@ -115,7 +117,7 @@ $x \times (y \times z) = (x \times y) \times z$ & \{$\times$ associative\} \\
 $x\times(y+z) = (x \times y)+(x \times z)$      & \{distributive law\} \\
 \end{tabular}
 \end{spacing}
-\end{center}\index{equation, by name!\{$+$ identity\}}\index{equation, by name!\{$+$ complement\}}\index{equation, by name!\{$\times$ identity\}}\index{equation, by name!\{$\times$ null\}}\index{equation, by name!\{$+$ commutative\}}\index{equation, by name!\{$\times$ commutative\}}\index{equation, by name!\{$+$ associative\}}\index{equation!numeric algebra}\index{axiom!numeric algebra}\index{reasoning!with equations}
+\end{center}\index{equation, by name!\{$\times$ comm3\}@\{$+$ identity\}}\index{equation, by name!\{$\times$ comm2\}@\{$+$ complement\}}\index{equation, by name!\{$\times$ identity\}}\index{equation, by name!\{$\times$ null\}}\index{equation, by name!\{$\times$ comm\}@\{$+$ commutative\}}\index{equation, by name!\{$\times$ commutative\}}\index{equation, by name!\{$\times$ assoc\}@\{$+$ associative\}}\index{equation!numeric algebra}\index{axiom!numeric algebra}\index{reasoning!with equations}
 \caption{Equations of numeric algebra.}
 \label{fig-02-01}
 \end{figure}
@@ -145,7 +147,7 @@ with variables in it, such as $(a + (b \times c))$ or
 $(((-1) \times (x + 3)) + (x + y))$.
 
 Another crucial point is that each step cites
-exactly one equation from figure~\ref{fig-02-01}
+exactly one equation from figure~\ref{fig-02-01} (page \pageref{fig-02-01})
 to justify the transformation from the formula in the previous step.
 We are so accustomed to calculating with numeric formulas that
 we often combine many basic steps into one. When we reason formally,
@@ -174,7 +176,7 @@ and that leads to the formula $((-1)\times(-1)) + ((-1) + 1)$.
 So, we know now that
 $(-1)\times(-1) = ((-1)\times(-1)) + ((-1) + 1)$.
 
-Doesn't really seem like progress does it?
+Doesn't really seem like progress, does it?
 But, we press on anyway, one step at a time.
 The transformations, step by step, finally confirm that the two formulas
 $(-1)\times(-1)$ and 1 represent the same number.
@@ -264,7 +266,7 @@ if you like,
 the \{$\times$ negation\} equation from exercise \ref{ex:times-negation}.}
 \end{exercises}
 
-\section{Boolean equations}
+\section{Boolean Equations}
 \label{sec:boolean-equations}
 Let's start with the Boolean equations in
 figure~\ref{fig-02-03}.
@@ -300,7 +302,7 @@ $x \rightarrow x = True$                             & \{self-implication\} \\
 $\neg(\neg x)  = x$                                  & \{double negation\} \\
 \end{tabular}
 \end{spacing}
-\end{center}\index{Boolean!algebra}\index{commutative}\index{distributive}\seeonlyindex{algebra, Boolean}{Boolean, algebra}\index{reasoning!with equations}\index{axiom!commutative}\index{axiom!associative}\index{axiom!parentheses}\index{axiom!Boolean algebra}\index{axiom, by name!\{$\vee$ identity\}}\index{axiom, by name!\{$\vee$ null\}}\index{axiom, by name!\{$\vee$ commutative\}}\index{axiom, by name!\{$\vee$ associative\}}\index{axiom, by name!\{$\vee$ distributive\}}\index{axiom, by name!\{implication\}}\index{axiom, by name!\{$\vee$ DeMorgan\}}\index{axiom!DeMorgan}\index{axiom, by name!\{$\vee$ idempotent\}}\index{axiom!idempotent}\index{axiom, by name!\{self-implication\}}\index{axiom, by name!\{double negation\}}\index{axiom, by name!\{atomic release\}}\index{equation!grammar}\index{equation!distributive}\index{equation!Boolean algebra}\index{equation!commutative}\index{equation!associative}\index{equation!parentheses}\index{equation!Boolean algebra}\index{equation, by name!\{$\vee$ identity\}}\index{equation, by name!\{$\vee$ null\}}\index{equation, by name!\{$\vee$ commutative\}}\index{equation, by name!\{$\vee$ associative\}}\index{equation, by name!\{$\vee$ distributive\}}\index{equation, by name!\{implication\}}\index{equation, by name!\{$\vee$ DeMorgan\}}\index{equation!DeMorgan}\index{equation, by name!\{$\vee$ idempotent\}}\index{equation, by name!\{idempotent\}}\index{equation, by name!\{self-implication\}}\index{equation, by name!\{double negation\}}\index{operator, logic!and ($\wedge$)}\index{operator, logic!or ($\vee$)}\index{operator, logic!not ($\neg$)}\index{operator, logic!implication ($\rightarrow$)}\seeonlyindex{logic operator}{operator, logic}
+\end{center}\index{Boolean!algebra}\index{commutative}\index{distributive}\seeonlyindex{algebra, Boolean}{Boolean, algebra}\index{reasoning!with equations}\index{axiom!commutative}\index{axiom!associative}\index{axiom!parentheses}\index{axiom!Boolean algebra}\index{axiom, by name!\{$\vee$ identity\}}\index{axiom, by name!\{$\vee$ null\}}\index{axiom, by name!\{$\vee$ commutative\}}\index{axiom, by name!\{$\vee$ associative\}}\index{axiom, by name!\{$\vee$ distributive\}}\index{axiom, by name!\{implication\}}\index{axiom, by name!\{$\vee$ deMorgan\}}\index{axiom!DeMorgan}\index{axiom, by name!\{$\vee$ idempotent\}}\index{axiom!idempotent}\index{axiom, by name!\{self-implication\}}\index{axiom, by name!\{double negation\}}\index{axiom, by name!\{atomic release\}}\index{equation!grammar}\index{equation!distributive}\index{equation!Boolean algebra}\index{equation!commutative}\index{equation!associative}\index{equation!parentheses}\index{equation!Boolean algebra}\index{equation, by name!\{$\vee$ identity\}}\index{equation, by name!\{$\vee$ null\}}\index{equation, by name!\{$\vee$ commutative\}}\index{equation, by name!\{$\vee$ associative\}}\index{equation, by name!\{$\vee$ distributive\}}\index{equation, by name!\{implication\}}\index{equation, by name!\{$\vee$ deMorgan\}}\index{equation!DeMorgan}\index{equation, by name!\{$\vee$ idempotent\}}\index{equation, by name!\{idempotent\}}\index{equation, by name!\{self-implication\}}\index{equation, by name!\{double negation\}}\index{operator, logic!and ($\wedge$)}\index{operator, logic!or ($\vee$)}\index{operator, logic!not ($\neg$)}\index{operator, logic!implication ($\rightarrow$)}\seeonlyindex{logic operator}{operator, logic}
 \caption{Boolean axioms (basic equations).}
 \label{fig-02-03}
 \end{figure}
@@ -340,18 +342,15 @@ $=$ & $True$               & \{$\vee$ null\}      &---replace $x$ in the axiom w
 \dots for practice, prove the other two equations yourself \dots
 \end{quote}
 \end{proof}
-\index{equation!proof by}
-\index{proof!with equations}
-\index{truth table}
 \caption{Proof of theorem \{$\vee$ truth table\}.}
-\label{or-truth-table}
+\label{or-truth-table}\index{equation!proof by}\index{proof!with equations}\index{truth table}\index{theorem, by name!\{$\vee$ truth table\}}
 \end{figure}
 
 The first equation in the theorem \{$\vee$ truth table\}
 (figure~\ref{or-truth-table}, page \pageref{or-truth-table})
 is a special case of the
 \{$\vee$ identity\} axiom (figure~\ref{fig-02-03}),
-and the proof of that equation simply amounts making that observation.
+and the proof of that equation simply amounts to making that observation.
 That is, the proof just rewrites the \{$\vee$ identity\} axiom
 with $False$ in place of $x$.
 The proof of the second equation is equally short, but it cites
@@ -362,7 +361,7 @@ by citing axioms in a similar way.
 
 We are serious about that. Did you prove the other two equations?
 No? Well \dots go back and do it, then. Without participation, there
-is no learning. $\dots$ \emph{We'll wait here}$\dots$
+is no learning. $\dots$ \emph{We'll wait here.}
 
 Finished now? Good for you. You cited the \{$\vee$ identity\} axiom in your
 proof of the third equation in the theorem and the \{$\vee$ null\}
@@ -422,7 +421,7 @@ $=$ & $True$            & \{self-implication\} \\
 \end{proof}
 \index{equation!proof by}
 \index{proof!with equations}
-\index{equation, by name!\{$\vee$ complement\}}
+\index{equation, by name!\{$\vee$ complement\}}\index{theorem, by name!\{$\vee$ complement\}}
 \index{excluded middle}
 \index{equation!excluded middle}
 \index{law of the excluded middle}
@@ -442,12 +441,13 @@ construct your own proof of the second equation in the theorem.
 
 \begin{figure}
 \begin{theorem}[\{$\neg$ truth table\}]
-\mbox{}\\
+\mbox{}
 \begin{itemize}
 \item $\neg True = False$
 \item $\neg False = True$
 \end{itemize}
 \end{theorem}
+\mbox{}
 \begin{proof}
 \mbox{} \\
 \begin{tabular}{llll}
@@ -469,7 +469,7 @@ $=$ & $True$                                   & \\
 \end{proof}
 \index{equation!proof by}
 \index{proof!with equations}
-\index{truth table}
+\index{truth table}\index{theorem, by name!\{$\neg$ truth table\}}
 \caption{Proof of theorem \{$\neg$ truth table\}.}
 \label{fig:neg-truth-table}
 \end{figure}
@@ -580,7 +580,7 @@ $=$ & $True$                           & \{$\neg$ truth table\}\\
 
 \end{proof}
 \caption{Proof of theorem \{$\rightarrow$ truth table\}.}
-\index{truth table}
+\index{truth table}\index{theorem, by name!\{$\rightarrow$ truth table\}}
 \label{implication-truth-table}
 \end{figure}
 
@@ -621,7 +621,7 @@ inconsistency into the mathematical system, which renders the system useless.
 Over half of the Boolean axioms in figure~\ref{fig-02-03} (page \pageref{fig-02-03})
 have names associated with the logical-or ($\vee$) operation.
 One of them, the
-\{$\vee$ DeMorgan\} equation
+\{$\vee$ DeMorgan\} equation,
 establishes a connection between logical-or and logical-and.
 It converts the negation of a logical-or to the logical-and of two negations:
 $\neg(x \vee y) = (\neg x) \wedge (\neg y)$.
@@ -648,7 +648,7 @@ $=$ & $False$                                & \{$\neg$ truth table\} \\
 
 \end{proof}
 \index{equation, by name!\{$\wedge$ null\}}
-\index{proof!with equations}
+\index{proof!with equations}\index{theorem, by name!\{$\wedge$ null\}}
 \caption{Proof of theorem \{$\wedge$ null\}.}
 \label{fig:and-null-thm}
 \end{figure}
@@ -668,7 +668,7 @@ it transforms the simple formula $True$ into something more complicated $(x \vee
 When you apply the equation from right to left,
 the variable $x$ on the left-hand side
 stands for any formula you want to make up (as long as it's grammatically correct).
-It can have hundreds of variables and thousands operations.
+It can have hundreds of variables and thousands of operations.
 This may seem perverse, but if that's what it takes to complete a proof, so be it.
 
 The null law for logical-and (\{$\wedge$ null\}: $x \wedge False = False$)
@@ -737,7 +737,7 @@ $(x \vee y) \wedge y = y$
     & $(x \vee y) \wedge y$                & \\
 $=$ & $(x \vee y) \wedge (y \vee False)$   & \{$\vee$ identity\} \\
 $=$ & $(y \vee x) \wedge (y \vee False)$   & \{$\vee$ commutative\} \\
-$=$ & $y \vee (x \wedge False)$            & \{$\vee$ distrubutive\} \\
+$=$ & $y \vee (x \wedge False)$            & \{$\vee$ distributive\} \\
 $=$ & $y \vee False$                       & \{$\wedge$ null\} \\
 $=$ & $y$                                  & \{$\vee$ identity\} \\
 \end{tabular}
@@ -747,7 +747,7 @@ $=$ & $y$                                  & \{$\vee$ identity\} \\
 \index{proof!with equations}
 \index{absorption}
 \index{equation!absorption}
-\index{equation, by name!\{$\wedge$ absorption\}}
+\index{equation, by name!\{$\wedge$ absorption\}}\index{theorem, by name!\{$\wedge$ absorption\}}
 \caption{Proof of theorem \{$\wedge$ absorption\}.}
 \label{and-absorption-thm}
 \end{figure}
@@ -773,19 +773,6 @@ After you have enough practice to gain a good understanding of the process,
 we will begin to use a mechanized logic to make sure our reasoning is correct.
 
 \begin{exercises}
-\exer {Use the Boolean axioms (figure~\ref{fig-02-03}, page \pageref{fig-02-03}) and the
-\index{absorption}\index{equation!absorption}\index{equation, by name!\{$\wedge$ absorption\}}\{$\wedge$-absorption\}
-theorem
-(figure~\ref{and-absorption-thm}, page \pageref{and-absorption-thm})
-to derive the \{$\vee$-absorption\} equation: $(x \wedge y) \vee y = y$.}
-
-\exer {\label{ex:xor}%
-Derive the equation
-$((x \vee y) \wedge (\neg(x \wedge y))) = (((\neg x) \wedge y) \vee (x \wedge (\neg y)))$
-from the Boolean axioms.\\
-\emph{Note}: These formulas define the
-\index{exclusive or}\index{or, exclusive}exclusive-or operator.}
-
 \exer {Use the Boolean axioms
 and the theorems of this section to
 derive the truth table for the formula $(x \vee ((\neg y) \wedge (\neg z)))$.\\
@@ -794,9 +781,23 @@ will have eight entries, which means you will need to prove eight equations.
 Each equation will have on the left-hand side
 a different combination of values ($True$ or $False$) for the variables $x$, $y$, and $z$,
 and on the right-hand side each equation will have the value ($True$ or $False$) of the formula for that combination.}
+
+\exer {Use the Boolean axioms (figure~\ref{fig-02-03}, page \pageref{fig-02-03}) and the
+\index{absorption}\index{equation!absorption}\index{equation, by name!\{$\wedge$ absorption\}}\{$\wedge$ absorption\}
+theorem
+(figure~\ref{and-absorption-thm}, page \pageref{and-absorption-thm})
+to derive the
+\index{theorem, by name!\{$\vee$ absorption\}}\index{equation, by name!\{$\vee$ absorption\}}\{$\vee$ absorption\} equation: $(x \wedge y) \vee y = y$.}
+
+\exer {\label{ex:xor}%
+Derive the equation
+$((x \vee y) \wedge (\neg(x \wedge y))) = (((\neg x) \wedge y) \vee (x \wedge (\neg y)))$
+from the Boolean axioms.\\
+\emph{Note}: These formulas define the
+\index{exclusive or}\index{or, exclusive}exclusive-or operator.}
 \end{exercises}
 
-\section{Boolean formulas}
+\section{Boolean Formulas}
 \label{sec:boolean-formuas}
 
 We have been doing proofs based on the grammatical elements of formulas,
@@ -816,7 +817,7 @@ This gives us sufficient variety for any formula,
 but we don't need to limit ourselves to lowercase Roman letters.
 We could use Greek letters or
 even make up recognizable squiggles, like
-\index{Dr Seuss}\index{Seuss, Dr}Dr Seuss.
+\index{Dr. Seuss}\index{Seuss, Dr.}Dr. Seuss.
 
 So, if you write $True$, $False$, or a letter from the alphabet,
 you have composed a grammatically correct Boolean formula.
@@ -975,13 +976,14 @@ $\bullet$ ~~ $v$ is a variable or $True$ or $False$ \\
 \index{axiom, by name!\{$\vee$ associative\}}
 \index{axiom, by name!\{$\vee$ distributive\}}
 \index{axiom, by name!\{implication\}}
-\index{axiom, by name!\{$\vee$ DeMorgan\}}
+\index{axiom, by name!\{$\vee$ deMorgan\}}
 \index{axiom!DeMorgan}
 \index{axiom, by name!\{$\vee$ idempotent\}}
 \index{axiom, by name!\{idempotent\}}
 \index{axiom, by name!\{self-implication\}}
 \index{axiom, by name!\{double negation\}}
 \index{axiom, by name!\{atomic release\}}
+\index{axiom, by name!\{redundant grouping\}}
 \index{equation!grammar}
 \index{equation!distributive}
 \index{equation!Boolean algebra}
@@ -996,13 +998,14 @@ $\bullet$ ~~ $v$ is a variable or $True$ or $False$ \\
 \index{equation, by name!\{$\vee$ associative\}}
 \index{equation, by name!\{$\vee$ distributive\}}
 \index{equation, by name!\{implication\}}
-\index{equation, by name!\{$\vee$ DeMorgan\}}
+\index{equation, by name!\{$\vee$ deMorgan\}}
 \index{equation!DeMorgan}
 \index{equation, by name!\{$\vee$ idempotent\}}
 \index{equation, by name!\{idempotent\}}
 \index{equation, by name!\{self-implication\}}
 \index{equation, by name!\{double negation\}}
 \index{equation, by name!\{atomic release\}}
+\index{equation, by name!\{redundant grouping\}}
 \index{operator, logic!and ($\wedge$)}
 \index{operator, logic!or ($\vee$)}
 \index{operator, logic!not ($\neg$)}
@@ -1012,7 +1015,7 @@ $\bullet$ ~~ $v$ is a variable or $True$ or $False$ \\
 \end{figure}
 
 With the four rules of
-figure~\ref{fig-02-grammar} (page \pageref{fig-02-grammar}),
+figure~\ref{fig-02-grammar}, %(page \pageref{fig-02-grammar}),
 we can determine whether or not any given sequence of symbols
 is a grammatically correct Boolean formula.
 The definition of the grammar is circular,
@@ -1051,15 +1054,15 @@ $(x \rightarrow (\neg x)) = (\neg x)$                                & \{contrad
 \end{tabular}
 \end{spacing}
 \end{center}
-\index{equation, by name!\{$\neg$ as $\rightarrow$\}}
-\index{equation, by name!\{$\wedge$ DeMorgan\}}
+\index{equation, by name!\{$\vee$ abs1\}@\{$\neg$ as $\rightarrow$\}}
+\index{equation, by name!\{$\wedge$ deMorgan\}}
 \index{equation!DeMorgan}
 \index{DeMorgan}
-\index{equation, by name!\{$\vee$ complement\} }
+\index{equation, by name!\{$\vee$ complement\}}
 \index{equation, by name!\{$\wedge$ complement\}}
-\index{equation, by name!\{$\neg True$\}}
-\index{equation, by name!\{$\neg False$\}}
-\index{equation, by name!\{$\rightarrow$ identity\}}
+\index{equation, by name!\{$\vee$ abs3\}@\{$\neg True$\}}
+\index{equation, by name!\{$\vee$ abs2\}@\{$\neg False$\}}
+\index{equation, by name!\{$\wedge$ null\}2@\{$\rightarrow$ identity\}}
 \index{equation, by name!\{$\wedge$ identity\}}
 \index{equation, by name!\{$\wedge$ commutative\}}
 \index{equation!commutative}
@@ -1078,6 +1081,25 @@ $(x \rightarrow (\neg x)) = (\neg x)$                                & \{contrad
 \index{equation, by name!\{$\wedge$ implication\}}
 \index{equation, by name!\{absurdity\}}
 \index{equation, by name!\{contradiction\}}
+\index{theorem, by name!\{$\neg$ as $\rightarrow$\}}
+\index{theorem, by name!\{$\wedge$ deMorgan\}}
+\index{theorem, by name!\{$\vee$ complement\}}
+\index{theorem, by name!\{$\wedge$ complement\}}
+\index{theorem, by name!\{$\neg False$\}, \{$\neg True$\}}
+\index{theorem, by name!\{$\rightarrow$ identity\}}
+\index{theorem, by name!\{$\wedge$ identity\}}
+\index{theorem, by name!\{$\wedge$ commutative\}}
+\index{theorem, by name!\{$\wedge$ associative\}}
+\index{theorem, by name!\{$\wedge$ distributive\}}
+\index{theorem, by name!\{$\wedge$ idempotent\}}
+\index{theorem, by name!\{idempotent\}}
+\index{theorem, by name!\{contrapositive\}}
+\index{theorem, by name!\{currying\}}
+\index{theorem, by name!\{$\vee$ absorption\}}
+\index{theorem, by name!\{$\wedge$ implication\}}
+\index{theorem, by name!\{$\wedge$ implication\}}
+\index{theorem, by name!\{absurdity\}}
+\index{theorem, by name!\{contradiction\}}
 \index{absurdity, equation}
 \index{contrapositive}
 \caption{Some Boolean theorems.}
@@ -1237,7 +1259,7 @@ Prove the following equation:\\
 
 \begin{aside}{aside:boolean-equivlance}{Boolean Equivalence ($\leftrightarrow$)}
 The following equation defines the
-\index{operator, logic!Boolean equivalence ($\leftrightarrow$)}Boolean equivalence operator ($\leftrightarrow$):
+\index{operator, logic!Boolean equivalence ($\leftrightarrow$, iff)}Boolean equivalence operator ($\leftrightarrow$):
 \begin{center}
 $(x \leftrightarrow y) = ((x \rightarrow y) \wedge (y \rightarrow x))$\hspace{5mm}\{equivalence\}
 \end{center}
@@ -1253,7 +1275,7 @@ Altogether,
 exercises~\ref{ex:boolean-equiv1}--\ref{ex:boolean-equiv4}
 show six formulas that deliver the value of the Boolean equivalence operator.
 In other words, the exercises provide six formulas that are all equivalent to
-Boolean equivalence.\index{Boolean!equivalence ($\leftrightarrow$)}\index{equivalence!Boolean ($\leftrightarrow$)}
+Boolean equivalence.\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{equivalence!Boolean ($\leftrightarrow$, iff)}
 %\caption{Boolean Equivalence ($\leftrightarrow$)}
 %\label{aside:boolean-equivlance}\label{def:equivalence-op}
 \end{aside}
@@ -1298,7 +1320,7 @@ that has the same meaning.
 Logical-or and logical-and are not functionally complete,
 but their negations,
 \index{nor!logic gate}nor and \index{nand!logic gate}nand, are.
-Figure~\ref{fig-02-nand-is-all-you-need} (page ~\pageref{fig-02-nand-is-all-you-need})
+Figure~\ref{fig-02-nand-is-all-you-need} (page \pageref{fig-02-nand-is-all-you-need})
 shows how to write logic formulas using only nand gates.
 
 There may be a way
@@ -1339,7 +1361,7 @@ There are many ways to handle the electronics,
 but we are going to leave the physics to the electrical engineers.
 A voltage at a point in a circuit might represent
 the signal 1 (\emph{True})
-and the lack a voltage, the signal 0 (\emph{False}),
+and the lack of voltage, the signal 0 (\emph{False}),
 but physical representations depend on the technology employed.
 We are going to focus on the logic and trust that
 the electronic hardware can faithfully deal with
@@ -1399,14 +1421,15 @@ of the signals $a$ and $b$.
 \label{fig-02-logic-gates}
 \end{figure}
 
-Figure~\ref{fig-02-logic-gates} (page \pageref{fig-02-logic-gates})
+Figure~\ref{fig-02-logic-gates} %(page \pageref{fig-02-logic-gates})
 presents symbols used for logic gates in circuit diagrams
 and annotates them with both
 the algebraic notation used by circuit designers
 and the logic formulas we have been using.
 The important fact to remember is that all three notations
-\index{circuit!diagram}\index{diagram!circuit}
-represent the same concepts in logic. Circuit diagrams, logic formulas,
+represent the same concepts in logic.
+\index{circuit!diagram}\index{diagram!circuit}Circuit diagrams,
+logic formulas,
 and the algebraic notation used by circuit designers are three
 different notations for exactly the same mathematical objects.
 In this sense, digital circuits, and, therefore, computers,
@@ -1524,7 +1547,7 @@ Using a negation-gate and an or-gate,
 draw a circuit diagram for an ``implication circuit''
 that has the same input/output behavior as the implication operator.\\
 \emph{Hint}: Follow the example of the \{implication\} axiom
-(figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms})).
+(figure~\ref{fig-02-boolean-axioms}, page \pageref{fig-02-boolean-axioms}).
 One of the inputs will need to be a constant rather than a variable.}
 
 \exer {For each of the following logic formulas,
@@ -1985,7 +2008,7 @@ Assume $a \wedge b$                             &\emph{hypothesis of theorem (re
 \end{figure}
 
 The proof in
-figure \ref{fig:and-commutes-proof} (page \pageref{fig:and-commutes-proof})
+figure \ref{fig:and-commutes-proof} %(page \pageref{fig:and-commutes-proof})
 cites the \{$\wedge$ introduction\} inference rule,
 a rule that requires two proofs above the line.
 The first of those proofs, in this example, has the hypothesis
@@ -2001,7 +2024,7 @@ except that it cites \{$\wedge$ elimination 1\} instead of \{$\wedge$ eliminatio
 The \{$\wedge$ elimination 1\} rule brings the left-hand operand ($a$) of the $\wedge$
 down below the line.
 The \{$\wedge$ introduction\} rule requires the
-conclusion of the first proof above line to
+conclusion of the first proof above the line to
 become the left-hand operand of the $\wedge$
 operation that the rule introduces,
 and it requires the conclusion of the second
@@ -2021,11 +2044,11 @@ and sometimes, when the proof is an assumption, none.
 
 \begin{aside}{variable-stand-for-formulas}{Variables Stand for Formulas}
 As in Boolean algebra, variables in deductive reasoning
-stand for arbitrary formulas.
+stand for formulas (see page \pageref{defnvariable}).
 Any grammatically correct formula
-can be plugged in for a variable in a theorem,
-as long as all of the instances of that variable are
-replaced by that same formula.
+can be plugged in for a variable
+(sometimes called a \index{metavariable}metavariable in this context),
+as long as that same formula replaces all instances of the variable.
 For example,
 theorem \{$\wedge$ commutes\} ($a \wedge b$ $\vdash$ $b \wedge a$)
 has two variables, $a$ and $b$.
@@ -2136,7 +2159,7 @@ of the citation of the \{$\rightarrow$ introduction\} inference rule
 and therefore does not become a hypothesis of the theorem being proved
 (unless it is assumed elsewhere in the proof and not discharged).
 
-Figure \ref{fig:or-self-imp-proof} (page \pageref{fig:or-self-imp-proof})
+Figure \ref{fig:or-self-imp-proof} %(page \pageref{fig:or-self-imp-proof})
 displays a proof of the \{self-implication\} theorem,
 which says that formulas of the form ($a \rightarrow a$) always have the value \emph{True}.
 The proof cites the \{identity\} rule,
@@ -2206,7 +2229,7 @@ than those we have studied so far.
 The \{$\wedge$ commutes\} theorem proved earlier
 is similar to the \{$\vee$ commutes\} theorem
 that we will discuss now, but the proofs are very different.
-Figure \ref{fig:or-commutes-proof} (page \pageref{fig:or-commutes-proof}),
+Figure \ref{fig:or-commutes-proof}, %(page \pageref{fig:or-commutes-proof}),
 which displays the proof of the \{$\vee$ commutes\} theorem,
 cites all three of the inference rules involving the $\vee$ operator
 and affords an example of how the \{$\vee$ elimination\} rule works.
@@ -2257,7 +2280,7 @@ comprise a proof of the \{$\vee$ commutes\} theorem.
 
 Deductive proofs are one-directional,
 so it's a little ironic that most
-of the theorems we've prove so far using natural deduction
+of the theorems we've proved so far using natural deduction
 turn out to be bidirectional.
 The proofs went in only one direction,
 but the theorems were provable in the other direction, too.
@@ -2273,7 +2296,7 @@ Pay particular attention to the discharge of the
 assumption that is introduced at the top of the proof.
 
 \begin{figure}
-Theorem \{$\rightarrow$ chain\}
+Theorem \{$\rightarrow$ chain\}:
 $(a \rightarrow b)$, $(b \rightarrow c)$ $\vdash$ $a \rightarrow c$ \\
 \emph{proof}
 \begin{center}
@@ -2370,14 +2393,14 @@ The proof cites the implication chain rule theorem.
 Since that theorem has two hypotheses, there are two proofs above
 the line where the theorem is cited. Those proofs conclude in
 the implication formulas that are the hypotheses of the implication chain rule.
-Finally, the a citation of the \{$\neg$ introduction\} rule completes the proof.
+Finally, the citation of the \{$\neg$ introduction\} rule completes the proof.
 
 The \{reductio ad absurdum\} rule supports
 ``proof by contradiction.''
 It says that if you can prove that the formula
 $(\neg a) \rightarrow$ \emph{False} is true,
 you can conclude that the formula $a$ is true.
-The proof in figure~\ref{fig:dbl-neg-fwd} (page \pageref{fig:dbl-neg-fwd})
+The proof in figure~\ref{fig:dbl-neg-fwd} %(page \pageref{fig:dbl-neg-fwd})
 cites the
 \index{proof!reductio ad absurdum}\index{inference rule, by name!\{reductio ad absurdum\}}\index{reductio ad absurdum}reductio
 ad absurdum rule to prove a theorem about double negation.
@@ -2408,7 +2431,7 @@ Assume $(\neg(\neg a))$                       &\emph{hypothesis of theorem}\\
 \end{figure}
 
 Citations in the example proofs so far have included all of the inference rules
-but one. The rule we haven't used yet is \{contradition\}.\footnote{It
+but one. The rule we haven't used yet is \{contradiction\}.\footnote{It
 is ironic that proofs citing the \{reductio ad absurdum\} rule
 are called proofs by contradiction, while proofs citing the
 \{contradiction\} rule have no special name.
@@ -2432,7 +2455,7 @@ of the logical-or. That assumption is discharged when
 the proof cites the \{$\rightarrow$ introduction\} rule.
 The third proof is similar to the second proof
 but cites the \{identity\} rule at the point
-corresponding to the citation of the \{contradition\} rule in the second proof.
+corresponding to the citation of the \{contradiction\} rule in the second proof.
 
 Creating proofs by
 \index{proof!deductive}\index{natural deduction}natural deduction is hard.
@@ -2479,7 +2502,7 @@ Assume $b$          &\emph{this assumption will be discharged}\\
 -----------------\{$\rightarrow$ introduction\} &\emph{assumed $b$, proved $b$, conclude $(b \rightarrow b)$}\\
 ~~~~$b \rightarrow b$ &\emph{conclusion required by citation of} \{$\vee$ elimination\}\\
 Discharge $b$              & \emph{discharged by citing} \{$\rightarrow$ introduction\}\emph{, as promised}\\
----------------\{$\vee$ elimination\}       &\emph{requires three proofs the above, scope goes to top}\\
+---------------\{$\vee$ elimination\}       &\emph{requires three proofs above the line, scope goes to top}\\
 ~~~~~~~~$b$        &\emph{proved} $(a \vee b)$\emph{,} $(a \rightarrow b)$\emph{, and} $(b \rightarrow b)$\emph{, conclude} $b$\\
 \end{tabular}
 \end{spacing}
@@ -2530,8 +2553,8 @@ $\vdash$ $(a \wedge b) \rightarrow a$}
 Use natural deduction to prove
 \index{theorem, by name!\{nor commutes\}}\index{nor!commutes}\index{commutative}theorem
 \{nor commutes\}: $\neg (a \vee b)$ $\vdash$ $\neg (b \vee a)$\\
-\emph{Note}: The \{$\vee$ commutes\} theorem will not help because
-$\neg (a \vee b)$ is a negation formula, not a logical-or formula.
+\emph{Note}: The \{$\vee$ commutes\} theorem may help, but not directly
+because $\neg (a \vee b)$ is a negation formula, not a logical-or formula.
 It has a logical-or as a subformula, but natural deduction
 requires matching the whole formula, not a subformula.}
 
@@ -2542,31 +2565,31 @@ requires matching the whole formula, not a subformula.}
 for the same reason that \{$\vee$ commutes\} does not help
 in exercise~\ref{ex:nor-commutes}.}
 
-\exer {Use natural deduction to prove
+\exer {\label{ex:nor-elimination}%
+Use natural deduction to prove
 \index{theorem, by name!\{nor elimination 1\}}\index{nor!elimination}theorem
 \{nor elimination 1\}: $\neg (a \vee b)$ $\vdash$ $\neg a$}
 
 \exer {\label{ex:DeMfwd}%
 Use natural deduction to prove
-\index{DeMorgan}\index{theorem!DeMorgan}\index{theorem, by name!\{DeMorgan $\vee$ forward\}}\{DeMorgan $\vee$ forward\}:
+\index{DeMorgan}\index{theorem!DeMorgan}\index{theorem, by name!\{deMorgan $\vee$ forward\}@\{DeMorgan $\vee$ forward\}}\{DeMorgan $\vee$ forward\}:
 $\neg (a \vee b)$ $\vdash$ $(\neg a) \wedge (\neg b)$}
 
 \exer {\label{ex:DeMbkw}%
 Use natural deduction to prove
-\index{DeMorgan}\index{theorem!DeMorgan}\index{theorem, by name!\{DeMorgan $\vee$ backward\}}\{DeMorgan $\vee$ backward\}:
+\index{DeMorgan}\index{theorem!DeMorgan}\index{theorem, by name!\{deMorgan $\vee$ backward\}@\{DeMorgan $\vee$ backward\}}\{DeMorgan $\vee$ backward\}:
 $(\neg a) \wedge (\neg b)$ $\vdash$ $\neg (a \vee b)$}
 
 \exer {Explain the connection between exercises~\ref{ex:DeMfwd} and \ref{ex:DeMbkw}.\\
 \emph{Hint}: Review box~\ref{aside:boolean-equivlance} (page \pageref{aside:boolean-equivlance}).}
 
-
 \exer {Use natural deduction to prove\index{theorem, by name!\{$\vee$ complement\}}
 theorem \{$\vee$ complement\}: $\vdash$ $a \vee (\neg a)$ \\
 \emph{Hint}: Use the \{reductio ad absurdum\} inference rule,
-cite the \{nor elimination 1\} and \{$\wedge$ complement\}
-theorems from earlier exercises,
-and remember that you can assume the hypothesis
-of the theorem as many times in the proof as you like.}
+cite the \{nor elimination 1\}
+theorem from exercise~\ref{ex:nor-elimination},
+and remember that a particular assumption can
+occur at multiple points in a proof.}
 
 \exer {The proof of the \{disjunctive syllogism\} theorem in figure~\ref{fig:disjunctive-syllogism-nd}
 (page \pageref{fig:disjunctive-syllogism-nd})
@@ -2644,7 +2667,7 @@ The extensional view is the way
 to think about predicates of that kind.}
 
 If we write a formula that connects some of the propositions
-of the predicate \emph{P} with logical-and
+of the predicate \emph{P} with logical-and,
 $(P(x_1) \wedge P(x_2) \wedge P(x_3) \wedge P(x_4))$,
 the formula has the value $True$
 when all of the propositions in the formula ($P(x_1)$, $P(x_2)$, $P(x_3)$, $P(x_4)$)
@@ -2673,17 +2696,17 @@ Otherwise, $(\forall x.P(x))$ is $True$.
 For example, suppose $n$ stands for a natural number
 and we use
 $E(n)$ as shorthand for the proposition ``$2n$ is a nonnegative, even number.''
-Then \{$E(0)$, $E(1)$,$E(2)$, \dots\}
+Then \{$E(0)$, $E(1)$, $E(2)$, \dots\}
 is a set of propositions indexed by the natural numbers.
 For each natural number $n$, there is a corresponding proposition $E(n)$,
 so \emph{E} is a predicate with the natural numbers
 as its universe of discourse.
 
-If we write a formula that connects some of these propositions with $\wedge$
+If we write a formula that connects some of these propositions with $\wedge$,
 $(E(5) \wedge E(3) \wedge E(7) \wedge E(1))$,
 the formula has the value $True$
 because all four of those propositions are $True$.
-In fact, all of the propositions in the predicate E are $True$.
+In fact, all of the propositions in the predicate $E$ are $True$.
 $E(n)$ is $True$ regardless of which natural number $n$ stands for
 because any number of the form $2n$ is a nonnegative, even number
 when $n$ is a natural number.
@@ -2737,12 +2760,12 @@ for which $P(x)$ is true.\index{universal quantifier ($\forall$)!empty universe}
 Any variable that is not bound is
 called a
 \index{bound variable}\index{variable!free}\index{variable!bound}\index{free variable}\label{def:free-variable}\emph{free variable}.
-In the formula $(\forall x.P(x)) \vee y$,
+In the formula $(\forall x.P(x)) \vee Q(y)$,
 $x$ is a bound variable and $y$ is a free variable.
 This can get a bit tricky, but you have to keep it
 straight to understand how quantifiers work.
 An especially tricky case is the formula
-$(\forall x.P(x)) \vee x$.
+$(\forall x.P(x)) \vee Q(x)$.
 In this formula, $x$ is a bound variable in the
 operand on the left-hand side of the $\vee$
 but a free variable on the right-hand side.
@@ -2836,7 +2859,7 @@ for which the quantification $(\exists n.((n+7) = m))$ was $False$.
 Suppose $m$ is the natural number zero.
 The proposition $S(0)$ says $(\exists n.((n+7) = 0))$.
 There are no natural numbers $n$ such that
-$((n+7) = 0))$ because $n$ would have to be negative,
+$((n+7) = 0)$ because $n$ would have to be negative,
 and all natural numbers are zero or bigger.
 Therefore, $S(0)$ is $False$,
 and that makes $(\forall m.S(m)) = False$.
@@ -2875,9 +2898,9 @@ where $R(m, n) \equiv ((n + 7) = m)$:
 \index{free variable}\index{bound variable}\index{variable!free}\index{variable!bound}free
 variables in the following formulas and say how many bound variables
 each formula has:
-\subexer {$(x \vee (y \rightarrow z))$}
+\subexer {$(P(x) \vee (P(y) \rightarrow P(z)))$}
 \subexer {$(\forall x.(P(x) \wedge (\forall y.Q(y))))$}
-\subexer {$(x \rightarrow (\exists y.Q(y)))$}
+\subexer {$(P(x) \rightarrow (\exists y.Q(y)))$}
 \subexer {$(\exists x.(P(x) \wedge (\forall y.Q(y))))$}
 \subexer {$((\forall x.(P(x) \rightarrow Q(y))) \vee (\forall x.W(x)))$}
 \subexer {$(\forall x. (\forall z.R(x, y, z)))$}
@@ -2927,7 +2950,7 @@ in the universe of discourse.
 Not only that, but we could replace the variable by any formula
 representing a value in the universe of discourse.
 For example, we could assert that if $x$ and $y$ denote natural numbers,
-then $(\forall x.(P(5, 2x + y + 4)))$ is $True$.
+then $P(5, 2x + y + 4)$ is $True$.
 
 Another formula to consider is the existential quantification $(\exists x.(P(5, x)))$.
 Suppose we know it has the value $True$, and we want to make use of that fact in a proof.
@@ -2977,7 +3000,7 @@ so it can be proved using the same methods we used
 with Boolean propositions.
 
 This approach to reasoning about quantified formulas is a four-step process
-(figure~\ref{fig:four-step-quantifier-reasoning}, page \pageref{fig:four-step-quantifier-reasoning}).
+(figure~\ref{fig:four-step-quantifier-reasoning}). %, page \pageref{fig:four-step-quantifier-reasoning}).
 The last step is the already familiar area of reasoning
 with Boolean formulas that represent propositions,
 but the first three steps involve new ideas.
@@ -3027,7 +3050,7 @@ We have to be careful to keep these formulas straight.
 They look similar, but they have totally different meanings.
 
 Another important aspect of quantified formulas is that
-the name of a bound variable has no affect on the value
+the name of a bound variable has no effect on the value
 of the formula:
 $(\forall x.Even(x))$ has the same meaning
 as $(\forall y.Even(y))$.
@@ -3147,12 +3170,12 @@ $(\exists x.P(\dots x \dots)) = (\exists y.P(\dots y \dots))$                   
 \index{equation, by name!\{$\exists\wedge$\}}
 \index{equation, by name!\{$\forall\vee$\}}
 \index{equation, by name!\{$\exists\vee$\}}
-\index{equation, by name!\{${\forall}{\rightarrow}$\}}
-\index{equation, by name!\{${\exists}{\rightarrow}$\}}
-\index{equation, by name!\{${\rightarrow}{\forall}$\}}
-\index{equation, by name!\{${\rightarrow}{\exists}$\}}
-\index{equation, by name!\{R$\forall$\}}
-\index{equation, by name!\{R$\exists$\}}
+\index{equation, by name!\{$\forall\wedge\rightarrow$\}@\{${\forall}{\rightarrow}$\}}
+\index{equation, by name!\{$\exists\wedge\rightarrow$\}@\{${\exists}{\rightarrow}$\}}
+\index{equation, by name!\{$\forall\wedge\rightarrow$\}2@\{${\rightarrow}{\forall}$\}}
+\index{equation, by name!\{$\exists\wedge\rightarrow$\}2@\{${\rightarrow}{\exists}$\}}
+\index{equation, by name!\{$\forall\wedge\rightarrow$\}3@\{R$\forall$\}}
+\index{equation, by name!\{$\exists\wedge\rightarrow$\}2@\{R$\exists$\}}
 \caption{Equations of quantifier reasoning.}
 \label{fig-02-quantifiers}
 \end{figure}
@@ -3175,7 +3198,9 @@ the free variable on the right-hand side of the equation,
 where $Q$ moves inside the scope of the quantifier.
 That capture would change the free variable $x$ to a bound variable
 and change the meaning of the formula.
-That explains the note in figure~\ref{fig-02-quantifiers} prohibiting the occurrence of $x$ as
+That explains the note in
+figure~\ref{fig-02-quantifiers} (page \pageref{fig-02-quantifiers})
+prohibiting the occurrence of $x$ as
 a free variable in $Q$.
 
 A similar constraint applies to the renaming
@@ -3191,8 +3216,9 @@ the meaning of the formula.
 
 \label{why-neg-forall}\index{quantifier!negation}\index{universal quantifier ($\forall$)!negation}\index{quantifier!universal ($\forall$)}\index{forall ($\forall$)!negation}\index{existential quantifier ($\exists$)!negation}\index{there exists ($\exists$)!negation}The
 rules $\{\neg\forall\}$ and $\{\neg\exists\}$
-are the quantifier analogs of the DeMorgan equations
-(figures~\ref{fig-02-boolean-axioms} and \ref{some-boolean-theorems}, page \pageref{some-boolean-theorems}).
+are quantifier analogs of the DeMorgan equations
+(figures~\ref{fig-02-boolean-axioms} and \ref{some-boolean-theorems},
+pages \pageref{fig-02-boolean-axioms} and \pageref{some-boolean-theorems}).
 We will sketch a proof of the \{$\neg\forall$\} equation
 but leave the details and proofs of equations
 (\{$\neg\exists$\}, \{$\forall\wedge$\},
@@ -3221,7 +3247,7 @@ show how quantifiers interact with implication:
 In these equations, the implication is outside of the quantification
 on the left-hand side of the equation but inside the quantification
 on the right-hand side.
-In two of the equations, (\{${\forall}{\rightarrow}$\} and \{${\exists}{\rightarrow}$\})),
+In two of the equations, \{${\forall}{\rightarrow}$\} and \{${\exists}{\rightarrow}$\},
 the quantified formula is the left-hand operand of an implication ($\rightarrow$),
 and in those equations, the quantifiers flip when the implication moves inside
 the quantification: $\forall$ flips to $\exists$ and $\exists$ flips to $\forall$.
@@ -3492,11 +3518,11 @@ Prove $(\forall x.P(x)) \rightarrow (\exists x.P(x)) = True$ if the universe of 
 \exer {What goes wrong in trying to prove $(\exists x.P(x)) \rightarrow (\forall x.P(x)) = True$?
 Explain why this is different from exercise~\ref{ex:forall-exist}.}
 
-\exer {Prove $((\forall x.(P(x){\rightarrow}Q(x))) \wedge (\forall x.(Q(x){\rightarrow}R(x)))) \rightarrow (\forall x.(P(x) {\rightarrow}R(x)))=True$.}
+\exer {Prove $(((\forall x.(P(x){\rightarrow}Q(x))) \wedge (\forall x.(Q(x){\rightarrow}R(x)))) \rightarrow (\forall x.(P(x) {\rightarrow}R(x))))=True$.}
 
 \exer {Prove equation \{$\neg\exists$\}. \emph{Hint}: Cite equations \{$\neg\forall$\} and \{double negation\}.}
 
-\exer {Prove equation \{$\exists\wedge$\}. Hint: Emulate the proof of \{$\forall\wedge$\}.}
+\exer {Prove equation \{$\exists\wedge$\}.}
 
 \exer {Derive the equations \{$\forall\vee$\} and \{$\exists\vee$\} from axioms and proven equations.\\
 \emph{Hint}: Cite \{$\exists\wedge$\} and the DeMorgan equations.}
@@ -3526,7 +3552,7 @@ according to the actual state of underlying conditions unknown to us.
 In other words, we intend the proposition $x$
 to mean something in the \index{logic!real world}real world,
 and we use logic to analyze relationships between this proposition and other
-assertions about the real world stated in the form or true/false propositions.
+assertions about the real world stated in the form of true/false propositions.
 In logic mode, we apply the mathematical axioms and rules of inference,
 and in the end we interpret our conclusions, which are statements in logic,
 as statements about the real world.
@@ -3568,19 +3594,19 @@ Move & Alice     & Bob      & Stones \\
 \label{fig:example-nim-game}
 \end{figure}
 
-We will try simulate the play of the game of Nim using propositional logic.
+We will try to simulate the play of the game of Nim using propositional logic.
 We will use Boolean variables to represent the pile of stones.
 For example, we could use the variable $x$ to mean ``there are 10 stones in the pile''
 and $y$ to mean ``there are 9 stones in the pile.''
 If we continue with this scheme, we will have a lot of names with
-no easily-recalled connection to their meanings.
+no easily recalled connection to their meanings.
 
-Another approach is to let $x10$ mean ``there are 10 stone in the pile,''
+Another approach is to let $x10$ mean ``there are 10 stones in the pile,''
 $x9$ that ``there are 9 stones in the pile,'' and so on
 down to $x0$ for an empty board.
 The collection of these 11 Boolean variables can describe any pile,
 but they could just as well describe an impossible situation.
-For example, both if $x1$ and $x5$ were $True$,
+For example, if both $x1$ and $x5$ were $True$,
 the pile would consist of one stone and also consist of five stones,
 and this cannot be correct.
 To make our model in logic correspond to a real game of Nim,
@@ -3646,7 +3672,7 @@ a glance how many stones are in the pile
 and how many moves have been made.
 There are a lot of things to keep straight.
 We need 121 variables in all: 11 pile sizes (zero stones through 10 stones)
-times 11 moves numbers (move 0 through move 10,
+times 11 move numbers (move 0 through move 10,
 but no move 11 because at least one stone is removed in each move).
 Our naming scheme makes the model easier to comprehend.
 
@@ -3723,7 +3749,7 @@ Now consider a single formula combining all the constraints.
 \hline
 the initial pile containing ten stones AND\\
 the possible legal descriptions of piles at all times AND\\
-the legal ways in which a pile transform from one move to the next\\
+the legal ways in which a pile transforms from one move to the next\\
 \end{tabular}
 \end{center}
 
@@ -3737,8 +3763,8 @@ One combination will correspond to the game in which Alice removes two stones,
 then Bob removes three, then Alice one more, and so on.
 
 But how do we know who wins?
-Since Alice moves first, the move number for each of her moves is a odd number (1, 3, 5, \dots),
-and Bob's move numbers are even (2, 4, 6, \dots).
+Since Alice moves first, her move numbers are odd (1, 3, 5, \dots),
+and Bob's are even (2, 4, 6, \dots).
 According to the rules, the person who picks up the last stone loses.
 So, we can characterize a win by one player or the other by
 the following formulas:
@@ -3751,12 +3777,12 @@ the following formulas:
 \end{center}
 
 If the Alice-wins formula is $True$
-for a combination values of the variables that represents a particular game,
+for a combination of values of the variables that represents a particular game,
 then Alice won the game. If it is $False$, Bob won.
 If we were to AND the Nim-constraints formula with the Alice-wins formula
 and find it to have the value $True$, then we could conclude that Alice always wins the game.
 If it were $False$, we could conclude that Alice never wins.
-But, there is a third possibility.
+But there is a third possibility.
 It may be that for some values of the Boolean variables,
 the Alice-wins formula is $True$
 and for other values it is $False$.
@@ -3790,8 +3816,8 @@ Since digital computers store everything as sequences of ones and zeros,
 the initial configuration is simply the initial values of those bits.
 The legal configurations rule out the possibility that a given bit is both a
 one and a zero at the same time.
-The legal transitions correspond to the actual program and how it manipulates information
-over time. And, a traditional way to specify that the program is finished
+The legal transitions correspond to the actual program and how it manipulates information over time.
+And a traditional way to specify that the program is finished
 is to choose a specific bit in the model, to include in the initial conditions
 that the chosen bit is zero, and to insist that
 the bit remains zero until, as its last act,
@@ -3860,9 +3886,9 @@ The proposition $X(s,t)$ in predicate X has the same meaning as the variable
 $x_s^t$ in the propositional model.
 Since the variables are organized in a predicate,
 we can use quantifiers to make assertions with compact and understandable formulas.
-The formula  $(\exists t.X(0,t))$
-is $True$ because a game of Nim always ends with no
-stones in the pile.
+In any game of Nim, there is a time at the end when no stones remain in the pile,
+so the formula  $(\exists t.X(0,t))$
+is $True$.
 The formula means that the game of Nim always ends in ten or fewer moves.
 The Alice-wins formula
 from the Nim model (page \pageref{alice-wins-formula})
@@ -3878,7 +3904,7 @@ cannot have both no stones and one stone, nor zero stones and two stonres, and s
 $$(\neg(x_{0}^{6} \wedge x_{1}^{6})) \wedge (\neg(x_{0}^{6} \wedge x_{2}^{6})) \wedge \cdots \wedge (\neg(x_{0}^{6} \wedge x_{10}^{6}))$$
 
 Using quantifiers, we can write this more succinctly.
-$$(\forall s.((s \neq 0) \rightarrow (\neg(X(0, 6) \wedge X(s, 6))))$$
+$$(\forall s.((s \neq 0) \rightarrow (\neg(X(0, 6) \wedge X(s, 6)))))$$
 
 Using propositions, we needed to consider ten
 different cases, one for each possible number of stones other than zero. With the
@@ -3934,7 +3960,7 @@ with a formula that specifies the following conditions:
 \begin{enumerate}
 \item The initial pile containing ten stones, AND
 \item the possible legal descriptions of piles at all times, AND
-\item the legal ways in which a pile transform from one step to the next, AND
+\item the legal ways in which a pile transforms from one step to the next, AND
 \item the formula that ``Alice wins.''
 \end{enumerate}
 %\end{quote}
@@ -3943,7 +3969,7 @@ The formulas in this section specify the same model but in a more understandable
 way and in less space.
 However, predicate logic can do more than simplify the formulas.
 It can express bigger ideas.
-Consider the formula with meaning ``Alice wins.''
+Consider the formula with the meaning ``Alice wins.''
 In the propositional model this was built by taking together the more specialized formulas
 ``Alice wins at time 2,'' ``Alice wins at time 4,'' \dots, ``Alice wins at time 10''
 and joining them all with logical-or.

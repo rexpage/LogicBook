@@ -65,7 +65,7 @@ can produce results without
 interacting with other parts of the software.
 For that reason, it does not matter where or when
 the operations are performed.
-The problems of getting the right data to the right place
+The problem of getting the right data to the right place
 remains, but the task of managing a great many small interactions
 between different parts of the software is greatly reduced.
 
@@ -78,7 +78,7 @@ Even though they use mostly conventional programming methods
 for most of their software,
 they invented and adopted a way to manage large-scale components
 with a programming model called \index{MapReduce}MapReduce
-that has a lot in common equation-based software models.
+that has a lot in common with equation-based software models.
 Since Google's introduction of MapReduce,
 it has been adopted in many other settings.  For
 instance, the \index{Apache Foundation}Apache Foundation
@@ -116,7 +116,7 @@ in which each word appears only once and the associated
 count is the number of occurrences of
 the word in the document.
 
-\item \emph{Finding Words that Link to a Webpage.}  The
+\item \emph{Finding Words That Link to a Webpage.}  The
 purpose of this operation is to find the words that are
 most commonly used to link to a particular \index{URL}URL.
 For example, your name may be the most
@@ -125,7 +125,7 @@ Google uses this kind of information to select which
 pages to display for a particular search.
 The MapReduce approach applies to this problem.
 The data is the
-collection of links on the Internet.\footnote{Nobody knows how many
+collection of links on the internet.\footnote{Nobody knows how many
 links there are on the internet, worldwide,
 but most estimates place it in the trillions,
 and some credible estimates place it in the hundreds of trillions. }
@@ -139,7 +139,7 @@ with the word that is used most often to link to that URL.
 
 \item \emph{Finding Extreme Values.}  Consider
 an application that finds the record high or low temperature
-for each of the fifty states of the U.S.
+for each of the fifty states of the US.
 The initial data consists of a list of
 city/temperature pairs.  There would be one record for each
 recorded temperature in a city. It might be one per day,
@@ -224,8 +224,8 @@ The computation could proceed in three stages:
 \end{enumerate}
 \end{quote}
 As you can see, the data records are largely independent of one another, so the computer
-can process the May 13, 2009 temperature entry for Norman, OK, without considering the
-May 13, 2009 entry for Laramie, WY.  This enables horizontal scaling because the
+can process the May 13, 2009, temperature entry for Norman, OK, without considering the
+May 13, 2009, entry for Laramie, WY.  This enables horizontal scaling because the
 different entries can be processed in different machines.
 However, this application also shows the need for combining
 the entries for a specific key at a later time.  For example,
@@ -263,7 +263,7 @@ key/value pairs make up the input data for this problem. For
 instance, the Gettysburg address could be represented by a
 list of key/value pairs using the notation ( \emph{key} ~.~ \emph{value} )
 to denote a pair.
-\begin{quote}
+%\begin{quote}
 \begin{itemize}
 \item \textsf{( four~.~1 )}
 \item \textsf{( score~.~1 )}
@@ -274,7 +274,7 @@ to denote a pair.
 \item \textsf{( the~.~1 )}
 \item \textsf{( earth~.~1 )}
 \end{itemize}
-\end{quote}
+%\end{quote}
 
 The \textsf{map} operation takes in an input key and
 value and delivers a list of zero or more intermediate
@@ -348,7 +348,8 @@ processing the reduce operation.
 
 The MapReduce framework
 takes the input key/value pairs and splits them across many
-different machines.  On each machine, it performs the map
+different machines.
+On each machine, MapReduce performs the map
 operation on each of the key/value pairs that is assigned to
 that machine.  As it does this, it combines the intermediate
 key/value pairs returned by each map operation into a single
@@ -431,7 +432,7 @@ In the end, the computation must consider the results of the reduce operation
 and select the items that were purchased most often.
 
 Unfortunately, that leaves the first problem unsolved: finding the group of
-customers who are most like you.  This is the most critical aspect for
+customers who are most like you. This is the most critical aspect for
 generating useful recommendations.  For instance, if all of your purchases
 from Amazon have been gardening books, you are likely to ignore a
 recommendation engine that alerts you to the latest novel in a long-running
@@ -453,8 +454,8 @@ are most like you have purchase histories that correspond to nearby
 points in that plane.\footnote{To
 determine what points are ``nearby,'' you will need
 some notion of distance in the plane. You could use the standard
-Euclidean distance or some other distance measurement customized
-to the problem of solving the customers-like-you problem.
+Euclidean distance or, instead, a metric customized
+to determining which customers are most like you.
 This is just one of the complex issues that come up
 in fashioning methods for finding clusters in data.}
 
@@ -487,7 +488,7 @@ There are many useful approaches.  One that, on the surface at least,
 is straightforward to describe starts with guessing some cluster locations,
 then gradually refining the guesses by making computations based on the data.
 The computation could proceed as follows:
-\begin{quote}
+%\begin{quote}
 \label{cluster-process}
 \begin{enumerate}
     \item Initially, guess a location for each cluster. The guess can be
@@ -500,22 +501,31 @@ The computation could proceed as follows:
     \item Repeat the previous two steps until things settle down or meet
         some other predetermined conditions.
 \end{enumerate}
-\end{quote}
+%\end{quote}
 The middle two steps can be implemented using MapReduce.  The map operation can
 assign points to clusters, and the reduce operation can compute the new center
 point of each cluster.  The distances between data points
 and estimated cluster centers determines which cluster the data point belongs to,
 and the cluster determines the products of interest to particular customers.
 
-The map and reduce operations defined by the programmer
-must conform to the expectations of the MapReduce framework.
-The framework requires the map operation to be based on
-key/value pairs.  In this application, the job of map is
-to figure out, for each customer, which cluster center
-is closest to that customer's purchase history.
-This must be done for all customers, but the MapReduce
-framework will take care of distributing the operation across all customers.
-We just have to say what the map operation does for an individual customer.
+%The map and reduce operations defined by the programmer
+%must conform to the expectations of the MapReduce framework.
+%The framework requires the map operation to be based on
+%key/value pairs.  In this application, the job of map is
+%to figure out, for each customer, which cluster center
+%is closest to that customer's purchase history.
+%It must do so for each customer, but the MapReduce
+%framework will take care of distributing the operation across all customers.
+%We just have to say what the map operation does for an individual customer.
+The map and reduce operations
+must conform to the expectations of the MapReduce framework,
+which requires the map operation to be based on
+key/value pairs. In this application,
+the programmer defines map operation
+to figure out, for individual customers, which cluster center
+is closest to the customer's purchase history.
+The MapReduce framework then distributes the map operation
+across all customers.
 
 Let's say that the purchase history for the customer is the first operand
 of the map operation and the list of cluster centers is the second operand.
@@ -668,7 +678,7 @@ discussed earlier (page \pageref{cluster-process}).
 %        \includegraphics[scale=0.7]{images/iterative-map-reduce}
         \includegraphics[scale=1]{images-cmyk/iterative-map-reduce-rev}
     \end{center}
-    \caption{Iterative map reduce operation.}
+    \caption{Iterative MapReduce operation.}
     \label{iterative-map-reduce}
 \end{figure}
 

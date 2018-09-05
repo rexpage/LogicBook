@@ -16,13 +16,12 @@ as a slower operator when rearranging a few hundred records
 will typically be many times faster than the slow operator
 for thousands of records and thousands of times faster
 when there are millions of records to be arranged.
-Data archives with thousands or millions or records
+Data archives with thousands or millions of records
 are common, and that makes the sorting process important.\footnote{The
 difference between using a fast sorting operator and a slow one
 can be dramatic.
-\index{sorting!bubble sort vs quicksort}
-\label{bubble-vs-quicksort-example}
-Some years ago, one of the authors helped the US Forest Service
+\index{sorting!bubble sort vs quicksort}\label{bubble-vs-quicksort-example}Some
+years ago, one of the authors helped the US Forest Service
 figure out why their central computing system
 was bogged down.
 The culprit turned out to be about two dozen lines
@@ -46,7 +45,7 @@ and the \index{operators, equivalence of}
 
 Deriving the resource requirements of an operator from
 the equations that define it is
-similar to the deriving other properties.
+similar to deriving other properties.
 Previously, we have been mostly concerned with meeting
 expectations with regard to the form of the results
 of an operation, not the time it takes to deliver those results.
@@ -80,7 +79,7 @@ line to the largest at the end.
 
 In practice, keys need not be numbers,
 but they do need to be comparable
-to determine an ordering (alphabetical, chronological, and so on.).
+to determine an ordering (alphabetical, chronological, and so on).
 If the keys aren't numbers,
 then the numeric comparisons
 ($<$, $>$) in our discussion would be replaced by
@@ -101,10 +100,11 @@ the formula \textsf{(insert 8 [2 4 5 5 6 9])} would
 deliver \textsf{[2 4 5 5 6 8 9]}.
 
 What are some equations that we would expect
-the insert operator to satisfy?
+the \textsf{insert} operator to satisfy?
 If the list were empty, then the operator
 would deliver a list whose only element would
-be the number to be inserted in the list.
+be the number
+\index{equation, by name!\{ins0\}, \{ins1\}, \{ins2\}}\index{axiom, by name!\{ins0\}, \{ins1\}, \{ins2\}}to be inserted in the list.
 \vspace{2mm}\\
 %\begin{quote}
 \hspace*{5mm}\textsf{(insert $x$ nil) $=$ (cons $x$ nil)} ~~~~ \{\emph{ins0}\}
@@ -129,7 +129,8 @@ If we trust the operator to put it in the right place,
 we can make a new list starting with the same first number
 and then  let the insertion operator put the new number
 where it belongs among the numbers after the first one.
-That leads to an inductive equation for the operator \textsf{insert}.
+That leads to an inductive equation for the operator
+\index{axiom, by name!\{ins0\}, \{ins1\}, \{ins2\}}\index{equation, by name!\{ins0\}, \{ins1\}, \{ins2\}}\textsf{insert}.
 \vspace{2mm}\\
 %\begin{quote}
 \hspace*{5mm}\textsf{(insert $x$ (cons $x_1$ $xs$)) $=$ (cons $x_1$ (insert $x$ $xs$))} if $x > x_1$ ~~~~ \{\emph{ins2}\}
@@ -148,7 +149,7 @@ on the left-hand side
 (which is \textsf{nil} in equation \{\emph{ins0}\} and
 \textsf{(cons $x_1$ $xs$)} in equation \{\emph{ins1}\}).
 
-\label{defun:insert-isort}\index{equation, by name!\{ins0\}, \{ins1\}, \{ins2\}}
+\label{defun:insert-isort}\index{axiom, by name!\{ins0\}, \{ins1\}, \{ins2\}}\index{equation, by name!\{ins0\}, \{ins1\}, \{ins2\}}
 \index{operator, by name!insert (in order)}\seeonlyindex{insert, in order}{operator}
 \index{sorting!insert (in order)}
 \begin{code}
@@ -171,7 +172,7 @@ That is, \textsf{(isort $xs$) $=$ $xs$} when $xs$ has one element or none.
 
 \begin{center}
 \label{eq:isrt0}\label{eq:isrt1}
-\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}
+\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{axiom, by name!\{ins0\}, \{ins1\}, \{ins2\}}
 \begin{tabular}{ll}
 \textsf{(isort nil) $=$ nil}                       & \{\emph{isrt0}\} \\
 \textsf{(isort (cons $x$ nil)) $=$ (cons $x$ nil)} & \{\emph{isrt1}\} \\
@@ -219,7 +220,7 @@ are both the same equation: \textsf{(isort $xs$)} $=$ $xs$,
 where $xs$ is \textsf{nil} in equation \{\emph{isrt0}\}
 and \textsf{(cons $x$ nil)} in equation \{\emph{isrt1}\}.
 
-\label{defun:isort}\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{operator, by name!isort (insertion-sort)}\seeonlyindex{isort}{operator}\index{insertion-sort}\index{sorting!insertion-sort (isort)}
+\label{defun:isort}\index{axiom, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{operator, by name!isort (insertion-sort)}\seeonlyindex{isort}{operator}\index{insertion-sort}\index{sorting!insertion-sort (isort)}
 \begin{code}
 \begin{verbatim}
 (defun isort (xs)
@@ -238,12 +239,14 @@ the multiplex and demultiplex operators discussed
 in chapter \ref{ch:mux-dmx}.
 The theorem on preservation of values is
 stated as a
-\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, by name!iff (Boolean equivalence)}\index{operator, logic!Boolean equivalence (iff)}\index{equivalence!Boolean (iff)}\index{iff (\emph{see also} operator)}Boolean
+\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, by name!iff (Boolean equivalence)}\index{operator, logic!Boolean equivalence ($\leftrightarrow$, iff)}\index{equivalence!Boolean ($\leftrightarrow$, iff)}\index{iff (\emph{see also} operator)}Boolean
 equivalence
-(box~\ref{aside:mux-val-thm}, page \pageref{aside:mux-val-thm})
 and uses the \textsf{occurs-in }predicate
-(page \pageref{def:occurs-in}) for determining
-whether or not a value occurs in a list.\footnote{Preservation
+(box \ref{aside:mux-val-thm}, page \pageref{aside:mux-val-thm}) %(page \pageref{def:occurs-in})
+for determining
+whether or not a value occurs in a list
+(box~\ref{aside:mux-val-thm}, page \pageref{aside:mux-val-thm}, and
+exercise \ref{ex:mul-val-thm}, page \pageref{ex:mul-val-thm}).\footnote{Preservation
 of length and values does not guarantee
 that the operator delivers the correct result.
 For example, the lists \textsf{[1 1 2]} and \textsf{[1 2 2]} have the
@@ -257,7 +260,7 @@ but it does require a definition of permutation
 
 \label{defthm:isort-len}
 \label{defthm:isort-val}
-\index{theorem, by name!\{isort-len\}, \{isort-val\}}
+\index{theorem, by name!\{isort-len\}, \{isort-ord\}, \{isort-val\}}
 \begin{code}
 \begin{verbatim}
 (defthm isort-len-thm
@@ -315,7 +318,7 @@ of the list supplied as the operand of \textsf{isort}.
 
 \label{defthm:isort-ord-thm}
 \index{sorting!insertion-sort (isort)}\index{theorem!insertion-sort (isort)}
-\index{theorem, by name!\{isort-ord\}}
+\index{theorem, by name!\{isort-len\}, \{isort-ord\}, \{isort-val\}}
 \begin{code}
 \begin{verbatim}
 (defthm isort-ord-thm
@@ -330,12 +333,13 @@ that is fast, even on long lists.
 
 \begin{exercises}
 \exer {Do a paper-and-pencil proof that the \textsf{isort} operator
-preserves the length of its operand
-(\textsf{isort-len-thm}, page \pageref{defthm:isort-len}).}
+preserves the values in its operand
+(\textsf{isort-val-thm}, above).}%page \pageref{defthm:isort-val}).}
 
 \exer {Do a paper-and-pencil proof that the \textsf{isort} operator
-preserves the values in its operand
-(\textsf{isort-val-thm}, page \pageref{defthm:isort-val}).}
+preserves the length of its operand
+(\textsf{isort-len-thm}, page \pageref{defthm:isort-len}).
+You may assume theorem \{\emph{insert-len}\}: \textsf{(len(insert $x$ $xs$)) $=$ $1$ $+$ (len xs)}.}
 
 \exer {Do a paper-and-pencil proof that the \textsf{isort} operator
 delivers a list arranged in increasing order
@@ -361,8 +365,8 @@ the value $x$ occurs in the list $xs$.
 \end{verbatim}
 \end{code}
 
-\exer {The \index{operator, by name!del (delete value)}
-\seeonlyindex{del}{operator)}\textsf{del} operator
+\exer {The \index{operator, by name!del (delete list element)}
+\seeonlyindex{del (delete list element)}{operator}\textsf{del} operator
 deletes an occurrence of $x$ in $xs$
 if $x$ occurs in $xs$.
 \label{defun:del}}
@@ -386,9 +390,8 @@ $x$ does not occur in $xs$.
 \end{quote}
 
 \exer {\label{ex:permp-isort}%
-The predicate \index{predicate, by name!permp (permutation)}
-\index{operator, by name!permp (\emph{see} predicate)}
-\seeonlyindex{permp}{predicate}\textsf{permp},
+The predicate
+\index{predicate, by name!permp (permutation)}\index{operator, by name!permp (\emph{see} predicate)}\seeonlyindex{permp}{predicate}\textsf{permp},
 defined as follows, is true if its second operand
 is a permutation of its first operand and false otherwise:\footnote{The
 predicate \textsf{occurs-in} is defined in
@@ -434,8 +437,7 @@ The equations for \textsf{mrg} in those cases are the same as
 the corresponding equations for the multiplex operator
 (\{\emph{mux0x}\} and \{\emph{mux0y}\}, page \pageref{def:mux}).
 
-\index{equation, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}
-\begin{center}
+\begin{center}\index{equation, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}\index{axiom, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}
 \begin{tabular}{ll}
 \textsf{(mrg nil $ys$) $=$ $ys$} & \{\emph{mg0}\} \\
 \textsf{(mrg $xs$ nil) $=$ $xs$} & \{\emph{mg1}\} \\
@@ -452,10 +454,9 @@ with all of the elements in the other list.
 That divides the nonempty case into two
 subcases, one when the first operand starts with a smaller number
 than the second operand
-and the other when the second operand begins the smaller number.
+and the other when the second operand begins with the smaller number.
 
-\index{equation, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}
-\begin{center}
+\begin{center}\index{equation, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}\index{axiom, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}
 \begin{tabular}{ll}
 \textsf{(mrg (cons $x$ $xs$) (cons $y$ $ys$)) $=$ (cons $x$ (mrg $xs$ (cons $y$ $ys$)))} if $x \le y$ & \{\emph{mgx}\} \\
 \textsf{(mrg (cons $x$ $xs$) (cons $y$ $ys$)) $=$ (cons $y$ (mrg (cons $x$ $xs$) $ys$))} if $x > y$   & \{\emph{mgy}\} \\
@@ -481,7 +482,7 @@ on the right-hand side of the inductive equation \{\emph{mgx}\}
 is less than the total on the left-hand side.
 That makes the operands on the right-hand side closer to
 a noninductive case than the operands on the left-hand side.
-Therefore, the equations computational.
+Therefore, the equations are computational.
 That covers the three C's
 (figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}),
 so we can take the equations as axioms that define the \textsf{mrg} operator.
@@ -498,8 +499,7 @@ The \textsf{declare} directive in the following ACL2 definition suggests
 basing the proof by induction on this total,
 and that suggestion is enough to get the mechanized logic on the right track.
 
-\label{defun:mrg}\index{equation, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}\index{operator, by name!mrg (ordered merge)}\seeonlyindex{mrg (ordered merge)}{operator}\index{sorting!merge, ordered (mrg)}\index{merge, ordered}\index{defun!induction hint}\index{definition!defun hint}\index{directive!induction hint}
-\begin{code}
+\begin{code}\label{defun:mrg}\index{axiom, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}\index{equation, by name!\{mg0\}, \{mg1\}, \{mgx\}, \{mgy\}}\index{operator, by name!mrg (ordered merge)}\seeonlyindex{mrg (ordered merge)}{operator}\index{sorting!merge, ordered (mrg)}\index{merge, ordered (mrg)}\index{defun!induction hint}\index{definition!defun hint}\index{directive!induction hint}
 \begin{verbatim}
 (defun mrg (xs ys)
   (declare (xargs :measure (+ (len xs) (len ys)))); induction scheme
@@ -539,7 +539,7 @@ However, in the case of the \textsf{mrg} operator,
 the property is guaranteed only under the condition
 that both operands are already in order,
 so the property is stated as an implication.
-\label{defthm:mrg-ord}\index{theorem, by name!\{mrg-ord\}}
+\label{defthm:mrg-ord}\index{theorem, by name!\{mrg-length\}, \{mrg-ord\}, \{mrg-val\}}
 \index{theorem!merge, ordered}
 \begin{code}
 \begin{verbatim}
@@ -558,19 +558,20 @@ A paper-and-pencil proof could follow the same strategy.
 
 \begin{exercises}
 \exer {\label{ex:mrg-length-thm}%
-Using the mux-length theorem (page \pageref{mux-length-thm})
+\index{theorem, by name!\{mrg-length\}, \{mrg-ord\}, \{mrg-val\}}Using the mux-length theorem (page \pageref{mux-length-thm})
 as a model, make a formal ACL2 statement of the mrg-length theorem.}
 
 \exer {Do a paper-and-pencil proof of the mrg-length theorem
 of exercise \ref{ex:mrg-length-thm}.}
 
+\exer {\label{ex:mrg-ord-thm}%
+Do a paper-and-pencil proof of \textsf{mrg-ord-thm} (see \textsf{defthm}, above).}%(page \pageref{defthm:mrg-ord}).}
+
 \exer {\label{ex:mrg-val-thm}%
-Using the mux-val theorem (page \pageref{thm:mux-val})
+\index{theorem, by name!\{mrg-length\}, \{mrg-ord\}, \{mrg-val\}}Using the mux-val theorem (page \pageref{thm:mux-val})
 as a model, make a formal ACL2 statement of the mrg-val theorem.}
 
 \exer {Do a paper-and-pencil proof of the mrg-val theorem of exercise \ref{ex:mrg-val-thm}.}
-
-\exer {Do a paper-and-pencil proof the mrg-ord theorem (page \pageref{defthm:mrg-ord}).}
 \end{exercises}
 
 \section{Merge-Sort}
@@ -595,7 +596,7 @@ one for each of the two lists delivered by applying
 \textsf{dmx} to the operand.
 
 \begin{center}
-\label{eq:msrt1}\index{equation, by name!\{msrt0\}, \{msrt1\}, \{msrt2\}}
+\label{eq:msrt1}\index{axiom, by name!\{msrt0\}, \{msrt1\}, \{msrt2\}}\index{equation, by name!\{msrt0\}, \{msrt1\}, \{msrt2\}}
 \label{eq:msrt0}
 \label{eq:msrt2}
 \begin{tabular}{ll}
@@ -618,7 +619,7 @@ equations (\{\emph{msrt0}\}, \{\emph{msrt1}\}, \{\emph{msrt2}\}) in ACL2
 but consolidates the equations for lists with one element or none in the
 manner of the ACL2 definition of \textsf{isort} (page \pageref{defun:isort}):
 
-\label{defun:msort}\label{eq:msrt1}\index{equation, by name!\{msrt0\}, \{msrt1\}, \{msrt2\}}
+\label{defun:msort}\label{eq:msrt1}\index{axiom, by name!\{msrt0\}, \{msrt1\}, \{msrt2\}}\index{equation, by name!\{msrt0\}, \{msrt1\}, \{msrt2\}}
 \index{operator, by name!msort (merge-sort)}\index{defun!lemma hint}\index{defun!induction hint}\index{directive!induction hint}\index{directive!lemma hint}\seeonlyindex{msort (merge-sort)}{operator}\index{merge-sort}\index{sorting!merge-sort (msort)}
 \begin{code}
 \begin{verbatim}
@@ -676,7 +677,7 @@ The following statements of these properties, like those for \textsf{isort},
 use the predicates \textsf{up} (page \pageref{defun:up})
 and \textsf{occurs-in} (page \pageref{def:occurs-in}).\footnote{The
 theorem statements employ the ACL2 operator \textsf{iff}, which is
-\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, by name!iff (Boolean equivalence)}\index{operator, logic!Boolean equivalence (iff)}\index{iff (\emph{see also} operator)}\index{equivalence!Boolean (iff)}Boolean equivalence
+\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, by name!iff (Boolean equivalence)}\index{operator, logic!Boolean equivalence ($\leftrightarrow$, iff)}\index{iff (\emph{see also} operator)}\index{equivalence!Boolean ($\leftrightarrow$, iff)}Boolean equivalence
 (box~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).}
 Like \textsf{isort}, \textsf{(msort $xs$)} delivers a permutation of $xs$
 (exercise~\ref{ex:permp-isort}, page \pageref{ex:permp-isort}),
@@ -710,7 +711,7 @@ states the \textsf{msort} theorems and lemmas in ACL2.
        (occurs-in e (msort xs))))
 \end{verbatim}
 \end{code}
-\label{defthm:msort-len}\label{defthm:msort-val}\index{sorting!msort theorems}\index{theorem!merge-sort (msort)}\index{theorem, by name!\{msort-ord\}}\index{theorem, by name!\{msort-len\}}\index{theorem, by name!\{msort-val\}}
+\label{defthm:msort-len}\label{defthm:msort-val}\index{sorting!msort theorems}\index{theorem!merge-sort (msort)}\index{theorem, by name!\{msort-len\}, \{msort-ord\}, \{msort-val\}}
 \caption{Theorems and lemmas about merge-sort.}
 \label{fig:msort-thms}
 \label{defthm:msort-ord}
@@ -719,24 +720,30 @@ states the \textsf{msort} theorems and lemmas in ACL2.
 \begin{exercises}
 \exer {Do a paper-and-pencil proof that, under certain conditions, the \textsf{dmx} operator
 delivers lists that are shorter than its operand
-(\textsf{dmx-shortens-list-thm}, page \pageref{defthm:dmx-shortens-list}).}
+(\textsf{dmx-shortens-list-thm}, above).} % page \pageref{defthm:dmx-shortens-list}).
 
 \exer {Do a paper-and-pencil proof that the \textsf{msort} operator
 delivers a list that is in increasing order
-(\textsf{msort-order-thm}, page \pageref{defthm:msort-ord}).}
-
-\exer {Do a paper-and-pencil proof that the \textsf{msort} operator
-preserves the length of its operand
-(\textsf{msort-len-thm}, page \pageref{defthm:msort-len}).}
+(\textsf{msort-order-thm}, above).
+You may cite \textsf{mrg-ord-thm}
+(exercise \ref{ex:mrg-ord-thm}, page \pageref{ex:mrg-ord-thm}).}%page \pageref{defthm:msort-ord}).}
 
 \exer {\label{msort-val-thm-pencil}%
 Do a paper-and-pencil proof that the \textsf{msort} operator
 preserves the values in its operand
-(\textsf{msort-val-thm}, page \pageref{defthm:msort-val}).}
+(\textsf{msort-val-thm}, page \pageref{defthm:msort-val}).
+You may cite the mrg-val theorem
+(exercise \ref{ex:mrg-val-thm}, page \pageref{ex:mrg-val-thm}).}
+
+\exer {Do a paper-and-pencil proof that the \textsf{msort} operator
+preserves the length of its operand
+(\textsf{msort-len-thm}, page \pageref{defthm:msort-len}).
+You may cite the merge-length theorem
+(exercise \ref{ex:mrg-length-thm}, page \pageref{ex:mrg-length-thm}).}
 
 \exer {Do a paper-and-pencil proof that the \textsf{msort} operator
 delivers a permutation of its operand (see exercise~\ref{ex:permp-isort}, page \pageref{ex:permp-isort}).
-\emph{Caveat}: This is project, not an exercise.}
+\emph{Caveat}: This is a project, not an exercise.}
 \end{exercises}
 
 \section{Analysis of Sorting Algorithms}
@@ -810,7 +817,7 @@ but they will provide a
 rough estimate of the ratio between the computation speed of
 one operator and another.
 
-\begin{figure}
+\begin{figure}\index{computation steps!one-step operators}\index{computation steps!ACL2}\index{computation steps!counting}
 \begin{center}
 \begin{spacing}{0.9}
 \begin{tabular}{ll}
@@ -823,12 +830,13 @@ Cons predicate: \textsf{(consp $xs$)}                                     & \\
 Selection: \textsf{(if $p$ $x$ $y$)}                                      & \emph{computes} $p$\emph{, then} $x$ \emph{or} $y$\emph{, but not both}
 \end{tabular}
 \end{spacing}
-\end{center}\index{computation steps!one-step operators}\index{computation steps!ACL2}\index{computation steps!counting}
+\end{center}
+\vspace{-4mm}
 \caption{Basic one-step operators.}
 \label{fig:basic-one-step-ops}
 \end{figure}
 
-Figure~\ref{fig:basic-one-step-ops} (page \pageref{fig:basic-one-step-ops})
+Figure~\ref{fig:basic-one-step-ops} %(page \pageref{fig:basic-one-step-ops})
 specifies the basic, one-step operators of
 the computation model.
 Each basic operator in a formula contributes one step
@@ -858,8 +866,8 @@ the list \textsf{[1 2 3 4]} reveals a four-step computation.\vspace{2mm}\\
 \label{fig:basic-op-formulas}
 \end{figure}
 
-Figure~\ref{fig:basic-op-formulas} (page \pageref{fig:basic-op-formulas})
-displays a similar analysis on a some formulas
+Figure~\ref{fig:basic-op-formulas} %(page \pageref{fig:basic-op-formulas})
+displays a similar analysis on some formulas
 composed of basic operations. The same kind of
 analysis applies when the formulas invoke defined operators
 rather than intrinsic ones like
@@ -878,11 +886,11 @@ No computation is involved.}
 That makes two basic operations in all, so the formula
 \textsf{(F-from-C $100$)} represents a two-step computation.
 
-\index{Fahrenheit vs Celsius}\index{Celsius vs Fahrenheit}
+\index{Fahrenheit vs Celsius}\index{Celsius vs Fahrenheit}\index{operator, by name!F-from-C}\seeonlyindex{F-from-C}{operator}
 \begin{code}
 \begin{verbatim}
 (defun F-from-C (C)
-  (+ (* 180/100 C) 32)))
+  (+ (* 180/100 C) 32))
 \end{verbatim}
 \end{code}
 
@@ -897,14 +905,14 @@ The operator \textsf{list} is shorthand for a sequence of nested
 so in terms of basic operations, the formula is
 \textsf{(cons (F-from-C $0$) (cons (F-from-C $100$) nil))}.
 The total step-count comes to six: two for each \textsf{F-from-C} invocation
-and one for each cons.
+and one for each \textsf{cons}.
 
 Another example:
 the operator \textsf{swap2}, defined as follows, interchanges the
 first two elements of a list if the list has at least two elements.
 If not, it leaves the list as is.
 
-\begin{code}
+\begin{code}\index{operator, by name!swap2}\seeonlyindex{swap2}{operator}
 \begin{verbatim}
 (defun swap2 (xs)
   (if (consp (rest xs))
@@ -975,8 +983,7 @@ into two separate lists, with every other element going into one list
 and the remaining elements going into the other list.
 We repeat its definition here for convenience in counting steps.
 
-\label{defun:dmx-copy}
-\begin{code}
+\begin{code}\label{defun:dmx-copy}\index{axiom, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}\index{equation, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}\index{operator, by name!dmx (demultiplexer)}
 \begin{verbatim}
 (defun dmx (xys)
   (if (consp (rest xys))    ; 2 or more elements?
@@ -1024,8 +1031,8 @@ Altogether, that comes to $D_n + 14$ steps.
 Putting the two cases together,
 we come up with the following recurrence equations:\footnote{Inductive
 equations in the numeric domain are called
-\label{def:recurrence-equations}\index{recurrence equations!dmx}\index{computation steps!dmx operation}\emph{recurrence equations}.}\\[-6mm]
-\begin{center}
+\emph{recurrence equations}.}\\[-6mm]
+\begin{center}\label{def:recurrence-equations}\index{axiom, by name!\{d1\}, \{d2\} (steps in dmx)}\index{equation, by name!\{d1\}, \{d2\} (steps in dmx)}\index{recurrence equations!dmx}\index{computation steps!dmx operation}\index{operator, by name!dmx (demultiplexer)}
 \begin{tabular}{ll}
   $D_0 = D_1 = 5$      & \{d1\} \\
   $D_{n+2} = D_n + 14$ & \{d2\} \\
@@ -1045,14 +1052,13 @@ $D_{n} = 14(\lfloor n/2\rfloor + 1) + 5$ is the right guess.\footnote{We
 will use floor brackets $\lfloor x\rfloor$ and ceiling brackets $\lceil x\rceil$
 (box~\ref{floor-ceiling-ops-brackets}, page \pageref{floor-ceiling-ops-brackets})
 extensively in this chapter.}
-Figure~\ref{fig:dmx-computation-time}
-(page \pageref{fig:dmx-computation-time}) proves
-this conjecture using strong induction
+Figure~\ref{fig:dmx-computation-time} %(page \pageref{fig:dmx-computation-time})
+proves this conjecture using strong induction
 (figure~\ref{strong-induction-rule}, page \pageref{strong-induction-rule}).
 
 \begin{figure}
 %\begin{quote}
-Theorem \{dmx computation steps\}. \\
+Theorem \{dmx computation steps\}: \\
 ~~~~ $D_n \equiv$ \emph{number of computation steps in} \textsf{(dmx [$x_1$ $x_2$ $\dots$ $x_n$])} $= 14\lfloor n/2\rfloor + 5$\\
 \emph{proof} \vspace{1mm}\\
 %\end{quote}
@@ -1079,15 +1085,16 @@ $D_{n+2}$ &$= D_n + 14$                      & \{d2\} \\
 \end{tabular}
 %\end{quote}
 \index{computation steps!dmx operation}
+\vspace{1mm}
 \caption{Computation steps in demultiplex.}
-\label{fig:dmx-computation-time}
+\label{fig:dmx-computation-time}\index{theorem, by name!\{dmx computation steps\}}
 \end{figure}
 
 \begin{exercises}
 
 \exer {\label{ex:recurrence-len}%
 Derive recurrence equations for the number of steps in the computation of \textsf{(len $xs$)}
-from the axioms for the len operator (figure~\ref{fig:len-axioms}, page \pageref{fig:len-axioms}).
+from the axioms for the \textsf{len} operator (figure~\ref{fig:len-axioms}, page \pageref{fig:len-axioms}).
 Assume that selecting between the two axioms is a two-step computation
 (one step to determine whether or not $xs$ has any elements
 and one step to use that determination to select the appropriate axiom).}
@@ -1097,7 +1104,7 @@ guess a formula for the number of steps
 in the computation of \textsf{(len $xs$)}.
 Prove that the formula is correct.}
 
-\exer {\label{ex:recurrence-append}
+\exer {\label{ex:recurrence-append}%
 Derive recurrence equations for the
 number of steps in the computation of \textsf{(append $xs$ $ys$)}
 from the definition of \textsf{append} in
@@ -1199,7 +1206,7 @@ or \textsf{(cons $y$ (mrg $xs$ (rest $ys$)))}.
 Both of these formulas have two one-step operations (\textsf{cons} and \textsf{rest})
 for a total, counting the eight previous steps, of ten one-step operations.
 There is also an inductive invocation to account for:
-\textsf{(mrg (rest $xs$) $ys$) or (mrg $xs$ (rest $ys$))}.
+\textsf{(mrg (rest $xs$) $ys$)} or \textsf{(mrg $xs$ (rest $ys$))}.
 
 The total number of elements in the operands
 of the inductive invocation of \textsf{mrg}
@@ -1227,9 +1234,9 @@ and we conclude by induction that $\forall n.(A_n \leq 10(n+1))$.
 %%% could not make \begin{theorem} work here
 %%% in the following theorem, \emph works backwards for some reason unknown to me -- rlp
 %%%\begin{theorem}[\{dmx computation steps\}] \\
-\begin{center}
+\begin{center}\index{theorem, by name!\{mrg computation steps\}}
 \begin{tabular}{l}
-Theorem \{mrg computation steps\}\\
+Theorem \{mrg computation steps\}:\\
 $($\textsf{(len $xs$)}$+$\textsf{(len $ys$)} $= n$) $\rightarrow$ $($\emph{steps to compute} \textsf{(mrg $xs$ $ys$)} $\equiv A_n \leq 10(n+1))$\\
 \end{tabular}
 \end{center}
@@ -1249,7 +1256,7 @@ Use the predicate $P$ to define another predicate $Q$
 that has the natural numbers as its universe of discourse and
 that has the following properties:\\
 \hspace*{3mm}a. $Q(0)$ is the base case for double induction on $P$.\\
-\hspace*{3mm}b. $(\forall n.(Q(n) \rightarrow Q(n+1)))$ is the inductive case.
+\hspace*{3mm}b. $(\forall n.(Q(n) \rightarrow Q(n+1)))$ is the inductive case
 for double induction on $P$.\\
 \emph{Note}: This exercise is difficult and not particularly instructive.
 The point is that double
@@ -1286,6 +1293,7 @@ provided in the previous definition to help ACL2 prove termination.}
 \index{sorting!merge-sort (msort)}
 \begin{code}
 \begin{verbatim}
+
 (defun msort (xs)
   (if (consp (rest xs))      ; 2 or more elements?
       (let* ((splt (dmx xs))
@@ -1376,9 +1384,8 @@ leads to inequality \{s2\}.
    $S_{n} \leq S_{\lceil n/2 \rceil} + S_{\lfloor n/2 \rfloor} + 17n + 21$, if $n \geq 2$ & \{s2\}\\
 \end{tabular}
 \end{center}
-\index{recurrence equations!merge-sort (msort)}
 \caption{Recurrence inequalities for merge-sort computation steps.}
-\label{msort-recurrences}
+\label{msort-recurrences}\index{recurrence equations!merge-sort (msort)}\index{axiom, by name!\{s1\}, \{s2\} (steps in msort)}\index{equation, by name!\{s1\}, \{s2\} (steps in msort)}\index{S recurrence (steps in msort)}
 \end{figure}
 
 Now, we are going to guess a closed-form formula
@@ -1396,7 +1403,7 @@ $\forall n.(S_{n+2} \leq \alpha \cdot (n+2)~log_2(n+2))$.\footnote{The
 formula $\alpha\cdot n~log_2(n)$ cannot be an upper bound for $S_n$
 when $n$ is zero or one because $n~log_2(n) = 0$ when $n$ is zero or one,
 and we know
-(figure~\ref{msort-recurrences}, page \pageref{msort-recurrences})
+(figure~\ref{msort-recurrences}) %, page \pageref{msort-recurrences})
 that $S_0 = S_1 = 3$, which is more than zero.}
 Finding a multiplier that works is mostly a matter of
 fiddling around with the recurrences to get some intuition
@@ -1412,10 +1419,10 @@ we're not too concerned with the size of the multiplier,
 especially since we don't have a scale for the amount of time
 a computation step takes in our model.
 It's the order of growth, the $n~log_2(n)$ part, that interests us.
-The coincidence that 42 works may amuse Douglas Adams fans.}
+The coincidence that 42 works may amuse \index{Adams, Douglas}Douglas Adams fans.}
 
 \begin{figure}
-Theorem \{msort $n~log(n)$\}. $\forall n.(S_{n+2} \leq 42(n+2)~log_2(n+2))$ \\
+Theorem \{msort $n~log(n)$\}: $\forall n.(S_{n+2} \leq 42(n+2)~log_2(n+2))$ \\
 \begin{tabular}{l}
 \emph{Proof by strong induction} \\
 \emph{Base Case} $(n = 0)$\\
@@ -1455,27 +1462,27 @@ $S_{n+2}$ & $=$    & $S_m$                                                      
           & $=$    & $42m(log_2(m+1) $ \\
           &        & $\qquad\qquad - log_2(2) + (18/42))$                            & \{$log_2(x/y) = log_2(x) - log_2(y)$\} \\
           & $=$    & $42m(log_2(m+1) - 1 + (18/42))$                                 & \{$log_2(2) = 1$\} \\
-          & $<$    & $42m(log_2(m+1) + log_2(m/(m+1))$                               & \{$m \geq 3 \rightarrow log_2\frac{m}{m+1} > -1 + \frac{18}{42}$\} \\
+          & $<$    & $42m(log_2(m+1) + log_2(m/(m+1)))$                              & \{$m \geq 3 \rightarrow log_2\frac{m}{m+1} > -1 + \frac{18}{42}$\} \\
           & $=$    & $42m~log_2((m+1)\cdot m/(m+1))$                                 & \{$log_2(x) + log_2(y) = log_2(xy)$\} \\
           & $=$    & $42m~log_2(m)$                                                  & \{\emph{algebra}\} \\
           & $=$    & $42(n+2)~log_2(n+2)$                                            & \{\emph{definition} $m \equiv n+2$\} \\
 \end{tabular}
 \index{computation steps!merge-sort (msort)}
 \caption{Bound on steps in merge-sort computation.}
-\label{thm:msort-nlogn}
+\label{thm:msort-nlogn}\index{theorem, by name!\{msort $n~log(n)$\}}
 \end{figure}
 
 \begin{exercises}
 
 \exer {\label{defun:Srecur}%
-Use the recurrences in figure~\ref{msort-recurrences} (page \pageref{msort-recurrences})
+Use the recurrences in figure~\ref{msort-recurrences} %(page \pageref{msort-recurrences})
 to define an operator \textsf{S} in ACL2 with \textsf{(S $n$)} $= S_n$.}
 
-\exer {\label{defun:log2}
+\exer {\label{defun:log2}%
 For any nonzero positive number $x$, $\lfloor log_2(x)\rfloor$
 is the biggest integer $n$ such that $2^n \leq x$.
-Define an operator \textsf{log2} in ACL2 that computes $\lfloor log_2(x)\rfloor$.
-(\emph{Note}: To make things a little easier, you may assume $x \geq 1$.)}
+Define an operator \textsf{log2} in ACL2 that computes $\lfloor log_2(x)\rfloor$
+for $x \geq 1$.}
 
 \exer {If $S_{n+2} \leq 42(n+2)\lfloor log_2(n+2)\rfloor$, then
 $S_{n+2} \leq 42(n+2) log_2(n+2)$.
@@ -1521,7 +1528,7 @@ an estimate of the average number of computation steps that
 \textsf{isort} requires for randomly arranged lists
 is useful for comparison purposes.
 We repeat the definition of \textsf{isort}
-(figure~\ref{defun:insert-isort}, page \pageref{defun:insert-isort})
+(figure~\ref{defun:insert-isort}) %, page \pageref{defun:insert-isort})
 for convenience in the analysis.
 
 \begin{figure}
@@ -1537,7 +1544,7 @@ for convenience in the analysis.
       xs))              ; (len xs) <= 1     ; {isrt1}
 \end{verbatim}
 \end{code}
-\index{operator, by name!insert (in order)}\index{equation, by name!\{ins0\}, \{ins1\}, \{ins2\}}\index{operator, by name!isort (insertion-sort)}\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{greater than ($>$)}{predicate}
+\index{operator, by name!insert (in order)}\index{equation, by name!\{ins0\}, \{ins1\}, \{ins2\}}\index{operator, by name!isort (insertion-sort)}\index{equation, by name!\{isrt0\}, \{isrt1\}, \{isrt2\}}\index{compare!numbers ($<$, $<=$, $=$, $>=$, $>$)}\index{predicate!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{order!numeric ($<$, $<=$, $=$, $>=$, $>$)}\index{operator!numeric order ($<$, $<=$, $=$, $>=$, $>$)}\index{number!order ($<$, $<=$, $=$, $>=$, $>$)}\seeonlyindex{greater than ($>$)}{predicate}\index{sorting!insert (in order)}\index{insertion-sort (isort)}
 \caption{Formal definition of \textsf{isort}.}
 \label{defun:insert-isort}\label{defun:isort-copy}
 \end{figure}
@@ -1615,8 +1622,8 @@ in a poll of discrete math textbooks. It's either that or the
 geometric progression (exercise~\ref{ex:geometric-progression}, page \pageref{ex:geometric-progression}).
 Proving the triangular number formula is exercise~\ref{ex:triangular-number} (page \pageref{ex:triangular-number}).}
 $(1 + 2 + 3 + \dots n) = n(n+1)/2$.
-In the end, with a little more algebraic reoganization,
-we find that \textsf{(isort [$x_1$ $x_2$ \dots $x_{n+2}$]} requires,
+In the end, with a little more algebraic reorganization,
+we find that \textsf{(isort [$x_1$ $x_2$ \dots $x_{n+2}$])} requires,
 on average,
 $I_{n+2} = (2n+11)(n+1) + 3$ computation steps.
 Another way to say this is
@@ -1655,8 +1662,9 @@ $=$ & $(2n+11)(n+1) + 3$                                                        
 \end{tabular}\addtolength{\tabcolsep}{3pt}
 \end{spacing}
 \end{center}
+\vspace{-2mm}  %FRAGILE FRAGILE FRAGILE
 \caption{$I_n$ = average number of steps to compute \textsf{(isort $x$ [$x_1$ $x_2$ \dots $x_{n}$])}.}
-\label{fig:isort-steps}\index{computation steps!insertion-sort (isort)}\index{recurrence equations!isort (insertion-sort)}
+\label{fig:isort-steps}\index{computation steps!insertion-sort (isort)}\index{recurrence equations!isort (insertion-sort)}\index{I (isort recurrence)}\index{sorting!insertion-sort (isort)}
 \end{figure}
 
 Theorem \{msort $n~log(n)$\}
@@ -1667,12 +1675,12 @@ for merge-sort on randomized lists.}
 on the number of steps $S_n$ in the computation
 \textsf{(msort [$x_1$ $x_2$ \dots $x_{n+2}$])}:
 $S_{n} \leq 42n~log_2(n)$ when $n =$ (len $xs$) $\geq 2$.
-To compare the time is takes to sort a
+To compare the time it takes to sort a
 list of numbers using \textsf{isort} versus \textsf{msort},
 we can compute a lower bound on the ratio between
 the number of computation steps that insertion-sort requires
 versus merge-sort:
-$I_n/S_n \geq ((2n+7)(n-1)/(42n~log_2(n))$ when $n \geq 2$.
+$I_n/S_n \geq (2n+7)(n-1)/(42n~log_2(n))$ when $n \geq 2$.
 (We dropped $+3$ from the numerator, but the ratio is a lower bound anyway,
 so it's still a lower bound.)
 This ratio gets big fast with increases in $n$, the number of elements
@@ -1714,7 +1722,7 @@ steps the operators require to perform an operation.
 
 \begin{exercises}
 
-\exer {\label{ex:insert-recurrence}
+\exer {\label{ex:insert-recurrence}%
 Derive, from the definition of
 \textsf{insert} (page \pageref{defun:insert-isort}),
 recurrence equations for the number of steps
@@ -1725,7 +1733,7 @@ if $x_1 \leq x_2 \leq \dots x_{n+1} < x$.}
 Using the recurrences from exercise \ref{ex:insert-recurrence},
 prove that the number of steps in the computation of
 \textsf{(insert $x$ [$x_1$ $x_2$ \dots $x_{n+1}$])}
-is $8(n+1)+4$ if $x_1 \leq x_2 \leq \dots x_{n+1} < x$.}
+is $8(n+1)+6$ or less if $x_1 \leq x_2 \leq \dots x_{n+1} < x$.}
 
 \exer {The multiplier $42$ in our bound on $S_n$ gets sloppier as $n$ increases.
 Find  $\beta < 42$ that works for lists with

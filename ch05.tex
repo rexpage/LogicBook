@@ -60,7 +60,7 @@ powers of ten and hexadecimal numerals are based on powers of sixteen.
 Perhaps you noticed a subtle confusion in the formulas we use
 to explain the meaning of numerals. At first, we claim that
 1215 is merely a \index{symbol, for number}symbol standing for a mathematical object.
-And, we claim that the digit 2 is merely a symbol standing
+And we claim that the digit 2 is merely a symbol standing
 for the number of items in a pair, along with similar
 claims for the digits 1 and 5.
 Then, we use those symbols in the formula
@@ -81,7 +81,7 @@ and the formula $4 \times 16^2 + 11 \times 16^1 + 15 \times 16^0$.
 In the formula, we have rewritten the symbol B
 as the hexadecimal numeral for 11
 and the symbol F as the hexadecimal numeral for 15.
-And, we've had the temerity to pretend that symbols
+And we've had the temerity to pretend that symbols
 in the formula are numbers when they are really hexadecimal numerals,
 as they were in the formula for the meaning of the decimal numeral 1215.
 
@@ -134,7 +134,7 @@ of its operand,
 \index{representation!decimal numeral}
 starting with the ones digit (a 5 in this case),
 then the tens digit, and so on, reading right to left from
-customary way of writing the numeral.
+the customary way of writing the numeral.
 If you had a definition of \textsf{dgts},
 you might test it on a few numbers to see if it does what you expect.
 \begin{code}
@@ -166,7 +166,7 @@ this sleight of hand to
 simplify parts of the discussion.
 In a similar vein, the list notation \textsf{[5 1 2 1]} is the symbol we use
 to describe the
-\index{list!for numeral}\index{numeral!list for}\index{sequence!for numeral}\index{numeral!seqeuence for}list,
+\index{list!for numeral}\index{numeral!list for}\index{sequence!for numeral}\index{numeral!sequence for}list,
 but the list itself is a mathematical object.
 It's another figment of our imagination,
 ephemeral in the same sense as a number.
@@ -206,13 +206,13 @@ decimal numeral 012345 in the formula \textsf{(dgts 012345)}
 as a mathematical object.
 How does the computer represent the object? None of your business.
 That's the computer's business.
-It has it's own way of dealing with numbers.
+It has its own way of dealing with numbers.
 Later, we'll study the way most computers do this,
 but for now we will assume that the computer has some way of turning
 numerals into whatever form it uses to represent numbers.
 
-After running few sanity checks on the \textsf{dgts} operator,
-if you had the \textsf{dgts} operator, you might want to do some serious testing.
+After running a few sanity checks on the \textsf{dgts} operator,
+you might want to do some serious testing.
 Big batches of automated tests using random data, perhaps.
 Coming up with automated tests calls for some thought.
 Let's start small. How about the units digit in a decimal numeral?
@@ -262,7 +262,7 @@ $n = qd + r$            & \{\emph{check}$\div$\} \\
 
 The remainder is
 what the \textsf{mod} operator delivers
-(box~\ref{third-grade-division}, page \pageref{third-grade-division}).
+(box~\ref{third-grade-division}). %, page \pageref{third-grade-division}).
 The following test uses \textsf{mod} to make sure the units digit in the numeral
 that the \textsf{dgts} operator delivers for the number $n$ is correct.
 \begin{code}
@@ -322,14 +322,16 @@ are the same as the digits in the list that
 the division $(n \div 10)$.
 \begin{code}
 \begin{verbatim}
-(equal (rest (dgts n))       ; all digits except the units digit
-       (dgts (floor n 10)))) ; digits of the quotient
+(equal (rest (dgts n))      ; all digits except the units digit
+       (dgts (floor n 10))) ; digits of the quotient
 \end{verbatim}
 \end{code}
 
 As with the test of the units digit,
-we can run a batch of tests based on our rest-of-the-digits
-observation by defining a DoubleCheck property.\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}
+we can run a batch of tests based on
+our rest-of-the-digits observation by defining a DoubleCheck property.
+
+\index{definition!property}\index{data, random test}\index{random data}\index{defproperty}observation.
 \begin{code}
 \begin{verbatim}
 (defproperty dgts-other-digits-tst
@@ -340,16 +342,20 @@ observation by defining a DoubleCheck property.\index{definition!property}\index
 \end{verbatim}
 \end{code}
 
-It would be nice to run these tests, but \textsf{dgts} is not an intrinsic operator.
+It would be nice to run these tests, but
+\textsf{dgts} is not an intrinsic operator.
 We have to provide a definition for it.
-To do that we use the \textsf{defun} command, which is similar to \textsf{defproperty}
-but without any value specifications. The definition will be inductive, will
+To do that we use the \textsf{defun} command,
+which is similar to \textsf{defproperty}
+but without any value specifications.
+
+The definition of the \textsf{dgts} operator will be inductive, will
 use some ideas we discussed in putting together tests,
-and will conform to the requirements of the three C's
+and will conform to the requirements of the
+\index{three C's}\index{definition!inductive (circular)}three C's
 (figure~\ref{fig:inductive-def-keys}, page \pageref{fig:inductive-def-keys}),
 repeated here and customized for \textsf{dgts}.
-\begin{samepage}
-\index{three C's}\index{definition!inductive (circular)}
+%\begin{samepage}
 \begin{center}
 \begin{tabular}{lp{3.5in}}
 \emph{Complete}      & Two cases: the number is zero or it isn't. So, two formulas.\\
@@ -359,11 +365,9 @@ repeated here and customized for \textsf{dgts}.
                        (the noninductive case).
 \end{tabular}
 \end{center}
-\end{samepage}
+%\end{samepage}
 
-\label{dgts-defun}
-\index{operator, by name!dgts (digits from number)}\index{numeral!from number}
-\index{representation!decimal numeral}
+\label{dgts-defun}\index{operator, by name!dgts (digits from number)}\index{numeral!from number}\index{representation!decimal numeral}\index{axiom, by name!\{dgts0\}, \{dgts1\}}\index{equation, by name!\{dgts0\}, \{dgts1\}}
 \begin{code}
 \begin{verbatim}
 (defun dgts (n)
@@ -377,11 +381,11 @@ This definition uses the predicate \textsf{zp}
 (box~\ref{zp-def}, page \pageref{zp-def})
 to detect the value zero within the domain of natural numbers.
 If you put the definition of \textsf{dgts} at the beginning of a program,
-import the ``testing'' and ``DoubleCheck" facilities
+import the ``testing'' and ``DoubleCheck'' facilities
 (\textsf{include-book},
 chapter~\ref{ch:software-testing-prefix-notation}, pages \pageref{testing-include}--\pageref{dblchk-include}),
 and import some theorems about modular arithmetic
-(box~\ref{admit-def}, page \pageref{admit-def}),
+(box~\ref{admit-def}), %, page \pageref{admit-def}),
 you can enter the tests and run them using Proof Pad.
 You can also enter formulas in the command panel to compute
 decimal numerals for any natural numbers you choose.
@@ -398,7 +402,7 @@ Fortunately, experts have put together some theorems on that topic,
 and the following \textsf{include-book} directive will import them
 to make it possible for the mechanized logic to prove termination
 and admit the \textsf{dgts} operator to the ACL2 logic.\\
-\hspace*{5mm}\textsf{(include-book "arithmetic-3/floor-mod/floor-mod" :dir :system)}\label{floor-mod-book}\index{ACL2!admit}\index{admit, ACL2}\index{book!arithmetic-3/floor-mod}\label{floor-mod-include-book}\index{directory (:dir)!:system}\index{book!directory (:dir)}\index{directive!include-book}\index{directory (:dir)!:system}\index{system, :dir}
+\hspace*{5mm}\textsf{(include-book "arithmetic-3/floor-mod/floor-mod" :dir :system)}\label{floor-mod-book}\index{ACL2!admit}\index{admit, ACL2}\index{book!arithmetic-3/floor-mod}\label{floor-mod-include-book}\index{directory (:dir)!:system}\index{book!directory (:dir)}\index{directive!include-book}\index{directory (:dir)!:system}\index{system, :dir}\index{theorem!algebra, ACL2}
 %\caption{Termination, ACL2 Admit, and floor/mod Equations}
 %\label{admit-def}
 \end{aside}
@@ -410,10 +414,11 @@ the signing of the United States Declaration of Independence.
 Find the numeral for $y$ and use \textsf{dgts} (page \pageref{dgts-defun})
 to verify that you got it right.}
 
-\exer {\label{modular-division}\index{theorem, by name!\{mod-div\}}
-\index{division!floor, mod}Prove \{\emph{mod-div}\}:
+\exer {\label{modular-division}Prove theorem \{\emph{mod-div}\}:
 \textsf{(mod ($*$ $a$ $x$) ($*$ $a$ $b$))} $=$ \textsf{($*$ $a$ (mod $x$ $b$))} \\
-\emph{Hint}: You won't need induction, but the following facts will help.
+\emph{Hint}: \index{theorem, by name!\{mod-div\}}
+\index{division!floor, mod}You won't need induction,
+but the following facts will help.
 Suppose $x$ is the dividend and $d$ the divisor
 in a third-grade division problem
 (box~\ref{third-grade-division}, page \pageref{third-grade-division}).
@@ -433,7 +438,7 @@ you will need to ask ACL2 to prove an implication with
 hypotheses that constrain the theorem to the domain in which it is true.
 If you state it correctly and import the
 theorems about modular arithmetic contained in the floor-mod book
-(box~\ref{floor-mod-book}, page \pageref{floor-mod-book}),
+(box~\ref{admit-def}, page \pageref{admit-def}),
 ACL2 will succeed.\\
 \emph{Hint}: \textsf{(posp $n$)} is true if $n$ is a nonzero natural number and false otherwise.}
 \end{exercises}
@@ -465,7 +470,7 @@ that converts decimal numerals in that form to numbers.
 We know that \textsf{(nmb10 nil)} must be zero
 because \textsf{(dgts 0)} $=$ \textsf{nil},
 and we are trying to convert numerals produced by \textsf{dgts}
-back the numbers they came from.
+back to the numbers they came from.
 How about a one-digit numeral \textsf{[$x_0$]}?
 The equation in that case would be \textsf{(nmb10 [$x_0$])} $=$ $x_0$.
 If there are two or more digits,
@@ -475,34 +480,39 @@ then the equation would take the following form:\\
 \textsf{(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$])} $=$
 $x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n+1} \times 10^{n+1}$ \hfill \{\emph{a}\}\\
 
+\vspace{-1mm}  %%% FRAGILE FRAGILE FRAGILE
 All of the terms in the sum
 include a factor of ten except the first term,
 so we can factor ten out of those terms.
 Factoring the formula in this way produces a new equation.\\
 \hspace*{1cm}
 \textsf{(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$])} $=$
-$x_0 + 10 \times (x_1 \times 10^0 + x_2 \times 10^1 + \dots x_n \times 10^n)$ \hfill \{\emph{b}\}\\
+$x_0 + 10 \times (x_1 \times 10^0 + x_2 \times 10^1 + \dots x_{n+1} \times 10^n)$ \hfill \{\emph{b}\}\\
 
+\vspace{-1mm}   %%% FRAGILE FRAGILE FRAGILE
 The list \textsf{[$x_1$ $x_2$ \dots $x_{n+1}$]} is also a decimal numeral,
 albeit for a different number.
 The number it denotes is
-$(x_1 \times 10^0 + x_2 \times 10^1 + \dots x_n \times 10^n)$,
+$(x_1 \times 10^0 + x_2 \times 10^1 + \dots x_{n+1} \times 10^n)$,
 which is the value \textsf{nmb10} should deliver given the numeral \textsf{[$x_1$ $x_2$ \dots $x_{n+1}$]}.\\
 \hspace*{1cm}
 \textsf{(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$])} $=$ $x_1 + x_2 \times 10^1 + \dots x_{n+1} \times 10^n$ \hfill \{\emph{c}\}\\
 
+\vspace{-1mm}   %%% FRAGILE FRAGILE FRAGILE
 Observe that the right-hand side of equation \{\emph{c}\}
-is identical
+is equal
 to the part of the formula in equation \{\emph{b}\} that is multiplied by ten.
 Therefore, we can rewrite equation \{\emph{b}\} as follows:\\
 \hspace*{1cm}
 \textsf{(nmb10 [$x_0$ $x_1$ $x_2$ \dots $x_{n+1}$])} $=$
-$x_0 + 10 \times$\textsf{(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$])} \hfill \{\emph{d}\}\\
+$x_0 + 10$ $\times$ \textsf{(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$])} \hfill \{\emph{d}\}\\
+
+\vspace{-1mm}   %%% FRAGILE FRAGILE FRAGILE
 Equation \{\emph{d}\} is an inductive equation that delivers the right value for
 numerals with two or more digits. It also works
 for one-digit numerals because (nmb10 nil) is zero.\\
 \hspace*{1cm}
-\textsf{(nmb10 [$x_0$])} $=$ $x_0 + 10 \times$\textsf{(nmb10 nil)} $=$ $(x_0 + 10 \times 0) = x_0$ \hfill \{\emph{d}$*$\}\\
+\textsf{(nmb10 [$x_0$])} $=$ $x_0 + 10$ $\times$ \textsf{(nmb10 nil)} $=$ $(x_0 + 10 \times 0) = x_0$ \hfill \{\emph{d}$*$\}\\
 
 Together, equation \{\emph{d}\} for numerals with one or more digits
 and the equation for empty numerals, \textsf{(nmb10 nil)} $=$ $0$, conform to the
@@ -514,18 +524,18 @@ the \textsf{first} and \textsf{rest} operators
 extract the required digits from the numeral.
 From that point, constructing the ACL2 definition
 is a straightforward translation of the equations to prefix notation.
-\begin{center}
-\seeonlyindex{nmb10}{operator}\index{number!from numeral}
+\vspace{2mm}   %%% FRAGILE FRAGILE FRAGILE
+\begin{center}\seeonlyindex{nmb10}{operator}\index{number!from numeral}\index{axiom, by name!\{n10.0\}, \{n10.1\}}\index{equation, by name!\{n10.0\}, \{n10.1\}}
 \addtolength{\tabcolsep}{-3pt}
 \begin{tabular}{rlll}
-\textsf{(nmb10 [$x_0$ $x_1$ $x_2$ $\dots$ $x_{n+1}$])} & $=$ &$x_0 + 10\times$\textsf{(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$])} &\{\emph{n10.1}\} \emph{(page \pageref{nmb10-defun})}\\
-\textsf{(nmb10 nil)}                           & $=$ &$0$   &\{\emph{n10.0}\} \emph{(page \pageref{nmb10-defun})}\\
-$x_0$                         & $=$ &\textsf{(first [$x_0$ $x_1$ $\dots$ $x_n$])} &\{\emph{cons}\} \emph{(page \pageref{first-rest-cons})}\\
-\textsf{{[$x_1$ $\dots$ $x_n$]}}       & $=$ &\textsf{(rest  [$x_0$ $x_1$ $\dots$ $x_n$])} &\{\emph{rest}\} \emph{(page \pageref{first-rest-cons})}\\ % mysterious error without curly braces {[ ... ]}, something to do with an optional parameter after
+\textsf{(nmb10 [$x_0$ $x_1$ $x_2$ $\dots$ $x_{n+1}$])} & $=$ &$x_0 + 10$ $\times$ \textsf{(nmb10 [$x_1$ $x_2$ \dots $x_{n+1}$])} &\{n10.1\} (below)\\
+\textsf{(nmb10 nil)}                           & $=$ &$0$   &\{n10.0\} (below)\\
+$x_0$                         & $=$ &\textsf{(first [$x_0$ $x_1$ $\dots$ $x_n$])} &\{\emph{cons}\} (page \pageref{first-rest-cons})\\
+\textsf{{[$x_1$ $\dots$ $x_n$]}}       & $=$ &\textsf{(rest  [$x_0$ $x_1$ $\dots$ $x_n$])} &\{\emph{rest}\} (page \pageref{first-rest-cons})\\ % mysterious error without curly braces {[ ... ]}, something to do with an optional parameter after
 \end{tabular}
 \addtolength{\tabcolsep}{3pt}
 \end{center}\label{nmb10-defun}\index{operator, by name!nmb10 (number from digits)}
-
+\vspace{-2mm}   %%% FRAGILE FRAGILE FRAGILE
 \begin{code}
 \begin{verbatim}
 (defun nmb10 (xs)
@@ -535,6 +545,7 @@ $x_0$                         & $=$ &\textsf{(first [$x_0$ $x_1$ $\dots$ $x_n$])
 \end{verbatim}
 \end{code}
 
+\vspace{-2mm}   %%% FRAGILE FRAGILE FRAGILE
 We have derived this definition carefully
 from things we know about numbers,
 and we can use logic to be sure we got it right.
@@ -543,18 +554,19 @@ We want to prove that
 delivers the same number as the formula
 $(x_0 + x_1 \times 10^1 + x_2 \times 10^2 + \dots x_{n} \times 10^{n})$.
 \begin{center}
-\label{horner10-thm}\index{theorem!Horner}\index{theorem, by name!\{Horner 10\}}Theorem
+\label{horner10-thm}\index{theorem!Horner}\index{theorem, by name!\{horner 3\}@\{Horner 10\}}Theorem
 \{\emph{Horner 10}\}:
 \textsf{(nmb10 [$x_0$ $x_1$ \dots $x_{n}$])} $=$
 $x_0 + x_1 \times 10^1 + x_2 \times 10^2 +$ $\dots$ $x_{n} \times 10^{n}$
 \end{center}
+\vspace{2mm}
 
 The theorem asserts that the operator \textsf{nmb10}
 computes a sum of multiples of successive powers of ten.
 The multipliers
 (known as \index{coefficient, polynomial}polynomial coefficients)
 of the powers of ten are the digits in a decimal numeral.
-We call it the theorem \emph{Horner 10} because
+We call the theorem \emph{Horner 10} because
 the scheme that the operator \textsf{nmb10} uses to carry out the computation is
 known as \index{Horner's rule}Horner's rule.
 Proving theorem \{\emph{Horner 10}\} amounts to
@@ -581,12 +593,12 @@ citing mathematical induction
 &$H(0) \equiv ($\textsf{(nmb10 [$x_0$])} $=$ $x_0)$&\\
 \hline
     & \textsf{(nmb10 [$x_0$])}           & \\
-$=$ & \textsf{(nmb10 (cons $x_0$ nil))}  & \{\emph{cons}\} \emph{(page \pageref{first-rest-cons})} \\
-$=$ & \textsf{(+ (first (cons $x_0$ nil))}  & \{\emph{n10.1}\} \emph{(page \pageref{nmb10-defun})} \\
+$=$ & \textsf{(nmb10 (cons $x_0$ nil))}  & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
+$=$ & \textsf{(+ (first (cons $x_0$ nil))}  & \{n10.1\} (page \pageref{nmb10-defun}) \\
     & \phantom{\textsf{(+ }}\textsf{($*$ 10 (nmb10 (rest (cons $x_0$ nil)))))} &\\
-$=$ & \textsf{(+ $x_0$ ($*$ 10 (nmb10 (rest (cons $x_0$ nil)))))}  & \{\emph{first}\} \emph{(page \pageref{first-rest-cons})} \\
-$=$ & \textsf{(+ $x_0$ ($*$ 10 (nmb10 nil)))}  & \{\emph{rest}\} \emph{(page \pageref{first-rest-cons})} \\
-$=$ & \textsf{(+ $x_0$ ($*$ 10 0))}  & \{\emph{n10.0}\} \emph{(page \pageref{nmb10-defun})} \\
+$=$ & \textsf{(+ $x_0$ ($*$ 10 (nmb10 (rest (cons $x_0$ nil)))))}  & \{\emph{first}\} (page \pageref{first-rest-cons}) \\
+$=$ & \textsf{(+ $x_0$ ($*$ 10 (nmb10 nil)))}  & \{\emph{rest}\} (page \pageref{first-rest-cons}) \\
+$=$ & \textsf{(+ $x_0$ ($*$ 10 0))}  & \{n10.0\} (page \pageref{nmb10-defun}) \\
 $=$ & $x_0$  & \{\emph{algebra}\} \\
 \end{tabular}
 \end{center}
@@ -602,7 +614,7 @@ $x_0 + x_1 \times 10^1 +$  $\dots$ $x_{n+1} \times 10^{n+1})$}\\
 \hline
     & \textsf{(nmb10 [$x_0$ $x_1$ $\dots$ $x_{n+1}$])}           & &\\
 $=$ & \textsf{(nmb10 (cons $x_0$ [$x_1$ $\dots$ $x_{n+1}$]))}    & \{\emph{cons}\}&\\
-$=$ & \textsf{(+ (first (cons $x_0$ [$x_1$ $\dots$ $x_{n+1}$]))}  & \{\emph{n10.1}\} &\\
+$=$ & \textsf{(+ (first (cons $x_0$ [$x_1$ $\dots$ $x_{n+1}$]))}  & \{n10.1\} &\\
     & \phantom{\textsf{(+ }}\textsf{($*$ 10 (nmb10 (rest (cons $x_0$ [$x_1$ $\dots$ $x_{n+1}$])))))} &&\\
 $=$ & \textsf{(+ $x_0$ ($*$ 10 (nmb10 (rest (cons $x_0$ [$x_1$ $\dots$ $x_{n+1}$])))))}      & \{\emph{first}\} &\\
 $=$ & \textsf{(+ $x_0$ ($*$ 10 (nmb10 [$x_1$ $\dots$ $x_{n+1}$])))}                          & \{\emph{rest}\}&\\
@@ -625,7 +637,7 @@ as stated in the following theorem:
 %\begin{center}
 \hspace*{5mm}Theorem \{\emph{dgts-ok}\}:
 $\forall n.($\textsf{(nmb10 (dgts $n$))} $=$ $n)$
-\vspace{2mm}
+\vspace{1cm}
 %\end{center}
 
 Define $D(n) \equiv ($\textsf{(nmb10 (dgts $n$))} $=$ $n)$.
@@ -635,7 +647,7 @@ of the predicate $D$ is the natural numbers,
 so a proof of $D(0)$
 together with a proof of
 $(\forall n.(D(n) \rightarrow D(n+1)))$
-lead by natural deduction to the desired conclusion.
+leads by natural deduction to the desired conclusion.
 Both of the required proofs appear in
 figure~\ref{fig:horner10-inverse}.
 
@@ -645,8 +657,8 @@ figure~\ref{fig:horner10-inverse}.
 &\multicolumn{2}{l}{Base Case: $D(0) \equiv ($\textsf{(nmb10 (dgts $0$))} $=$ $0)$}\\
     \hline
     & \textsf{(nmb10 (dgts $0$))} & \\
-$=$ & \textsf{(nmb10 nil)}        & \{\emph{dgts0}\} (page \pageref{dgts-defun}) \\
-$=$ & \textsf{0}                  & \{\emph{n10.0}\} (page \pageref{nmb10-defun}) \\
+$=$ & \textsf{(nmb10 nil)}        & \{dgts0\} (page \pageref{dgts-defun}) \\
+$=$ & \textsf{0}                  & \{n10.0\} (page \pageref{nmb10-defun}) \\
 \end{tabular}
 \end{center}
 \begin{center}
@@ -655,8 +667,8 @@ $=$ & \textsf{0}                  & \{\emph{n10.0}\} (page \pageref{nmb10-defun}
 &Inductive Case: $D(n+1) \equiv ($\textsf{(nmb10 (dgts $(n+1)$))} $=$ $(n + 1))$&\\
     \hline
     & \textsf{(nmb10 (dgts $(n+1)$))}           & \\
-$=$ & \textsf{(nmb10 (cons (mod $(n+1)$ 10) (dgts (floor $(n+1)$ 10)))}  & \{\emph{dgts1}\} (page \pageref{dgts-defun})\\
-$=$ & \textsf{(+ (mod $(n+1)$ 10)}              & \{\emph{n10.1}\} (page \pageref{nmb10-defun})\\
+$=$ & \textsf{(nmb10 (cons (mod $(n+1)$ 10) (dgts (floor $(n+1)$ 10)))}  & \{dgts1\} (page \pageref{dgts-defun})\\
+$=$ & \textsf{(+ (mod $(n+1)$ 10)}              & \{n10.1\} (page \pageref{nmb10-defun})\\
     & \phantom{\textsf{(+ }}\textsf{($*$ 10 (nmb10 (dgts (floor $(n+1)$ 10)))))} &\\
 $=$ & \textsf{(+ (mod $(n+1)$) 10) ($*$ 10 (floor $(n+1)$ 10)))}  & \{$D$(floor $(n+1)$ 10)\} \\
 $=$ & $(n+1)$  & \{\emph{check}$\div$\} (page \pageref{third-grade-division})
@@ -664,7 +676,7 @@ $=$ & $(n+1)$  & \{\emph{check}$\div$\} (page \pageref{third-grade-division})
 \addtolength{\tabcolsep}{2pt}
 \end{center}
 \caption{Proof by induction of theorem \{\emph{dgts-ok}\}.}
-\label{fig:horner10-inverse}
+\label{fig:horner10-inverse}\index{theorem, by name!\{dgts-ok\}}
 \end{figure}
 
 If you look carefully at the proof of $D(n) \rightarrow D(n+1)$,
@@ -683,15 +695,14 @@ even though it looks more powerful because any or all of the
 propositions $D(0)$, $D(1)$, \dots $D(n)$ can be cited in the proof of $D(n+1)$.
 Ordinary mathematical induction allows citing $D(n)$, but not the other
 propositions.
-Nevertheless, it is possible verify that if the rule of ordinary mathematical induction
+Nevertheless, it is possible to verify
+that if the rule of ordinary mathematical induction
 is a valid rule of inference, then so is strong induction, and vice versa.
 The proof is not difficult, but it's a distraction,
 so we will present a rationale and leave it at that.
 
-\label{strong-induction-rationale}
-The \index{induction!rationale}rationale for
-\index{induction!proof by}\index{proof!by induction}
-\index{strong induction}\index{induction!strong}strong induction is similar to
+\label{strong-induction-rationale}The \index{induction!rationale}rationale for
+\index{induction!proof by}\index{proof!by induction}\index{strong induction}\index{induction!strong}strong induction is similar to
 the rationale for ordinary mathematical induction (page \pageref{induction-rationale}).
 Suppose you are proving the propositions
 $P(0)$, $P(1)$, $P(2)$, \dots and so on,
@@ -708,7 +719,7 @@ When you cite one or more propositions with indices smaller than $n$,
 you are using strong induction.
 
 To put it another way, the formal statement of the strong induction rule
-(figure~\ref{strong-induction-rule}, page \pageref{strong-induction-rule})
+(figure~\ref{strong-induction-rule}) %, page \pageref{strong-induction-rule})
 is different from the formal statement of ordinary induction
 (figure~\ref{induction-rule}, page \pageref{induction-rule}), but
 in practice strong induction encompasses the ordinary induction rule
@@ -721,17 +732,18 @@ So, we may as well cite strong induction, even when we're only relying
 on the ordinary induction rule.
 
 \begin{figure}
-%\begin{center}
+\begin{center}
 \begin{spacing}{0.9}
 \begin{tabular}{l}
 Prove $(\forall m<n.P(m))\rightarrow P(n)$ \\
-----------------------------------------\{strong induction\}\\
+--------------------------------------\{strong induction\}\\
 Infer $(\forall n.P(n))$
 \end{tabular}
 \end{spacing}
-%\end{center}
+\end{center}
+\vspace*{-4mm}
 \caption{Mathematical induction (strong induction version).}
-\label{strong-induction-rule}\index{strong induction}\index{induction!strong}\index{inference rule, by name!\{strong induction\}}\index{induction!proof by}\index{proof!by induction}
+\label{strong-induction-rule}\index{strong induction}\index{induction!strong}\index{inference rule, by name!\{strong induction\}}\index{induction!proof by}\index{proof!by induction}\index{induction!inference rule}
 \end{figure}
 
 \begin{exercises}
@@ -747,7 +759,7 @@ Infer $(\forall n.P(n))$
      natural numbers $n$.
      Of course, all of the tests should succeed because
      we proved that the formula always delivers true.
-     If a test fails, something is wrong with
+     If a test fails, something is wrong
      with the definition of the property or the operators it refers to.}
 
 \exer {Define a DoubleCheck property to test
@@ -757,7 +769,7 @@ Infer $(\forall n.P(n))$
      generates random decimal numerals.\\
      \emph{Note}: The test must use the operator
      \textsf{equal} because \textsf{(= $x$ $y$)}
-     requires $x$ and $y$ to be numbers.
+     requires $x$ and $y$ to be numbers.\\
      \emph{Note}: This test can fail.
      If it does, check out the data that causes the failure.}
 
@@ -769,8 +781,7 @@ Infer $(\forall n.P(n))$
      Why not? Give an example of a decimal numeral
      $xs$ for which \textsf{(dgts (nmb10 $xs$))} $\neq$ $xs$.}
 
-\exer {\label{ex:dgts-inverts-nmb10}
-     Describe a constraint on $xs$ such that
+\exer {\label{ex:dgts-inverts-nmb10}Describe a constraint on $xs$ such that
      \textsf{(dgts (nmb10 $xs$))} $=$ $xs$.}
 
 \exer {Prove that
@@ -821,7 +832,7 @@ includes all of the propositions $P(0)$, $P(1)$, $P(2) \dots P(n)$, not just $P(
 The key is that a proof by strong induction
 can cite any (or some, or even all) of those propositions
 to justify steps in the proof of
-$P(n+1)$.\index{strong induction}\index{induction!strong}\index{induction!proof by}\index{proof!by induction}
+$P(n+1)$.\index{strong induction}\index{induction!strong}\index{induction!proof by}\index{proof!by induction}\index{induction!inference rule}
 %\caption{Strong Induction Requires Two Proofs or One?}
 %\label{strong-induction-rule-2-hyps-or-1}
 \end{aside}
@@ -829,7 +840,7 @@ $P(n+1)$.\index{strong induction}\index{induction!strong}\index{induction!proof 
 \section{Binary Numerals}
 \label{sec:binary-numerals}
 
-Digital circuits, since they are a materializations of mathematical logic,
+Digital circuits, since they are materializations of formulas in mathematical logic,
 have components that can represent two different values.
 We call them zero and one, and it happens that those names
 make it convenient to discuss circuits that deal with binary numerals,
@@ -854,11 +865,11 @@ which are used to construct and interpret binary numerals,
 are defined in
 figure~\ref{fig:defun-dgts-bits} (page \pageref{fig:defun-dgts-bits}).
 Like the corresponding operators for decimal numerals
-(\textsf{dgts}, page \pageref{dgts-defun} and \textsf{nmb10}, page \pageref{nmb10-defun}),
+(\textsf{dgts}, page \pageref{dgts-defun}, and \textsf{nmb10}, page \pageref{nmb10-defun}),
 \textsf{bits} and \textsf{numb} use the predicate \textsf{zp} (page \pageref{zp-def}) to choose
 between the base case ($n = 0$) and the inductive case ($n > 0$).
 ACL2 needs access to the theorems
-in the floor-mod book (box~\ref{floor-mod-book}, page \pageref{floor-mod-book})
+in the floor-mod book (box~\ref{admit-def}, page \pageref{admit-def})
 to admit the \textsf{bits} operator to its logic,
 just as it did for the definition of \textsf{dgts}.
 
@@ -883,8 +894,8 @@ just as it did for the definition of \textsf{dgts}.
 \label{nmb-defun}
 \label{bits-defun}
 \index{numeral!binary}\index{binary numeral}\index{operator, by name!bits (numeral from number)}\seeonlyindex{bits}{operator}
-\index{equation, by name!\{bits0\}, \{bits1\}}
-\index{representation!binary numeral}\index{operator, by name!numb (number from bits)}\seeonlyindex{numb}{operator}\index{equation, by name!\{numb0\}, \{2numb\}, \{2numb+1\}}
+\index{axiom, by name!\{bits0\}, \{bits1\}}\index{equation, by name!\{bits0\}, \{bits1\}}
+\index{representation!binary numeral}\index{operator, by name!numb (number from bits)}\seeonlyindex{numb}{operator}\index{axiom, by name!\{numb0\}, \{2numb\}, \{2numb+1\}}\index{equation, by name!\{numb0\}, \{2numb\}, \{2numb+1\}}
 \end{figure}
 	
 A theorem about \textsf{numb} concerning the interpretation of
@@ -896,8 +907,8 @@ Constructing those proofs can
 clarify your understanding of both decimal numerals
 and binary numerals.
 
-\begin{aside}{aside:numeral-representation-trick}{Representation Trick: Any List is a Binary Numeral}
-A difference between the definition of \textsf{numb} (page \pageref{nmb-defun})
+\begin{aside}{aside:numeral-representation-trick}{Representation Trick: Any List Is a Binary Numeral}
+A difference between the definition of \textsf{numb} (figure \ref{fig:defun-dgts-bits})
 and the definition of \textsf{nmb10} (page \pageref{nmb10-defun})
 is that \textsf{numb} treats bits as symbols,
 whereas \textsf{nmb10} assumes that digits are numbers.
@@ -934,7 +945,7 @@ are avoided by this elimination of constraints.\index{numeral!list representatio
 
 \exer {\label{horner2-thm}%
 Adapt the proof of \{\emph{Horner 10}\} (page \pageref{horner10-thm}) to prove theorem
-\index{theorem!Horner}\index{theorem, by name!\{Horner 2\}}\index{Horner}\{\emph{Horner 2}\}.\\
+\index{theorem!Horner}\index{theorem, by name!\{horner 2\}@\{Horner 2\}}\index{Horner}\{\emph{Horner 2}\}.\\
 \hspace*{1cm}$\forall n.($\textsf{(numb [$x_0$ $x_1$ $\dots$ $x_{n}$])}
 $=$ $x_0 + x_1 \times 2^1 + x_2 \times 2^2 +$ $\dots$ $x_{n} \times 2^{n})$~~~\{\emph{Horner 2}\}}
 
@@ -970,11 +981,11 @@ formalization of the theorem through the mechanized logic:}
 \end{quote}
 
 \exer {\label{ex:pad-defun}%
-Given the following definition of operator \textsf{pad}, prove theorem \{\emph{len-pad}\}:\\
-\hspace*{1cm}$\forall n.($\textsf{(len (pad $n$ $x$ $xs$))} $=$ $n)$~~~ \{\emph{len-pad}\}
-}
-\begin{samepage}
-\label{pad-defun}\index{operator, by name!pad (append padding)}\seeonlyindex{pad}{operator}\index{equation, by name!\{pad$+$\}, \{pad$-$\}}
+Given the following definition of operator \textsf{pad},
+prove \index{theorem, by name!\{len-pad\}}theorem \{\emph{len-pad}\}:\\
+\hspace*{1cm}$\forall n.($\textsf{(len (pad $n$ $x$ $xs$))} $=$ $n)$~~~ \{\emph{len-pad}\}}
+%\begin{samepage}
+\label{pad-defun}\index{operator, by name!pad (append padding)}\seeonlyindex{pad}{operator}\index{axiom, by name!\{pad$+$\}, \{pad$-$\}}\index{equation, by name!\{pad$+$\}, \{pad$-$\}}
 \begin{quote}
 \begin{code}
 \begin{verbatim}
@@ -986,7 +997,8 @@ Given the following definition of operator \textsf{pad}, prove theorem \{\emph{l
 \end{verbatim}
 \end{code}
 \end{quote}
-\end{samepage}
+
+%\end{samepage}
 \begin{quote}
 \emph{Note}: The definition of \textsf{pad} refers to the operators
 \textsf{rep} (page \pageref{rep-equations}) and \textsf{prefix} (page \pageref{prefix-equations}).
@@ -1000,7 +1012,7 @@ to form a list of the desired length. If $n$ is less than \textsf{(len $xs$)},
 \exer {\label{hi-1}%
 Given the following definition of operator \textsf{fin}, prove theorem \{\emph{hi-1}\}:\\
 \hspace*{1cm}$\forall n. ($\textsf{(fin (bits $n$))} $=$ $1)$ if $n > 0$~~~\{\emph{hi-1}\}}
-\label{fin-defun}\index{operator, by name!fin (extract last element)}\seeonlyindex{fin}{operator}\index{equation, by name!\{fin1\}, \{fin2\}}
+\label{fin-defun}\index{operator, by name!fin (extract last element)}\seeonlyindex{fin}{operator}\index{axiom, by name!\{fin1\}, \{fin2\}}\index{equation, by name!\{fin1\}, \{fin2\}}
 \begin{quote}
 \begin{code}
 \begin{verbatim}
@@ -1018,32 +1030,31 @@ Define theorem
 of exercise \ref{hi-1} in ACL2
 and run it through the mechanized logic.
 ACL2 will succeed if you use
-\textsf{implies} and \textsf{posp} (box~\ref{zp-def} , page \pageref{zp-def})
-to constrain the theorem  to nonzero, natural numbers.
+\textsf{implies} and \textsf{posp} (box~\ref{zp-def}, page \pageref{zp-def})
+to constrain the theorem to nonzero, natural numbers.
 Of course, the definition of the operator \textsf{bits} (page \pageref{bits-defun})
 will need to be admitted to the ACL2 logic  (box~\ref{admit-def}, page \pageref{admit-def})
 before it can attempt the proof of this theorem.}
 
 \exer {\label{len-bits}%
-\index{theorem, by name!\{len-bits\}}Prove theorem \{\emph{len-bits}\}.
-$\forall n.((2^{n-1} \le m < 2^n) \rightarrow ($\textsf{(len (bits $m$))} $=$ $n))$~~~\{\emph{len-bits}\}}
+\index{theorem, by name!\{len-bits\}, \{len-bits$\le$\}}Prove theorem \{\emph{len-bits}\}.
+$\forall n.((\lfloor 2^{n-1}\rfloor \le m < 2^n) \rightarrow ($\textsf{(len (bits $m$))} $=$ $n))$~~~\{\emph{len-bits}\}}
 
 \exer {\label{len-bitsLE}%
-\index{theorem, by name!\{len-bits$\le$\}}Prove theorem \{\emph{len-bits}$\le$\}.
+\index{theorem, by name!\{len-bits\}, \{len-bits$\le$\}}Prove theorem \{\emph{len-bits}$\le$\}.
 $\forall n.((0 \le m < 2^n) \rightarrow$ (\textsf{(len (bits $m$))} $\le n))$~~~\{\emph{len-bits}$\le$\}}
 
 \exer {\label{log-bits}%
 \index{theorem, by name!\{log-bits\}}\index{numeral!length}Prove theorem \{\emph{log-bits}\}.
-$\forall n > 0.($\textsf{(len (bits $n$))} $=$ $\lfloor log_2(n) \rfloor + 1)$~~~\{\emph{log-bits}\} \\
+$\forall n.($\textsf{(len (bits $(n+1)$))} $=$ $\lfloor log_2(n+1) \rfloor + 1)$~~~\{\emph{log-bits}\} \\
 \emph{Note}: $\lfloor x \rfloor$ is the greatest integer not exceeding $x$.}
 
 \exer {\label{leading-0}%
-\index{theorem, by name!\{leading-0\}}Prove theorem \{\emph{leading-0}\}.\\
+\index{theorem, by name!\{leading-0\}, \{leading-0s\}}Prove theorem \{\emph{leading-0}\}.\\
 \hspace*{1cm}$\forall n.($\textsf{(numb (append (bits $n$) (list 0)))} $=$ \textsf{(numb (bits $n$))}$)$~~~\{\emph{leading-0}\}}
 
 \exer {\label{leading-0s}%
-\index{theorem, by name!\{leading-0s\}}
-\index{leading zero}\index{numeral!leading zero}Assume
+\index{theorem, by name!\{leading-0\}, \{leading-0s\}}\index{leading zero}\index{numeral!leading zero}Assume
 theorem \{\emph{leading-0}\} (exercise~\ref{leading-0}) is true.
 Prove theorem \{\emph{leading-0s}\}.\\
 \hspace*{1cm}$\forall m.(\forall n.($\textsf{(numb (append (bits $n$) (rep $m$ 0)))} $=$
@@ -1063,7 +1074,7 @@ will need to be admitted to the ACL2 logic
 before it can attempt the proof of this theorem.}
 
 \exer {\label{pfx-mod}%
-\index{theorem, by name!\{pfx-mod\}}Prove theorem \{\emph{pfx-mod}\}.\\
+\index{theorem, by name!\{pfx-mod\}}Prove theorem \{\emph{pfx-mod}\}:\\
 \hspace*{1cm}
 $\forall w.(\forall n.($\textsf{(numb (prefix $w$ (bits $n$)))} $=$ \textsf{(mod $n$ $2^w$)}$))$~~~\{\emph{pfx-mod}\}\\
 \emph{Hint}: The universe of discourse of $\forall w$ is the natural numbers.

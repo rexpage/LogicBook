@@ -23,7 +23,7 @@ The properties of hardware devices are largely fixed when the system is
 constructed. For example, the capacity of a hard drive is
 determined when it is manufactured. A three-terabyte drive
 stores three terabytes of data, not more.
-A particular cable may constructed to carry twenty-five different signals
+A particular cable may be constructed to carry twenty-five different signals
 simultaneously. Need to send twenty-six signals at the same time?
 Get a different cable, or more of them.
 
@@ -91,7 +91,7 @@ a collection of equations in which
 the left-hand side of the equation names a computation to be carried out
 and the right-hand side reduces the computation to
 more basic components, each of which produces part of the result.
-The partial results are then combined them to deliver the whole.
+The partial results are then combined to deliver the whole.
 An advantage of the equation-based approach
 is that a form of reasoning similar to that used
 in ordinary, high school algebra can be used to derive
@@ -151,7 +151,7 @@ is based on this equivalence.
 It says that all realizable computations can
 be carried out by a Turing machine or by
 any equivalent model of computation, such as
-the lambda-calculus model.
+the lambda calculus model.
 Much of computer science theory
 revolves around this hypothesis.
 
@@ -160,7 +160,7 @@ by computer hardware or software.
 Alan \index{Turing, Alan}Turing, one of the first computer scientists,
 was the first to describe
 \index{uncomputable}\seeonlyindex{incomputable}{uncomputable}uncomputable problems,
-and soon afterwards the logician Kurt \index{G\"odel, Kurt}G\"odel
+and soon afterwards the logician Kurt \index{Godel, Kurt@G\"odel, Kurt}G\"odel
 showed that all mathematical systems that are at least as
 powerful as arithmetic
 are \index{incompleteness}incomplete. No formal system can be used
@@ -202,8 +202,9 @@ leaves many questions to the imagination:
 \end{enumerate}
 %\end{quote}
 
-A model of computation (box~\ref{aside-model-of-computation}) is
-a way for software to control hardware,
+A model of computation
+(box~\ref{aside-model-of-computation}, page \pageref{aside-model-of-computation})
+is a way for software to control hardware,
 so there are as many answers to the first of these questions
 as there are models of computation, and
 there are a lot of models.
@@ -273,10 +274,10 @@ a device that plays the game of \index{rock-paper-scissors}\index{game, rock-pap
 The device has three buttons, allowing the human player to select rock, paper, or
 scissors.  It also has a display unit.
 When the human player presses a button,
-the display unit shows the devices's choice (rock, paper, or scissors)
+the display unit shows the device's choice (rock, paper, or scissors)
 and shows the winner of the round.
 The program will compute the device's choice
-by invoking an operator called \textsf{emily},\footnote{This operator is
+by invoking an operator called \textsf{emily}.\footnote{This operator is
 named after a daughter of one of the authors who, when she was young,
 played the rock-paper-scissors game just like the program described here.}
 This operator will deliver
@@ -303,7 +304,7 @@ The player for the device, which is the operator \textsf{emily},
 will receive as its operand the choice that the human player selected
 in the immediately previous round.
 The operator \textsf{emily}
-(and this is heart of the device's ``prowess''
+(and this is the heart of the device's ``prowess''
 at the game, if prowess is the right term, and it probably isn't)
 will, in turn, choose a play according to the following scheme.
 The operand $u$ is the human player's choice for the previous round.
@@ -368,7 +369,7 @@ That is, the operator \textsf{emily} could be upgraded.
 Such is the flexibility of software.
 
 The way we have described the operators \textsf{emily} and \textsf{score}
-illustrate an important point about our computational model.
+illustrates an important point about our computational model.
 A program in our model consists of a collection of equations
 defining mathematical functions that start each computation from scratch
 based only on their input. They cannot ``remember'' anything from previous computations.
@@ -387,7 +388,7 @@ This makes it possible to
 understand equation-based programs in terms of classical
 logic and traditional algebraic formulas.
 
-To back to our discussion of the game,
+To get back to our discussion of the game,
 after the first round the display component of the device
 would show the first element $w_1$ of the pair $(w_1, u_1)$ delivered by the formula
 \textsf{score}(\textsf{emily}(\textsf{none}), $b_1$),
@@ -442,8 +443,8 @@ Consider \index{Deep Blue}Deep Blue, the
 computer that beat world champion Gary Kasparov in a chess match on May 11,
 1997. It was the first time a computer had performed so well in a
 game that challenges the mental capacities of human players.
-The Deep Blue chess-playing software can be specified as an operator whose input is
-an $8 \times 8$ matrix showing the positions of the pieces
+The Deep Blue chess-playing software can be specified as an operator 
+with an operand that is an $8 \times 8$ matrix showing the positions of the pieces
 on the board after a move by the human player (Kasparov, in the 1997 game).
 The operator would deliver a result showing
 either the positions on the board after its move or a special
@@ -454,7 +455,7 @@ in software with the following characteristics.
 Given a matrix describing the board at a particular point in a game,
 the operator determines all possible legal moves.  If there
 are no legal moves, the operator delivers the white flag,
-signaling that the Deep Blue has resigned.
+signaling that Deep Blue has resigned.
 If there is a legal move that results
 in checkmate, the operator delivers the $8 \times 8$ matrix specifying the
 new board position after that move.  Otherwise, for each legal move,
@@ -499,7 +500,7 @@ can be written as an algebraic formula, as in the following equation:
 \begin{displaymath}
 h5 = \frac{1}{1} + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} + \frac{1}{5}
 \end{displaymath}
-This is noninductive definition of $h5$,
+This is a noninductive definition of $h5$,
 and $h5$ has no operands, so it simply stands for a number,
 namely, $\frac{137}{60}$, which is about $2.3$.
 
@@ -546,7 +547,7 @@ is closer to the operand in the part of the definition
 that is not circular, \{h0\}, than it is to the operand on the
 left-hand side of the circular equation.
 
-It turns out, and we will study this is in great detail later,
+It turns out, and we will study this in great detail later,
 that a collection of circular equations with
 these two characteristics
 (a reduced operand on the right-hand side in circular equations
@@ -598,7 +599,7 @@ there is a natural number $n$ such that $h(n) > x$
 is another property of the harmonic series that can be
 derived from equations \{h0\} and \{h1\}.
 The fact that $h(n)$ grows larger at about
-the same rate as $log(n)$ is also consequence
+the same rate as $log(n)$ is also a consequence
 of \{h1\} and \{h0\}. All the properties of the
 harmonic series are a consequence of those two equations.
 Simple beginnings. Big results.
@@ -680,6 +681,7 @@ Define an operator to compute $p(n)$, which is true
         \emph{Note}: A natural number $p \geq 2$ is a prime number if
         it has no factors other than $p$ and $1$.}
 
+\vspace*{8mm}  %% proofreader asked to move all of next exercise to next page
 \exer {Define an operator to compute $rp(n)$,
 the sum of the reciprocals of all the prime numbers that are less than or equal to
 the natural number $n$.

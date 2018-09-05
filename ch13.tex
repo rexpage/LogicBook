@@ -36,7 +36,8 @@ That's this year. Next year, it may be trillions of items.
 
 Traditionally, this data would be stored in a \index{database}database
 using two tables, one for the status \index{update, database}updates
-and one for the friends.  Figure~\ref{facebook-tables}
+and one for the friends.  
+Figure~\ref{facebook-tables} (page \pageref{facebook-tables})
 shows what these tables could look like.
 Database software inserts, deletes, and modifies
 rows on these tables as they evolve,
@@ -55,7 +56,7 @@ what status updates to display when a specific user logs in:
 \end{code}
 
 This approach would work very well if Facebook had a small number of users,
-but it does not scale to billions users.
+but it does not scale to billions of users.
 The problem is that a traditional database cannot process
 this query quickly enough to keep up with a continuous
 flood of online demand.
@@ -65,7 +66,7 @@ For example, \index{Amazon}\index{store front}Amazon
 offers millions of items for sale.
 It encourages customers to write reviews for each item, and it keeps a history
 of purchases made by its customers so it can keep them informed about the status of orders,
-make suggestions other purchases, and provide other services.
+make suggestions for other purchases, and provide other services.
 If the information were stored in traditional database tables,
 retrieving it would take too long.
 
@@ -124,7 +125,7 @@ One way to address this problem is to limit the number of queries that the
 database needs to carry out.
 For example, if many users check their home screens
 several times in a span of a few minutes,
-the computer can remember the results previous inquiries
+the computer can remember the results of previous inquiries
 instead of asking the database to
 retrieve the home screen every time a user wants to check it.
 
@@ -211,7 +212,7 @@ which can be done by executing a query on machine J.
 
 The query returns John's friends, Sally and Mary.
 The next step is to find Sally's and Mary's status updates.
-That leads to the the following queries:
+That leads to the following queries:
 \begin{code}
 \begin{verbatim}
 	SELECT   s.Time, s.Status
@@ -240,7 +241,7 @@ In this particular example, the information needed to answer the query was
 distributed across shards J, S, and M.
 So the program had to collect the information
 from all the different sources and then combine it.
-Clearly, using sharding is more complicated
+That makes sharding more complicated
 than keeping all the information in one place,
 as in a traditional database.
 
@@ -248,7 +249,7 @@ Sharding also suffers from uneven distribution.
 What if, for example, one of the shards ends up with too many records?
 That shard would need to be split into pieces.
 For example, the system could
-split the shard M into two shards, Ma-Mp and Mq-Mz.
+split the shard M into two shards, Ma--Mp and Mq--Mz.
 That seems like a good idea, but in practice splitting shards
 is complicated because the software on all the computers that access the data
 needs to be modified to make it possible for the computers
@@ -277,7 +278,8 @@ The important thing is that a program can retrieve
 all of John's friends by requesting the single record with ID John.
 Once John's friends are known, it is necessary to retrieve their status updates.
 This can be done by looking for the records in the status table that have the appropriate record IDs.
-Figure~\ref{status-table} shows what the status table could look like.
+Figure~\ref{status-table} (page \pageref{status-table})
+shows what the status table could look like.
 
 The table structures we have presented assume that all fields will fit in a single record.
 That is, we assume that a single record can hold all of a user's friends or all of a user's status updates.
@@ -338,7 +340,7 @@ For example, A could be connected to B, B to C, and so on, until Z is connected 
 
 Records are arranged in an order determined by a hash function
 that computes a hash value from the key of a record.
-The hash value is used select a shard label (labels A through Z in the example).
+The hash value is used to select a shard label (labels A through Z in the example).
 All hash values up to A are mapped to shard B,
 those between A and B to shard C, and so on.
 The hash function and mapping of hash values to shards is known to every shard,
@@ -396,7 +398,7 @@ Part of the reason it works is that Facebook has the luxury of not having
 to get all the data right all the time.
 If people don't see all the latest postings of their friends until
 an hour or even several hours after they are posted, it's no big deal.
-Users may be a little out of synch for awhile, but the data is not time critical
+Users may be a little out of sync for awhile, but the data is not time critical
 on a minute-by-minute basis.
 
 \section{Summary}

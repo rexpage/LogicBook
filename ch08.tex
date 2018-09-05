@@ -21,7 +21,7 @@ then part of the first one again, and so on.
 There could be any number of signals sharing the channel,
 and the same kind of round-robin approach would work.
 We call the shuffle operator
-\seeonlyindex{mux (multiplexer)}{operator}\index{operator, by name!mux (multiplexer)}\textsf{mux}.
+\seeonlyindex{mux, mux2 (multiplexer)}{operator}\index{operator, by name!mux (multiplexer)}\textsf{mux}.
 It follows the pattern of the following equation:
 
 \hspace{1cm} \textsf{(mux [$x_1$ $x_2$ $x_3$ $\dots$] [$y_1$ $y_2$ $y_3$ $\dots$]) =
@@ -51,7 +51,7 @@ would satisfy if it worked properly.
 
 The \{\emph{mux11}\} equation covers the case when both lists are nonempty.
 Since it's an inductive equation, we need to be careful to make sure
-that operands of \textsf{mux} on the right-hand-side of the equation
+that operands of \textsf{mux} on the right-hand side of the equation
 are closer to those in a noninductive equation than they are
 to the operands on the left-hand side.
 If not, the equation will fail to be computational and
@@ -70,7 +70,7 @@ in the nonempty list, just as they are, into the
 multiplexed list that \textsf{mux}  delivers.
 That would make \textsf{mux} satisfy the following equations:
 
-\index{operator, by name!mux (multiplexer)}\index{axiom, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\},\{mux11\}}
+\index{operator, by name!mux (multiplexer)}\index{axiom, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}
 \begin{center}
 \begin{tabular}{ll}
 \multicolumn{2}{c}{Axioms \textsf{mux} \label{axioms:mux}}\\
@@ -87,14 +87,14 @@ or at least one of them is empty) and computational (as discussed).
 They are consistent because the only overlapping case
 occurs when both lists are empty, and in that case,
 the overlapping equations
-(\{mux0x\} and \{mux0y\}) specify the same result
+(\{\emph{mux0x}\} and \{\emph{mux0y}\}) specify the same result
 (namely, the empty list).
 We can, therefore, take the equations as axioms
 defining the \textsf{mux} operator.
 Converting the axioms to ACL2 notation leads to the following
 definition:
 
-\label{mux-defun}\index{operator, by name!mux (multiplexer)}\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}
+\label{mux-defun}\index{operator, by name!mux (multiplexer)}\index{equation, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}\index{axiom, by name!\{mux0x\}, \{mux0y\}, \{mux1y\}, \{mux11\}}
 \begin{code}
 \begin{verbatim}
 (defun mux (xs ys)
@@ -130,7 +130,7 @@ For practice, let's construct a paper-and-pencil proof of the theorem. %'
 Our strategy will be an induction on the length of the first operand.
 We are trying to prove that the following equation holds for all natural numbers, $n$:\\
 ~\\
-\index{theorem, by name!\{mux-length\}}Theorem \{mux-length\}. $\forall n.$L($n$)\\
+\index{theorem, by name!\{mux-length\}}Theorem \{mux-length\}: $\forall n.$L($n$)\\
 where L($n$) $\equiv$ $($\textsf{(len(mux [$x_1$ $x_2$ $\dots$ $x_n$] $ys$)) $=$ $n +$ (len $ys$)}$)$\\
 \emph{proof by induction}\\
 \emph{Base case} (first operand empty): L($0$) $\equiv$ $($\textsf{(len(mux nil $ys$)) = $0 +$ (len $ys$)}$)$
@@ -168,7 +168,7 @@ Below is an ACL2 formalization of these ideas,
 which the ACL2 system succeeds in admitting.
 \label{acl2:iff}
 The
-\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, logic!Boolean equivalence (iff)}\index{equivalence!Boolean (iff)}\index{iff (\emph{see also} operator)}\textsf{iff}
+\index{Boolean!equivalence ($\leftrightarrow$, iff)}\index{operator, logic!Boolean equivalence ($\leftrightarrow$, iff)}\index{equivalence!Boolean ($\leftrightarrow$, iff)}\index{iff (\emph{see also} operator)}\textsf{iff}
 operator is Boolean equivalence
 (box~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).
 
@@ -223,27 +223,27 @@ It ``demultiplexes'' a list into two lists, reversing the perfect shuffle.
 We will prove that \textsf{dmx} undoes the effect of \textsf{mux} and vice versa.
 That is, the two operators invert each other.
 
-\begin{aside}{aside:mux-2eq}{Multiplexer: a Two-Equation Definition}
+\begin{aside}{aside:mux-2eq}{Multiplexer: A Two-Equation Definition}
 The multiplexer operator can be defined with two equations instead of three
 by swapping the operands in the inductive equation.
 When the first operand is nonempty, \textsf{mux} satisfies the following equation.\\
-\hspace*{1cm}\textsf{(mux (cons $x$ $xs$) $ys$) = (cons $x$ (mux $ys$ $xs$)))} ~~ \{mux1y\}
+\hspace*{1cm}\textsf{(mux (cons $x$ $xs$) $ys$) = (cons $x$ (mux $ys$ $xs$))} ~~ \{mux1y\}
 
 The inductive invocation, \textsf{(mux $ys$ $xs$)},
-on the right-hand-side of \{mux1y\}
+on the right-hand side of \{mux1y\}
 delivers a list that starts with the first element of $ys$,
 then alternates between $xs$ and $ys$.
 Perfect shuffle.
 It's a two-equation definition. %'
 
-\label{mux-2eq-defun}\index{defun!induction hint}\index{definition!defun hint}\index{directive!induction hint}
+\label{mux-2eq-defun}\index{operator, by name!mux (multiplexer)}\index{operator, by name!mux2 (multiplexer)}\index{axiom, by name!\{mux2-0x\}, \{mux2-1x\}}\index{equation, by name!\{mux2-0x\}, \{mux2-1x\}}\index{defun!induction hint}\index{definition!defun hint}\index{directive!induction hint}
 \begin{code}
 \begin{verbatim}
 (defun mux2 (xs ys) ; declare induction scheme
    (declare (xargs :measure (+ (len xs) (len ys))))
    (if (consp xs)
-       (cons (first xs) (mux2 ys (rest xs))) ; {mux1}
-       ys))                                  ; {mux0}
+       (cons (first xs) (mux2 ys (rest xs))) ; {mux2-1x}
+       ys))                                  ; {mux2-0x}
 \end{verbatim}
 \end{code}
 
@@ -256,7 +256,6 @@ helps ACL2 cope with this wrinkle in its
 proof that \textsf{mux2} terminates,
 which the mechanized logic must complete before
 admitting the operator to the logic.
-\index{operator, by name!mux (multiplexer)}\index{axiom, by name!\{mux2-1y\}, \{mux2-0x0y\}}
 %\caption{Multiplexer: a Two Equation Definition}
 %\label{aside:mux-2eq}
 \end{aside}
@@ -273,7 +272,7 @@ Complete that part of the proof. That is, prove the following equation:\\
 Prove that the \textsf{mux} operator neither adds nor loses values from its operands.
 That is, a value that occurs in either $xs$ or $ys$ also occurs in \textsf{(mux $xs$ $ys$)}
 and, vice versa, a value that occurs in \textsf{(mux $xs$ $ys$)} also occurs in either $xs$ or $ys$.\\
-\index{theorem, by name!\{mux-val\}}\label{thm:mux-val}Theorem \{mux-val\}.
+\index{theorem, by name!\{mux-val\}}\label{thm:mux-val}Theorem \{mux-val\}:
 $\forall v.(($\textsf{(occurs-in $v$ $xs$)} $\vee$ \textsf{(occurs-in $v$ $ys$)}$) \leftrightarrow$ \textsf{(occurs-in $v$ (mux $xs$ $ys$))}$)$ \\
 \emph{Note}: The ``$\leftrightarrow$'' operator
 is Boolean equivalence (box~\ref{aside:boolean-equivlance}, page \pageref{aside:boolean-equivlance}).\\
@@ -339,7 +338,7 @@ when the operand has just one element or none.
 \textsf{(dmx nil) $=$ [nil nil] }                                                                 &\{\emph{dmx0}\} \\
 \end{tabular}
 \end{center}
-\label{dmx-defun}\index{equation, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}\index{operator, by name!dmx (demultiplexer)}\seeonlyindex{dmx (demultiplexer)}{operator}
+\label{dmx-defun}\index{axiom, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}\index{equation, by name!\{dmx0\}, \{dmx1\}, \{dmx2\}}\index{operator, by name!dmx (demultiplexer)}\seeonlyindex{dmx, dmx2 (demultiplexer)}{operator}
 \begin{code}
 \begin{verbatim}
 (defun dmx (xys)
@@ -405,7 +404,7 @@ The second component is also half the length of the operand but rounded down if 
 The mechanized logic of ACL2 succeeds in proving these theorems,
 but it needs the help of some theorems about arithmetic.
 
-\label{thm:dmx-length-first-second}\seeonlyindex{mux theorems}{theorems}\seeonlyindex{dmx theorems}{theorems}\index{theorem, by name!\{dmx-len-first\}, \{dmx-len-second\}}\index{book!arithmetic-3/top}\index{directory (:dir)!:system}\index{directive!include-book}\index{system, :dir}\index{book!directory (:dir)}
+\label{thm:dmx-length-first-second}\seeonlyindex{mux theorems}{theorem}\seeonlyindex{dmx theorems}{theorem}\index{theorem, by name!\{dmx-len-first\}, \{dmx-len-second\}}\index{book!arithmetic-3/top}\index{directory (:dir)!:system}\index{directive!include-book}\index{system, :dir}\index{book!directory (:dir)}
 \begin{code}
 \begin{verbatim}
 (include-book "arithmetic-3/top" :dir :system)
@@ -425,14 +424,16 @@ starting with an $x$,
 then the same list without its first element also alternates
 but starting with a $y$. The definition is shorter,
 but it complicates reasoning.
+
 \begin{center}
-Axioms for \textsf{dmx2} (maybe too clever by half)
 \begin{tabular}{ll}
+\multicolumn{2}{c}{Axioms \textsf{dmx2} (maybe too clever by half)}\\
+\hline
 \textsf{(dmx2 (cons $x$ $yxs$)) $=$ [(cons $x$ $xs$) $ys$]}& \{\emph{dmx2-1x}\} \\
 ~~~~~~where \textsf{[$ys$ $xs$] $=$ (dmx2 $yxs$)}          & \\
 \textsf{(dmx2 nil) $=$ [nil nil] }                         & \{\emph{dmx2-0x}\} \\
 \end{tabular}
-\end{center}\index{axiom, by name!\{dmx2-1x\}, \{dmx2-2x\}}\index{operator, by name!dmx (demultiplexer)}
+\end{center}\index{axiom, by name!\{dmx2-0x\}, \{dmx2-1x\}}\index{equation, by name!\{dmx2-0x\}, \{dmx2-1x\}}\index{operator, by name!dmx2 (demultiplexer)}
 %\caption{Cleverness Sometimes Complicates Reasoning}
 %\label{aside:dmx-defun-trick}
 \end{aside}

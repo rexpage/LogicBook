@@ -18,8 +18,8 @@ For example, \textsf{[8 3 7]} denotes a list with first element 8,
 second element 3, and third element 7, and
 \textsf{[9 8 3 7]} denotes a list with the same elements
 plus an additional element 9 at the beginning.
-\label{nil-def}\index{nil}\index{empty list (nil)}
-We use the symbol \textsf{nil} for the empty list
+\label{nil-def}\index{nil}\index{empty list (nil)}We
+use the symbol \textsf{nil} for the empty list
 (that is, the list with no elements).
 \label{square-brackets}We use
 \index{square brackets}\index{brackets!square}\index{list!square bracket notation}square brackets
@@ -34,7 +34,7 @@ whereas \textsf{(+ 7 9)} is a numeric formula representing the value 16.
 However, ACL2 does not employ this square-bracket notation.
 When it displays the list \textsf{[4 7 9]},
 it uses \index{parentheses}\index{brackets!round}round brackets: \textsf{(4 7 9)}.
-The square-bracket notation helps keep data a computational formulas
+The square-bracket notation helps keep data in computational formulas
 straight in written discussion and also makes some
 formulas more compact in writing, but square-bracket
 notation for lists is not ACL2 notation.
@@ -55,7 +55,7 @@ then \textsf{(cons $x$ $xs$)} constructs the list \textsf{[9 8 3 7]}.
 
 \begin{aside}{square-bracket-notation}{Square Bracket Notation for Lists: Paper-and-Pencil Only}
 Most of the time, we will use square bracket
-\index{list!square bracket notation}notation for lists
+\index{square brackets}\index{brackets!square}\index{list!square bracket notation}notation for lists
 to distinguish them from computational formulas.
 However, ACL2 does not display lists with square brackets.
 It uses round parentheses both for lists and for computational formulas.
@@ -94,7 +94,7 @@ The formula \textsf{[8 3 7]} is paper-and-pencil shorthand
 for \textsf{(cons 8 (cons 3 (cons 7 nil)))}.
 ACL2 also has shorthand
 for nested \textsf{cons} operations
-(figure \ref{fig:list-nested-cons}, page \pageref{fig:list-nested-cons}):
+(figure \ref{fig:list-nested-cons}): %, page \pageref{fig:list-nested-cons}):
 \textsf{(list 8 3 7)} is another way to write the formula
 \textsf{(cons 8 (cons 3 (cons 7 nil)))}.
 
@@ -140,13 +140,13 @@ There is one such equation for each different list $ys$.
 Taken all together, those equations comprise a predicate
 whose universe of discourse is ACL2 lists.
 
-The operator \index{operator, by name!consp (predicate)}\seeonlyindex{consp}{predicate}
-\index{predicate, by name!consp (nonempty list)}\textsf{consp}
+The operator
+\index{predicate, by name!consp (nonempty list)}\seeonlyindex{consp}{predicate}\textsf{consp}
 checks for nonempty lists.
 That is, the formula \textsf{(consp $xs$)} delivers true
 if $xs$ is a nonempty list and false otherwise.
 The \{\emph{consp}\} axiom
-(figure~\ref{consp-axiom}, page \pageref{consp-axiom})
+(figure~\ref{consp-axiom}) %, page \pageref{consp-axiom})
 formally asserts that all nonempty lists
 are constructed with the \textsf{cons} operator.
 
@@ -229,9 +229,10 @@ to avoid conflicts with other symbols that appear in the context of the discussi
 
 The \{\emph{consp}\} axiom refers to \textsf{cons},
 so we will need a \{\emph{cons}\} axiom.
-Since \textsf{cons} cannot construct an empty list,
-the \{\emph{cons}\} axiom will specify that the list \textsf{cons} delivers is not empty
-using the notation \textsf{[$x_1$ $x_2$ \dots $x_{n+1}$]},
+The \{\emph{cons}\} axiom uses numbered list notation
+(figure~\ref{numbered-list-interpretation}, page \pageref{numbered-list-interpretation})
+to specify that \textsf{cons} delivers a nonempty list,
+\textsf{[$x_1$ $x_2$ \dots $x_{n+1}$]},
 where $n$ stands for a natural number.
 Because that list has $n+1$ elements and $n+1$
 is at least one when $n$ is a natural number,
@@ -245,7 +246,7 @@ There are two basic operators for taking lists apart: \textsf{first} and \textsf
 We express the relationship between these operators and
 the construction operator in the form of equations,
 \{\emph{fst}\} and \{\emph{rst}\}, that we take as axioms
-(figure~\ref{first-rest-cons}, page \pageref{first-rest-cons}).
+(figure~\ref{first-rest-cons}). %, page \pageref{first-rest-cons}).
 
 \begin{figure}
 %\begin{center}
@@ -259,7 +260,7 @@ the construction operator in the form of equations,
  \textsf{(rest nil)} $=$ \textsf{nil}                                            & \{\emph{rst0}\}\\
 \end{tabular}
 %\end{center}
-\index{operator, by name!first (extract first element)}\index{operator, by name!rest (drop first element)}\index{operator, by name!cons (insert at front)}\seeonlyindex{first}{operator}\seeonlyindex{rest}{operator}\seeonlyindex{cons}{operator}\index{list!cons (\emph{see also} operator)}\index{list!first (\emph{see also} operator)}\index{list!rest (\emph{see also} operator)}\index{axiom!axiom, by name\{fst0\}, \{fst\}}\index{axiom, by name!\{rst0\}, \{rst\}}\index{axiom, by name!\{cons\}}\index{equation, by name!\{fst0\}, \{fst\}}\index{equation, by name!\{rst0\}, \{rst\}}\index{equation, by name!\{cons\}}
+\index{operator, by name!first (extract first element)}\index{operator, by name!rest (drop first element)}\index{axiom, by name!\{fst\}, \{fst0\}}\index{operator, by name!cons (insert at front)}\seeonlyindex{first}{operator}\seeonlyindex{rest}{operator}\seeonlyindex{cons}{operator}\index{list!cons (\emph{see also} operator)}\index{list!first (\emph{see also} operator)}\index{list!rest (\emph{see also} operator)}\index{axiom, by name!\{rst\}, \{rst0\}}\index{axiom, by name!\{cons\}}\index{equation, by name!\{fst\}, \{fst0\}}\index{equation, by name!\{rst\}, \{rst0\}}\index{equation, by name!\{snd\}}\index{equation, by name!\{cons\}}
 \caption{List constructor and deconstructors: \textsf{cons}, \textsf{first}, \textsf{rest}.}
 \label{first-rest-cons}
 \end{figure}
@@ -356,7 +357,8 @@ The equation in the len-rest test can serve
 as an axiom for the \textsf{len} operator in the case
 when its operand is a nonempty list.
 The axiom for the empty case is simpler.
-Figure~\ref{fig:len-axioms} states these two axioms for
+Figure~\ref{fig:len-axioms} (page \pageref{fig:len-axioms})
+states these two axioms for
 the len operator. Axiom \{\emph{len1}\} applies when
 the operand is nonempty and the other axiom
 applies in all other circumstances.\footnote{Normally
@@ -374,7 +376,7 @@ $3$ is not a list. Later, we will say more about this kind of axiom.}
 \hline
 \textsf{(len (cons $x$ $xs$))} $=$ \textsf{(+ 1 (len $xs$))} & \{\emph{len1}\} \\
 \textsf{(len $e$)} $=$ 0                            & \{\emph{len0}\} \\
-\multicolumn{2}{c}{\emph{Note: Cite \{\emph{len0}\} only if \{\emph{len1}\} doesn't match.}}\\
+\multicolumn{2}{c}{\emph{Note: Cite }\{\emph{len0}\}\emph{ only if }\{\emph{len1}\}\emph{ doesn't match.}}\\
 \end{tabular}
 %\end{center}
 \caption{Length of list: \textsf{len}.}
@@ -390,9 +392,9 @@ The theorem refers to the \textsf{natp} operator
 (page \pageref{natp-op}),
 which delivers true if its operand is a natural number and false otherwise.
 \begin{samepage}
-\label{len-nat-thm}
+\label{len-nat-thm}\index{theorem, by name!\{len-nat\}}
 \begin{center}
-Theorem \{\emph{len-nat}\} $\forall xs.$\textsf{(natp (len $xs$))}
+Theorem \{\emph{len-nat}\}: $\forall xs.$\textsf{(natp (len $xs$))}
 \end{center}
 \end{samepage}
 
@@ -408,11 +410,11 @@ For the moment, we state the theorem without proof.
 \label{consp-len-thm}
 \index{theorem, by name!\{consp $= (len > 0)$\}}
 \begin{center}
-Theorem \{\emph{consp} $= (len > 0)$\} $\forall xs.($\textsf{(consp $xs$)} $=$ \textsf{($>$ (len $xs$) 0)}$)$
+Theorem \{\emph{consp} $= (len > 0)$\}: $\forall xs.($\textsf{(consp $xs$)} $=$ \textsf{($>$ (len $xs$) 0)}$)$
 \end{center}
 \end{samepage}
 
-\begin{aside}{acl2-single-quote}{Suppressing Computation with Single-quote}
+\begin{aside}{acl2-single-quote}{Suppressing Computation with Single-Quote}
 To specify the list \textsf{[1 2 3 4]} in an ACL2 formula
 rather than in a paper-and-pencil formula,
 we can, of course, use the \textsf{cons} operator to construct it:
@@ -438,9 +440,9 @@ operator.\index{single-quote mark}\index{quote mark, single}\index{square bracke
 \begin{exercises}
 
 \exer {\label{rst1}%
-Prove \{\emph{rst1}\}: \textsf{(rest (list $x$))} $=$ \textsf{nil}.\\
+\index{theorem, by name!\{rst1\}}Prove theorem \{\emph{rst1}\}: \textsf{(rest (list $x$))} $=$ \textsf{nil}.\\
 \emph{Hint}: Cite some equations from figure~\ref{first-rest-cons} (page \pageref{first-rest-cons})
-and figure~\ref{fig:list-nested-cons} (page \pageref{fig:list-nested-cons})}
+and figure~\ref{fig:list-nested-cons} (page \pageref{fig:list-nested-cons}).}
 
 \end{exercises}
 
@@ -491,11 +493,11 @@ Put another way, when $xs$ is not empty,
 the result is the concatenation of \textsf{(rest $xs$)} and $ys$,
 with \textsf{(first $xs$)} inserted at the front.
 This is the \{\emph{app1}\} case: \textsf{(append $xs$ $ys$)} $=$
-\textsf{(cons (first $xs$) (append (rest $xs$) $ys$)}.
+\textsf{(cons (first $xs$) (append (rest $xs$) $ys$))}.
 
 We would like to express our expectations formally.
 To do so, we use a special ACL2 operator
-called \textsf{if}, which has three operands.
+called \textsf{if} (figure~\ref{fig:if-axioms}), which has three operands.
 It delivers its second operand if
 its first operand is true (that is, not \textsf{nil})
 and selects its third operand
@@ -512,7 +514,7 @@ the two formulas supplied as its second and third operands.
 \textsf{(if $p$ $x$ $y$)} $=$ $y$, \emph{if} $p$ $=$ \textsf{nil}     & \{\emph{if-false}\} \\
 \end{tabular}
 %\end{center}
-\index{axiom!\{if-true\}, \{if-false\}}\index{equation, by name!\{if-true\}, \{if-false\}}\index{operator, by name!if (select formula)}\seeonlyindex{if}{operator}
+\index{axiom!if-true, if-false}\index{axiom, by name!\{if-true\}, \{if-false\}}\index{equation, by name!\{if-true\}, \{if-false\}}\index{operator, by name!if (select formula)}\seeonlyindex{if}{operator}
 \caption{Formula selector: \textsf{if}.}
 \label{fig:if-axioms}
 \end{figure}
@@ -522,7 +524,7 @@ to test our expectations of \textsf{(append $xs$ $ys$)}
 by comparing \textsf{(append $xs$ $ys$)} to the \{\emph{app1}\} formula
 if $xs$ is nonempty and to the \{\emph{app0}\} formula if $xs$ is empty.
 Figure~\ref{fig:append-test} (page \pageref{fig:append-test})
-displays a property definition the formalizes this idea.
+displays a property definition that formalizes this idea.
 It uses an operator called
 \textsf{equal} (box~\ref{equal}, page \pageref{equal})
 to compare \textsf{(append $xs$ $ys$)}
@@ -570,7 +572,7 @@ but if the test failed to pass,
 you would know for sure that something was wrong with the \textsf{append} operator.
 The append-test property is so plainly correct that
 we are going to state it in the form of equations that we accept as axioms
-(figure~\ref{append-equations}, page \pageref{append-equations}).
+(figure~\ref{append-equations}). %, page \pageref{append-equations}).
 As in the \{\emph{len}\} theorem, there are two \{\emph{append}\} equations,
 which specify the meaning of the append operation in different situations.
 One of them specifies the meaning when the first operand is a nonempty list,
@@ -604,8 +606,8 @@ the other specifies the meaning under all other circumstances.
 %      that talk about guards. Not sure how to handle this.
 %      }
 
-These equations about the append operation are simple enough,
-but it turns out that lots of other properties of the
+These equations state simple properties of the \textsf{append} operation,
+and it turns out that lots of other properties of the
 \textsf{append} operation can be derived from them.
 For example, we can prove that the length of
 the concatenation of two lists is the sum of the lengths of the lists,
@@ -614,7 +616,7 @@ chapter~\ref{ch:software-testing-prefix-notation} (page \pageref{additive-length
 We call this theorem the \emph{additive law of concatenation}.
 Let's see how a proof of this law could be carried out.
 
-First, let's break it down into a some special cases.
+First, let's break it down into some special cases.
 We will use L($n$) as shorthand for the proposition that
 \textsf{(len (append [$x_1$ $x_2$ \dots $x_n$] $ys$))}
 is the sum of \textsf{(len [$x_1$ $x_2$ $\dots$ $x_n$])} and \textsf{(len $ys$)}.
@@ -661,7 +663,7 @@ cite some axioms about \textsf{append}, \textsf{len}, and numeric algebra,
 one by one. We end up with the right-hand side of the equation L(0).
 \begin{center}
 \begin{tabular}{lll}
-&\emph{Proof of L(0), citing axioms}&\\
+\multicolumn{3}{c}{\emph{Proof of L(0), citing axioms}}\\
 \hline
     & \textsf{(len (append nil $ys$))}  &                                                \\
 $=$ & \textsf{(len $ys$)}               & \{\emph{app0}\}     (page \pageref{append-equations})\\
@@ -674,22 +676,22 @@ $=$ & \textsf{(+ (len nil) (len $ys$))} & \{\emph{len0}\}     (page \pageref{len
 That takes care of L(0). How about L(1)?
 \begin{center}
 \begin{tabular}{lll}
-&\emph{Proof of L(1), citing axioms and proven equations}&\\
+\multicolumn{3}{c}{\emph{Proof of L(1), citing axioms and proven equations}}\\
 \hline
     & \textsf{(len (append [$x_1$] $ys$))}           &                     \\
-$=$ & \textsf{(len (append (cons $x_1$ nil) $ys$)}   & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
+$=$ & \textsf{(len (append (cons $x_1$ nil) $ys$))}  & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
 $=$ & \textsf{(len (cons $x_1$ (append nil $ys$)))}  & \{\emph{app1}\}     \\
 $=$ & \textsf{(+ 1 (len (append nil $ys$)))}         & \{\emph{len1}\}     \\
 $=$ & \textsf{(+ 1 (+ (len nil) (len $ys$)))}        & \{L(0)\} ~~~~\emph{Note: L(0) already proved}\\
 $=$ & \textsf{(+ (+ 1 (len nil)) (len $ys$))}        & \{$+$ associative\} (page \pageref{fig-02-01}) \\
 $=$ & \textsf{(+ (len (cons $x_1$ nil)) (len $ys$))} & \{\emph{len1}\}     \\
-$=$ & \textsf{(+ (len [$x_1$] (len $ys$))}           & \{\emph{cons}\}     \\
+$=$ & \textsf{(+ (len [$x_1$]) (len $ys$))}          & \{\emph{cons}\}     \\
 \end{tabular}
 \end{center}
 That was a little harder. Will proving L(2) be still harder? Let's try it.
 \begin{center}
 \begin{tabular}{lll}
-&\emph{Proof of L(2), citing axioms and proven equations}&\\
+\multicolumn{3}{c}{\emph{Proof of L(2), citing axioms and proven equations}}\\
 \hline\\[-1.0em]
     & \textsf{(len (append [$x_1$ $x_2$] $ys$))}         &                     \\
 $=$ & \textsf{(len (append (cons $x_1$ [$x_2$]) $ys$))}  & \{\emph{cons}\}     \\
@@ -709,7 +711,7 @@ the proof of L(2) cited the equation L(1).
 Maybe the proof of L(3) will work the same way.
 \begin{center}
 \begin{tabular}{lll}
-&\emph{Proof of L(3), citing axioms and proven equations}&\\
+\multicolumn{3}{c}{\emph{Proof of L(3), citing axioms and proven equations}}\\
 \hline\\[-1.0em]
     & \textsf{(len (append [$x_1$ $x_2$ $x_3$] $ys$))}         &                     \\
 $=$ & \textsf{(len (append (cons $x_1$ [$x_2$ $x_3$]) $ys$))}  & \{\emph{cons}\}     \\
@@ -743,7 +745,7 @@ formulas like ($\forall$$n$.P($n$)) are true
 when P is a predicate whose universe of discourse is the natural numbers.
 If for each natural number $n$, P($n$) stands for a proposition,
 then mathematical induction is an inference rule that may be useful
-in a proof that ($\forall$$n$.P($n$)) true.
+in a proof that ($\forall$$n$.P($n$)) is true.
 That is not to say that such a proof can always be constructed.
 It's just that mathematical induction might provide some help in the process.
 The inverse is also true: mathematical induction cannot help
@@ -752,9 +754,9 @@ induction is not the only form
 of proof by induction, but all the other forms
 (other than transfinite induction, which is a different animal)
 can be contorted into proofs by mathematical induction.
-We will stick with classical, mathematical induction
+We will stick with classical mathematical induction
 and leave the variations for another time.
-They are easy to learn for people who know mathematical induction well.}
+They are easy to learn for people who understand ordinary mathematical induction.}
 
 The rule goes as follows. Infer the truth of ($\forall$$n$.P($n$)),
 citing \{induction\} as a rule of inference,
@@ -762,7 +764,7 @@ from proofs of two propositions:
 P(0) and $(\forall n.($P($n$) $\rightarrow$ P($n+1$)$))$.
 \begin{center}
 $(($P($0$) $\wedge$ $(\forall n.($P($n$) $\rightarrow$ P($n+1$)$)))$ $\rightarrow$ $(\forall n.$P($n$)$))$ $=$ $True$
-~~~\{\emph{induction}\}
+~~~\{induction\}
 \end{center}
 %\begin{center}
 %\begin{tabular}{lll}
@@ -821,9 +823,8 @@ Infer ($\forall$$n$.P($n$))                        &\\
 \end{tabular}
 \end{spacing}
 %\end{center}
-\index{induction!proof by}\index{proof!by induction}\index{inference rule, by name!\{induction\}}
 \caption{Mathematical induction: a rule of inference.}
-\label{fig-04-01}\label{induction-rule}
+\label{fig-04-01}\label{induction-rule}\index{induction!proof by}\index{proof!by induction}\index{inference rule, by name!\{induction\}}\index{induction!inference rule}
 \end{figure}
 
 \label{induction-hyp-def}Now,
@@ -837,22 +838,23 @@ two proofs required to cite the mathematical induction inference rule.
 All that is left is to prove ($\forall$$n$.(L($n$)$\rightarrow$L($n+1$))).
 That is, we have to derive L($n+1$) from L($n$) for an arbitrary natural number $n$.
 Fortunately, we know how to do this. Just copy the derivation of,
-say L(3) from L(2), but start with an append formula in which the first operand
+say, L(3) from L(2), but start with an append formula in which the first operand
 is a list with $n+1$ elements and cite L($n$) where we would have cited L(2).
 \begin{center}
-\begin{tabular}{llll}
-&\emph{Proof of L(n+1), citing axioms, proven equations, and L(n): L(n) $\rightarrow$ L(n+1)}&&\\
+\begin{tabular}{lll}
+\multicolumn{3}{c}{\emph{Proof of L(n+1), citing axioms, proven equations, and L(n): L(n) $\rightarrow$ L(n+1)}}\\
 \hline\\[-1.0em]
-    & \textsf{(len (append [$x_1$ $x_2$ \dots $x_{n+1}$] $ys$))}         &                     &~\\
-$=$ & \textsf{(len (append (cons $x_1$ [$x_2$ \dots $x_{n+1}$]) $ys$))}  & \{\emph{cons}\}     &~\\
-$=$ & \textsf{(len (cons $x_1$ (append [$x_2$ \dots $x_{n+1}$] $ys$)))}  & \{\emph{app1}\}     &~\\
-$=$ & \textsf{(+ 1 (len (append [$x_2$ \dots $x_{n+1}$] $ys$)))}         & \{\emph{len1}\}     &~\\
-$=$ & \textsf{(+ 1 (+ (len [$x_2$ \dots $x_{n+1}$]) (len $ys$)))}        & \{L($n$)\}          &~\\
-$=$ & \textsf{(+ (+ 1 (len [$x_2$ \dots $x_{n+1}$])) (len $ys$))}        & \{$+$ associative\} &~\\
-$=$ & \textsf{(+ (len (cons $x_1$ [$x_2$ \dots $x_{n+1}$])) (len $ys$))} & \{\emph{len1}\}     &~\\
-$=$ & \textsf{(+ (len [$x_1$ $x_2$ \dots $x_{n+1}$]) (len $ys$))}        & \{\emph{cons}\}     &~\\
+    & \textsf{(len (append [$x_1$ $x_2$ \dots $x_{n+1}$] $ys$))}         &\\
+$=$ & \textsf{(len (append (cons $x_1$ [$x_2$ \dots $x_{n+1}$]) $ys$))}  & \{\emph{cons}\}\\
+$=$ & \textsf{(len (cons $x_1$ (append [$x_2$ \dots $x_{n+1}$] $ys$)))}  & \{\emph{app1}\}\\
+$=$ & \textsf{(+ 1 (len (append [$x_2$ \dots $x_{n+1}$] $ys$)))}         & \{\emph{len1}\}\\
+$=$ & \textsf{(+ 1 (+ (len [$x_2$ \dots $x_{n+1}$]) (len $ys$)))}        & \{L($n$)\} ~~\emph{Note: induction hypothesis}\\
+$=$ & \textsf{(+ (+ 1 (len [$x_2$ \dots $x_{n+1}$])) (len $ys$))}        & \{$+$ associative\}\\
+$=$ & \textsf{(+ (len (cons $x_1$ [$x_2$ \dots $x_{n+1}$])) (len $ys$))} & \{\emph{len1}\}\\
+$=$ & \textsf{(+ (len [$x_1$ $x_2$ \dots $x_{n+1}$]) (len $ys$))}        & \{\emph{cons}\}\\
 \end{tabular}
 \end{center}
+\vspace*{5mm}
 This completes the mathematical induction proving the
 additive law of concatenation.
 
@@ -883,7 +885,8 @@ and its relationships with other operators.
 These properties, and in fact all properties of the \textsf{append} operator,
 can be derived from the \{\emph{append}\} axioms
 (figure~\ref{append-equations}, page \pageref{append-equations}).
-Those axioms state properties of the append operation in two separate cases:
+Those axioms state properties of the \textsf{append} operation
+in two separate cases:
 (1)~\{\emph{app0}\}: the first operand is the empty list and
 (2)~\{\emph{app1}\}: the first operand is a nonempty list.
 When the first operand is the empty list,
@@ -920,7 +923,7 @@ circular (that is, inductive) definitions.
 \emph{Computational} &
 \begin{enumerate}
 \item \emph{Noninductive Equation}: In at least one equation,
-the operator being defined appears only on left-hand side.
+the operator being defined appears only on the left-hand side.
 \item \emph{Reduced Computation}:
 \index{three C's}\index{definition!inductive (circular)}On the right-hand side of an inductive equation,
 each invocation of the operator being defined has operands that
@@ -929,6 +932,7 @@ than to those on the left-hand side of the inductive equation.
 \end{enumerate}
 \end{tabular}
 \end{center}
+\vspace*{-6mm}
 \caption{The three C's: a guide to inductive definitions.}
 \label{fig:inductive-def-keys}
 \end{figure}
@@ -938,7 +942,7 @@ It turns out that all operators that can be defined in
 have inductive definitions in the manner of the equations
 of the \{\emph{append}\} axioms.
 The keys to an inductive definition of an operator are  listed in
-figure~\ref{fig:inductive-def-keys} (page \pageref{fig:inductive-def-keys}).
+figure~\ref{fig:inductive-def-keys}. % (page \pageref{fig:inductive-def-keys}).
 All of the software we will discuss will take the form of
 inductive definitions of operators.
 That makes it possible to use mathematical induction as
@@ -963,7 +967,7 @@ $\forall x.($\textsf{(natp $x$)} $\rightarrow$ \textsf{(natp (+ $x$ 1))}$)$ & \{
 
 \exer {Prove: $\forall n.(\forall x.($\textsf{(expt $x$ $n$)} $=$ $x^n))$~~~\{\emph{expt}\}\\
 $\forall n$ universe of discourse: natural numbers;
-$\forall x$ universe of discourse: numbers\\
+$\forall x$ universe of discourse: non-zero numbers\\
 Assume the equations \{\emph{expt0}\} and \{\emph{expt1}\} are true.
 \label{expt-equations}\label{expt-thm}\index{theorem, by name!\{expt\}}\index{axiom!exponent}\index{operator, by name!expt ($x^n$)}\seeonlyindex{expt}{operator}\index{axiom, by name!\{expt0\}, \{expt1\}}\index{equation, by name!\{expt0\}, \{expt1\}}
 \begin{center}
@@ -989,7 +993,7 @@ which has four \index{defun}\index{definition!defun}\index{definition!operator}\
 \vspace{2mm}
 
 \begin{tabular}{ll}
-\multicolumn{2}{c}{\textsf{(defun $f$ ($x_1$ $x_2$ $\dots$ $x_n$) ~ $formula$ ~ )}}\\
+\multicolumn{2}{c}{\textsf{(defun $f$ ($x_1$ $x_2$ $\dots$ $x_n$) $formula$)}}\\
 \hline
 \textsf{defun}                       & keyword\\
 $f$                                  & name for the operator being defined\\
@@ -1092,7 +1096,7 @@ the values they deliver will have the properties you derive
 from the equations.
 They may not have all the properties you expected.
 They may have bugs.
-But, you'll have a good chance of fixing them with %'
+But you'll have a good chance of fixing them with %'
 automated testing (\textsf{defproperty})
 and the reasoning assistance of the ACL2 mechanized logic.
 
@@ -1200,7 +1204,7 @@ if either $a$ or $b$ is false and true otherwise.
 \hline
 \textsf{(nthcdr $(n+1)$ (cons $x$ $xs$))} $=$ \textsf{(nthcdr $n$ $xs$)} & \{\emph{sfx1}\} \\
 \textsf{(nthcdr $n$ $xs$)} $=$ $xs$                            & \{\emph{sfx0}\}   \\
-~~~~\emph{Note 1: Cite \{\emph{sfx0}\} only if \{\emph{sfx1}\} doesn't match.}&\\ %'
+~~~~\emph{Note 1: Cite }\{\emph{sfx0}\}\emph{ only if }\{\emph{sfx1}\}\emph{ doesn't match.}&\\ %'
 ~~~~\emph{Note 2: $n$ is a natural number.}
 \end{tabular}
 \begin{code}
@@ -1212,7 +1216,7 @@ if either $a$ or $b$ is false and true otherwise.
 \end{verbatim}
 \end{code}
 \end{center}
-\seeonlyindex{nthcdr}{operator}\index{operator, by name!nthcdr (suffix of list)}\index{equation, by name!\{sfx0\}, \{sfx1\}}
+\seeonlyindex{nthcdr}{operator}\index{operator, by name!nthcdr (suffix of list)}\index{axiom, by name!\{sfx0\}, \{sfx1\}}\index{equation, by name!\{sfx0\}, \{sfx1\}}
 \caption{Defining list suffix extractor: \textsf{nthcdr}.}
 \label{fig:nthcdr-defun}
 % old label for nthcdr axioms: \label{nthcdr-equations}
@@ -1228,7 +1232,7 @@ if either $a$ or $b$ is false and true otherwise.
 %%%% error below
 
 The equations in figure~\ref{fig:nthcdr-defun} cover all combinations
-of values that the operands of \textsf{nthcdr} can have
+of values that the operands of \textsf{nthcdr} can have.
 The first operand is a natural number,
 so it's either zero or bigger than zero.
 The second operand, a list, either has some elements or it doesn't.
@@ -1376,11 +1380,11 @@ S($n+1$) $\equiv$ $($\textsf{(nthcdr (len [$x_1$ $x_2$ $\dots$ $x_{n+1}$]) (appe
 \begin{tabular}{llll}
     & \textsf{(nthcdr} & \textsf{(len [$x_1$ $x_2$ $\dots$ $x_{n+1}$])}                 & \\
     &         & \textsf{(append [$x_1$ $x_2$ $\dots$ $x_{n+1}$] $ys$))}        & \\
-$=$ & \textsf{(nthcdr} & \textsf{(len (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$])))}         & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
+$=$ & \textsf{(nthcdr} & \textsf{(len (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$]))}         & \{\emph{cons}\} (page \pageref{first-rest-cons}) \\
     &         & \textsf{(append (cons $x_1$ [$x_2$ $\dots$ $x_{n+1}$]) $ys$))} & \{\emph{cons}\}                                \\
 $=$ & \textsf{(nthcdr} & \textsf{(+ 1 (len [$x_2$ $\dots$ $x_{n+1}$]))}                 & \{\emph{len1}\} (page \pageref{len-equations})       \\
     &         & \textsf{(cons $x_1$ (append [$x_2$ $\dots$ $x_{n+1}$]) $ys$))} & \{\emph{app1}\} (figure \ref{fig:append-defun}, page \pageref{fig:append-defun})\\
-$=$ & \textsf{(nthcdr} & \textsf{(+ (len [$x_2$ $\dots$ $x_{n+1}$]) 1)}                 & \{\emph{+ commutative}\} (page \pageref{fig-02-01})  \\
+$=$ & \textsf{(nthcdr} & \textsf{(+ (len [$x_2$ $\dots$ $x_{n+1}$]) 1)}                 & \{$+$ commutative\} (page \pageref{fig-02-01})  \\
     &         & \textsf{(cons $x_1$ (append [$x_2$ $\dots$ $x_{n+1}$]) $ys$))} &                                                      \\
 $=$ & \textsf{(nthcdr} & \textsf{(len [$x_2$ $\dots$ $x_{n+1}$])}                       & \{\emph{sfx1}\}                                      \\
     &         & \textsf{(append [$x_2$ $\dots$ $x_{n+1}$] $ys$))}              &                                                      \\
@@ -1397,7 +1401,7 @@ How about the beginning?
 We expect the concatenation to start with the elements of the list $xs$,
 so if we extract the first $n$ elements of (append $xs$ $ys$), where $n$ is (len $xs$),
 we would expect to get a list identical to $xs$.
-To express this expectation formally, we need a operator that,
+To express this expectation formally, we need an operator that,
 given a number $n$ and a list $xs$, delivers the first $n$ elements of $xs$.
 Let's call that operator \textsf{prefix} and think about properties it would have to satisfy.
 
@@ -1444,7 +1448,7 @@ Axioms \{\emph{prefix}\}                                           \\
 \end{verbatim}
 \end{code}
 \end{center}
-\seeonlyindex{prefix, of list}{operator}\index{operator, by name!prefix (of list)}\index{equation, by name!\{pfx0\}, \{pfx1\}}
+\seeonlyindex{prefix, of list}{operator}\index{operator, by name!prefix (of list)}\index{axiom, by name!\{pfx0\}, \{pfx1\}}\index{equation, by name!\{pfx0\}, \{pfx1\}}
 \caption{Defining list prefix extractor: \textsf{prefix}.}
 \label{prefix-equations}
 \end{figure}
@@ -1487,7 +1491,7 @@ $=$ \textsf{(cons}   &$x_1$   &                                           &\{\em
             &\textsf{(prefix} &\textsf{(len [$x_2$ $x_3$ $\dots$ $x_{n+1}$])}        &\{\emph{arithmetic}\}\\
             &        &\textsf{(append [$x_2$ $x_3$ $\dots$ $x_{n+1}$] $ys$)))}& \{\emph{rst}\} (page \pageref{first-rest-cons})\\
 $=$ \textsf{(cons}   &$x_1$   &                                          &\\
-            &\textsf{[$x_2$ $x_3$} &$\dots$ $x_{n+1}$]                   &\{P($n$)\} \\
+            &\textsf{[$x_2$ $x_3$} &\textsf{$\dots$ $x_{n+1}$])}                   &\{P($n$)\} \\
 $=$ \textsf{[$x_1$ $x_2$} & \textsf{$\dots$ $x_{n+1}$]}                  &&\{\emph{cons}\} (page \pageref{first-rest-cons}) \\
 \end{tabular}
 \addtolength{\tabcolsep}{5pt}
@@ -1518,13 +1522,14 @@ Or, you could concatenate the first two, then append the third list at the end.
 \index{theorem, by name!\{app-assoc\}}
 \label{app-assoc}
 \begin{center}
-Theorem \{\emph{app-assoc}\} \textsf{(append $xs$ (append $ys$ $zs$))}$=$\textsf{(append (append $xs$ $ys$) $zs$)}
+Theorem \{\emph{app-assoc}\}: \textsf{(append $xs$ (append $ys$ $zs$))}$=$\textsf{(append (append $xs$ $ys$) $zs$)}
 \end{center}
 \end{samepage}
 
-The associative property of append can be proved by mathematical induction,
+The associative property of \textsf{append} can be proved by mathematical induction,
 starting from the following predicate with the natural numbers as its
 universe of discourse.
+
 The goal would be to prove that the formula $(\forall n.$A($n$)$)$ is true.
 We leave the proof as an exercise.
 \begin{samepage}
@@ -1558,7 +1563,7 @@ A($n$) $\equiv$ \textsf{(append [$x_1$ $x_2$ $\dots$ $x_n$] (append $ys$ $zs$))}
 \exer {\label{rep-len}\index{theorem, by name!\{rep-len\}}%
 Prove: $\forall n.($\textsf{(len (rep $n$ $x$))} $=$ $n)$~~~\{\emph{rep-len}\}\\
 The operator \textsf{rep} is defined as follows:
-\index{operator, by name!rep (list of duplicates)}\seeonlyindex{rep}{operator}\index{equation, by name!\{rep0\}, \{rep1\}}\label{rep-equations}}
+\index{operator, by name!rep (list of duplicates)}\seeonlyindex{rep}{operator}\index{axiom, by name!\{rep0\}, \{rep1\}}\index{equation, by name!\{rep0\}, \{rep1\}}\label{rep-equations}}
 \begin{code}
 \begin{verbatim}
 (defun rep (n x)

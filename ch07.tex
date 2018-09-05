@@ -64,7 +64,7 @@ binary numeral $x$ for the natural number $n$, delivers the
 binary numeral for $(n+1)$.
 The operator will have the following
 property with respect to the operators \textsf{bits} and \textsf{numb} from
-section~\ref{sec:binary-numerals} 
+section~\ref{sec:binary-numerals}
 (figure \ref{fig:defun-dgts-bits}, page \pageref{fig:defun-dgts-bits}),
 which convert numbers to binary numerals and vice versa.
 The property is stated in terms of numbers,
@@ -140,11 +140,11 @@ comprehensive (all cases covered).
 The equations are also computational because the input numeral
 on the right-hand side of the inductive equation
 \{add11\} is shorter than
-the numeral on the left-hand-side of the equation.
+the numeral on the left-hand side of the equation.
 Therefore, the equations define the \textsf{add-1} operator.
 All we need to do now is to combine them into an ACL2 definition.
 
-\label{add-1-defun}\index{equation, by name!\{add10\}, \{add11\}}\index{operator, by name!add, add-1, add-c (\emph{see} bignum)}\index{add, add-1, add-c (\emph{see} bignum)}\index{bignum!addition (add, add-1, add-c)}\index{arithmetic!bignum addition}\index{addition!bignum}
+\label{add-1-defun}\index{index, by name!\{add10\}, \{add11\}}\index{equation, by name!\{add10\}, \{add11\}}\index{operator, by name!add, add-1, add-c (\emph{see} bignum)}\index{add, add-1, add-c (\emph{see} bignum)}\index{bignum!addition (add, add-1, add-c)}\index{arithmetic!bignum addition}\index{addition!bignum}
 \begin{code}
 \begin{verbatim}
 (defun add-1 (x)
@@ -214,7 +214,7 @@ We define an operator \textsf{add-c}
 that uses \textsf{add-1} to add the carry-bit
 when it is a one.
 
-\label{add-c-defun}\index{equation, by name!\{addc0\}, \{addc1\}} \index{add, add-1, add-c (\emph{see} bignum)}\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
+\label{add-c-defun}\index{axiom, by name!\{addc0\}, \{addc1\}}\index{equation, by name!\{addc0\}, \{addc1\}}\index{add, add-1, add-c (\emph{see} bignum)}\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
 \begin{code}
 \begin{verbatim}
 (defun add-c (c x)
@@ -225,7 +225,7 @@ when it is a one.
 \end{code}
 
 We use \textsf{add-c }to complete the addition when either of the addends is \textsf{nil}.
-\begin{center}
+\begin{center}\index{axiom, by name!\{add01\}, \{add10\}}\index{equation, by name!\{add01\}, \{add10\}}
 \begin{tabular}{ll}
 \textsf{(add $c$ $x$ nil)} $=$ \textsf{(add-c $c$ $x$)}   & \{add10\} \\
 \textsf{(add $c$ nil $y$)} $=$ \textsf{(add-c $c$ $y$)}   & \{add01\} \\
@@ -233,7 +233,7 @@ We use \textsf{add-c }to complete the addition when either of the addends is \te
 \end{center}
 
 That covers all of the cases.
-Figure~\ref{fig:bignum-add-defun} (page \pageref{fig:bignum-add-defun})
+Figure~\ref{fig:bignum-add-defun} %(page \pageref{fig:bignum-add-defun})
 translates the equations into ACL2.
 
 \begin{figure}
@@ -253,7 +253,7 @@ translates the equations into ACL2.
 \end{verbatim}
 \end{code}
 \caption{Bignum addition operator.}% for adding binary numerals.}
-\label{fig:bignum-add-defun}\index{equation, by name!\{add0y\}, \{addx0\}, \{addxy\}}\index{add, add-1, add-c (\emph{see} bignum)}\index{addition!carry}\index{numeral!bignum addition}\index{addition!bignum}\index{arithmetic!bignum addition}\index{bignum!addition (add, add-1, add-c)}
+\label{fig:bignum-add-defun}\index{axiom, by name!\{add0y\}, \{addx0\}, \{addxy\}}\index{equation, by name!\{add0y\}, \{addx0\}, \{addxy\}}\index{add, add-1, add-c (\emph{see} bignum)}\index{addition!carry}\index{addition!binary numeral}\index{binary numeral!addition}\index{numeral!bignum addition}\index{numeral!binary addition}\index{addition!bignum}\index{arithmetic!bignum addition}\index{bignum!addition (add, add-1, add-c)}
 \end{figure}
 
 Let's look at some examples of adding numerals with bignum \textsf{add}.
@@ -278,7 +278,7 @@ particular pairs of addends.
 We would like to know that it
 holds for all input numerals.
 
-\label{bignum-adder-thm}\index{theorem!bignum addition}\index{theorem, by name!\{bignum-add-ok\}}\index{bignum!addition (add, add-1, add-c)}\index{addition!bignum}
+\label{bignum-adder-thm}\index{theorem!bignum addition}\index{theorem, by name!\{bignum-add-ok\}}\index{bignum!addition (add, add-1, add-c)}\index{binary numeral!addition}\index{addition!bignum}
 \begin{code}
 \begin{verbatim}
 (defthm bignum-add-ok
@@ -289,7 +289,7 @@ holds for all input numerals.
 
 The ACL2 system succeeds in proving this theorem,
 and we could do a paper-and-pencil proof following a strategy
-similar to the one for the \{adder ok\} theorem about the ripple-carry adder
+similar to the one for the \{adder-ok\} theorem about the ripple-carry adder
 (figure~\ref{fig:adder-thm-prf}, page \pageref{fig:adder-thm-prf}).
 In any case, we know now to a mathematical certainty
 that the bignum \textsf{add} operator delivers
@@ -306,8 +306,8 @@ The theorem refers to the \textsf{fin} operator (page \pageref{fin-defun}).\\
 \rightarrow ($\textsf{(fin (add 0 $x$ $y$))} $=$ $1)$}
 
 \exer {State the theorem of exercise~\ref{bignum-add-hi-order-bit-thm}
-in ACL2 and submit it to the mechanized logic.
-ACL2 will succeed in proving a proper statement of the theorem.}
+in ACL2. You may submit the theorem to ACL2, but this exercise does not
+require you to pursue a successful proof by the ACL2 mechanized logic.}
 \end{exercises}
 
 \section{Shift-and-Add Multiplier}
@@ -484,14 +484,14 @@ $\underline{p} = \lfloor \underline{x} \div 2 \rfloor \cdot \underline{y}$.
 The numeral for $\lfloor \underline{x} \div 2 \rfloor$ is just $x$ without its
 low-order bit. Since the low-order bit comes first
 in our representation of binary numerals,
-the numeral for $x$ without is low-order bit is \textsf{(rest $x$)}.
+the numeral for $x$ without its low-order bit is \textsf{(rest $x$)}.
 Observing that the numeral \textsf{(rest $x$)}
 is shorter than the numeral $x$,
 we can invoke \textsf{mxy} and rely on induction.
 That gives us a way to compute $p$, which, don't forget,
 is a numeral at this point, not a number.
 
-\vspace{2mm}\hspace*{2cm} $p$ $=$ \textsf{(mxy (rest $x$) $y$))} \hfill \{mul.p\}\\
+\vspace{2mm}\hspace*{2cm} $p$ $=$ \textsf{(mxy (rest $x$) $y$)} \hfill \{mul.p\}\\
 
 Binary numerals make step 1 in figure~\ref{fig:grade-school-mult}
 ($\underline{m} = \underline{x_0} \cdot \underline{y}$)
@@ -520,7 +520,7 @@ So, when $x_0 = 0$, we get the following equation for \textsf{mxy}:
       nil))     ; {mulx0}
 \end{verbatim}
 \end{code}
-\label{bignum-mul-defun}\index{arithmetic!bignum multiplication}\index{multiplication!bignum}\index{bignum!multiplication (mul, mxy)}\index{numeral!binary multiplication}\index{multiplication!binary numerals}\index{binary numeral!multiplication}\index{operator, by name!mul, mxy (\emph{see} bignum)}\index{mul, mxy (\emph{see} bignum)}\index{equation, by name!\{mul0y\}, \{mul0xy\}, \{mul1xy\}}\index{equation, by name!\{mulx0\}, \{mulxy\}}
+\label{bignum-mul-defun}\index{arithmetic!bignum multiplication}\index{multiplication!bignum}\index{bignum!multiplication (mul, mxy)}\index{numeral!binary multiplication}\index{multiplication!binary numerals}\index{binary numeral!multiplication}\index{operator, by name!mul, mxy (\emph{see} bignum)}\index{mul, mxy (\emph{see} bignum)}\index{equation, by name!\{mul0y\}, \{mul0xy\}, \{mul1xy\}}\index{axiom, by name!\{mul0y\}, \{mul0xy\}, \{mul1xy\}}\index{axiom, by name!\{mulx0\}, \{mulxy\}}\index{equation, by name!\{mulx0\}, \{mulxy\}}
 \caption{Bignum multiplication operator.}
 \label{fig:bignum-mul-defun}
 \end{figure}
@@ -530,7 +530,7 @@ So, when $x_0 = 0$, we get the following equation for \textsf{mxy}:
 If $x_0 = 1$, then $m = y$,
 so $\underline{s} = \lfloor \underline{m}\div 2\rfloor + \underline{p} = \lfloor \underline{y}\div 2\rfloor + \underline{p}$.
 Again, $y$ is a numeral, so the numeral for $\lfloor \underline{y}\div 2\rfloor$
-is just like $y$ but without the first bit: (rest $y$).
+is just like $y$ but without the first bit: (\textsf{rest} $y$).
 That gives us another equation for \textsf{mxy}.
 We use the bignum \textsf{add} operator to compute the sum
 shown in step 3 of figure~\ref{fig:bignum-mul-defun}.
@@ -571,7 +571,7 @@ case than the formula on the left-hand side of the equation.
 
 Putting this all together leads to the ACL2 definition
 of the bignum multiplication operator \textsf{mul} in
-figure~\ref{fig:bignum-mul-defun} (page \pageref{fig:bignum-mul-defun}).
+figure~\ref{fig:bignum-mul-defun}. % (page \pageref{fig:bignum-mul-defun}).
 Most of the work is done by the operator \textsf{mxy}.
 From these definitions, ACL2 successfully finds an
 inductive proof of the following theorem,

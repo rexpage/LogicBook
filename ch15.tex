@@ -30,21 +30,21 @@ be either emitting light (turned on) or not emitting light
 by specifying which pixels are turned on and which are turned off.
 A straightforward way to do this is to use a list of
 numbers in which each number corresponds to a pixel. Even better,
-we can use a list of rows, each of which is list of $N$
+we can use a list of rows, each of which is a list of $N$
 0/1 elements (one for each pixel in the row).
 The off/on status of the pixels in the row would
 match the 0/1 elements in the list,
 and there would be $M$ such lists, one for each row on the display.
 This list of lists forms a kind of \index{matrix}matrix.
 
-Figure~\ref{fig:glider-in-images} illustrates
-this idea with a $4\times4$ grid of squares
+Figure~\ref{fig:glider-in-images} (page \pageref{fig:glider-in-images})
+illustrates this idea with a $4\times4$ grid of squares
 representing a $4\times4$ section of pixels in a computer display.
 The pixel in row $i$ and column $j$ is ``on''
 (indicated in the figure by a black square in the diagram)
 when the $j^\text{th}$
 entry in the $i^\text{th}$ list is a 1.
-When the entry is a 0, the pixel is ``off'' (indicate by white square).
+When the entry is a 0, the pixel is ``off'' (indicated by a white square).
 
 \begin{figure}
 \begin{center}
@@ -116,16 +116,17 @@ of red, green, and blue dots.
 The following list represents the first row of pixels
 in the black-and-white image shown in
 figure \ref{fig:glider-in-images}:
-\begin{quote}
-    \textsf{[0 1 0 0]}
-\end{quote}
+%\begin{quote}
+\textsf{[0 1 0 0]}.
+%\end{quote}
+
 In a color image, the row of pixels could be represented by
-a list of three-element lists.
-\begin{quote}
-    \textsf{[[0 0 0] [1 0 0] [0 0 0] [0 0 0]]}
-\end{quote}
-In this representation, colors are specified as triples of 0/1 values
-specifying the off/on status of the color dots in the corresponding pixel.
+a list of three-element lists:
+%\begin{quote}
+\textsf{[[0 0 0] [1 0 0] [0 0 0] [0 0 0]]}.
+%\end{quote}
+In this representation, triples of 0/1 values
+specify the off/on status of color dots in the corresponding pixel.
 The first element of the triple is for the red dot, the second
 for the green dot, the third for the blue dot.
 That is the conventional order:
@@ -167,20 +168,22 @@ a dark shade of \index{orange}orange.
 A matrix of \index{red-green-blue}red-green-blue
 intensities is an abstraction of an image with realistic color,
 and hardware converts this matrix to a display with colored dots
-whose intensities reflect the numbers in the abstraction.
+whose intensities reflect the numbers in the matrix.
 Additional layers between the image abstraction in the software and
 physical image on the screen can be helpful.
 Imagine, for example, an operator called \textsf{line}
-that paints a line on an image. This operator would figure out
+that paints a line on an image.
+
+The \textsf{line} operator would figure out
 which pixels are on the line and build a matrix with
-the appropriate triple for the chosen color at each of those pixels.
-\begin{quote}
-    \textsf{(line} $image$ $x_1$ $y_1$ $x_2$ $y_2$ $color$\textsf{)}
-\end{quote}
+the appropriate triple for the chosen color at each of those pixels:
+%\begin{quote}
+\textsf{(line} $image$ $x_1$ $y_1$ $x_2$ $y_2$ $color$\textsf{)}.
+%\end{quote}
 The $image$ operand is a matrix of pixels (red-green-blue triples)
 representing an image, the $x$ and $y$ values
 specify the row/column coordinates of the endpoints of the line,
-and $color$ is a triple of red-green-blue color intensities.
+and $color$ is a red-green-blue triple.
 The operator delivers a new matrix of color intensities
 like the $image$ operand but with the specified color
 at each pixel on the line.
@@ -239,7 +242,7 @@ In the 1960s, the computer scientist
 \index{Bresenham, Jack}Jack Bresenham invented
 a fast way to compute the list of grid points closest to the line
 between any two given endpoints.
-Most of the line-drawing in digital images still today
+Today, many decades later, most of the line-drawing in digital images still
 makes use of some version of the Bresenham algorithm.
 %\caption{Bresenham Line-Drawing Algorithm}
 %\label{aside:Bresenham}
@@ -289,7 +292,7 @@ and in ACL2 notation:\footnote{You can ignore the ACL2
 if you have not yet studied the chapters that introduce it.
 The ACL2 versions of the equations don't add any information
 necessary to understanding the concepts presented in this chapter.}
-\begin{center}
+\begin{center}\index{axiom, by name!\{r0\}, \{r1\}}\index{equation, by name!\{r0\}, \{r1\}}\index{operator, by name!r (pseudo-random)}\seeonlyindex{r (pseudo-random)}{operator}
 \begin{tabular}{ll}
 \multicolumn{2}{c}{Axioms for $r$}\\
 \hline
@@ -321,7 +324,7 @@ and they provide a way to introduce an aspect of randomness into images.
 
 There are many ways to produce pseudo-random sequences.
 It is a well-studied problem with a long history and lots
-fascinating ramifications. It happens that the operator
+of fascinating ramifications. It happens that the operator
 $r$ belongs to the most commonly used
 family of pseudo-random number generators: the
 \index{random!number generator}\index{linear congruential}linear congruential generators.
@@ -350,7 +353,7 @@ The following definition of $rs$
 employs this noninductive strategy:\footnote{Again, you won't miss the point
 if you ignore the ACL2 version of the equation.}
 
-\begin{center}
+\begin{center}\index{axiom, by name!\{rs\}}\index{equation, by name!\{rs\}}\index{operator, by name!rs (pseudo-random sequence)}\seeonlyindex{rs (pseudo-random sequence)}{operator}
 \begin{tabular}{ll}
 \multicolumn{2}{c}{Axiom for $rs$}\\
 \hline
@@ -407,13 +410,13 @@ $ragged(image, x_1, x_2, y_1, y_2, seed) = image$ & if $x_1 \geq x_2$ &\{rg0\}\\
             (x (+ x1 1))
             (y (+ y1 (round slope)))
             (black (list 0 0 0)))
-       (ragged (line image x1 y1 rx ry black) x y x2 y2 s) ; {rg1}
-     image))                                               ; {rg0}
+       (ragged (line image x1 y1 rx ry black) x y x2 y2 s)) ; {rg1}
+     image))                                                ; {rg0}
 \end{verbatim}
 \end{code}
 \end{center}
 \caption{Operator to draw a ragged line using random numbers.}
-\label{fig:ragged-defun}
+\label{fig:ragged-defun}\index{operator, by name!ragged (line)}\index{axiom, by name!\{rg0\}, \{rg1\}}\index{equation, by name!\{rg0\}, \{rg1\}}\seeonlyindex{ragged (line)}{operator}
 \end{figure}
 
 The operator defined by the equations in

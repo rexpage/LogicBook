@@ -85,7 +85,7 @@ even though we won't repeat it in all of our examples. %'
 If you install Proof Pad and put these tests in a file
 with a .lisp extension (plusoptests.lisp, for example),
 you can use Proof Pad to run the tests.
-The first tests two pass without fanfare,
+The first two\ tests pass without fanfare,
 but the third test has a mistake.
 We should not expect that $27 + 6 = (23 + 5) + (2 + 2)$.
 The system reports that the assertion failed.
@@ -171,7 +171,7 @@ Later, we will describe them formally.
 \begin{code}
 \begin{verbatim}
 (check-expect (append (list 1 2 3 ) (list 4 5)) (list 1 2 3 4 5))
-(check-expect (append (list 9 8 7) (list 6) (list 9 8 7 6))
+(check-expect (append (list 9 8 7) (list 6)) (list 9 8 7 6))
 (check-expect (append (list 11 7) (list 2 5 3)) (list 11 7 2 5 3))
 (check-expect (append (list 2 0) (list 1 8)) (list 2 0 1 8))
 \end{verbatim}	
@@ -296,7 +296,7 @@ to a natural number ensures that the sum is nonzero.
 The definition of the \textsf{mod-invariant} property
 uses a \textsf{let$*$} formula,
 which provides a way to attach names to values temporarily
-(box \ref{let-star-def}, page \pageref{let-star-def}).
+(box \ref{let-star-def}). %, page \pageref{let-star-def}).
 In this case, the \textsf{let$*$} says that
 the name \textsf{divisor} will stand for
 the value represented by the formula \textsf{(+ divisor-minus-1 1)}.
@@ -380,11 +380,11 @@ if $x$ is a natural number and false if it isn't.
 \label{natp-axiom-formal}
 \begin{center}
 \begin{tabular}{c}
-Axiom \{\emph{natp}\} \\
+\index{predicate, by name!natp}\seeonlyindex{natp}{predicate}\index{axiom, by name!\{natp\}}\index{equation, by name!\{natp\}}Axiom \{\emph{natp}\} \\
 \hline
 (natp $x$) $=$ $x$ \emph{is a natural number} $=$ \textsf{(and (integerp $x$) (>= $x$ 0))}\\
 \end{tabular}\\
-\emph{Note}: \textsf{(integerp $x$)} is true if $x$ a whole number and false otherwise.
+\emph{Note}: \textsf{(integerp $x$)} is true if $x$ is a whole number and false otherwise.
 \end{center}
 
 \index{definition!property}\index{data, random test}\index{random data}\index{defproperty}
@@ -402,7 +402,8 @@ Axiom \{\emph{natp}\} \\
 There are two parts to the result
 of dividing one number by another: the quotient and the remainder.
 The \textsf{mod} operator delivers the remainder
-and an operator called \textsf{floor} (box~\ref{floor-ceiling-ops-brackets})
+and an operator called \textsf{floor}
+(box~\ref{floor-ceiling-ops-brackets}, page \pageref{floor-ceiling-ops-brackets})
 delivers the quotient.
 The quotient is always strictly smaller
 than the dividend when the divisor is bigger than one
@@ -481,7 +482,7 @@ Use Proof Pad to run your tests.}
 \exer {The ACL2 operator
 \index{operator, by name!reverse (elements in list)}\seeonlyindex{reverse}{operator}\textsf{reverse}
 delivers a list whose elements are in the reverse order of those in its operand.
-For example \textsf{(reverse (list 1 2 3))} is \textsf{(list 3 2 1)}.
+For example, \textsf{(reverse (list 1 2 3))} is \textsf{(list 3 2 1)}.
 Find an equation that expresses the value of \textsf{(reverse (append $xs$ $ys$))}
 in terms of \textsf{(reverse $xs$)} and \textsf{(reverse $ys$)}.
 Define a property based on your equation and
